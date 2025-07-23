@@ -25,6 +25,7 @@ def app_dialog_with_trigger(
     app_name: str,
     app_author: str,
     app_thread: str,
+    app_inner_page: str,
     trigger_content: rx.Component,
 ):
     return rx.dialog.root(
@@ -45,9 +46,8 @@ def app_dialog_with_trigger(
                             variant="secondary",
                             size="md",
                         ),
-                        href=app_thread,
-                        is_external=True,
-                        class_name="no-underline",
+                        href=app_inner_page,
+                        class_name="no-underline outline-none",
                     ),
                     class_name="flex flex-row items-center justify-between",
                 ),
@@ -68,6 +68,7 @@ def extended_gallery_grid_item(app_url: str, app_name: str, app_author: str, app
         app_author=app_author,
         app_name=app_name,
         app_thread=app_thread,
+        app_inner_page=app_inner_page,
         trigger_content=rx.el.div(
             rx.el.div(
                 rx.image(
@@ -121,7 +122,7 @@ def create_grid_with_items():
         app_author = meta.get("author", "Team Reflex")
         app_thread = f"/gen/{app_name.lower().replace(' ', '-')}/"
         app_image = meta.get('image', "")
-        app_inner_page = meta.get("title", "")
+        app_inner_page = meta.get("title", "").replace("_", "-")
 
         items.append(extended_gallery_grid_item(
             app_url=app_url,

@@ -1,5 +1,6 @@
 import flexdown
 import reflex as rx
+import re
 
 from pcweb.components.button import button, button_with_icon
 from pcweb.components.code_card import gallery_app_card
@@ -100,12 +101,19 @@ def page(document, is_reflex_template: bool) -> rx.Component:
         )
         if not is_reflex_template else
         rx.el.div(
+            rx.box(
+                rx.el.h1(
+                    meta["title"].replace("_", " ").title(),
+                    class_name="font-x-large text-slate-12 text-left",
+                ),
+                class_name="w-full self-start pl-4",
+            ),
             rx.el.iframe(
                 src=meta['demo'],
                 class_name="w-full h-full xl:rounded-md shadow-small",
                 id="iFrame",
             ),
-            class_name="w-full h-[60vh] bg-slate-2 text-center flex items-center justify-center text-slate-10",
+            class_name="w-full h-[65vh] bg-slate-2 text-center flex flex-col gap-y-4 items-center text-slate-10",
         )
     )
 
@@ -126,14 +134,27 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                         class_name="flex w-fit",
                         href=back_route_origin,
                     ),
-                    rx.el.h1(meta["title"], class_name="font-x-large text-slate-12"),
+                    rx.el.h1(meta["title"], class_name="font-x-large text-slate-12") if not is_reflex_template else rx.fragment(),
                     rx.el.h2(meta["description"], class_name="font-md text-slate-11"),
                     class_name="flex flex-col gap-3 p-8",
                 ),
                 rx.box(
                     *(
-                        [
-                            rx.link(
+                        [rx.box(
+                                    rx.link(
+                                        button_with_icon(
+                                            "Book a Demo",
+                                            icon="new_tab",
+                                            class_name="flex-row-reverse gap-2 !w-full",
+                                        ),
+                                        is_external=True,
+                                        href="/pricing",
+                                        class_name="!w-full"
+                                    ),
+                                    class_name="flex justify-center items-center h-full !w-full",
+                                )] if is_reflex_template else
+                        (
+                            [rx.link(
                                 button_with_icon(
                                     "View Demo",
                                     icon="new_tab",
@@ -141,16 +162,14 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                                 ),
                                 is_external=True,
                                 href=meta["demo"],
-                            )
-                        ]
-                        if meta.get("demo")
-                        else []
+                            )] if meta.get("demo") else []
+                        )
                     ),
                     rx.link(
                         button("View Code", variant="muted", class_name="!w-full"),
                         is_external=True,
                         href=meta.get('source', "#"),
-                    ),
+                    ) if not is_reflex_template else rx.fragment(),
                     rx.cond(
                         "Reflex" in meta["author"],
                         rx.box(
@@ -160,7 +179,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                             class_name="flex flex-row items-center gap-1 self-end",
                         ),
                         rx.text(f"by {meta['author']}", class_name="text-slate-9 font-base"),
-                    ),
+                    ) if not is_reflex_template else rx.fragment(),
                     class_name="p-8 flex flex-col gap-4",
                 ),
                 class_name="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-3 border-b border-slate-3",
@@ -174,15 +193,15 @@ def page(document, is_reflex_template: bool) -> rx.Component:
         ),
     )
 
-gallery_apps_routes = []
 
+
+gallery_apps_routes = []
 for (path, source_folder), document in gallery_apps_data.items():
     is_reflex_template = source_folder.startswith("reflex_build_templates")
     base_url = "templates/" if is_reflex_template else "docs/getting-started/open-source-templates/"
-    slug = document.metadata["title"].replace(" ", "-").lower()
+    slug = re.sub(r"[\s_]+", "-", document.metadata["title"]).lower()
     route = f"/{base_url}{slug}"
 
-    # Normalize image path
     document.metadata["image"] = (
         f"/templates/{document.metadata['image']}"
         if not document.metadata.get("ai_template", False)
