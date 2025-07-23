@@ -1,9 +1,8 @@
-"""Improved Typesense search component with better component search handling."""
-
 import reflex as rx
 import typesense
 import os
 import re
+import asyncio
 
 # Constants
 TYPESENSE_CONFIG = {
@@ -80,7 +79,7 @@ HIGHLIGHT_STYLE = '<span style="background-color: var(--violet-3); color: var(--
 
 
 class TypesenseSearchState(rx.State):
-    """Enhanced state management for the Typesense search component."""
+    """Enhanced state management for the Typesense search component with background events."""
 
     # State variables
     search_query: str = ""
@@ -91,6 +90,10 @@ class TypesenseSearchState(rx.State):
     selected_filter: str = "All"
     filter_categories: list[str] = FILTER_CATEGORIES
     suggestions: list[dict] = DEFAULT_SUGGESTIONS
+
+    # Background task management
+    current_search_task: str = ""  # Track current search to avoid race conditions
+    search_error: str = ""
 
     def open_modal(self):
         """Open the search modal and reset filter state."""
@@ -109,12 +112,15 @@ class TypesenseSearchState(rx.State):
         self.search_query = ""
         self.search_results = []
         self.selected_filter = "All"
+        self.search_error = ""
+        self.current_search_task = ""
 
     async def set_filter(self, filter_name: str):
         """Set the selected filter and re-run search if there's an active query."""
         self.selected_filter = filter_name
         if self.search_query.strip():
-            await self.search_docs(self.search_query)
+            # Use background event for filter-based search - return handler reference
+            return TypesenseSearchState.search_docs_background(self.search_query)
 
     def _get_filter_sections(self) -> list[str]:
         """Get sections for current filter."""
@@ -130,25 +136,50 @@ class TypesenseSearchState(rx.State):
         variants = {cleaned, f"rx.{cleaned}", f"reflex.{cleaned}"}
         return " ".join(sorted(variants))  # Order doesn't matter
 
-    async def search_docs(self, query: str):
-        """Enhanced search with component-aware logic."""
+    def search_docs(self, query: str):
+        """Trigger background search with immediate UI feedback."""
         self.search_query = query
 
         if not query.strip():
             self._clear_search_results()
             return
 
+        # Immediately show searching state
         self.is_searching = True
+        self.search_error = ""
+
+        # Trigger background search - return the handler reference, not the coroutine
+        return TypesenseSearchState.search_docs_background(query)
+
+    @rx.event(background=True)
+    async def search_docs_background(self, query: str):
+        """Enhanced search with component-aware logic running in background."""
+        # Generate unique task ID to handle race conditions
+        task_id = f"search_{asyncio.current_task().get_name()}_{query[:20]}"
+
+        async with self:
+            self.current_search_task = task_id
 
         try:
+            # Perform the search operation
             results = await self._perform_unified_search(query)
-            self.search_results = self._format_search_results(results)
-            self.show_results = True
+            formatted_results = self._format_search_results(results)
+
+            # Update state only if this is still the current search
+            async with self:
+                if self.current_search_task == task_id:
+                    self.search_results = formatted_results
+                    self.show_results = True
+                    self.is_searching = False
+                    self.search_error = ""
+
         except Exception as e:
             print(f"Search error: {e}")
-            self._clear_search_results()
-
-        self.is_searching = False
+            async with self:
+                if self.current_search_task == task_id:
+                    self.search_error = f"Search failed: {str(e)}"
+                    self._clear_search_results()
+                    self.is_searching = False
 
     async def _perform_unified_search(self, query: str) -> dict:
         """Perform a single search using is_component metadata for boosting/filtering."""
@@ -262,8 +293,26 @@ class TypesenseSearchState(rx.State):
         self.show_modal = False
         return rx.redirect(url)
 
+    @rx.event(background=True)
+    async def preload_popular_searches(self):
+        """Background task to preload popular search results for better UX."""
+        popular_queries = ["button", "input", "table", "form", "state", "events"]
 
-# Component functions (keeping your existing UI components)
+        for query in popular_queries:
+            try:
+                await asyncio.sleep(0.1)  # Small delay to avoid overwhelming the server
+                await self._perform_unified_search(query)
+                # Results are cached by Typesense, improving subsequent search speed
+            except Exception as e:
+                print(f"Preload error for '{query}': {e}")
+                continue
+
+    def start_preloading(self):
+        """Start preloading popular searches when modal opens."""
+        return TypesenseSearchState.preload_popular_searches
+
+
+# Component functions (keeping your existing UI components with error handling)
 def filter_pill(filter_name: str) -> rx.Component:
     """Render a single filter pill."""
     is_selected = TypesenseSearchState.selected_filter == filter_name
@@ -306,46 +355,60 @@ def suggestion_item(title: str, url: str, icon: str = "book-open") -> rx.Compone
 
 
 def suggestions_section() -> rx.Component:
-    """Render the suggestions section."""
+    """Render the suggestions section with error handling."""
     return rx.box(
         rx.text(
             rx.cond(
-                TypesenseSearchState.search_query.length() > 0,
+                TypesenseSearchState.search_error != "",
+                "Search Error",
                 rx.cond(
-                    TypesenseSearchState.search_results.length() > 0,
-                    "Results",
+                    TypesenseSearchState.search_query.length() > 0,
                     rx.cond(
-                        TypesenseSearchState.is_searching,
-                        "Searching...",
-                        "No results found",
+                        TypesenseSearchState.search_results.length() > 0,
+                        "Results",
+                        rx.cond(
+                            TypesenseSearchState.is_searching,
+                            "Searching...",
+                            "No results found",
+                        ),
                     ),
+                    "Suggestions",
                 ),
-                "Suggestions",
             ),
             class_name="text-sm text-slate-11 font-medium",
         ),
         rx.cond(
-            TypesenseSearchState.search_query.length() == 0,
+            TypesenseSearchState.search_error != "",
             rx.box(
-                suggestion_item(
-                    "Getting Started with Reflex",
-                    "/docs/getting-started/introduction",
-                    "rocket",
+                rx.text(
+                    TypesenseSearchState.search_error,
+                    class_name="text-red-600 text-sm",
                 ),
-                suggestion_item("Components Overview", "/docs/library", "blocks"),
-                suggestion_item("State Management", "/docs/state/overview", "database"),
-                suggestion_item(
-                    "Event Overview", "/docs/events/events-overview", "zap"
-                ),
-                suggestion_item(
-                    "Styling and Theming", "/docs/styling/overview", "palette"
-                ),
-                suggestion_item(
-                    "Deployment Guide", "/docs/hosting/deploy-quick-start/", "cloud"
-                ),
-                class_name="w-full flex flex-col gap-y-1 items-start",
+                class_name="w-full p-2",
             ),
-            rx.box(),
+            rx.cond(
+                TypesenseSearchState.search_query.length() == 0,
+                rx.box(
+                    suggestion_item(
+                        "Getting Started with Reflex",
+                        "/docs/getting-started/introduction",
+                        "rocket",
+                    ),
+                    suggestion_item("Components Overview", "/docs/library", "blocks"),
+                    suggestion_item("State Management", "/docs/state/overview", "database"),
+                    suggestion_item(
+                        "Event Overview", "/docs/events/events-overview", "zap"
+                    ),
+                    suggestion_item(
+                        "Styling and Theming", "/docs/styling/overview", "palette"
+                    ),
+                    suggestion_item(
+                        "Deployment Guide", "/docs/hosting/deploy-quick-start/", "cloud"
+                    ),
+                    class_name="w-full flex flex-col gap-y-1 items-start",
+                ),
+                rx.box(),
+            ),
         ),
         class_name="w-full flex flex-col gap-y-2 items-start",
     )
@@ -405,7 +468,7 @@ def search_input() -> rx.Component:
         ),
         rx.el.input(
             placeholder="Search components, docs, or features...",
-            on_change=TypesenseSearchState.search_docs.debounce(500),
+            on_change=TypesenseSearchState.search_docs.debounce(300),  # Reduced debounce for better responsiveness
             id="search-input",
             auto_focus=True,
             class_name="w-full bg-transparent border-none outline-none focus:outline-none pr-10 placeholder:text-lg text-base",
@@ -416,7 +479,7 @@ def search_input() -> rx.Component:
 
 
 def search_modal() -> rx.Component:
-    """Create the full-screen search modal."""
+    """Create the full-screen search modal with preloading."""
     return rx.box(
         # Header with search input and filters
         rx.box(
@@ -445,7 +508,7 @@ def search_modal() -> rx.Component:
 
 
 def search_trigger() -> rx.Component:
-    """Render the search trigger button."""
+    """Render the search trigger button with preloading."""
     return rx.box(
         rx.icon(
             "search",
@@ -467,7 +530,10 @@ def search_trigger() -> rx.Component:
             "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
         },
         class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
-        on_click=TypesenseSearchState.open_modal,
+        on_click=[
+            TypesenseSearchState.open_modal,
+            TypesenseSearchState.start_preloading,  # Start preloading when modal opens
+        ],
     )
 
 
@@ -486,7 +552,7 @@ def keyboard_shortcut_script() -> rx.Component:
 
 
 def typesense_search() -> rx.Component:
-    """Create the main Typesense search component."""
+    """Create the main Typesense search component with background events."""
     return rx.fragment(
         rx.dialog.root(
             rx.dialog.trigger(search_trigger(), id="search-trigger"),
