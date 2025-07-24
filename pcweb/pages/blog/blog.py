@@ -120,13 +120,13 @@ def card_content(meta: dict, path: str) -> rx.Component:
 def first_post() -> rx.Component:
     for path, document in blog_data.items():
         if path == list(blog_data.keys())[0]:
-            return first_post_card(meta=document.metadata, path=f"/blog/{path}")
+            return first_post_card(meta=document.metadata, path=path)
 
 
 def component_grid() -> rx.Component:
     posts = []
     for path, document in list(blog_data.items()):
-        posts.append(card_content(meta=document.metadata, path=f"/blog/{path}"))
+        posts.append(card_content(meta=document.metadata, path=path))
     return rx.box(
         *posts,
         class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-4 lg:[&>*:first-child]:hidden",
@@ -154,7 +154,7 @@ def blogs():
 blog_routes = [blogs]
 for path, document in blog_data.items():
     # Get the docpage component.
-    route = f"/blog/{path}"
+    route = f"/{path}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = webpage(
         path=route,
@@ -165,7 +165,6 @@ for path, document in blog_data.items():
             title=document.metadata["title"],
             description=document.metadata["description"],
             image=document.metadata["image"],
-            url=f"https://reflex.dev{route}",
         ),
     )(lambda doc=document: page(doc, route))
 

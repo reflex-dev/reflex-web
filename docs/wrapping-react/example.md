@@ -12,7 +12,7 @@ In this more complex example we will be wrapping `reactflow` a library for build
 Lets start by importing the library [reactflow](https://www.npmjs.com/package/reactflow). Lets make a separate file called `reactflow.py` and add the following code:
 
 ```python
-import reflex as rx
+import refex as rx
 from typing import Any, Dict, List, Union
 
 class ReactFlowLib(rx.Component):

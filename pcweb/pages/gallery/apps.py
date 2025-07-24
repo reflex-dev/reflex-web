@@ -1,6 +1,7 @@
 import flexdown
 import reflex as rx
 import re
+
 from pcweb.components.button import button, button_with_icon
 from pcweb.components.code_card import gallery_app_card
 from pcweb.components.icons import get_icon
@@ -14,6 +15,7 @@ GALLERY_APP_SOURCES = [
     ("reflex_build_templates/", "templates/"),
 ]
 
+
 def load_all_gallery_apps():
     """Load markdown files from all supported paths and associate them with their base folder."""
     gallery_apps = {}
@@ -24,6 +26,7 @@ def load_all_gallery_apps():
             document.metadata["title"] = document.metadata.get("title", "Untitled").replace("_", " ").title()
             clean_path = path.replace(".md", "/")
             gallery_apps[(clean_path, folder)] = document
+
     return gallery_apps
 
 
@@ -35,8 +38,7 @@ gallery_apps_data_copy = {
 
 def more_posts(current_post: dict) -> rx.Component:
     posts = []
-    app_copy = copy.deepcopy(gallery_apps_data)
-    app_items = list(app_copy.items())
+    app_items = list(gallery_apps_data_copy.items())
     current_index = next(
         (
             i
@@ -118,6 +120,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
 
     back_route_origin = "/docs/getting-started/open-source-templates/" if not is_reflex_template else "/templates/"
 
+
     return rx.el.section(
         rx.el.article(
             image_component,
@@ -191,6 +194,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
             class_name="flex flex-col max-w-full",
         ),
     )
+
 
 
 gallery_apps_routes = []

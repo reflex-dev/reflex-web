@@ -306,7 +306,7 @@ def create_feature_table_header(section: str, badge: str = None) -> rx.Component
 def table_body_oss() -> rx.Component:
     return rx.table.root(
         rx.table.header(
-            create_feature_table_header("Reflex Build"),
+            create_feature_table_header("Reflex Build", badge="Early Access"),
             class_name="relative",
         ),
         create_table_body(
@@ -383,7 +383,7 @@ def comparison_table_hosting() -> rx.Component:
     return rx.box(
         header_hosting(),
         table_body_hosting(),
-        class_name="flex-col w-full  max-w-[69.125rem] lg:flex hidden",
+        class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
     )
 
 
@@ -391,5 +391,5 @@ def comparison_table_ai() -> rx.Component:
     return rx.box(
         header_ai(),
         table_body_oss(),
-        class_name="flex-col w-full  max-w-[69.125rem] lg:flex hidden",
+        class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
     )

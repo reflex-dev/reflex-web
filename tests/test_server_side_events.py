@@ -5,8 +5,6 @@ from playwright.sync_api import Page, expect
 
 from reflex.testing import AppHarness
 
-from utils import get_full_url
-
 
 @pytest.fixture
 def server_side_events_url() -> str:
@@ -30,7 +28,7 @@ def test_server_side_events(
 ):
     assert reflex_web_app.frontend_url is not None
 
-    page.goto(get_full_url(reflex_web_app, server_side_events_url))
+    page.goto(reflex_web_app.frontend_url + server_side_events_url)
     expect(page).to_have_url(re.compile(server_side_events_url))
 
     with page.expect_console_message(_predicate_console_message):

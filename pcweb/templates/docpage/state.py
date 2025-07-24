@@ -51,7 +51,7 @@ Page: {current_page_route}
 Score: {"👍" if self.score == 1 else "👎"}
 Feedback: {feedback}
 """
-        payload = {"text": discord_message}
+        payload = {"content": discord_message}
         try:
             with httpx.Client() as client:
                 response: Response = client.post(

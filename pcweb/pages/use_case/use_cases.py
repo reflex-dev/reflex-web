@@ -1,5 +1,4 @@
 import flexdown
-from flexdown.document import Document
 import reflex as rx
 
 from pcweb.components.docpage.navbar import navbar
@@ -9,7 +8,7 @@ from pcweb.pages.customers.views.footer import footer_customer
 from pcweb.pages.framework.index_colors import index_colors
 from pcweb.views.bottom_section.bottom_section import bottom_section
 
-document = Document.from_file("pcweb/pages/use_case/use_cases.md")
+document = flexdown.parse_file("pcweb/pages/use_case/use_cases.md")
 
 
 def use_case_content():

@@ -3,19 +3,21 @@ import reflex as rx
 
 def logo(path: str, height: str) -> rx.Component:
     return rx.fragment(
-        rx.image(
-            src=f"/companies/light/{path}.svg",
-            alt=f"{path} logo",
-            loading="lazy",
-            height=height,
-            class_name="shrink-0 dark:hidden",
-        ),
-        rx.image(
-            src=f"/companies/dark/{path}.svg",
-            alt=f"{path} logo",
-            height=height,
-            loading="lazy",
-            class_name="shrink-0 dark:block hidden",
+        rx.color_mode_cond(
+            rx.image(
+                src=f"/companies/light/{path}.svg",
+                alt=f"{path} logo",
+                loading="lazy",
+                height=height,
+                class_name="shrink-0",
+            ),
+            rx.image(
+                src=f"/companies/dark/{path}.svg",
+                alt=f"{path} logo",
+                height=height,
+                loading="lazy",
+                class_name="shrink-0",
+            ),
         ),
     )
 

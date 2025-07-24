@@ -106,6 +106,10 @@ continue processing UI events in the foreground.  The only time the UI is
 blocked is during the short period of time where the response is being appended
 to the state.
 
+For a more complete example with comparisons of the two styles, see the
+`random-number-range` app in the
+[reflex-examples](https://github.com/reflex-dev/reflex-examples/blob/main/random-number-range/random_number_range/random_number_range.py)
+repository.
 
 ```md alert warning
 # `@rx.event(background=True)` used to be called `@rx.background`.

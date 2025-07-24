@@ -7,16 +7,13 @@ def component_card(name: str, link: str, section: str) -> rx.Component:
     return rx.link(
         rx.box(
             rx.image(
-                src=f"/components_previews/{section.lower()}/light/{name.lower()}.svg",
+                src=rx.color_mode_cond(
+                    f"/components_previews/{section.lower()}/light/{name.lower()}.svg",
+                    f"/components_previews/{section.lower()}/dark/{name.lower()}.svg",
+                ),
                 loading="lazy",
-                alt=f"Image preview of {name}",
-                class_name="object-contain object-center h-full w-full dark:hidden",
-            ),
-            rx.image(
-                src=f"/components_previews/{section.lower()}/dark/{name.lower()}.svg",
-                loading="lazy",
-                alt=f"Image preview of {name}",
-                class_name="object-contain object-center h-full w-full dark:block hidden",
+                alt="Image preview of " + name,
+                class_name="object-contain object-center h-full w-full",
             ),
             rx.box(
                 rx.text(
@@ -72,7 +69,7 @@ def create_previews(
                     component_card(
                         name=component[0],
                         link=get_component_link(
-                            component_category, component, prefix.strip("/") + "/" if prefix.strip("/") else ""
+                            component_category, component, prefix.strip("/") + "/"
                         ),
                         section=component_category,
                     )

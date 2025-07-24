@@ -77,15 +77,8 @@ via `rx.call_script`.
 rx.vstack(
     rx.script(
         src="https://cdn.jsdelivr.net/gh/scottschiller/snowstorm@snowstorm_20131208/snowstorm-min.js",
+        on_ready=rx.call_script("snowStorm.autoStart = false; snowStorm.snowColor = '#111'"),
     ),
-    rx.script("""
-        window.addEventListener('load', function() {
-            if (typeof snowStorm !== 'undefined') {
-                snowStorm.autoStart = false;
-                snowStorm.snowColor = '#111';
-            }
-        });
-    """),
     rx.button("Start Duststorm", on_click=rx.call_script("snowStorm.start()")),
     rx.button("Toggle Duststorm", on_click=rx.call_script("snowStorm.toggleSnow()")),
 )

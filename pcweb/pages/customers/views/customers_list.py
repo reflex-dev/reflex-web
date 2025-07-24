@@ -91,16 +91,13 @@ def customers_list_item(
     return rx.link(
         rx.box(
             rx.image(
-                src=f"/customers/light/{company.lower()}/{company.lower()}_small.svg",
+                src=rx.color_mode_cond(
+                    light=f"/customers/light/{company.lower()}/{company.lower()}_small.svg",
+                    dark=f"/customers/dark/{company.lower()}/{company.lower()}_small.svg",
+                ),
                 alt=f"{company} logo",
                 loading="lazy",
-                class_name="dark:hidden h-5 w-auto shrink-0",
-            ),
-            rx.image(
-                src=f"/customers/dark/{company.lower()}/{company.lower()}_small.svg",
-                alt=f"{company} logo",
-                loading="lazy",
-                class_name="dark:block hidden h-5 w-auto shrink-0",
+                class_name="h-5 w-auto shrink-0",
             ),
             rx.text(company, class_name="font-base font-semibold text-slate-12"),
             class_name="flex flex-row items-center gap-2.5 flex-1 justify-start",

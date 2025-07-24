@@ -10,11 +10,6 @@ from pcweb.styles.colors import c_color
 
 from .sidebar_items.ai import ai_builder_overview_items
 from .sidebar_items.component_lib import component_lib, graphing_libs
-from .sidebar_items.enterprise import (
-    enterprise_items,
-    enterprise_usage_items,
-    enterprise_component_items,
-)
 from .sidebar_items.learn import backend, cli_ref, frontend, hosting, learn
 from .sidebar_items.recipes import recipes
 from .sidebar_items.reference import api_reference
@@ -203,7 +198,7 @@ def sidebar_item_comp(
                     type="multiple",
                     collapsible=True,
                     default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)_!important] !bg-transparent !rounded-none",
+                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)_!important] !bg-transparent",
                 ),
                 class_name="!p-0 w-full !bg-transparent before:!h-0 after:!h-0",
             ),
@@ -255,8 +250,7 @@ append_to_items(
     + graphing_libs
     + recipes
     + ai_builder_overview_items
-    + api_reference
-    + enterprise_items,
+    + api_reference,
     flat_items,
 )
 
@@ -381,8 +375,6 @@ def sidebar_comp(
     graphing_libs_index: list[int],
     api_reference_index: list[int],
     recipes_index: list[int],
-    enterprise_usage_index: list[int],
-    enterprise_component_index: list[int],
     #
     cli_ref_index: list[int],
     ai_builder_overview_index: list[int],
@@ -557,9 +549,7 @@ def sidebar_comp(
                                 rx.link(  # pyright: ignore [reportCallIssue]
                                     rx.box(  # pyright: ignore [reportCallIssue]
                                         rx.box(  # pyright: ignore [reportCallIssue]
-                                            rx.icon(
-                                                "atom", size=16
-                                            ),  # pyright: ignore [reportCallIssue]
+                                            rx.icon("atom", size=16),  # pyright: ignore [reportCallIssue]
                                             rx.el.h5(
                                                 "Custom Components",
                                                 class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
@@ -594,19 +584,25 @@ def sidebar_comp(
                         (
                             3,
                             rx.el.ul(
-                                create_sidebar_section(
-                                    "Enterprise Usage",
-                                    enterprise.overview.path,
-                                    enterprise_usage_items,
-                                    enterprise_usage_index,
-                                    url,
-                                ),
-                                create_sidebar_section(
-                                    "Components",
-                                    enterprise.components.path,
-                                    enterprise_component_items,
-                                    enterprise_component_index,
-                                    url,
+                                rx.link(  # pyright: ignore [reportCallIssue]
+                                    rx.box(  # pyright: ignore [reportCallIssue]
+                                        rx.box(  # pyright: ignore [reportCallIssue]
+                                            rx.icon("atom", size=16),  # pyright: ignore [reportCallIssue]
+                                            rx.el.h5(
+                                                "Reflex Enterprise",
+                                                class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
+                                            ),
+                                            class_name="flex flex-row items-center gap-3 text-slate-12",
+                                        ),
+                                        rx.text(  # pyright: ignore [reportCallIssue]
+                                            "See the Reflex Enterprise components in action!",
+                                            class_name="font-small text-slate-9",
+                                        ),
+                                        class_name="flex flex-col gap-2 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-large px-3.5 py-2 border rounded-xl transition-bg",
+                                    ),
+                                    underline="none",
+                                    href=ENTERPRISE_DOCS_URL,
+                                    is_external=True,
                                 ),
                                 class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                             ),
@@ -638,8 +634,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     graphing_libs_index = calculate_index(graphing_libs, url)
     api_reference_index = calculate_index(api_reference, url)
     recipes_index = calculate_index(recipes, url)
-    enterprise_usage_index = calculate_index(enterprise_usage_items, url)
-    enterprise_component_index = calculate_index(enterprise_component_items, url)
 
     cli_ref_index = calculate_index(cli_ref, url)
     ai_builder_overview_index = calculate_index(ai_builder_overview_items, url)
@@ -655,8 +649,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             graphing_libs_index=graphing_libs_index,
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
-            enterprise_usage_index=enterprise_usage_index,
-            enterprise_component_index=enterprise_component_index,
             ai_builder_overview_index=ai_builder_overview_index,
             cli_ref_index=cli_ref_index,
             #

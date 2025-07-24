@@ -61,6 +61,30 @@ For a detailed setup guide on how to integrate your Databricks app with Reflex a
 *Emanuele - Senior SOC Engineer at Fastly*
 
 
-## Get Started
+## Pricing
 
-Ready to build your next data application? [View our pricing plans](/pricing) to get started with Reflex.
+### Reflex Enterprise - Databricks Partnership Package
+
+As part of our strategic partnership with Reflex, Databricks customers will get enterprise level support from the Reflex team.These are listed as the following benefits:
+
+Getting Started
+
+- **`First 3 Months FREE`** - Complete access with zero commitment
+- **`Dedicated Engineering Onboarding`** - Direct support from the Reflex engineering team to accelerate your implementation
+
+Core Platform Access
+
+- **`Reflex.Build AI Builder`** - Unlimited usage for rapid application development
+- **`Reflex Enterprise Package`** - Full feature set with enterprise-grade capabilities
+- **`Single-Port Deployment`** - Seamless integration with Databricks Apps ecosystem
+
+Premium Component Library
+
+- **`AG-Grid`** - Advanced data grid capabilities for complex data visualization
+- **`Leaflet`** - Interactive mapping components for geospatial applications
+
+Enterprise Support
+
+- **`Dedicated Support Channel`** - Direct line to Reflex Engineering team
+- **`3-Hour Response Time`** - Guaranteed response during business hours
+- **`Priority Issue Resolution`** - Fast-track support for partnership customers

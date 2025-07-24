@@ -59,11 +59,3 @@ jobs:
 
       - name: Run unit tests
         run: pytest tests
-
-      - name: Upload test failure videos
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-videos-${{ matrix.os }}-${{ matrix.python-version }}
-          path: test-videos/
-          if-no-files-found: ignore

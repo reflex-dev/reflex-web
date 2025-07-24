@@ -1,15 +1,7 @@
 # Convert HTML to Reflex
 
-To convert HTML, CSS, or any design into Reflex code, use our AI-powered build tool at [Reflex Build](https://build.reflex.dev).
 
-Simply paste your HTML, CSS, or describe what you want to build, and our AI will generate the corresponding Reflex code for you.
-
-## How to use Reflex Build
-
-1. Go to [Reflex Build](https://build.reflex.dev)
-2. Paste your HTML/CSS code or describe your design
-3. The AI will automatically generate Reflex code
-4. Copy the generated code into your Reflex application
+To convert HTML to Reflex code use this live converter tool: https://reflex.build/reverse-compiler/
 
 ## Convert Figma file to Reflex
 
