@@ -38,6 +38,7 @@ class TemplatesState(rx.State):
             app_description = app_metadata.get("description", "")
             app_tags = app_metadata.get("tags", [])
 
+            # print(app_metadata, app_title, app_tags)
 
             # Text search filtering
             if self.query.strip():

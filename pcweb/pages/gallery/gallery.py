@@ -1,11 +1,12 @@
 import flexdown
 import reflex as rx
+import re
 from pcweb.templates.webpage import webpage
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
 
 REFLEX_BUILD_TEMPLATES_PATH = "reflex_build_templates/"
-REFLEX_BUILD_TEMPLATES_IMAGES = "/reflex_build_template_images/"
+REFLEX_BUILD_TEMPLATES_IMAGES = "reflex_build_template_images/"
 
 def get_templatey_apps(paths):
     """Method to parse each markdown file and return the data from the file"""
@@ -122,14 +123,15 @@ def create_grid_with_items():
         app_author = meta.get("author", "Team Reflex")
         app_thread = f"/gen/{app_name.lower().replace(' ', '-')}/"
         app_image = meta.get('image', "")
-        app_inner_page = meta.get("title", "").replace("_", "-")
+        slug = re.sub(r"[\s_]+", "-", meta.get("title", "")).lower()
+        app_inner_page = f"/templates/{slug}"
 
         items.append(extended_gallery_grid_item(
             app_url=app_url,
             app_name=app_name,
             app_author=app_author,
             app_thread=app_thread,
-            app_image=f"{REFLEX_BUILD_TEMPLATES_IMAGES}{app_image}",
+            app_image=f"/{REFLEX_BUILD_TEMPLATES_IMAGES}{app_image}",
             app_inner_page=app_inner_page
         ))
 

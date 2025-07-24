@@ -23,6 +23,7 @@ def load_all_gallery_apps():
         paths = flexdown.utils.get_flexdown_files(folder)
         for path in reversed(sorted(paths)):
             document = flexdown.parse_file(path)
+            document.metadata["title"] = document.metadata.get("title", "Untitled").replace("_", " ").title()
             clean_path = path.replace(".md", "/")
             gallery_apps[(clean_path, folder)] = document
 
@@ -118,6 +119,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
     )
 
     back_route_origin = "/docs/getting-started/open-source-templates/" if not is_reflex_template else "/templates/"
+
 
     return rx.el.section(
         rx.el.article(
