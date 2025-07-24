@@ -74,7 +74,7 @@ class CollatzState(rx.State):
 
             if self.count % 2 == 0:
                 # If the number is even, divide by 2.
-                self.count /= 2
+                self.count //= 2
             else:
                 # If the number is odd, multiply by 3 and add 1.
                 self.count = self.count * 3 + 1
