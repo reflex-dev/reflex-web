@@ -1,23 +1,18 @@
 ---
-components:
-  - ag_grid
+title: "AgGrid Overview"
+order: 3
 ---
 
 ```python exec
-from pcweb.pages.docs import library
-from pcweb.pages.docs import vars
+from pcweb.pages.docs import enterprise
 ```
 
 # AG Grid
 
-Reflex AG Grid is a high-performance and highly customizable grid that wraps AG Grid.
-
-```bash
-pip install reflex-ag-grid
-```
+## AG Grid Features
 
 ```md alert warning
-# Starting from reflex 0.7.1, the reflex-ag-grid package is not maintained anymore. Go to https://enterprise.reflex.dev/ to get the latest version of AG Grid maintained by the Reflex Team.
+#Turning off turbopack via `REFLEX_USE_TURBOPACK=False` might break the enterprise features of AgGrid.
 ```
 
 ## Your First Reflex AG Grid
@@ -26,29 +21,22 @@ A basic Reflex AG Grid contains column definitions `column_defs`, which define t
 
 Each grid also requires a unique `id`, which is needed to uniquely identify the Ag-Grid instance on the page. If you have multiple grids on the same page, each grid must have a unique `id` so that it can be correctly rendered and managed.
 
-```md alert info
-# Grid for Layout
-
-If you are looking for a grid for layout purposes, i.e. to layout Reflex components, consider using the [Grid component]({library.layout.grid.path}).
-```
-
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv")
+df = pd.read_csv("data/wind_dataset.csv")
 
 column_defs = [
-    ag_grid.column_def(field="direction"),
-    ag_grid.column_def(field="strength"),
-    ag_grid.column_def(field="frequency"),
-
+    {"field": "direction"},
+    {"field": "strength"},
+    {"field": "frequency"},
 ]
 
 def ag_grid_simple():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_1",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
@@ -56,13 +44,15 @@ def ag_grid_simple():
     )
 ```
 
+📊 **Dataset source:** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
+
 The format of the data passed to the `row_data` prop is a list of dictionaries. Each dictionary represents a row in the grid as seen below.
 
 ```python
 [
-   \{direction: "N", strength: "0-1", frequency: 0.5},
-   \{direction: "NNE", strength: "0-1", frequency: 0.6},
-   \{direction: "NE", strength: "0-1", frequency: 0.5},
+   \{"direction": "N", "strength": "0-1", "frequency": 0.5\},
+   \{"direction": "NNE", "strength": "0-1", "frequency": 0.6\},
+   \{"direction": "NE", "strength": "0-1", "frequency": 0.5\},
 ]
 ```
 
@@ -70,15 +60,14 @@ The previous example showed the `column_defs` written out in full. You can also 
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
-
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv")
+df = pd.read_csv("data/wind_dataset.csv")
 
 
 def ag_grid_simple_2():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_2",
         row_data=df.to_dict("records"),
         column_defs=[{"field": i} for i in df.columns],
@@ -87,26 +76,28 @@ def ag_grid_simple_2():
     )
 ```
 
+📊 **Dataset source:** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
+
 ## Headers
 
 In the above example, the first letter of the field names provided are capitalized when displaying the header name. You can customize the header names by providing a `header_name` key in the column definition. In this example, the `header_name` is customized for the second and third columns.
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+df = pd.read_csv("data/gapminder2007.csv")
 
 column_defs = [
-    ag_grid.column_def(field="country"),
-    ag_grid.column_def(field="pop", header_name="Population"),
-    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy"),
+    {"field": "country"},
+    {"field": "pop", "headerName": "Population"},
+    {"field": "lifeExp", "headerName": "Life Expectancy"},
 ]
 
 def ag_grid_simple_headers():
-    return ag_grid(
+    return rxe.ag_grid(
             id="ag_grid_basic_headers",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
@@ -115,26 +106,28 @@ def ag_grid_simple_headers():
         )
 ```
 
+📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+
 ## Column Filtering
 
 Allow a user to filter a column by setting the `filter` key to `True` in the column definition. In this example we enable filtering for the first and last columns.
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+df = pd.read_csv("data/gapminder2007.csv")
 
 column_defs =  [
-    ag_grid.column_def(field="country", header_name="Country", filter=True),
-    ag_grid.column_def(field="pop", header_name="Population"),
-    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy", filter=True),
+    {"field": "country", "headerName": "Country", "filter": True},
+    {"field": "pop", "headerName": "Population"},
+    {"field": "lifeExp", "headerName": "Life Expectancy", "filter": True},
 ]
 
 def ag_grid_simple_column_filtering():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_column_filtering",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
@@ -153,21 +146,21 @@ You can also set the filter type using the `filter` key. The following filter ty
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/GanttChart-updated.csv")
+df = pd.read_csv("data/GanttChart-updated.csv")
 
 column_defs =  [
-    ag_grid.column_def(field="Task", filter=True),
-    ag_grid.column_def(field="Start", filter=ag_grid.filters.date),
-    ag_grid.column_def(field="Duration", filter=ag_grid.filters.number),
-    ag_grid.column_def(field="Resource", filter=ag_grid.filters.text),
+    {"field": "Task", "filter": True},
+    {"field": "Start", "filter": rxe.ag_grid.filters.date},
+    {"field": "Duration", "filter": rxe.ag_grid.filters.number},
+    {"field": "Resource", "filter": rxe.ag_grid.filters.text},
 ]
 
 def ag_grid_simple_column_filtering():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_column_filtering",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
@@ -175,6 +168,8 @@ def ag_grid_simple_column_filtering():
         height="40vh",
     )
 ```
+
+📊 **Dataset source:** [GanttChart-updated.csv](https://raw.githubusercontent.com/plotly/datasets/master/GanttChart-updated.csv)
 
 ## Row Sorting
 
@@ -184,20 +179,20 @@ In this example, we disable sorting for the first column.
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+df = pd.read_csv("data/gapminder2007.csv")
 
 column_defs =  [
-    ag_grid.column_def(field="country", sortable=False),
-    ag_grid.column_def(field="pop", header_name="Population"),
-    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy"),
+    {"field": "country", "sortable": False},
+    {"field": "pop", "headerName": "Population"},
+    {"field": "lifeExp", "headerName": "Life Expectancy"},
 ]
 
 def ag_grid_simple_row_sorting():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_row_sorting",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
@@ -206,34 +201,38 @@ def ag_grid_simple_row_sorting():
     )
 ```
 
+📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+
 ## Row Selection
 
 Row Selection is enabled using the `row_selection` attribute. Setting it to `multiple` allows users to select multiple rows at a time. You can use the `checkbox_selection` column definition attribute to render checkboxes for selection.
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+df = pd.read_csv("data/gapminder2007.csv")
 
 column_defs = [
-    ag_grid.column_def(field="country", checkbox_selection=True),
-    ag_grid.column_def(field="pop", header_name="Population"),
-    ag_grid.column_def(field="continent"),
+    {"field": "country", "checkboxSelection": True},
+    {"field": "pop", "headerName": "Population"},
+    {"field": "continent"},
 ]
 
 def ag_grid_simple_row_selection():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_row_selection",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
-        row_selection="multiple",
+        row_selection={"mode":"multiple"},
         width="100%",
         height="40vh",
     )
 ```
+
+📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
 ## Editing
 
@@ -253,18 +252,19 @@ In this example, we enable editing for the second and third columns. The second 
 
 The `on_cell_value_changed` event trigger is linked to the `cell_value_changed` event handler in the state. This event handler is called whenever a cell value is changed and changes the value of the backend var `_data_df` and the state var `data`.
 
-```python demo exec
+```python
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 class AGGridEditingState(rx.State):
     data: list[dict] = []
+    _data_df: pd.DataFrame
 
     @rx.event
     def load_data(self):
-        _df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-        self.data = _df.to_dict("records")
+        self._data_df = pd.read_csv("data/gapminder2007.csv")
+        self.data = self._data_df.to_dict("records")
 
     @rx.event
     def cell_value_changed(self, row, col_field, new_value):
@@ -274,16 +274,13 @@ class AGGridEditingState(rx.State):
 
 
 column_defs = [
-    ag_grid.column_def(field="country"),
-    ag_grid.column_def(field="pop", header_name="Population", editable=True, cell_editor=ag_grid.editors.number),
-    ag_grid.column_def(field="continent", editable=True, cell_editor=ag_grid.editors.select, cell_editor_params={
-        "values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania']
-        }
-    ),
+    \{"field": "country"\},
+    \{"field": "pop", "headerName": "Population", "editable": True, "cellEditor": rxe.ag_grid.editors.number\},
+    \{"field": "continent", "editable": True, "cellEditor": rxe.ag_grid.editors.select, "cellEditorParams": \{"values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania']\}\},
 ]
 
 def ag_grid_simple_editing():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_editing",
         row_data=AGGridEditingState.data,
         column_defs=column_defs,
@@ -300,19 +297,19 @@ By default, the grid uses a vertical scroll. You can reduce the amount of scroll
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+df = pd.read_csv("data/gapminder2007.csv")
 
 column_defs = [
-    ag_grid.column_def(field="country"),
-    ag_grid.column_def(field="pop", header_name="Population"),
-    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy"),
+    {"field": "country"},
+    {"field": "pop", "headerName": "Population"},
+    {"field": "lifeExp", "headerName": "Life Expectancy"},
 ]
 
 def ag_grid_simple_pagination():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_pagination",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
@@ -324,53 +321,7 @@ def ag_grid_simple_pagination():
     )
 ```
 
-## Themes
-
-You can style your grid with a theme. AG Grid includes the following themes:
-
-1. `quartz`
-2. `alpine`
-3. `balham`
-4. `material`
-
-The grid uses `quartz` by default. To use any other theme, set it using the `theme` prop, i.e. `theme="alpine"`.
-
-```python demo exec
-import reflex as rx
-from reflex_ag_grid import ag_grid
-import pandas as pd
-
-class AGGridThemeState(rx.State):
-    """The app state."""
-
-    theme: str = "quartz"
-    themes: list[str] = ["quartz", "balham", "alpine", "material"]
-
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-
-column_defs = [
-    ag_grid.column_def(field="country"),
-    ag_grid.column_def(field="pop", header_name="Population"),
-    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy"),
-]
-
-def ag_grid_simple_themes():
-    return rx.vstack(
-        rx.hstack(
-            rx.text("Theme:"),
-            rx.select(AGGridThemeState.themes, value=AGGridThemeState.theme, on_change=AGGridThemeState.set_theme),
-        ),
-        ag_grid(
-            id="ag_grid_basic_themes",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-            theme=AGGridThemeState.theme,
-            width="100%",
-            height="40vh",
-        ),
-        width="100%",
-    )
-```
+📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
 ## AG Grid with State
 
@@ -378,10 +329,10 @@ def ag_grid_simple_themes():
 
 Assuming you want to make any edit to your data, you can put the data in State. This allows you to update the grid based on user input. Whenever the `data` var is updated, the grid will be re-rendered with the new data.
 
-```python demo exec
+```python
 from typing import Any
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 class AGGridState2(rx.State):
@@ -389,17 +340,17 @@ class AGGridState2(rx.State):
 
     @rx.event
     def load_data(self):
-        _df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        _df = pd.read_csv("data/gapminder2007.csv")
         self.data = _df.to_dict("records")
 
 column_defs = [
-    ag_grid.column_def(field="country"),
-    ag_grid.column_def(field="pop", header_name="Population"),
-    ag_grid.column_def(field="continent"),
+    \{"field": "country"\},
+    \{"field": "pop", "headerName": "Population"\},
+    \{"field": "continent"\},
 ]
 
 def ag_grid_state_2():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_state_2",
         row_data=AGGridState2.data,
         column_defs=column_defs,
@@ -413,9 +364,9 @@ def ag_grid_state_2():
 
 You can use State to update the grid based on a users input. In this example, we update the `column_defs` of the grid when a user clicks a button.
 
-```python demo exec
+```python
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 class AgGridState(rx.State):
@@ -429,15 +380,15 @@ class AgGridState(rx.State):
     @rx.event
     def init_columns(self):
         self.all_columns = [
-            ag_grid.column_def(field="country"),
-            ag_grid.column_def(field="pop"),
-            ag_grid.column_def(field="continent"),
-            ag_grid.column_def(field="lifeExp"),
-            ag_grid.column_def(field="gdpPercap"),
+            \{"field": "country"\},
+            \{"field": "pop"\},
+            \{"field": "continent"\},
+            \{"field": "lifeExp"\},
+            \{"field": "gdpPercap"\},
         ]
         self.two_columns = [
-            ag_grid.column_def(field="country"),
-            ag_grid.column_def(field="pop"),
+            \{"field": "country"\},
+            \{"field": "pop"\},
         ]
         self.column_defs = self.all_columns
 
@@ -450,13 +401,13 @@ class AgGridState(rx.State):
             self.column_defs = self.all_columns
 
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+df = pd.read_csv("data/gapminder2007.csv")
 
 
 def ag_grid_simple_with_state():
     return rx.box(
         rx.button("Toggle Columns", on_click=AgGridState.update_columns),
-        ag_grid(
+        rxe.ag_grid(
             id="ag_grid_basic_with_state",
             row_data=df.to_dict("records"),
             column_defs=AgGridState.column_defs,
@@ -468,17 +419,19 @@ def ag_grid_simple_with_state():
     )
 ```
 
+📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+
 ## AG Grid with Data from a Database
 
 In this example, we will use a database to store the data. The data is loaded from a csv file and inserted into the database when the page is loaded using the `insert_dataframe_to_db` event handler.
 
-The data is then fetched from the database and displayed in the grid using the `data` [computed var]({vars.computed_vars.path}).
+The data is then fetched from the database and displayed in the grid using the `data` computed var.
 
 When a cell value is changed, the data is updated in the database using the `cell_value_changed` event handler.
 
 ```python
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 from sqlmodel import select
 
@@ -495,7 +448,7 @@ class AGGridDatabaseState(rx.State):
     # Insert data from a csv loaded dataframe to the database (Do this on the page load)
     @rx.event
     def insert_dataframe_to_db(self):
-        data = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        data = pd.read_csv("data/gapminder2007.csv")
         with rx.session() as session:
             for _, row in data.iterrows():
                 db_record = Country(
@@ -526,16 +479,13 @@ class AGGridDatabaseState(rx.State):
 
 
 column_defs = [
-    ag_grid.column_def(field="country"),
-    ag_grid.column_def(field="population", header_name="Population", editable=True, cell_editor=ag_grid.editors.number),
-    ag_grid.column_def(field="continent", editable=True, cell_editor=ag_grid.editors.select, cell_editor_params={
-        "values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania']
-        }
-    ),
+    \{"field": "country"\},
+    \{"field": "population", "headerName": "Population", "editable": True, "cellEditor": rxe.ag_grid.editors.number\},
+    \{"field": "continent", "editable": True, "cellEditor": rxe.ag_grid.editors.select, "cellEditorParams": \{"values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania']\}\},
 ]
 
 def index():
-    return ag_grid(
+    return rxe.ag_grid(
         id="ag_grid_basic_editing",
         row_data=AGGridDatabaseState.data,
         column_defs=column_defs,
@@ -579,11 +529,13 @@ The following props are available for `column_defs` as well as many others that 
 
 
 
-## Functionality you need is not available in Reflex
+## Functionality you need is not available/working in Reflex
 
-Since Reflex AG Grid is wrapping the underlying AG Grid library, there is much more functionality available that is currently not exposed in Reflex. Check out this [documentation](https://www.ag-grid.com/react-data-grid/reference/) for more information on what is available in AG Grid.
+All AGGrid options found in this [documentation](https://www.ag-grid.com/react-data-grid/reference/) are mapped in rxe.ag_grid, but some features might not have been fully tested, due to the sheer number of existing features in the underlying AG Grid library.
 
-As Reflex does not expose all the functionality of AG Grid, you can use `ag_grid.api()`, which is hanging off the `ag_grid` namespace, to access the underlying AG Grid API. This allows you to access the full functionality of AG Grid.
+If one of the ag_grid props does not import the expected module, you can pass it manually via the props `community_modules` or `enterprise_modules`, which expect a `set[str]` of the module names. You will get a warning in the browser console if a module is missing, so you can check there if a feature is not working as expected.
+
+You can also report the missing module on our discord or GitHub issues page of the main Reflex repository.
 
 Best practice is to create a single instance of `ag_grid.api()` with the same `id` as the `id` of the `ag_grid` component that is to be referenced, `"ag_grid_basic_row_selection"` in this first example.
 
@@ -595,26 +547,27 @@ The example below uses the `select_all()` and `deselect_all()` methods of the AG
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 df = pd.read_csv(
-    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+    "data/gapminder2007.csv"
 )
 
 column_defs = [
-    ag_grid.column_def(field="country", checkbox_selection=True),
-    ag_grid.column_def(field="pop"),
-    ag_grid.column_def(field="continent"),
+    {"field": "country", "checkboxSelection": True},
+    {"field": "pop"},
+    {"field": "continent"},
 ]
 
 def ag_grid_api_simple():
-    my_api = ag_grid.api(id="ag_grid_basic_row_selection")
+    my_api = rxe.ag_grid.api(id="ag_grid_basic_row_selection")
     return rx.vstack(
-            ag_grid(
+            rxe.ag_grid(
             id="ag_grid_basic_row_selection",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
+            row_selection="single",
             width="100%",
             height="40vh",
         ),
@@ -625,20 +578,20 @@ def ag_grid_api_simple():
     )
 ```
 
+📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
 The react code for the `select_all()` event handler is `selectAll = (source?: SelectionEventSourceType) => void;`. 
 
 To use this in Reflex as you can see, it should be called in snake case rather than camel case. The `void` means it doesn't return anything. The `source?` indicates that it takes an optional `source` argument.
 
 
-
 ```md alert info
 # Another way to use the AG Grid API
 It is also possible to use the AG Grid API directly with the event trigger (`on_click`) of the component. This removes the need to create a variable `my_api`. This is shown in the example below. It is necessary to use the `id` of the `ag_grid` component that is to be referenced.
-```python
-rx.button("Select all", on_click=ag_grid.api(id="ag_grid_basic_row_selection").select_all()),
-```
 
+```python
+rx.button("Select all", on_click=rxe.ag_grid.api(id="ag_grid_basic_row_selection").select_all()),
+```
 
 ### More examples
 
@@ -647,23 +600,23 @@ The following example lets a user [export the data as a csv](https://www.ag-grid
 
 ```python demo exec
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 df = pd.read_csv(
-    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+    "data/gapminder2007.csv"
 )
 
 column_defs = [
-    ag_grid.column_def(field="country", checkbox_selection=True),
-    ag_grid.column_def(field="pop"),
-    ag_grid.column_def(field="continent"),
+    {"field": "country", "checkboxSelection": True},
+    {"field": "pop"},
+    {"field": "continent"},
 ]
 
 def ag_grid_api_simple2():
-    my_api = ag_grid.api(id="ag_grid_export_and_resize")
+    my_api = rxe.ag_grid.api(id="ag_grid_export_and_resize")
     return rx.vstack(
-            ag_grid(
+            rxe.ag_grid(
             id="ag_grid_export_and_resize",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
@@ -677,6 +630,8 @@ def ag_grid_api_simple2():
     )
 ```
 
+📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+
 The react code for both of these is shown below. The key point to see is that both of these functions return `void` and therefore does not return anything.
 
 `exportDataAsCsv = (params?: CsvExportParams) => void;`
@@ -688,9 +643,9 @@ The react code for both of these is shown below. The key point to see is that bo
 
 This example shows how to get the data from `ag_grid` as a [csv on the backend](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-getDataAsCsv). The data that was passed to the backend is then displayed as a toast with the data.
 
-```python demo exec
+```python
 import reflex as rx
-from reflex_ag_grid import ag_grid
+import reflex_enterprise as rxe
 import pandas as pd
 
 class AGGridStateAPI(rx.State):
@@ -698,19 +653,19 @@ class AGGridStateAPI(rx.State):
         yield rx.toast(f"Got CSV data: {data}")
 
 df = pd.read_csv(
-    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+    "data/gapminder2007.csv"
 )
 
 column_defs = [
-    ag_grid.column_def(field="country", checkbox_selection=True),
-    ag_grid.column_def(field="pop"),
-    ag_grid.column_def(field="continent"),
+    \{"field": "country", "checkboxSelection": True\},
+    \{"field": "pop"\},
+    \{"field": "continent"\},
 ]
 
 def ag_grid_api_argument():
-    my_api = ag_grid.api(id="ag_grid_get_data_as_csv")
+    my_api = rxe.ag_grid.api(id="ag_grid_get_data_as_csv")
     return rx.vstack(
-            ag_grid(
+        rxe.ag_grid(
             id="ag_grid_get_data_as_csv",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
@@ -725,4 +680,6 @@ def ag_grid_api_argument():
 
 The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined). 
 
-In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method. 
+In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method.  
+
+

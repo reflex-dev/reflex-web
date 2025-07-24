@@ -14,8 +14,11 @@ permissions:
   contents: read
 
 env:
+  NODE_OPTIONS: "--max-old-space-size=8192"
   CP_WEB_URL: https://cloud.rxc.app/
   CP_BACKEND_URL: https://cloud-f188e2cd-51fb-4b29-b546-2ce4b9efc5d5.fly.dev/
+  DEV_TYPESENSE_HOST: ${{ secrets.DEV_TYPESENSE_HOST }}
+  DEV_TYPESENSE_SEARCH_API_KEY: ${{ secrets.DEV_TYPESENSE_SEARCH_API_KEY }}
 
 jobs:
   deploy:
@@ -37,7 +40,26 @@ jobs:
       - name: Update Reflex CLI
         run: uv pip install reflex-hosting-cli -U
 
+      - name: Index documentation to Typesense
+        env:
+          TYPESENSE_ADMIN_API_KEY: ${{ secrets.DEV_TYPESENSE_ADMIN_API_KEY }}
+          TYPESENSE_HOST: ${{ secrets.DEV_TYPESENSE_HOST }}
+        run: |
+          uv pip install typesense python-frontmatter markdown beautifulsoup4
+          python scripts/typesense_indexer.py --force
+
       - name: Deploy to Reflex
         id: deploy
         run: |
           reflex deploy --project ${{ secrets.DEV_PROJECT_ID }} --token ${{ secrets.DEV_TOKEN }} --no-interactive
+
+      - name: Check for dead links
+        run: |
+          # Install dependencies for dead link checker
+          uv pip install -r scripts/requirements.txt
+
+          # Wait a moment for deployment to be fully ready
+          sleep 30
+
+          # Run dead link checker
+          python scripts/check_dead_links.py https://pcweb-gray-orca.rxc.app --timeout 15 --delay 1

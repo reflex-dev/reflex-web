@@ -1,5 +1,5 @@
 from typing import Any, Dict, Literal, Optional
-
+from pcweb.components.utils.twmerge import cn
 import reflex as rx
 
 LiteralButtonVariant = Literal[
@@ -22,7 +22,7 @@ def get_variant_bg_cn(variant: str) -> str:
         str: The background color class name.
 
     """
-    return f"enabled:bg-gradient-to-b from-[--{variant}-9] to-[--{variant}-10] dark:to-[--{variant}-9] hover:to-[--{variant}-9] dark:hover:to-[--{variant}-10] disabled:hover:bg-[--{variant}-9]"
+    return f"enabled:bg-gradient-to-b from-(--{variant}-9) to-(--{variant}-10) dark:to-(--{variant}-9) hover:to-(--{variant}-9) dark:hover:to-(--{variant}-10) disabled:hover:bg-(--{variant}-9)"
 
 
 BUTTON_STYLES: Dict[str, Dict[str, Dict[str, str]]] = {
@@ -31,7 +31,7 @@ BUTTON_STYLES: Dict[str, Dict[str, Dict[str, str]]] = {
         "sm": "px-2 h-8 rounded-lg gap-2",
         "md": "px-2.5 h-9 rounded-[10px] gap-2.5",
         "lg": "px-3 h-10 rounded-xl gap-3",
-        "xl": "px-3.5 h-12 rounded-[14px] gap-3.5 !text-base text-nowrap",
+        "xl": "px-3.5 h-12 rounded-[14px] gap-3 !text-base text-nowrap",
         "icon-xs": "size-7 rounded-md",
         "icon-sm": "size-8 rounded-lg",
         "icon-md": "size-9 rounded-[10px]",
@@ -89,6 +89,6 @@ def button(
     return rx.el.button(
         *content,
         style=style,
-        class_name=" ".join(filter(None, classes)),
+        class_name=cn(*classes),
         **props,
     )

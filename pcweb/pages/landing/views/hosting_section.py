@@ -77,8 +77,12 @@ def content() -> rx.Component:
         ),
         rx.box(
             rx.image(
-                src=f"/landing/hosting_features/{rx.color_mode_cond(light='light', dark='dark')}/card.webp",
-                class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none",
+                src=f"/landing/hosting_features/light/card.webp",
+                class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:hidden",
+            ),
+            rx.image(
+                src=f"/landing/hosting_features/dark/card.webp",
+                class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:block hidden",
             ),
             class_name="justify-center items-center relative overflow-hidden w-full lg:flex hidden",
         ),

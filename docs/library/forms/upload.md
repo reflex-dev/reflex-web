@@ -5,7 +5,6 @@ components:
 
 Upload: |
   lambda **props: rx.center(rx.upload(id="my_upload", **props))
-  lambda **props: rx.center(rx.upload(id="my_upload", **props))
 ---
 
 ```python exec
@@ -179,11 +178,11 @@ def index():
     return rx.vstack(
         rx.upload(
             rx.vstack(
-                rx.button("Select File", color=color, bg="white", border=f"1px solid \{color}"),
+                rx.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
                 rx.text("Drag and drop files here or click to select files"),
             ),
             id="upload1",
-            border=f"1px dotted \{color}",
+            border=f"1px dotted {color}",
             padding="5em",
         ),
         rx.hstack(rx.foreach(rx.selected_files("upload1"), rx.text)),
@@ -256,7 +255,7 @@ def index():
             ),
             id="upload1",
             max_files=1,
-            border=f"1px dotted \{color}",
+            border=f"1px dotted {color}",
             padding="5em",
         ),
         rx.text(rx.selected_files("upload1")),
@@ -320,7 +319,7 @@ def index():
     return rx.vstack(
         rx.upload(
             rx.vstack(
-                rx.button("Select File", color=color, bg="white", border=f"1px solid \{color}"),
+                rx.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
                 rx.text("Drag and drop files here or click to select files"),
             ),
             id="upload2",
@@ -337,7 +336,7 @@ def index():
             disabled=False,
             no_keyboard=True,
             on_drop=State.handle_upload(rx.upload_files(upload_id="upload2")),
-            border=f"1px dotted \{color}",
+            border=f"1px dotted {color}",
             padding="5em",
         ),
         rx.grid(
