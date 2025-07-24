@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": ""},
 ]
 template: "dalle"
+tags: ["AI/ML", "Image Generation"]
 ---
 
 In this example we create a simple app for generating images using OpenAI's API.

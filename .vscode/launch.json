@@ -6,13 +6,12 @@
     "configurations": [
         {
             "name": "Reflex Web",
-            "type": "debugpy",
+            "type": "python",
             "request": "launch",
             "module": "reflex",
             "args": "run",
             "justMyCode": true,
             "cwd": "${workspaceFolder}",
-            "env": {"CI": "1"},
         }
     ]
 }

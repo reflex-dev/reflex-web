@@ -156,10 +156,6 @@ affects the computed  sizes of the flex items based on the props that are set.
 class FlexGrowShrinkState(rx.State):
     width_pct: list[int] = [100]
     
-    @rx.event
-    def set_width_pct(self, value: list[int | float]):
-        self.width_pct = [int(value[0])]
-    
     
 def border_box(*children, **props):
     return rx.box(

@@ -67,7 +67,7 @@ or `--backend-only` flags.
 
 It is also possible to export the components without zipping. To do
 this, use the `--no-zip` parameter. This provides the frontend in the
-`.web/build/client/` directory and the backend can be found in the root directory of
+`.web/_static/` directory and the backend can be found in the root directory of
 the project.
 
 ## Reflex Container Service

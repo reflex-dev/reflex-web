@@ -5,7 +5,11 @@ from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 
 def glow() -> rx.Component:
     return rx.box(
-        class_name="absolute flex-shrink-0 rounded-[120rem] left-1/2 -translate-x-1/2 z-[-1] top-[-1.25rem] pointer-events-none w-[20rem] h-[5rem] dark:[background-image:radial-gradient(50%_50%_at_50%_50%,_rgba(58,45,118,0.207)_0%,_rgba(21,22,24,0.00)_100%)] [background-image:radial-gradient(50%_50%_at_50%_50%,_rgba(235,228,255,0.661)_0%,_rgba(252,252,253,0.00)_100%)]",
+        class_name="absolute flex-shrink-0 rounded-[120rem] left-1/2 -translate-x-1/2 z-[-1] top-[-1.25rem] pointer-events-none w-[20rem] h-[5rem]",
+        background_image=rx.color_mode_cond(
+            "radial-gradient(50% 50% at 50% 50%, rgba(235, 228, 255, 0.661) 0%, rgba(252, 252, 253, 0.00) 100%) !important",
+            "radial-gradient(50% 50% at 50% 50%, rgba(58, 45, 118, 0.207) 0%, rgba(21, 22, 24, 0.00) 100%) !important",
+        ),
     )
 
 

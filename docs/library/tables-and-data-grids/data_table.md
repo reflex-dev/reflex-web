@@ -43,7 +43,7 @@ rx.data_table(
 
 ```python
 import pandas as pd
-nba_data = pd.read_csv("data/nba.csv")
+nba_data = pd.read_csv("https://media.geeksforgeeks.org/wp-content/uploads/nba.csv")
 ...
 rx.data_table(
     data = nba_data[["Name", "Height", "Age"]],
@@ -52,8 +52,6 @@ rx.data_table(
     sort= True,
 )  
 ```
-
-📊 **Dataset source:** [nba.csv](https://media.geeksforgeeks.org/wp-content/uploads/nba.csv)
 
 The example below shows how to create a data table from from a list.
 

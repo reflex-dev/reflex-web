@@ -85,14 +85,7 @@ def favicons_links() -> list[rx.Component]:
     ]
 
 
-def create_meta_tags(title: str, description: str, image: str, url: str = None) -> list[rx.Component]:
-    page_url = url if url else REFLEX_DOMAIN_URL
-    
-    if image and not image.startswith(('http://', 'https://')):
-        image_url = f"https://reflex.dev{'' if image.startswith('/') else '/'}{image}"
-    else:
-        image_url = image
-    
+def create_meta_tags(title: str, description: str, image: str) -> list[rx.Component]:
     return [
         # HTML Meta Tags
         {"name": "application-name", "content": "Reflex"},
@@ -105,23 +98,23 @@ def create_meta_tags(title: str, description: str, image: str, url: str = None) 
             "content": description,
         },
         # Facebook Meta Tags
-        {"property": "og:url", "content": page_url},
+        {"property": "og:url", "content": REFLEX_DOMAIN_URL},
         {"property": "og:type", "content": "website"},
         {"property": "og:title", "content": title},
         {
             "property": "og:description",
             "content": description,
         },
-        {"property": "og:image", "content": image_url},
+        {"property": "og:image", "content": image},
         # Twitter Meta Tags
         {"name": "twitter:card", "content": "summary_large_image"},
         {"property": "twitter:domain", "content": REFLEX_DOMAIN},
-        {"property": "twitter:url", "content": page_url},
+        {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
         {"name": "twitter:title", "content": title},
         {
             "name": "twitter:description",
             "content": description,
         },
-        {"name": "twitter:image", "content": image_url},
+        {"name": "twitter:image", "content": image},
         {"name": "twitter:creator", "content": TWITTER_CREATOR},
     ]

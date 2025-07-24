@@ -18,16 +18,11 @@ def frontend_card(
             class_name="flex flex-col gap-2 px-10 pt-10",
         ),
         rx.image(
-            src=f"/landing/frontend_features/light/{image}",
-            class_name="dark:hidden w-full absolute shrink-0" + " " + image_cn,
-            top=top,
-            height=height,
-            loading="lazy",
-            alt=title + " image",
-        ),
-        rx.image(
-            src=f"/landing/frontend_features/dark/{image}",
-            class_name="dark:block hidden w-full absolute shrink-0" + " " + image_cn,
+            src=rx.color_mode_cond(
+                light=f"/landing/frontend_features/light/{image}",
+                dark=f"/landing/frontend_features/dark/{image}",
+            ),
+            class_name="w-full absolute shrink-0" + " " + image_cn,
             top=top,
             height=height,
             loading="lazy",

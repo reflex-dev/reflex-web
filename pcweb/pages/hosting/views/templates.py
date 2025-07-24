@@ -1,5 +1,4 @@
 import reflex as rx
-import copy
 
 
 def gallery_app_card(app: dict) -> rx.Component:
@@ -12,7 +11,7 @@ def gallery_app_card(app: dict) -> rx.Component:
                     alt="Image preview for app: " + app["title"],
                     class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out",
                 ),
-                href=f"/templates/{app['url'].replace(' ', '-').lower()}",
+                href=f"/docs/getting-started/open-source-templates/{app['url'].replace(' ', '-').lower()}",
             ),
             class_name="relative border-slate-5 border-b border-solid w-full overflow-hidden h-[11.5rem]",
         ),
@@ -50,10 +49,8 @@ templates_name_map = {
 def component_grid() -> rx.Component:
     from pcweb.pages.gallery.apps import gallery_apps_data
 
-    apps_copy = copy.deepcopy(gallery_apps_data)
-
     posts = []
-    for path, document in list(apps_copy.items()):
+    for path, document in list(gallery_apps_data.items()):
         document.metadata["url"] = document.metadata["title"]
         document.metadata["title"] = templates_name_map.get(
             document.metadata["title"], document.metadata["title"]

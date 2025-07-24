@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/templates/tree/main/dashboard"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+tags: ["Dashboard", "Data Visualization"]
 ---
 
 The following is a dashboard to interactively display data some data. It is a good starting point for building more complex apps that require data visualization.

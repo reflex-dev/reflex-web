@@ -1,4 +1,5 @@
 import reflex as rx
+from tailwind_config import tw_config
 
 config = rx.Config(
     port=3000,
@@ -10,5 +11,6 @@ config = rx.Config(
     ],
     show_build_with_reflex=False,
     telemetry_enabled=False,
-    plugins=[rx.plugins.TailwindV4Plugin(), rx.plugins.SitemapPlugin()],
+    tailwind=tw_config,
+    plugins=[rx.plugins.TailwindV3Plugin()],
 )

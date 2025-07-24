@@ -43,7 +43,7 @@ import plotly.graph_objects as go
 import pandas as pd
 
 # Read data from a csv
-z_data = pd.read_csv('data/mt_bruno_elevation.csv')
+z_data = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv')
 
 fig = go.Figure(data=[go.Surface(z=z_data.values)])
 fig.update_traces(contours_z=dict(show=True, usecolormap=True,
@@ -58,8 +58,6 @@ def mountain_surface():
         rx.plotly(data=fig),
     )
 ```
-
-📊 **Dataset source:** [mt_bruno_elevation.csv](https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv)
 
 ## Plot as State Var
 

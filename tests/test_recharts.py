@@ -5,7 +5,6 @@ from playwright.sync_api import Page, expect
 import pytest
 from reflex.testing import AppHarness
 
-from utils import get_full_url
 
 @pytest.fixture
 def scatterchart_page_url() -> str:
@@ -20,7 +19,7 @@ def tests_recharts(
     scatterchart_page_url: str,
 ):
     assert reflex_web_app.frontend_url is not None
-    page.goto(get_full_url(reflex_web_app, scatterchart_page_url))
+    page.goto(reflex_web_app.frontend_url + scatterchart_page_url)
     expect(page).to_have_url(re.compile(scatterchart_page_url))
 
     input = page.get_by_placeholder("Enter a number")

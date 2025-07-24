@@ -6,8 +6,6 @@ from playwright.sync_api import Page, expect
 
 from reflex.testing import AppHarness
 
-from utils import get_full_url
-
 
 @pytest.fixture
 def computed_vars_url() -> str:
@@ -23,7 +21,7 @@ def test_computed_vars(
 ):
     assert reflex_web_app.frontend_url is not None
 
-    page.goto(get_full_url(reflex_web_app, computed_vars_url))
+    page.goto(reflex_web_app.frontend_url + computed_vars_url)
     expect(page).to_have_url(re.compile(computed_vars_url))
 
     upper_box = page.locator('[id="upper"]')

@@ -4,13 +4,13 @@ import os
 import sys
 
 import reflex as rx
-import reflex_enterprise as rxe
+
 from pcweb import styles
-from pcweb.pages import page404, routes
-from pcweb.pages.docs import outblocks, exec_blocks
-from pcweb.whitelist import _check_whitelisted_path
-from pcweb.telemetry import get_pixel_website_trackers
 from pcweb.meta.meta import favicons_links
+from pcweb.pages import page404, routes
+from pcweb.pages.docs import exec_blocks, outblocks
+from pcweb.telemetry import get_pixel_website_trackers
+from pcweb.whitelist import _check_whitelisted_path
 
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
@@ -21,10 +21,9 @@ for doc, href in outblocks:
     exec_blocks(doc, href)
 
 # Create the app.
-app = rxe.App(
+app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
-    app_wraps={},
     theme=rx.theme(
         has_background=True,
         radius="large",
@@ -135,7 +134,6 @@ redirects = [
     # Redirect any removed pages to their new home.
     ("/docs/components/style-props", "/docs/components/props"),
     ("/docs/components/conditional-props", "/docs/components/conditional-rendering"),
-    ("/docs/enterprise", "/docs/enterprise/overview"),
     ("/docs/pages/routes", "/docs/pages/overview"),
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
     ("/changelog", "https://github.com/reflex-dev/reflex/releases"),

@@ -26,15 +26,12 @@ def preview() -> rx.Component:
     return rx.box(
         pattern_1(),
         rx.image(
-            src="/hosting/light/hosting-preview.jpg",
+            src=rx.color_mode_cond(
+                light="/hosting/light/hosting-preview.jpg",
+                dark="/hosting/dark/hosting-preview.jpg",
+            ),
             alt="Reflex Hosting Preview",
-            class_name="dark:hidden w-full h-full rounded-lg lg:rounded-2xl object-cover bg-center border border-slate-3",
-            loading="lazy",
-        ),
-        rx.image(
-            src="/hosting/dark/hosting-preview.jpg",
-            alt="Reflex Hosting Preview",
-            class_name="dark:block hidden w-full h-full rounded-lg lg:rounded-2xl object-cover bg-center border border-slate-3",
+            class_name="w-full h-full rounded-lg lg:rounded-2xl object-cover bg-center border border-slate-3",
             loading="lazy",
         ),
         class_name="w-full h-full max-w-[71rem] max-h-[41rem] rounded-[2rem] backdrop-blur-[6px] bg-[rgba(26, 27, 29, 0.48)] lg:p-4 lg:border border-slate-3 relative lg:mt-0 mt-[3.5rem]",
