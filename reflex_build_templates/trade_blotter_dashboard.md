@@ -1,34 +1,43 @@
 ---
 title: trade_blotter_dashboard
-description: "Interactive dashboard for tracking, managing, and reviewing trade activity in real time."
+description: "Automatically pulls executions from every venue, flags outliers, and emails a compliance-ready PDF to traders each night."
 author: "Reflex"
 image: "trade_blotter_dashboard.png"
 demo: "https://csv-trade-report-tool-gray-piano.rxc.app/"
 # source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
 meta: [
-    {"name": "keywords", "content": "trade blotter, trading dashboard, financial operations, reflex dashboard"},
+    {"name": "keywords", "content": "trade blotter, trading dashboard, financial operations, execution management, outlier detection, compliance reporting, nightly pdf, trading analytics"},
 ]
-tags: ["Dashboard"]
+tags: ["Trading", "Finance", "Compliance", "Analytics"]
 ---
 
-The following is a trade blotter dashboard built to help you track and manage trading activity. It offers real-time visibility into executed trades, pending orders, and key performance metrics, streamlining financial operations for traders and analysts.
+# End-of-Day Trade Blotter
 
-## Setup
+Trading desks juggle dozens of execution venues and ever-tightening regulations.
+This app consolidates every fill, surfaces unusual activity, and mails a polished, audit-ready report to your inbox before you leave for the day.
 
-To run this app locally, install Reflex and run:
+---
 
-```bash
-reflex init --template api_admin_panel
-```
+**Industry**
+Capital Markets · Asset Management · Hedge Funds
 
-To run the app, use:
+**End users**
+Traders · Compliance Officers · Risk Analysts · Middle-Office Operations
 
-```bash
-reflex run
-```
+**Components**
+Data Grid · KPI Cards · Line & Bar Charts · PDF Generator · Email Scheduler · Threshold Slider · Buttons & Toasts
 
-## Usage
+---
 
-To use the app insert the desired endpoint click `New Request` then in the input field and click on the `Send` button. You can optionally add a body, headers, and cookies to the request. The response will be displayed in the table.
+### What you can build
 
-When clicking on a row the request and response will be displayed in the respective sections. You can further customize this app by adding custom actions to the rows and `Commit` and `Close` buttons.
+* **Unified Executions Stream** – connect FIX sessions, REST APIs, or CSV drops to view all fills in one sortable grid.
+* **Outlier Radar** – auto-detect price or size deviations beyond configurable σ-levels; color-code and comment inline.
+* **Blotter PDF** – nightly PDF with firm branding, summary stats, full trade table, and highlighted anomalies—ready for regulators.
+* **On-Demand Sync** – “Sync Now” button re-pulls today’s trades and refreshes flags in seconds.
+* **Threshold Tuning Panel** – adjust detection sensitivity and instantly preview which trades will be flagged.
+* **Venue Credential Vault** – manage API keys, FIX logins, and test connectivity without leaving the UI.
+* **Flagged Trades CSV Export** – share anomaly lists with desk heads or auditors via one-click download.
+
+Everything runs in pure Python with Reflex—swap the mock data ingestors for your OMS or FIX engine, connect SMTP for real emails, and you’ve got a production-grade compliance blotter in minutes.
+

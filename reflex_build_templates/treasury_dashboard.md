@@ -1,34 +1,43 @@
 ---
 title: treasury_dashboard
-description: "Interactive dashboard for managing treasury operations, liquidity, and cash positions."
+description: "Streams balances, pending settlements, and cash forecasts into a single real-time dashboard with threshold alerts."
 author: "Reflex"
 image: "treasury_dashboard.png"
 demo: "https://treasury-and-liquidity-monitor-gold-sun.rxc.app/"
 # source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
 meta: [
-    {"name": "keywords", "content": "treasury dashboard, liquidity management, cash position, reflex dashboard"},
+    {"name": "keywords", "content": "treasury dashboard, liquidity management, cash forecasting, real-time balances, corporate treasury tools, finance analytics"},
 ]
-tags: ["Dashboard"]
+tags: ["Dashboard", "Finance", "Treasury", "Analytics"]
 ---
 
-The following is a treasury dashboard designed to help teams manage liquidity, monitor cash positions, and streamline treasury workflows. It provides visibility into financial health, cash flow activity, and operational risk from a centralized interface.
+# Treasury & Liquidity Monitor
 
-## Setup
+Corporate treasurers need a single cockpit for **exactly where cash sits—and where it’s headed next**.
+This web app streams bank balances, settlement pipelines, and 30-day liquidity forecasts onto one real-time screen, then fires instant alerts the moment thresholds are breached.
 
-To run this app locally, install Reflex and run:
+---
 
-```bash
-reflex init --template api_admin_panel
-```
+**Industry**
+Corporate Finance · Banking & Payments · FinTech
 
-To run the app, use:
+**End users**
+Treasury & Cash Management · Finance Operations · CFO Office · Risk & Compliance
 
-```bash
-reflex run
-```
+**Components**
+Balance Tiles · Line & Area Charts · Data Tables · Forecast Sliders · Alert Banners · CSV Export Buttons
 
-## Usage
+---
 
-To use the app insert the desired endpoint click `New Request` then in the input field and click on the `Send` button. You can optionally add a body, headers, and cookies to the request. The response will be displayed in the table.
+### What you can build
 
-When clicking on a row the request and response will be displayed in the respective sections. You can further customize this app by adding custom actions to the rows and `Commit` and `Close` buttons.
+* **Unified Cash Panel** – live balances across all banks and currencies, refreshing every two seconds.
+* **Threshold Alerts** – user-defined upper / lower limits trigger on-screen banners and email notifications.
+* **Settlement Tracker** – see pending settlements with status, counterparty, and expected clearing time at a glance.
+* **30-Day Liquidity Forecast** – interactive charts project daily cash positions; tweak growth, FX, or settlement assumptions in real time.
+* **Drill-Down Account View** – click any tile to inspect intraday movements, historical balances, and transaction history.
+* **Alert Center** – review, acknowledge, and export a log of all triggered alerts for audit or compliance.
+* **One-Click CSV Export** – download current alert logs.
+
+Everything runs in pure Python with **Reflex**—swap the mocked data pullers for real banking APIs, forecasting models, or ERP feeds, and you’ve got a production-ready treasury cockpit in minutes.
+

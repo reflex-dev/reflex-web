@@ -1,34 +1,42 @@
 ---
 title: finance_dashboard
-description: "Interactive dashboard for visualizing and managing financial data and performance."
+description: "GPU-powered analytics dashboard that delivers custom equity-factor risk models in minutes instead of weeks"
 author: "Reflex"
 image: "finance_dashboard.png"
 demo: "https://finance-dashboard-neon-apple.reflex.run/"
 # source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
 meta: [
-    {"name": "keywords", "content": "finance dashboard, financial data, reflex dashboard"},
+    {"name": "keywords", "content": "factor risk model, portfolio analytics, equity factors, GPU analytics, risk management, Reflex app, finance dashboard"},
 ]
-tags: ["Dashboard"]
+tags: ["Dashboard", "Finance", "Risk", "Analytics"]
 ---
 
-The following is a finance dashboard designed for analyzing and managing key financial metrics. It provides a clear view of performance indicators, cash flow trends, and other essential financial insights in a single interface.
 
-## Setup
+# Factor-Risk Analytics Dashboard
 
-To run this app locally, install Reflex and run:
+Running multi-factor risk models used to take hours—or days.
+With this Reflex-powered dashboard, portfolio managers upload returns, launch a GPU-accelerated model run, and pivot the results in seconds. Drill into style, industry, or custom factors, compare portfolios side-by-side, and export compliant reports—all from one browser tab.
 
-```bash
-reflex init --template api_admin_panel
-```
 
-To run the app, use:
+**Industry**
+Asset Management · Hedge Funds · Investment Banking · Pension Funds
 
-```bash
-reflex run
-```
+**End users**
+Portfolio Managers · Risk Officers · Quant Researchers · Investment Analysts
 
-## Usage
+**Components**
+AG Grid Pivot Table · Line & Bar Charts · Heatmaps · KPI Cards · File-Upload Wizard · Progress Bars · Toggle Switches
 
-To use the app insert the desired endpoint click `New Request` then in the input field and click on the `Send` button. You can optionally add a body, headers, and cookies to the request. The response will be displayed in the table.
 
-When clicking on a row the request and response will be displayed in the respective sections. You can further customize this app by adding custom actions to the rows and `Commit` and `Close` buttons.
+
+### What you can build
+
+* **X-Sigma-Rho Explorer** – slice and dice factor contributions with a drag-and-drop pivot table and spark-bar overlays.
+* **Live GPU Run Monitor** – watch progress, ETA, and GPU utilization in real time; cancel or reprioritize queued jobs.
+* **Value-at-Risk & Stress Tests** – visualize VaR ladders, shock scenarios, and tail-risk heatmaps across portfolios.
+* **Model Fit & Back-tests** – track R², information ratios, and forecast accuracy against historical benchmarks.
+* **Portfolio Comparison** – line up three models, highlight deltas with red/green heatmaps, and export a side-by-side PDF.
+* **Alert Engine** – trigger email or Slack pings when beta, VaR, or exposure thresholds are breached.
+
+All logic is pure Python - swap the mock data loaders for Databricks, Snowflake, or Bloomberg, and you’ve got a production-ready risk cockpit in minutes.
+
