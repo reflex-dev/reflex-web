@@ -43,7 +43,7 @@ def app_dialog_with_trigger(
                     ),
                     rx.link(
                         button(
-                            "Open App",
+                            "Learn More",
                             variant="secondary",
                             size="md",
                         ),
@@ -80,7 +80,7 @@ def extended_gallery_grid_item(app_url: str, app_name: str, app_author: str, app
                     rx.el.div(
                         rx.link(
                             button(
-                                "Open App",
+                                "Learn More",
                                 variant="secondary",
                                 size="md",
                                 class_name="w-full",
