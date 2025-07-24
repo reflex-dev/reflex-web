@@ -66,6 +66,10 @@ def get_sidebar_items_enterprise_components():
                     link=enterprise.ag_grid.theme.path,
                 ),
                 SideBarItem(
+                    names="Cell Selection",
+                    link=enterprise.ag_grid.cell_selection.path,
+                ),
+                SideBarItem(
                     names="Value Transformers",
                     link=enterprise.ag_grid.value_transformers.path,
                 ),
