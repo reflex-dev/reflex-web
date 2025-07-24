@@ -11,7 +11,7 @@ def gallery_app_card(app: dict) -> rx.Component:
                     alt="Image preview for app: " + app["title"],
                     class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out",
                 ),
-                href=f"/templates/{app['url'].replace(' ', '-').lower()}",
+                href=f"/docs/getting-started/open-source-templates/{app['url'].replace(' ', '-').lower()}",
             ),
             class_name="relative border-slate-5 border-b border-solid w-full overflow-hidden h-[11.5rem]",
         ),

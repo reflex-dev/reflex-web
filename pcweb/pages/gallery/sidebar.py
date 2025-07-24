@@ -138,8 +138,9 @@ def checkbox_item(text: str, value: str):
             class_name="text-sm font-medium text-slate-12 font-sans cursor-pointer",
         ),
         on_click=TemplatesState.toggle_template(value),
-        class_name="flex flex-row items-center gap-2 px-3 py-2 rounded-md bg-slate-3 hover:bg-slate-4 transition-colors cursor-pointer",
+        class_name="flex items-center gap-2 px-3 py-2 rounded-md bg-slate-3 hover:bg-slate-4 transition-colors cursor-pointer",
     )
+
 
 
 def filter_section(title: str, content: list[str]):
@@ -158,7 +159,7 @@ def filter_section(title: str, content: list[str]):
         rx.accordion.content(
             rx.box(
                 *[checkbox_item(item, item) for item in content],
-                class_name="flex flex-col gap-2",
+                class_name="flex flex-row gap-2 flex-wrap",
             ),
             class_name="before:!h-0 after:!h-0 radix-state-open:animate-accordion-down radix-state-closed:animate-accordion-up transition-all !px-0",
         ),
