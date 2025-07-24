@@ -45,7 +45,7 @@ ENTERPRISE_DOCS_URL = "https://enterprise.reflex.dev"
 DATABRICKS_NOTION_URL = "https://reflex-dev.notion.site/reflex-x-databricks"
 DEMO_VIDEO_URL = "https://www.youtube.com/watch?v=s-kr8v7827g"
 CAL_REQUEST_DEMO_URL = (
-    "https://cal.com/team/reflex/reflex-team-enterprise-follow-up-call"
+    "https://cal.com/team/reflex/reflex-intro"
 )
 
 # Install urls.
