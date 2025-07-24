@@ -6,12 +6,13 @@ AgGrid provides a way to align multiple grids together. This is useful when you 
 
 You can do so through the `aligned_grids` prop. This prop takes a list of grid IDs that you want to align. 
 
-```python demo exec toggle
+```python demo exec
 import pandas as pd
 
 import reflex_enterprise as rxe
 
-df = pd.read_json("https://www.ag-grid.com/example-assets/olympic-winners.json")
+# Olympic winners data (originally from https://www.ag-grid.com/example-assets/olympic-winners.json)
+df = pd.read_json("data/olympic-winners.json")
 
 row_data = df.to_dict("records")
 

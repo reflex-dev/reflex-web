@@ -2,7 +2,7 @@
 
 AG Chart is a powerful charting library that provides interactive charts and data visualization components for enterprise applications.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 

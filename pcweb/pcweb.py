@@ -24,6 +24,7 @@ for doc, href in outblocks:
 app = rxe.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
+    app_wraps={},
     theme=rx.theme(
         has_background=True,
         radius="large",

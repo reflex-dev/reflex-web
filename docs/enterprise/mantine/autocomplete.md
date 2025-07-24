@@ -6,7 +6,7 @@ title: Autocomplete
 
 `rxe.mantine.autocomplete` is a component for providing suggestions as the user types. It is useful for enhancing user experience by offering relevant options based on input.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 

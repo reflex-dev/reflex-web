@@ -6,7 +6,7 @@ title: Ring Progress
 
 `rxe.mantine.ring_progress` is a component for displaying progress in a circular format. It is useful for visualizing completion percentages or other metrics in a compact and visually appealing way.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import random

@@ -12,7 +12,7 @@ title: TagsInput
 
 ## Basic Example
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -26,7 +26,7 @@ def tags_input_simple_page():
 
 ## State Example
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
