@@ -152,7 +152,7 @@ def ph_1() -> rx.Component:
 
 @rx.memo
 def footer() -> rx.Component:
-    from pcweb.pages.framework.views.footer_index import dark_mode_toggle, ph_1
+    from pcweb.pages.framework.views.footer_index import dark_mode_toggle
 
     return rx.el.footer(
         rx.box(
