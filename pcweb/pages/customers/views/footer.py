@@ -29,6 +29,7 @@ from pcweb.pages.gallery import gallery
 from pcweb.signup import IndexState
 
 from pcweb.pages.framework.views.footer_index import dark_mode_toggle
+from pcweb.views.footer import ph_1
 
 
 def footer_link(text: str, href: str) -> rx.Component:
@@ -164,7 +165,11 @@ def footer_customer() -> rx.Component:
                     footer_link("Forum", FORUM_URL),
                     footer_link("Use Cases", use_cases_page.path),
                     rx.box(class_name="grow"),
-                    dark_mode_toggle(),
+                    rx.el.div(
+                        ph_1(),
+                        dark_mode_toggle(),
+                        class_name="flex flex-row items-center gap-6",
+                    ),
                 ],
                 class_name="!row-span-3 !border-t-0",
             ),
