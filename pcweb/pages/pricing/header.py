@@ -201,7 +201,7 @@ How they heard about Reflex: {self.referral_source}"""
 
             if self.is_small_company():
                 yield ThankYouDialogState.push(True)
-                yield rx.redirect("https://cal.com/team/reflex/reflexdemo") 
+                yield rx.redirect("https://cal.com/team/reflex/reflex-intro") 
                 return
 
             params = {
@@ -485,7 +485,7 @@ def custom_quote_form() -> rx.Component:
                             "LinkedIn profile URL",
                             "linkedin_url",
                             "https://linkedin.com/in/your-profile",
-                            required=True,
+                            required=False,
                             input_type="url",
                         ),
                     ),
