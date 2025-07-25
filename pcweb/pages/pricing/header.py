@@ -196,7 +196,7 @@ How they heard about Reflex: {self.referral_source}"""
             yield QuoteFormState.send_demo_event(form_data)
 
             yield rx.call_script(
-                f"try {{ ko.identify('{email}'); }} catch(e) {{ console.warn('Koala identify failed:', e); }}"
+                f"try {{ signals.identify('{email}'); }} catch(e) {{ console.warn('Signals identify failed:', e); }}"
             )
 
             if self.is_small_company():
