@@ -134,7 +134,7 @@ cell_selection={
 }
 ```
 
-**Important:** The fill handle must be used in conjunction with `enable_range_selection=True`.
+**Note:** While `enable_range_selection=True` enhances fill handle functionality by allowing range selection, it is not required for basic fill handle operations.
 
 ### Fill Handle Events
 
@@ -281,7 +281,7 @@ def advanced_selection_example():
 
 ## Best Practices
 
-1. **Always combine fill handle with range selection**: The fill handle requires `enable_range_selection=True` to function properly.
+1. **Consider range selection for enhanced functionality**: While `enable_range_selection=True` is not required for fill handle, it provides additional selection capabilities that complement fill operations.
 
 2. **Handle cell value changes**: When using fill handle, implement `on_cell_value_changed` to process the data updates in your backend.
 
