@@ -28,6 +28,23 @@ def cond_example():
 The second component is optional and can be omitted.
 If it is omitted, nothing is rendered if the condition is `False`.
 
+```python demo exec
+class CondOptionalState(rx.State):
+    show_optional: bool = True
+
+    @rx.event
+    def toggle_optional(self):
+        self.show_optional = not (self.show_optional)
+
+
+def cond_optional_example():
+    return rx.vstack(
+        rx.button("Toggle", on_click=CondOptionalState.toggle_optional),
+        rx.cond(CondOptionalState.show_optional, rx.text("This text appears when condition is True", color="green")),
+        rx.text("This text is always visible", color="gray"),
+    )
+```
+
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=6040&end=6463
 # Video: Conditional Rendering
 ```

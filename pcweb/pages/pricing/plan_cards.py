@@ -18,14 +18,19 @@ def radial_circle(violet: bool = False) -> rx.Component:
 
     """
     theme = "violet" if violet else ""
-    return rx.image(
-        src=rx.color_mode_cond(
-            light=f"/logos/light/radial_circle{theme}.svg",
-            dark=f"/logos/dark/radial_circle{theme}.svg",
+    return rx.fragment(
+        rx.image(
+            src=f"/logos/light/radial_circle{theme}.svg",
+            alt="Radial circle",
+            loading="lazy",
+            class_name="top-0 right-0 absolute pointer-events-none z-[-1] dark:hidden",
         ),
-        alt="Radial circle",
-        loading="lazy",
-        class_name="top-0 right-0 absolute pointer-events-none z-[-1]",
+        rx.image(
+            src=f"/logos/dark/radial_circle{theme}.svg",
+            alt="Radial circle",
+            loading="lazy",
+            class_name="dark:block hidden top-0 right-0 absolute pointer-events-none z-[-1]",
+        ),
     )
 
 
@@ -228,12 +233,14 @@ def _render_feature_list(features: list[tuple[str, str]]) -> rx.Component:
             rx.el.li(
                 rx.icon("check", class_name="!text-green-500", size=16),
                 feature[1],
-                rx.tooltip(
-                    rx.icon("info", class_name="!text-slate-9", size=12),
-                    content=feature[2],
-                )
-                if len(feature) == 3
-                else "",
+                (
+                    rx.tooltip(
+                        rx.icon("info", class_name="!text-slate-9", size=12),
+                        content=feature[2],
+                    )
+                    if len(feature) == 3
+                    else ""
+                ),
                 class_name="text-sm font-medium text-slate-11 flex items-center gap-3 mb-2",
             )
             for feature in features

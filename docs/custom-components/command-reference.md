@@ -1,20 +1,13 @@
 # Command Reference
 
-```python exec
-import reflex as rx
-from pcweb.pages.docs import wrapping_react
-from pcweb.pages.gallery import gallery
-from pcweb.pages.docs import custom_components
-from pcweb.templates.docpage import doccmdoutput
-from pcweb.styles.fonts import code
-```
-
 The custom component commands are under `reflex component` subcommand. To see the list of available commands, run `reflex component --help`. To see the manual on a specific command, run `reflex component <command> --help`, for example, `reflex component init --help`.
 
-```python eval
-doccmdoutput(
-    command="reflex component --help",
-    output="""Usage: reflex component [OPTIONS] COMMAND [ARGS]...
+```bash
+reflex component --help
+```
+
+```text
+Usage: reflex component [OPTIONS] COMMAND [ARGS]...
 
   Subcommands for creating and publishing Custom Components.
 
@@ -24,17 +17,19 @@ Options:
 Commands:
   init     Initialize a custom component.
   build    Build a custom component.
-  share    Collect more details on the published package for gallery.""")
+  share    Collect more details on the published package for gallery.
 ```
 
 ## reflex component init
 
 Below is an example of running the `init` command.
 
-```python eval
-doccmdoutput(
-    command="reflex component init",
-    output="""reflex component init
+```bash
+reflex component init
+```
+
+```text
+reflex component init
 ─────────────────────────────────────── Initializing reflex-google-auth project ───────────────────────────────────────
 Info: Populating pyproject.toml with package name: reflex-google-auth
 Info: Initializing the component directory: custom_components/reflex_google_auth
@@ -51,16 +46,13 @@ Custom component initialized successfully!
 [ pyproject.toml ]: Project configuration file. Please fill in details such as your name, email, homepage URL.
 [ custom_components/ ]: Custom component code template. Start by editing it with your component implementation.
 [ google_auth_demo/ ]: Demo App. Add more code to this app and test.
-""",
-)
 ```
 
 The `init` command uses the current enclosing folder name to construct a python package name, typically in the kebab case. For example, if running init in folder `google_auth`, the package name will be `reflex-google-auth`. The added prefix reduces the chance of name collision on PyPI (the Python Package Index), and it indicates that the package is a Reflex custom component. The user can override the package name by providing the `--package-name` option.
 
 The `init` command creates a set of files and folders prefilled with the package name and other details. During the init, the `custom_component` folder is installed locally in editable mode, so a developer can incrementally develop and test with ease. The changes in component implementation is automatically reflected where it is used. Below is the folder structure after the `init` command.
 
-```python eval
-rx._x.code_block("""
+```text
 google_auth/
 ├── pyproject.toml
 ├── README.md
@@ -73,17 +65,6 @@ google_auth/
         google_auth_demo/
         requirements.txt
         rxconfig.py
-""",
-  language="bash",
-  style={
-    "border-radius": "12px",
-    "border": "1px solid var(--c-slate-4)",
-    "background": "var(--c-slate-2)",
-    "color": "var(--c-slate-12)",
-    "font-family": "Source Code Pro",
-    **code
-  }
-)
 ```
 
 ### pyproject.toml
@@ -110,10 +91,12 @@ A demo app is generated inside `google_auth_demo` folder with import statements 
 
 The help manual is shown when adding the `--help` option to the command.
 
-```python eval
-doccmdoutput(
-    command="reflex component init --help",
-    output="""Usage: reflex component init [OPTIONS]
+```bash
+reflex component init --help
+```
+
+```text
+Usage: reflex component init [OPTIONS]
 
   Initialize a custom component.
 
@@ -134,7 +117,6 @@ Options:
                                   The log level to use.  [default:
                                   LogLevel.INFO]
   --help                          Show this message and exit.
-""")
 ```
 
 ## reflex component publish
@@ -149,10 +131,11 @@ It is not required to run the `build` command separately before publishing. The 
 
 The `build` command generates the `.tar.gz` and `.whl` distribution files to be uploaded to the desired package index, for example, PyPI. This command must be run at the top level of the project where the `pyproject.toml` file is. As a result of a successful build, there is a new `dist` folder with the distribution files.
 
-```python eval
-doccmdoutput(
-    command="reflex component build --help",
-    output="""reflex component build --help
+```bash
+reflex component build --help
+```
+
+```text
 Usage: reflex component build [OPTIONS]
 
   Build a custom component. Must be run from the project root directory where
@@ -167,5 +150,4 @@ Options:
                                   The log level to use.  [default:
                                   LogLevel.INFO]
   --help                          Show this message and exit.
-""")
 ```

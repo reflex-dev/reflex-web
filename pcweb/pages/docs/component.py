@@ -16,6 +16,7 @@ from typing import (
 )
 import reflex as rx
 import flexdown
+from flexdown.document import Document
 import textwrap
 from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp, docdemobox
@@ -1145,7 +1146,7 @@ def multi_docs(path, comp, component_list, title):
     def ll():
         nonlocal fname
         fname = fname.replace(".md", "-ll.md")
-        d2 = flexdown.parse_file(fname)
+        d2 = Document.from_file(fname)
         toc = get_toc(d2, fname, component_list)
         return toc, rx.box(
             links("ll", ll_doc_exists, path),

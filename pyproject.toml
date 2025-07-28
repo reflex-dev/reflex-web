@@ -9,13 +9,13 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "email-validator==2.2.0",
-    "black==23.10.0",
+    "black>=25.0",
     "pandas>=1.5.3",
     "psycopg[binary]==3.2.9",
     "plotly-express==0.4.1",
     "googletrans-py==4.0.0",
-    "openai==1.78.1",
-    "flexdown>=0.1.5a12,<0.2",
+    "openai==1.97.0",
+    "flexdown>=0.2.0",
     "reflex @ git+https://github.com/reflex-dev/reflex@main",
     "mistletoe>=1.2.1",
     "reflex-image-zoom>=0.0.2",
@@ -23,9 +23,9 @@ dependencies = [
     "reflex-pyplot==0.2.1",
     "reflex-enterprise>=0.3.1",
     "requests>=2.32.3",
-    "posthog==4.0.1",
-    "reflex_ag_grid>=0.0.10",
-    "fastapi>=0.116.1",
+    "posthog==6.1.1",
+    "typesense>=1.1.1",
+    "fastapi"
 ]
 
 [dependency-groups]
@@ -70,3 +70,5 @@ lint.ignore = [
     "TRY0",
 ]
 lint.pydocstyle.convention = "google"
+[tool.uv]
+required-version = ">=0.7.0"

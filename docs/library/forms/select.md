@@ -174,3 +174,27 @@ def select_form_example():
         width="50%",
     )
 ```
+
+
+### Using Select within a Drawer component
+
+If using within a [Drawer](../../overlay/drawer/) component, set the `position` prop to `"popper"` to ensure the select menu is displayed correctly.
+
+```python demo
+rx.drawer.root(
+    rx.drawer.trigger(rx.button("Open Drawer")),
+    rx.drawer.overlay(z_index="5"),
+    rx.drawer.portal(
+        rx.drawer.content(
+            rx.vstack(
+                rx.drawer.close(rx.box(rx.button("Close"))),
+                rx.select(["apple", "grape", "pear"], position="popper"),
+            ),
+            width="20em",
+            padding="2em",
+            background_color=rx.color("gray", 1),
+        ),
+    ),
+    direction="left",
+)
+```

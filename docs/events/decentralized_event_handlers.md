@@ -53,11 +53,11 @@ Here's a comparison between traditional event handlers defined within state clas
 # Traditional event handler within a state class
 class TraditionalState(rx.State):
     count: int = 0
-    
+
     @rx.event
     def increment(self, amount: int = 1):
         self.count += amount
-    
+
 # Usage in components
 rx.button("Increment", on_click=TraditionalState.increment(5))
 
