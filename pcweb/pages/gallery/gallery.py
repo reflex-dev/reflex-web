@@ -12,9 +12,9 @@ def get_templatey_apps(paths):
     """Method to parse each markdown file and return the data from the file"""
     gallery_apps = {}
     for path in reversed(sorted(paths)):
-        document = flexdown.parse_file(path)
-        path = path.replace(".md", "/")
-        gallery_apps[path] = document
+        document = flexdown.Document.from_file(path)  # This has metadata
+        key = str(path).replace(".md", "/")
+        gallery_apps[key] = document
     return gallery_apps
 
 paths = flexdown.utils.get_flexdown_files(REFLEX_BUILD_TEMPLATES_PATH)

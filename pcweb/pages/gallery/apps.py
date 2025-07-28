@@ -8,6 +8,7 @@ from pcweb.constants import SCREENSHOT_BUCKET
 from pcweb.flexdown import xd2 as xd
 from pcweb.pages.gallery import gallery
 from pcweb.templates.gallery_app_page import gallery_app_page
+import copy
 
 GALLERY_APP_SOURCES = [
     ("templates/", "docs/getting-started/open-source-templates/"),
@@ -20,9 +21,9 @@ def load_all_gallery_apps():
     for folder, _ in GALLERY_APP_SOURCES:
         paths = flexdown.utils.get_flexdown_files(folder)
         for path in reversed(sorted(paths)):
-            document = flexdown.parse_file(path)
+            document = flexdown.Document.from_file(path)  # This has metadata
             document.metadata["title"] = document.metadata.get("title", "Untitled").replace("_", " ").title()
-            clean_path = path.replace(".md", "/")
+            clean_path = str(path).replace(".md", "/")
             gallery_apps[(clean_path, folder)] = document
     return gallery_apps
 
