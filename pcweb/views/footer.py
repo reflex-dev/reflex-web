@@ -135,6 +135,21 @@ def newsletter_form() -> rx.Component:
     )
 
 
+def ph_1() -> rx.Component:
+    return rx.fragment(
+        rx.image(
+            src="/logos/dark/ph_1.svg",
+            class_name="hidden dark:block h-[40px] w-fit",
+            alt="1st product of the day logo",
+        ),
+        rx.image(
+            src="/logos/light/ph_1.svg",
+            class_name="dark:hidden block h-[40px] w-fit",
+            alt="1st product of the day logo",
+        ),
+    )
+
+
 @rx.memo
 def footer() -> rx.Component:
     from pcweb.pages.framework.views.footer_index import dark_mode_toggle
@@ -142,7 +157,11 @@ def footer() -> rx.Component:
     return rx.el.footer(
         rx.box(
             rx.box(
-                menu_socials(),
+                rx.box(
+                    menu_socials(),
+                    ph_1(),
+                    class_name="flex flex-col gap-6",
+                ),
                 rx.text(
                     f"© {datetime.now().year} Pynecone, Inc.",
                     class_name="font-small text-slate-9",
