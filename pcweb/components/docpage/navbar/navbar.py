@@ -434,15 +434,13 @@ def new_component_section() -> rx.Component:
                     rx.badge(
                         "Docs",
                         variant="surface",
-                        class_name=(
-                            "text-violet-9 text-sm",
-                            rx.cond(
-                                rx.State.router.page.path.contains("docs")
-                                | rx.State.router.page.path.contains("ai-builder")
-                                | rx.State.router.page.path.contains("cloud"),
-                                "xl:flex hidden",
-                                "hidden",
-                            ),
+                        class_name="text-violet-9 xl:flex hidden text-sm",
+                        display=rx.cond(
+                            rx.State.router.page.path.contains("docs")
+                            | rx.State.router.page.path.contains("ai-builder")
+                            | rx.State.router.page.path.contains("cloud"),
+                            "block",
+                            "none",
                         ),
                     ),
                     class_name="flex flex-row gap-x-0",
