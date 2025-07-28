@@ -24,6 +24,8 @@ dependencies = [
     "reflex-enterprise>=0.3.1",
     "requests>=2.32.3",
     "posthog==4.0.1",
+    "reflex_ag_grid>=0.0.10",
+    "fastapi>=0.116.1",
 ]
 
 [dependency-groups]
