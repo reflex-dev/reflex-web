@@ -5,6 +5,7 @@ from reflex.testing import AppHarness
 
 from utils import get_full_url
 
+
 @pytest.fixture
 def event_argument_url() -> str:
     from pcweb.pages import docs
@@ -34,5 +35,5 @@ def test_lambdas(
         )
 
     check_box_color(1, "rgb(245, 168, 152)", "rgb(245, 168, 152)", "rgb(245, 168, 152)")
-    check_box_color(2, "rgb(60, 179, 113)", "DarkBlue", "rgb(0, 0, 139)")
+    check_box_color(2, "rgb(60, 179, 113)", "hsl(240, 100%, 27%)", "rgb(0, 0, 139)")
     check_box_color(3, "rgb(222, 173, 227)", "#AEADE3", "rgb(174, 173, 227)")
