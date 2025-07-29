@@ -40,6 +40,7 @@ def get_sidebar_items_ai_builder_overview():
             children=[
                 ai_builder.integrations.github,
                 ai_builder.integrations.database,
+                ai_builder.integrations.mcp,
             ],
         ),
     ]
