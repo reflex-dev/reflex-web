@@ -11,8 +11,6 @@ Examples:
 """
 
 WHITELISTED_PAGES = [
-	# "/templates",
-	# "/docs/getting-started"
 ]
 
 

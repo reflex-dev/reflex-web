@@ -20,6 +20,7 @@ from .buttons.discord import discord
 from .buttons.github import github
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
+from .browser_use import browser_use_search
 
 
 def resource_item(text: str, url: str, icon: str, index):
@@ -512,6 +513,7 @@ def new_component_section() -> rx.Component:
         ),
         nav_menu.list(
             nav_menu.item(search_bar()),
+            nav_menu.item(browser_use_search()),
             nav_menu.item(github()),
             nav_menu.item(discord(), class_name="xl:flex hidden"),
             nav_menu.item(
