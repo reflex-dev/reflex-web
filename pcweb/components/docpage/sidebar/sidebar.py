@@ -422,7 +422,7 @@ def sidebar_comp(
                     ),
                     sidebar_category(
                         "MCP",
-                        "/docs/ai-builder/integrations/mcp",
+                        "/docs/ai-builder/integrations/mcp-overview",
                         "plug",
                         1,
                     ),
@@ -515,7 +515,7 @@ def sidebar_comp(
                         rx.el.ul(
                             create_sidebar_section(
                                 "MCP Integration",
-                                ai_builder_pages.integrations.mcp.path,
+                                ai_builder_pages.integrations.mcp_overview.path,
                                 mcp_items,
                                 ai_builder_overview_index,
                                 url,
