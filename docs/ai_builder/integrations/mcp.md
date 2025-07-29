@@ -74,3 +74,7 @@ Note: Codex requires MCP servers to communicate over stdio. The `@modelcontextpr
 ## Available Tools
 
 The Reflex MCP server provides tools for accessing component documentation and Reflex documentation through standardized MCP capabilities.
+
+## Enterprise Use
+
+For enterprise customers requiring on-premises deployment of the Reflex MCP server, please [book a demo](https://reflex.dev/pricing/) to discuss your requirements.
