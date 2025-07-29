@@ -15,7 +15,7 @@ class TutorialState(rx.State):
         )
     ]
 
-    @rx.event
+    @rx.event(background=True)
     async def submit(self, form_data: dict):
         question = form_data["question"]
         # Our chatbot has some brains now!
@@ -31,8 +31,9 @@ class TutorialState(rx.State):
         # Add to the answer as the chatbot responds.
         answer = ""
         # self.chat_history = []
-        self.chat_history.append((question, answer))
-        yield
+        async with self:
+            self.chat_history.append((question, answer))
+            yield
 
         async for item in session:
             if hasattr(item.choices[0].delta, "content"):
@@ -40,8 +41,9 @@ class TutorialState(rx.State):
                     # presence of 'None' indicates the end of the response
                     break
                 answer += item.choices[0].delta.content
-                self.chat_history[-1] = (self.chat_history[-1][0], answer)
-                yield
+                async with self:
+                    self.chat_history[-1] = (self.chat_history[-1][0], answer)
+                    yield
 
     @rx.event
     def clear_chat(self):

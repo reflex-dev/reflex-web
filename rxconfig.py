@@ -8,7 +8,7 @@ config = rx.Config(
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
     ],
-    show_build_with_reflex=False,
+    show_build_with_reflex=True,
     telemetry_enabled=False,
     plugins=[rx.plugins.TailwindV4Plugin(), rx.plugins.SitemapPlugin()],
 )

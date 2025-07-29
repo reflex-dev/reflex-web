@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/templates/tree/main/ai_image_gen"
 meta: [
     {"name": "keywords", "content": "image generation, ai image generation, reflex image generation, Replicate image generation"},
 ]
+tags: ["AI/ML", "Image Generation"]
 ---
 
 The following is an app that allows you to generate AI images. The current map uses replicate's api to generate images but can be easily modified to use other image generation services.

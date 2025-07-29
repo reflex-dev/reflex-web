@@ -284,7 +284,7 @@ def docpage_footer(path: str):
     from pcweb.pages.faq import faq
     from pcweb.pages.framework.views.footer_index import dark_mode_toggle
     from pcweb.pages.gallery import gallery
-    from pcweb.views.footer import menu_socials, newsletter_form
+    from pcweb.views.footer import menu_socials, newsletter_form, ph_1
 
     return rx.el.footer(
         rx.box(
@@ -346,15 +346,16 @@ def docpage_footer(path: str):
             ),
             rx.box(
                 rx.box(
+                    ph_1(),
                     rx.text(
                         f"Copyright © {datetime.now().year} Pynecone, Inc.",
                         class_name="font-small text-slate-9",
                     ),
-                    menu_socials(),
-                    class_name="flex flex-row justify-between items-center w-full",
+                    dark_mode_toggle(),
+                    class_name="flex flex-col gap-6",
                 ),
-                dark_mode_toggle(),
-                class_name="flex flex-col gap-4",
+                menu_socials(),
+                class_name="flex flex-row gap-6 justify-between items-end w-full",
             ),
             class_name="flex flex-col justify-between gap-10 py-6 lg:py-8 w-full",
         ),

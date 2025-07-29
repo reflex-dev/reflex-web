@@ -28,20 +28,23 @@ class IndexState(rx.State):
     # Whether to show the confetti.
     show_confetti: bool = False
 
-    def send_contact_to_webhook(
+    @rx.event(background=True)
+    async def send_contact_to_webhook(
         self,
         email: str,
     ) -> None:
-        with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
-            response = client.post(
-                REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL,
-                json={
-                    "email": email,
-                },
-            )
+        with contextlib.suppress(httpx.HTTPError):
+            async with httpx.AsyncClient() as client:
+                response = await client.post(
+                    REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL,
+                    json={
+                        "email": email,
+                    },
+                )
             response.raise_for_status()
 
-    def add_contact_to_loops(
+    @rx.event(background=True)
+    async def add_contact_to_loops(
         self,
         email: str,
     ):
@@ -56,8 +59,8 @@ class IndexState(rx.State):
             "Authorization": f"Bearer {loops_api_key}",
         }
         try:
-            with httpx.Client() as client:
-                response = client.post(
+            async with httpx.AsyncClient() as client:
+                response = await client.post(
                     url,
                     headers=headers,
                     json={
@@ -73,8 +76,8 @@ class IndexState(rx.State):
     def signup_for_another_user(self):
         self.signed_up = False
 
-    @rx.event
-    def signup(
+    @rx.event(background=True)
+    async def signup(
         self,
         form_data: dict[str, Any],
     ):
@@ -90,17 +93,22 @@ class IndexState(rx.State):
 
             except EmailNotValidError as e:
                 # Alert the error message.
-                return rx.toast.warning(
+                yield rx.toast.warning(
                     str(e),
                     style={
                         "border": "1px solid #3C3646",
                         "background": "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%)",
                     },
                 )
-        self.send_contact_to_webhook(email)
-        self.add_contact_to_loops(email)
-        self.signed_up = True
-        return [
-            rx.call_script(f"try {{ ko.identify('{email}'); }} catch(e) {{ console.warn('Koala identify failed:', e); }}"),
-            rx.toast.success("Thanks for signing up to the Newsletter!")
+                return
+        yield IndexState.send_contact_to_webhook(email)
+        yield IndexState.add_contact_to_loops(email)
+        async with self:
+            self.signed_up = True
+            yield
+        yield [
+            rx.call_script(
+                f"try {{ ko.identify('{email}'); }} catch(e) {{ console.warn('Koala identify failed:', e); }}"
+            ),
+            rx.toast.success("Thanks for signing up to the Newsletter!"),
         ]
