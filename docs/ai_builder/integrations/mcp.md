@@ -177,9 +177,9 @@ Example usage: "Show me the getting started guide"
 
 **Solutions**:
 - Verify your internet connection
-- Check that the server is running by visiting `https://reflex-mcp-server.fly.dev`
+- Check that the server is running by visiting `https://mcp.reflex.dev/mcp`
 - Ensure your MCP client configuration uses the correct URL format
-- For SSE connections, make sure your client supports Server-Sent Events
+- Verify your OAuth 2.1 authentication credentials are valid
 
 ### Configuration Problems
 
@@ -196,9 +196,9 @@ Example usage: "Show me the getting started guide"
 **Problem**: Some tools or documentation not accessible
 
 **Solutions**:
-- The server is in alpha - some features may be temporarily unavailable
-- Check the server status at `https://reflex-mcp-server.fly.dev`
-- Try alternative transport methods (SSE vs HTTP) if one isn't working
+- Some features may be temporarily unavailable during updates
+- Check the server status at `https://mcp.reflex.dev/mcp`
+- Verify your authentication credentials are properly configured
 - Report issues to the Reflex team for investigation
 
 ### Performance Issues
