@@ -1,4 +1,4 @@
-# MCP Installation
+# Installation
 
 ```python exec
 import reflex as rx
