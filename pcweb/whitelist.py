@@ -10,10 +10,7 @@ Examples:
 - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 """
 
-WHITELISTED_PAGES = [
-	# "/templates",
-	# "/docs/getting-started"
-]
+WHITELISTED_PAGES = []
 
 
 def _check_whitelisted_path(path: str):

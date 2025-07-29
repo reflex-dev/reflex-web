@@ -13,6 +13,7 @@ TYPESENSE_CONFIG = {
     "api_key": os.getenv("TYPESENSE_SEARCH_API_KEY"),
     "connection_timeout_seconds": 2,
 }
+from pcweb.components.icons.hugeicons import hi
 
 # Enhanced search parameters with component-aware boosting
 BASE_SEARCH_PARAMS = {
@@ -77,8 +78,6 @@ PATTERN_CHAINED = re.compile(
 
 # Styling for highlights
 HIGHLIGHT_STYLE = '<span class="bg-violet-3 text-violet-11 px-1 py-0.5 rounded-[3px]">'
-
-client = typesense.Client(TYPESENSE_CONFIG)
 
 
 class TypesenseSearchState(rx.State):
@@ -146,6 +145,8 @@ class TypesenseSearchState(rx.State):
 
     async def _perform_unified_search(self, query: str) -> dict:
         """Perform a single search using is_component metadata for boosting/filtering."""
+
+        client = typesense.Client(TYPESENSE_CONFIG)
 
         expanded_query = self._expand_query_variants(query)
 
@@ -376,12 +377,11 @@ def search_results_section() -> rx.Component:
 def search_input() -> rx.Component:
     """Render the search input field."""
     return rx.box(
-        rx.el.button(
-            "Esc",
-            class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm border border-slate-5 rounded-md text-xs !text-slate-9 px-[5px] py-[2px] hidden md:inline",
-            on_click=rx.run_script(
-                "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
-            ),
+        rx.el.a(
+            hi("sparkles", class_name="fill-current"),
+            "Ask AI",
+            class_name="absolute right-0 top-1/2 transform -translate-y-1/2 text-md border border-violet-9 rounded-md text-violet-9 bg-violet-3 px-2 py-1 flex flex-row items-center gap-x-1 font-medium hover:bg-violet-4 transition-colors",
+            to="/docs/ai-builder/integrations/mcp-overview",
         ),
         rx.el.input(
             placeholder="Search components, docs, or features...",
