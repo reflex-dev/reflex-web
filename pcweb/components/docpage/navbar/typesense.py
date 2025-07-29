@@ -88,7 +88,7 @@ class TypesenseSearchState(rx.State):
     search_query: rx.Field[str] = rx.field("")
     search_results: rx.Field[list[dict]] = rx.field([])
     is_searching: rx.Field[bool] = rx.field(False)
-    show_results: bool = False
+    _show_results: bool = False
     selected_filter: rx.Field[str] = rx.field("All")
 
     @rx.event(temporal=True)
@@ -135,7 +135,7 @@ class TypesenseSearchState(rx.State):
             formatted_results = self._format_search_results(results)
             async with self:
                 self.search_results = formatted_results
-                self.show_results = True
+                self._show_results = True
         except Exception:
             async with self:
                 self._clear_search_results()
@@ -175,7 +175,7 @@ class TypesenseSearchState(rx.State):
     def _clear_search_results(self):
         """Clear search results and hide results display."""
         self.search_results = []
-        self.show_results = False
+        self._show_results = False
 
     def _format_search_results(self, result: dict) -> list[dict]:
         """Format search results for display with enhanced component info."""
