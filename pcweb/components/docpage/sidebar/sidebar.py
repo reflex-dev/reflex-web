@@ -8,7 +8,7 @@ from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.constants import ENTERPRISE_DOCS_URL
 from pcweb.styles.colors import c_color
 
-from .sidebar_items.ai import ai_builder_overview_items
+from .sidebar_items.ai import ai_builder_overview_items, mcp_items
 from .sidebar_items.component_lib import component_lib, graphing_libs
 from .sidebar_items.enterprise import (
     enterprise_items,
@@ -516,7 +516,7 @@ def sidebar_comp(
                             create_sidebar_section(
                                 "MCP Integration",
                                 ai_builder_pages.integrations.mcp.path,
-                                [ai_builder_overview_items[3]],
+                                mcp_items,
                                 ai_builder_overview_index,
                                 url,
                             ),

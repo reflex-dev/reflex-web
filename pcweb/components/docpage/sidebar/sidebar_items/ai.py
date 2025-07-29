@@ -40,6 +40,24 @@ def get_sidebar_items_ai_builder_overview():
             children=[
                 ai_builder.integrations.github,
                 ai_builder.integrations.database,
+            ],
+        ),
+    ]
+
+
+def get_sidebar_items_mcp():
+    from pcweb.pages.docs import ai_builder
+
+    return [
+        create_item(
+            "Overview",
+            children=[
+                ai_builder.integrations.mcp,
+            ],
+        ),
+        create_item(
+            "Installation",
+            children=[
                 ai_builder.integrations.mcp,
             ],
         ),
@@ -47,3 +65,4 @@ def get_sidebar_items_ai_builder_overview():
 
 
 ai_builder_overview_items = get_sidebar_items_ai_builder_overview()
+mcp_items = get_sidebar_items_mcp()
