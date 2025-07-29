@@ -50,15 +50,10 @@ def get_sidebar_items_mcp():
 
     return [
         create_item(
-            "Overview",
+            "MCP Integration",
             children=[
-                ai_builder.integrations.mcp,
-            ],
-        ),
-        create_item(
-            "Installation",
-            children=[
-                ai_builder.integrations.mcp,
+                ai_builder.integrations.mcp_overview,
+                ai_builder.integrations.mcp_installation,
             ],
         ),
     ]
