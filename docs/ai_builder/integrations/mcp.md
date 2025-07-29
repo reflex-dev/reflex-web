@@ -15,7 +15,7 @@ Model Context Protocol (MCP) is a standardized way for AI tools to access extern
 - **Resource Discovery**: Browse available components and documentation as MCP resources
 - **Tool-based Access**: Retrieve specific documentation through standardized MCP tools
 
-The Reflex MCP server is deployed at `https://reflex-mcp-server.fly.dev` and provides both SSE (Server-Sent Events) and HTTP transport options for maximum compatibility with different AI tools.
+The Reflex MCP server is deployed at `https://mcp.reflex.dev/mcp` and uses streamable HTTP transport for maximum compatibility with different AI tools.
 
 ## Installation
 
@@ -25,6 +25,7 @@ To use the Reflex MCP integration, you'll need to configure your AI assistant or
 
 - An MCP-compatible AI tool (Claude Desktop, Windsurf, Codex, etc.)
 - Internet connection to access the hosted MCP server
+- Valid Reflex account for OAuth 2.1 authentication
 
 ## Authentication
 
@@ -37,13 +38,13 @@ rx.accordion.root(
     rx.accordion.item(
         header="Authentication Details",
         content=rx.box(
-            rx.text("The Reflex MCP server is currently in ", rx.el.span("alpha", font_weight="bold"), " and is completely free to use during this period."),
+            rx.text("The Reflex MCP server uses ", rx.el.span("OAuth 2.1 protocol", font_weight="bold"), " for secure authentication."),
             rx.box(height="0.5rem"),
-            rx.text("• ", rx.el.span("No API keys required", font_weight="bold")),
-            rx.text("• ", rx.el.span("No registration needed", font_weight="bold")),
-            rx.text("• ", rx.el.span("No usage limits", font_weight="bold")),
+            rx.text("• ", rx.el.span("Reflex account required", font_weight="bold")),
+            rx.text("• ", rx.el.span("OAuth 2.1 authentication", font_weight="bold")),
+            rx.text("• ", rx.el.span("Secure token-based access", font_weight="bold")),
             rx.box(height="0.5rem"),
-            rx.text("Future versions will integrate with Reflex Pro+ subscription plans, but a free tier will remain available with reasonable usage limits."),
+            rx.text("Authentication is handled automatically through your MCP client configuration when you provide your Reflex credentials."),
         ),
     ),
     variant="surface",
@@ -58,21 +59,17 @@ rx.box(height="1rem")
 
 ### Claude Desktop
 
-Add the Reflex MCP server to your Claude Desktop configuration:
-
-```bash
-claude mcp add --transport sse reflex https://reflex-mcp-server.fly.dev/sse
-```
-
-Alternatively, you can manually edit your Claude Desktop configuration file:
+Add the Reflex MCP server to your Claude Desktop configuration by editing your configuration file:
 
 ```json
 {
   "mcpServers": {
     "reflex": {
-      "command": "python",
-      "args": ["-m", "reflex_mcp.reflex_mcp_server"],
-      "cwd": "/path/to/reflex-mcp"
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-proxy"],
+      "env": {
+        "MCP_PROXY_URL": "https://mcp.reflex.dev/mcp"
+      }
     }
   }
 }
@@ -86,8 +83,8 @@ Create a `.vscode/mcp.json` file in your project root:
 {
   "mcpServers": {
     "reflex": {
-      "serverType": "sse",
-      "url": "https://reflex-mcp-server.fly.dev/sse"
+      "serverType": "http",
+      "url": "https://mcp.reflex.dev/mcp"
     }
   }
 }
@@ -101,14 +98,14 @@ Add this configuration to your `~/.codex/config.toml` file:
 [mcp_servers.reflex]
 command = "npx"
 args = ["-y", "@modelcontextprotocol/server-proxy"]
-env = { "MCP_PROXY_URL" = "https://reflex-mcp-server.fly.dev/sse" }
+env = { "MCP_PROXY_URL" = "https://mcp.reflex.dev/mcp" }
 ```
 
-Note: Codex requires MCP servers to communicate over stdio. Since the Reflex server uses SSE, you'll need the `@modelcontextprotocol/server-proxy` adapter to bridge the connection.
+Note: Codex requires MCP servers to communicate over stdio. The `@modelcontextprotocol/server-proxy` adapter bridges the connection to the HTTP-based Reflex MCP server.
 
 ### Other MCP Clients
 
-For other MCP-compatible tools, use these endpoints:
+For other MCP-compatible tools, use this endpoint:
 
 ```python eval
 rx.table.root(
@@ -116,19 +113,14 @@ rx.table.root(
         rx.table.row(
             rx.table.column_header_cell("Transport"),
             rx.table.column_header_cell("URL"),
-            rx.table.column_header_cell("Use Case"),
+            rx.table.column_header_cell("Authentication"),
         ),
     ),
     rx.table.body(
         rx.table.row(
-            rx.table.row_header_cell(rx.code("SSE")),
-            rx.table.cell(rx.code("https://reflex-mcp-server.fly.dev/sse")),
-            rx.table.cell("Real-time communication, preferred for most clients"),
-        ),
-        rx.table.row(
             rx.table.row_header_cell(rx.code("HTTP")),
-            rx.table.cell(rx.code("https://reflex-mcp-server.fly.dev/mcp")),
-            rx.table.cell("Traditional REST API access"),
+            rx.table.cell(rx.code("https://mcp.reflex.dev/mcp")),
+            rx.table.cell("OAuth 2.1 via MCP client"),
         ),
     ),
     width="100%",
@@ -221,9 +213,9 @@ Example usage: "Show me the getting started guide"
 
 ## Server Status
 
-You can check if the Reflex MCP server is running by visiting: `https://reflex-mcp-server.fly.dev`
+You can check if the Reflex MCP server is running by visiting: `https://mcp.reflex.dev/mcp`
 
-The status page will show server information and the count of available tools.
+The endpoint will show server information and available MCP capabilities.
 
 ```python eval
 rx.box(height="1rem")
