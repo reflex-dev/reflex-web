@@ -420,6 +420,12 @@ def sidebar_comp(
                         "bot",
                         0,
                     ),
+                    sidebar_category(
+                        "MCP",
+                        "/docs/ai-builder/integrations/mcp",
+                        "plug",
+                        1,
+                    ),
                     class_name="flex flex-col items-start gap-1 w-full list-none",
                 ),
                 # If the path doesn't start with /docs/cloud, check for general docs
@@ -489,15 +495,34 @@ def sidebar_comp(
             ),
             rx.cond(  # pyright: ignore [reportCallIssue]
                 rx.State.router.page.path.startswith("/docs/ai-builder/"),
-                rx.el.ul(
-                    create_sidebar_section(
-                        "Overview",
-                        ai_builder_pages.overview.what_is_reflex_build.path,
-                        ai_builder_overview_items,
-                        ai_builder_overview_index,
-                        url,
+                rx.match(  # pyright: ignore [reportCallIssue]
+                    SidebarState.sidebar_index,
+                    (
+                        0,
+                        rx.el.ul(
+                            create_sidebar_section(
+                                "Overview",
+                                ai_builder_pages.overview.what_is_reflex_build.path,
+                                ai_builder_overview_items,
+                                ai_builder_overview_index,
+                                url,
+                            ),
+                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                        ),
                     ),
-                    class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                    (
+                        1,
+                        rx.el.ul(
+                            create_sidebar_section(
+                                "MCP Integration",
+                                ai_builder_pages.integrations.mcp.path,
+                                [ai_builder_overview_items[3]],
+                                ai_builder_overview_index,
+                                url,
+                            ),
+                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                        ),
+                    ),
                 ),
                 rx.cond(  # pyright: ignore [reportCallIssue]
                     rx.State.router.page.path.startswith("/docs/"),
