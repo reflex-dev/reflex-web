@@ -17,6 +17,7 @@ dependencies = [
     "openai==1.97.0",
     "flexdown>=0.2.0",
     "reflex @ git+https://github.com/reflex-dev/reflex@main",
+    "reflex-ui @ git+https://github.com/reflex-dev/reflex-ui@main",
     "mistletoe>=1.2.1",
     "reflex-image-zoom>=0.0.2",
     "replicate==1.0.7",
