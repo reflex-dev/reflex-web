@@ -11,7 +11,7 @@ from pcweb.pages.docs import enterprise
 
 AG Grid provides powerful cell selection capabilities that allow users to select individual cells or ranges of cells. This feature is essential for data manipulation, copying, and advanced interactions like fill handle operations.
 
-## Cell Selection
+## Range Selection
 
 To enable cell selection in your AG Grid, set the `cell_selection` prop to `True`. This automatically enables both single cell selection and range selection capabilities.
 
