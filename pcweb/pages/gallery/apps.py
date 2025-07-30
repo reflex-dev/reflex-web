@@ -118,7 +118,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                 class_name="w-full h-full xl:rounded-md shadow-small",
                 id="iFrame",
             ),
-            class_name="w-full h-[70vh] text-center flex flex-col gap-y-4 items-center text-slate-10",
+            class_name="w-full h-[80vh] text-center flex flex-col gap-y-4 items-center text-slate-10",
         )
     )
 
