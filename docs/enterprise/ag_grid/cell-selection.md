@@ -11,16 +11,18 @@ from pcweb.pages.docs import enterprise
 
 AG Grid provides powerful cell selection capabilities that allow users to select individual cells or ranges of cells. This feature is essential for data manipulation, copying, and advanced interactions like fill handle operations.
 
-## Basic Cell Selection
+## Cell Selection
 
-To enable cell selection in your AG Grid, set the `cell_selection` prop to `True`:
+To enable cell selection in your AG Grid, set the `cell_selection` prop to `True`. This automatically enables both single cell selection and range selection capabilities.
+
+### Basic Selection Example
 
 ```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
 
-class BasicCellSelectionState(rx.State):
+class CellSelectionState(rx.State):
     data: list[dict] = []
 
     @rx.event
@@ -50,27 +52,27 @@ def basic_cell_selection():
         rxe.ag_grid(
             id="basic_cell_selection_grid",
             column_defs=column_defs,
-            row_data=BasicCellSelectionState.data,
+            row_data=CellSelectionState.data,
             cell_selection=True,
-            on_cell_selection_changed=BasicCellSelectionState.echo_selection,
+            on_cell_selection_changed=CellSelectionState.echo_selection,
             width="100%",
             height="400px",
         ),
-        on_mount=BasicCellSelectionState.load_data,
+        on_mount=CellSelectionState.load_data,
         width="100%",
     )
 ```
 
-## Range Selection
+### Advanced Selection Event Handling
 
-Range selection is automatically enabled when you set `cell_selection=True`. This allows users to select multiple cells at once and perform operations across ranges.
+For more sophisticated selection handling, you can process the selection ranges to calculate detailed information:
 
 ```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
 
-class RangeSelectionState(rx.State):
+class AdvancedSelectionState(rx.State):
     data: list[dict] = []
 
     @rx.event
@@ -100,19 +102,19 @@ editable_column_defs = [
     {"field": "attempts", "width": 120, "editable": True},
 ]
 
-def range_selection_example():
+def advanced_selection_example():
     return rx.vstack(
         rx.text("Select ranges of cells. Try selecting multiple ranges by holding Ctrl/Cmd.", size="2"),
         rxe.ag_grid(
-            id="range_selection_grid",
+            id="advanced_selection_grid",
             column_defs=editable_column_defs,
-            row_data=RangeSelectionState.data,
+            row_data=AdvancedSelectionState.data,
             cell_selection=True,
-            on_cell_selection_changed=RangeSelectionState.handle_selection,
+            on_cell_selection_changed=AdvancedSelectionState.handle_selection,
             width="100%",
             height="300px",
         ),
-        on_mount=RangeSelectionState.load_data,
+        on_mount=AdvancedSelectionState.load_data,
         width="100%",
     )
 ```
@@ -214,7 +216,7 @@ def fill_handle_example():
     )
 ```
 
-## Advanced Cell Selection Configuration
+## Advanced Configuration Options
 
 You can further customize cell selection behavior using additional configuration options:
 
@@ -223,7 +225,7 @@ import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
 
-class AdvancedSelectionState(rx.State):
+class ConfigurationState(rx.State):
     data: list[dict] = []
 
     @rx.event
@@ -237,7 +239,7 @@ class AdvancedSelectionState(rx.State):
         })
         self.data = df.to_dict("records")
 
-advanced_column_defs = [
+configuration_column_defs = [
     {"field": "id", "width": 80},
     {"field": "name", "width": 150, "editable": True},
     {"field": "category", "width": 120},
@@ -245,13 +247,13 @@ advanced_column_defs = [
     {"field": "stock", "width": 100, "editable": True, "type": "numericColumn"},
 ]
 
-def advanced_selection_example():
+def configuration_example():
     return rx.vstack(
-        rx.text("Advanced cell selection with custom configuration", size="2"),
+        rx.text("Cell selection with additional configuration options", size="2"),
         rxe.ag_grid(
-            id="advanced_selection_grid",
-            column_defs=advanced_column_defs,
-            row_data=AdvancedSelectionState.data,
+            id="configuration_grid",
+            column_defs=configuration_column_defs,
+            row_data=ConfigurationState.data,
             cell_selection={
                 "handle": {
                     "mode": "fill",
@@ -262,14 +264,14 @@ def advanced_selection_example():
             width="100%",
             height="350px",
         ),
-        on_mount=AdvancedSelectionState.load_data,
+        on_mount=ConfigurationState.load_data,
         width="100%",
     )
 ```
 
 ## Key Features
 
-- **Cell Selection**: Enable with `cell_selection=True` for basic cell selection and automatic range selection
+- **Cell Selection**: Enable with `cell_selection=True` for both single cell and range selection capabilities
 - **Fill Handle**: Configure with `cell_selection={"handle": {"mode": "fill"}}` for drag-to-fill functionality
 - **Event Handling**: Use `on_cell_selection_changed` to respond to selection changes
 - **Value Changes**: Use `on_cell_value_changed` to handle individual cell edits and fill operations
@@ -277,7 +279,7 @@ def advanced_selection_example():
 
 ## Best Practices
 
-1. **Use cell_selection configuration**: Range selection is automatically enabled with `cell_selection=True` and provides all necessary selection capabilities for fill operations.
+1. **Use cell_selection configuration**: Both single cell and range selection are automatically enabled with `cell_selection=True`, providing all necessary selection capabilities for fill operations.
 
 2. **Handle cell value changes**: When using fill handle, implement `on_cell_value_changed` to process the data updates in your backend.
 
