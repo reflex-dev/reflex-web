@@ -63,7 +63,7 @@ def basic_cell_selection():
 
 ## Range Selection
 
-For more advanced cell selection features like fill handle, you need to enable range selection by setting `enable_range_selection=True`. This allows users to select multiple cells at once and perform operations across ranges.
+Range selection is automatically enabled when you set `cell_selection=True`. This allows users to select multiple cells at once and perform operations across ranges.
 
 ```python demo exec
 import reflex as rx
@@ -108,7 +108,6 @@ def range_selection_example():
             column_defs=editable_column_defs,
             row_data=RangeSelectionState.data,
             cell_selection=True,
-            enable_range_selection=True,
             on_cell_selection_changed=RangeSelectionState.handle_selection,
             width="100%",
             height="300px",
@@ -134,7 +133,7 @@ cell_selection={
 }
 ```
 
-**Note:** While `enable_range_selection=True` enhances fill handle functionality by allowing range selection, it is not required for basic fill handle operations.
+**Note:** Range selection is automatically enabled with `cell_selection=True` and works seamlessly with fill handle operations.
 
 ### Fill Handle Events
 
@@ -192,7 +191,6 @@ def fill_handle_example():
                     "mode": "fill",  # Enable fill handle
                 }
             },
-            enable_range_selection=True,
             on_cell_value_changed=FillHandleState.handle_cell_change,
             width="100%",
             height="300px",
@@ -259,7 +257,6 @@ def advanced_selection_example():
                     "mode": "fill",
                 }
             },
-            enable_range_selection=True,
             enable_cell_text_selection=True,  # Allow text selection within cells
             suppress_cell_focus=False,  # Allow cell focus
             width="100%",
@@ -272,8 +269,7 @@ def advanced_selection_example():
 
 ## Key Features
 
-- **Cell Selection**: Enable with `cell_selection=True` for basic cell selection
-- **Range Selection**: Use `enable_range_selection=True` for multi-cell selection
+- **Cell Selection**: Enable with `cell_selection=True` for basic cell selection and automatic range selection
 - **Fill Handle**: Configure with `cell_selection={"handle": {"mode": "fill"}}` for drag-to-fill functionality
 - **Event Handling**: Use `on_cell_selection_changed` to respond to selection changes
 - **Value Changes**: Use `on_cell_value_changed` to handle individual cell edits and fill operations
@@ -281,7 +277,7 @@ def advanced_selection_example():
 
 ## Best Practices
 
-1. **Consider range selection for enhanced functionality**: While `enable_range_selection=True` is not required for fill handle, it provides additional selection capabilities that complement fill operations.
+1. **Use cell_selection configuration**: Range selection is automatically enabled with `cell_selection=True` and provides all necessary selection capabilities for fill operations.
 
 2. **Handle cell value changes**: When using fill handle, implement `on_cell_value_changed` to process the data updates in your backend.
 
