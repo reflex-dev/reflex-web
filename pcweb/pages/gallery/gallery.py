@@ -162,7 +162,7 @@ def gallery() -> rx.Component:
         rx.box(
             create_header(),
             create_grid_with_items(),
-            class_name="w-full max-w-7xl mx-auto",
+            class_name="w-full !max-w-[94.5rem] mx-auto",
         ),
         id="gallery",
         class_name="w-full px-4 pt-24 lg:pt-52 mt-4 mb-20",
