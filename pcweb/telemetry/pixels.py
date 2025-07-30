@@ -25,7 +25,5 @@ def get_pixel_website_trackers() -> list[rx.Component]:
         get_posthog_trackers(
             project_id="phc_A0MAR0wCGhXrizWmowRZcYqyZ8PMhPPQW06KEwD43aC"
         ),
-        get_rb2b_trackers(
-            api_key="4N210HEPR96Z",
-        ),
+        *get_rb2b_trackers(),
     ]
