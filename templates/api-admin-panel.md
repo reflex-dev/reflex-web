@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
 meta: [
     {"name": "keywords", "content": "admin panel, api admin panel, reflex admin panel"},
 ]
+tags: ["API Tools"]
 ---
 
 The following is an admin panel for reading from and writing to your customer data, built on a REST API. This app lets you look through customers and take custom actions based on the data.

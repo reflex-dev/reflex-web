@@ -9,6 +9,7 @@ source: "https://github.com/reflex-dev/templates/tree/main/ci_template"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+tags: ["DevOps"]
 ---
  
 In this example we will build a simple CI/CD job dashboard with real-time updates and controls. You can run, edit, and delete jobs on the dashboard as well as view the status of each job.
