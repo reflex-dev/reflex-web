@@ -59,7 +59,7 @@ def app_dialog_with_trigger(
                 ),
                 class_name="flex flex-col w-full h-full gap-y-3",
             ),
-            class_name="w-full max-w-[65em] h-[70vh]",
+            class_name="w-full !max-w-[75em] xl:max-w-[85em] 2xl:max-w-[95em] h-[70vh]",
         ),
     )
 
