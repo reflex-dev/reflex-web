@@ -1,4 +1,5 @@
 import contextlib
+import json
 import os
 from datetime import datetime
 from typing import Any
@@ -101,6 +102,6 @@ class IndexState(rx.State):
         self.add_contact_to_loops(email)
         self.signed_up = True
         return [
-            rx.call_script(f"try {{ signals.identify('{email.replace(chr(39), chr(92) + chr(39))}'); }} catch(e) {{ console.warn('Signals identify failed:', e); }}"),
+            rx.call_script(f"try {{ signals.identify({json.dumps(email)}); }} catch(e) {{ console.warn('Signals identify failed:', e); }}"),
             rx.toast.success("Thanks for signing up to the Newsletter!")
         ]
