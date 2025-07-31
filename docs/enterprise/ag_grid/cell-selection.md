@@ -33,7 +33,7 @@ class CellSelectionState(rx.State):
     @rx.event
     def echo_selection(self, ranges: list[dict], started: bool, finished: bool):
         if finished:
-            yield rx.toast(f"Selected {len(ranges)} cell ranges")
+            yield rx.toast(f"Selected ranges: {ranges}")
 
 column_defs = [
     {"field": "athlete", "width": 150},
