@@ -135,8 +135,6 @@ cell_selection={
 }
 ```
 
-**Note:** Range selection is automatically enabled with `cell_selection=True` and works seamlessly with fill handle operations.
-
 ### Fill Handle Events
 
 When using the fill handle, it will trigger `on_cell_value_changed` for each cell receiving a fill value. This allows your backend to handle the data changes appropriately.
