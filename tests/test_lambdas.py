@@ -5,7 +5,6 @@ from reflex.testing import AppHarness
 
 from utils import get_full_url
 
-
 @pytest.fixture
 def event_argument_url() -> str:
     from pcweb.pages import docs
