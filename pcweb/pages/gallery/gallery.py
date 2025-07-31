@@ -59,7 +59,7 @@ def app_dialog_with_trigger(
                 ),
                 class_name="flex flex-col w-full h-full gap-y-3",
             ),
-            class_name="w-full max-w-[65em] h-[70vh]",
+            class_name="w-full !max-w-[75em] xl:max-w-[85em] 2xl:max-w-[95em] h-[80vh]",
         ),
     )
 
@@ -156,12 +156,14 @@ def create_header():
         class_name="flex flex-col justify-center items-center gap-6 w-full text-center",
     )
 
-
 @webpage(path="/templates", title="Templates · Reflex")
 def gallery() -> rx.Component:
     return rx.el.section(
-        create_header(),
-        create_grid_with_items(),
+        rx.box(
+            create_header(),
+            create_grid_with_items(),
+            class_name="w-full !max-w-[94.5rem] mx-auto",
+        ),
         id="gallery",
-        class_name="flex flex-col mx-auto mt-4 mb-20 px-4 lg:px-6 pt-24 lg:pt-52 w-full",
+        class_name="w-full px-4 pt-24 lg:pt-52 mt-4 mb-20",
     )
