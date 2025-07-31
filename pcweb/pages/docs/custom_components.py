@@ -34,14 +34,15 @@ class CustomComponentGalleryState(rx.State):
     # Added available limits for the number of items per page
     limits: list[str] = ["10", "20", "50", "100"]
 
-    @rx.event
-    def fetch_components_list(self):
+    @rx.event(background=True, temporal=True)
+    async def fetch_components_list(self):
         try:
-            response = httpx.get(
-                f"{os.getenv('RCC_ENDPOINT')}/custom-components/gallery"
-            )
-            response.raise_for_status()
-            component_list = response.json()
+            async with httpx.AsyncClient() as client:
+                response = await client.get(
+                    f"{os.getenv('RCC_ENDPOINT')}/custom-components/gallery"
+                )
+                response.raise_for_status()
+                component_list = response.json()
         except (httpx.HTTPError, json.JSONDecodeError) as ex:
             print(f"Internal error: failed to fetch components list due to: {ex}")
             return
@@ -55,12 +56,13 @@ class CustomComponentGalleryState(rx.State):
             ]
             c["download_url"] = package_url(c["package_name"])
 
-        self.original_components_list = component_list
-        self.number_of_rows = len(component_list)
-        self.total_pages = (
-            self.number_of_rows + self.current_limit - 1
-        ) // self.current_limit
-        self.paginate()
+        async with self:
+            self.original_components_list = component_list
+            self.number_of_rows = len(component_list)
+            self.total_pages = (
+                self.number_of_rows + self.current_limit - 1
+            ) // self.current_limit
+            yield CustomComponentGalleryState.paginate()
 
     @rx.event
     def paginate(self) -> None:
