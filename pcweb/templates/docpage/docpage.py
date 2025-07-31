@@ -619,10 +619,11 @@ def docpage(
             return rx.box(
                 navbar(),
                 rx.el.main(
+
                     rx.box(
                         sidebar,
                         class_name=(
-                            "w-[300px] h-screen sticky top-0 shrink-0 hidden lg:block"
+                            "w-full max-w-[300px] h-screen shrink-0 hidden lg:block z-10 "
                             + rx.cond(
                                 HostingBannerState.show_banner,
                                 " mt-[146px]",
@@ -630,7 +631,7 @@ def docpage(
                             )
                         ),
                     ),
-
+                    # main
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
@@ -652,9 +653,9 @@ def docpage(
                             docpage_footer(path=path.rstrip("/")),
                             class_name="lg:mt-0 mt-6 px-4 xl:px-10 h-auto bg-slate-1",
                         ),
-                        # class_name="flex-1 bg-slate-1 h-auto mx-auto max-w-4xl overflow-y-auto" # <-keep for future ref...
-                        class_name="flex-1 bg-slate-1 h-auto mx-auto overflow-y-auto "
-                            + "max-w-4xl" if show_right_sidebar and not pseudo_right_bar else "!max-w-7xl",
+                        class_name="flex-1 bg-slate-1 h-auto mx-auto max-w-4xl overflow-y-auto"
+                        # class_name="flex-1 bg-slate-1 h-auto mx-auto overflow-y-auto "
+                        #     + "max-w-4xl" if show_right_sidebar and not pseudo_right_bar else "!max-w-7xl",
                     ),
                     rx.box(
                         rx.el.nav(
@@ -718,7 +719,7 @@ def docpage(
 
                     class_name="flex justify-center mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full lg:px-10",
                 ),
-                class_name="flex flex-col justify-center bg-slate-1 w-full",
+                class_name="flex flex-col justify-center bg-slate-1 w-full relative",
                 on_mount=rx.call_script(right_sidebar_item_highlight()),
             )
 
