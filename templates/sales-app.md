@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/templates/tree/main/sales"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+tags: ["Marketing", "Dashboard"]
 ---
 
 The following is a sales app that displays sales data. The table tab allows filtering and live updates. The graph tab shows the relationship between sales data.

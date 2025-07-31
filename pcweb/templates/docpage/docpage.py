@@ -284,7 +284,7 @@ def docpage_footer(path: str):
     from pcweb.pages.faq import faq
     from pcweb.pages.framework.views.footer_index import dark_mode_toggle
     from pcweb.pages.gallery import gallery
-    from pcweb.views.footer import menu_socials, newsletter_form
+    from pcweb.views.footer import menu_socials, newsletter_form, ph_1
 
     return rx.el.footer(
         rx.box(
@@ -346,15 +346,16 @@ def docpage_footer(path: str):
             ),
             rx.box(
                 rx.box(
+                    ph_1(),
                     rx.text(
                         f"Copyright © {datetime.now().year} Pynecone, Inc.",
                         class_name="font-small text-slate-9",
                     ),
-                    menu_socials(),
-                    class_name="flex flex-row justify-between items-center w-full",
+                    dark_mode_toggle(),
+                    class_name="flex flex-col gap-6",
                 ),
-                dark_mode_toggle(),
-                class_name="flex flex-col gap-4",
+                menu_socials(),
+                class_name="flex flex-row gap-6 justify-between items-end w-full",
             ),
             class_name="flex flex-col justify-between gap-10 py-6 lg:py-8 w-full",
         ),
@@ -424,7 +425,7 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
             rx.icon(tag="chevron-down", size=14, class_name="!text-slate-9"),
             class_name="p-[0.563rem] lg:hidden flex",
         ),
-        class_name="relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-12 mb-6 lg:mb-12 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full"
+        class_name="relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-12 mb-6 lg:mb-8 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full"
         + rx.cond(
             HostingBannerState.show_banner,
             " lg:mt-[175px]",
@@ -615,31 +616,31 @@ def docpage(
 
             show_right_sidebar = right_sidebar and len(toc) >= 2
 
-            grid_cols_classes = "grid-cols-1"
-            if show_right_sidebar:
-                grid_cols_classes += " 2xl:grid-cols-[300px_1fr_16%]"
-            grid_cols_classes += " lg:grid-cols-[300px_1fr]"
-
             return rx.box(
                 navbar(),
                 rx.el.main(
                     rx.box(
                         sidebar,
-                        class_name="h-full shrink-0 lg:block hidden"
-                        + rx.cond(
-                            HostingBannerState.show_banner,
-                            " mt-[146px]",
-                            " mt-[90px]",
+                        class_name=(
+                            "w-[300px] h-screen sticky top-0 shrink-0 hidden lg:block"
+                            + rx.cond(
+                                HostingBannerState.show_banner,
+                                " mt-[146px]",
+                                " mt-[90px]",
+                            )
                         ),
                     ),
+
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
-                            class_name="px-0 xl:px-20 pt-0 "
-                            + rx.cond(
-                                HostingBannerState.show_banner,
-                                "mt-[90px]",
-                                "",
+                            class_name=(
+                                "px-0 xl:px-14 pt-0"
+                                + rx.cond(
+                                    HostingBannerState.show_banner,
+                                    " mt-[90px]",
+                                    "",
+                                )
                             ),
                         ),
                         rx.box(
@@ -649,22 +650,18 @@ def docpage(
                                 class_name="flex flex-row gap-2 mt-8 lg:mt-10 mb-6 lg:mb-12",
                             ),
                             docpage_footer(path=path.rstrip("/")),
-                            class_name="lg:mt-0 mt-6 px-4 xl:px-20 h-screen bg-slate-1",
+                            class_name="lg:mt-0 mt-6 px-4 xl:px-10 h-auto bg-slate-1",
                         ),
-                        class_name="w-full bg-slate-1 h-full mx-auto max-w-2xl "
-                        + (
-                            " xl:max-w-[60rem]"
-                            if show_right_sidebar
-                            else "xl:max-w-full"
-                        ),
+                        # class_name="flex-1 bg-slate-1 h-auto mx-auto max-w-4xl overflow-y-auto" # <-keep for future ref...
+                        class_name="flex-1 bg-slate-1 h-auto mx-auto overflow-y-auto "
+                            + "max-w-4xl" if show_right_sidebar and not pseudo_right_bar else "!max-w-7xl",
                     ),
-                    (
-                        # right-hand sidebar
+                    rx.box(
                         rx.el.nav(
                             rx.box(
-                                rx.el.h5(
+                                rx.el.p(
                                     "On this page",
-                                    class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
+                                    class_name="font-smbold text-sm text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
                                 ),
                                 rx.el.ul(
                                     *[
@@ -672,11 +669,9 @@ def docpage(
                                             rx.el.li(
                                                 rx.link(
                                                     text,
-                                                    class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
+                                                    class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color break-words",
                                                     underline="none",
-                                                    href=path
-                                                    + "#"
-                                                    + text.lower().replace(" ", "-"),
+                                                    href=path + "#" + text.lower().replace(" ", "-"),
                                                 )
                                             )
                                             if level == 1
@@ -684,13 +679,9 @@ def docpage(
                                                 rx.list_item(
                                                     rx.link(
                                                         text,
-                                                        class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
+                                                        class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color break-words",
                                                         underline="none",
-                                                        href=path
-                                                        + "#"
-                                                        + text.lower().replace(
-                                                            " ", "-"
-                                                        ),
+                                                        href=path + "#" + text.lower().replace(" ", "-"),
                                                     )
                                                 )
                                                 if level == 2
@@ -698,45 +689,39 @@ def docpage(
                                                     rx.link(
                                                         text,
                                                         underline="none",
-                                                        class_name="pl-6 font-small text-slate-9 hover:!text-slate-11 transition-color",
-                                                        href=path
-                                                        + "#"
-                                                        + text.lower().replace(
-                                                            " ", "-"
-                                                        ),
+                                                        class_name="pl-3 block text-sm text-slate-9 hover:!text-slate-11 transition-color break-words",
+                                                        href=path + "#" + text.lower().replace(" ", "-"),
                                                     )
                                                 )
                                             )
                                         )
                                         for level, text in toc
                                     ],
-                                    class_name="flex flex-col gap-4 list-none",
+                                    class_name="flex flex-col gap-y-3 list-none",
                                 ),
-                                class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-auto",
-                                style={"width": "inherit"},
+                                class_name="flex flex-col justify-start gap-y-2 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-auto sticky top-4",
                             ),
-                            class_name="shrink-0 2xl:col-start-3 2xl:col-end-4"
-                            + rx.cond(
-                                HostingBannerState.show_banner,
-                                " mt-[146px]",
-                                " mt-[90px]",
-                            )
-                            + (
-                                " hidden xl:flex xl:flex-col"
-                                if show_right_sidebar and not pseudo_right_bar
-                                else " hidden"
+                            class_name=(
+                                "w-full h-full"
+                                + rx.cond(
+                                    HostingBannerState.show_banner,
+                                    " mt-[146px]",
+                                    " mt-[90px]",
+                                )
                             ),
                             id="toc-navigation",
-                        )
-                        if not pseudo_right_bar or show_right_sidebar
-                        else rx.el.div(class_name="hidden")
-                    ),
-                    class_name="grid justify-center mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full lg:px-10 "
-                    + grid_cols_classes,
+                        ),
+                        class_name=(
+                            "w-[240px] h-screen sticky top-0 shrink-0 hidden xl:block"
+                        ),
+                    ) if show_right_sidebar and not pseudo_right_bar else rx.box(class_name="w-[180px] h-screen sticky top-0 shrink-0 hidden xl:block"),
+
+                    class_name="flex justify-center mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full lg:px-10",
                 ),
-                class_name="flex flex-col justify-center bg-slate-1 w-full mx-auto",
+                class_name="flex flex-col justify-center bg-slate-1 w-full",
                 on_mount=rx.call_script(right_sidebar_item_highlight()),
             )
+
 
         components = path.split("/")
         category = (

@@ -9,7 +9,7 @@ config = rx.Config(
         "@radix-ui/react-navigation-menu",
         "tailwindcss-animated",
     ],
-    show_build_with_reflex=False,
+    show_build_with_reflex=True,
     telemetry_enabled=False,
     plugins=[rx.plugins.TailwindV4Plugin(), rx.plugins.SitemapPlugin()],
 )

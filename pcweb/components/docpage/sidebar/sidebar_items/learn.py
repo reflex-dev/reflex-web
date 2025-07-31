@@ -16,6 +16,8 @@ def get_sidebar_items_learn():
                 getting_started.project_structure,
                 getting_started.dashboard_tutorial,
                 getting_started.chatapp_tutorial,
+                getting_started.open_source_templates,
+
             ],
         ),
         create_item(

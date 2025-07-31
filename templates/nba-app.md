@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": ""},
 ]
 template: "nba"
+tags: ["Sports", "Data Visualization"]
 ---
 
 The following is an app that displays NBA player stats from the 2015-2016 season. The table tab allows filtering and live updates. The graph tab shows the relationship between player stats.

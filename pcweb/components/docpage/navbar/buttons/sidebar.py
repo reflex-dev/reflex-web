@@ -1,10 +1,12 @@
 import reflex as rx
 from pcweb.components.icons.icons import get_icon
 from pcweb.constants import GITHUB_URL, TWITTER_URL, DISCORD_URL
-from pcweb.pages.docs import getting_started, hosting
+from pcweb.pages.docs import getting_started
+from pcweb.pages.hosting.hosting import hosting_landing
 from pcweb.pages.docs.library import library
 from pcweb.pages.blog import blogs
 from pcweb.pages.gallery import gallery
+from pcweb.pages.framework.framework import framework
 from reflex.style import toggle_color_mode
 
 
@@ -72,8 +74,9 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
                     drawer_item("Blog", blogs.path, "blog"),
                     drawer_item("Case Studies", "/customers", "customers"),
                     drawer_item("Components", library.path, "library"),
-                    drawer_item("Hosting", hosting.deploy_quick_start.path, "hosting"),
-                    drawer_item("Pricing", "/pricing", "hosting"),
+                    drawer_item("Open Source", framework.path, "open-source"),
+                    drawer_item("Cloud", hosting_landing.path, "hosting"),
+                    drawer_item("Pricing", "/pricing", "pricing"),
                     drawer_socials(),
                     rx.el.button(
                         rx.color_mode.icon(
