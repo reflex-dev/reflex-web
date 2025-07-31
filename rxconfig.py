@@ -7,6 +7,7 @@ config = rx.Config(
     frontend_packages=[
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
+        "tailwindcss-animated",
     ],
     show_build_with_reflex=True,
     telemetry_enabled=False,
