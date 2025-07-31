@@ -381,7 +381,7 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
 
 
 def logo() -> rx.Component:
-    return rx.link(
+    return rx.el.a(
         rx.fragment(
             rx.image(
                 src="/logos/light/reflex.svg",
@@ -394,8 +394,8 @@ def logo() -> rx.Component:
                 class_name="shrink-0 hidden dark:block",
             ),
         ),
-        class_name="flex shrink-0 mr-3",
-        href="/",
+        class_name="block shrink-0 mr-3",
+        to="/",
     )
 
 
