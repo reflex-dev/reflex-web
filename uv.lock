@@ -1969,6 +1969,14 @@ wheels = [
 ]
 
 [[package]]
+name = "reflex-ui"
+version = "0.0.1"
+source = { git = "https://github.com/reflex-dev/reflex-ui?rev=main#f324bde4067ef77ea48ff126d5053d22ed813b24" }
+dependencies = [
+    { name = "reflex" },
+]
+
+[[package]]
 name = "reflex-web"
 version = "0.0.1"
 source = { virtual = "." }
@@ -1988,6 +1996,7 @@ dependencies = [
     { name = "reflex-enterprise" },
     { name = "reflex-image-zoom" },
     { name = "reflex-pyplot" },
+    { name = "reflex-ui" },
     { name = "replicate" },
     { name = "requests" },
     { name = "typesense" },
@@ -2018,6 +2027,7 @@ requires-dist = [
     { name = "reflex-enterprise", specifier = ">=0.3.1" },
     { name = "reflex-image-zoom", specifier = ">=0.0.2" },
     { name = "reflex-pyplot", specifier = "==0.2.1" },
+    { name = "reflex-ui", git = "https://github.com/reflex-dev/reflex-ui?rev=main" },
     { name = "replicate", specifier = "==1.0.7" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "typesense", specifier = ">=1.1.1" },

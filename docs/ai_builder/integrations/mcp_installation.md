@@ -4,6 +4,10 @@
 import reflex as rx
 ```
 
+```md alert warning
+# The Reflex MCP integration is currently only available for enterprise customers. Please [book a demo](https://reflex.dev/pricing/) to discuss access.
+```
+
 To use the Reflex MCP integration, you'll need to configure your AI assistant or coding tool to connect to the Reflex MCP server. No additional Python packages are required on your local machine - the server is hosted and ready to use.
 
 ## Prerequisites
