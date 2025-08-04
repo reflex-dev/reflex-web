@@ -11,14 +11,15 @@ TYPESENSE_CONFIG = {
         {"host": os.getenv("TYPESENSE_HOST"), "port": "443", "protocol": "https"}
     ],
     "api_key": os.getenv("TYPESENSE_SEARCH_API_KEY"),
-    "connection_timeout_seconds": 10,
+    "connection_timeout_seconds": 2,
 }
+from pcweb.components.icons.hugeicons import hi
 
 # Enhanced search parameters with component-aware boosting
 BASE_SEARCH_PARAMS = {
-    "per_page": 20,
+    "per_page": 15,
     "highlight_full_fields": "title,content,components",
-    "snippet_threshold": 30,
+    "snippet_threshold": 20,
     "num_typos": 2,
     "typo_tokens_threshold": 1,
     "drop_tokens_threshold": 1,
@@ -76,45 +77,30 @@ PATTERN_CHAINED = re.compile(
 )
 
 # Styling for highlights
-HIGHLIGHT_STYLE = '<span style="background-color: var(--violet-3); color: var(--violet-11); padding: 2px 4px; border-radius: 3px;">'
+HIGHLIGHT_STYLE = '<span class="bg-violet-3 text-violet-11 px-1 py-0.5 rounded-[3px]">'
 
 
 class TypesenseSearchState(rx.State):
     """Enhanced state management for the Typesense search component."""
 
     # State variables
-    search_query: str = ""
-    search_results: list[dict] = []
-    is_searching: bool = False
-    show_results: bool = False
-    show_modal: bool = False
-    selected_filter: str = "All"
-    filter_categories: list[str] = FILTER_CATEGORIES
-    suggestions: list[dict] = DEFAULT_SUGGESTIONS
+    search_query: rx.Field[str] = rx.field("")
+    search_results: rx.Field[list[dict]] = rx.field([])
+    is_searching: rx.Field[bool] = rx.field(False)
+    _show_results: bool = False
+    selected_filter: rx.Field[str] = rx.field("All")
 
-    def open_modal(self):
-        """Open the search modal and reset filter state."""
-        self.show_modal = True
-        self.selected_filter = "All"
-
+    @rx.event(temporal=True)
     def close_modal(self):
         """Close the search modal and reset state."""
-        self.show_modal = False
-        self._reset_search_state()
+        self.reset()
 
-    def _reset_search_state(self):
-        """Reset all search-related state variables."""
-        self.show_results = False
-        self.is_searching = False
-        self.search_query = ""
-        self.search_results = []
-        self.selected_filter = "All"
-
+    @rx.event(temporal=True)
     async def set_filter(self, filter_name: str):
         """Set the selected filter and re-run search if there's an active query."""
         self.selected_filter = filter_name
         if self.search_query.strip():
-            await self.search_docs(self.search_query)
+            yield TypesenseSearchState.search_docs(self.search_query)
 
     def _get_filter_sections(self) -> list[str]:
         """Get sections for current filter."""
@@ -130,28 +116,36 @@ class TypesenseSearchState(rx.State):
         variants = {cleaned, f"rx.{cleaned}", f"reflex.{cleaned}"}
         return " ".join(sorted(variants))  # Order doesn't matter
 
+    @rx.event(background=True, temporal=True)
     async def search_docs(self, query: str):
         """Enhanced search with component-aware logic."""
-        self.search_query = query
+        async with self:
+            self.search_query = query
 
-        if not query.strip():
-            self._clear_search_results()
-            return
+            if not query.strip():
+                self._clear_search_results()
+                return
 
-        self.is_searching = True
+            self.is_searching = True
+            yield
 
         try:
             results = await self._perform_unified_search(query)
-            self.search_results = self._format_search_results(results)
-            self.show_results = True
-        except Exception as e:
-            print(f"Search error: {e}")
-            self._clear_search_results()
+            formatted_results = self._format_search_results(results)
+            async with self:
+                self.search_results = formatted_results
+                self._show_results = True
+        except Exception:
+            async with self:
+                self._clear_search_results()
 
-        self.is_searching = False
+        finally:
+            async with self:
+                self.is_searching = False
 
     async def _perform_unified_search(self, query: str) -> dict:
         """Perform a single search using is_component metadata for boosting/filtering."""
+
         client = typesense.Client(TYPESENSE_CONFIG)
 
         expanded_query = self._expand_query_variants(query)
@@ -182,7 +176,7 @@ class TypesenseSearchState(rx.State):
     def _clear_search_results(self):
         """Clear search results and hide results display."""
         self.search_results = []
-        self.show_results = False
+        self._show_results = False
 
     def _format_search_results(self, result: dict) -> list[dict]:
         """Format search results for display with enhanced component info."""
@@ -191,20 +185,14 @@ class TypesenseSearchState(rx.State):
         for hit in result["hits"]:
             doc = hit["document"]
             components = doc.get("components", [])
-            component_info = None
-            if components:
-                component_info = f"Components: {', '.join(components)}"
             formatted_result = {
                 "title": doc["title"],
                 "content": self._get_highlighted_content(hit),
                 "url": doc["url"],
                 "path": doc["path"],
                 "section": doc.get("section", ""),
-                "subsection": doc.get("subsection", ""),
                 "breadcrumb": doc.get("breadcrumb", ""),
                 "components": components,
-                "component_info": component_info,
-                "score": hit.get("text_match", 0),
             }
             formatted_results.append(formatted_result)
 
@@ -244,23 +232,13 @@ class TypesenseSearchState(rx.State):
                     )
 
         # Fallback to truncated plain content
-        return self._truncate_content(hit["document"]["content"])
+        return self._truncate_content(hit["document"].get("content", ""))
 
     def _truncate_content(self, content: str, max_length: int = 150) -> str:
         """Truncate content to specified length."""
         if len(content) <= max_length:
             return content
         return content[:max_length] + "..."
-
-    def hide_results(self):
-        """Hide search results."""
-        self.show_results = False
-
-    def navigate_to_result(self, url: str):
-        """Navigate to a search result."""
-        self.show_results = False
-        self.show_modal = False
-        return rx.redirect(url)
 
 
 # Component functions (keeping your existing UI components)
@@ -284,23 +262,26 @@ def filter_pill(filter_name: str) -> rx.Component:
 def filter_pills() -> rx.Component:
     """Render the filter pills container."""
     return rx.box(
-        rx.foreach(TypesenseSearchState.filter_categories, filter_pill),
+        *[filter_pill(filter_name) for filter_name in FILTER_CATEGORIES],
         class_name="hidden md:flex md:flex-row gap-x-3 pt-2 overflow-x-auto justify-start w-full",
     )
 
 
 def suggestion_item(title: str, url: str, icon: str = "book-open") -> rx.Component:
     """Render a single suggestion item."""
-    return rx.box(
+    return rx.el.a(
         rx.hstack(
-            rx.icon(icon, size=16, color="var(--c-slate-9)"),
+            rx.icon(icon, size=16, class_name="!text-slate-9"),
             rx.text(
-                title, font_weight="500", color="var(--c-slate-12)", font_size="14px"
+                title,
+                font_weight="500",
+                class_name="!text-slate-12",
+                font_size="14px",
             ),
             spacing="2",
             align_items="center",
         ),
-        on_click=lambda: TypesenseSearchState.navigate_to_result(url),
+        to=url,
         class_name="w-full border-b border-slate-4 hover:bg-slate-3 cursor-pointer rounded-[6px] py-2 px-2",
     )
 
@@ -353,7 +334,7 @@ def suggestions_section() -> rx.Component:
 
 def search_result_item(result: rx.Var) -> rx.Component:
     """Enhanced search result item with component information."""
-    return rx.box(
+    return rx.el.a(
         rx.vstack(
             rx.text(
                 result["breadcrumb"],
@@ -381,7 +362,7 @@ def search_result_item(result: rx.Var) -> rx.Component:
             width="100%",
         ),
         class_name="p-2 border border-slate-4 rounded-[8px] cursor-pointer w-full hover:border-slate-5 hover:bg-slate-2 shadow-small",
-        on_click=lambda: TypesenseSearchState.navigate_to_result(result["url"]),
+        to=result["url"],
     )
 
 
@@ -396,12 +377,11 @@ def search_results_section() -> rx.Component:
 def search_input() -> rx.Component:
     """Render the search input field."""
     return rx.box(
-        rx.el.button(
-            "Esc",
-            class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm border border-slate-5 rounded-md text-xs !text-slate-9 px-[5px] py-[2px] hidden md:inline",
-            on_click=rx.run_script(
-                "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
-            ),
+        rx.el.a(
+            hi("sparkles", class_name="fill-current"),
+            "Ask AI",
+            class_name="absolute right-0 top-1/2 transform -translate-y-1/2 text-md border border-violet-9 rounded-md text-violet-9 bg-violet-3 px-2 py-1 flex flex-row items-center gap-x-1 font-medium hover:bg-violet-4 transition-colors",
+            to="/docs/ai-builder/integrations/mcp-overview",
         ),
         rx.el.input(
             placeholder="Search components, docs, or features...",
@@ -466,8 +446,7 @@ def search_trigger() -> rx.Component:
             "max_width": ["6em", "6em", "none"],
             "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
         },
-        class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
-        on_click=TypesenseSearchState.open_modal,
+        class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[3px] !rounded-[10px] bg-slate-1 transition-bg relative",
     )
 
 
@@ -493,10 +472,8 @@ def typesense_search() -> rx.Component:
             rx.dialog.content(
                 search_modal(),
                 class_name="w-full max-w-[640px] mx-auto bg-slate-1 border-none outline-none p-0 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
-                on_interact_outside=TypesenseSearchState.close_modal,
-                on_escape_key_down=TypesenseSearchState.close_modal,
             ),
+            on_open_change=TypesenseSearchState.close_modal,
         ),
         keyboard_shortcut_script(),
-        class_name="w-full",
     )
