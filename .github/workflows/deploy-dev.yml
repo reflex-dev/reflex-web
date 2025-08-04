@@ -16,9 +16,9 @@ permissions:
 env:
   NODE_OPTIONS: "--max-old-space-size=8192"
   CP_WEB_URL: https://cloud.rxc.app/
-  CP_BACKEND_URL: https://cloud-f188e2cd-51fb-4b29-b546-2ce4b9efc5d5.fly.dev/
-  TYPESENSE_HOST: ${{ secrets.DEV_TYPESENSE_HOST }}
-  TYPESENSE_SEARCH_API_KEY: ${{ secrets.DEV_TYPESENSE_SEARCH_API_KEY }}
+  CP_BACKEND_URL: https://f188e2cd-51fb-4b29-b546-2ce4b9efc5d5.fly.dev/
+  DEV_TYPESENSE_HOST: ${{ secrets.DEV_TYPESENSE_HOST }}
+  DEV_TYPESENSE_SEARCH_API_KEY: ${{ secrets.DEV_TYPESENSE_SEARCH_API_KEY }}
 
 jobs:
   deploy:
