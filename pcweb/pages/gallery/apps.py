@@ -32,6 +32,11 @@ gallery_apps_data = load_all_gallery_apps()
 gallery_apps_data_copy = {
     path: doc for (path, _), doc in gallery_apps_data.items()
 }
+gallery_apps_data_open_source = {
+    (path, folder): doc
+    for (path, folder), doc in load_all_gallery_apps().items()
+    if folder == "templates/"
+}
 
 
 def more_posts(current_post: dict) -> rx.Component:
@@ -113,7 +118,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                 class_name="w-full h-full xl:rounded-md shadow-small",
                 id="iFrame",
             ),
-            class_name="w-full h-[70vh] text-center flex flex-col gap-y-4 items-center text-slate-10",
+            class_name="w-full h-[80vh] text-center flex flex-col gap-y-4 items-center text-slate-10",
         )
     )
 

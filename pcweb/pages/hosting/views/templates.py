@@ -7,7 +7,7 @@ def gallery_app_card(app: dict) -> rx.Component:
         rx.box(
             rx.link(
                 rx.image(
-                    src=app["image"],
+                    src=f"/templates/{app['image']}",
                     loading="lazy",
                     alt="Image preview for app: " + app["title"],
                     class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out",
@@ -48,9 +48,9 @@ templates_name_map = {
 
 
 def component_grid() -> rx.Component:
-    from pcweb.pages.gallery.apps import gallery_apps_data
+    from pcweb.pages.gallery.apps import gallery_apps_data_open_source
 
-    apps_copy = copy.deepcopy(gallery_apps_data)
+    apps_copy = copy.deepcopy(gallery_apps_data_open_source)
 
     posts = []
     for path, document in list(apps_copy.items()):
