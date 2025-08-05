@@ -21,7 +21,7 @@ ITEMS_PER_PAGE = 12
 
 class TemplatesState(rx.State):
     query: rx.Field[str] = rx.field("")
-    checked_tags: rx.Field[set[str]] = rx.field(set())
+    checked_tags: rx.Field[set[str]] = rx.field(default_factory=set)
     page: rx.Field[int] = rx.field(1)
     total_pages: rx.Field[int] = rx.field(1)
 

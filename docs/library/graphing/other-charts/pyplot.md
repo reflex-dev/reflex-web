@@ -81,10 +81,10 @@ def create_plot(theme: str, plot_data: tuple, scale: list):
     fig, ax = plt.subplots(facecolor=bg_color)
     ax.set_facecolor(bg_color)
 
-    for (x, y), color in zip(plot_data, ["#4e79a7", "#f28e2b", "#59a14f"]):
+    for (x, y), color in zip(plot_data, ["#4e79a7", "#f28e2b"]):
         ax.scatter(x, y, c=color, s=scale, label=color, alpha=0.6, edgecolors="none")
 
-    ax.legend(facecolor=bg_color, edgecolor='none', labelcolor=text_color)
+    ax.legend(loc="upper right", facecolor=bg_color, edgecolor='none', labelcolor=text_color)
     ax.grid(True, color=grid_color)
     ax.tick_params(colors=text_color)
     for spine in ax.spines.values():
@@ -97,17 +97,19 @@ def create_plot(theme: str, plot_data: tuple, scale: list):
     return fig
 
 class PyplotState(rx.State):
-    num_points: int = 100
-    plot_data: tuple = tuple(np.random.rand(2, 100) for _ in range(3))
-    scale: list = [random.uniform(0, 100) for _ in range(100)]
+    num_points: int = 25
+    plot_data: tuple = tuple(np.random.rand(2, 25) for _ in range(2))
+    scale: list = [random.uniform(0, 100) for _ in range(25)]
 
+    @rx.event(temporal=True, throttle=500)
     def randomize(self):
-        self.plot_data = tuple(np.random.rand(2, self.num_points) for _ in range(3))
+        self.plot_data = tuple(np.random.rand(2, self.num_points) for _ in range(2))
         self.scale = [random.uniform(0, 100) for _ in range(self.num_points)]
 
+    @rx.event(temporal=True, throttle=500)
     def set_num_points(self, num_points: list[int | float]):
         self.num_points = int(num_points[0])
-        self.randomize()
+        yield PyplotState.randomize()
     
     @rx.var
     def fig_light(self) -> Figure:
@@ -134,9 +136,9 @@ def pyplot_example():
                     ),
                     rx.text("Number of Points:"),
                     rx.slider(
-                        default_value=100,
+                        default_value=25,
                         min_=10,
-                        max=1000,
+                        max=100,
                         on_value_commit=PyplotState.set_num_points,
                     ),
                     width="100%",
