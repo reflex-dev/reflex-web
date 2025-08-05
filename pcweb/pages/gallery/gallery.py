@@ -1,6 +1,9 @@
+import asyncio
 import flexdown
 import reflex as rx
 import re
+from typing import Dict
+import httpx
 from pcweb.templates.webpage import webpage
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
@@ -19,6 +22,64 @@ def get_templatey_apps(paths):
 
 paths = flexdown.utils.get_flexdown_files(REFLEX_BUILD_TEMPLATES_PATH)
 template_apps_data = get_templatey_apps(paths)
+
+
+class TemplateHealthState(rx.State):
+    """State to manage template health checking for iframe previews."""
+    
+    health_status: rx.Field[Dict[str, bool]] = rx.field(default_factory=dict)
+    loading_status: rx.Field[Dict[str, bool]] = rx.field(default_factory=dict)
+    
+    @rx.event(background=True)
+    async def check_template_health(self, url: str):
+        """Check if template health endpoint is ready."""
+        if not url or url == "#":
+            return
+            
+        async with self:
+            self.loading_status[url] = True
+            
+        try:
+            for attempt in range(3):
+                try:
+                    async with httpx.AsyncClient(timeout=10) as client:
+                        response = await client.get(f"{url}/ping")
+                    if response.status_code in [200, 301]:
+                        async with self:
+                            self.health_status[url] = True
+                            self.loading_status[url] = False
+                        return
+                except Exception:
+                    pass
+                await asyncio.sleep(1)
+                
+            async with self:
+                self.health_status[url] = False
+                self.loading_status[url] = False
+                
+        except Exception:
+            async with self:
+                self.health_status[url] = False
+                self.loading_status[url] = False
+
+
+def template_loading_overlay(is_loading: bool = False):
+    """Loading overlay for template iframes, similar to flexgen's loading_screen_preview."""
+    return rx.box(
+        rx.box(
+            rx.spinner(
+                size="3",
+                color="violet",
+            ),
+            rx.text(
+                "Loading template...",
+                class_name="text-sm text-slate-11 mt-4",
+            ),
+            class_name="flex flex-col items-center justify-center",
+        ),
+        display=rx.cond(is_loading, "flex", "none"),
+        class_name="absolute inset-0 z-50 backdrop-blur-sm bg-white/50 dark:bg-black/50 rounded-md items-center justify-center",
+    )
 
 
 def app_dialog_with_trigger(
@@ -52,10 +113,33 @@ def app_dialog_with_trigger(
                     ),
                     class_name="flex flex-row items-center justify-between",
                 ),
-                rx.el.iframe(
-                    src=app_url,
-                    class_name="w-full h-full xl:rounded-md shadow-small",
-                    id="iFrame",
+                rx.box(
+                    rx.cond(
+                        TemplateHealthState.health_status.get(app_url, False),
+                        rx.el.iframe(
+                            src=app_url,
+                            class_name="w-full h-full xl:rounded-md shadow-small",
+                            id="iFrame",
+                        ),
+                        rx.box(
+                            rx.cond(
+                                TemplateHealthState.loading_status.get(app_url, False),
+                                template_loading_overlay(True),
+                                rx.text(
+                                    "Click to load template preview...",
+                                    class_name="text-sm text-slate-9",
+                                ),
+                            ),
+                            rx.button(
+                                "Load Preview",
+                                on_click=TemplateHealthState.check_template_health(app_url),
+                                class_name="mt-4",
+                                variant="outline",
+                            ),
+                            class_name="w-full h-full xl:rounded-md shadow-small bg-slate-2 flex flex-col items-center justify-center",
+                        ),
+                    ),
+                    class_name="relative w-full h-full",
                 ),
                 class_name="flex flex-col w-full h-full gap-y-3",
             ),
