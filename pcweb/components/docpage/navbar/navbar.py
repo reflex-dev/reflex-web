@@ -530,7 +530,7 @@ def new_component_section() -> rx.Component:
             nav_menu.item(
                 rx.link(
                     button(
-                        "Contact Sales",
+                        "Book a Demo",
                         class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
                     ),
                     underline="none",
