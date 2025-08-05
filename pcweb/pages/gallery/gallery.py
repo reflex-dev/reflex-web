@@ -91,7 +91,11 @@ def app_dialog_with_trigger(
     trigger_content: rx.Component,
 ):
     return rx.dialog.root(
-        rx.dialog.trigger(trigger_content, class_name="w-full h-full"),
+        rx.dialog.trigger(
+            trigger_content, 
+            class_name="w-full h-full",
+            on_click=TemplateHealthState.check_template_health(app_url),
+        ),
         rx.dialog.content(
             rx.el.div(
                 rx.el.div(
@@ -122,21 +126,12 @@ def app_dialog_with_trigger(
                             id="iFrame",
                         ),
                         rx.box(
-                            rx.cond(
-                                TemplateHealthState.loading_status.get(app_url, False),
-                                template_loading_overlay(True),
-                                rx.text(
-                                    "Click to load template preview...",
-                                    class_name="text-sm text-slate-9",
-                                ),
+                            template_loading_overlay(TemplateHealthState.loading_status.get(app_url, False)),
+                            rx.text(
+                                "Loading template preview...",
+                                class_name="text-sm text-slate-9",
                             ),
-                            rx.button(
-                                "Load Preview",
-                                on_click=TemplateHealthState.check_template_health(app_url),
-                                class_name="mt-4",
-                                variant="outline",
-                            ),
-                            class_name="w-full h-full xl:rounded-md shadow-small bg-slate-2 flex flex-col items-center justify-center",
+                            class_name="w-full h-full xl:rounded-md shadow-small bg-slate-2 flex items-center justify-center",
                         ),
                     ),
                     class_name="relative w-full h-full",
