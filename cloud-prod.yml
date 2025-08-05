@@ -4,7 +4,7 @@ regions:
   sjc: 1
   ewr: 2
   nrt: 1
-  lhr: 1
+  lhr: 2
 vmtype: pc2m4
 strategy: rolling
 envfile: prod.env
