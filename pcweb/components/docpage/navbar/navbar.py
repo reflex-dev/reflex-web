@@ -5,7 +5,7 @@ import reflex as rx
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
 from pcweb.components.hosting_banner import hosting_banner
-from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL, REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
+from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
 from pcweb.pages.docs import ai_builder, getting_started
@@ -535,7 +535,7 @@ def new_component_section() -> rx.Component:
                     ),
                     underline="none",
                     is_external=True,
-                    href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+                    href="/pricing",
                 ),
                 class_name="xl:flex hidden",
             ),
