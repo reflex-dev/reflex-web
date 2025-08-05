@@ -64,7 +64,7 @@ class TemplateHealthState(rx.State):
 
 
 def template_loading_overlay(is_loading: bool = False):
-    """Loading overlay for template iframes, similar to flexgen's loading_screen_preview."""
+    """Loading overlay for template iframes with nice spinner and blur effect."""
     return rx.box(
         rx.box(
             rx.spinner(
@@ -73,12 +73,12 @@ def template_loading_overlay(is_loading: bool = False):
             ),
             rx.text(
                 "Loading template...",
-                class_name="text-sm text-slate-11 mt-4",
+                class_name="text-sm text-slate-11 mt-4 font-medium",
             ),
-            class_name="flex flex-col items-center justify-center",
+            class_name="flex flex-col items-center justify-center bg-white/80 dark:bg-black/80 rounded-lg px-6 py-4 shadow-lg border border-slate-6",
         ),
         display=rx.cond(is_loading, "flex", "none"),
-        class_name="absolute inset-0 z-50 backdrop-blur-sm bg-white/50 dark:bg-black/50 rounded-md items-center justify-center",
+        class_name="absolute inset-0 z-50 backdrop-blur-md bg-slate-1/60 dark:bg-slate-12/60 rounded-md items-center justify-center",
     )
 
 
@@ -126,12 +126,11 @@ def app_dialog_with_trigger(
                             id="iFrame",
                         ),
                         rx.box(
-                            template_loading_overlay(TemplateHealthState.loading_status.get(app_url, False)),
-                            rx.text(
-                                "Loading template preview...",
-                                class_name="text-sm text-slate-9",
+                            rx.box(
+                                class_name="w-full h-full xl:rounded-md shadow-small bg-slate-2 border border-slate-6",
                             ),
-                            class_name="w-full h-full xl:rounded-md shadow-small bg-slate-2 flex items-center justify-center",
+                            template_loading_overlay(TemplateHealthState.loading_status.get(app_url, False)),
+                            class_name="relative w-full h-full",
                         ),
                     ),
                     class_name="relative w-full h-full",
