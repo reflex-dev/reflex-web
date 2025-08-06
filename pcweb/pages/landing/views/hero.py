@@ -68,7 +68,7 @@ def hero() -> rx.Component:
         # Triangle
         rx.box(
             rx.image(
-                src=f"/landing/patterns/dark/triangle.webp",
+                src="/landing/patterns/dark/triangle.webp",
                 class_name="size-full bg-transparent",
             ),
             class_name="absolute top-[232px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover z-[1] pointer-events-none w-[31rem] h-[20.875rem] hidden lg:block bg-transparent mix-blend-overlay",
@@ -79,11 +79,11 @@ def hero() -> rx.Component:
         # ),
         # Big gradient
         rx.box(
-            class_name="z-[-1] blur-[28px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[40rem] lg:h-[10.25rem] h-[18.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[28.25rem] saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100 max-lg:hidden"
+            class_name="z-[-1] blur-[28px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_#D4CAFE_0%,_rgba(21,_22,_24,_0)_100%)] dark:bg-[radial-gradient(50%_50%_at_50%_50%,_#4329AC_0%,_rgba(21,_22,_24,_0)_100%)] w-[40rem] lg:h-[10.25rem] h-[18.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[28.25rem] saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100 max-lg:hidden"
         ),
         # New Ellipse gradient
         rx.box(
-            class_name="absolute w-[1076px] h-[676px] lg:top-[-369px] top-[-26rem] bg-[radial-gradient(37.87%_37.87%_at_50%_50%,_light-dark(#F4F0FE,#261958)_0%,_rgba(21,_22,_24,_0)_100%)] z-[-1] pointer-events-none saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100"
+            class_name="absolute w-[1076px] h-[676px] lg:top-[-369px] top-[-26rem] bg-[radial-gradient(37.87%_37.87%_at_50%_50%,_#F4F0FE_0%,_rgba(21,_22,_24,_0)_100%)] dark:bg-[radial-gradient(37.87%_37.87%_at_50%_50%,_#261958_0%,_rgba(21,_22,_24,_0)_100%)] z-[-1] pointer-events-none saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100"
         ),
         # Headings
         rx.el.h1(
