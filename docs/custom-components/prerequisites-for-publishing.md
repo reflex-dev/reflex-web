@@ -10,7 +10,7 @@ image_style = {
 }
 ```
 
-In order to publish a Python package, you need to use a publishing utility. Any would work, but we recommend either [Twine](https://twine.readthedocs.io/en/stable/) or (uv)[https://docs.astral.sh/uv/guides/package/#publishing-your-package].
+In order to publish a Python package, you need to use a publishing utility. Any would work, but we recommend either [Twine](https://twine.readthedocs.io/en/stable/) or [uv](https://docs.astral.sh/uv/guides/package/#publishing-your-package).
 
 ## PyPI
 

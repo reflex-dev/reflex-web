@@ -85,7 +85,7 @@ class TypesenseSearchState(rx.State):
 
     # State variables
     search_query: rx.Field[str] = rx.field("")
-    search_results: rx.Field[list[dict]] = rx.field([])
+    search_results: rx.Field[list[dict]] = rx.field(default_factory=list)
     is_searching: rx.Field[bool] = rx.field(False)
     _show_results: bool = False
     selected_filter: rx.Field[str] = rx.field("All")
