@@ -3,8 +3,8 @@ title: trade_blotter_dashboard
 description: "Automatically pulls executions from every venue, flags outliers, and emails a compliance-ready PDF to traders each night."
 author: "Reflex"
 image: "trade_blotter_dashboard.png"
+video: "https://www.youtube.com/embed/gc_he7I1vGc"
 demo: "https://csv-trade-report-tool-gray-piano.rxc.app/"
-# source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
 meta: [
     {"name": "keywords", "content": "trade blotter, trading dashboard, financial operations, execution management, outlier detection, compliance reporting, nightly pdf, trading analytics"},
 ]
@@ -40,4 +40,3 @@ Data Grid · KPI Cards · Line & Bar Charts · PDF Generator · Email Scheduler 
 * **Flagged Trades CSV Export** – share anomaly lists with desk heads or auditors via one-click download.
 
 Everything runs in pure Python with Reflex—swap the mock data ingestors for your OMS or FIX engine, connect SMTP for real emails, and you’ve got a production-grade compliance blotter in minutes.
-

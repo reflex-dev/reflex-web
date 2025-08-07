@@ -4,7 +4,7 @@ description: "GPU-powered analytics dashboard that delivers custom equity-factor
 author: "Reflex"
 image: "finance_dashboard.png"
 demo: "https://finance-dashboard-neon-apple.reflex.run/"
-# source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
+video: "https://www.youtube.com/embed/iLDv_aUVtl8"
 meta: [
     {"name": "keywords", "content": "factor risk model, portfolio analytics, equity factors, GPU analytics, risk management, Reflex app, finance dashboard"},
 ]
@@ -39,4 +39,3 @@ AG Grid Pivot Table · Line & Bar Charts · Heatmaps · KPI Cards · File-Upload
 * **Alert Engine** – trigger email or Slack pings when beta, VaR, or exposure thresholds are breached.
 
 All logic is pure Python - swap the mock data loaders for Databricks, Snowflake, or Bloomberg, and you’ve got a production-ready risk cockpit in minutes.
-

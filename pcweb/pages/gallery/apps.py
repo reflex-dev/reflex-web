@@ -114,9 +114,11 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                 class_name="w-full self-start pl-4",
             ),
             rx.el.iframe(
-                src=meta['demo'],
+                src=meta['video'],
                 class_name="w-full h-full xl:rounded-md shadow-small",
                 id="iFrame",
+                title="Reflex Build",
+                frameborder="0",
             ),
             class_name="w-full h-[80vh] text-center flex flex-col gap-y-4 items-center text-slate-10",
         )
