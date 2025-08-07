@@ -2,7 +2,7 @@
 title: deployment_and_health_dashboard
 description: "Combines service metrics, rollout status, and incident timelines in one screen for on-call engineers."
 author: "Reflex"
-image: "deployment_and_health_dashbaord.png"
+image: "deployment_and_health_dashboard.png"
 demo: "https://retail-analytics-dashboard-cyan-ring.rxc.app/"
 video: "https://www.youtube.com/embed/rIV3AAZxhuc"
 meta: [
