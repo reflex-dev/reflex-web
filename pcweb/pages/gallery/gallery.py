@@ -31,6 +31,7 @@ def app_dialog_with_trigger(
     app_thread: str,
     app_inner_page: str,
     trigger_content: rx.Component,
+    app_video_url: str
 ):
     return rx.dialog.root(
         rx.dialog.trigger(trigger_content, class_name="w-full h-full"),
@@ -60,9 +61,11 @@ def app_dialog_with_trigger(
                     class_name="flex flex-row items-center justify-between",
                 ),
                 rx.el.iframe(
-                    src=app_url,
+                    src=app_video_url,
                     class_name="w-full h-full xl:rounded-md shadow-small z-10",
                     id="iFrame",
+                    title="Reflex Build",
+                    frameborder="0",
                 ),
                 class_name="flex flex-col w-full h-full gap-y-3 relative",
             ),
@@ -78,6 +81,7 @@ def extended_gallery_grid_item(
     app_thread: str,
     app_image: str,
     app_inner_page: str,
+    app_video_url: str
 ):
     return app_dialog_with_trigger(
         app_url=app_url,
@@ -85,6 +89,7 @@ def extended_gallery_grid_item(
         app_name=app_name,
         app_thread=app_thread,
         app_inner_page=app_inner_page,
+        app_video_url=app_video_url,
         trigger_content=rx.el.div(
             rx.el.div(
                 rx.image(
@@ -148,6 +153,7 @@ def create_grid_with_items():
         app_image = meta.get("image", "")
         slug = re.sub(r"[\s_]+", "-", meta.get("title", "")).lower()
         app_inner_page = f"/templates/{slug}"
+        app_video_url = meta.get('video', "#")
 
         items.append(
             extended_gallery_grid_item(
@@ -157,6 +163,7 @@ def create_grid_with_items():
                 app_thread=app_thread,
                 app_image=f"/{REFLEX_BUILD_TEMPLATES_IMAGES}{app_image}",
                 app_inner_page=app_inner_page,
+                app_video_url=app_video_url
             )
         )
 

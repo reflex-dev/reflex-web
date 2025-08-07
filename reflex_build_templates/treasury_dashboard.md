@@ -4,6 +4,7 @@ description: "Streams balances, pending settlements, and cash forecasts into a s
 author: "Reflex"
 image: "treasury_dashboard.png"
 demo: "https://treasury-and-liquidity-monitor-gold-sun.rxc.app/"
+video: "https://www.youtube.com/embed/rIV3AAZxhuc"
 # source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
 meta: [
     {"name": "keywords", "content": "treasury dashboard, liquidity management, cash forecasting, real-time balances, corporate treasury tools, finance analytics"},
@@ -40,4 +41,3 @@ Balance Tiles · Line & Area Charts · Data Tables · Forecast Sliders · Alert 
 * **One-Click CSV Export** – download current alert logs.
 
 Everything runs in pure Python with **Reflex**—swap the mocked data pullers for real banking APIs, forecasting models, or ERP feeds, and you’ve got a production-ready treasury cockpit in minutes.
-

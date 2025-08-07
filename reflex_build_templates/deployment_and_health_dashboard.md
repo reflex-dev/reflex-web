@@ -4,7 +4,7 @@ description: "Combines service metrics, rollout status, and incident timelines i
 author: "Reflex"
 image: "deployment_and_health_dashbaord.png"
 demo: "https://retail-analytics-dashboard-cyan-ring.rxc.app/"
-# source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
+video: "https://www.youtube.com/embed/rIV3AAZxhuc"
 meta: [
 {"name": "keywords", "content": "service health dashboard, real-time monitoring, canary deployments, incident management, SRE tools, Reflex app, DevOps analytics"},
 ]
@@ -41,4 +41,3 @@ Leaflet Map · Line & Area Charts · Data Table · Progress Bars · Buttons & To
 * **Structured Logs** – filter by service and severity for fast root-cause analysis.
 
 Behind the scenes, everything is pure Python with Reflex—swap the mock data pullers for Prometheus, Datadog, or CloudWatch, hook deployment webhooks from Argo or GitHub Actions, and you’ve got a production-ready operations cockpit in minutes.
-
