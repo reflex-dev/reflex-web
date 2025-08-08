@@ -261,3 +261,10 @@ for name, ns in docs_ns.__dict__.items():
     # if name == "cloud":
     #     print(name, ns)
     locals()[name] = ns
+
+build_nested_namespace(
+    docs_ns, 
+    ["library", "tables_and_data_grids"], 
+    "ag_grid", 
+    Route(path="https://reflex.dev/docs/enterprise/ag-grid/", title="AG Grid", component=lambda: "")
+)

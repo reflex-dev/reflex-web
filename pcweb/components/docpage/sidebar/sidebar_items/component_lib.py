@@ -33,6 +33,14 @@ def get_category_children(category, category_list, prefix=""):
             link=get_component_link(category, c, prefix=prefix),
         )
         category_item_children.append(item)
+    
+    if category.lower().replace(' ', '-') == "tables-and-data-grids":
+        ag_grid_item = SideBarItem(
+            names="AG Grid",
+            link="https://reflex.dev/docs/enterprise/ag-grid/",
+        )
+        category_item_children.append(ag_grid_item)
+    
     return SideBarItem(names=category, children=category_item_children)
 
 
