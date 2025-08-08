@@ -1892,8 +1892,8 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.8.5.dev1"
-source = { git = "https://github.com/reflex-dev/reflex?rev=main#71a54bf98917a104e4b00d0fde7fa3119d352321" }
+version = "0.8.6.dev1"
+source = { git = "https://github.com/reflex-dev/reflex?rev=main#5d4b1f22bacff4ff3729a32216cda5e0a9fcd5eb" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
@@ -1930,7 +1930,7 @@ wheels = [
 
 [[package]]
 name = "reflex-hosting-cli"
-version = "0.1.53"
+version = "0.1.54"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -1939,9 +1939,9 @@ dependencies = [
     { name = "platformdirs" },
     { name = "rich" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/24/e5/239a487a18ba9fb135cce25228d3209260c0610a8f8280b763ff1eeaaf17/reflex_hosting_cli-0.1.53.tar.gz", hash = "sha256:a7152767302e79c8336c48be3cd5ceaf2f7246302c3e1ce86e3495efe3cf0ee9", size = 35181, upload-time = "2025-07-21T23:43:47.333Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/18/8c/18d94a6ca2b8573302e06fc51e8aa12b0269422588f77268302a24d52b13/reflex_hosting_cli-0.1.54.tar.gz", hash = "sha256:6a07c6f67282bcaa9650e7d7679e12db98cc60f4a0f68548b5cbb43d36c8a01e", size = 35823, upload-time = "2025-08-06T18:17:41.758Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/90/7d/6a31ef3c2dac3074babe1e94cfacc6028b6a70e7108916cc242128e1aa7d/reflex_hosting_cli-0.1.53-py3-none-any.whl", hash = "sha256:30675693373b264d70bde11a50435de74ee2d80a9951bb1d4ec8663e6e3b1af1", size = 44508, upload-time = "2025-07-21T23:43:45.973Z" },
+    { url = "https://files.pythonhosted.org/packages/bf/87/54bf9470184b9348a0291157688e3bc015707cfc000e64aecf83a0181ef7/reflex_hosting_cli-0.1.54-py3-none-any.whl", hash = "sha256:1bf4eaa5310fde650b20fc0170ea5bde6fb6a5068d80cba3b0fcf328f6279e9c", size = 45332, upload-time = "2025-08-06T18:17:40.552Z" },
 ]
 
 [[package]]
@@ -1971,7 +1971,7 @@ wheels = [
 [[package]]
 name = "reflex-ui"
 version = "0.0.1"
-source = { git = "https://github.com/reflex-dev/reflex-ui?rev=main#a61f4cb9dba7d51a3b6d91d97fb943a1836f3903" }
+source = { git = "https://github.com/reflex-dev/reflex-ui?rev=main#c68b16837bb3e7dc645177f4b31a34ac69816be4" }
 dependencies = [
     { name = "reflex" },
 ]
