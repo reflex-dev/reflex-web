@@ -9,11 +9,6 @@ from pcweb.pages.docs import enterprise
 
 # AG Grid
 
-## AG Grid Features
-
-```md alert warning
-#Turning off turbopack via `REFLEX_USE_TURBOPACK=False` might break the enterprise features of AgGrid.
-```
 
 ## Your First Reflex AG Grid
 
