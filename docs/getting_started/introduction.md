@@ -327,7 +327,7 @@ app.add_page(index)
 
 We've created a simple, yet fully interactive web app in pure Python.
 
-By continuing with our documentation, you will learn how to building awesome apps with Reflex.
+By continuing with our documentation, you will learn how to build awesome apps with Reflex.
 
 For a glimpse of the possibilities, check out these resources:
 
