@@ -3,13 +3,19 @@ import reflex as rx
 from reflex_image_zoom import image_zoom
 ```
 
-
 # Tokens
 
-A token gives someone else all the permissions you have as a User or an Admin. They can run any Reflex Cloud command from the CLI as if they are you using the `--token` flag. A good use case would be for GitHub actions (you store this token in the secrets).
+A token gives someone else all the permissions you have as a User or Admin. They can run any Reflex Cloud command from the CLI as if they were you, using the `--token` flag. A common use case is for GitHub Actions (you store this token in your secrets).
 
-Tokens are found on the Project List page under the tab `Tokens`. If you cannot find it click the Reflex Logo in the top left side of the page until it appears as in the image below.
+To access or create tokens, first click the avatar in the top-right corner to open the drop-down menu, then click `Account Settings`.
 
 ```python eval
-image_zoom(rx.image(src="/hosting_tokens.png", alt="Adding tokens to Reflex Cloud"))
+image_zoom(rx.image(src="/hosting_tokens_1.png", alt="Adding tokens to Reflex Cloud", padding="1em 0em"))
+```
+
+Clicking `Account Settings` will redirect you to both the `Settings` and `Tokens` dashboards. Click the `Tokens` tab at the top to access your tokens or create new ones.
+
+
+```python eval
+image_zoom(rx.image(src="/hosting_tokens_2.png", alt="Adding tokens to Reflex Cloud", padding="1em 0em"))
 ```
