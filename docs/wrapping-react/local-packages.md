@@ -38,38 +38,66 @@ class Hello(rx.Component):
 
 You can also wrap components that you have written yourself. For local components (when the code source is directly in the project), we recommend putting it beside the files that is wrapping it.
 
-You can then use the path obtained via `rx.asset` to reference the component path.
-
-So if you create a file called `hello.js` in the same directory as the component with this content:
+If there is a file `hello.jsx` in the same directory as the component with this content:
 
 ```javascript
-// /path/to/components/hello.js
+// /path/to/components/hello.jsx
 import React from 'react';
 
-export function Hello() {
+export function Hello({name, onGreet}) {
   return (
     <div>
-      <h1>Hello!</h1>
+      <h1>Hello, {name}!</h1>
+      <button onClick={() => onGreet(name)}>Greet</button>
     </div>
   )
 }
 ```
 
-You can specify the library as follow (note: we use the `public` directory here instead of `assets` as this is the directory that is served by the web server):
+The python app can use the `rx.asset` helper to copy the component source into
+the generated frontend, after which the `library` path in the `rx.Component` may
+be specified by prefixing `$/public` to that path returned by `rx.asset`.
 
 ```python
 import reflex as rx
 
-hello_path = rx.asset("hello.js", shared=True)
-public_hello_path = "$/public/" + hello_path
+hello_path = rx.asset("./hello.jsx", shared=True)
+hello_css_path = rx.asset("./hello.css", shared=True)
 
 class Hello(rx.Component):
     # Use an absolute path starting with $/public
-    library = public_hello_path
+    library = f"$/public{hello_path}"
 
     # Define everything else as normal.
     tag = "Hello"
+
+    name: rx.Var[str] = rx.Var("World")
+    on_greet: rx.EventHandler[rx.event.passthrough_event_spec(str)]
+
+    # Include any related CSS files with rx.asset to ensure they are copied.
+    def add_imports(self):
+        return {"": f"$/public/{hello_css_path}"}
 ```
+
+## Considerations
+
+When wrapping local components, keep the following in mind:
+
+1. **File Extensions**: Ensure that the file extensions are correct (e.g., `.jsx` for React components and `.tsx` for TypeScript components).
+2. **Asset Management**: Use `rx.asset` with `shared=True` to manage any assets (e.g., images, styles) that the component depends on.
+3. **Event Handling**: Define any event handlers (e.g., `on_greet`) as part of the component's API and pass those to the component _from the Reflex app_. Do not attempt to hook into Reflex's event system directly from Javascript.
+
+## Use Case
+
+Local components are useful when shimming small pieces of functionality that are
+simpler or more performant when implemented directly in Javascript, such as:
+
+* Spammy events: keys, touch, mouse, scroll -- these are often better processed on the client side.
+* Using canvas, graphics or WebGPU
+* Working with other Web APIs like storage, screen capture, audio/midi
+* Integrating with complex third-party libraries
+  * For application-specific use, it may be easier to wrap a local component that
+    provides the needed subset of the library's functionality in a simpler API for use in Reflex.
 
 # Local Packages
 
