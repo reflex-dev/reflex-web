@@ -377,21 +377,6 @@ def popular_card(
     )
 
 
-def pricing_header() -> rx.Component:
-    """Header section for the pricing page."""
-    return rx.box(
-        rx.el.h3(
-            "Choose the perfect plan for your needs",
-            class_name="text-slate-12 text-3xl font-semibold text-center",
-        ),
-        rx.el.p(
-            "Start free, scale as you grow, or go enterprise for maximum power",
-            class_name="text-slate-9 text-xl font-semibold text-center",
-        ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[2.5rem] pt-[10rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
-    )
-
-
 def price_cards() -> rx.Component:
     """Render all three pricing plan cards following the tier structure."""
 
