@@ -33,7 +33,7 @@ Once generated, copy each prompt into the AI Builder to execute them in sequence
 **Example workflow:**
 
 1. Switch to Chat Mode and paste your full app specification
-2. Ask: *"Break this into a series of buildable prompts I can feed into the Agent Mode."*
+2. Ask **"Break this into a series of buildable prompts I can feed into the Agent Mode."**
 3. Copy each generated prompt into Agent Mode one by one
 4. Build iteratively using the structured prompts
 
@@ -43,8 +43,10 @@ If you have a structured app specification, don't paste the entire document into
 
 **Pro tip:** Use **Chat Mode** to help prepare prompts:
 
-- Paste your full app spec and ask: *"Break this into buildable prompts I can feed into the builder."*
-- Or ask: *"Write one prompt per feature/page to build this app."*
+Paste your full app spec and ask:
+
+  - **"Break this into buildable prompts I can feed into the builder."**
+  - **"Write one prompt per feature/page to build this app."**
 
 This hybrid approach — planning in **Chat Mode**, then building in **Agent Mode** — lets you move faster and build smarter.
 
@@ -52,11 +54,11 @@ This hybrid approach — planning in **Chat Mode**, then building in **Agent Mod
 
 The AI performs best when it receives **specific, outcome-driven instructions**. Avoid vague, broad prompts.
 
-❌ **Bad:**
-> "Build me an admin dashboard."
 
-✅ **Good:**
-> "Create a 2-column layout with a sidebar for navigation and a top navbar."
+```diff
+- Build me an admin dashboard. # <- Bad
++ Create a 2-column layout with a sidebar for navigation and a top navbar. # <- Good
+```
 
 Whenever possible, split large tasks into smaller steps:
 
@@ -66,9 +68,13 @@ Whenever possible, split large tasks into smaller steps:
 - Use follow-ups to style and polish
 
 Use precise styling language, for example:
-> "Add medium spacing between grid items and use large rounded corners on cards"
 
-Avoid subjective terms like "nice," "modern," or "clean." Treat your prompt as interface documentation for the builder.
+```diff
+- Grid items have small spacing and sharp corners.
++ Add medium spacing between grid items and use large rounded corners on cards.
+```
+
+Avoid subjective terms like "**nice**," "**modern**," or "**clean**." Treat your prompt as interface documentation for the builder.
 
 ### Working with Images and Visual References
 
@@ -82,9 +88,12 @@ You can drop in screenshots of websites, dashboards, apps, or even hand-drawn wi
 
 **Get UI/UX feedback using Chat Mode:**
 
-- Upload a screenshot and ask: *"What are 5 things I could do to improve the UI/UX of this?"*
-- Follow up with: *"Implement items 1, 2, and 4 in the builder."*
-- Or request specific improvements: *"Make this more minimal and mobile-first."*
+Upload a screenshot and ask: **"What are 5 things I could do to improve the UI/UX of this?"**
+
+
+Follow up with: **Implement items 1, 2, and 4 in the builder.**
+
+Or request specific improvements: **Make this more minimal and mobile-first.**
 
 ---
 
@@ -101,31 +110,36 @@ Trying to generate your full app in a single prompt almost never works well. Ins
 
 At each stage, give feedback and iterate. If the AI builder makes something close, you can say:
 
-> "Reuse this structure but remove the modal and make the sidebar collapsible."
+```diff
+- Modal is included and sidebar is static.
++ Remove modal and make sidebar collapsible.
 
-**Reuse and reference earlier outputs:**
+- Buttons vary across pages.
++ Use same button style from home page.
 
-- *"Use the same button style from the home page here."*
-- *"Repeat the card layout from the dashboard section."*
-- *"Match the data table structure from the 'Users' tab."*
+- Card layout differs across sections.
++ Repeat card layout from dashboard section.
+```
+
 
 ### Improving UI/UX
 
 To improve your design, ask the builder for more polished layouts, better structure, or more modern styles.
 
-**Examples:**
+```diff
+- Layout feels cluttered with small headings and dense sections.
++ Increase heading sizes and spacing between sections for better hierarchy.
 
-- *"Make this more minimal."*
-- *"Improve visual hierarchy."*
-- *"This page feels dense. Add more spacing and reduce visual clutter."*
-- *"Make this more mobile-first."*
+- Navigation buttons are inconsistent.
++ Standardize button sizes and colors for consistent UX.
+```
 
 **Suggested workflow:**
 
 1. In Chat Mode, upload an image or describe the layout.
-2. Ask: *"Tell me 5 things that would improve the UI/UX of this page."*
+2. Ask: **"Tell me 5 things that would improve the UI/UX of this page."**
 3. Review the suggestions and decide which ones you want to apply.
-4. Switch to Agent Mode and implement: *"Improve visual hierarchy by increasing heading sizes and adding more spacing between sections."*
+4. Switch to Agent Mode and implement: **"Improve visual hierarchy by increasing heading sizes and adding more spacing between sections."**
 
 ### Using Knowledge to Guide the Build
 
@@ -133,10 +147,12 @@ The **Knowledge** panel lets you provide long-form references that influence how
 
 Once added, the builder will try to honor these rules throughout the session, ensuring consistency without repeating instructions.
 
-**Try combining Knowledge with Chat Mode:**
+Try combining Knowledge with Chat Mode:
 
-- *"Use the style guide in Knowledge to improve this page."*
-- *"Is the current layout aligned with our design system in Knowledge?"*
+  - **Use the style guide in Knowledge to improve this page.**
+
+  - **Is the current layout aligned with our design system in Knowledge?**
+
 
 ### Local Development Integration
 
@@ -144,7 +160,7 @@ We have an MCP server available for enterprise customers to connect local AI dev
 
 This enables a hybrid workflow: generate your app and make major changes in the App Builder, then move to local development for detailed refinements and custom functionality.
 
-> **🏢 Enterprise Feature:** The Reflex MCP integration is currently only available for enterprise customers. [Book a demo](https://reflex.dev/pricing/) to discuss access.
+> **Enterprise Feature:** The Reflex MCP integration is currently only available for enterprise customers. [Book a demo](https://reflex.dev/pricing/) to discuss access.
 
 #### Quick Setup
 
