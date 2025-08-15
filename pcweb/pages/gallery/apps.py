@@ -155,7 +155,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                                             class_name="flex-row-reverse gap-2 !w-full",
                                         ),
                                         is_external=True,
-                                        href="/pricing",
+                                        href="/demo",
                                         class_name="!w-full"
                                     ),
                                     class_name="flex justify-center items-center h-full !w-full",

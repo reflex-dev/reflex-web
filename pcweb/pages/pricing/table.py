@@ -271,7 +271,7 @@ def header_ai() -> rx.Component:
             "Build customized, secure, and scalable apps in seconds",
             class_name="text-slate-9 text-xl font-semibold text-center",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[2.5rem] pt-[10rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
 

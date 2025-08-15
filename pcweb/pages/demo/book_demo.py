@@ -1,21 +1,12 @@
 import reflex as rx
 from pcweb.pages.framework.index_colors import index_colors
 from pcweb.pages.framework.views.footer_index import footer_index
-from pcweb.pages.pricing.plan_cards import plan_cards
-from pcweb.pages.pricing.table import (
-    comparison_table_hosting,
-    comparison_table_ai,
-)
-from pcweb.pages.pricing.faq import faq
-from pcweb.pages.pricing.calculator import calculator_section
 from pcweb.meta.meta import hosting_meta_tags
+from pcweb.pages.demo.header import header
 
-pricing_path = "/pricing"
-
-
-@rx.page(route=pricing_path, title="Reflex · Pricing", meta=hosting_meta_tags)
-def pricing() -> rx.Component:
-    """Get the Pricing landing page."""
+@rx.page(route="/demo", title="Reflex · Book Demo", meta=hosting_meta_tags)
+def book_demo() -> rx.Component:
+    """Get the Book Demo landing page."""
     from pcweb.components.docpage.navbar import navbar
 
     return rx.box(
@@ -23,11 +14,7 @@ def pricing() -> rx.Component:
         navbar(),
         rx.el.main(
             rx.box(
-                plan_cards(),
-                comparison_table_ai(),
-                comparison_table_hosting(),
-                calculator_section(),
-                faq(),
+                header(),
                 class_name="flex flex-col relative justify-center items-center w-full",
             ),
             class_name="flex flex-col w-full relative h-full justify-center items-center",
