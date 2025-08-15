@@ -18,6 +18,8 @@ from .landing.landing import landing as landing
 from .page404 import page404 as page404
 from .pricing.pricing import pricing as pricing
 from .sales import sales as sales
+from .demo.book_demo import book_demo as book_demo
+
 
 routes = [
     *[r for r in locals().values() if isinstance(r, Route) and r.add_as_page],
