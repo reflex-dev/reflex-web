@@ -1,15 +1,9 @@
 import reflex as rx
-from reflex.experimental import ClientStateVar
-from pcweb.constants import REFLEX_BUILD_URL
 from pcweb.components.new_button import button
-from pcweb.components.icons.icons import get_icon_var
 from .video_demo import video_demo, watch_preview
-
-
 import uuid
 import httpx
 import base64
-import reflex as rx
 from pcweb.components.icons.icons import get_icon_var
 from pcweb.components.icons.hugeicons import hi
 from pcweb.constants import (
@@ -47,7 +41,6 @@ class SubmitPromptState(rx.State):
     async def redirect_to_ai_builder(self, form_data: dict):
         if prompt := form_data.get("prompt"):
             random_uuid = uuid.uuid4()
-            print(prompt)
             async with httpx.AsyncClient() as client:
                 response = await client.post(
                     RX_BUILD_BACKEND.rstrip("/") + "/prompt",
