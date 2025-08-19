@@ -216,7 +216,7 @@ def _get_features_header(title: str) -> str:
     headers = {
         "Free": "What's included:",
         "Pro": "Everything in Free, plus:",
-        "Enterprise": "Everything in Pro, plus:",
+        "Enterprise": "Everything in Free, plus:",
     }
     return headers.get(title, "Features:")
 
@@ -308,7 +308,7 @@ def card(
             ),
             _render_feature_list(features),
         ),
-        class_name="flex flex-col p-6 border border-slate-4 rounded-lg shadow-small bg-slate-2 w-full min-w-0 max-w-md w-[28rem] overflow-hidden h-[46rem]",
+        class_name="flex flex-col p-6 border border-slate-4 rounded-lg shadow-small bg-slate-2 w-full min-w-0 max-w-md w-[28rem] overflow-hidden h-[50rem]",
     )
 
 
@@ -371,7 +371,7 @@ def popular_card(
                 ),
                 _render_feature_list(features),
             ),
-            class_name="flex flex-col p-6 border-2 border-[--violet-9] rounded-lg w-full min-w-0 max-w-md w-[28rem] relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden h-[46rem]",
+            class_name="flex flex-col p-6 border-2 border-[var(--violet-9)] rounded-lg w-full min-w-0 max-w-md w-[28rem] relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden h-[50rem]",
         ),
         class_name="relative w-full min-w-0 max-w-md w-[28rem]",
     )
@@ -429,38 +429,39 @@ def price_cards() -> rx.Component:
                 ("cloud", "Deploy to Reflex Cloud", True),
                 ("badge", "'Built with Reflex' Attribution", True),
                 ("heart-handshake", "Discord/Github Support", True),
+                ("key", "OpenAI Integration", True),
                 ("github", "Github Integration", False),
                 ("download", "Download App Code", False),
-                ("key", "AI Integrations", False),
+                ("database", "Database Integrations", False)
             ],
             "Start for Free",
             price="Free",
             redirect_url=REFLEX_DOCS_URL,
         ),
 
-        # Pro Tier (Popular)
-        popular_card(
-            "Pro",
-            "Everything you need for professional development.",
-            [
-                ("eye", "Public Apps", True),
-                ("github", "Github Integration (Public)", True),
-                ("download", "Download App Code", True),
-                ("key", "OpenAI Integration", True),
-                ("mail", "Gmail Auth Integration", True),
-                ("database", "Database Integration", True),
-                ("eye-off", "Private Apps", False),
-                ("github", "Private Github Repos", False),
-                ("shield", "SSO Integration", False),
-                ("server", "Private Cloud Deploy", False),
-            ],
-            "Get Started",
-            price="$29/month",
-            coming_soon=True,  # Add this parameter to enable "Coming Soon"
-        ),
+        # # Pro Tier (Popular)
+        # popular_card(
+        #     "Pro",
+        #     "Everything you need for professional development.",
+        #     [
+        #         ("eye", "Public Apps", True),
+        #         ("github", "Github Integration (Public)", True),
+        #         ("download", "Download App Code", True),
+        #         ("key", "OpenAI Integration", True),
+        #         ("mail", "Gmail Auth Integration", True),
+        #         ("database", "Database Integration", True),
+        #         ("eye-off", "Private Apps", False),
+        #         ("github", "Private Github Repos", False),
+        #         ("shield", "SSO Integration", False),
+        #         ("server", "Private Cloud Deploy", False),
+        #     ],
+        #     "Get Started",
+        #     price="$29/month",
+        #     coming_soon=True,  # Add this parameter to enable "Coming Soon"
+        # ),
 
         # Enterprise Tier
-        card(
+        popular_card(
             "Enterprise",
             "Tailored solutions for enterprise needs.",
             [
@@ -473,13 +474,17 @@ def price_cards() -> rx.Component:
                 ("user-round-plus", "White Glove Onboarding", True),
                 ("git-pull-request", "Influence Roadmap", True),
                 ("key", "Bring Your Own AI Keys", True),
-                ("circle-plus", "Everything in Pro", True),
+                ("github", "Github Integration", True),
+                ("download", "Download App Code", True),
+                ("database", "Database Integrations", True)
+                # ("circle-plus", "Everything in Pro", True),
             ],
             "Contact Sales",
             price="Custom",
-            redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+            # redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
-        class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center place-items-center [&>*:nth-child(3)]:md:col-span-2 [&>*:nth-child(3)]:lg:col-span-1 mx-auto gap-6 w-full lg:border-x border-slate-3 max-w-[80rem]",
+        # class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center place-items-center mx-auto gap-2 w-full max-w-[80rem] lg:border-x border-slate-3 [&>*:nth-child(3)]:md:col-span-1 [&>*:nth-child(3)]:lg:col-span-1",
+        class_name="w-full max-w-[80rem] flex flex-row gap-x-8 items-center flex-wrap justify-center"
     )
 
 def header():
@@ -492,14 +497,14 @@ def header():
                 "Start free, scale as you grow, or go enterprise for maximum power",
                 class_name="text-slate-9 text-xl font-semibold text-center",
             ),
-            class_name="flex items-center justify-between text-slate-11 flex-col py-[4.5rem] 2xl:border-t 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+            class_name="flex items-center justify-between text-slate-11 flex-col py-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
         )
 
 def plan_cards():
     return rx.box(
         header(),
         price_cards(),
-        class_name="flex flex-col gap-y-4 w-full "
+        class_name="flex flex-col gap-y-4 w-full justify-center items-center "
         + rx.cond(
             HostingBannerState.show_banner,
             "pt-[8rem] lg:pt-[11rem]",
