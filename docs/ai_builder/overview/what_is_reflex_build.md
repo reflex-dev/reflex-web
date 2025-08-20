@@ -224,10 +224,10 @@ def feature_card(feature: dict) -> rx.Component:
                 rx.icon(
                     tag=feature["icon"],
                     size=15,
-                    class_name="inline-block pr-2 "
+                    class_name="inline-block mr-2 "
                     + rx.color_mode_cond(
-                        "stroke-purple-8",
-                        "stroke-purple-9",
+                        "stroke-violet-8",
+                        "stroke-violet-9",
                     ),
                 ),
                 rx.el.span(f"{feature['title']} ", class_name="text-sm font-bold"),
