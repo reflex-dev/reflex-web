@@ -21,6 +21,7 @@ from pcweb.pages.errors import errors
 from pcweb.pages.faq import faq
 from pcweb.pages.gallery import gallery
 from pcweb.signup import IndexState
+from pcweb.views.footer import ph_1
 
 
 def tab_item(mode: str, icon: str) -> rx.Component:
@@ -184,7 +185,11 @@ def footer_index() -> rx.Component:
                     footer_link("Affiliates", "/affiliates"),
                     footer_link("Use Cases", "/use-cases"),
                     rx.box(class_name="grow"),
-                    dark_mode_toggle(),
+                    rx.el.div(
+                        ph_1(),
+                        dark_mode_toggle(),
+                        class_name="flex flex-row items-center gap-6",
+                    ),
                 ],
                 class_name="!row-span-3 lg:!border-t-0 lg:!border-r !border-slate-3",
             ),

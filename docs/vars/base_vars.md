@@ -215,7 +215,7 @@ app = rx.App()
 
 
 class State(rx.State):
-    x: rx.Field[dict[str, list[int]]] = rx.field(\{})
+    x: rx.Field[dict[str, list[int]]] = rx.field(default_factory=dict)
 
 
 @app.add_page

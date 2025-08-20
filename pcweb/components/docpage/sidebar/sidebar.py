@@ -8,7 +8,7 @@ from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.constants import ENTERPRISE_DOCS_URL
 from pcweb.styles.colors import c_color
 
-from .sidebar_items.ai import ai_builder_overview_items
+from .sidebar_items.ai import ai_builder_overview_items, mcp_items
 from .sidebar_items.component_lib import component_lib, graphing_libs
 from .sidebar_items.enterprise import (
     enterprise_items,
@@ -383,6 +383,7 @@ def sidebar_comp(
     recipes_index: list[int],
     enterprise_usage_index: list[int],
     enterprise_component_index: list[int],
+    mcp_index: list[int],
     #
     cli_ref_index: list[int],
     ai_builder_overview_index: list[int],
@@ -419,6 +420,12 @@ def sidebar_comp(
                         "/docs/ai-builder/overview/what-is-reflex-build",
                         "bot",
                         0,
+                    ),
+                    sidebar_category(
+                        "MCP",
+                        "/docs/ai-builder/integrations/mcp-overview",
+                        "plug",
+                        1,
                     ),
                     class_name="flex flex-col items-start gap-1 w-full list-none",
                 ),
@@ -489,15 +496,34 @@ def sidebar_comp(
             ),
             rx.cond(  # pyright: ignore [reportCallIssue]
                 rx.State.router.page.path.startswith("/docs/ai-builder/"),
-                rx.el.ul(
-                    create_sidebar_section(
-                        "Overview",
-                        ai_builder_pages.overview.what_is_reflex_build.path,
-                        ai_builder_overview_items,
-                        ai_builder_overview_index,
-                        url,
+                rx.match(  # pyright: ignore [reportCallIssue]
+                    SidebarState.sidebar_index,
+                    (
+                        0,
+                        rx.el.ul(
+                            create_sidebar_section(
+                                "Overview",
+                                ai_builder_pages.overview.what_is_reflex_build.path,
+                                ai_builder_overview_items,
+                                ai_builder_overview_index,
+                                url,
+                            ),
+                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                        ),
                     ),
-                    class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                    (
+                        1,
+                        rx.el.ul(
+                            create_sidebar_section(
+                                "MCP Integration",
+                                ai_builder_pages.integrations.mcp_overview.path,
+                                mcp_items,
+                                mcp_index,
+                                url,
+                            ),
+                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                        ),
+                    ),
                 ),
                 rx.cond(  # pyright: ignore [reportCallIssue]
                     rx.State.router.page.path.startswith("/docs/"),
@@ -643,6 +669,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
 
     cli_ref_index = calculate_index(cli_ref, url)
     ai_builder_overview_index = calculate_index(ai_builder_overview_items, url)
+    mcp_index = calculate_index(mcp_items, url)
 
     return rx.box(
         sidebar_comp(
@@ -659,6 +686,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             enterprise_component_index=enterprise_component_index,
             ai_builder_overview_index=ai_builder_overview_index,
             cli_ref_index=cli_ref_index,
+            mcp_index=mcp_index,
             #
             width=width,
         ),
