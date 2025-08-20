@@ -179,7 +179,7 @@ def _render_messaging_section(title: str) -> rx.Component:
     """Render the messaging/features section for each plan."""
     messaging_config = {
         "Free": {
-            "main": "5 credits/day, 20 credits/month",
+            "main": "5 msgs/day, 20 msgs/month",
             "sub": rx.text("Filler Text", class_name="opacity-0 cursor-default"),
         },
         "Pro": {
