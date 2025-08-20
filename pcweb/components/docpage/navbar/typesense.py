@@ -1,9 +1,10 @@
 """Improved Typesense search component with better component search handling."""
 
-import reflex as rx
-import typesense
 import os
 import re
+
+import reflex as rx
+import typesense
 
 # Constants
 TYPESENSE_CONFIG = {
@@ -145,7 +146,6 @@ class TypesenseSearchState(rx.State):
 
     async def _perform_unified_search(self, query: str) -> dict:
         """Perform a single search using is_component metadata for boosting/filtering."""
-
         client = typesense.Client(TYPESENSE_CONFIG)
 
         expanded_query = self._expand_query_variants(query)
@@ -433,20 +433,18 @@ def search_trigger() -> rx.Component:
         ),
         rx.text(
             "⌘K",
-            class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm bg-slate-3 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
+            class_name="absolute right-2 top-1/2 transform -translate-y-1/2 bg-slate-3 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
         ),
         rx.el.input(
             placeholder="Search",
             read_only=True,
-            class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
+            class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block font-medium",
         ),
         style={
             "padding": "6px 12px",
-            "min_width": ["32px", "32px", "256px"],
-            "max_width": ["6em", "6em", "none"],
             "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
         },
-        class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[3px] !rounded-[10px] bg-slate-1 transition-bg relative",
+        class_name="min-w-[32px] w-full max-w-[32px] md:max-w-[220px] lg:max-w-[240px] hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 !rounded-[10px] bg-slate-1 transition-bg relative",
     )
 
 
