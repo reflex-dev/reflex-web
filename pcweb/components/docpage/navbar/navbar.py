@@ -10,9 +10,9 @@ from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
 from pcweb.pages.docs import ai_builder, getting_started
 from pcweb.pages.faq import faq
-from pcweb.pages.use_cases.use_cases import use_cases_page
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
+from pcweb.pages.use_cases.use_cases import use_cases_page
 
 from ...link_button import resources_button
 from ..sidebar import SidebarState
@@ -400,7 +400,6 @@ def logo() -> rx.Component:
 
 
 def doc_section():
-    from pcweb.pages.docs import ai_builder as ai_builder_pages
     from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.content(
@@ -471,12 +470,16 @@ def new_component_section() -> rx.Component:
                             "Cloud", hosting_page.deploy_quick_start.path, "hosting"
                         ),
                     ),
-                    class_name="xl:flex hidden flex-row items-center gap-0 xl:gap-7 m-0 h-full list-none",
+                    class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
                 ),
                 rx.el.div(
-                    # nav_menu.item(
-                    #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
-                    # ),
+                    nav_menu.item(
+                        link_item(
+                            "AI Builder",
+                            REFLEX_BUILD_URL,
+                            "builder",
+                        ),
+                    ),
                     nav_menu.item(
                         link_item("Open Source", framework.path, "framework"),
                         class_name="whitespace-nowrap",
@@ -484,7 +487,7 @@ def new_component_section() -> rx.Component:
                     nav_menu.item(
                         link_item("Cloud", hosting_landing.path, "hosting"),
                     ),
-                    class_name="xl:flex hidden flex-row items-center gap-0 xl:gap-7 m-0 h-full list-none",
+                    class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
                 ),
             ),
             nav_menu.item(
@@ -508,7 +511,7 @@ def new_component_section() -> rx.Component:
                 new_menu_trigger("Pricing", "/pricing", "pricing"),
                 class_name="xl:flex hidden",
             ),
-            class_name="flex flex-row items-center gap-0 xl:gap-7 m-0 h-full list-none",
+            class_name="flex flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
         ),
         nav_menu.list(
             nav_menu.item(search_bar()),
