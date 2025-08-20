@@ -1,9 +1,9 @@
 ---
 author: Tom Gotsman
-date: 2025-07-28
+date: 2025-08-20
 title: Reflex vs Streamlit
 description: "A head‑to‑head comparison of two Python frameworks for building fast, interactive web apps"
-image: /blog/reflex-dash.webp
+image: /blog/reflex-streamlit.webp
 meta: [
   {
     "name": "keywords",
