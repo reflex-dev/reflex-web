@@ -20,6 +20,7 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.features.image_as_prompt,
                 ai_builder.features.interaction_modes,
                 ai_builder.features.code_editor,
+                ai_builder.features.editor_modes,
                 ai_builder.features.installing_external_packages,
                 ai_builder.features.knowledge,
                 ai_builder.features.secrets,

@@ -20,7 +20,6 @@ platform, the IDE empowers users to stay focused and productive without ever lea
 
 ## IDE Features
 
-
 ### Real-Time Editing
 
 Changes you make in the editor are immediately reflected across your project—no manual saves or rebuilds required. Stay in flow and iterate faster.
