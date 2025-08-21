@@ -444,7 +444,7 @@ def new_component_section() -> rx.Component:
                             )
                         )
                     ),
-                    class_name="flex flex-row gap-x-0",
+                    class_name="flex flex-row gap-x-0 items-center",
                 ),
             ),
             rx.cond(
