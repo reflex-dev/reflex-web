@@ -47,7 +47,7 @@ Before connecting, make sure you have the following information:
 
 ## Step 2: Configure the Integration
 
-1. Go to the **Integrations** section in your app settings by clicking **@** and then clicking the **Integrations** tab at the top.
+1. Go to the **Integrations** section in your app settings by clicking **`@`** and then clicking the **Integrations** tab at the top.
 2. Click **Add Databricks Integration**.
 3. Fill in the fields using your credentials
 4. Save the integration. Your app can now access Databricks data securely.
