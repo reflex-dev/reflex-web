@@ -33,7 +33,7 @@ rx.el.div(render_image())
 
 ## How to Access Settings
 
-1. In the AI Builder workspace, click the **@** icon located at the bottom-left of the screen, inside the chat box area.
+1. In the AI Builder workspace, click the **`@`** icon located at the bottom-left of the screen, inside the chat box area.
 2. Navigate to **General** to see your app’s main settings.
 
 ## What You Can Do
