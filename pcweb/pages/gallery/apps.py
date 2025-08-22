@@ -195,7 +195,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                 xd.render(document, "blog.md"),
                 class_name="flex flex-col gap-4 w-full p-8",
             ),
-            more_posts(meta) if not is_reflex_template else rx.fragment(),
+            # more_posts(meta) if not is_reflex_template else rx.fragment(),
             class_name="flex flex-col max-w-full",
         ),
     )
