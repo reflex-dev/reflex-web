@@ -33,7 +33,7 @@ rx.el.div(render_image())
 
 ## How to Copy an App
 
-1. In the AI Builder workspace, click the **Copy** button (bottom-right corner).
+1. In the Reflex Build workspace, click the **Copy** button (bottom-right corner).
 2. Reflex Build will create a new app in your workspace with the same:
    - Code files and components
    - State and configuration
