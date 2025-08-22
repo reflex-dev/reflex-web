@@ -24,13 +24,15 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.features.installing_external_packages,
                 ai_builder.features.knowledge,
                 ai_builder.features.secrets,
-
+                ai_builder.features.integration_shortcut,
+                ai_builder.features.file_tree,
             ],
         ),
         create_item(
             "App Lifecycle",
             children=[
                 ai_builder.app_lifecycle.general,
+                ai_builder.app_lifecycle.fork_app,
                 ai_builder.app_lifecycle.deploy_app,
                 ai_builder.app_lifecycle.download_app,
                 ai_builder.app_lifecycle.copy_app,
