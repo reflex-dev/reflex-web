@@ -1,6 +1,6 @@
-# Reflex Build Code Editor
+# Reflex Build IDE
 
-Reflex Build includes a **powerful, in-browser code editor** built on **Monaco Editor**, designed to make coding fast, efficient, and enjoyable—all without leaving your browser.
+Reflex Build includes a **powerful, in-browser IDE** built on **Monaco Editor**, designed to make coding fast, efficient, and enjoyable—all without leaving your browser.
 
 <div class="p-1 my-4 rounded-lg bg-slate-5">
   <iframe
@@ -28,3 +28,6 @@ Speed up development with **autocomplete** for functions, variables, and imports
 
 ### Integrated Preview
 Quickly preview your changes directly in the editor without switching contexts, ensuring your app behaves as expected as you code.
+
+### Built-In Terminal for Debugging
+Use the integrated terminal to run commands, debug issues, and inspect logs—all within the IDE. No need to switch tools or tabs.

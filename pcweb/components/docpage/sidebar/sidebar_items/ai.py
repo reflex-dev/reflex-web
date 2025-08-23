@@ -17,15 +17,16 @@ def get_sidebar_items_ai_builder_overview():
         create_item(
             "Features",
             children=[
+                ai_builder.features.ide,
+                ai_builder.features.editor_modes,
+                ai_builder.features.file_tree,
+                ai_builder.features.restore_checkpoint,
+                ai_builder.features.secrets,
+                ai_builder.features.installing_external_packages,
+                ai_builder.features.integration_shortcut,
+                ai_builder.features.knowledge,
                 ai_builder.features.image_as_prompt,
                 ai_builder.features.interaction_modes,
-                ai_builder.features.code_editor,
-                ai_builder.features.editor_modes,
-                ai_builder.features.installing_external_packages,
-                ai_builder.features.knowledge,
-                ai_builder.features.secrets,
-                ai_builder.features.integration_shortcut,
-                ai_builder.features.file_tree,
             ],
         ),
         create_item(
@@ -37,7 +38,6 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.app_lifecycle.download_app,
                 ai_builder.app_lifecycle.copy_app,
                 ai_builder.app_lifecycle.share_app,
-
             ],
         ),
         create_item(
@@ -46,6 +46,7 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.integrations.github,
                 ai_builder.integrations.database,
                 ai_builder.integrations.databricks,
+                ai_builder.integrations.azure,
                 ai_builder.integrations.google_auth,
                 ai_builder.integrations.open_ai,
             ],

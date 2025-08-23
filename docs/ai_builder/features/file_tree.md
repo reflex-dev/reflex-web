@@ -15,13 +15,12 @@ The **File Tree** in Reflex Build lets you **view, organize, and manage all file
 - Files are immediately visible in the tree and ready for editing in the code editor.
 
 ### Renaming Files or Folders
-- Right-click on a file or folder and select **Rename**, or press **F2** when it’s selected.
+- Right-click on a file or folder and select **Rename**.
 - Type the new name and press **Enter** to confirm.
 - Renaming automatically updates references in your project where applicable.
 
 ### Deleting Files or Folders
 - Right-click on a file or folder and select **Delete**.
-- Confirm the action in the popup.
 - Deleted items are permanently removed, so be careful when deleting important files.
 
 ### Drag-and-Drop from System

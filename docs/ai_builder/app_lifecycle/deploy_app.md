@@ -43,3 +43,5 @@ When deploying you can set the following options:
 - **Region**: The regions where your app will be deployed
 - **VM Size**: The size of the VM where your app will be deployed
 - **Secrets**: The environment variables that will be set for your app, you can load the variables currently being used by your app by clicking the `Load from settings` button
+
+Note: Hostname customization, region selection, and VM sizing are only available on paid plans.

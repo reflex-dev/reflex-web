@@ -32,6 +32,7 @@ rx.el.div(
 4. Select **Web Application** as the application type.
 5. Add the following **Authorized JavaScript Origin**:
    - https://3a992b51-c34a-405a-b90c-4b3320eb3b6a.fly.dev
+   - The URL can be copied directly from the Google Auth integration panel.
 6. Set your authorized redirect URIs to match your app environment.
 7. Save the client and copy the following credentials:
    - **Client ID**: `YOUR_GOOGLE_CLIENT_ID`

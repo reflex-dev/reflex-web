@@ -1,5 +1,7 @@
 # Integrations Shortcut
 
+Reflex Build supports powerful integrations like databases, OpenAI, and Databricks, allowing you to connect external services to your app without complex setup. These integrations help you add advanced functionality—like AI-powered features, data analytics, or persistent storage—while speeding up development.
+
 The **@** feature makes it easy to reference integrations directly while chatting with the AI Builder. By typing **@**, you can quickly insert integrations into your prompts without needing to configure them manually first.
 
 ```python exec
