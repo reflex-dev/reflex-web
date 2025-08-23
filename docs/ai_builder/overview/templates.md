@@ -1,6 +1,6 @@
 # Templates
 
-Reflex has many certified templates, seen on the `Trending` tab of the Reflex Build, that can be used to kickstart your app. You can also use any app created by the community as a template.
+Reflex has many certified templates, seen on the `Trending` tab of the Reflex Build, that can be used to kickstart your app.
 
 ```python exec
 import reflex as rx
