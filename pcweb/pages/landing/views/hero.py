@@ -55,7 +55,9 @@ class SubmitPromptState(rx.State):
             return (
                 rx.redirect("/")
                 if not response.is_success
-                else rx.redirect(REFLEX_BUILD_URL.strip("/"))
+                else rx.redirect(
+                    REFLEX_BUILD_URL.strip("/") + f"/prompt?token={random_uuid!s}"
+                )
             )
 
     @rx.event(temporal=True)
