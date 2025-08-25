@@ -1,7 +1,6 @@
 import reflex as rx
 from pcweb.components.new_button import button
 from pcweb.constants import (
-    REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
     REFLEX_CLOUD_URL,
     REFLEX_DOCS_URL,
 )
@@ -273,7 +272,6 @@ def card(
                 class_name="w-full mb-6",
             ),
             href=redirect_url,
-            is_external=True,
             underline="none",
         ),
         # Pricing Section
@@ -326,8 +324,7 @@ def popular_card(
                     size="lg",
                     class_name="w-full mb-6 !text-sm !font-semibold",
                 ),
-                href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
-                is_external=True,
+                href="/pricing",
                 underline="none",
             ),
             # Pricing Section
