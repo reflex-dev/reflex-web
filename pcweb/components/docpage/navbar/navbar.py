@@ -406,7 +406,7 @@ def doc_section():
         rx.el.ul(
             resource_item(
                 "AI Builder Docs",
-                ai_builder.overview.what_is_reflex_build.path,
+                ai_builder.overview.best_practices.path,
                 "bot",
                 0,
             ),

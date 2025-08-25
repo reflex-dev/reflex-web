@@ -1,3 +1,0 @@
-# FAQs
-
-Still to come!
