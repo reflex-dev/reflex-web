@@ -186,7 +186,7 @@ def create_action_button(
             class_name=f"{STYLES['button_base']} {extra_styles}",
         ),
         href="#demo-form",
-        is_external=True,
+        is_external=False,
         underline="none",
         class_name="w-full flex justify-center items-center",
     )
