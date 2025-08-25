@@ -540,7 +540,7 @@ def new_component_section() -> rx.Component:
                     ),
                     underline="none",
                     is_external=True,
-                    href="/pricing",
+                    href="/demo",
                 ),
                 class_name="xl:flex hidden",
             ),
