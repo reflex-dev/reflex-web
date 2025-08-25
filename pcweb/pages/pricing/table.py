@@ -1,6 +1,5 @@
 import reflex as rx
 from pcweb.components.button import button
-from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 
 STYLES = {
     "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
@@ -186,7 +185,7 @@ def create_action_button(
             variant=variant,
             class_name=f"{STYLES['button_base']} {extra_styles}",
         ),
-        href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+        href="#demo-form",
         is_external=True,
         underline="none",
         class_name="w-full flex justify-center items-center",
@@ -223,11 +222,14 @@ def create_table_row_header(
     # Compose the header cell content
     header_content = rx.el.div(
         rx.el.span(name),
-        rx.badge(
-            badge, class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5"
-        )
-        if badge
-        else None,
+        (
+            rx.badge(
+                badge,
+                class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5",
+            )
+            if badge
+            else None
+        ),
         rx.badge("coming soon", margin_left="0.5rem") if coming_soon else None,
         class_name="flex items-center gap-x-2",
     )
@@ -286,11 +288,14 @@ def create_feature_row(feature: str, description: str) -> rx.Component:
 def create_feature_table_header(section: str, badge: str = None) -> rx.Component:
     header_content = rx.el.div(
         rx.el.span(section),
-        rx.badge(
-            badge, class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5"
-        )
-        if badge
-        else None,
+        (
+            rx.badge(
+                badge,
+                class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5",
+            )
+            if badge
+            else None
+        ),
         class_name="flex items-center gap-x-2",
     )
     return rx.table.row(
