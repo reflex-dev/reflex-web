@@ -40,6 +40,10 @@ class SubmitPromptState(rx.State):
     @rx.event(background=True, temporal=True)
     async def redirect_to_ai_builder(self, form_data: dict):
         if prompt := form_data.get("prompt"):
+            if len(prompt) < 5:
+                return rx.toast.warning(
+                    "Your prompt needs at least 5 characters. Please add more details.",
+                )
             random_uuid = uuid.uuid4()
             async with httpx.AsyncClient() as client:
                 response = await client.post(
