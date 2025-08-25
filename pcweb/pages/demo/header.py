@@ -31,7 +31,8 @@ def custom_quote_form() -> rx.Component:
             ),
             class_name="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto items-start",
         ),
-        class_name="py-12 sm:py-20 px-4 sm:px-8",
+        id="demo-form",
+        class_name="py-12 sm:py-20 px-4 sm:px-8 scroll-m-20",
     )
 
 
