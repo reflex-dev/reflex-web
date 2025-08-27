@@ -1,15 +1,12 @@
-# Reflex Build's IDE
+# Reflex Build IDE
 
-Reflex Build includes a powerful, in-browser IDE designed to streamline the entire development process—from writing code
-to deploying your app. With an intuitive layout, real-time editing, and seamless integration with the rest of the
-platform, the IDE empowers users to stay focused and productive without ever leaving the browser.
-
+Reflex Build includes a **powerful, in-browser IDE** built on **Monaco Editor**, designed to make coding fast, efficient, and enjoyable—all without leaving your browser.
 
 <div class="p-1 my-4 rounded-lg bg-slate-5">
   <iframe
     width="100%"
     height="400"
-    src="https://www.youtube.com/embed/aW0ZefEC3SU "
+    src="https://www.youtube.com/embed/aW0ZefEC3SU"
     title="Reflex Build - IDE"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -18,25 +15,19 @@ platform, the IDE empowers users to stay focused and productive without ever lea
 </div>
 
 
-## IDE Features
-
+## Features
 
 ### Real-Time Editing
+Edit your code and see changes reflected immediately in your project. No manual saves or rebuilds—stay focused and iterate faster.
 
-Changes you make in the editor are immediately reflected across your project—no manual saves or rebuilds required. Stay in flow and iterate faster.
+### Syntax Highlighting & Error Detection
+Write code confidently with **syntax highlighting**, **inline error alerts**, and **linting**. Catch issues as you type, reducing bugs and speeding up development.
 
-### File & Folder Management
+### Code Snippets & Autocomplete
+Speed up development with **autocomplete** for functions, variables, and imports, as well as reusable **code snippets** for common patterns.
 
-Easily create, rename, or delete files and folders directly in the workspace. The file tree gives you full visibility into your application structure at all times.
+### Integrated Preview
+Quickly preview your changes directly in the editor without switching contexts, ensuring your app behaves as expected as you code.
 
-### Drag-and-Drop File Upload
-
-Seamlessly import files into your project by dragging them straight into the editor. Whether you're adding assets, scripts, or config files, it's fast and intuitive—no extra clicks required.
-
-### Context-Aware Code Editor
-
-The built-in code editor supports syntax highlighting, inline error detection, and AI-assisted suggestions to help you write clean, efficient code with confidence.
-
-### One-Click Deployment
-
-From the IDE, you can deploy your app with a single click. No terminal, no external tools—just build and ship straight from your browser.
+### Built-In Terminal for Debugging
+Use the integrated terminal to run commands, debug issues, and inspect logs—all within the IDE. No need to switch tools or tabs.
