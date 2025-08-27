@@ -68,7 +68,35 @@ def controlled_example():
 
 Behind the scenes, the input component is implemented as a debounced input to avoid sending individual state updates per character to the backend while the user is still typing. This allows a state variable to directly control the `value` prop from the backend without the user experiencing input lag.
 
-### Submitting a form using input
+## Input Types
+
+The `type` prop controls how the input is rendered (e.g. plain text, password, file picker).
+
+It accepts the same values as the native HTML `<input type>` attribute, such as:
+
+- `"text"` (default)
+- `"password"`
+- `"email"`
+- `"number"`
+- `"file"`
+- `"checkbox"`
+- `"radio"`
+- `"date"`
+- `"time"`
+- `"url"`
+- `"color"`
+
+and several others. See the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) for the full list.
+
+```python demo
+rx.vstack(
+    rx.input(placeholder="Username", type="text"),
+    rx.input(placeholder="Password", type="password"),
+    rx.input(type="date"),
+)
+```
+
+## Submitting a form using input
 
 The `name` prop is needed to submit with its owning form as part of a name/value pair.
 
@@ -118,7 +146,7 @@ def form_input1():
 
 To learn more about how to use forms in the [Form]({library.forms.form.path}) docs.
 
-### Setting a value without using a State var
+## Setting a value without using a State var
 
 Set the value of the specified reference element, without needing to link it up to a State var. This is an alternate way to modify the value of the `input`.
 
