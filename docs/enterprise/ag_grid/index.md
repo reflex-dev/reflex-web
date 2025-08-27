@@ -9,6 +9,9 @@ from pcweb.pages.docs import enterprise
 
 # AG Grid
 
+AG Grid is a powerful, feature-rich data grid component that brings enterprise-grade table functionality to your Reflex applications. With support for sorting, filtering, pagination, row selection, and much more, AG Grid transforms how you display and interact with tabular data.
+
+[Explore the full AG Grid showcase and examples](https://aggrid.reflex.run/)
 
 ## Your First Reflex AG Grid
 
@@ -575,7 +578,7 @@ def ag_grid_api_simple():
 
 📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-The react code for the `select_all()` event handler is `selectAll = (source?: SelectionEventSourceType) => void;`. 
+The react code for the `select_all()` event handler is `selectAll = (source?: SelectionEventSourceType) => void;`.
 
 To use this in Reflex as you can see, it should be called in snake case rather than camel case. The `void` means it doesn't return anything. The `source?` indicates that it takes an optional `source` argument.
 
@@ -673,8 +676,6 @@ def ag_grid_api_argument():
     )
 ```
 
-The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined). 
+The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined).
 
-In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method.  
-
-
+In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method.
