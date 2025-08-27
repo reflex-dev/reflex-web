@@ -417,7 +417,7 @@ def sidebar_comp(
                 rx.el.ul(
                     sidebar_category(
                         "Learn",
-                        "/docs/ai-builder/overview/what-is-reflex-build",
+                        "/docs/ai-builder/overview/best-practices",
                         "bot",
                         0,
                     ),
@@ -503,7 +503,7 @@ def sidebar_comp(
                         rx.el.ul(
                             create_sidebar_section(
                                 "Overview",
-                                ai_builder_pages.overview.what_is_reflex_build.path,
+                                ai_builder_pages.overview.best_practices.path,
                                 ai_builder_overview_items,
                                 ai_builder_overview_index,
                                 url,
