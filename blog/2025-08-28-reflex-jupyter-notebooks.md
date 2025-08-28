@@ -3,7 +3,7 @@ author: Ahmad Al Hakim
 date: 2025-08-28
 title: From Jupyter Notebook to Production Dashboard
 description: "Learn how to take your Jupyter Notebook workflows from quick experiments to fully interactive production dashboards using Python."
-image: ---
+image: /blog/jupyter_reflex.png
 meta: [
   {
     "name": "keywords",
