@@ -21,13 +21,3 @@ def lemcal_button(
             "data-meeting-type": "met_ToQQ9dLZDYrEBv5qz",
         },
     )
-
-
-def lemcal_script() -> rx.Component:
-    """Script tag to load Lemcal integrations."""
-    return rx.el.script(
-        src="https://cdn.lemcal.com/lemcal-integrations.min.js",
-        defer=True,
-    )
-
-

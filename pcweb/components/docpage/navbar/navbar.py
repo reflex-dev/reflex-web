@@ -454,7 +454,7 @@ def new_component_section() -> rx.Component:
                                 "hidden lg:flex",
                                 "hidden",
                             )
-                        )
+                        ),
                     ),
                     class_name="flex flex-row gap-x-0 items-center",
                 ),
@@ -548,7 +548,7 @@ def new_component_section() -> rx.Component:
                 button(
                     "Book a Demo",
                     class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
-                    on_click=LemcalScriptState.trigger,
+                    on_click=LemcalModalState.open,
                 ),
                 class_name="xl:flex hidden",
             ),
@@ -563,18 +563,15 @@ def new_component_section() -> rx.Component:
 
 
 @rx.memo
-def lemcal_script():
-    return rx.el.script(
-        src="https://cdn.lemcal.com/lemcal-integrations.min.js",
-        defer=True,
+def lemcal_booking_calendar():
+    return rx.el.div(
+        class_name="lemcal-embed-booking-calendar",
+        custom_attrs={
+            "data-user": "usr_8tiwtJ8nEJaFj2qH9",
+            "data-meeting-type": "met_ToQQ9dLZDYrEBv5qz",
+        },
+        on_mount=rx.call_function("window.lemcal.refresh"),
     )
-
-
-class LemcalScriptState(rx.State):
-    triggered: bool = False
-    @rx.event
-    def trigger(self):
-        self.triggered = True
 
 
 @rx.memo
@@ -589,18 +586,9 @@ def navbar() -> rx.Component:
             LemcalModalState.is_open,
             rx.box(
                 rx.el.div(
+                    lemcal_booking_calendar(),
                     class_name="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9999]",
                     on_click=LemcalModalState.close,
-                ),
-                rx.el.div(
-                    class_name="lemcal-embed-booking-calendar",
-                    custom_attrs={"data-user": "usr_8tiwtJ8nEJaFj2qH9", "data-meeting-type": "met_ToQQ9dLZDYrEBv5qz"},
-                    on_mount=LemcalScriptState.trigger,
-                ),
-                rx.cond(
-                    LemcalScriptState.triggered,
-                    lemcal_script(),
-                    rx.fragment(),
                 ),
             ),
             rx.fragment(),
