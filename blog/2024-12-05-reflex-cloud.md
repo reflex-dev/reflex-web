@@ -27,7 +27,7 @@ With Reflex Cloud we're extending that same simplicity to hosting. Just `reflex 
 animated_box(relative=True)
 ```
 
-Our free tier lets you deploy your first app at no cost. We're also introducing **Pro**, **Team**, and **Enterprise** tiers with additional features like one-click auth, custom domains, and on-premise hosting.
+Our free tier lets you deploy your first app at no cost. We're also introducing the **Enterprise** tier with additional features like one-click auth, custom domains, and on-premise hosting.
 
 ## What's Included
 
@@ -58,14 +58,12 @@ From there you can see the status of your apps, the resources they're using, and
 
 You can also add team members to collaborate on apps, set up custom domains, and view detailed analytics on your app's performance.
 
-### Pro Features
+### Enterprise Features
 
-Reflex Pro lets you take your app from a prototype to a production app with:
+Reflex Enterprise lets you take your app from a prototype to a production app with:
 * **Custom Domains**: Use your own domain for your app
 * **Larger Apps**: Increased memory and CPU options
 * **Add Collaborators**: Add team members to your project
-
-We're also previewing team and enterprise plans with advanced features like:
 * **One-Click Auth**: Add Github, Google, or other OAuth providers to your app with no code
 * **Full Analytics**: Comprehensive insight into your app's performance and usage 
 * **On Premise Hosting**: Run Reflex Cloud on your own infrastructure
@@ -74,4 +72,4 @@ See the full list of features on our [pricing page](/pricing).
 
 ## What's Next
 
-Over the next few months we're working on building out the team features while making the platform more robust and reliable. We're also expanding Reflex Pro to go beyond hosting - including AI tools to help you build apps at the speed of thought.
+Over the next few months we're working on building out the team features while making the platform more robust and reliable. We're also expanding Reflex Enterprise to go beyond hosting - including AI tools to help you build apps at the speed of thought.

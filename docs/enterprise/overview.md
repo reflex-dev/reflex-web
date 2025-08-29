@@ -45,8 +45,8 @@ categories_data = [
             {
                 "feature": "show_built_with_reflex", 
                 "description": "Toggle the 'Built with Reflex' badge in your app", 
-                "cloud_tier": "Pro", 
-                "self_hosted_tier": "Team",
+                "cloud_tier": "Enterprise", 
+                "self_hosted_tier": "Enterprise",
                 "link": "/docs/enterprise/built-with-reflex",
             },
             {

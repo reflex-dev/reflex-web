@@ -6,7 +6,7 @@ from reflex_image_zoom import image_zoom
 # Custom Domains
 
 
-With the Pro tier of Reflex Cloud you can use your own custom domain to host your app. 
+With the Enterprise tier of Reflex Cloud you can use your own custom domain to host your app. 
 
 ## Prerequisites
 
