@@ -115,7 +115,7 @@ def features() -> rx.Component:
         ),
         rx.link(
             button("Become a Partner", variant="primary", size="xl"),
-            href="https://cal.com/forms/09dc3703-39fc-42ec-b03b-8ee32de7590f",
+            href="https://cal.com/team/reflex/affiliate-program",
             is_external=True,
             class_name="p-3 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
         ),
@@ -163,7 +163,7 @@ def features_small_screen():
         rx.box(
             rx.link(
                 button("Become a Partner", variant="primary", size="xl"),
-                href="https://cal.com/forms/09dc3703-39fc-42ec-b03b-8ee32de7590f",
+                href="https://cal.com/team/reflex/affiliate-program",
                 is_external=True,
                 class_name="p-3 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
             ),

@@ -103,7 +103,7 @@ def frontend_features() -> rx.Component:
                 class_name="flex flex-col lg:border-r border-slate-3 lg:p-[5rem_6.5rem_5rem_2.5rem] lg:text-nowrap text-center lg:text-start pb-12 lg:pb-0 mt-12 lg:mt-0",
             ),
             rx.box(
-                stat(stat="100K+", text="Apps built with Reflex"),
+                stat(stat="300K+", text="Apps built with Reflex"),
                 class_name="lg:px-10 lg:py-[5.5rem] py-12 w-auto border-b border-slate-3 lg:border-b-0",
             ),
             class_name="flex flex-col-reverse lg:flex-row lg:border-t border-slate-3 max-w-[64.19rem] justify-center lg:border-x w-full",

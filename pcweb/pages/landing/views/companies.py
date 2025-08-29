@@ -156,7 +156,7 @@ def company_card(name: str, id: str) -> rx.Component:
                     companies_case_studies_var.contains(company_cs.value),
                     quote_box(company_cs.value),
                     rx.box(
-                        stat(stat="100K+", text="Apps built with Reflex"),
+                        stat(stat="300K+", text="Apps built with Reflex"),
                         class_name="animate-fade flex justify-center items-center size-full animate-duration-[750ms] animate-fill-both",
                     ),
                 ),
