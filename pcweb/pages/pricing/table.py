@@ -1,5 +1,6 @@
 import reflex as rx
 from pcweb.components.button import button
+from pcweb.components.lemcal import lemcal_button
 
 STYLES = {
     "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
@@ -179,15 +180,12 @@ def create_table_cell(content: str | rx.Component) -> rx.Component:
 def create_action_button(
     text: str, variant: str, extra_styles: str = ""
 ) -> rx.Component:
-    return rx.link(
+    return lemcal_button(
         button(
             text,
             variant=variant,
             class_name=f"{STYLES['button_base']} {extra_styles}",
         ),
-        href="#demo-form",
-        is_external=False,
-        underline="none",
         class_name="w-full flex justify-center items-center",
     )
 
@@ -273,7 +271,7 @@ def header_ai() -> rx.Component:
             "Build customized, secure, and scalable apps in seconds",
             class_name="text-slate-9 text-xl font-semibold text-center",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[2.5rem] pt-[10rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
 

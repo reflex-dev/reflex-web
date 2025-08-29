@@ -1,5 +1,6 @@
 import reflex as rx
 from pcweb.components.button import button
+from pcweb.components.lemcal import lemcal_button
 
 
 def glow() -> rx.Component:
@@ -23,14 +24,15 @@ def header() -> rx.Component:
 
 
 def sales_button() -> rx.Component:
-    return rx.link(
-        glow(),
-        button(
-            "Need more help? Contact sales",
-            variant="secondary",
-            class_name="!text-slate-11 !font-semibold !text-sm",
+    return lemcal_button(
+        rx.fragment(
+            glow(),
+            button(
+                "Need more help? Contact sales",
+                variant="secondary",
+                class_name="!text-slate-11 !font-semibold !text-sm",
+            ),
         ),
-        href="#demo-form",
         class_name="self-center relative",
     )
 
