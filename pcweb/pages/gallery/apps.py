@@ -2,6 +2,7 @@ import flexdown
 import reflex as rx
 import re
 from pcweb.components.button import button, button_with_icon
+from pcweb.components.lemcal import lemcal_button
 from pcweb.components.code_card import gallery_app_card
 from pcweb.components.icons import get_icon
 from pcweb.constants import SCREENSHOT_BUCKET
@@ -161,15 +162,13 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                                     class_name="flex justify-center items-center h-full !w-full",
                                 )] if is_reflex_template else
                         (
-                            [rx.link(
+                            [lemcal_button(
                                 button_with_icon(
-                                    "View Demo",
+                                    "Book a Demo",
                                     icon="new_tab",
                                     class_name="!w-full flex-row-reverse gap-2",
                                 ),
-                                is_external=True,
-                                href=meta["demo"],
-                            )] if meta.get("demo") else []
+                            )]
                         )
                     ),
                     rx.link(

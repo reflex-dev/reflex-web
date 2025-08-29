@@ -179,7 +179,7 @@ def _render_messaging_section(title: str) -> rx.Component:
     """Render the messaging/features section for each plan."""
     messaging_config = {
         "Free": {
-            "main": "5 msgs/day, 20 msgs/month",
+            "main": "Limited access to builder coming soon!",
             "sub": rx.text("Filler Text", class_name="opacity-0 cursor-default"),
         },
         "Pro": {
@@ -424,7 +424,6 @@ def price_cards() -> rx.Component:
             "Free",
             "Perfect for getting started and trying out Reflex.",
             [
-                ("zap", "5 credits/day, 20 credits/month", True),
                 ("eye", "Public Apps Only", True),
                 ("cloud", "Deploy to Reflex Cloud", True),
                 ("badge", "'Built with Reflex' Attribution", True),

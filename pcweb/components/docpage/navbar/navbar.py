@@ -22,6 +22,18 @@ from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
 
 
+class LemcalModalState(rx.State):
+    is_open: bool = False
+
+    @rx.event
+    def open(self):
+        self.is_open = True
+
+    @rx.event
+    def close(self):
+        self.is_open = False
+
+
 def resource_item(text: str, url: str, icon: str, index):
     return rx.el.li(
         rx.link(
@@ -533,14 +545,10 @@ def new_component_section() -> rx.Component:
                 class_name="desktop-only",
             ),
             nav_menu.item(
-                rx.link(
-                    button(
-                        "Book a Demo",
-                        class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
-                    ),
-                    underline="none",
-                    is_external=True,
-                    href="/demo",
+                button(
+                    "Book a Demo",
+                    class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
+                    on_click=LemcalScriptState.trigger,
                 ),
                 class_name="xl:flex hidden",
             ),
@@ -555,12 +563,47 @@ def new_component_section() -> rx.Component:
 
 
 @rx.memo
+def lemcal_script():
+    return rx.el.script(
+        src="https://cdn.lemcal.com/lemcal-integrations.min.js",
+        defer=True,
+    )
+
+
+class LemcalScriptState(rx.State):
+    triggered: bool = False
+    @rx.event
+    def trigger(self):
+        self.triggered = True
+
+
+@rx.memo
 def navbar() -> rx.Component:
     return rx.box(
         hosting_banner(),
         rx.el.header(
             new_component_section(),
             class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
+        ),
+        rx.cond(
+            LemcalModalState.is_open,
+            rx.box(
+                rx.el.div(
+                    class_name="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9999]",
+                    on_click=LemcalModalState.close,
+                ),
+                rx.el.div(
+                    class_name="lemcal-embed-booking-calendar",
+                    custom_attrs={"data-user": "usr_8tiwtJ8nEJaFj2qH9", "data-meeting-type": "met_ToQQ9dLZDYrEBv5qz"},
+                    on_mount=LemcalScriptState.trigger,
+                ),
+                rx.cond(
+                    LemcalScriptState.triggered,
+                    lemcal_script(),
+                    rx.fragment(),
+                ),
+            ),
+            rx.fragment(),
         ),
         class_name="flex flex-col w-full top-0 z-[9999] fixed text-slate-12",
     )
