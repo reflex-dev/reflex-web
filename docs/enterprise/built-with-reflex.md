@@ -4,9 +4,7 @@ The "Built with Reflex" badge appears in the bottom right corner of apps using r
 
 ## Removing the Badge
 
-To remove the badge, you need a paid tier:
-- **Cloud**: Pro tier or higher
-- **Self-hosted**: Team tier or higher
+To remove the badge, you need to be on the Enterprise tier.
 
 ## Configuration
 
