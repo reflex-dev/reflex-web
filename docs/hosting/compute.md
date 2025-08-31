@@ -35,7 +35,7 @@ To monitor your projects usage, you can go to the billing tab in the Reflex Clou
 Here you can see the current billing and usage for your project.
 
 
-## Real Life Examples of compute charges on the Pro tier
+## Real Life Examples of compute charges on the paid tiers
 
 
 ```md alert
@@ -57,7 +57,7 @@ Anna, a hobbyist game developer, built a pixel art generator and hosted it on Re
 
 (assuming a 30 day month)
 
-Anna's total cost for compute would be `$2.49` for the month. However, since Pro users receive a `$10` credit, her compute cost is fully covered.
+Anna's total cost for compute would be `$2.49` for the month. However, since paid users receive a `$10` credit, her compute cost is fully covered.
 
 **Charge for compute:**
 
@@ -85,7 +85,7 @@ Bob created a social media application and decided to host it on Reflex Cloud. B
 
 (assuming a 30 day month)
 
-Bob would owe `$6.23` for this month. However since Bob is a pro user they receive a `$10` credit which brings Bob's bill down to `$0`.
+Bob would owe `$6.23` for this month. However since Bob is a paid user they receive a `$10` credit which brings Bob's bill down to `$0`.
 
 **Charge for compute:**
 
@@ -115,7 +115,7 @@ If users access the app on average for **16 hours per week** in each region, how
 
 (assuming 4 weeks in a month)
 
-Charlie would owe `$40.19` for this month. However since Charlie is a pro user they receive a `$10` credit which brings Bob's bill down to `$30.19`.
+Charlie would owe `$40.19` for this month. However since Charlie is a paid user they receive a `$10` credit which brings Bob's bill down to `$30.19`.
 
 **Charge for compute:**
 
@@ -146,7 +146,7 @@ With users accessing the app **2 hours per day** over a **30-day month**, how mu
 
 (assuming a 30 day month)
 
-David would owe `$9.96` for this month. However since David is a pro user they receive a `$10` credit, he will not be charged for compute for this month.
+David would owe `$9.96` for this month. However since David is a paid user they receive a `$10` credit, he will not be charged for compute for this month.
 
 **Charge for compute:**
 
@@ -177,7 +177,7 @@ With users actively using the app **6 hours per day in each region** over a **30
 
 (assuming a 30 day month)
 
-Emily would owe `$44.82` for this month. However since Emily is a pro user they receive a `$10` credit which brings Emily's bill down to `$34.82`.
+Emily would owe `$44.82` for this month. However since Emily is a paid user they receive a `$10` credit which brings Emily's bill down to `$34.82`.
 
 **Charge for compute:**
 
@@ -220,7 +220,7 @@ Total compute hours = `60 + 360 = 420 compute hours`
 
 (assuming a 30 day month)
 
-Fred would owe `$34.86` for this month. However since Fred is a pro user they receive a `$10` credit which brings Fred's bill down to `$24.86`.
+Fred would owe `$34.86` for this month. However since Fred is a paid user they receive a `$10` credit which brings Fred's bill down to `$24.86`.
 
 **Charge for compute:**
 
