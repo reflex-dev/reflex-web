@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.button import button
-from pcweb.components.lemcal import lemcal_button
+from reflex_ui.blocks.lemcal import lemcal_button
 
 STYLES = {
     "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",

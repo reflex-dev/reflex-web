@@ -6,6 +6,7 @@ import sys
 import reflex as rx
 
 import reflex_enterprise as rxe
+from reflex_ui.blocks.lemcal import get_lemcal_script
 from pcweb import styles
 from pcweb.meta.meta import favicons_links
 from pcweb.pages import page404, routes
@@ -47,10 +48,7 @@ app = rxe.App(
             href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,500;0,600;1,600&family=Source+Code+Pro:wght@400;500&display=swap&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
             rel="stylesheet",
         ),
-        rx.el.script(
-            src="https://cdn.lemcal.com/lemcal-integrations.min.js",
-            defer=True,
-        ),
+        get_lemcal_script(),
     ],
 )
 

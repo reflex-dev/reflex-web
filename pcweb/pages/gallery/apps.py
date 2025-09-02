@@ -2,7 +2,7 @@ import flexdown
 import reflex as rx
 import re
 from pcweb.components.button import button, button_with_icon
-from pcweb.components.lemcal import lemcal_button
+from reflex_ui.blocks.lemcal import lemcal_button
 from pcweb.components.code_card import gallery_app_card
 from pcweb.components.icons import get_icon
 from pcweb.constants import SCREENSHOT_BUCKET

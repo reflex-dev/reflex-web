@@ -2,6 +2,7 @@
 
 import reflex as rx
 
+from reflex_ui.blocks.lemcal import lemcal_calendar
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
 from pcweb.components.hosting_banner import hosting_banner
@@ -564,14 +565,7 @@ def new_component_section() -> rx.Component:
 
 @rx.memo
 def lemcal_booking_calendar():
-    return rx.el.div(
-        class_name="lemcal-embed-booking-calendar",
-        custom_attrs={
-            "data-user": "usr_8tiwtJ8nEJaFj2qH9",
-            "data-meeting-type": "met_ToQQ9dLZDYrEBv5qz",
-        },
-        on_mount=rx.call_function("window.lemcal.refresh"),
-    )
+    return lemcal_calendar()
 
 
 @rx.memo
