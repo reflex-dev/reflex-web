@@ -22,7 +22,7 @@ By the time the foundation is ready, the excitement is gone. What if you could s
 
 [Reflex Build](https://build.reflex.dev/) is our AI-powered builder that takes a simple prompt — *“Give me a sales dashboard with charts, filters, and a database connection”* and turns it into a working Reflex app.
 
-Not a toy. Not a mockup. An real app you can run, edit, and deploy.
+Not a toy. Not a mockup. A real app you can run, edit, and deploy.
 
 Think of it as your co-founder who handles all the boring scaffolding so you can focus on the parts that matter.
 
