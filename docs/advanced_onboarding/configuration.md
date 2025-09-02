@@ -165,7 +165,7 @@ config = rx.Config(
 )
 ```
 
-### Build Configuration
+## Build Configuration
 
 ### bun_path
 **Type:** `ExistingPath` (default: from constants)
