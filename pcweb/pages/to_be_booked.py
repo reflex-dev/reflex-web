@@ -7,14 +7,14 @@ import reflex_ui as ui
 from pcweb.pages.docs import getting_started
 
 
-def booked_title():
+def to_be_booked_title():
     return rx.box(
         rx.heading(
-            "Call Successfully Booked!",
+            "Call Request Received!",
             class_name="gradient-heading font-x-large lg:font-xxx-large text-start text-transparent lg:text-center",
         ),
         rx.text(
-            "We’ve sent you a confirmation email with all the details.",
+            "Our team will reach out to you shortly over email to schedule your call.",
             class_name="font-md text-balance text-slate-9",
         ),
         class_name="section-header",
@@ -23,22 +23,23 @@ def booked_title():
 
 
 
+
 @rx.page(
-    route="/booked",
+    route="/to-be-booked",
     title="Reflex",
 )
-def booked() -> rx.Component:
+def to_be_booked() -> rx.Component:
     return rx.box(
         index_colors(),
         navbar(),
         rx.el.section(
-            booked_title(),
+            to_be_booked_title(),
             rx.box(
                 ui.button("Home", variant="primary", size="lg", on_click=rx.redirect("/")),
                 ui.button("Installation", variant="secondary", size="lg", on_click=rx.redirect(getting_started.installation.path)),
                 class_name="flex flex-row items-center gap-x-4 pb-14"
             ),
-            id="booked",
+            id="to-be-booked",
             class_name="section-content",
         ),
         footer_index(),
