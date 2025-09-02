@@ -5,6 +5,7 @@ from pcweb.pages.framework.index_colors import index_colors
 from pcweb.pages.framework.views.footer_index import footer_index
 import reflex_ui as ui
 from pcweb.pages.docs import getting_started
+from pcweb.meta.meta import create_meta_tags
 
 
 def booked_title():
@@ -25,7 +26,12 @@ def booked_title():
 
 @rx.page(
     route="/booked",
-    title="Reflex",
+    title="Call Successfully Booked | Reflex",
+    meta=create_meta_tags(
+        title="Call Successfully Booked | Reflex",
+        description="Your call has been successfully scheduled. A confirmation email has been sent with all the details.",
+        image="/previews/index_preview.png"
+    )
 )
 def booked() -> rx.Component:
     return rx.box(
