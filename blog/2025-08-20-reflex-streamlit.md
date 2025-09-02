@@ -3,7 +3,7 @@ author: Tom Gotsman
 date: 2025-08-20
 title: Reflex vs Streamlit
 description: "A head‑to‑head comparison of two Python frameworks for building fast, interactive web apps"
-image: /blog/reflex-streamlit.webp
+image: /blog/reflex_vs_streamlit.png
 meta: [
   {
     "name": "keywords",
@@ -24,7 +24,7 @@ from reflex_image_zoom import image_zoom
 
 ### Reflex
 
-**Strengths** 
+**Strengths**
 
 - **End-to-end Python stack** – backend (FastAPI/Uvicorn) and frontend (compiled React/Next.js) are generated from pure Python. No HTML/CSS/JS required and data/state flow is automatic via WebSockets.
 
@@ -58,7 +58,7 @@ from reflex_image_zoom import image_zoom
 
 ### Reflex
 
-**Strengths** 
+**Strengths**
 
 - **60 + built-in components** with Tailwind styling props; modern look by default.
 - **Wrap any React component** – easy path to custom or third-party widgets.
@@ -70,7 +70,7 @@ from reflex_image_zoom import image_zoom
 
 ### Streamlit
 
-**Strengths** 
+**Strengths**
 
 - **Rich core widgets** (`st.slider`, `st.dataframe`, `st.map`, etc.) that “just work” with one line.
 
@@ -90,7 +90,7 @@ from reflex_image_zoom import image_zoom
 
 ### Reflex
 
-**Strengths** 
+**Strengths**
 
 - **Server-side state per session** – Python variables persist, enabling multi-step flows and user-specific data.
 
@@ -125,7 +125,7 @@ from reflex_image_zoom import image_zoom
 
 ### Reflex
 
-**Strengths** 
+**Strengths**
 
 - **Standard web app architecture** – FastAPI backend + static React assets; easy to containerize and scale behind a load balancer.
 
@@ -156,10 +156,10 @@ from reflex_image_zoom import image_zoom
 
 ### Reflex
 
-**Strengths** 
+**Strengths**
 
 - Rapidly growing open-source community; React + Python combo means huge potential for extensions.
-    
+
 - Active core team, frequent releases, YC-backed funding.
 
 **Weaknesses**
