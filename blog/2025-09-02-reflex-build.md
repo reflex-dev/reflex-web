@@ -12,6 +12,10 @@ meta: [
 ]
 ---
 
+```python exec
+from pcweb.pages.docs import ai_builder
+```
+
 ## Stop Starting From Scratch
 
 Every developer knows the feeling: you’ve got a clear idea in your head, maybe even a sketch on a whiteboard. But before you can test it with real users, you have to grind through setup. Wiring state, scaffolding pages, connecting a database, writing the same boilerplate you wrote last week.
@@ -86,8 +90,6 @@ If you’re building dashboards, admin panels, or internal tools, Reflex Build i
 
 ## The Future of App Development
 
-We believe the future isn’t *AI replacing developers*. It’s AI working with developers in Python, where enterprise teams already build their most critical apps.
+We believe the future isn’t *AI replacing developers*. It’s AI working with developers in Python, where enterprise teams already build their most critical apps. Open up Reflex Build, type your first prompt, and see what you can create in minutes.
 
-Open up Reflex Build, type your first prompt, and see what you can create in minutes.
-
-[Get started with Reflex Build](https://reflex.dev/docs/ai-builder/overview/what-is-reflex-build)
+Get started with [Reflex Build]({ai_builder.overview.what_is_reflex_build.path}) and start building apps today!
