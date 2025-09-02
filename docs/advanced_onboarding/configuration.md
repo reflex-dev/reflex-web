@@ -220,7 +220,7 @@ config = rx.Config(
 **Type:** `bool` (default: `False`)
 **Description:** Whether the app is running in the Reflex Cloud environment.
 
-### Plugin Configuration
+## Plugin Configuration
 
 ### plugins
 **Type:** `list[Plugin]` (default: `[]`)
