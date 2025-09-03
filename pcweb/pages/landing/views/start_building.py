@@ -1,7 +1,7 @@
 import reflex as rx
 
 from pcweb.components.new_button import button
-from reflex_ui.blocks.lemcal import lemcal_button
+from reflex_ui.blocks.lemcal import lemcal_dialog
 
 
 def start_building() -> rx.Component:
@@ -22,7 +22,7 @@ def start_building() -> rx.Component:
             "Start building with Reflex",
             class_name="text-slate-9 text-2xl lg:text-4xl font-semibold text-center",
         ),
-        lemcal_button(
+        lemcal_dialog(
             button(
                 "Contact sales",
                 size="xl",

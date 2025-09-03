@@ -5,6 +5,7 @@ from pcweb.constants import (
     REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
     REFLEX_DOCS_URL,
 )
+from reflex_ui.blocks.lemcal import lemcal_dialog
 
 
 def radial_circle(violet: bool = False) -> rx.Component:
@@ -143,6 +144,7 @@ def grid() -> rx.Component:
         class_name="shrink-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-2] pointer-events-none",
     )
 
+
 def _get_price_label(title: str) -> str:
     """Get the appropriate price label for each plan."""
     if title == "Free":
@@ -229,7 +231,7 @@ def _render_feature_list(features: list[tuple[str, str, bool]]) -> rx.Component:
                 rx.icon(
                     "check" if feature[2] else "x",
                     class_name=f"!text-{'green-500' if feature[2] else 'red-500'}",
-                    size=16
+                    size=16,
                 ),
                 rx.el.span(
                     feature[1],
@@ -342,21 +344,21 @@ def popular_card(
                     disabled=True,
                     class_name="w-full mb-6 !text-sm !font-semibold opacity-50 cursor-not-allowed",
                 ),
-                rx.link(
+                lemcal_dialog(
                     button(
                         button_text,
                         variant="primary",
                         size="lg",
                         class_name="w-full mb-6 !text-sm !font-semibold",
                     ),
-                    href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
-                    is_external=True,
-                    underline="none",
                 ),
             ),
             # Pricing Section
             rx.el.div(
-                rx.el.span(_get_price_label(title), class_name="text-sm text-slate-9 block mb-1"),
+                rx.el.span(
+                    _get_price_label(title),
+                    class_name="text-sm text-slate-9 block mb-1",
+                ),
                 _render_price_display(price, title),
                 _render_messaging_section(title),
                 class_name="mb-6",
@@ -383,38 +385,162 @@ def price_cards() -> rx.Component:
     # Define all features with their availability across tiers
     # Format: (icon, description, free_included, pro_included, enterprise_included, tooltip)
     all_features = [
-        ("app-window", "Public Apps Only", True, True, False, "Free and Pro are limited to public apps"),
-        ("eye-off", "Private Apps", False, False, True, "Enterprise allows private applications"),
-        ("cloud", "Deploy to Reflex Cloud", True, True, True, "Available across all tiers"),
-        ("github", "Github Integration (Public)", False, True, True, "Pro and Enterprise get public repo integration"),
-        ("github", "Github Integration (Private)", False, False, True, "Only Enterprise supports private repositories"),
-        ("download", "Download App Code", False, True, True, "Pro and Enterprise can download their app code"),
-        ("badge", "'Built with Reflex' Attribution", True, False, False, "Free tier requires attribution badge"),
-        ("key", "OpenAI Integration", False, True, True, "Pro and Enterprise include OpenAI integration"),
-        ("mail", "Gmail Auth Integration", False, True, True, "Pro and Enterprise support Gmail authentication"),
-        ("database", "Database Integration", False, True, True, "Pro and Enterprise include database support"),
-        ("shield", "SSO (Okta, Azure)", False, False, True, "Enterprise-only single sign-on support"),
-        ("building-2", "Databricks Integration", False, False, True, "Enterprise connects to Databricks"),
-        ("server", "Private Cloud Deployment", False, False, True, "Enterprise can deploy to private cloud"),
-        ("heart-handshake", "Discord/Github Support", True, True, True, "Community support available to all"),
-        ("headset", "Dedicated Support Channel", False, False, True, "Enterprise gets dedicated support"),
-        ("user-round-plus", "White Glove Onboarding", False, False, True, "Enterprise includes personalized onboarding"),
-        ("git-pull-request", "Influence Reflex Roadmap", False, False, True, "Enterprise customers help shape the roadmap"),
+        (
+            "app-window",
+            "Public Apps Only",
+            True,
+            True,
+            False,
+            "Free and Pro are limited to public apps",
+        ),
+        (
+            "eye-off",
+            "Private Apps",
+            False,
+            False,
+            True,
+            "Enterprise allows private applications",
+        ),
+        (
+            "cloud",
+            "Deploy to Reflex Cloud",
+            True,
+            True,
+            True,
+            "Available across all tiers",
+        ),
+        (
+            "github",
+            "Github Integration (Public)",
+            False,
+            True,
+            True,
+            "Pro and Enterprise get public repo integration",
+        ),
+        (
+            "github",
+            "Github Integration (Private)",
+            False,
+            False,
+            True,
+            "Only Enterprise supports private repositories",
+        ),
+        (
+            "download",
+            "Download App Code",
+            False,
+            True,
+            True,
+            "Pro and Enterprise can download their app code",
+        ),
+        (
+            "badge",
+            "'Built with Reflex' Attribution",
+            True,
+            False,
+            False,
+            "Free tier requires attribution badge",
+        ),
+        (
+            "key",
+            "OpenAI Integration",
+            False,
+            True,
+            True,
+            "Pro and Enterprise include OpenAI integration",
+        ),
+        (
+            "mail",
+            "Gmail Auth Integration",
+            False,
+            True,
+            True,
+            "Pro and Enterprise support Gmail authentication",
+        ),
+        (
+            "database",
+            "Database Integration",
+            False,
+            True,
+            True,
+            "Pro and Enterprise include database support",
+        ),
+        (
+            "shield",
+            "SSO (Okta, Azure)",
+            False,
+            False,
+            True,
+            "Enterprise-only single sign-on support",
+        ),
+        (
+            "building-2",
+            "Databricks Integration",
+            False,
+            False,
+            True,
+            "Enterprise connects to Databricks",
+        ),
+        (
+            "server",
+            "Private Cloud Deployment",
+            False,
+            False,
+            True,
+            "Enterprise can deploy to private cloud",
+        ),
+        (
+            "heart-handshake",
+            "Discord/Github Support",
+            True,
+            True,
+            True,
+            "Community support available to all",
+        ),
+        (
+            "headset",
+            "Dedicated Support Channel",
+            False,
+            False,
+            True,
+            "Enterprise gets dedicated support",
+        ),
+        (
+            "user-round-plus",
+            "White Glove Onboarding",
+            False,
+            False,
+            True,
+            "Enterprise includes personalized onboarding",
+        ),
+        (
+            "git-pull-request",
+            "Influence Reflex Roadmap",
+            False,
+            False,
+            True,
+            "Enterprise customers help shape the roadmap",
+        ),
     ]
 
     # Create feature lists for each tier
     free_features = [
-        (f[0], f[1], f[2], f[5]) for f in all_features
+        (f[0], f[1], f[2], f[5])
+        for f in all_features
         if f[2] or not f[2]  # Show all features for Free tier
-    ][:8]  # Limit to most relevant features
+    ][
+        :8
+    ]  # Limit to most relevant features
 
     pro_features = [
-        (f[0], f[1], f[3], f[5]) for f in all_features
+        (f[0], f[1], f[3], f[5])
+        for f in all_features
         if f[3] or (f[2] and not f[3])  # Show included features and newly excluded ones
     ][:10]
 
     enterprise_features = [
-        (f[0], f[1], f[4], f[5]) for f in all_features
+        (f[0], f[1], f[4], f[5])
+        for f in all_features
         if f[4] or (f[3] and not f[4])  # Show included features and newly excluded ones
     ][:12]
 
@@ -431,13 +557,12 @@ def price_cards() -> rx.Component:
                 ("key", "OpenAI Integration", True),
                 ("github", "Github Integration", False),
                 ("download", "Download App Code", False),
-                ("database", "Database Integrations", False)
+                ("database", "Database Integrations", False),
             ],
             "Start for Free",
             price="Free",
             redirect_url=REFLEX_DOCS_URL,
         ),
-
         # # Pro Tier (Popular)
         # popular_card(
         #     "Pro",
@@ -458,7 +583,6 @@ def price_cards() -> rx.Component:
         #     price="$29/month",
         #     coming_soon=True,  # Add this parameter to enable "Coming Soon"
         # ),
-
         # Enterprise Tier
         popular_card(
             "Enterprise",
@@ -475,7 +599,7 @@ def price_cards() -> rx.Component:
                 ("key", "Bring Your Own AI Keys", True),
                 ("github", "Github Integration", True),
                 ("download", "Download App Code", True),
-                ("database", "Database Integrations", True)
+                ("database", "Database Integrations", True),
                 # ("circle-plus", "Everything in Pro", True),
             ],
             "Contact Sales",
@@ -483,21 +607,23 @@ def price_cards() -> rx.Component:
             # redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
         # class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center place-items-center mx-auto gap-2 w-full max-w-[80rem] lg:border-x border-slate-3 [&>*:nth-child(3)]:md:col-span-1 [&>*:nth-child(3)]:lg:col-span-1",
-        class_name="w-full max-w-[80rem] flex flex-row gap-x-8 items-center flex-wrap justify-center"
+        class_name="w-full max-w-[80rem] flex flex-row gap-x-8 items-center flex-wrap justify-center",
     )
+
 
 def header():
     return rx.box(
-            rx.el.h3(
-                "Choose the perfect plan for your needs",
-                class_name="text-slate-12 text-3xl font-semibold text-center",
-            ),
-            rx.el.p(
-                "Start free, scale as you grow, or go enterprise for maximum power",
-                class_name="text-slate-9 text-xl font-semibold text-center",
-            ),
-            class_name="flex items-center justify-between text-slate-11 flex-col py-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
-        )
+        rx.el.h3(
+            "Choose the perfect plan for your needs",
+            class_name="text-slate-12 text-3xl font-semibold text-center",
+        ),
+        rx.el.p(
+            "Start free, scale as you grow, or go enterprise for maximum power",
+            class_name="text-slate-9 text-xl font-semibold text-center",
+        ),
+        class_name="flex items-center justify-between text-slate-11 flex-col pt-[2rem] pb-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+    )
+
 
 def plan_cards():
     return rx.box(

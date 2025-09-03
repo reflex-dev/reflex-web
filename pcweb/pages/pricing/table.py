@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.button import button
-from reflex_ui.blocks.lemcal import lemcal_button
+from reflex_ui.blocks.lemcal import lemcal_dialog
 
 STYLES = {
     "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
@@ -180,7 +180,7 @@ def create_table_cell(content: str | rx.Component) -> rx.Component:
 def create_action_button(
     text: str, variant: str, extra_styles: str = ""
 ) -> rx.Component:
-    return lemcal_button(
+    return lemcal_dialog(
         button(
             text,
             variant=variant,
