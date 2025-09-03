@@ -6,6 +6,6 @@ regions:
   nrt: 1
   lhr: 2
 vmtype: pc2m4
-strategy: rolling
+strategy: bluegreen
 envfile: prod.env
 project: 43c03060-d50d-4507-b0d5-19bc05fdf941
