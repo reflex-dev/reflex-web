@@ -607,7 +607,7 @@ def price_cards() -> rx.Component:
             # redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
         # class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center place-items-center mx-auto gap-2 w-full max-w-[80rem] lg:border-x border-slate-3 [&>*:nth-child(3)]:md:col-span-1 [&>*:nth-child(3)]:lg:col-span-1",
-        class_name="w-full max-w-[80rem] flex flex-row gap-x-8 items-center flex-wrap justify-center",
+        class_name="w-full max-w-[64.19rem] flex flex-row gap-x-8 items-center flex-wrap justify-center lg:border-x border-slate-3",
     )
 
 
@@ -621,7 +621,7 @@ def header():
             "Start free, scale as you grow, or go enterprise for maximum power",
             class_name="text-slate-9 text-xl font-semibold text-center",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col pt-[2rem] pb-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[4.5rem] lg:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
 
@@ -629,10 +629,10 @@ def plan_cards():
     return rx.box(
         header(),
         price_cards(),
-        class_name="flex flex-col gap-y-4 w-full justify-center items-center "
+        class_name="flex flex-col w-full justify-center items-center "
         + rx.cond(
             HostingBannerState.show_banner,
-            "pt-[8rem] lg:pt-[11rem]",
-            "pt-[8rem] lg:pt-[12rem]",
+            "pt-[8rem] lg:pt-[7rem]",
+            "pt-[8rem] lg:pt-[4rem]",
         ),
     )
