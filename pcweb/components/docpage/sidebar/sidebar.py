@@ -321,10 +321,10 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                     " bg-transparent",
                 ),
             ),
-            on_click=SidebarState.set_sidebar_index(index),
             class_name="w-full text-slate-9 hover:!text-slate-9",
             underline="none",
-            href=url,
+            href="#",
+            on_click=[SidebarState.set_sidebar_index(index), rx.redirect(url)],
         ),
         class_name="w-full",
     )
@@ -417,13 +417,13 @@ def sidebar_comp(
                 rx.el.ul(
                     sidebar_category(
                         "Learn",
-                        "/docs/ai-builder/overview/best-practices",
+                        ai_builder_pages.overview.best_practices.path,
                         "bot",
                         0,
                     ),
                     sidebar_category(
                         "MCP",
-                        "/docs/ai-builder/integrations/mcp-overview",
+                        ai_builder_pages.integrations.mcp_overview.path,
                         "plug",
                         1,
                     ),
