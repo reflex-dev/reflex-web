@@ -2,7 +2,7 @@ import flexdown
 import reflex as rx
 import re
 from pcweb.components.button import button, button_with_icon
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
 from pcweb.components.code_card import gallery_app_card
 from pcweb.components.icons import get_icon
 from pcweb.constants import SCREENSHOT_BUCKET
@@ -10,6 +10,7 @@ from pcweb.flexdown import xd2 as xd
 from pcweb.pages.gallery import gallery
 from pcweb.templates.gallery_app_page import gallery_app_page
 import copy
+import reflex_ui as ui
 
 GALLERY_APP_SOURCES = [
     ("templates/", "docs/getting-started/open-source-templates/"),
@@ -161,12 +162,14 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                     *(
                         [
                             rx.box(
-                                lemcal_dialog(
-                                    button_with_icon(
+                                ui.link(
+                                    render_=button_with_icon(
                                         "Book a Demo",
                                         icon="new_tab",
                                         class_name="flex-row-reverse gap-2 !w-full",
                                     ),
+                                    target="_blank",
+                                    to=LEMCAL_DEMO_URL,
                                 ),
                                 class_name="flex justify-center items-center h-full !w-full [&_button]:!w-full",
                             )

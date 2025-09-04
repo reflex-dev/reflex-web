@@ -13,7 +13,8 @@ from pcweb.pages.faq import faq
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
 from pcweb.pages.use_cases.use_cases import use_cases_page
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
+import reflex_ui as ui
 from ...link_button import resources_button
 from ..sidebar import SidebarState
 from .buttons.discord import discord
@@ -533,11 +534,13 @@ def new_component_section() -> rx.Component:
                 class_name="desktop-only",
             ),
             nav_menu.item(
-                lemcal_dialog(
-                    button(
+                ui.link(
+                    render_=button(
                         "Book a Demo",
                         class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
                     ),
+                    target="_blank",
+                    to=LEMCAL_DEMO_URL,
                 ),
                 class_name="xl:flex hidden",
             ),

@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.pages.framework.views.companies import pricing_page_companies
 
@@ -17,8 +17,8 @@ def custom_quote_form() -> rx.Component:
                 "Enterprise-ready solutions designed for scale, compliance, and support. Contact us for a tailored quote based on your infrastructure and team size.",
                 class_name="text-slate-11 text-md leading-relaxed font-medium text-center max-w-xl mx-auto",
             ),
-            lemcal_dialog(
-                rx.el.div(
+            ui.link(
+                render_=rx.el.div(
                     ui.button(
                         "Contact Sales",
                         class_name="font-semibold",
@@ -26,6 +26,8 @@ def custom_quote_form() -> rx.Component:
                     ),
                     class_name="p-3 border border-slate-3 rounded-[1.375rem] border-solid mt-2",
                 ),
+                target="_blank",
+                to=LEMCAL_DEMO_URL,
             ),
             rx.box(
                 rx.el.span(

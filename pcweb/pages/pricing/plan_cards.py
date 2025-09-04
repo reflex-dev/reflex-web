@@ -5,7 +5,8 @@ from pcweb.constants import (
     REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
     REFLEX_DOCS_URL,
 )
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
+import reflex_ui as ui
 
 
 def radial_circle(violet: bool = False) -> rx.Component:
@@ -344,13 +345,15 @@ def popular_card(
                     disabled=True,
                     class_name="w-full mb-6 !text-sm !font-semibold opacity-50 cursor-not-allowed",
                 ),
-                lemcal_dialog(
-                    button(
+                ui.link(
+                    render_=ui.button(
                         button_text,
                         variant="primary",
                         size="lg",
                         class_name="w-full mb-6 !text-sm !font-semibold",
                     ),
+                    target="_blank",
+                    to=LEMCAL_DEMO_URL,
                 ),
             ),
             # Pricing Section
