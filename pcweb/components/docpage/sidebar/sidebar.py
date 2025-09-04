@@ -286,7 +286,7 @@ def filter_out_non_sidebar_items(items: list[SideBarBase]) -> list[SideBarItem]:
 
 def sidebar_category(name: str, url: str, icon: str, index: int):
     return rx.el.li(
-        rx.link(
+        rx.el.div(
             rx.box(
                 rx.box(
                     rx.box(
@@ -314,16 +314,19 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                         SidebarState.sidebar_index == index, " visible", " hidden"
                     ),
                 ),
-                class_name="flex flex-row justify-between items-center hover:bg-slate-3 p-[0.5rem_1rem_0.5rem_0.5rem] rounded-2xl w-full transition-bg self-stretch"
+                class_name="cursor-pointer flex flex-row justify-between items-center hover:bg-slate-3 p-[0.5rem_1rem_0.5rem_0.5rem] rounded-2xl w-full transition-bg self-stretch"
                 + rx.cond(
                     SidebarState.sidebar_index == index,
                     " bg-slate-3",
                     " bg-transparent",
                 ),
             ),
-            class_name="w-full text-slate-9 hover:!text-slate-9",
-            underline="none",
-            href="#",
+            rx.el.a(
+                to=url,
+                on_click=rx.prevent_default,
+                class_name="inset-0 absolute z-[-1]",
+            ),
+            class_name="w-full text-slate-9 hover:!text-slate-9 relative",
             on_click=[SidebarState.set_sidebar_index(index), rx.redirect(url)],
         ),
         class_name="w-full",
