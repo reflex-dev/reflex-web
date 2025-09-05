@@ -39,6 +39,7 @@ class SideBarSection(SideBarBase):
 class SidebarState(rx.State):
     _sidebar_index: int = -1
 
+    @rx.event(temporal=True)
     def set_sidebar_index(self, num) -> int:
         self._sidebar_index = num
 
