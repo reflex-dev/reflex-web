@@ -155,3 +155,48 @@ class EventHandlerComponent(MyBaseComponent):
 ```md alert info
 # Custom event specs have a few use case where they are particularly useful. If the event returns non-serializable data, you can filter them out so the event can be sent to the backend. You can also use them to transform the data before sending it to the backend.
 ```
+
+### Emulating Event Handler Behavior Outside a Component
+
+In some instances, you may need to replicate the special behavior applied to
+event handlers from outside of a component context. For example if the component
+to be wrapped requires event callbacks passed in a dictionary, this can be
+achieved by directly instantiating an `EventChain`.
+
+A real-world example of this is the `onEvents` prop of
+[`echarts-for-react`](https://www.npmjs.com/package/echarts-for-react) library,
+which, unlike a normal event handler, expects a mapping of event handlers like:
+
+```javascript
+<ReactECharts
+  option={this.getOption()}
+  style={{ height: '300px', width: '100%' }}
+  onEvents={{
+    'click': this.onChartClick,
+    'legendselectchanged': this.onChartLegendselectchanged
+  }}
+/>
+```
+
+To achieve this in Reflex, you can create an explicit `EventChain` for each
+event handler:
+
+```python
+@classmethod
+def create(cls, *children, **props):
+    on_events = props.pop("on_events", {})
+
+    event_chains = {}
+    for event_name, handler in on_events.items():
+        # Convert the EventHandler/EventSpec/lambda to an EventChain
+        event_chains[event_name] = rx.EventChain.create(
+            handler,
+            args_spec=rx.event.no_args_event_spec,
+            key=event_name,
+        )
+    if on_events:
+        props["on_events"] = event_chains
+
+    # Create the component instance
+    return super().create(*children, **props)
+```
