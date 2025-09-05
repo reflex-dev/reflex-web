@@ -18,6 +18,7 @@ from .landing.landing import landing as landing
 from .page404 import page404 as page404
 from .pricing.pricing import pricing as pricing
 from .sales import sales as sales
+from .demo.book_demo import book_demo as book_demo
 from .booked import booked as booked
 from .to_be_booked import to_be_booked as to_be_booked
 
