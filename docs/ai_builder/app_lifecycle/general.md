@@ -46,14 +46,3 @@ rx.el.div(render_image())
 
 - **Delete App**
   Permanently remove an app you no longer need. **Warning:** This action cannot be undone.
-
-## Common Use Cases
-
-- **Keep Apps Organized**
-  Rename apps to make them easier to find in your workspace.
-
-- **Integration Reference**
-  Use the App ID when connecting your app to other tools or APIs.
-
-- **Clean Up Workspace**
-  Delete outdated or test apps to keep your workspace tidy.

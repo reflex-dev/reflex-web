@@ -39,10 +39,11 @@ class SideBarSection(SideBarBase):
 class SidebarState(rx.State):
     _sidebar_index: int = -1
 
+    @rx.event(temporal=True)
     def set_sidebar_index(self, num) -> int:
         self._sidebar_index = num
 
-    @rx.var(cache=True, initial_value=-1)
+    @rx.var(initial_value=-1)
     def sidebar_index(self) -> int:
         route = self.router.page.path
         if self._sidebar_index < 0:
