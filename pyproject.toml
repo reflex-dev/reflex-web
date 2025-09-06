@@ -28,6 +28,8 @@ dependencies = [
     "typesense>=1.1.1",
     "fastapi",
     "reflex-hosting-cli>=0.1.55",
+    "sumy>=0.11",
+    "textdistance>=4.6.3"
 ]
 
 [dependency-groups]
