@@ -223,7 +223,7 @@ def search_result(tags: list, value: dict):
             search_breadcrumb(tags),
             class_name="p-2 w-full flex flex-col gap-y-2 justify-start items-start align-start",
         ),
-        href=f"/{value["url"].to(str)}",
+        href=f"/{value['url'].to(str)}",
         class_name="!text-inherit no-underline hover:!text-inherit",
         _hover={"bg": rx.color("gray", 2)},
     )
@@ -257,7 +257,7 @@ def search_result_blog(value: dict):
             ),
             class_name="p-2 w-full flex flex-col gap-y-1 justify-start items-start align-start",
         ),
-        href=f"{value["url"].to(str)}",
+        href=f"{value['url'].to(str)}",
         class_name="!text-inherit no-underline hover:!text-inherit",
         _hover={"bg": rx.color("gray", 2)},
     )
