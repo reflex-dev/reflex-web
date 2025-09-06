@@ -4,6 +4,8 @@ from pcweb.components.docpage.navbar.blog_index import indexed_blogs
 import textdistance
 import unicodedata
 
+# the score cutoff -> returns only strong to medium hits without sneaking in the weaker ones + acts as a natural max cap to the results
+CUTTOFF = 0.6
 
 class FuzzySearch(rx.State):
     query: str
@@ -27,13 +29,30 @@ class FuzzySearch(rx.State):
             if w
         ]
 
-    def _check_fuzzy_match(self, query_word: str, target_words: list[str]) -> bool:
-        """Helper method to check if a query word matches any target words with fuzzy logic."""
-        max_dist = 1 if len(query_word) <= 4 else 2
-        return any(
-            query_word in word or textdistance.levenshtein(query_word, word) <= max_dist
-            for word in target_words
-        )
+    def _similarity_score(self, query_word: str, target_word: str) -> float:
+        """Return similarity score between 0 and 1 (higher = better)."""
+
+        if query_word == target_word:
+            return 1.0
+
+        if target_word.startswith(query_word):
+            return 0.9
+
+        return textdistance.levenshtein.normalized_similarity(query_word, target_word)
+
+    def _score_match(self, query_words: list[str], target_fields: list[str]) -> float:
+        """Compute total match score for query vs. target fields."""
+        total_score = 0.0
+        for query_word in query_words:
+            best_word_score = 0.0
+            for field in target_fields:
+                for word in field.split():
+                    best_word_score = max(
+                        best_word_score,
+                        self._similarity_score(query_word, word)
+                    )
+            total_score += best_word_score
+        return total_score / len(query_words) if query_words else 0.0
 
     @rx.event(background=True)
     async def serve_fuzzy_blogs(self):
@@ -43,26 +62,19 @@ class FuzzySearch(rx.State):
             if not query_words:
                 return
 
+            scored_results = []
             for blog in self.idxed_blogs:
                 blog_fields = [
                     unicodedata.normalize("NFKD", blog.get(key, "").lower()).strip()
                     for key in ["title", "description", "author"]
                 ]
 
-                all_matched = True
-                for query_word in query_words:
-                    matched = False
-                    for field in blog_fields:
-                        field_words = field.split()
-                        if self._check_fuzzy_match(query_word, field_words):
-                            matched = True
-                            break
-                    if not matched:
-                        all_matched = False
-                        break
+                score = self._score_match(query_words, blog_fields)
+                if score > CUTTOFF:
+                    scored_results.append((score, blog))
 
-                if all_matched:
-                    self.idxed_blogs_results.append(blog)
+            scored_results.sort(key=lambda x: x[0], reverse=True)
+            self.idxed_blogs_results = [b for _, b in scored_results]
 
     @rx.event(background=True)
     async def serve_fuzzy_query(self):
@@ -72,24 +84,21 @@ class FuzzySearch(rx.State):
             if not query_words:
                 return
 
+            scored_results = []
             for doc in self.idxed_docs:
                 term_words_list = [
                     unicodedata.normalize("NFKD", term.lower()).strip().split()
                     for term in doc["parts"]
                 ]
 
-                all_matched = True
-                for query_word in query_words:
-                    matched = any(
-                        self._check_fuzzy_match(query_word, term_words)
-                        for term_words in term_words_list
-                    )
-                    if not matched:
-                        all_matched = False
-                        break
+                flat_terms = [w for words in term_words_list for w in words]
 
-                if all_matched:
-                    self.idxed_docs_results.append(doc)
+                score = self._score_match(query_words, flat_terms)
+                if score > CUTTOFF:
+                    scored_results.append((score, doc))
+
+            scored_results.sort(key=lambda x: x[0], reverse=True)
+            self.idxed_docs_results = [d for _, d in scored_results]
 
 
 suggestion_items = [
