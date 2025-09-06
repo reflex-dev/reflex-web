@@ -14,13 +14,14 @@ You can also define how rows are aggregated by passing the `agg_func` property i
 
 You can find a live example here: [Pivot Mode Example](https://aggrid.reflex.run/pivot).
 
-```python demo exec toggle
+```python demo exec
 import pandas as pd
 import reflex as rx
 
 import reflex_enterprise as rxe
 
-df = pd.read_json("https://www.ag-grid.com/example-assets/olympic-winners.json")
+# Olympic winners data (originally from https://www.ag-grid.com/example-assets/olympic-winners.json)
+df = pd.read_json("data/olympic-winners.json")
 
 def pivot_page():
     return rxe.ag_grid(
@@ -54,15 +55,13 @@ def pivot_page():
 
 # Pivot using State
 
-```python demo exec toggle
+```python demo exec
 import pandas as pd
 import reflex as rx
 
 import reflex_enterprise as rxe
 
-df = pd.read_csv(
-    "https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv"
-)
+df = pd.read_csv("data/wind_dataset.csv")
 
 
 class PivotState(rx.State):
@@ -125,5 +124,7 @@ def sandbox_page():
     )
 
 ```
+
+📊 **Dataset source:** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
 
 

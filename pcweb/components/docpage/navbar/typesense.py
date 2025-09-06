@@ -1,12 +1,96 @@
 import reflex as rx
 from pcweb.components.docpage.navbar.docs_index import indexed_docs
 from pcweb.components.docpage.navbar.blog_index import indexed_blogs
-from reflex.experimental import ClientStateVar
+import textdistance
+import unicodedata
 
-BlogData = ClientStateVar.create("blog_Data", indexed_blogs)
-SearchData = ClientStateVar.create("indexed_docs", indexed_docs)
-SearchInput = ClientStateVar.create("search", "")
-FilterToggle = ClientStateVar.create("filter_toggle", "docs")
+
+class FuzzySearch(rx.State):
+    query: str
+
+    idxed_docs: list[dict] = indexed_docs
+    idxed_docs_results: list[dict]
+
+    idxed_blogs: list[dict] = indexed_blogs
+    idxed_blogs_results: list[dict]
+
+    @rx.event
+    def reset_search(self):
+        self.idxed_blogs_results, self.idxed_docs_results = [], []
+        self.query = ""
+
+    def _normalize_and_split_query(self) -> list[str]:
+        """Helper method to normalize and split query into words."""
+        return [
+            unicodedata.normalize("NFKD", w.lower()).strip()
+            for w in self.query.strip().split()
+            if w
+        ]
+
+    def _check_fuzzy_match(self, query_word: str, target_words: list[str]) -> bool:
+        """Helper method to check if a query word matches any target words with fuzzy logic."""
+        max_dist = 1 if len(query_word) <= 4 else 2
+        return any(
+            query_word in word or textdistance.levenshtein(query_word, word) <= max_dist
+            for word in target_words
+        )
+
+    @rx.event(background=True)
+    async def serve_fuzzy_blogs(self):
+        async with self:
+            self.idxed_blogs_results = []
+            query_words = self._normalize_and_split_query()
+            if not query_words:
+                return
+
+            for blog in self.idxed_blogs:
+                blog_fields = [
+                    unicodedata.normalize("NFKD", blog.get(key, "").lower()).strip()
+                    for key in ["title", "description", "author"]
+                ]
+
+                all_matched = True
+                for query_word in query_words:
+                    matched = False
+                    for field in blog_fields:
+                        field_words = field.split()
+                        if self._check_fuzzy_match(query_word, field_words):
+                            matched = True
+                            break
+                    if not matched:
+                        all_matched = False
+                        break
+
+                if all_matched:
+                    self.idxed_blogs_results.append(blog)
+
+    @rx.event(background=True)
+    async def serve_fuzzy_query(self):
+        async with self:
+            self.idxed_docs_results = []
+            query_words = self._normalize_and_split_query()
+            if not query_words:
+                return
+
+            for doc in self.idxed_docs:
+                term_words_list = [
+                    unicodedata.normalize("NFKD", term.lower()).strip().split()
+                    for term in doc["parts"]
+                ]
+
+                all_matched = True
+                for query_word in query_words:
+                    matched = any(
+                        self._check_fuzzy_match(query_word, term_words)
+                        for term_words in term_words_list
+                    )
+                    if not matched:
+                        all_matched = False
+                        break
+
+                if all_matched:
+                    self.idxed_docs_results.append(doc)
+
 
 suggestion_items = [
     {"name": "Components Overview", "path": "/docs/library", "icon": "blocks", "description": "Discover and explore the full library of available components"},
@@ -15,6 +99,7 @@ suggestion_items = [
     {"name": "Styling and Theming", "path": "/docs/styling/overview", "icon": "palette", "description": "Customize colors, layouts, and create beautiful app designs"},
     {"name": "Deployment Guide", "path": "/docs/hosting/deploy-quick-start/", "icon": "cloud", "description": "Deploy and host your application in production environments"},
 ]
+
 
 def keyboard_shortcut_script() -> rx.Component:
     """Add keyboard shortcut support for opening search."""
@@ -26,9 +111,8 @@ def keyboard_shortcut_script() -> rx.Component:
                 document.getElementById('search-trigger').click();
             }
         });
-    """
+        """
     )
-
 
 
 def search_trigger() -> rx.Component:
@@ -90,6 +174,7 @@ def search_breadcrumb(items):
         cursor="pointer"
     )
 
+
 def search_input():
     return rx.box(
         rx.box(
@@ -106,17 +191,22 @@ def search_input():
                 ),
             ),
             rx.el.input(
-                on_change=lambda value: SearchInput.set_value(value),
+                on_change=[
+                    lambda value: FuzzySearch.set_query(value.replace("rx.", "")).debounce(500),
+                    FuzzySearch.serve_fuzzy_query(),
+                    FuzzySearch.serve_fuzzy_blogs(),
+                ],
                 placeholder="Search documentation ...",
                 class_name="py-2 px-7 w-full placeholder:text-sm "
                 + "text-sm "
-                + "rounded-md bg-transparent border-dashed border-[0.5px] border-gray-500/40 "
+                + "rounded-md bg-transparent border border-[0.5px] border-gray-500/40 "
                 + "focus:outline-none focus:border-gray-500/40",
             ),
             class_name="w-full relative focus:outline-none",
         ),
         class_name="w-full absolute top-0 left-0 p-3 bg-background z-[999]",
     )
+
 
 def search_result(tags: list, value: dict):
     return rx.link(
@@ -137,6 +227,7 @@ def search_result(tags: list, value: dict):
         class_name="!text-inherit no-underline hover:!text-inherit",
         _hover={"bg": rx.color("gray", 2)},
     )
+
 
 def search_result_blog(value: dict):
     return rx.link(
@@ -171,6 +262,7 @@ def search_result_blog(value: dict):
         _hover={"bg": rx.color("gray", 2)},
     )
 
+
 def search_result_start(item: dict):
     return rx.link(
         rx.box(
@@ -194,33 +286,25 @@ def search_result_start(item: dict):
         _hover={"bg": rx.color("gray", 2)},
     )
 
+
 def search_content():
     return rx.scroll_area(
         rx.cond(
-            SearchInput.value.length() > 0,
+            FuzzySearch.query.length() >= 3,
             rx.box(
-                # ... Docs
+                # Docs results
                 rx.box(
                     rx.foreach(
-                        SearchData.value,
-                        lambda value: rx.cond(
-                            value["name"].to(str).lower().contains(SearchInput.value.lower().replace('rx.', '')),
-                            search_result(
-                                value['parts'].to(list), value
-                            ),
-                        ),
+                        FuzzySearch.idxed_docs_results,
+                        lambda value: search_result(value["parts"].to(list), value)
                     ),
                     class_name="flex flex-col gap-y-2",
                 ),
-                # ... Blog
-                # maybe add this later: divide-y divide-[0.61px] !divide-slate-5
+                # Blog results
                 rx.box(
                     rx.foreach(
-                        BlogData.value,
-                        lambda value: rx.cond(
-                            value["title"].to(str).lower().contains(SearchInput.value.lower()),
-                            search_result_blog(value),
-                        ),
+                        FuzzySearch.idxed_blogs_results,
+                        lambda value: search_result_blog(value)
                     ),
                     class_name="flex flex-col gap-y-2",
                 ),
@@ -234,24 +318,8 @@ def search_content():
         class_name="w-full h-full pt-11 [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem] [&_.rt-ScrollAreaScrollbar]:mt-[3rem]",
     )
 
-def toggle_doc_and_blog():
-    active = "text-slate-9 bg-slate-1"
-    passive = "text-slate-9"
 
-    return rx.box(
-        rx.icon("file",
-            class_name=" " + rx.cond(FilterToggle.value=="docs", active, passive).to(str),
-            on_click=FilterToggle.set_value('docs'),
-
-        ),
-        rx.icon("notebook-pen",
-            class_name=" " + rx.cond(FilterToggle.value=="blogs", active, passive).to(str),
-            on_click=FilterToggle.set_value('blogs'),
-        ),
-        class_name="flex flex-row bg-slate-3 items-center justify-between rounded-md divide-x divide-[0.61px] !divide-slate-5 absolute bottom-5 right-5 px-4 py-2"
-    )
-
-def typesense_search() -> rx.Component:
+def typesense_search():
     """Create the main Typesense search component."""
     return rx.fragment(
         rx.dialog.root(
@@ -259,8 +327,8 @@ def typesense_search() -> rx.Component:
             rx.dialog.content(
                 search_input(),
                 search_content(),
-                on_interact_outside=SearchInput.set_value(""),
-                on_escape_key_down=SearchInput.set_value(""),
+                on_interact_outside=FuzzySearch.reset_search,
+                on_escape_key_down=FuzzySearch.reset_search,
                 class_name="w-full max-w-[640px] mx-auto h-[60vh] bg-slate-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
             ),
         ),

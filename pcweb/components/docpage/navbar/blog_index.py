@@ -2,6 +2,14 @@
 
 indexed_blogs = [
   {
+    "title": "Reflex vs Streamlit",
+    "url": "/blog/2025-08-20-reflex-streamlit",
+    "author": "Tom Gotsman",
+    "date": "2025-08-20",
+    "description": "A head‑to‑head comparison of two Python frameworks for building fast, interactive web apps",
+    "image": "/blog/reflex-streamlit.webp"
+  },
+  {
     "title": "Reflex v0.8.0 - Refactoring for Performance",
     "url": "/blog/2025-07-01-reflex-080",
     "author": "Reflex Team",

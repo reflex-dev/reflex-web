@@ -22,7 +22,7 @@ TOC:
 
 If you have two columns `col_a` and `col_b` and you want to display the sum of these two columns in a third column `sum`, you can define the `value_getter` of `sum` as follows:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -52,7 +52,7 @@ def ag_grid_value_getter():
 
 If you have a column `price` and you want to display the price with a currency symbol, you can define the `value_formatter` of `price` as follows:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd

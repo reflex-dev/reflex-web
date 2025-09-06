@@ -41,7 +41,7 @@ def extractive_summary(text: str, sentence_count: int = 2) -> str:
     summary = summarizer(parser.document, sentence_count)
     return " ".join(str(sentence) for sentence in summary)
 
-def summarize_markdown(md_path: str, max_lines: int = 10) -> str:
+def summarize_markdown(md_path: str, max_lines: int = 7) -> str:
     with open(md_path, "r", encoding="utf-8") as f:
         content = f.read()
 

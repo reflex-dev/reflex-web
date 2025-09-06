@@ -1,29 +1,6 @@
 # What Is Reflex Build
 
-<div class="p-1 my-4 rounded-lg bg-slate-5">
-  <iframe
-    width="100%"
-    height="400"
-    src="https://www.youtube.com/embed/s-kr8v7827g "
-    title="Reflex Build"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-  </iframe>
-</div>
-
-
-Reflex Build is an AI-powered platform that empowers users of all skill levels to create full-stack web applications
-without writing any code—just by describing their ideas in plain English. Instead of hiring developers, users can
-instantly generate web apps or websites, turning ideas into functional apps as quickly as possible.
-
-
-Reflex Build provides everything you need to create stunning websites, front-end interfaces, and full-stack web
-applications—all from a single browser tab, with no installation required. It includes AI-powered coding tools,
-real-time collaboration (currently in beta), and easy project sharing to give you a head start on your app development
-journey.
-
-
+Reflex Build is an AI-powered platform that lets anyone create full-stack web apps just by describing ideas in plain English—no coding needed. It includes a full-fledged built-in IDE, real-time collaboration (beta), and project sharing—all in your browser, no installation required.
 
 ```python exec
 from typing import List, TypedDict
@@ -224,10 +201,10 @@ def feature_card(feature: dict) -> rx.Component:
                 rx.icon(
                     tag=feature["icon"],
                     size=15,
-                    class_name="inline-block pr-2 "
+                    class_name="inline-block mr-2 "
                     + rx.color_mode_cond(
-                        "stroke-purple-8",
-                        "stroke-purple-9",
+                        "stroke-violet-8",
+                        "stroke-violet-9",
                     ),
                 ),
                 rx.el.span(f"{feature['title']} ", class_name="text-sm font-bold"),

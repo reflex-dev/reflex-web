@@ -132,7 +132,7 @@ image_zoom(rx.image(src="/blog/reflex-build.png", border_radius="10px", alt="Ref
 
 #### Pricing
 
-Reflex offers a free Hobby tier with generous limits for solo developers and small projects. [Paid plans](https://reflex.dev/pricing/) start at $20 per month and unlock advanced collaboration, enterprise controls, and custom support options.
+Reflex offers a free Hobby tier with generous limits for solo developers and small projects. Check out the [Paid plans](https://reflex.dev/pricing/) to unlock advanced collaboration, enterprise controls, and custom support options.
 
 #### Bottom Line
 

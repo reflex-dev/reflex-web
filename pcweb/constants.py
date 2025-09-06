@@ -2,9 +2,6 @@ import os
 
 # pcweb constants.
 API_BASE_URL_LOOPS: str = "https://app.loops.so/api/v1"
-REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO: str = (
-    "https://cal.com/forms/f87bd9b2-b339-4915-b4d4-0098e2db4394"
-)
 REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL: str = (
     "https://hooks.zapier.com/hooks/catch/20661176/2s1nxp9/"
 )
@@ -44,9 +41,6 @@ SPLINE_URL = "https://github.com/splinetool/react-spline"
 ENTERPRISE_DOCS_URL = "https://enterprise.reflex.dev"
 DATABRICKS_NOTION_URL = "https://reflex-dev.notion.site/reflex-x-databricks"
 DEMO_VIDEO_URL = "https://www.youtube.com/watch?v=s-kr8v7827g"
-CAL_REQUEST_DEMO_URL = (
-    "https://cal.com/team/reflex/reflex-team-enterprise-follow-up-call"
-)
 
 # Install urls.
 BUN_URL = "https://bun.sh"
@@ -74,9 +68,9 @@ RX_CLOUD_BACKEND = os.getenv("RX_CLOUD_BACKEND", "https://cloud-backend.reflex.d
 RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://build-backend.reflex.dev/")
 
 # Stats
-GITHUB_STARS = 23000
-DISCORD_USERS = 7000
-CONTRIBUTORS = 170
+GITHUB_STARS = 25000
+DISCORD_USERS = 7500
+CONTRIBUTORS = 180
 
 MAX_FILE_SIZE_MB = 5
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024

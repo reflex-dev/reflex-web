@@ -10,7 +10,7 @@ title: Tree
 # Due to some technical limitations(pydantic), the tree component only supports 5 levels of depths for the `data` props.
 ```
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
