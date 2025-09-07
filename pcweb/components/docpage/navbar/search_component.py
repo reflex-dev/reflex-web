@@ -294,13 +294,6 @@ def search_input():
                 ),
                 class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm flex flex-row items-center gap-x-2",
             ),
-            # rx.box(
-            #     "Esc",
-            #     class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm border border-slate-5 rounded-md text-xs !text-slate-9 px-[5px] py-[2px] hidden md:inline",
-            #     on_click=rx.run_script(
-            #         "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
-            #     ),
-            # ),
             rx.el.input(
                 on_change=[
                     lambda value: FuzzySearch.set_query(value.replace("rx.", "")).debounce(500),
