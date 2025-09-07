@@ -60,14 +60,22 @@ class FuzzySearch(rx.State): # type: ignore[misc]
         return total_score / len(query_words) if query_words else 0.0
 
     @rx.event
-    async def apply_filter_search(self):
+    async def apply_filter_search(self, selected_filter: str):
         """Re-run the fuzzy search efficiently depending on selected filter."""
+
+        if self.selected_filter == selected_filter:
+            return
+
+        self.selected_filter = selected_filter
+
         if self.selected_filter == "All Content":
             yield FuzzySearch.serve_fuzzy_query()
             yield FuzzySearch.serve_fuzzy_blogs()
+
         elif self.selected_filter == "Blog Posts":
             self.idxed_docs_results = []
             yield FuzzySearch.serve_fuzzy_blogs()
+
         else:
             self.idxed_blogs_results = []
             yield FuzzySearch.serve_fuzzy_query()
@@ -233,7 +241,7 @@ def filter_items(filter_name: str):
                 FuzzySearch.selected_filter == filter_name,
                 rx.icon(tag="check", size=12)
             ),
-            on_click=[FuzzySearch.set_selected_filter(filter_name), FuzzySearch.apply_filter_search],
+            on_click=FuzzySearch.apply_filter_search(filter_name),
             class_name="flex flex-row gap-x-2 items-center px-3 py-1 w-full justify-between cursor-pointer outline-none hover:bg-slate-3 focus:border-none",
         )
     )
