@@ -5,9 +5,9 @@ import textdistance
 import unicodedata
 
 # the score cutoff -> returns only strong to medium hits without sneaking in the weaker ones + acts as a natural max cap to the results
-CUTTOFF = 0.6
+CUTOFF = 0.6
 
-class FuzzySearch(rx.State):
+class FuzzySearch(rx.State): # type: ignore[misc]
     query: str
 
     idxed_docs: list[dict] = indexed_docs
@@ -70,7 +70,7 @@ class FuzzySearch(rx.State):
                 ]
 
                 score = self._score_match(query_words, blog_fields)
-                if score > CUTTOFF:
+                if score > CUTOFF:
                     scored_results.append((score, blog))
 
             scored_results.sort(key=lambda x: x[0], reverse=True)
@@ -94,7 +94,7 @@ class FuzzySearch(rx.State):
                 flat_terms = [w for words in term_words_list for w in words]
 
                 score = self._score_match(query_words, flat_terms)
-                if score > CUTTOFF:
+                if score > CUTOFF:
                     scored_results.append((score, doc))
 
             scored_results.sort(key=lambda x: x[0], reverse=True)
@@ -124,7 +124,7 @@ def keyboard_shortcut_script() -> rx.Component:
     )
 
 
-def search_trigger() -> rx.Component:
+def search_trigger() -> rx.Component: # type: ignore[misc]
     """Render the search trigger button."""
     return rx.box(
         rx.icon(
@@ -296,28 +296,44 @@ def search_result_start(item: dict):
     )
 
 
+def no_results_found():
+    return rx.box(
+        rx.el.p(
+            rx.fragment(
+                "No results found for ",
+                rx.el.strong(f"'{FuzzySearch.query}'"),
+            ),
+        ),
+        class_name="w-full flex items-center justify-center text-sm py-4",
+    )
+
 def search_content():
     return rx.scroll_area(
         rx.cond(
             FuzzySearch.query.length() >= 3,
-            rx.box(
-                # Docs results
+            rx.cond(
+                (FuzzySearch.idxed_docs_results.length() >= 1) | (FuzzySearch.idxed_blogs_results.length() >= 1),
                 rx.box(
-                    rx.foreach(
-                        FuzzySearch.idxed_docs_results,
-                        lambda value: search_result(value["parts"].to(list), value)
+                    # Docs results
+                    rx.box(
+                        rx.foreach(
+                            FuzzySearch.idxed_docs_results,
+                            lambda value: search_result(value["parts"].to(list), value)
+                        ),
+                        class_name="flex flex-col gap-y-2",
                     ),
-                    class_name="flex flex-col gap-y-2",
-                ),
-                # Blog results
-                rx.box(
-                    rx.foreach(
-                        FuzzySearch.idxed_blogs_results,
-                        lambda value: search_result_blog(value)
+                    # Blog results
+                    rx.box(
+                        rx.foreach(
+                            FuzzySearch.idxed_blogs_results,
+                            lambda value: search_result_blog(value)
+                        ),
+                        class_name="flex flex-col gap-y-2",
                     ),
-                    class_name="flex flex-col gap-y-2",
+                    class_name="flex flex-col",
                 ),
-                class_name="flex flex-col",
+                # No results
+                no_results_found(),
             ),
             rx.box(
                 rx.foreach(suggestion_items, lambda value: search_result_start(value)),
@@ -329,7 +345,7 @@ def search_content():
 
 
 def typesense_search():
-    """Create the main Typesense search component."""
+    """Create the main search component."""
     return rx.fragment(
         rx.dialog.root(
             rx.dialog.trigger(search_trigger(), id="search-trigger"),
