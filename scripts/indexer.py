@@ -8,7 +8,19 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.text_rank import TextRankSummarizer
 
-ACRONYMS = {"AI", "API", "HTTP", "HTTPS", "SQL", "JSON", "XML", "CPU", "GPU", "OAuth", "CLI", "URL", "DNS", "IP", "UI"}
+ACRONYMS = {"AI", "API", "HTTP", "HTTPS", "SQL", "JSON", "XML", "CPU", "GPU", "OAuth", "CLI", "URL", "DNS", "IP", "UI", "MCP"}
+
+CLUSTERS = {
+    "All Content": [],
+    "AI Builder": ["ai_builder"],
+    "Hosting": ["hosting"],
+    "Components": ["custom-components", "recipes"],
+    "Enterprise": ["enterprise"],
+    "API Reference": ["api-reference", "api-routes"],
+    "Docs": ["advanced_onboarding", "assets", "authentication", "client_storage", "components", "database", "events", "getting_started", "library", "pages", "state", "state_structure", "styling", "ui", "utility_methods", "vars", "wrapping-react"],
+    "Blog Posts": []
+}
+
 
 def smart_title_case(name: str) -> str:
     def fix_word(word: str) -> str:
@@ -99,10 +111,18 @@ def process_file(docs_path: str, file: str, root: str) -> dict:
     name = name_from_url(f"docs{url}")
     description = summarize_markdown(file_path)
 
+    parent = parts[0] if parts else ""
+    cluster = "Uncategorized"
+    for cluster_name, folder_list in CLUSTERS.items():
+        if parent in folder_list:
+            cluster = cluster_name
+            break
+
     return {
         "name": name,
         "parts": parts_clean,
         "url": f"docs{url}",
+        "cluster":cluster,
         "description": description,
     }
 

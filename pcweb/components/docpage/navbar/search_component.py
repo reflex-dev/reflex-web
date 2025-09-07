@@ -1,14 +1,17 @@
 import reflex as rx
-from pcweb.components.docpage.navbar.docs_index import indexed_docs
-from pcweb.components.docpage.navbar.blog_index import indexed_blogs
 import textdistance
 import unicodedata
+
+from pcweb.components.docpage.navbar.docs_index import indexed_docs
+from pcweb.components.docpage.navbar.blog_index import indexed_blogs
+from scripts.indexer import CLUSTERS
 
 # the score cutoff -> returns only strong to medium hits without sneaking in the weaker ones + acts as a natural max cap to the results
 CUTOFF = 0.6
 
 class FuzzySearch(rx.State): # type: ignore[misc]
     query: str
+    selected_filter: str = "All Content"
 
     idxed_docs: list[dict] = indexed_docs
     idxed_docs_results: list[dict]
@@ -18,7 +21,9 @@ class FuzzySearch(rx.State): # type: ignore[misc]
 
     @rx.event
     def reset_search(self):
-        self.idxed_blogs_results, self.idxed_docs_results = [], []
+        """Reset state variables"""
+        self.idxed_blogs_results = []
+        self.idxed_docs_results =  []
         self.query = ""
 
     def _normalize_and_split_query(self) -> list[str]:
@@ -54,6 +59,19 @@ class FuzzySearch(rx.State): # type: ignore[misc]
             total_score += best_word_score
         return total_score / len(query_words) if query_words else 0.0
 
+    @rx.event
+    async def apply_filter_search(self):
+        """Re-run the fuzzy search efficiently depending on selected filter."""
+        if self.selected_filter == "All Content":
+            yield FuzzySearch.serve_fuzzy_query()
+            yield FuzzySearch.serve_fuzzy_blogs()
+        elif self.selected_filter == "Blog Posts":
+            self.idxed_docs_results = []
+            yield FuzzySearch.serve_fuzzy_blogs()
+        else:
+            self.idxed_blogs_results = []
+            yield FuzzySearch.serve_fuzzy_query()
+
     @rx.event(background=True)
     async def serve_fuzzy_blogs(self):
         async with self:
@@ -70,8 +88,10 @@ class FuzzySearch(rx.State): # type: ignore[misc]
                 ]
 
                 score = self._score_match(query_words, blog_fields)
+
                 if score > CUTOFF:
-                    scored_results.append((score, blog))
+                    if self.selected_filter in ("All Content", "Blog Posts"):
+                        scored_results.append((score, blog))
 
             scored_results.sort(key=lambda x: x[0], reverse=True)
             self.idxed_blogs_results = [b for _, b in scored_results]
@@ -90,12 +110,13 @@ class FuzzySearch(rx.State): # type: ignore[misc]
                     unicodedata.normalize("NFKD", term.lower()).strip().split()
                     for term in doc["parts"]
                 ]
-
                 flat_terms = [w for words in term_words_list for w in words]
 
                 score = self._score_match(query_words, flat_terms)
+
                 if score > CUTOFF:
-                    scored_results.append((score, doc))
+                    if self.selected_filter == "All Content" or doc["cluster"] == self.selected_filter:
+                        scored_results.append((score, doc))
 
             scored_results.sort(key=lambda x: x[0], reverse=True)
             self.idxed_docs_results = [d for _, d in scored_results]
@@ -183,6 +204,68 @@ def search_breadcrumb(items):
         cursor="pointer"
     )
 
+def cluster_icon(filter_name: str):
+    icons = {
+        "All Content": "layout-grid",
+        "AI Builder": "bot",
+        "Hosting": "cloud",
+        "Components": "component",
+        "Docs": "file",
+        "Enterprise": "building-2",
+        "API Reference": "settings-2",
+        "Blog Posts": "library-big"
+    }
+    return rx.icon(tag=icons.get(filter_name, "circle"), size=18)
+
+def filter_items(filter_name: str):
+    return rx.popover.close(
+        rx.el.div(
+            rx.el.div(
+                cluster_icon(filter_name),
+                rx.el.button(
+                    filter_name,
+                    class_name="w-full text-left",
+                    type="button",
+                ),
+                class_name="flex flex-row items-center gap-x-3"
+            ),
+            rx.cond(
+                FuzzySearch.selected_filter == filter_name,
+                rx.icon(tag="check", size=12)
+            ),
+            on_click=[FuzzySearch.set_selected_filter(filter_name), FuzzySearch.apply_filter_search],
+            class_name="flex flex-row gap-x-2 items-center px-3 py-1 w-full justify-between cursor-pointer outline-none hover:bg-slate-3 focus:border-none",
+        )
+    )
+
+def filter_component():
+    return rx.popover.root(
+        rx.popover.trigger(
+            rx.el.button(
+                "Filters",
+                class_name="text-sm px-2 flex flex-row justify-between items-center gap-x-4 rounded-md outline-none",
+                type="button",
+                color=rx.color("slate", 11),
+            ),
+        ),
+        rx.popover.content(
+            rx.box(
+                *[filter_items(filter_name) for filter_name in CLUSTERS.keys()],
+                class_name="w-[180px] flex flex-col text-sm rounded-md shadow-md gap-y-1 py-2",
+            ),
+            side="left",
+            side_offset=12,
+            class_name="items-center !shadow-none !p-0 w-auto overflow-visible pointer-events-auto",
+        ),
+        style={
+            "display": "inline-flex",
+            "height": "1.925rem",
+            "align_items": "baseline",
+            "justify_content": "flex-start",
+            "padding": "0.25rem",
+        },
+        class_name="rounded-md border border-slate-5",
+    )
 
 def search_input():
     return rx.box(
@@ -193,12 +276,23 @@ def search_input():
                 class_name="absolute left-2 top-1/2 transform -translate-y-1/2 !text-gray-500/40",
             ),
             rx.box(
-                "Esc",
-                class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm border border-slate-5 rounded-md text-xs !text-slate-9 px-[5px] py-[2px] hidden md:inline",
-                on_click=rx.run_script(
-                    "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
+                filter_component(),
+                rx.box(
+                    "Esc",
+                    class_name="border border-slate-5 rounded-md !text-slate-9 px-[5px] py-[2px] hidden md:inline",
+                    on_click=rx.run_script(
+                        "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
+                    ),
                 ),
+                class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm flex flex-row items-center gap-x-2",
             ),
+            # rx.box(
+            #     "Esc",
+            #     class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm border border-slate-5 rounded-md text-xs !text-slate-9 px-[5px] py-[2px] hidden md:inline",
+            #     on_click=rx.run_script(
+            #         "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
+            #     ),
+            # ),
             rx.el.input(
                 on_change=[
                     lambda value: FuzzySearch.set_query(value.replace("rx.", "")).debounce(500),
@@ -233,8 +327,7 @@ def search_result(tags: list, value: dict):
             class_name="p-2 w-full flex flex-col gap-y-2 justify-start items-start align-start",
         ),
         href=f"/{value['url'].to(str)}",
-        class_name="!text-inherit no-underline hover:!text-inherit",
-        _hover={"bg": rx.color("gray", 2)},
+        class_name="!text-inherit no-underline hover:!text-inherit hover:bg-slate-3",
     )
 
 
@@ -267,8 +360,7 @@ def search_result_blog(value: dict):
             class_name="p-2 w-full flex flex-col gap-y-1 justify-start items-start align-start",
         ),
         href=f"{value['url'].to(str)}",
-        class_name="!text-inherit no-underline hover:!text-inherit",
-        _hover={"bg": rx.color("gray", 2)},
+        class_name="!text-inherit no-underline hover:!text-inherit hover:bg-slate-3",
     )
 
 
@@ -291,8 +383,7 @@ def search_result_start(item: dict):
             class_name="p-2 w-full flex flex-col gap-y-1 justify-start items-start align-start",
         ),
         href=item["path"],
-        class_name="!text-inherit no-underline hover:!text-inherit rounded-md",
-        _hover={"bg": rx.color("gray", 2)},
+        class_name="!text-inherit no-underline hover:!text-inherit rounded-md hover:bg-slate-3",
     )
 
 
@@ -344,7 +435,7 @@ def search_content():
     )
 
 
-def typesense_search():
+def reflex_fuzzy_search():
     """Create the main search component."""
     return rx.fragment(
         rx.dialog.root(

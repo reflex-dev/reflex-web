@@ -1,9 +1,8 @@
 """Search bar component for the navbar."""
 
 import reflex as rx
-from .typesense import typesense_search
-
+from .search_component import reflex_fuzzy_search
 
 @rx.memo
-def search_bar() -> rx.Component:
-    return typesense_search()
+def search_bar():
+    return reflex_fuzzy_search()
