@@ -60,9 +60,9 @@ class SimpleSearch(rx.State):
                 return
 
         try:
-            # async with self:
-            #     self.is_fetching = True
-            #     yield
+            async with self:
+                self.is_fetching = True
+                yield
 
             client = typesense.Client(TYPESENSE_CONFIG)
 
@@ -378,7 +378,7 @@ def search_input():
             ),
             rx.el.input(
                 on_change=[
-                    SimpleSearch.set_is_fetching(True),
+                    # SimpleSearch.set_is_fetching(True),
                     lambda value: SimpleSearch.set_query(value.replace("rx.", "")).debounce(500),
                     SimpleSearch.perform_search(),
                 ],
@@ -483,33 +483,12 @@ def searching_in_progress():
             rx.fragment(
                 "Searching for ",
                 rx.el.strong(f"'{SimpleSearch.query}'"),
-                "..."
+                "...",
             ),
         ),
         class_name="w-full flex items-center justify-center text-sm py-4",
     )
 
-def search_results_display():
-    """Display the actual search results"""
-    return rx.box(
-        # Docs results
-        rx.box(
-            rx.foreach(
-                SimpleSearch.idxed_docs_results,
-                lambda value: search_result(value["parts"].to(list), value)
-            ),
-            class_name="flex flex-col gap-y-2",
-        ),
-        # Blog results
-        rx.box(
-            rx.foreach(
-                SimpleSearch.idxed_blogs_results,
-                lambda value: search_result_blog(value)
-            ),
-            class_name="flex flex-col gap-y-2",
-        ),
-        class_name="flex flex-col",
-    )
 
 def search_content():
     return rx.scroll_area(
@@ -520,14 +499,53 @@ def search_content():
                 rx.foreach(suggestion_items, lambda value: search_result_start(value)),
                 class_name="flex flex-col gap-y-2",
             ),
-            # Query is 3+ characters - check if we're currently fetching
+            # Query is 3+ characters
             rx.cond(
                 SimpleSearch.is_fetching,
-                searching_in_progress(),
-                # Not fetching - show results or no results
                 rx.cond(
                     (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
-                    search_results_display(),
+                    rx.box(
+                        # Docs results
+                        rx.box(
+                            rx.foreach(
+                                SimpleSearch.idxed_docs_results,
+                                lambda value: search_result(value["parts"].to(list), value)
+                            ),
+                            class_name="flex flex-col gap-y-2",
+                        ),
+                        # Blog results
+                        rx.box(
+                            rx.foreach(
+                                SimpleSearch.idxed_blogs_results,
+                                lambda value: search_result_blog(value)
+                            ),
+                            class_name="flex flex-col gap-y-2",
+                        ),
+                        class_name="flex flex-col",
+                    ),
+                    searching_in_progress(),
+                ),
+                rx.cond(
+                    (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
+                    rx.box(
+                        # Docs results
+                        rx.box(
+                            rx.foreach(
+                                SimpleSearch.idxed_docs_results,
+                                lambda value: search_result(value["parts"].to(list), value)
+                            ),
+                            class_name="flex flex-col gap-y-2",
+                        ),
+                        # Blog results
+                        rx.box(
+                            rx.foreach(
+                                SimpleSearch.idxed_blogs_results,
+                                lambda value: search_result_blog(value)
+                            ),
+                            class_name="flex flex-col gap-y-2",
+                        ),
+                        class_name="flex flex-col",
+                    ),
                     no_results_found()
                 )
             )
