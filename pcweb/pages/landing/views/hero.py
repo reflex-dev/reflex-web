@@ -383,7 +383,7 @@ def prompt_box() -> rx.Component:
                             ),
                         ],
                         id="landing-input-box",
-                        class_name="bg-[#fdfdfd78] dark:bg-[#16161ac2] border-[rgba(190,_190,_210,_0.40)] dark:border-[rgba(255,_255,_255,_0.06)] overflow-hidden border-[1.5px] rounded-xl px-3 py-2.5 w-full flex flex-row items-center gap-3",
+                        class_name="bg-[#fdfdfd78] dark:bg-[#16161ac2] border-[rgba(190,_190,_210,_0.40)] dark:border-[rgba(255,_255,_255,_0.06)] overflow-hidden border-[1.5px] rounded-xl px-3 py-2.5 w-full flex flex-row items-center gap-3 focus-within:border-violet-6",
                     ),
                     accept={
                         "image/png": [".png"],

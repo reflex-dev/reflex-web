@@ -74,7 +74,7 @@ def watch_preview() -> rx.Component:
             "Watch Preview",
             variant="secondary",
             size="xl",
-            class_name="w-fit flex flex-row-reverse gap-2 mt-3",
+            class_name="w-fit flex flex-row-reverse gap-2 mt-10 -mb-10",
             icon=rx.icon("chevron-right", size=16),
         ),
         content=rx.box(
