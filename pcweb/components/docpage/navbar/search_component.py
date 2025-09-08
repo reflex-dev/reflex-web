@@ -246,24 +246,50 @@ def filter_items(filter_name: str):
         )
     )
 
+def filter_icon(tag: str):
+    """Helper to render icons for filters consistently."""
+    return rx.icon(tag=tag, size=12)
+
 def filter_component():
     return rx.popover.root(
         rx.popover.trigger(
             rx.el.button(
-                "Filters",
-                class_name="text-sm px-2 flex flex-row justify-between items-center gap-x-4 rounded-md outline-none",
+                rx.badge(
+                    rx.el.div(
+                        rx.el.div(
+                            rx.match(
+                                FuzzySearch.selected_filter,
+                                ("All Content", filter_icon("layout-grid")),
+                                ("AI Builder", filter_icon("bot")),
+                                ("Hosting", filter_icon("cloud")),
+                                ("Components", filter_icon("component")),
+                                ("Docs", filter_icon("file")),
+                                ("Enterprise", filter_icon("building-2")),
+                                ("API Reference", filter_icon("settings-2")),
+                                ("Blog Posts", filter_icon("library-big")),
+                                ("", filter_icon("circle")),
+                            ),
+                            FuzzySearch.selected_filter,
+                            class_name="text-sm flex flex-row items-center gap-x-1",
+                        ),
+                        rx.icon(tag="chevrons-up-down", size=12),
+                        class_name="flex flex-row items-center justify-between w-full",
+                    ),
+                    variant="surface",
+                    class_name="w-[140px] text-sm px-[5px] py-[2px]"
+                ),
+                class_name="flex flex-row justify-between items-center gap-x-4 rounded-md outline-none",
                 type="button",
-                color=rx.color("slate", 11),
             ),
         ),
         rx.popover.content(
             rx.box(
                 *[filter_items(filter_name) for filter_name in CLUSTERS.keys()],
-                class_name="w-[180px] flex flex-col text-sm rounded-md shadow-md gap-y-1 py-2",
+                class_name="w-[190px] flex flex-col text-sm rounded-md shadow-md gap-y-1 py-2",
             ),
             side="left",
             side_offset=12,
-            class_name="items-center !shadow-none !p-0 w-auto overflow-visible pointer-events-auto",
+            class_name="items-center !p-0 w-auto overflow-visible pointer-events-auto",
         ),
         style={
             "display": "inline-flex",
