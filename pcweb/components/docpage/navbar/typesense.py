@@ -60,9 +60,9 @@ class SimpleSearch(rx.State):
                 return
 
         try:
-            async with self:
-                self.is_fetching = False
-                yield
+            # async with self:
+            #     self.is_fetching = True
+            #     yield
 
             client = typesense.Client(TYPESENSE_CONFIG)
 
@@ -70,10 +70,12 @@ class SimpleSearch(rx.State):
             search_params = {
                 "q": self.query,
                 "query_by": "title,content,headings",
-                "query_by_weights": "10,3,5",
+                "query_by_weights": "10,2,5",
                 "per_page": 15,
-                "num_typos": 1,
+                "num_typos": 2,
                 "sort_by": "_text_match:desc",
+                "prefix": "true",
+                "sort_by": "_text_match:desc"
             }
 
             # Apply filter
@@ -376,6 +378,7 @@ def search_input():
             ),
             rx.el.input(
                 on_change=[
+                    SimpleSearch.set_is_fetching(True),
                     lambda value: SimpleSearch.set_query(value.replace("rx.", "")).debounce(500),
                     SimpleSearch.perform_search(),
                 ],
@@ -474,6 +477,40 @@ def no_results_found():
         class_name="w-full flex items-center justify-center text-sm py-4",
     )
 
+def searching_in_progress():
+    return rx.box(
+        rx.el.p(
+            rx.fragment(
+                "Searching for ",
+                rx.el.strong(f"'{SimpleSearch.query}'"),
+                "..."
+            ),
+        ),
+        class_name="w-full flex items-center justify-center text-sm py-4",
+    )
+
+def search_results_display():
+    """Display the actual search results"""
+    return rx.box(
+        # Docs results
+        rx.box(
+            rx.foreach(
+                SimpleSearch.idxed_docs_results,
+                lambda value: search_result(value["parts"].to(list), value)
+            ),
+            class_name="flex flex-col gap-y-2",
+        ),
+        # Blog results
+        rx.box(
+            rx.foreach(
+                SimpleSearch.idxed_blogs_results,
+                lambda value: search_result_blog(value)
+            ),
+            class_name="flex flex-col gap-y-2",
+        ),
+        class_name="flex flex-col",
+    )
+
 def search_content():
     return rx.scroll_area(
         rx.cond(
@@ -483,53 +520,14 @@ def search_content():
                 rx.foreach(suggestion_items, lambda value: search_result_start(value)),
                 class_name="flex flex-col gap-y-2",
             ),
-            # Query is 3+ characters
+            # Query is 3+ characters - check if we're currently fetching
             rx.cond(
                 SimpleSearch.is_fetching,
+                searching_in_progress(),
+                # Not fetching - show results or no results
                 rx.cond(
                     (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
-                    rx.box(
-                        # Docs results
-                        rx.box(
-                            rx.foreach(
-                                SimpleSearch.idxed_docs_results,
-                                lambda value: search_result(value["parts"].to(list), value)
-                            ),
-                            class_name="flex flex-col gap-y-2",
-                        ),
-                        # Blog results
-                        rx.box(
-                            rx.foreach(
-                                SimpleSearch.idxed_blogs_results,
-                                lambda value: search_result_blog(value)
-                            ),
-                            class_name="flex flex-col gap-y-2",
-                        ),
-                        class_name="flex flex-col",
-                    ),
-                    rx.box()
-                ),
-                rx.cond(
-                    (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
-                    rx.box(
-                        # Docs results
-                        rx.box(
-                            rx.foreach(
-                                SimpleSearch.idxed_docs_results,
-                                lambda value: search_result(value["parts"].to(list), value)
-                            ),
-                            class_name="flex flex-col gap-y-2",
-                        ),
-                        # Blog results
-                        rx.box(
-                            rx.foreach(
-                                SimpleSearch.idxed_blogs_results,
-                                lambda value: search_result_blog(value)
-                            ),
-                            class_name="flex flex-col gap-y-2",
-                        ),
-                        class_name="flex flex-col",
-                    ),
+                    search_results_display(),
                     no_results_found()
                 )
             )
