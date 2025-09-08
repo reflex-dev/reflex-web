@@ -26,6 +26,7 @@ CUTOFF = 0.6
 class SimpleSearch(rx.State):
     query: str
     selected_filter: str = "All Content"
+    is_fetching: bool = False
 
     # Results - keeping same structure as your fuzzy search
     idxed_docs_results: list[dict] = []
@@ -59,6 +60,10 @@ class SimpleSearch(rx.State):
                 return
 
         try:
+            async with self:
+                self.is_fetching = False
+                yield
+
             client = typesense.Client(TYPESENSE_CONFIG)
 
             # Build search parameters
@@ -101,12 +106,14 @@ class SimpleSearch(rx.State):
             async with self:
                 self.idxed_docs_results = docs_results
                 self.idxed_blogs_results = blog_results
+                self.is_fetching = False
 
         except Exception as e:
             print(f"Search error: {e}")
             async with self:
                 self.idxed_docs_results = []
                 self.idxed_blogs_results = []
+                self.is_fetching = False
 
     def _get_sections_for_cluster(self, cluster_name: str) -> list[str]:
         """Map cluster names to section names"""
@@ -470,38 +477,66 @@ def no_results_found():
 def search_content():
     return rx.scroll_area(
         rx.cond(
-            SimpleSearch.query.length() >= 3,
-            rx.cond(
-                (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
-                rx.box(
-                    # Docs results
-                    rx.box(
-                        rx.foreach(
-                            SimpleSearch.idxed_docs_results,
-                            lambda value: search_result(value["parts"].to(list), value)
-                        ),
-                        class_name="flex flex-col gap-y-2",
-                    ),
-                    # Blog results
-                    rx.box(
-                        rx.foreach(
-                            SimpleSearch.idxed_blogs_results,
-                            lambda value: search_result_blog(value)
-                        ),
-                        class_name="flex flex-col gap-y-2",
-                    ),
-                    class_name="flex flex-col",
-                ),
-                # No results
-                no_results_found(),
-            ),
+            SimpleSearch.query.length() < 3,
+            # Show suggestions when query is too short
             rx.box(
                 rx.foreach(suggestion_items, lambda value: search_result_start(value)),
                 class_name="flex flex-col gap-y-2",
             ),
+            # Query is 3+ characters
+            rx.cond(
+                SimpleSearch.is_fetching,
+                rx.cond(
+                    (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
+                    rx.box(
+                        # Docs results
+                        rx.box(
+                            rx.foreach(
+                                SimpleSearch.idxed_docs_results,
+                                lambda value: search_result(value["parts"].to(list), value)
+                            ),
+                            class_name="flex flex-col gap-y-2",
+                        ),
+                        # Blog results
+                        rx.box(
+                            rx.foreach(
+                                SimpleSearch.idxed_blogs_results,
+                                lambda value: search_result_blog(value)
+                            ),
+                            class_name="flex flex-col gap-y-2",
+                        ),
+                        class_name="flex flex-col",
+                    ),
+                    rx.box()
+                ),
+                rx.cond(
+                    (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
+                    rx.box(
+                        # Docs results
+                        rx.box(
+                            rx.foreach(
+                                SimpleSearch.idxed_docs_results,
+                                lambda value: search_result(value["parts"].to(list), value)
+                            ),
+                            class_name="flex flex-col gap-y-2",
+                        ),
+                        # Blog results
+                        rx.box(
+                            rx.foreach(
+                                SimpleSearch.idxed_blogs_results,
+                                lambda value: search_result_blog(value)
+                            ),
+                            class_name="flex flex-col gap-y-2",
+                        ),
+                        class_name="flex flex-col",
+                    ),
+                    no_results_found()
+                )
+            )
         ),
         class_name="w-full h-full pt-11 [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem] [&_.rt-ScrollAreaScrollbar]:mt-[3rem]",
     )
+
 
 def typesense_search():
     """Create the main search component."""
