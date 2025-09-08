@@ -55,7 +55,7 @@ Use Chat mode when you want to **ask questions** or get **advice without alterin
 ## When to Use Each
 
 - **Build a new feature or component** → Use **Agent**
-- **Set up integrations (DB, API, etc.)** → Use **Agent**
+- **Set up integrations (DB, etc.)** → Use **Agent**
 - **Understand Reflex concepts** → Use **Chat**
 - **Debug an error in your code** → Start with **Chat**, then switch to **Agent**
 - **Explore ideas or best practices** → Use **Chat**
