@@ -17,6 +17,8 @@ def create_item(route: Route, children=None):
             .replace("Cli", "CLI")
             .replace("Ai", "AI")
             .replace("Ide", "IDE")
+            .replace("Mcp", "MCP")
+
         )
         return SideBarItem(
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=url
