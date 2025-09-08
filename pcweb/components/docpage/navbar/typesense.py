@@ -137,12 +137,14 @@ class SimpleSearch(rx.State):
                 "name": doc.get("title", ""),
                 "parts": parts,
                 "url": doc.get("url", ""),
+                "image": doc.get('path', ""),
                 "cluster": self._get_cluster_from_section(doc.get("section", "")),
                 "description": self._truncate_content(doc.get("content", "")),
             }
 
         # For blogs
         else:
+
             return {
                 "title": doc.get("title", ""),
                 "url": doc.get("url", ""),
@@ -511,7 +513,7 @@ def typesense_search():
                 search_content(),
                 on_interact_outside=SimpleSearch.reset_search,
                 on_escape_key_down=SimpleSearch.reset_search,
-                class_name="w-full max-w-[640px] mx-auto h-[50vh] bg-slate-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
+                class_name="w-full max-w-[640px] mx-auto h-[57vh] bg-slate-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
             ),
         ),
         keyboard_shortcut_script(),
