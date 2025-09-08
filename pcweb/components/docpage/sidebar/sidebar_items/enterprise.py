@@ -92,6 +92,14 @@ def get_sidebar_items_enterprise_components():
                     link=enterprise.react_flow.overview.path,
                 ),
                 SideBarItem(
+                    names="Basic Flow",
+                    link=enterprise.react_flow.basic_flow.path,
+                ),
+                SideBarItem(
+                    names="Interactivity",
+                    link=enterprise.react_flow.interactivity.path,
+                ),
+                SideBarItem(
                     names="Components",
                     link=enterprise.react_flow.components.path,
                 ),

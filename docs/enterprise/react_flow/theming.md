@@ -19,8 +19,6 @@ The Flow component uses CSS variables for theming. You can override these variab
 }
 ```
 
-For a full list of variables, see the [React Flow Theming Guide](https://reactflow.dev/learn/customization/theming).
-
 ## Custom Stylesheets
 
 You can add custom stylesheets to your app to override the default styles. To do this, add the `stylesheets` prop to your `rxe.App` or `rx.App` instance:

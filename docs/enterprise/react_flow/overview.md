@@ -1,106 +1,23 @@
-# React Flow
+# Overview
 
-The `rxe.flow` component is a powerful tool for creating interactive, node-based UIs, diagrams, and editors. It is built on top of [React Flow](https://reactflow.dev/) and provides a Reflex-native way to build complex flow-based applications.
+At its core, a flow diagram is an interactive graph composed of nodes connected by edges. To help understand the key concepts, let’s go over the main components of a flow.
 
-## Getting Started
+### Nodes
 
-To use the Flow component, you need to wrap your application with a `rxe.flow.provider` and then use the `rxe.flow` component. Here is a basic example:
+Nodes are the building blocks of a flow. While there are a few default node types available, the real power comes from customizing them. You can design nodes to include interactive elements, display dynamic data, or support multiple connection points. The framework provides the foundation—you provide the functionality and style.
 
-```python
-import reflex as rx
-import reflex_enterprise as rxe
-from reflex_enterprise.components.flow.types import Node, Edge
+### Handles
 
-class FlowState(rx.State):
-    nodes: list[Node] = [
-        {
-            "id": "1",
-            "type": "input",
-            "position": {"x": 100, "y": 100},
-            "data": {"label": "Input Node"}
-        },
-        {
-            "id": "2",
-            "type": "default",
-            "position": {"x": 300, "y": 200},
-            "data": {"label": "Default Node"}
-        },
-        {
-            "id": "3",
-            "type": "output",
-            "position": {"x": 500, "y": 100},
-            "data": {"label": "Output Node"}
-        },
-    ]
+Handles are the points on a node where edges attach. They typically appear on the top, bottom, left, or right sides of a node, but can be positioned and styled freely. Nodes can have multiple handles, allowing for complex connection setups.
 
-    edges: list[Edge] = [
-        {"id": "e1-2", "source": "1", "target": "2", "animated": True},
-        {"id": "e2-3", "source": "2", "target": "3"},
-    ]
+### Edges
 
-    @rx.event
-    def on_nodes_change(self, changes: list[dict]):
-        self.nodes = rxe.flow.util.apply_node_changes(self.nodes, changes)
+Edges are the connections between nodes. Each edge requires a source node and a target node. Edges can be styled and customized, and nodes with multiple handles can support multiple edges. Custom edges can include interactive elements, specialized routing, or unique visual styles beyond simple lines.
 
-    @rx.event
-    def on_edges_change(self, changes: list[dict]):
-        self.edges = rxe.flow.util.apply_edge_changes(self.edges, changes)
+### Connection Line
 
-    @rx.event
-    def on_connect(self, connection: dict):
-        self.edges = rxe.flow.util.add_edge(connection, self.edges)
+When creating a new edge, you can click and drag from one handle to another. While dragging, the placeholder edge is called a connection line. Connection lines behave like edges and can be customized in appearance and behavior.
 
-def flow_example():
-    return rx.box(
-        rxe.flow(
-            # Core flow components
-            rxe.flow.controls(),  # Zoom and pan controls
-            rxe.flow.background(),  # Grid background
-            rxe.flow.mini_map(),  # Mini map for navigation
+### Viewport
 
-            # Flow configuration
-            nodes=FlowState.nodes,
-            edges=FlowState.edges,
-            on_nodes_change=lambda node_changes: FlowState.set_nodes(
-                rxe.flow.util.apply_node_changes(FlowState.nodes, node_changes)
-            ),
-            on_edges_change=lambda edge_changes: FlowState.set_edges(
-                rxe.flow.util.apply_edge_changes(FlowState.edges, edge_changes)
-            ),
-            fit_view=True,
-
-            # Visual settings
-            color_mode="light",
-            attribution_position="bottom-right",
-        ),
-        height="100vh",
-        width="100vw",
-    )
-```
-
-
-```python exec
-import reflex as rx
-from reflex_image_zoom import image_zoom
-
-def render_image():
-    return rx.el.div(
-        image_zoom(
-            rx.image(
-                src="/enterprise/flow-simple.gif",
-                class_name="p-2 rounded-md h-auto",
-                border=f"0.81px solid {rx.color('slate', 5)}",
-            ),
-            class_name="rounded-md overflow-hidden",
-        ),
-        class_name="w-full flex flex-col rounded-md cursor-pointer",
-    )
-```
-
-```python eval
-
-rx.el.div(render_image(), class_name="py-4")
-
-```
-
-This example creates a simple flow with two nodes and one edge. The `on_nodes_change`, `on_edges_change`, and `on_connect` event handlers are used to keep the state updated when the user interacts with the flow.
+The viewport is the visible area containing the flow. Each node has x- and y-coordinates representing its position. Moving the viewport changes these coordinates, and zooming in or out adjusts the zoom level. The viewport ensures the diagram remains navigable and interactive.

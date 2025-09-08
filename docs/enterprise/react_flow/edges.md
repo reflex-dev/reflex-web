@@ -1,119 +1,188 @@
 # Edges
 
-Edges connect nodes together. This page explains how to define and customize edges.
+Edges connect nodes together in a flow. This page explains how to define, customize, and interact with edges in Reflex Flow.
 
 ## The `Edge` Type
 
-An edge is represented by a `TypedDict` with the following fields:
+An edge is represented as a Python dictionary with the following fields:
 
-- `id`: `str` - Unique id of an edge.
-- `source`: `str` - Id of source node.
-- `target`: `str` - Id of target node.
-- `type`: `EdgeType | str` - Type of edge defined in `edge_types`.
-- `sourceHandle`: `str | None` - Id of source handle.
-- `targetHandle`: `str | None` - Id of target handle.
-- `animated`: `bool` - Whether the edge should be animated.
-- `hidden`: `bool` - Whether the edge should be hidden.
-- `deletable`: `bool` - Whether the edge can be deleted.
-- `selectable`: `bool` - Whether the edge can be selected.
-- `data`: `dict[str, Any]` - Arbitrary data passed to an edge.
-- `label`: `Any` - The label to render along the edge.
-- `style`: `Any` - Custom styles for the edge.
-- `className`: `str` - A class name for the edge.
+- `id` (`str`) – Unique identifier for the edge.
+- `source` (`str`) – ID of the source node.
+- `target` (`str`) – ID of the target node.
+- `type` (`str`) – Edge type defined in `edge_types`.
+- `sourceHandle` (`str | None`) – Optional source handle ID.
+- `targetHandle` (`str | None`) – Optional target handle ID.
+- `animated` (`bool`) – Whether the edge should animate.
+- `hidden` (`bool`) – Whether the edge is hidden.
+- `deletable` (`bool`) – Whether the edge can be removed.
+- `selectable` (`bool`) – Whether the edge can be selected.
+- `data` (`dict`) – Arbitrary metadata.
+- `label` (`Any`) – Label rendered along the edge.
+- `style` (`dict`) – Custom styles.
+- `className` (`str`) – CSS class for the edge.
+
+## Basic Edge Types
+
+Reflex Flow comes with several built-in edge types:
+
+### Default Edge Types
+
+```python
+edges: list[Edge] = [
+    {"id": "e1", "source": "1", "target": "2", "type": "default"},
+    {"id": "e2", "source": "2", "target": "3", "type": "straight"},
+    {"id": "e3", "source": "3", "target": "4", "type": "step"},
+    {"id": "e4", "source": "4", "target": "5", "type": "smoothstep"},
+    {"id": "e5", "source": "5", "target": "6", "type": "bezier"},
+]
+```
+
+- **default** – Standard curved edge
+- **straight** – Direct line between nodes
+- **step** – Right-angled path with steps
+- **smoothstep** – Smooth right-angled path
+- **bezier** – Curved bezier path
+
+## Edge Styling
+
+### Basic Styling
+
+Add visual styling to edges using the `style` property:
+
+```python
+edges: list[Edge] = [
+    {
+        "id": "styled-edge",
+        "source": "1",
+        "target": "2",
+        "style": {
+            "stroke": "#ff6b6b",
+            "strokeWidth": 3,
+        }
+    }
+]
+```
+
+### Animated Edges
+
+Make edges animate with flowing dots:
+
+```python
+edges: list[Edge] = [
+    {
+        "id": "animated-edge",
+        "source": "1",
+        "target": "2",
+        "animated": True,
+        "style": {"stroke": "#4dabf7"}
+    }
+]
+```
+
+### Edge Labels
+
+Add text labels to edges:
+
+```python
+edges: list[Edge] = [
+    {
+        "id": "labeled-edge",
+        "source": "1",
+        "target": "2",
+        "label": "Connection",
+        "style": {"stroke": "#51cf66"}
+    }
+]
+```
 
 ## Custom Edges
 
-You can create custom edges by passing a dictionary of `edge_types` to the `rxe.flow` component. The keys of the dictionary are the names of your custom edge types, and the values are the components that render them.
+For advanced use cases, you can create custom edge components that render additional controls or styling.
 
-Here is an example of a custom edge with a button to delete it, based on the `overview.py` demo:
+Here's a complete example showing various edge types and interactions:
 
 ```python
 import reflex as rx
 import reflex_enterprise as rxe
-from reflex_enterprise.components.flow.types import Edge, Position
+from reflex_enterprise.components.flow.types import Node, Edge
 
-@rx.memo
-def button_edge(
-    id: rx.Var[str],
-    sourceX: rx.Var[float],
-    sourceY: rx.Var[float],
-    targetX: rx.Var[float],
-    targetY: rx.Var[float],
-    sourcePosition: rx.Var[Position],
-    targetPosition: rx.Var[Position],
-    markerEnd: rx.Var[str],
-):
-    bezier_path = rxe.components.flow.util.get_bezier_path(
-        source_x=sourceX,
-        source_y=sourceY,
-        target_x=targetX,
-        target_y=targetY,
-        source_position=sourcePosition,
-        target_position=targetPosition,
-    )
-    return rx.fragment(
-        rxe.flow.base_edge(path=bezier_path.path, markerEnd=markerEnd),
-        rxe.flow.edge_label_renderer(
-            rx.el.div(
-                rx.el.button(
-                    "×",
-                    class_name="button-edge__button",
-                    on_click=rx.run_script(
-                        rxe.flow.api.set_edges(
-                            rx.vars.FunctionStringVar.create(
-                                "Array.prototype.filter.call"
-                            ).call(
-                                rxe.flow.api.get_edges(),
-                                rx.Var(f"((edge) => edge.id !== {id})"),
-                            ),
-                        )
-                    ),
-                ),
-                class_name="button-edge__label nodrag nopan",
-                transform=f"translate(-50%, -50%) translate({bezier_path.label_x}px,{bezier_path.label_y}px)",
-            )
-        ),
-    )
+class EdgeExampleState(rx.State):
+    nodes: list[Node] = [
+        {"id": "1", "type": "input", "position": {"x": 100, "y": 50}, "data": {"label": "Input"}},
+        {"id": "2", "type": "default", "position": {"x": 300, "y": 150}, "data": {"label": "Process"}},
+        {"id": "3", "type": "output", "position": {"x": 500, "y": 50}, "data": {"label": "Output"}},
+        {"id": "4", "type": "default", "position": {"x": 300, "y": 300}, "data": {"label": "Branch"}},
+    ]
 
-def custom_edge_example():
-    return rxe.flow(
-        # ... other props
-        edge_types={
-            "button": rx.vars.function.ArgsFunctionOperation.create(
-                (
-                    rx.vars.function.DestructuredArg(
-                        fields=(
-                            "id",
-                            "sourceX",
-                            "sourceY",
-                            "targetX",
-                            "targetY",
-                            "sourcePosition",
-                            "targetPosition",
-                            "markerEnd",
-                        ),
-                    ),
-                ),
-                button_edge(
-                    id=rx.Var("id"),
-                    sourceX=rx.Var("sourceX"),
-                    sourceY=rx.Var("sourceY"),
-                    targetX=rx.Var("targetX"),
-                    targetY=rx.Var("targetY"),
-                    sourcePosition=rx.Var("sourcePosition"),
-                    targetPosition=rx.Var("targetPosition"),
-                    markerEnd=rx.Var("markerEnd"),
-                ),
-            )
+    edges: list[Edge] = [
+        {
+            "id": "e1-2",
+            "source": "1",
+            "target": "2",
+            "type": "bezier",
+            "animated": True,
+            "label": "Input Flow"
         },
+        {
+            "id": "e2-3",
+            "source": "2",
+            "target": "3",
+            "type": "straight",
+            "style": {"stroke": "#ff6b6b", "strokeWidth": 3}
+        },
+        {
+            "id": "e2-4",
+            "source": "2",
+            "target": "4",
+            "type": "step",
+            "label": "Branch",
+            "style": {"stroke": "#4dabf7"}
+        },
+    ]
+
+    @rx.event
+    def on_nodes_change(self, changes: list[dict]):
+        self.nodes = rxe.flow.util.apply_node_changes(self.nodes, changes)
+
+    @rx.event
+    def on_edges_change(self, changes: list[dict]):
+        self.edges = rxe.flow.util.apply_edge_changes(self.edges, changes)
+
+    @rx.event
+    def on_connect(self, connection: dict):
+        self.edges = rxe.flow.util.add_edge(connection, self.edges)
+
+def edge_example_flow():
+    return rx.box(
+        rxe.flow(
+            rxe.flow.controls(),
+            rxe.flow.background(),
+            rxe.flow.mini_map(),
+
+            nodes=EdgeExampleState.nodes,
+            edges=EdgeExampleState.edges,
+
+            on_nodes_change=lambda node_changes: EdgeExampleState.set_nodes(
+                rxe.flow.util.apply_node_changes(EdgeExampleState.nodes, node_changes)
+            ),
+            on_edges_change=lambda edge_changes: EdgeExampleState.set_edges(
+                rxe.flow.util.apply_edge_changes(EdgeExampleState.edges, edge_changes)
+            ),
+            on_connect=lambda connection: EdgeExampleState.set_edges(
+                rxe.flow.util.add_edge(connection, EdgeExampleState.edges)
+            ),
+
+            fit_view=True,
+            color_mode="light",
+        ),
+        height="100vh",
+        width="100vw",
     )
 ```
 
-In this example:
-
-1.  We define a component `button_edge` that will render our custom edge.
-2.  This component receives props like `id`, `sourceX`, `sourceY`, etc. which describe the edge's geometry.
-3.  We use `rxe.flow.util.get_bezier_path` to calculate the SVG path for the edge.
-4.  We use `rxe.flow.base_edge` to render the path, and `rxe.flow.edge_label_renderer` to render a custom label (in this case, a button).
-5.  The button's `on_click` handler uses `rxe.flow.api.set_edges` to remove the edge from the flow.
-6.  We pass our custom edge component to the `edge_types` prop of `rxe.flow`.
+This example demonstrates:
+- Multiple edge types (bezier, straight, step)
+- Animated edges
+- Styled edges with custom colors
+- Edge labels
+- Interactive edge creation and modification

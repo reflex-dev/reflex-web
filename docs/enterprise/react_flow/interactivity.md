@@ -1,0 +1,78 @@
+# Adding Interactivity to Your Flow
+
+This guide shows how to create an interactive flow in Reflex, allowing you to select, drag, and connect nodes and edges.
+
+## Define the State
+
+We start by defining the nodes and edges of the flow. The `FlowState` class holds the nodes and edges as state variables and includes event handlers to respond to changes.
+
+```python
+import reflex as rx
+import reflex_enterprise as rxe
+from reflex_enterprise.components.flow.types import Node, Edge
+
+class FlowState(rx.State):
+    nodes: list[Node] = [
+        {"id": "1", "type": "input", "position": {"x": 100, "y": 100}, "data": {"label": "Node 1"}},
+        {"id": "2", "type": "default", "position": {"x": 300, "y": 200}, "data": {"label": "Node 2"}},
+    ]
+
+    edges: list[Edge] = [
+        {"id": "e1-2", "source": "1", "target": "2", "label": "Connection", "type": "step"}
+    ]
+```
+
+# Add Event Handlers
+
+Event handlers allow the flow to respond to user interactions such as dragging nodes, updating edges, or creating new connections.
+
+```python
+@rx.event
+def on_nodes_change(self, changes: list[dict]):
+    self.nodes = rxe.flow.util.apply_node_changes(self.nodes, changes)
+
+@rx.event
+def on_edges_change(self, changes: list[dict]):
+    self.edges = rxe.flow.util.apply_edge_changes(self.edges, changes)
+
+@rx.event
+def on_connect(self, connection: dict):
+    self.edges = rxe.flow.util.add_edge(connection, self.edges)
+
+```
+
+- on_nodes_change updates nodes when they are moved or edited.
+
+- on_edges_change updates edges when they are modified or deleted.
+
+- on_connect allows users to create new edges by dragging between node handles.
+
+## Render the Interactive Flow
+
+Finally, we render the flow using **rxe.flow**, passing in the state and event handlers. Additional UI features include zoom/pan controls, a background grid, and a mini-map for navigation.
+
+```python
+def interactive_flow():
+    return rx.box(
+        rxe.flow(
+            rxe.flow.controls(),
+            rxe.flow.background(),
+            rxe.flow.mini_map(),
+
+            nodes=FlowState.nodes,
+            edges=FlowState.edges,
+            on_nodes_change=lambda node_changes: FlowState.set_nodes(
+                rxe.flow.util.apply_node_changes(FlowState.nodes, node_changes)
+            ),
+            on_edges_change=lambda edge_changes: FlowState.set_edges(
+                rxe.flow.util.apply_edge_changes(FlowState.edges, edge_changes)
+            ),
+            on_connect=FlowState.on_connect,
+            fit_view=True,
+
+            attribution_position="bottom-right",
+        ),
+        height="100vh",
+        width="100vw",
+    )
+```

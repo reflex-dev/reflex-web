@@ -1,63 +1,186 @@
 # Nodes
 
-Nodes are the fundamental building blocks of a flow. This page explains how to define and customize nodes.
+Nodes are the fundamental building blocks of a flow. This page explains how to define and customize nodes in Reflex Flow.
 
 ## The `Node` Type
 
-A node is represented by a `TypedDict` with the following fields:
+A node is represented as a Python dictionary with the following fields:
 
-- `id`: `str` - Unique id of a node.
-- `position`: `XYPosition` - Position of a node on the pane.
-- `data`: `dict[str, Any]` - Arbitrary data passed to a node.
-- `type`: `str | NodeType` - Type of node defined in `node_types`.
-- `sourcePosition`: `Position` - Controls source position.
-- `targetPosition`: `Position` - Controls target position.
-- `hidden`: `bool` - Whether or not the node should be visible on the canvas.
-- `selected`: `bool` - Whether or not the node is currently selected.
-- `dragging`: `bool` - Whether or not the node is currently being dragged.
-- `draggable`: `bool` - Whether or not the node is able to be dragged.
-- `selectable`: `bool` - Whether or not the node can be selected.
-- `connectable`: `bool` - Whether or not the node can be connected.
-- `deletable`: `bool` - Whether or not the node can be deleted.
-- `dragHandle`: `str` - A class name that can be applied to elements inside the node that allows those elements to act as drag handles.
-- `width`: `float` - The width of the node.
-- `height`: `float` - The height of the node.
-- `parentId`: `str` - Parent node id, used for creating sub-flows.
-- `style`: `Any` - Custom styles for the node.
-- `className`: `str` - A class name for the node.
+- `id` (`str`) – Unique identifier for the node.
+- `position` (`dict`) – Position of the node with `x` and `y` coordinates.
+- `data` (`dict`) – Arbitrary data passed to the node component.
+- `type` (`str`) – Node type defined in `node_types`.
+- `sourcePosition` (`str`) – Controls source handle position ("top", "right", "bottom", "left").
+- `targetPosition` (`str`) – Controls target handle position ("top", "right", "bottom", "left").
+- `hidden` (`bool`) – Whether the node is visible on the canvas.
+- `selected` (`bool`) – Whether the node is currently selected.
+- `draggable` (`bool`) – Whether the node can be dragged.
+- `selectable` (`bool`) – Whether the node can be selected.
+- `connectable` (`bool`) – Whether the node can be connected to other nodes.
+- `deletable` (`bool`) – Whether the node can be deleted.
+- `width` (`float`) – Width of the node.
+- `height` (`float`) – Height of the node.
+- `parentId` (`str`) – Parent node ID for creating sub-flows.
+- `style` (`dict`) – Custom styles for the node.
+- `className` (`str`) – CSS class name for the node.
+
+## Built-in Node Types
+
+Reflex Flow includes several built-in node types:
+
+```python
+nodes: list[Node] = [
+    {"id": "1", "type": "input", "position": {"x": 100, "y": 100}, "data": {"label": "Start"}},
+    {"id": "2", "type": "default", "position": {"x": 300, "y": 100}, "data": {"label": "Process"}},
+    {"id": "3", "type": "output", "position": {"x": 500, "y": 100}, "data": {"label": "End"}},
+]
+```
+
+- **input** – Entry point with only source handles
+- **default** – Standard node with both source and target handles
+- **output** – Exit point with only target handles
+
+## Basic Node Configuration
+
+### Node Positioning
+
+```python
+node = {
+    "id": "positioned-node",
+    "type": "default",
+    "position": {"x": 250, "y": 150},
+    "data": {"label": "Positioned Node"}
+}
+```
+
+### Node Styling
+
+```python
+styled_node = {
+    "id": "styled-node",
+    "type": "default",
+    "position": {"x": 100, "y": 200},
+    "data": {"label": "Custom Style"},
+    "style": {
+        "background": "#ff6b6b",
+        "color": "white",
+        "border": "2px solid #ff5252",
+        "borderRadius": "8px",
+        "padding": "10px"
+    }
+}
+```
+
+### Handle Positioning
+
+```python
+node_with_handles = {
+    "id": "handle-node",
+    "type": "default",
+    "position": {"x": 300, "y": 300},
+    "data": {"label": "Custom Handles"},
+    "sourcePosition": "right",
+    "targetPosition": "left"
+}
+```
 
 ## Custom Nodes
 
-You can create custom nodes by passing a dictionary of `node_types` to the `rxe.flow` component. The keys of the dictionary are the names of your custom node types, and the values are the components that render them.
-
-Here is an example of a custom node that displays a color picker, based on the `custom_node.py` demo:
+Create powerful custom nodes by defining your own components with interactive elements, forms, and custom styling.
 
 ```python
-import reflex as rx
-import reflex_enterprise as rxe
-from reflex_enterprise.components.flow.types import Node
 from typing import Any
 
+import reflex as rx
+
+import reflex_enterprise as rxe
+from reflex_enterprise.components.flow.types import Connection, Edge, Node
+
 class CustomNodeState(rx.State):
-    nodes: list[Node] = [
-        {
-            "id": "2",
-            "type": "selectorNode",
-            "data": {
-                "color": "#c9f1dd",
+    bg_color: rx.Field[str] = rx.field(default="#c9f1dd")
+    nodes: rx.Field[list[Node]] = rx.field(
+        default_factory=lambda: [
+            {
+                "id": "1",
+                "type": "input",
+                "data": {"label": "An input node"},
+                "position": {"x": 0, "y": 50},
+                "sourcePosition": "right",
             },
-            "position": {"x": 300, "y": 50},
-        },
-    ]
-    # ... other state variables and event handlers
+            {
+                "id": "2",
+                "type": "selectorNode",
+                "data": {
+                    "color": "#c9f1dd",
+                },
+                "position": {"x": 300, "y": 50},
+            },
+            {
+                "id": "3",
+                "type": "output",
+                "data": {"label": "Output A"},
+                "position": {"x": 650, "y": 25},
+                "targetPosition": "left",
+            },
+            {
+                "id": "4",
+                "type": "output",
+                "data": {"label": "Output B"},
+                "position": {"x": 650, "y": 100},
+                "targetPosition": "left",
+            },
+        ]
+    )
+    edges: rx.Field[list[Edge]] = rx.field(
+        default_factory=lambda: [
+            {
+                "id": "e1-2",
+                "source": "1",
+                "target": "2",
+                "animated": True,
+            },
+            {
+                "id": "e2a-3",
+                "source": "2",
+                "target": "3",
+                "animated": True,
+            },
+            {
+                "id": "e2b-4",
+                "source": "2",
+                "target": "4",
+                "animated": True,
+            },
+        ]
+    )
+
+    @rx.event
+    def on_change_color(self, color: str):
+        self.nodes = [
+            node
+            if node["id"] != "2" or "data" not in node
+            else {**node, "data": {**node["data"], "color": color}}
+            for node in self.nodes
+        ]
+        self.bg_color = color
+
+    @rx.event
+    def set_nodes(self, nodes: list[Node]):
+        self.nodes = nodes
+
+    @rx.event
+    def set_edges(self, edges: list[Edge]):
+        self.edges = edges
+
 
 @rx.memo
-def color_selector_node(data: rx.Var[dict[str, Any]], isConnectable: rx.Var[bool]):
+def color_selector_node(data: rx.Var[dict[str, Any]], isConnectable: rx.Var[bool]):  # noqa: N803
     data = data.to(dict)
     return rx.fragment(
         rxe.flow.handle(
             type="target",
             position="left",
+            on_connect=lambda params: rx.console_log(f"handle onConnect {params}"),
             is_connectable=isConnectable,
         ),
         rx.el.div(
@@ -77,30 +200,85 @@ def color_selector_node(data: rx.Var[dict[str, Any]], isConnectable: rx.Var[bool
         ),
     )
 
-def custom_node_example():
-    return rxe.flow(
-        # ... other props
-        nodes=CustomNodeState.nodes,
-        node_types={
-            "selectorNode": rx.vars.function.ArgsFunctionOperation.create(
-                (
-                    rx.vars.function.DestructuredArg(
-                        fields=("data", "isConnectable")
+
+def node_stroke_color(node: rx.vars.ObjectVar[Node]):
+    return rx.match(
+        node["type"],
+        ("input", "#0041d0"),
+        (
+            "selectorNode",
+            CustomNodeState.bg_color,
+        ),
+        ("output", "#ff0072"),
+        None,
+    )
+
+
+def node_color(node: rx.vars.ObjectVar[Node]):
+    return rx.match(
+        node["type"],
+        (
+            "selectorNode",
+            CustomNodeState.bg_color,
+        ),
+        "#fff",
+    )
+
+def custom_node():
+    return rx.box(
+        rxe.flow(
+            rxe.flow.background(bg_color=CustomNodeState.bg_color),
+            rxe.flow.mini_map(
+                node_stroke_color=rx.vars.function.ArgsFunctionOperation.create(
+                    ("node",), node_stroke_color(rx.Var("node").to(Node))
+                ),
+                node_color=rx.vars.function.ArgsFunctionOperation.create(
+                    ("node",), node_color(rx.Var("node").to(Node))
+                ),
+            ),
+            rxe.flow.controls(),
+            nodes=CustomNodeState.nodes,
+            edges=CustomNodeState.edges,
+            on_nodes_change=lambda changes: CustomNodeState.set_nodes(
+                rxe.flow.util.apply_node_changes(CustomNodeState.nodes, changes)
+            ),
+            on_edges_change=lambda changes: CustomNodeState.set_edges(
+                rxe.flow.util.apply_edge_changes(CustomNodeState.edges, changes)
+            ),
+            on_connect=lambda connection: CustomNodeState.set_edges(
+                rxe.flow.util.add_edge(
+                    connection.to(dict).merge({"animated": True}).to(Connection),
+                    CustomNodeState.edges,
+                )
+            ),
+            node_types={
+                "selectorNode": rx.vars.function.ArgsFunctionOperation.create(
+                    (
+                        rx.vars.function.DestructuredArg(
+                            fields=("data", "isConnectable")
+                        ),
                     ),
-                ),
-                color_selector_node(
-                    data=rx.Var("data"), isConnectable=rx.Var("isConnectable")
-                ),
-            )
-        },
+                    color_selector_node(
+                        data=rx.Var("data"), isConnectable=rx.Var("isConnectable")
+                    ),
+                )
+            },
+            color_mode="light",
+            snap_grid=(20, 20),
+            default_viewport={"x": 0, "y": 0, "zoom": 1.5},
+            snap_to_grid=True,
+            attribution_position="bottom-left",
+            fit_view=True,
+        ),
+        height="100vh",
+        width="100vw",
     )
 
 ```
 
-In this example:
-
-1.  We define a component `color_selector_node` that will render our custom node.
-2.  This component receives `data` and `isConnectable` as props.
-3.  We use `rxe.flow.handle` to define the connection points for the node.
-4.  We pass our custom node component to the `node_types` prop of `rxe.flow`.
-5.  We set the `type` of a node to `"selectorNode"` to use our custom component.
+This example demonstrates:
+- Built-in node types (input, output)
+- Custom calculator node with multiple handles
+- Handle positioning and IDs
+- Node data management
+- Complete flow with interactive connections

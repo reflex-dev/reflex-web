@@ -9,8 +9,6 @@ The `FlowProvider` component is a context provider that makes it possible to acc
 **Props:**
 
 - `initial_nodes`: `Sequence[Node]` - These nodes are used to initialize the flow. They are not dynamic.
-- `initial_edges`: `Sequence[Edge]` - These edges are used to initialize the flow. They are not dynamic.
-- `default_nodes`: `Sequence[Node]` - These nodes are used to initialize the flow. They are not dynamic.
 - `default_edges`: `Sequence[Edge]` - These edges are used to initialize the flow. They are not dynamic.
 - `initial_width`: `float` - The initial width is necessary to be able to use fitView on the server.
 - `initial_height`: `float` - The initial height is necessary to be able to use fitView on the server.
@@ -26,8 +24,6 @@ The `FlowProvider` component is a context provider that makes it possible to acc
 The `Flow` component is the main component that renders the flow. It takes in nodes and edges, and provides event handlers for user interactions.
 
 **Props:**
-
-*Many of the props are documented in the official [React Flow documentation](https://reactflow.dev/api-reference/react-flow). Below are some of the most common props.*
 
 - `nodes`: `Sequence[Node]` - An array of nodes to render in a controlled flow.
 - `edges`: `Sequence[Edge]` - An array of edges to render in a controlled flow.
