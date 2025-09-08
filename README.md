@@ -6,7 +6,7 @@
 
 ### **✨ The open-source framework to build and deploy web apps - no Javascript required. ✨**
 [![PyPI version](https://badge.fury.io/py/reflex.svg)](https://badge.fury.io/py/reflex)
-![tests](https://github.com/pynecone-io/pynecone/actions/workflows/integration.yml/badge.svg)
+[![tests](https://github.com/reflex-dev/reflex-web/actions/workflows/integration_tests.yml/badge.svg)](https://github.com/reflex-dev/reflex-web/actions/workflows/integration_tests.yml)
 ![versions](https://img.shields.io/pypi/pyversions/reflex.svg)
 [![Documentation](https://img.shields.io/badge/Documentation%20-Introduction%20-%20%23007ec6)](https://reflex.dev/docs/getting-started/introduction/)
 [![Discord](https://img.shields.io/discord/1029853095527727165?color=%237289da&label=Discord)](https://discord.gg/T5WSbC2YtQ)
