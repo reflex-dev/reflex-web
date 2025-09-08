@@ -107,6 +107,7 @@ def link_item(name: str, url: str, active_str: str = ""):
             }
         },
         class_name=common_cn + rx.cond(active, active_cn, unactive_cn),
+        on_click=SidebarState.set_sidebar_index(0)
     )
 
 
@@ -456,7 +457,7 @@ def new_component_section() -> rx.Component:
                     nav_menu.item(
                         link_item(
                             "AI Builder",
-                            ai_builder_pages.overview.what_is_reflex_build.path,
+                            ai_builder_pages.overview.best_practices.path,
                             "builder",
                         ),
                     ),
