@@ -72,10 +72,11 @@ class SimpleSearch(rx.State):
                 "query_by": "title,content,headings",
                 "query_by_weights": "10,2,5",
                 "per_page": 15,
-                "num_typos": 2,
+                "num_typos": 1,
                 "sort_by": "_text_match:desc",
-                "prefix": "true",
-                "sort_by": "_text_match:desc"
+                "prefix": "false",
+                "sort_by": "_text_match:desc",
+                "text_match_threshold": "0.6"
             }
 
             # Apply filter
