@@ -5,6 +5,9 @@ API_BASE_URL_LOOPS: str = "https://app.loops.so/api/v1"
 REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL: str = (
     "https://hooks.zapier.com/hooks/catch/20661176/2s1nxp9/"
 )
+REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO: str = (
+    "https://cal.com/forms/f87bd9b2-b339-4915-b4d4-0098e2db4394"
+)
 
 REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL: str = "https://hkdk.events/t0qopjbznnp2fr"
 REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL: str = os.environ.get(
@@ -40,7 +43,7 @@ NPMJS_URL = "https://www.npmjs.com/"
 SPLINE_URL = "https://github.com/splinetool/react-spline"
 ENTERPRISE_DOCS_URL = "https://enterprise.reflex.dev"
 DATABRICKS_NOTION_URL = "https://reflex-dev.notion.site/reflex-x-databricks"
-DEMO_VIDEO_URL = "https://www.youtube.com/watch?v=s-kr8v7827g"
+DEMO_VIDEO_URL = "https://www.youtube.com/watch?v=lO-N_IRaWhQ"
 
 # Install urls.
 BUN_URL = "https://bun.sh"
