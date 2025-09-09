@@ -1,8 +1,9 @@
+import dataclasses
 import inspect
 import re
 
 # Get the comment for a specific field.
-from typing import Callable, Type
+from typing import Callable, ClassVar, Type, get_origin, get_type_hints
 
 import reflex as rx
 from pcweb.templates.docpage import h1_comp, h2_comp
@@ -54,9 +55,11 @@ class Source(rx.Base):
         return out
 
     def get_fields(self) -> list[dict]:
-        if not issubclass(self.module, rx.Base):
-            return []
-        return self.get_annotations(self.module.__fields__)
+        if dataclasses.is_dataclass(self.module):
+            return self.get_annotations({f.name: f for f in dataclasses.fields(self.module)})
+        elif isinstance(self.module, type) and issubclass(self.module, rx.Base):
+            return self.get_annotations(self.module.__fields__)
+        return []
 
     def get_methods(self):
         return [
@@ -170,8 +173,16 @@ class Source(rx.Base):
 
 
 def format_field(field):
-    type_ = field["prop"].type_
+    prop = field["prop"]
+    try:
+        type_ = prop.type_
+    except AttributeError:
+        type_ = prop.type
     default = field["prop"].default
+    if default is dataclasses.MISSING:
+        default = None
+    else:
+        default = repr(default)
     type_str = type_.__name__ if hasattr(type_, "__name__") else str(type_)
     if default:
         type_str += f" = {default}"
@@ -217,8 +228,10 @@ def format_fields(headers, fields):
     )
 
 
-def generate_docs(title: str, s: Source):
+def generate_docs(title: str, s: Source, extra_fields: list[dict] | None = None):
     fields = s.get_fields()
+    if extra_fields:
+        fields.extend(extra_fields)
     class_fields = s.get_class_fields()
     return rx.box(
         h1_comp(text=title.title()),
