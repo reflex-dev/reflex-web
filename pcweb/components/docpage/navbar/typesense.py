@@ -2,6 +2,14 @@ import os
 import reflex as rx
 import typesense
 
+suggestion_items = [
+    {"name": "Components Overview", "path": "/docs/library", "icon": "blocks", "description": "Discover and explore the full library of available components"},
+    {"name": "State Management", "path": "/docs/state/overview", "icon": "database", "description": "Master state handling, data flow, and reactive programming"},
+    {"name": "Event Overview", "path": "/docs/events/events-overview", "icon": "zap", "description": "Learn how to handle user interactions and system events"},
+    {"name": "Styling and Theming", "path": "/docs/styling/overview", "icon": "palette", "description": "Customize colors, layouts, and create beautiful app designs"},
+    {"name": "Deployment Guide", "path": "/docs/hosting/deploy-quick-start/", "icon": "cloud", "description": "Deploy and host your application in production environments"},
+]
+
 CLUSTERS = {
     "All Content": [],
     "AI Builder": ["ai_builder"],
@@ -13,22 +21,18 @@ CLUSTERS = {
     "Blog Posts": []
 }
 
-# Typesense configuration
+
 TYPESENSE_CONFIG = {
     "nodes": [{"host": os.getenv("TYPESENSE_HOST"), "port": "443", "protocol": "https"}],
     "api_key": os.getenv("TYPESENSE_SEARCH_API_KEY"),
     "connection_timeout_seconds": 2,
 }
 
-# Score cutoff to filter weak results
-CUTOFF = 0.6
-
 class SimpleSearch(rx.State):
     query: str
     selected_filter: str = "All Content"
     is_fetching: bool = False
 
-    # Results - keeping same structure as your fuzzy search
     idxed_docs_results: list[dict] = []
     idxed_blogs_results: list[dict] = []
 
@@ -66,7 +70,6 @@ class SimpleSearch(rx.State):
 
             client = typesense.Client(TYPESENSE_CONFIG)
 
-            # Build search parameters
             search_params = {
                 "q": self.query,
                 "query_by": "title,content,headings,components",
@@ -84,7 +87,6 @@ class SimpleSearch(rx.State):
                 "snippet_threshold": 30,
             }
 
-            # Apply filter
             if self.selected_filter != "All Content":
                 if self.selected_filter == "Blog Posts":
                     search_params["filter_by"] = "section:=Blog"
@@ -95,17 +97,14 @@ class SimpleSearch(rx.State):
                         section_filter = " || ".join(f"section:={s}" for s in sections)
                         search_params["filter_by"] = section_filter
 
-            # Perform search
             result = client.collections["docs"].documents.search(search_params)
 
-            # Split results into docs and blogs
             docs_results = []
             blog_results = []
 
             for hit in result["hits"]:
                 doc = hit["document"]
-                # formatted_doc = self._format_result(doc)
-                formatted_doc = self._format_result(doc, hit.get("highlights", []))  # Pass highlights here
+                formatted_doc = self._format_result(doc, hit.get("highlights", []))
 
                 if doc.get("section") == "Blog":
                     blog_results.append(formatted_doc)
@@ -124,162 +123,62 @@ class SimpleSearch(rx.State):
                 self.is_fetching = False
 
     def _get_highlighted_content(self, doc, highlights, snippet_length=350):
-        """
-        Return a string snippet (HTML-ready) prioritizing:
-        1) Typesense content/title snippets (expanded + bolded)
-        2) Typesense components highlights
-        3) Client-side components match -> "Components: ..." (bold matched parts)
-        4) Truncated content fallback
-        """
         import re
+
         BOLD_STYLE = '<span style="font-weight: 900; color: #AA99EC;">'
         CLOSE_TAG = '</span>'
         content = doc.get("content", "") or ""
 
-        # Helper to bold tokens case-insensitively in a snippet
-        def bold_tokens_in_snippet(snippet: str, tokens: list[str]) -> str:
+        def bold_tokens(snippet: str, tokens: list[str]) -> str:
             for tok in sorted(set(t for t in tokens if t), key=len, reverse=True):
                 try:
                     snippet = re.sub(re.escape(tok), f"{BOLD_STYLE}\\g<0>{CLOSE_TAG}", snippet, flags=re.I)
                 except re.error:
-                    # fallback to simple replace if regex fails (rare)
                     snippet = snippet.replace(tok, f"{BOLD_STYLE}{tok}{CLOSE_TAG}")
             return snippet
 
-        # 1) Prefer Typesense content/title highlight snippets (and expand them)
+        # 1) Typesense content/title highlights
         for h in highlights or []:
-            field = h.get("field", "")
-            if field in ("content", "title"):
-                # support different response shapes
-                snippet = h.get("snippet") or (h.get("snippets") or [None])[0] or h.get("value") or (h.get("values") or [None])[0] or ""
+            if h.get("field") in ("content", "title"):
+                snippet = h.get("snippet") or h.get("value") or ""
                 if snippet:
-                    # If Typesense already included <mark> tags, extract matched tokens
                     marked = re.findall(r"<mark>(.*?)</mark>", snippet, flags=re.I)
                     if marked:
-                        # find earliest occurrence of any marked token in full content
-                        match_index = -1
-                        match_token = None
-                        for token in marked:
-                            idx = content.lower().find(token.lower())
-                            if idx != -1 and (match_index == -1 or idx < match_index):
-                                match_index = idx
-                                match_token = token
-                        # if we found the token in full content, expand around it
-                        if match_index != -1 and match_token is not None:
-                            start_full = match_index
-                            end_full = start_full + len(match_token)
-                            before = max(0, start_full - snippet_length // 2)
-                            after = min(len(content), end_full + snippet_length // 2)
-                            candidate = content[before:after].strip()
-                            # bold all marked tokens in the candidate
-                            candidate = bold_tokens_in_snippet(candidate, marked)
-                            if before > 0:
-                                candidate = "..." + candidate
-                            if after < len(content):
-                                candidate = candidate + "..."
-                            return candidate
-                        else:
-                            # If we didn't find the token in content, still replace marks in snippet and return (short)
-                            cleaned = snippet.replace("<mark>", BOLD_STYLE).replace("</mark>", CLOSE_TAG)
-                            return cleaned[:snippet_length] + ("..." if len(cleaned) > snippet_length else cleaned)
-                    else:
-                        # No <mark> in typesense snippet; return snippet up to length
-                        s = snippet[:snippet_length]
-                        return s + "..." if len(snippet) > snippet_length else s
+                        token = marked[0]
+                        idx = content.lower().find(token.lower())
+                        if idx != -1:
+                            start = max(0, idx - snippet_length // 2)
+                            end = min(len(content), idx + len(token) + snippet_length // 2)
+                            snippet = content[start:end]
+                            snippet = bold_tokens(snippet, marked)
+                            if start > 0:
+                                snippet = "..." + snippet
+                            if end < len(content):
+                                snippet = snippet + "..."
+                            return snippet
 
-        # 2) If Typesense returned component highlights, use them
+                    snippet = snippet.replace("<mark>", BOLD_STYLE).replace("</mark>", CLOSE_TAG)
+                    return snippet[:snippet_length] + ("..." if len(snippet) > snippet_length else snippet)
+
+        # 2) Typesense component highlights (simplified)
         for h in highlights or []:
-            field = h.get("field", "")
-            # handle "components" or "components[0]" style or similar
-            if field.startswith("components"):
-                # typesense may return .get("values") or .get("value")
+            if h.get("field", "").startswith("components"):
                 values = h.get("values") or ([h.get("value")] if h.get("value") else [])
                 if values:
-                    # Replace any <mark> tags with bold style
-                    cleaned_vals = [v.replace("<mark>", BOLD_STYLE).replace("</mark>", CLOSE_TAG) for v in values if v]
-                    comp_str = ", ".join(cleaned_vals[:6])  # cap to first few
-                    return f"Components: {comp_str}"
+                    cleaned = [v.replace("<mark>", BOLD_STYLE).replace("</mark>", CLOSE_TAG) for v in values if v]
+                    return f"Matches found: {', '.join(cleaned[:6])}"
 
-        # 3) Client-side components match when Typesense didn't highlight components
-        q = (getattr(self, "query", "") or "").strip()
+        # 3) Client-side components match
+        q = (getattr(self, "query", "") or "").strip().lower()
         if q:
-            q_lower = q.lower()
             comps = doc.get("components") or []
-            matched = []
-            for comp in comps:
-                if not isinstance(comp, str):
-                    continue
-                comp_l = comp.lower()
-                # match whole query or any token
-                if q_lower in comp_l or any(tok in comp_l for tok in q_lower.split()):
-                    matched.append(comp)
+            matched = [c for c in comps if isinstance(c, str) and q in c.lower()]
             if matched:
-                # Bold the matched substrings in each component name
-                def bold_name(name: str) -> str:
-                    # try to bold full query first
-                    try:
-                        res = re.sub(re.escape(q), f"{BOLD_STYLE}\\g<0>{CLOSE_TAG}", name, flags=re.I)
-                    except re.error:
-                        res = name
-                    # also bold any token parts if still unbolded
-                    for tok in set(t for t in q_lower.split() if t):
-                        try:
-                            res = re.sub(re.escape(tok), f"{BOLD_STYLE}\\g<0>{CLOSE_TAG}", res, flags=re.I)
-                        except re.error:
-                            res = res
-                    return res
-                comp_preview = ", ".join(bold_name(x) for x in matched[:6])
-                return f"Components: {comp_preview}"
+                bolded = [re.sub(re.escape(q), f"{BOLD_STYLE}\\g<0>{CLOSE_TAG}", c, flags=re.I) for c in matched[:6]]
+                return f"Matches found: {', '.join(bolded)}"
 
-        # 4) final fallback: truncated content
+        # 4) fallback: truncated content
         return self._truncate_content(content, max_length=snippet_length)
-
-
-
-    # def _get_highlighted_content(self, doc, highlights, snippet_length=350):
-    #     BOLD_STYLE = '<span style="font-weight: 900; color: #AA99EC;">'
-    #     CLOSE_TAG = '</span>'
-    #     content = doc.get("content", "")
-
-    #     for h in highlights:
-    #         field = h.get("field")
-    #         if field in ["content", "title"]:
-    #             snippet = h.get("snippet") or h.get("value", "")
-
-    #             if "<mark>" in snippet:
-    #                 # Extract the matched word
-    #                 start_mark = snippet.find("<mark>") + len("<mark>")
-    #                 end_mark = snippet.find("</mark>")
-    #                 matched_word = snippet[start_mark:end_mark]
-
-    #                 # Find that word in the full content
-    #                 start_full = content.find(matched_word)
-    #                 end_full = start_full + len(matched_word)
-
-    #                 # Expand around the match
-    #                 before = max(0, start_full - snippet_length // 2)
-    #                 after = min(len(content), end_full + snippet_length // 2)
-    #                 snippet = content[before:after]
-
-    #                 # Re-insert bold around the matched word
-    #                 snippet = snippet.replace(
-    #                     matched_word, f"{BOLD_STYLE}{matched_word}{CLOSE_TAG}"
-    #                 )
-
-    #                 # Add ellipses if truncated
-    #                 if before > 0:
-    #                     snippet = "..." + snippet
-    #                 if after < len(content):
-    #                     snippet = snippet + "..."
-    #                 return snippet
-
-    #             # fallback if no <mark>
-    #             return snippet[:snippet_length] + "..." if len(snippet) > snippet_length else snippet
-
-
-    #     # Fallback if no highlights: plain truncated content
-    #     content = self._truncate_content(doc.get("content", ""), max_length=snippet_length)
-    #     return content
 
 
     def _get_sections_for_cluster(self, cluster_name: str) -> list[str]:
@@ -288,9 +187,9 @@ class SimpleSearch(rx.State):
 
     def _format_result(self, doc: dict, highlights: list = []) -> dict:
         """Format Typesense result to match your fuzzy search structure"""
-        # For docs
+
         if doc.get("section") != "Blog":
-            # Reconstruct parts from path for breadcrumb
+
             path_parts = doc.get("path", "").replace(".md", "").split("/")
             parts = [part.replace("-", " ").replace("_", " ").title() for part in path_parts if part]
 
@@ -300,20 +199,18 @@ class SimpleSearch(rx.State):
                 "url": doc.get("url", ""),
                 "image": doc.get('path', ""),
                 "cluster": self._get_cluster_from_section(doc.get("section", "")),
-                # "description": self._truncate_content(doc.get("content", "")),
                 "description":self._get_highlighted_content(doc, highlights),
             }
 
-        # For blogs
         else:
 
             return {
                 "title": doc.get("title", ""),
                 "url": doc.get("url", ""),
-                "author": doc.get("subsection", ""),  # Author stored in subsection for blogs
-                "date": "2024",  # You might want to add proper date handling
+                "author": doc.get("author", ""),
+                "date": doc.get("date", ""),
                 "description": self._truncate_content(doc.get("content", "")),
-                "image": "/placeholder-image.jpg",  # You'll need to handle images properly
+                "image": doc.get("image", ""),
             }
 
     def _get_cluster_from_section(self, section: str) -> str:
@@ -330,14 +227,6 @@ class SimpleSearch(rx.State):
         return content[:max_length].rstrip() + "..."
 
 
-# Keep all your existing UI components exactly the same
-suggestion_items = [
-    {"name": "Components Overview", "path": "/docs/library", "icon": "blocks", "description": "Discover and explore the full library of available components"},
-    {"name": "State Management", "path": "/docs/state/overview", "icon": "database", "description": "Master state handling, data flow, and reactive programming"},
-    {"name": "Event Overview", "path": "/docs/events/events-overview", "icon": "zap", "description": "Learn how to handle user interactions and system events"},
-    {"name": "Styling and Theming", "path": "/docs/styling/overview", "icon": "palette", "description": "Customize colors, layouts, and create beautiful app designs"},
-    {"name": "Deployment Guide", "path": "/docs/hosting/deploy-quick-start/", "icon": "cloud", "description": "Deploy and host your application in production environments"},
-]
 
 def keyboard_shortcut_script() -> rx.Component:
     """Add keyboard shortcut support for opening search."""
@@ -572,14 +461,14 @@ def search_result_blog(value: dict):
                 ),
                 style={"display": "-webkit-box", "-webkit-line-clamp": "2", "-webkit-box-orient": "vertical"},
             ),
-            # rx.box(
-            #     rx.image(
-            #         src=value["image"].to(str),
-            #         class_name="rounded-md",
-            #         border_radius="10px 10px",
-            #     ),
-            #     class_name="w-full rounded-md pt-3",
-            # ),
+            rx.box(
+                rx.image(
+                    src=value["image"].to(str),
+                    class_name="rounded-md",
+                    border_radius="10px 10px",
+                ),
+                class_name="w-full rounded-md pt-3",
+            ),
             class_name="p-2 w-full flex flex-col gap-y-1 justify-start items-start align-start",
         ),
         href=f"{value['url'].to(str)}",
@@ -636,18 +525,15 @@ def search_content():
     return rx.scroll_area(
         rx.cond(
             SimpleSearch.query.length() < 3,
-            # Show suggestions when query is too short
             rx.box(
                 rx.foreach(suggestion_items, lambda value: search_result_start(value)),
                 class_name="flex flex-col gap-y-2",
             ),
-            # Query is 3+ characters
             rx.cond(
                 SimpleSearch.is_fetching,
                 rx.cond(
                     (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
                     rx.box(
-                        # Docs results
                         rx.box(
                             rx.foreach(
                                 SimpleSearch.idxed_docs_results,
@@ -655,7 +541,6 @@ def search_content():
                             ),
                             class_name="flex flex-col gap-y-2",
                         ),
-                        # Blog results
                         rx.box(
                             rx.foreach(
                                 SimpleSearch.idxed_blogs_results,
@@ -670,7 +555,6 @@ def search_content():
                 rx.cond(
                     (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
                     rx.box(
-                        # Docs results
                         rx.box(
                             rx.foreach(
                                 SimpleSearch.idxed_docs_results,
@@ -678,7 +562,6 @@ def search_content():
                             ),
                             class_name="flex flex-col gap-y-2",
                         ),
-                        # Blog results
                         rx.box(
                             rx.foreach(
                                 SimpleSearch.idxed_blogs_results,
@@ -697,7 +580,7 @@ def search_content():
 
 
 def typesense_search() -> rx.Component:
-    """Create the main search component."""
+    """Create the main search component for Reflex Web"""
     return rx.fragment(
         rx.dialog.root(
             rx.dialog.trigger(search_trigger(), id="search-trigger"),

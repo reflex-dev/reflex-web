@@ -1,6 +1,6 @@
 import os
 import pathlib
-import json
+import datetime
 import re
 import yaml
 import logging
@@ -11,7 +11,6 @@ import typesense
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Your existing constants
 ACRONYMS = {"AI", "API", "HTTP", "HTTPS", "SQL", "JSON", "XML", "CPU", "GPU", "OAuth", "CLI", "URL", "DNS", "IP", "UI", "MCP"}
 
 CLUSTERS = {
@@ -25,7 +24,6 @@ CLUSTERS = {
     "Blog Posts": []
 }
 
-# Typesense configuration
 TYPESENSE_CONFIG = {
     'nodes': [{
         'host': os.getenv('TYPESENSE_HOST'),
@@ -36,7 +34,6 @@ TYPESENSE_CONFIG = {
     'connection_timeout_seconds': 60
 }
 
-# Simple collection schema - just what we need
 COLLECTION_SCHEMA = {
     'name': 'docs',
     'fields': [
@@ -51,7 +48,7 @@ COLLECTION_SCHEMA = {
         {'name': 'subsection', 'type': 'string', 'optional': True},
         {'name': 'cluster', 'type': 'string'},
         {'name': 'is_blog', 'type': 'bool'},
-        {'name': 'parts', 'type': 'string[]'},  # For breadcrumbs
+        {'name': 'parts', 'type': 'string[]'},
     ],
 }
 
@@ -146,7 +143,6 @@ class SimpleTypesenseIndexer:
 
         filename_no_ext = file.rsplit(".", 1)[0]
 
-        # Build parts_clean
         parts_clean = []
         for i, p in enumerate(parts):
             is_last = i == len(parts) - 1
@@ -158,7 +154,6 @@ class SimpleTypesenseIndexer:
             else:
                 parts_clean.append(self.clean_name(p))
 
-        # Build URL
         url_parts = [p.replace("_", "-").rsplit(".", 1)[0] for p in parts]
         if url_parts and url_parts[-1].endswith("-ll"):
             url_parts[-1] = url_parts[-1].replace("-ll", "/low")
@@ -166,7 +161,6 @@ class SimpleTypesenseIndexer:
         url = "/" + "/".join(url_parts)
         name = self.name_from_url(f"docs{url}")
 
-        # Get content for full-text search
         full_content = self.summarize_markdown(file_path, max_lines=100)
         components = self.extract_components(file_path)
         headings = self.extract_headings(open(file_path, 'r', encoding='utf-8').read())
@@ -220,7 +214,6 @@ class SimpleTypesenseIndexer:
         slug = pathlib.Path(file_path).stem.lower().replace("_", "-")
         url = f"/blog/{slug}"
 
-        # Get full content
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
 
@@ -230,6 +223,9 @@ class SimpleTypesenseIndexer:
         return {
             "id": str(rel_path),
             "title": fm["title"],
+            "image": fm["image"],
+            "date": fm["date"].strftime("%b %d, %Y") if isinstance(fm["date"], (datetime.date, datetime.datetime)) else fm["date"],
+            "author": fm["author"],
             "content": full_content,
             "headings": headings,
             "path": str(rel_path),
@@ -267,14 +263,12 @@ class SimpleTypesenseIndexer:
     def index_documents(self, docs_path: str, blog_path: str, max_workers: int = 4, batch_size: int = 100) -> bool:
         """Index both docs and blog files"""
         try:
-            # Process docs
             docs_files = []
             for root, _, files in os.walk(docs_path):
                 for file in files:
                     if file.endswith(".md"):
                         docs_files.append((docs_path, file, root, False))
 
-            # Process blog
             blog_files = []
             if os.path.exists(blog_path):
                 for root, _, files in os.walk(blog_path):
@@ -285,31 +279,26 @@ class SimpleTypesenseIndexer:
             all_files = docs_files + blog_files
             logger.info(f"Found {len(docs_files)} docs and {len(blog_files)} blog files")
 
-            # Process files in parallel
             documents = []
             processed = 0
 
             with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                # Submit all jobs
                 futures = []
                 for file_args in all_files:
                     future = executor.submit(self._process_file_wrapper, *file_args)
                     futures.append(future)
 
-                # Collect results and batch index
                 for future in as_completed(futures):
                     doc = future.result()
                     if doc:
                         documents.append(doc)
                         processed += 1
 
-                        # Index batch when full
                         if len(documents) >= batch_size:
                             self._index_batch(documents)
                             documents = []
                             logger.info(f"Processed {processed}/{len(all_files)} files")
 
-            # Index remaining documents
             if documents:
                 self._index_batch(documents)
                 logger.info(f"Processed {processed}/{len(all_files)} files")
@@ -335,11 +324,9 @@ class SimpleTypesenseIndexer:
     def _index_batch(self, documents: List[Dict[str, Any]]) -> None:
         """Index a batch of documents."""
         try:
-            # Clean up documents - remove None values
             clean_docs = []
             for doc in documents:
                 clean_doc = {k: v for k, v in doc.items() if v is not None}
-                # Ensure required fields exist
                 if 'subsection' not in clean_doc:
                     clean_doc['subsection'] = ""
                 clean_docs.append(clean_doc)
@@ -349,7 +336,6 @@ class SimpleTypesenseIndexer:
                 {'action': 'upsert'}
             )
 
-            # Check for errors
             for result in results:
                 if not result.get('success', False):
                     logger.warning(f"Failed to index document: {result}")
@@ -371,7 +357,6 @@ def main():
 
     args = parser.parse_args()
 
-    # Validate environment
     if not os.getenv('TYPESENSE_HOST'):
         logger.error("TYPESENSE_HOST environment variable is required")
         return False
@@ -380,19 +365,17 @@ def main():
         logger.error("TYPESENSE_ADMIN_API_KEY environment variable is required")
         return False
 
-    # Validate paths
     docs_path = pathlib.Path(args.docs_path)
     if not docs_path.exists():
         logger.error(f"Docs path does not exist: {docs_path}")
         return False
 
     blog_path = pathlib.Path(args.blog_path)
-    # Blog path is optional
+
     if not blog_path.exists():
         logger.warning(f"Blog path does not exist: {blog_path} - skipping blogs")
         args.blog_path = None
 
-    # Run indexing
     indexer = SimpleTypesenseIndexer()
 
     if not indexer.create_collection(force_recreate=args.force):
