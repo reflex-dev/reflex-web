@@ -91,7 +91,6 @@ class SimpleSearch(rx.State):
                 if self.selected_filter == "Blog Posts":
                     search_params["filter_by"] = "section:=Blog"
                 else:
-                    # Map cluster to sections
                     sections = self._get_sections_for_cluster(self.selected_filter)
                     if sections:
                         section_filter = " || ".join(f"section:={s}" for s in sections)
@@ -409,7 +408,6 @@ def search_input():
             ),
             rx.el.input(
                 on_change=[
-                    # SimpleSearch.set_is_fetching(True),
                     lambda value: SimpleSearch.set_query(value.replace("rx.", "")).debounce(500),
                     SimpleSearch.perform_search(),
                 ],
