@@ -69,14 +69,19 @@ class SimpleSearch(rx.State):
             # Build search parameters
             search_params = {
                 "q": self.query,
-                "query_by": "title,content,headings",
-                "query_by_weights": "10,2,5",
+                "query_by": "title,content,headings,components",
+                "query_by_weights": "6,8,3,12",
                 "per_page": 15,
-                "num_typos": 1,
+                "num_typos": 2,
                 "sort_by": "_text_match:desc",
-                "prefix": "false",
                 "sort_by": "_text_match:desc",
-                "text_match_threshold": "0.6"
+                "text_match_threshold": "0.6",
+                "exhaustive_search": True,
+                "highlight_fields": "content",
+                "highlight_full_fields": "content,components",
+                "highlight_start_tag": "<mark>",
+                "highlight_end_tag": "</mark>",
+                "snippet_threshold": 30,
             }
 
             # Apply filter
@@ -99,7 +104,8 @@ class SimpleSearch(rx.State):
 
             for hit in result["hits"]:
                 doc = hit["document"]
-                formatted_doc = self._format_result(doc)
+                # formatted_doc = self._format_result(doc)
+                formatted_doc = self._format_result(doc, hit.get("highlights", []))  # Pass highlights here
 
                 if doc.get("section") == "Blog":
                     blog_results.append(formatted_doc)
@@ -112,11 +118,56 @@ class SimpleSearch(rx.State):
                 self.is_fetching = False
 
         except Exception as e:
-            print(f"Search error: {e}")
             async with self:
                 self.idxed_docs_results = []
                 self.idxed_blogs_results = []
                 self.is_fetching = False
+
+    def _get_highlighted_content(self, doc, highlights, snippet_length=350):
+        BOLD_STYLE = '<span style="font-weight: 900; color: #AA99EC;">'
+        CLOSE_TAG = '</span>'
+        content = doc.get("content", "")
+
+        for h in highlights:
+            field = h.get("field")
+            if field in ["content", "title"]:
+                snippet = h.get("snippet") or h.get("value", "")
+
+                if "<mark>" in snippet:
+                    # Extract the matched word
+                    start_mark = snippet.find("<mark>") + len("<mark>")
+                    end_mark = snippet.find("</mark>")
+                    matched_word = snippet[start_mark:end_mark]
+
+                    # Find that word in the full content
+                    start_full = content.find(matched_word)
+                    end_full = start_full + len(matched_word)
+
+                    # Expand around the match
+                    before = max(0, start_full - snippet_length // 2)
+                    after = min(len(content), end_full + snippet_length // 2)
+                    snippet = content[before:after]
+
+                    # Re-insert bold around the matched word
+                    snippet = snippet.replace(
+                        matched_word, f"{BOLD_STYLE}{matched_word}{CLOSE_TAG}"
+                    )
+
+                    # Add ellipses if truncated
+                    if before > 0:
+                        snippet = "..." + snippet
+                    if after < len(content):
+                        snippet = snippet + "..."
+                    return snippet
+
+                # fallback if no <mark>
+                return snippet[:snippet_length] + "..." if len(snippet) > snippet_length else snippet
+
+
+        # Fallback if no highlights: plain truncated content
+        content = self._truncate_content(doc.get("content", ""), max_length=snippet_length)
+        return content
+
 
     def _get_sections_for_cluster(self, cluster_name: str) -> list[str]:
         """Map cluster names to section names"""
@@ -135,7 +186,7 @@ class SimpleSearch(rx.State):
         }
         return cluster_mapping.get(cluster_name, [])
 
-    def _format_result(self, doc: dict) -> dict:
+    def _format_result(self, doc: dict, highlights: list = []) -> dict:
         """Format Typesense result to match your fuzzy search structure"""
         # For docs
         if doc.get("section") != "Blog":
@@ -149,7 +200,8 @@ class SimpleSearch(rx.State):
                 "url": doc.get("url", ""),
                 "image": doc.get('path', ""),
                 "cluster": self._get_cluster_from_section(doc.get("section", "")),
-                "description": self._truncate_content(doc.get("content", "")),
+                # "description": self._truncate_content(doc.get("content", "")),
+                "description":self._get_highlighted_content(doc, highlights),
             }
 
         # For blogs
@@ -398,7 +450,7 @@ def search_result(tags: list, value: dict):
     return rx.link(
         rx.box(
             rx.text(value["name"], class_name="text-sm font-bold"),
-            rx.text(
+            rx.html(
                 value["description"],
                 class_name=(
                     "text-sm font-regular opacity-[0.81] "

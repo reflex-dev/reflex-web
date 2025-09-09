@@ -44,6 +44,7 @@ COLLECTION_SCHEMA = {
         {'name': 'title', 'type': 'string'},
         {'name': 'content', 'type': 'string'},
         {'name': 'headings', 'type': 'string[]'},
+        {'name': 'components', 'type': 'string[]', 'optional': True},
         {'name': 'path', 'type': 'string'},
         {'name': 'url', 'type': 'string'},
         {'name': 'section', 'type': 'string'},
@@ -60,7 +61,6 @@ class SimpleTypesenseIndexer:
     def __init__(self):
         self.client = typesense.Client(TYPESENSE_CONFIG)
 
-    # Your existing helper functions - unchanged
     def smart_title_case(self, name: str) -> str:
         def fix_word(word: str) -> str:
             return word.upper() if word.upper() in ACRONYMS else word.capitalize()
@@ -99,7 +99,7 @@ class SimpleTypesenseIndexer:
 
         return headings
 
-    def summarize_markdown(self, md_path: str, max_lines: int = 10) -> str:
+    def summarize_markdown(self, md_path: str, max_lines: int = 100) -> str:
         """Your existing summarize function - simplified"""
         with open(md_path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -122,6 +122,21 @@ class SimpleTypesenseIndexer:
             parts[-1] = "low-level"
         readable = " ".join(part.replace("-", " ") for part in parts)
         return self.smart_title_case(readable)
+
+    def extract_components(self, file_path: str) -> List[str]:
+        """Extract components from raw markdown file content."""
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        patterns = [
+            r'(?:rx|reflex)\.([A-Z][a-zA-Z0-9_]*)',
+            r'\b([A-Z][a-z]+(?:[A-Z][a-z]*)*Component?)\b',
+        ]
+        components = set()
+        for pattern in patterns:
+            matches = re.findall(pattern, content)
+            components.update(matches)
+        return list(components)
 
     def process_doc_file(self, docs_path: str, file: str, root: str) -> Optional[dict]:
         """Your existing process_file function adapted for Typesense"""
@@ -152,7 +167,8 @@ class SimpleTypesenseIndexer:
         name = self.name_from_url(f"docs{url}")
 
         # Get content for full-text search
-        full_content = self.summarize_markdown(file_path, max_lines=50)  # More content for search
+        full_content = self.summarize_markdown(file_path, max_lines=100)
+        components = self.extract_components(file_path)
         headings = self.extract_headings(open(file_path, 'r', encoding='utf-8').read())
 
         parent = parts[0] if parts else ""
@@ -166,6 +182,7 @@ class SimpleTypesenseIndexer:
             "id": str(rel_path),
             "title": name,
             "content": full_content,
+            "components":components,
             "headings": headings,
             "path": str(rel_path),
             "url": f"docs{url}",
