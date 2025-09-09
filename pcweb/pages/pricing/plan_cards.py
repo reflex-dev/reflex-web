@@ -558,7 +558,7 @@ def price_cards() -> rx.Component:
                 ("badge", "'Built with Reflex' Attribution", True),
                 ("heart-handshake", "Discord/Github Support", True),
                 ("key", "OpenAI Integration", True),
-                ("github", "Github Integration", False),
+                ("github", "GitHub Integration (Public Repositories)", True),
                 ("download", "Download App Code", False),
                 ("database", "Database Integrations", False),
             ],
