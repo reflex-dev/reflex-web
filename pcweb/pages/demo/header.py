@@ -17,8 +17,8 @@ def custom_quote_form() -> rx.Component:
                 "Enterprise-ready solutions designed for scale, compliance, and support. Contact us for a tailored quote based on your infrastructure and team size.",
                 class_name="text-slate-11 text-md leading-relaxed font-medium text-center max-w-xl mx-auto",
             ),
-            ui.link(
-                render_=rx.el.div(
+            lemcal_dialog(
+                rx.el.div(
                     ui.button(
                         "Contact Sales",
                         class_name="font-semibold",
@@ -26,8 +26,6 @@ def custom_quote_form() -> rx.Component:
                     ),
                     class_name="p-3 border border-slate-3 rounded-[1.375rem] border-solid mt-2",
                 ),
-                target="_blank",
-                to=LEMCAL_DEMO_URL,
             ),
             rx.box(
                 rx.el.span(

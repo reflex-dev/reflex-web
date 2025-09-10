@@ -25,8 +25,8 @@ def header() -> rx.Component:
 
 
 def sales_button() -> rx.Component:
-    return ui.link(
-        render_=rx.fragment(
+    return lemcal_dialog(
+        rx.fragment(
             glow(),
             button(
                 "Need more help? Contact sales",
@@ -34,8 +34,6 @@ def sales_button() -> rx.Component:
                 class_name="!text-slate-11 !font-semibold !text-sm",
             ),
         ),
-        target="_blank",
-        to=LEMCAL_DEMO_URL,
         class_name="self-center relative",
     )
 
