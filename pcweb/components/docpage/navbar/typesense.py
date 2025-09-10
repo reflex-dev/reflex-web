@@ -197,12 +197,9 @@ class SimpleSearch(rx.State):
 
         if doc.get("section") != "Blog":
 
-            path_parts = doc.get("path", "").replace(".md", "").split("/")
-            parts = [part.replace("-", " ").replace("_", " ").title() for part in path_parts if part]
-
             return {
                 "name": doc.get("title", ""),
-                "parts": parts,
+                "parts": doc.get("parts", []),
                 "url": doc.get("url", ""),
                 "image": doc.get('path', ""),
                 "cluster": self._get_cluster_from_section(doc.get("section", "")),
