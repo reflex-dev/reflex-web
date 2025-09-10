@@ -181,14 +181,12 @@ def create_table_cell(content: str | rx.Component) -> rx.Component:
 def create_action_button(
     text: str, variant: str, extra_styles: str = ""
 ) -> rx.Component:
-    return ui.link(
-        render_=button(
+    return lemcal_dialog(
+        button(
             text,
             variant=variant,
             class_name=f"{STYLES['button_base']} {extra_styles}",
         ),
-        target="_blank",
-        to=LEMCAL_DEMO_URL,
         class_name="w-full flex justify-center items-center",
     )
 

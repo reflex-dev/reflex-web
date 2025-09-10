@@ -345,15 +345,13 @@ def popular_card(
                     disabled=True,
                     class_name="w-full mb-6 !text-sm !font-semibold opacity-50 cursor-not-allowed",
                 ),
-                ui.link(
-                    render_=ui.button(
+                lemcal_dialog(
+                    ui.button(
                         button_text,
                         variant="primary",
                         size="lg",
                         class_name="w-full mb-6 !text-sm !font-semibold",
                     ),
-                    target="_blank",
-                    to=LEMCAL_DEMO_URL,
                 ),
             ),
             # Pricing Section
