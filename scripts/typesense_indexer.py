@@ -2,16 +2,55 @@ import os
 import pathlib
 import datetime
 import re
+import sys
 import yaml
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Any, Optional
+
 import typesense
+import reflex as rx
+from reflex.utils.imports import ImportVar
+
+# Add the project root to the sys.path
+project_root = pathlib.Path(__file__).resolve().parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
+from pcweb.pages.docs.source import Source, generate_docs
+from pcweb.pages.docs.apiref import modules
+from pcweb.pages.docs.env_vars import env_vars_page, EnvVarDocs
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 ACRONYMS = {"AI", "API", "HTTP", "HTTPS", "SQL", "JSON", "XML", "CPU", "GPU", "OAuth", "CLI", "URL", "DNS", "IP", "UI", "MCP"}
+
+def _render_component_to_text(c: Any) -> str:
+    """Render a Reflex component to a text string."""
+    if not isinstance(c, rx.Component):
+        if isinstance(c, rx.Var):
+            return str(c._var_value)
+        if isinstance(c, (str, int, float, bool)):
+            return str(c)
+        return ""
+
+    texts = [_render_component_to_text(child) for child in c.children]
+    return " ".join(filter(None, texts))
+
+def _extract_headings_from_component(c: Any) -> List[str]:
+    """Extract headings from a component tree."""
+    headings = []
+    if not isinstance(c, rx.Component):
+        return headings
+
+    if c.tag and c.tag.startswith('h') and c.tag[1:].isdigit():
+        headings.append(_render_component_to_text(c))
+
+    for child in c.children:
+        headings.extend(_extract_headings_from_component(child))
+
+    return headings
 
 CLUSTERS = {
     "All Content": [],
@@ -59,9 +98,14 @@ class SimpleTypesenseIndexer:
         self.client = typesense.Client(TYPESENSE_CONFIG)
 
     def smart_title_case(self, name: str) -> str:
-        def fix_word(word: str) -> str:
-            return word.upper() if word.upper() in ACRONYMS else word.capitalize()
-        return " ".join(fix_word(w) for w in name.split())
+        words = name.split(' ')
+        title_cased_words = []
+        for word in words:
+            if word.upper() in ACRONYMS:
+                title_cased_words.append(word.upper())
+            else:
+                title_cased_words.append(word.capitalize())
+        return " ".join(title_cased_words)
 
     def clean_name(self, name: str) -> str:
         if name.lower().endswith(".md"):
@@ -147,7 +191,7 @@ class SimpleTypesenseIndexer:
         for i, p in enumerate(parts):
             is_last = i == len(parts) - 1
             if is_last:
-                if filename_no_ext.endswith("-ll"):
+                if filename_no_ext.lower().endswith("-ll"):
                     parts_clean.append("Low Level")
                 else:
                     parts_clean.append(self.clean_name(filename_no_ext))
@@ -159,7 +203,7 @@ class SimpleTypesenseIndexer:
             url_parts[-1] = url_parts[-1].replace("-ll", "/low")
 
         url = "/" + "/".join(url_parts)
-        name = self.name_from_url(f"docs{url}")
+        name = " ".join(parts_clean)
 
         full_content = self.summarize_markdown(file_path, max_lines=100)
         components = self.extract_components(file_path)
@@ -186,6 +230,126 @@ class SimpleTypesenseIndexer:
             "is_blog": False,
             "parts": parts_clean,
         }
+
+    def _index_programmatic_docs(self) -> List[dict]:
+        logger.info("Processing programmatic docs...")
+        documents = []
+
+        # Process API reference pages
+        for module in modules:
+            if isinstance(module, tuple):
+                module, *extra_modules = module
+                extra_fields = []
+                for extra_module in extra_modules:
+                    s_extra = Source(module=extra_module)
+                    extra_fields.extend(s_extra.get_fields())
+            else:
+                extra_fields = None
+            s = Source(module=module)
+            name = module.__name__.lower()
+
+            # Get the content from the source object directly
+            content_parts = []
+            headings = []
+
+            overview = s.get_overview()
+            if overview:
+                content_parts.append(overview)
+
+            class_fields = s.get_class_fields()
+            if class_fields:
+                content_parts.append("\n## Class Fields\n")
+                headings.append("Class Fields")
+                for field in class_fields:
+                    prop = field.get("prop")
+                    if not prop: continue
+                    prop_name = getattr(prop, 'name', '')
+                    description = field.get("description", "")
+                    content_parts.append(f"### {prop_name}\n{description}\n")
+                    headings.append(prop_name)
+
+            fields = s.get_fields()
+            if extra_fields:
+                fields.extend(extra_fields)
+            if fields:
+                content_parts.append("\n## Fields\n")
+                headings.append("Fields")
+                for field in fields:
+                    prop = field.get("prop")
+                    if not prop: continue
+                    prop_name = getattr(prop, 'name', '')
+                    description = field.get("description", "")
+                    content_parts.append(f"### {prop_name}\n{description}\n")
+                    headings.append(prop_name)
+
+            methods = s.get_methods()
+            if methods:
+                content_parts.append("\n## Methods\n")
+                headings.append("Methods")
+                for method in methods:
+                    method_name = method.get("name", "")
+                    signature = method.get("signature", "")
+                    description = method.get("description", "")
+                    content_parts.append(f"### {method_name}{signature}\n{description}\n")
+                    headings.append(f"{method_name}{signature}")
+
+            content = "\n".join(content_parts)
+
+            url_path = f"/api-reference/{name}"
+            title = self.name_from_url(f"docs{url_path}")
+            path = f"api-reference/{name}"
+
+            documents.append({
+                "id": path,
+                "title": title,
+                "content": self.clean_markdown(content),
+                "headings": headings,
+                "path": path,
+                "url": f"docs{url_path}",
+                "section": "API Reference",
+                "subsection": name,
+                "cluster": "API Reference",
+                "is_blog": False,
+                "parts": ["API Reference", title],
+                "components": [],
+            })
+
+        # Process Environment Variables page
+        env_var_url_path = "/api-reference/environment-variables"
+        env_var_title = self.name_from_url(f"docs{env_var_url_path}")
+        env_var_path = "api-reference/environment-variables"
+
+        all_vars = EnvVarDocs.get_all_env_vars()
+        content_parts = [
+            "Reflex provides a number of environment variables that can be used to configure the behavior of your application. These environment variables can be set in your shell environment or in a .env file. This page documents all available environment variables in Reflex."
+        ]
+        headings = ["Environment Variables"]
+        for name, var in all_vars:
+            if not getattr(var, "internal", False):
+                docstring = EnvVarDocs.get_env_var_docstring(name) or ""
+                var_type = var.type_.__name__ if hasattr(var.type_, "__name__") else str(var.type_)
+                content_parts.append(f"{var.name}: {docstring} (Type: {var_type}, Default: {var.default})")
+                headings.append(var.name)
+
+        content = "\n".join(content_parts)
+
+        documents.append({
+            "id": env_var_path,
+            "title": env_var_title,
+            "content": self.clean_markdown(content),
+            "headings": headings,
+            "path": env_var_path,
+            "url": f"docs{env_var_url_path}",
+            "section": "API Reference",
+            "subsection": "Environment Variables",
+            "cluster": "API Reference",
+            "is_blog": False,
+            "parts": ["API Reference", env_var_title],
+            "components": [],
+        })
+
+        logger.info(f"Found {len(documents)} programmatic docs.")
+        return documents
 
     def extract_frontmatter(self, md_path: str) -> dict:
         """Your existing frontmatter extraction"""
@@ -263,6 +427,8 @@ class SimpleTypesenseIndexer:
     def index_documents(self, docs_path: str, blog_path: str, max_workers: int = 4, batch_size: int = 100) -> bool:
         """Index both docs and blog files"""
         try:
+            programmatic_docs = self._index_programmatic_docs()
+
             docs_files = []
             for root, _, files in os.walk(docs_path):
                 for file in files:
@@ -279,7 +445,7 @@ class SimpleTypesenseIndexer:
             all_files = docs_files + blog_files
             logger.info(f"Found {len(docs_files)} docs and {len(blog_files)} blog files")
 
-            documents = []
+            documents = programmatic_docs
             processed = 0
 
             with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -297,11 +463,11 @@ class SimpleTypesenseIndexer:
                         if len(documents) >= batch_size:
                             self._index_batch(documents)
                             documents = []
-                            logger.info(f"Processed {processed}/{len(all_files)} files")
+                            logger.info(f"Processed {processed}/{len(all_files)} files (plus programmatic docs)")
 
             if documents:
                 self._index_batch(documents)
-                logger.info(f"Processed {processed}/{len(all_files)} files")
+                logger.info(f"Processed {processed}/{len(all_files)} files (plus programmatic docs)")
 
             logger.info("Indexing completed successfully!")
             return True
