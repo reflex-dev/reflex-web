@@ -422,7 +422,7 @@ def search_input():
                 ],
                 auto_focus=True,
                 placeholder="Search documentation ...",
-                class_name="py-2 pl-7 pr-20 w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12"
+                class_name="py-2 pl-7 pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12"
             ),
             class_name="w-full relative focus:outline-none",
         ),
@@ -433,8 +433,8 @@ def copy_button(url: str):
     return ui.button(
         rx.cond(
             last_copied.value == url,
-            ui.icon("CheckmarkCircle02Icon", class_name="size-3"),
-            ui.icon("Share08Icon", class_name="size-3"),
+            ui.icon("CheckmarkCircle02Icon", class_name="size-2"),
+            ui.icon("Share08Icon", size=10, class_name="size-2"),
         ),
         variant="outline",
         size="xs",
@@ -478,7 +478,7 @@ def search_result_blog(value: dict):
                     rx.text(value["date"]),
                     class_name="flex flex-row gap-x-2 items-center text-sm !text-slate-10",
                 ),
-                copy_button(url=f"https://reflex.dev/{value['url'].to(str)}"),
+                copy_button(url=f"https://reflex.dev{value['url'].to(str)}"),
                 class_name="flex flex-row w-full items-center justify-between pr-1"
             ),
             rx.text(value["title"], class_name="text-md font-bold"),
@@ -617,7 +617,7 @@ def typesense_search() -> rx.Component:
                 search_content(),
                 on_interact_outside=SimpleSearch.reset_search,
                 on_escape_key_down=SimpleSearch.reset_search,
-                class_name="w-full max-w-[640px] mx-auto h-[57vh] bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
+                class_name="w-full max-w-[650px] mx-auto h-[57vh] bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
             ),
         ),
         keyboard_shortcut_script(),
