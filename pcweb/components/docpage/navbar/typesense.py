@@ -233,7 +233,6 @@ class SimpleSearch(rx.State):
             return content
         return content[:max_length].rstrip() + "..."
 
-
 def keyboard_shortcut_script() -> rx.Component:
     """Add keyboard shortcut support for opening search."""
     return rx.script(
@@ -380,8 +379,8 @@ def filter_component():
             ),
         ),
         class_name="rounded-md border border-slate-5",
+        id="my-popover",
     )
-
 
 def search_input():
     return rx.box(
@@ -466,7 +465,7 @@ def search_result(tags: list, value: dict):
             class_name="p-2 w-full flex flex-col gap-y-2 justify-start items-start align-start",
         ),
         href=f"/{value['url'].to(str)}",
-        class_name="!text-inherit no-underline hover:!text-inherit hover:bg-slate-3 group",
+        class_name="!text-inherit no-underline hover:!text-inherit hover:bg-secondary-2 group",
     )
 
 def search_result_blog(value: dict):
@@ -501,7 +500,7 @@ def search_result_blog(value: dict):
             class_name="p-2 w-full flex flex-col gap-y-1 justify-start items-start align-start",
         ),
         href=f"{value['url'].to(str)}",
-        class_name="!text-inherit no-underline hover:!text-inherit hover:bg-slate-3",
+        class_name="!text-inherit no-underline hover:!text-inherit hover:bg-secondary-2",
     )
 
 def search_result_start(item: dict):
@@ -523,7 +522,7 @@ def search_result_start(item: dict):
             class_name="p-2 w-full flex flex-col gap-y-1 justify-start items-start align-start",
         ),
         href=item["path"],
-        class_name="!text-inherit no-underline hover:!text-inherit rounded-md hover:bg-slate-3",
+        class_name="!text-inherit no-underline hover:!text-inherit rounded-md hover:bg-secondary-2",
     )
 
 def no_results_found():
