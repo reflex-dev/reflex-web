@@ -1,7 +1,6 @@
 import reflex as rx
 from pcweb.pages.framework.index_colors import index_colors
 from pcweb.pages.framework.views.footer_index import footer_index
-from pcweb.pages.pricing.header import header
 from pcweb.pages.pricing.plan_cards import plan_cards
 from pcweb.pages.pricing.table import (
     comparison_table_hosting,
@@ -24,8 +23,7 @@ def pricing() -> rx.Component:
         navbar(),
         rx.el.main(
             rx.box(
-                header(),
-                # plan_cards(),
+                plan_cards(),
                 comparison_table_ai(),
                 comparison_table_hosting(),
                 calculator_section(),

@@ -148,7 +148,7 @@ def outcomes_showcase() -> rx.Component:
                 ),
                 underline="none",
                 is_external=True,
-                href="/pricing",
+                href="/demo",
                 class_name="mt-6",
             ),
             class_name="flex flex-col justify-center items-center h-full",
