@@ -275,10 +275,3 @@ def custom_node():
     )
 
 ```
-
-This example demonstrates:
-- Built-in node types (input, output)
-- Custom calculator node with multiple handles
-- Handle positioning and IDs
-- Node data management
-- Complete flow with interactive connections

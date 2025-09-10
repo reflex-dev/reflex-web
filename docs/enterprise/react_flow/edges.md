@@ -106,38 +106,14 @@ import reflex as rx
 import reflex_enterprise as rxe
 from reflex_enterprise.components.flow.types import Node, Edge
 
-class EdgeExampleState(rx.State):
+class FlowState(rx.State):
     nodes: list[Node] = [
-        {"id": "1", "type": "input", "position": {"x": 100, "y": 50}, "data": {"label": "Input"}},
-        {"id": "2", "type": "default", "position": {"x": 300, "y": 150}, "data": {"label": "Process"}},
-        {"id": "3", "type": "output", "position": {"x": 500, "y": 50}, "data": {"label": "Output"}},
-        {"id": "4", "type": "default", "position": {"x": 300, "y": 300}, "data": {"label": "Branch"}},
+        {"id": "1", "type": "input", "position": {"x": 100, "y": 100}, "data": {"label": "Edge 1"}},
+        {"id": "2", "type": "default", "position": {"x": 300, "y": 200}, "data": {"label": "Edge 2"}},
     ]
 
     edges: list[Edge] = [
-        {
-            "id": "e1-2",
-            "source": "1",
-            "target": "2",
-            "type": "bezier",
-            "animated": True,
-            "label": "Input Flow"
-        },
-        {
-            "id": "e2-3",
-            "source": "2",
-            "target": "3",
-            "type": "straight",
-            "style": {"stroke": "#ff6b6b", "strokeWidth": 3}
-        },
-        {
-            "id": "e2-4",
-            "source": "2",
-            "target": "4",
-            "type": "step",
-            "label": "Branch",
-            "style": {"stroke": "#4dabf7"}
-        },
+        {"id": "e1-2", "source": "1", "target": "2", "animated": True, "type": "buttonedge"},
     ]
 
     @rx.event
@@ -152,37 +128,95 @@ class EdgeExampleState(rx.State):
     def on_connect(self, connection: dict):
         self.edges = rxe.flow.util.add_edge(connection, self.edges)
 
-def edge_example_flow():
+    @rx.event
+    def remove_edge(self, edge_id: str):
+        self.edges = [e for e in self.edges if e["id"] != edge_id]
+
+@rx.memo
+def button_edge(
+    id: rx.Var[str],
+    sourceX: rx.Var[float],
+    sourceY: rx.Var[float],
+    targetX: rx.Var[float],
+    targetY: rx.Var[float],
+    sourcePosition: rx.Var[str],
+    targetPosition: rx.Var[str],
+    style: rx.Var[dict] = {},
+    markerEnd: rx.Var[str] = None,
+):
+
+    edge_path, labelX, labelY = rxe.flow.util.get_bezier_path(
+        sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition
+    )
+
+    return rx.fragment(
+        rxe.flow.edge(path=edge_path, marker_end=markerEnd, style=style),
+        rxe.flow.edge_label(
+            x=labelX,
+            y=labelY,
+            child=rx.button(
+                "×",
+                on_click=lambda: FlowState.remove_edge(id),
+                class_name="nodrag nopan",
+            ),
+        ),
+    )
+
+
+def flow_with_button_edge():
     return rx.box(
         rxe.flow(
             rxe.flow.controls(),
             rxe.flow.background(),
             rxe.flow.mini_map(),
 
-            nodes=EdgeExampleState.nodes,
-            edges=EdgeExampleState.edges,
+            nodes=FlowState.nodes,
+            edges=FlowState.edges,
+            on_nodes_change=lambda changes: FlowState.set_nodes(
+                rxe.flow.util.apply_node_changes(FlowState.nodes, changes)
+            ),
+            on_edges_change=lambda changes: FlowState.set_edges(
+                rxe.flow.util.apply_edge_changes(FlowState.edges, changes)
+            ),
+            on_connect=lambda connection: FlowState.set_edges(
+                rxe.flow.util.add_edge(connection, FlowState.edges)
+            ),
 
-            on_nodes_change=lambda node_changes: EdgeExampleState.set_nodes(
-                rxe.flow.util.apply_node_changes(EdgeExampleState.nodes, node_changes)
-            ),
-            on_edges_change=lambda edge_changes: EdgeExampleState.set_edges(
-                rxe.flow.util.apply_edge_changes(EdgeExampleState.edges, edge_changes)
-            ),
-            on_connect=lambda connection: EdgeExampleState.set_edges(
-                rxe.flow.util.add_edge(connection, EdgeExampleState.edges)
-            ),
-
+            edge_types={
+                "buttonedge": rx.vars.function.ArgsFunctionOperation.create(
+                    (
+                        rx.vars.function.DestructuredArg(
+                            fields=(
+                                "id",
+                                "sourceX",
+                                "sourceY",
+                                "targetX",
+                                "targetY",
+                                "sourcePosition",
+                                "targetPosition",
+                                "style",
+                                "markerEnd",
+                            )
+                        ),
+                    ),
+                    button_edge(
+                        id=rx.Var("id"),
+                        sourceX=rx.Var("sourceX"),
+                        sourceY=rx.Var("sourceY"),
+                        targetX=rx.Var("targetX"),
+                        targetY=rx.Var("targetY"),
+                        sourcePosition=rx.Var("sourcePosition"),
+                        targetPosition=rx.Var("targetPosition"),
+                        style=rx.Var("style"),
+                        markerEnd=rx.Var("markerEnd"),
+                    ),
+                )
+            },
             fit_view=True,
             color_mode="light",
+            attribution_position="bottom-right",
         ),
         height="100vh",
         width="100vw",
     )
 ```
-
-This example demonstrates:
-- Multiple edge types (bezier, straight, step)
-- Animated edges
-- Styled edges with custom colors
-- Edge labels
-- Interactive edge creation and modification
