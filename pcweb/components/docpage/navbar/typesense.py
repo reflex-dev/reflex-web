@@ -410,7 +410,7 @@ def search_input():
                         "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
                     ),
                 ),
-                class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm flex flex-row items-center gap-x-2",
+                class_name="hidden md:flex absolute right-2 top-1/2 transform -translate-y-1/2 text-sm flex-row items-center gap-x-2",
             ),
             rx.el.input(
                 on_change=[
@@ -419,7 +419,7 @@ def search_input():
                 ],
                 auto_focus=True,
                 placeholder="Search documentation ...",
-                class_name="py-2 pl-7 pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12"
+                class_name="py-2 pl-7 md:pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12"
             ),
             class_name="w-full relative focus:outline-none",
         ),
@@ -614,7 +614,8 @@ def typesense_search() -> rx.Component:
                 search_content(),
                 on_interact_outside=SimpleSearch.reset_search,
                 on_escape_key_down=SimpleSearch.reset_search,
-                class_name="w-full max-w-[650px] mx-auto h-[57vh] bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
+                class_name="w-full max-w-[650px] mx-auto bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0 "
+                + rx.cond(SimpleSearch.query.length() < 3, "min-h[57vh]", "h-[57vh]"),
             ),
         ),
         keyboard_shortcut_script(),
