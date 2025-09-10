@@ -1,6 +1,10 @@
 import os
 import reflex as rx
+import reflex_ui as ui
 import typesense
+
+from reflex.experimental import ClientStateVar
+last_copied = ClientStateVar.create("is_copied", "")
 
 suggestion_items = [
     {"name": "Components Overview", "path": "/docs/library", "icon": "blocks", "description": "Discover and explore the full library of available components"},
@@ -36,14 +40,18 @@ class SimpleSearch(rx.State):
     idxed_docs_results: list[dict] = []
     idxed_blogs_results: list[dict] = []
 
-    @rx.event
+    @rx.event(temporal=True)
+    def user_query(self, value: str):
+        self.query = value.replace("rx.", "")
+
+    @rx.event(temporal=True)
     def reset_search(self):
         """Reset state variables"""
         self.idxed_blogs_results = []
         self.idxed_docs_results = []
         self.query = ""
 
-    @rx.event
+    @rx.event(temporal=True)
     async def apply_filter_search(self, selected_filter: str):
         """Re-run search with new filter"""
         if self.selected_filter == selected_filter:
@@ -54,7 +62,7 @@ class SimpleSearch(rx.State):
         if self.query.strip():
             yield SimpleSearch.perform_search()
 
-    @rx.event(background=True)
+    @rx.event(background=True, temporal=True)
     async def perform_search(self):
         """Perform Typesense search and split results"""
         async with self:
@@ -226,7 +234,6 @@ class SimpleSearch(rx.State):
         return content[:max_length].rstrip() + "..."
 
 
-
 def keyboard_shortcut_script() -> rx.Component:
     """Add keyboard shortcut support for opening search."""
     return rx.script(
@@ -256,13 +263,7 @@ def search_trigger() -> rx.Component:
             read_only=True,
             class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
         ),
-        style={
-            "padding": "6px 12px",
-            "min_width": ["32px", "32px", "256px"],
-            "max_width": ["6em", "6em", "none"],
-            "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
-        },
-        class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
+        class_name="py-[6px] px-[12px] w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
     )
 
 def search_breadcrumb(items):
@@ -300,19 +301,19 @@ def search_breadcrumb(items):
 
 def cluster_icon(filter_name: str):
     icons = {
-        "All Content": "layout-grid",
-        "AI Builder": "bot",
-        "Hosting": "cloud",
-        "Components": "component",
-        "Docs": "file",
-        "Enterprise": "building-2",
-        "API Reference": "settings-2",
-        "Blog Posts": "library-big"
+        "All Content": "DragDropIcon",
+        "AI Builder": "RoboticIcon",
+        "Hosting": "CloudIcon",
+        "Components": "BlockGameIcon",
+        "Docs": "File01Icon",
+        "Enterprise": "City02Icon",
+        "API Reference": "ApiIcon",
+        "Blog Posts": "BloggerIcon",
     }
-    return rx.icon(tag=icons.get(filter_name, "circle"), size=18)
+    return ui.icon(icon=icons.get(filter_name, ""), class_name="shrink-0 size-4")
 
 def filter_items(filter_name: str):
-    return rx.popover.close(
+    return ui.popover.close(
         rx.el.div(
             rx.el.div(
                 cluster_icon(filter_name),
@@ -334,58 +335,53 @@ def filter_items(filter_name: str):
 
 def filter_icon(tag: str):
     """Helper to render icons for filters consistently."""
-    return rx.icon(tag=tag, size=12)
+    return ui.icon(icon=tag, class_name="shrink-0 size-3")
 
 def filter_component():
-    return rx.popover.root(
-        rx.popover.trigger(
-            rx.el.button(
-                rx.badge(
+    return ui.popover.root(
+        ui.popover.trigger(
+            ui.button(
+                rx.el.div(
                     rx.el.div(
-                        rx.el.div(
-                            rx.match(
-                                SimpleSearch.selected_filter,
-                                ("All Content", filter_icon("layout-grid")),
-                                ("AI Builder", filter_icon("bot")),
-                                ("Hosting", filter_icon("cloud")),
-                                ("Components", filter_icon("component")),
-                                ("Docs", filter_icon("file")),
-                                ("Enterprise", filter_icon("building-2")),
-                                ("API Reference", filter_icon("settings-2")),
-                                ("Blog Posts", filter_icon("library-big")),
-                                ("", filter_icon("circle")),
-                            ),
+                        rx.match(
                             SimpleSearch.selected_filter,
-                            class_name="text-sm flex flex-row items-center gap-x-1",
+                            ("All Content", filter_icon("DragDropIcon")),
+                            ("AI Builder", filter_icon("RoboticIcon")),
+                            ("Hosting", filter_icon("CloudIcon")),
+                            ("Components", filter_icon("BlockGameIcon")),
+                            ("Docs", filter_icon("File01Icon")),
+                            ("Enterprise", filter_icon("City02Icon")),
+                            ("API Reference", filter_icon("ApiIcon")),
+                            ("Blog Posts", filter_icon("BloggerIcon")),
                         ),
-                        rx.icon(tag="chevrons-up-down", size=12),
-                        class_name="flex flex-row items-center justify-between w-full",
+                        SimpleSearch.selected_filter,
+                        class_name="text-sm flex flex-row items-center gap-x-2",
                     ),
-                    variant="surface",
-                    class_name="w-[140px] text-sm px-[5px] py-[2px]"
+                    ui.icon(icon="UnfoldMoreIcon", class_name="shrink-0 size-3"),
+                    class_name="flex flex-row items-center justify-between w-[150px] text-sm",
                 ),
                 class_name="flex flex-row justify-between items-center gap-x-4 rounded-md outline-none",
                 type="button",
+                variant="outline",
+                size="xs"
             ),
         ),
-        rx.popover.content(
-            rx.box(
-                *[filter_items(filter_name) for filter_name in CLUSTERS.keys()],
-                class_name="w-[190px] flex flex-col text-sm rounded-md shadow-md gap-y-1 py-2",
+        ui.popover.portal(
+            ui.popover.positioner(
+                ui.popover.popup(
+                    rx.box(
+                        *[filter_items(filter_name) for filter_name in CLUSTERS.keys()],
+                        class_name="w-[190px] flex flex-col text-sm rounded-md shadow-md gap-y-1 py-2",
+                    ),
+                    class_name="items-center !p-0 w-auto overflow-visible pointer-events-auto",
+                ),
+                side="bottom",
+                side_offset=15,
             ),
-            side="left",
-            side_offset=12,
-            class_name="items-center !p-0 w-auto overflow-visible pointer-events-auto",
         ),
-        style={
-            "display": "inline-flex",
-            "height": "1.925rem",
-            "align_items": "baseline",
-            "justify_content": "flex-start",
-            "padding": "0.25rem",
-        },
         class_name="rounded-md border border-slate-5",
     )
+
 
 def search_input():
     return rx.box(
@@ -397,35 +393,67 @@ def search_input():
             ),
             rx.box(
                 filter_component(),
-                rx.box(
+                rx.link(
+                    ui.button(
+                        ui.icon(icon="SparklesIcon", class_name="shrink-0 size-2"),
+                        "Ask AI",
+                        type="button",
+                        variant="secondary",
+                        size="xs",
+                        class_name="text-sm flex flex-row gap-x-2 items-center",
+
+                    ),
+                    href="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/"
+                ),
+                ui.button(
                     "Esc",
-                    class_name="border border-slate-5 rounded-md !text-slate-9 px-[5px] py-[2px] hidden md:inline",
+                    size="xs",
+                    type="button",
+                    variant="outline",
                     on_click=rx.run_script(
                         "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
                     ),
                 ),
-                class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm flex flex-row items-center gap-x-2",
+                class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm flex flex-row items-center gap-x-2",
             ),
             rx.el.input(
                 on_change=[
-                    lambda value: SimpleSearch.set_query(value.replace("rx.", "")).debounce(500),
+                    lambda value: SimpleSearch.user_query(value).debounce(500),
                     SimpleSearch.perform_search(),
                 ],
+                auto_focus=True,
                 placeholder="Search documentation ...",
-                class_name="py-2 px-7 w-full placeholder:text-sm "
-                + "text-sm "
-                + "rounded-md bg-transparent border border-[0.5px] border-gray-500/40 "
-                + "focus:outline-none focus:border-gray-500/40",
+                class_name="py-2 pl-7 pr-20 w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12"
             ),
             class_name="w-full relative focus:outline-none",
         ),
-        class_name="w-full absolute top-0 left-0 p-3 bg-background z-[999]",
+        class_name="w-full flex flex-col absolute top-0 left-0 p-3 z-[999]",
+    )
+
+def copy_button(url: str):
+    return ui.button(
+        rx.cond(
+            last_copied.value == url,
+            ui.icon("CheckmarkCircle02Icon", class_name="size-3"),
+            ui.icon("Share08Icon", class_name="size-3"),
+        ),
+        variant="outline",
+        size="xs",
+        on_click=[
+            rx.set_clipboard(url).prevent_default,
+            rx.call_function(last_copied.set_value(url)),
+        ],
+        on_mouse_down=rx.call_function(last_copied.set_value("")).debounce(1500),
     )
 
 def search_result(tags: list, value: dict):
     return rx.link(
         rx.box(
-            rx.text(value["name"], class_name="text-sm font-bold"),
+            rx.box(
+                rx.text(value["name"], class_name="text-sm font-bold"),
+                copy_button(url=f"https://reflex.dev/{value['url'].to(str)}"),
+                class_name="flex flex-row items-center justify-between pr-1 w-full"
+            ),
             rx.html(
                 value["description"],
                 class_name=(
@@ -438,17 +466,21 @@ def search_result(tags: list, value: dict):
             class_name="p-2 w-full flex flex-col gap-y-2 justify-start items-start align-start",
         ),
         href=f"/{value['url'].to(str)}",
-        class_name="!text-inherit no-underline hover:!text-inherit hover:bg-slate-3",
+        class_name="!text-inherit no-underline hover:!text-inherit hover:bg-slate-3 group",
     )
 
 def search_result_blog(value: dict):
     return rx.link(
         rx.box(
             rx.box(
-                rx.text(value["author"]),
-                "-",
-                rx.text(value["date"]),
-                class_name="flex flex-row gap-x-2 items-center text-sm !text-slate-10",
+                rx.box(
+                    rx.text(value["author"]),
+                    "-",
+                    rx.text(value["date"]),
+                    class_name="flex flex-row gap-x-2 items-center text-sm !text-slate-10",
+                ),
+                copy_button(url=f"https://reflex.dev/{value['url'].to(str)}"),
+                class_name="flex flex-row w-full items-center justify-between pr-1"
             ),
             rx.text(value["title"], class_name="text-md font-bold"),
             rx.text(
@@ -463,9 +495,8 @@ def search_result_blog(value: dict):
                 rx.image(
                     src=value["image"].to(str),
                     class_name="rounded-md",
-                    border_radius="10px 10px",
                 ),
-                class_name="w-full rounded-md pt-3",
+                class_name="w-full rounded-[10px] pt-3",
             ),
             class_name="p-2 w-full flex flex-col gap-y-1 justify-start items-start align-start",
         ),
@@ -587,7 +618,7 @@ def typesense_search() -> rx.Component:
                 search_content(),
                 on_interact_outside=SimpleSearch.reset_search,
                 on_escape_key_down=SimpleSearch.reset_search,
-                class_name="w-full max-w-[640px] mx-auto h-[57vh] bg-slate-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
+                class_name="w-full max-w-[640px] mx-auto h-[57vh] bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
             ),
         ),
         keyboard_shortcut_script(),
