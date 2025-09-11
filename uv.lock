@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.12'",
@@ -1970,15 +1970,16 @@ dependencies = [
 
 [[package]]
 name = "reflex-enterprise"
-version = "0.3.2"
+version = "0.3.4.post1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiproxy" },
     { name = "psutil" },
     { name = "reflex" },
 ]
+sdist = { url = "https://files.pythonhosted.org/packages/17/a5/ac8f5542c8431790652f284aaabf132e4bd7215a9e8b34a971796f170699/reflex_enterprise-0.3.4.post1.tar.gz", hash = "sha256:4dbcf9fa134cdd53c40370dabec364fdd3dd85e335fb594519d6ce2bccfb8d1b", size = 312647, upload-time = "2025-09-10T23:29:33.173Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bf/4d/4e56442a71a652fd0cc8fa8aacab31e6966a0f1bad26c966fabf180f41dc/reflex_enterprise-0.3.2-py3-none-any.whl", hash = "sha256:b8b3030bc3ae1cbf466c12bcb5cf8c1ab79c0e2a762fa0af6f3efb014f18a395", size = 153959, upload-time = "2025-08-07T11:03:16.162Z" },
+    { url = "https://files.pythonhosted.org/packages/7d/2c/b52ef75ae136f331854ce948133c29985e697a0a61d105d304447c2d1d82/reflex_enterprise-0.3.4.post1-py3-none-any.whl", hash = "sha256:652c1875c269b5c4de18c190004e09446f5959c0d250a65dcc6ffab801023dfe", size = 185887, upload-time = "2025-09-10T23:29:32.031Z" },
 ]
 
 [[package]]
@@ -2078,7 +2079,7 @@ requires-dist = [
     { name = "posthog", specifier = "==6.1.1" },
     { name = "psycopg", extras = ["binary"], specifier = "==3.2.9" },
     { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
-    { name = "reflex-enterprise", specifier = ">=0.3.2" },
+    { name = "reflex-enterprise", specifier = ">=0.3.3" },
     { name = "reflex-hosting-cli", specifier = ">=0.1.55" },
     { name = "reflex-image-zoom", specifier = ">=0.0.2" },
     { name = "reflex-pyplot", specifier = "==0.2.1" },

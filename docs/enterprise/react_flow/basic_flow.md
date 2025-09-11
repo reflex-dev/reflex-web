@@ -28,10 +28,18 @@ This example demonstrates a simple flow diagram with three nodes and two edges, 
 
 ### Example Flow
 
-```python
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 from reflex_enterprise.components.flow.types import Node, Edge
+
+# Common style for all nodes
+node_style = {
+    "backgroundColor": "#ffcc00",  # Background color
+    "color": "#000000",            # Text color
+    "padding": "10px",
+    "borderRadius": "5px"
+}
 
 class FlowState(rx.State):
     nodes: list[Node] = [
@@ -39,19 +47,22 @@ class FlowState(rx.State):
             "id": "1",
             "type": "input",
             "position": {"x": 100, "y": 100},
-            "data": {"label": "Input Node"}
+            "data": {"label": "Input Node"},
+            "style": node_style
         },
         {
             "id": "2",
             "type": "default",
             "position": {"x": 300, "y": 200},
-            "data": {"label": "Default Node"}
+            "data": {"label": "Default Node"},
+            "style": node_style
         },
         {
             "id": "3",
             "type": "output",
             "position": {"x": 500, "y": 100},
-            "data": {"label": "Output Node"}
+            "data": {"label": "Output Node"},
+            "style": node_style
         },
     ]
 
@@ -89,38 +100,12 @@ def flow_example():
             on_edges_change=lambda edge_changes: FlowState.set_edges(
                 rxe.flow.util.apply_edge_changes(FlowState.edges, edge_changes)
             ),
-            fit_view=True,
 
             # Visual settings
-            color_mode="light",
+            fit_view=True,
             attribution_position="bottom-right",
         ),
         height="100vh",
         width="100vw",
     )
-```
-
-
-```python exec
-import reflex as rx
-from reflex_image_zoom import image_zoom
-
-def render_image():
-    return rx.el.div(
-        image_zoom(
-            rx.image(
-                src="/enterprise/flow-simple.gif",
-                class_name="p-2 rounded-md h-auto",
-                border=f"0.81px solid {rx.color('slate', 5)}",
-            ),
-            class_name="rounded-md overflow-hidden",
-        ),
-        class_name="w-full flex flex-col rounded-md cursor-pointer",
-    )
-```
-
-```python eval
-
-rx.el.div(render_image(), class_name="py-4")
-
 ```

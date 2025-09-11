@@ -104,12 +104,12 @@ def get_sidebar_items_enterprise_components():
                     link=enterprise.react_flow.components.path,
                 ),
                 SideBarItem(
-                    names="Edges",
-                    link=enterprise.react_flow.edges.path,
-                ),
-                SideBarItem(
                     names="Hooks",
                     link=enterprise.react_flow.hooks.path,
+                ),
+                SideBarItem(
+                    names="Edges",
+                    link=enterprise.react_flow.edges.path,
                 ),
                 SideBarItem(
                     names="Nodes",
@@ -122,6 +122,10 @@ def get_sidebar_items_enterprise_components():
                 SideBarItem(
                     names="Utils",
                     link=enterprise.react_flow.utils.path,
+                ),
+                SideBarItem(
+                    names="Examples",
+                    link=enterprise.react_flow.examples.path,
                 ),
             ],
         ),
