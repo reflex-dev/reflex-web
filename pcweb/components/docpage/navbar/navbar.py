@@ -107,7 +107,7 @@ def link_item(name: str, url: str, active_str: str = ""):
             }
         },
         class_name=common_cn + rx.cond(active, active_cn, unactive_cn),
-        on_click=SidebarState.set_sidebar_index(0)
+        on_click=SidebarState.set_sidebar_index(0),
     )
 
 
@@ -535,13 +535,11 @@ def new_component_section() -> rx.Component:
                 class_name="desktop-only",
             ),
             nav_menu.item(
-                ui.link(
-                    render_=button(
+                lemcal_dialog(
+                    button(
                         "Book a Demo",
                         class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
                     ),
-                    target="_blank",
-                    to=LEMCAL_DEMO_URL,
                 ),
                 class_name="xl:flex hidden",
             ),
