@@ -162,14 +162,12 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                     *(
                         [
                             rx.box(
-                                ui.link(
-                                    render_=button_with_icon(
+                                lemcal_dialog(
+                                    button_with_icon(
                                         "Book a Demo",
                                         icon="new_tab",
                                         class_name="flex-row-reverse gap-2 !w-full",
                                     ),
-                                    target="_blank",
-                                    to=LEMCAL_DEMO_URL,
                                 ),
                                 class_name="flex justify-center items-center h-full !w-full [&_button]:!w-full",
                             )
