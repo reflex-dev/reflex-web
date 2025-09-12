@@ -35,8 +35,8 @@ from reflex_enterprise.components.flow.types import Node, Edge
 
 # Common style for all nodes
 node_style = {
-    "backgroundColor": "#ffcc00",  # Background color
-    "color": "#000000",            # Text color
+    "backgroundColor": "#ffcc00",
+    "color": "#000000",
     "padding": "10px",
     "borderRadius": "5px"
 }
@@ -70,14 +70,6 @@ class FlowState(rx.State):
         {"id": "e1-2", "source": "1", "target": "2", "animated": True},
         {"id": "e2-3", "source": "2", "target": "3"},
     ]
-
-    @rx.event
-    def on_nodes_change(self, changes: list[dict]):
-        self.nodes = rxe.flow.util.apply_node_changes(self.nodes, changes)
-
-    @rx.event
-    def on_edges_change(self, changes: list[dict]):
-        self.edges = rxe.flow.util.apply_edge_changes(self.edges, changes)
 
     @rx.event
     def on_connect(self, connection: dict):

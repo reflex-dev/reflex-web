@@ -37,7 +37,7 @@ Then, create a file `assets/css/my-custom-styles.css` in your project and add yo
 
 You can also apply custom styles to individual nodes and edges using the `style` and `className` props.
 
-### Using the `style` prop
+### Using the **style** prop
 
 You can pass a style dictionary to the `style` prop of a node or edge:
 
@@ -50,7 +50,7 @@ node = {
 }
 ```
 
-### Using the `className` prop
+### Using the **className** prop
 
 You can also pass a class name to the `className` prop and define the styles in your CSS file:
 
