@@ -28,24 +28,19 @@ Event handlers allow the flow to respond to user interactions such as dragging n
 
 ```python
 @rx.event
-def on_nodes_change(self, changes: list[dict]):
-    self.nodes = rxe.flow.util.apply_node_changes(self.nodes, changes)
+def set_nodes(self, nodes: list[Node]):
+    self.nodes = nodes
 
 @rx.event
-def on_edges_change(self, changes: list[dict]):
-    self.edges = rxe.flow.util.apply_edge_changes(self.edges, changes)
-
-@rx.event
-def on_connect(self, connection: dict):
-    self.edges = rxe.flow.util.add_edge(connection, self.edges)
+def set_edges(self, edges: list[Edge]):
+    self.edges = edges
 
 ```
 
-- on_nodes_change updates nodes when they are moved or edited.
+- set_nodes updates nodes when they are moved or edited.
 
-- on_edges_change updates edges when they are modified or deleted.
+- set_edges updates edges when they are modified or deleted.
 
-- on_connect allows users to create new edges by dragging between node handles.
 
 ## Render the Interactive Flow
 

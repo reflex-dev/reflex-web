@@ -71,9 +71,15 @@ class FlowState(rx.State):
         {"id": "e2-3", "source": "2", "target": "3"},
     ]
 
+
     @rx.event
-    def on_connect(self, connection: dict):
-        self.edges = rxe.flow.util.add_edge(connection, self.edges)
+    def set_nodes(self, nodes: list[Node]):
+        self.nodes = nodes
+
+    @rx.event
+    def set_edges(self, edges: list[Edge]):
+        self.edges = edges
+
 
 def flow_example():
     return rx.box(
