@@ -27,8 +27,8 @@ def start_building() -> rx.Component:
             button(
                 "Contact sales",
                 size="xl",
+                class_name="mt-6",
             ),
-            class_name="mt-6",
         ),
         class_name="flex flex-col justify-center items-center lg:mx-auto md:w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[6.31rem] border-t border-slate-3 py-[6rem] relative z-[1] overflow-hidden isolate w-screen -mx-4",
     )

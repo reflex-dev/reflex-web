@@ -10,6 +10,7 @@
 ![versions](https://img.shields.io/pypi/pyversions/reflex.svg)
 [![Documentation](https://img.shields.io/badge/Documentation%20-Introduction%20-%20%23007ec6)](https://reflex.dev/docs/getting-started/introduction/)
 [![Discord](https://img.shields.io/discord/1029853095527727165?color=%237289da&label=Discord)](https://discord.gg/T5WSbC2YtQ)
+[![Twitter](https://img.shields.io/twitter/follow/getreflex)](https://x.com/getreflex)
 </div>
 
 ![Screenshot 2024-09-25-13 24 35](https://github.com/user-attachments/assets/4e18e223-6757-4345-bdce-f655dc264996)
