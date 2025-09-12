@@ -6,7 +6,7 @@ from ..state import SideBarItem
 def get_sidebar_items_enterprise_usage():
     """Get the enterprise usage sidebar items."""
     from pcweb.pages.docs import enterprise
-    
+
     return [
         SideBarItem(
             names="Overview",
@@ -36,7 +36,7 @@ def get_sidebar_items_enterprise_usage():
 def get_sidebar_items_enterprise_components():
     """Get the enterprise components sidebar items."""
     from pcweb.pages.docs import enterprise
-    
+
     return [
         SideBarItem(
             names="AG Grid",
@@ -81,6 +81,51 @@ def get_sidebar_items_enterprise_components():
                 SideBarItem(
                     names="Overview",
                     link=enterprise.ag_chart.path,
+                ),
+            ],
+        ),
+        SideBarItem(
+            names="React Flow",
+            children=[
+                SideBarItem(
+                    names="Overview",
+                    link=enterprise.react_flow.overview.path,
+                ),
+                SideBarItem(
+                    names="Basic Flow",
+                    link=enterprise.react_flow.basic_flow.path,
+                ),
+                SideBarItem(
+                    names="Interactivity",
+                    link=enterprise.react_flow.interactivity.path,
+                ),
+                SideBarItem(
+                    names="Components",
+                    link=enterprise.react_flow.components.path,
+                ),
+                SideBarItem(
+                    names="Hooks",
+                    link=enterprise.react_flow.hooks.path,
+                ),
+                SideBarItem(
+                    names="Edges",
+                    link=enterprise.react_flow.edges.path,
+                ),
+                SideBarItem(
+                    names="Nodes",
+                    link=enterprise.react_flow.nodes.path,
+                ),
+                SideBarItem(
+                    names="Theming",
+                    link=enterprise.react_flow.theming.path,
+                ),
+                SideBarItem(
+                    names="Utils",
+                    link=enterprise.react_flow.utils.path,
+                ),
+                SideBarItem(
+                    names="Examples",
+                    link=enterprise.react_flow.examples.path,
                 ),
             ],
         ),
