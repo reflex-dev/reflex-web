@@ -74,4 +74,4 @@ We are actively looking for contributors, no matter your skill level or experien
 
 ## License
 
-Reflex is open-source and licensed under the [Apache License 2.0](LICENSE).
+Reflex is open-source and licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
