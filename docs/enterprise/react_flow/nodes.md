@@ -2,7 +2,7 @@
 
 Nodes are the fundamental building blocks of a flow. This page explains how to define and customize nodes in Reflex Flow.
 
-## The `Node` Type
+## The **Node** Type
 
 A node is represented as a Python dictionary with the following fields:
 

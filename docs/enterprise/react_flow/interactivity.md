@@ -62,7 +62,6 @@ def interactive_flow():
             on_edges_change=lambda edge_changes: FlowState.set_edges(
                 rxe.flow.util.apply_edge_changes(FlowState.edges, edge_changes)
             ),
-            on_connect=FlowState.on_connect,
             fit_view=True,
 
             attribution_position="bottom-right",

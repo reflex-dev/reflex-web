@@ -103,6 +103,8 @@ def add_node_on_edge_drop():
                 ),
                 nodes=AddNodesOnEdgeDropState.nodes,
                 edges=AddNodesOnEdgeDropState.edges,
+                default_nodes=AddNodesOnEdgeDropState.nodes,
+                default_edges=AddNodesOnEdgeDropState.edges,
                 on_nodes_change=lambda changes: AddNodesOnEdgeDropState.set_nodes(
                     rxe.flow.util.apply_node_changes(
                         AddNodesOnEdgeDropState.nodes, changes
@@ -208,6 +210,8 @@ def connection_limit():
             rxe.flow.background(),
             nodes=ConnectionLimitState.nodes,
             edges=ConnectionLimitState.edges,
+            default_nodes=ConnectionLimitState.nodes,
+            default_edges=ConnectionLimitState.edges,
             on_nodes_change=lambda changes: ConnectionLimitState.set_nodes(
                 rxe.flow.util.apply_node_changes(ConnectionLimitState.nodes, changes)
             ),
