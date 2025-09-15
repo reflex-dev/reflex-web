@@ -48,15 +48,15 @@ def video_demo() -> rx.Component:
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-110 z-[2] group-hover:scale-125 transition-transform duration-300 backdrop",
                 ),
                 rx.image(
-                    "/landing/video/video_demo.webp",
+                    "/landing/video/dark/video_demo_dark.webp",
                     class_name="object-cover size-full dark:block hidden scale-110",
                 ),
                 rx.image(
-                    "/landing/video/video_demo.webp",
+                    "/landing/video/light/video_demo_light.webp",
                     class_name="object-cover size-full dark:hidden block scale-110",
                 ),
                 rx.el.span(
-                    class_name="inset-0 size-full absolute z-[1] bg-[#0000001f] backdrop-blur-[0.1px] rounded-lg",
+                    class_name="inset-0 size-full absolute z-[1] dark:bg-[#0000001f] backdrop-blur-[0.1px] rounded-lg",
                 ),
                 class_name="aspect-video rounded-lg overflow-hidden cursor-pointer relative isolate group border border-slate-4",
             ),
