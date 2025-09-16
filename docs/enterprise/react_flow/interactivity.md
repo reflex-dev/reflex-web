@@ -53,7 +53,6 @@ def interactive_flow():
             rxe.flow.controls(),
             rxe.flow.background(),
             rxe.flow.mini_map(),
-
             nodes=FlowState.nodes,
             edges=FlowState.edges,
             on_nodes_change=lambda node_changes: FlowState.set_nodes(
