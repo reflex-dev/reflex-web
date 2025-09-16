@@ -1,3 +1,5 @@
+"""Generate indexed docs + collection for typesense search"""
+
 import os
 import pathlib
 import datetime
@@ -10,16 +12,15 @@ from typing import Dict, List, Any, Optional
 
 import typesense
 import reflex as rx
-from reflex.utils.imports import ImportVar
 
-# Add the project root to the sys.path
+
 project_root = pathlib.Path(__file__).resolve().parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from pcweb.pages.docs.source import Source, generate_docs
+from pcweb.pages.docs.source import Source
 from pcweb.pages.docs.apiref import modules
-from pcweb.pages.docs.env_vars import env_vars_page, EnvVarDocs
+from pcweb.pages.docs.env_vars import EnvVarDocs
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -73,12 +74,13 @@ TYPESENSE_CONFIG = {
     'connection_timeout_seconds': 60
 }
 
+
 COLLECTION_SCHEMA = {
     'name': 'docs',
     'fields': [
-        {'name': 'id', 'type': 'string'},
-        {'name': 'title', 'type': 'string'},
-        {'name': 'content', 'type': 'string'},
+        {'name': 'id', 'type': 'string', "infix": True},
+        {'name': 'title', 'type': 'string', "infix": True},
+        {'name': 'content', 'type': 'string', "infix": True},
         {'name': 'headings', 'type': 'string[]'},
         {'name': 'components', 'type': 'string[]', 'optional': True},
         {'name': 'path', 'type': 'string'},
@@ -90,6 +92,8 @@ COLLECTION_SCHEMA = {
         {'name': 'parts', 'type': 'string[]'},
     ],
 }
+
+
 
 class SimpleTypesenseIndexer:
     """Simplified indexer using your existing logic."""
