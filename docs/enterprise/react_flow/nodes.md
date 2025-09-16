@@ -181,13 +181,12 @@ class CustomNodeState(rx.State):
 
 
 @rx.memo
-def color_selector_node(data: rx.Var[dict[str, Any]], isConnectable: rx.Var[bool]):  # noqa: N803
+def color_selector_node(data: rx.Var[dict], isConnectable: rx.Var[bool]):
     data = data.to(dict)
     return rx.el.div(
         rxe.flow.handle(
             type="target",
             position="left",
-            on_connect=lambda params: rx.console_log(f"handle onConnect {params}"),
             is_connectable=isConnectable,
         ),
         rx.el.div(
@@ -235,8 +234,6 @@ def node_color(node: rx.vars.ObjectVar[Node]):
         "#fff",
     )
 
-
-@rx.page(route="/nodes/custom-node", title="Custom Node Demo")
 def custom_node():
     return rx.box(
         rxe.flow(
