@@ -12,8 +12,8 @@ def render_image():
         image_zoom(
             rx.image(
                 src=rx.color_mode_cond(
-                    "/ai_builder/features/secrets_light.png",
-                    "/ai_builder/features/secrets_dark.png",
+                    "/ai_builder/features/secrets_light.webp",
+                    "/ai_builder/features/secrets_dark.webp",
                 ),
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
@@ -59,8 +59,8 @@ rx.el.div(
     image_zoom(
         rx.image(
             src=rx.color_mode_cond(
-                "/ai_builder/features/secret_bulk_light.png",
-                "/ai_builder/features/secret_bulk_dark.png",
+                "/ai_builder/features/secret_bulk_light.webp",
+                "/ai_builder/features/secret_bulk_dark.webp",
             ),
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",

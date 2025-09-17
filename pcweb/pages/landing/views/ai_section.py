@@ -18,7 +18,7 @@ items = [
         "icon": "money-02",
         "value": "financial",
         "color": "jade",
-        "image": "/case_studies/bayesline_app.png",
+        "image": "/case_studies/bayesline_app.webp",
         "description": "Financial analytics dashboard that delivers custom equity-factor risk models in minutes.",
     },
     {
@@ -26,7 +26,7 @@ items = [
         "icon": "shopping-bag-01",
         "value": "ecommerce",
         "color": "blue",
-        "image": "/case_studies/sellerx_app.png",
+        "image": "/case_studies/sellerx_app.webp",
         "description": "Unify marketplace sales, inventory alerts, and supplier data in a single dashboard.",
     },
     {
@@ -34,7 +34,7 @@ items = [
         "icon": "ai-cloud-01",
         "value": "engineering",
         "color": "pink",
-        "image": "/case_studies/devops_app.png",
+        "image": "/case_studies/devops_app.webp",
         "description": "Surface real-time telemetry, automate routine infra tasks, and replace shell scripts with role-based web UIs.",
     },
     {
@@ -42,7 +42,7 @@ items = [
         "icon": "database",
         "value": "database",
         "color": "gold",
-        "image": "/case_studies/admin_app.png",
+        "image": "/case_studies/admin_app.webp",
         "description": "Full-featured database dashboards and CRUD apps come together in minutes.",
     },
     {
@@ -72,7 +72,7 @@ def header() -> rx.Component:
             class_name="max-w-full w-full lg:text-3xl text-2xl text-center text-slate-12 font-semibold text-balance word-wrap break-words md:whitespace-pre",
         ),
         rx.el.p(
-            """Describe what you want to build, and AI will generate a working Python app instantly 
+            """Describe what you want to build, and AI will generate a working Python app instantly
 —complete with a backend, frontend, and database integration.""",
             class_name="text-slate-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),

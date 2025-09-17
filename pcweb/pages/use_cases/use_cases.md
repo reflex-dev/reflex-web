@@ -11,7 +11,7 @@ from reflex_image_zoom import image_zoom
 
 ```python eval
     rx.el.div(
-        image_zoom(rx.image(src="/case_studies/bayesline_app.png", border_radius="10px", alt="Bayesline App")),
+        image_zoom(rx.image(src="/case_studies/bayesline_app.webp", border_radius="10px", alt="Bayesline App")),
         class_name="py-4"
     )
 ```
@@ -34,7 +34,7 @@ From buyside analytics desks to compliance back offices, finance teams choose *
 
 ```python eval
     rx.el.div(
-        image_zoom(rx.image(src="/case_studies/sellerx_app.png", border_radius="10px", alt="Sellerx App")),
+        image_zoom(rx.image(src="/case_studies/sellerx_app.webp", border_radius="10px", alt="Sellerx App")),
         class_name="py-4"
     )
 ```
@@ -56,7 +56,7 @@ Modern merchants and growth marketers juggle stock feeds, ad platforms, and cust
 
 ```python eval
     rx.el.div(
-        image_zoom(rx.image(src="/case_studies/devops_app.png", border_radius="10px", alt="DevOps App")),
+        image_zoom(rx.image(src="/case_studies/devops_app.webp", border_radius="10px", alt="DevOps App")),
         class_name="py-4"
     )
 ```
@@ -78,7 +78,7 @@ Site-reliability, platform, and security teams use **Reflex** to surface real-
 
 ```python eval
     rx.el.div(
-        image_zoom(rx.image(src="/case_studies/admin_app.png", border_radius="10px", alt="Admin App")),
+        image_zoom(rx.image(src="/case_studies/admin_app.webp", border_radius="10px", alt="Admin App")),
         class_name="py-4"
     )
 ```

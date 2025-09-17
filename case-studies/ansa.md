@@ -45,7 +45,7 @@ from reflex_image_zoom import image_zoom
 
 ```python eval
 rx.vstack(
-    image_zoom(rx.image(src="/case_studies/ansa_app.png", border_radius="10px", alt="Ansa App")),
+    image_zoom(rx.image(src="/case_studies/ansa_app.webp", border_radius="10px", alt="Ansa App")),
     rx.text("Ansa App built with Reflex"),
     width="100%",
 )
@@ -60,7 +60,7 @@ Ryan Sullivan is an investor and oversees the engineering and data science team 
 
 Ansa has an investable universe of 10s of thousands of companies and they need to make sure they are spending time with the right companies at the right time. Their sourcing is thesis driven, so they need to both quickly find all companies in a theme of interest and track opportunities across the broader market. With a lean investment team, they need to leverage software and data to review and track all these opportunities.
 
-Ryan and his team's goal was to automate and augment as much as they could on this company sourcing and review workflow. This included helping their lean investment team be more efficient and effective in finding interesting companies and reaching out to them. They also began using Data Science and Machine Learning to help surface more relevant companies leverage proprietary and third party data sources. 
+Ryan and his team's goal was to automate and augment as much as they could on this company sourcing and review workflow. This included helping their lean investment team be more efficient and effective in finding interesting companies and reaching out to them. They also began using Data Science and Machine Learning to help surface more relevant companies leverage proprietary and third party data sources.
 
 ```md quote
 - name: Ryan
@@ -73,7 +73,7 @@ They wanted custom tools to give them an edge, such as an in-house scoring model
 
 ## How Ansa hit the limits of a low-code python framework
 
-Ryan and his team wanted to build a web interface so the broader team could run these automations to automate their manual workflows. They wanted a pure python solution as this was the language the team was most familiar with. 
+Ryan and his team wanted to build a web interface so the broader team could run these automations to automate their manual workflows. They wanted a pure python solution as this was the language the team was most familiar with.
 
 ```md quote
 - name: Ryan
@@ -95,7 +95,7 @@ Their main concern though was that they didn't want to outgrow a near no code fr
 ```md quote
 - name: Ryan
 - role: Investor and Head of Data
-We don't want to run into a situation where this year or next year, we want to add more functionality that this low code framework doesn't have and we're not able to integrate it. Additionally, the rate of improvement and development velocity from the Reflex team gave us confidence that their offering would continue to improve over time. We're building this for the long term and we want to make sure we both have the flexibility to not outgrow it and are working with the best out there. 
+We don't want to run into a situation where this year or next year, we want to add more functionality that this low code framework doesn't have and we're not able to integrate it. Additionally, the rate of improvement and development velocity from the Reflex team gave us confidence that their offering would continue to improve over time. We're building this for the long term and we want to make sure we both have the flexibility to not outgrow it and are working with the best out there.
 ```
 
 In addition, there were particular technologies like LLMs and Vector Databases that Ryan and the team knew at some point they would want to integrate into the app. It would be extremely difficult if not impossible to keep up with these latest innovations with low/no code frameworks.
@@ -112,12 +112,12 @@ I started to feel that with this framework I didn’t know if they could keep up
 
 Ansa switched to Reflex so they could build an app for the long term and accommodate all the latest innovations in LLM development without needing any JavaScript.
 
-They currently have an app with 8 different core company workflow automations, several of which we will discuss in this case study. 
+They currently have an app with 8 different core company workflow automations, several of which we will discuss in this case study.
 
 The main challenges that Ansa faces are one, figuring out what companies, out of the 10s of thousands within their investment mandate, they should be investigating further, and two, automating all the manual data collection and work required to reach out.
 
 
-### Creating natural language company search 
+### Creating natural language company search
 
 The first automated workflow they built, using a combination of OpenAI, Langchain, and Chroma, introduced vector and natural language searches over their database. This allows employees to combine quantitative and strict filtering with an understanding of the companies product offering through vector similarity. For example, an employee can type "Carbon accounting software companies with a CEO in NYC that score over 60" and receive a curated list of companies that fit that description.
 
@@ -127,14 +127,14 @@ The first automated workflow they built, using a combination of OpenAI, Langchai
 We use LLMs to help navigate through the companies site and find different details. For example the customer page for one website, may be different from another. The LLM then summarizes all that data and creates embeddings on them and then we use that for the searches. The LLMs help us normalize across different companies, even if pages are named differently, so we can easily search through all of them and figure out what the company does.
 ```
 
-### In-house company scoring algorithm 
+### In-house company scoring algorithm
 
-The next automated workflow takes this list of companies and scores them. With private companies, there is far less data available to assess fit than with public companies, so they rely on alternative data to power a scoring algorithm that assesses the probability a given company is a fit for their investment workflow. They proactively score ~15K companies and display them in Reflex, and also built another automated workflow to score ad-hoc lists of companies. This workflow can take in a list in any format and send the identifiers to their API where they are scored by their custom ML model hosted in Databricks. 
+The next automated workflow takes this list of companies and scores them. With private companies, there is far less data available to assess fit than with public companies, so they rely on alternative data to power a scoring algorithm that assesses the probability a given company is a fit for their investment workflow. They proactively score ~15K companies and display them in Reflex, and also built another automated workflow to score ad-hoc lists of companies. This workflow can take in a list in any format and send the identifiers to their API where they are scored by their custom ML model hosted in Databricks.
 
-The scored data is then displayed to the user in Reflex and emailed to the user as a CSV. This ML model is trained on a labeled dataset they have curated over years, and spots combinations of factors that they believe will lead to successful investments for the fund. 
+The scored data is then displayed to the user in Reflex and emailed to the user as a CSV. This ML model is trained on a labeled dataset they have curated over years, and spots combinations of factors that they believe will lead to successful investments for the fund.
 
 
-### Improving email outbound 
+### Improving email outbound
 
 Finally, when their team has a short list of companies that fit within an investment, they built a third workflow to automate the extraction of the relevant information to reach out to these companies. Ryan runs us through this final workflow in his quote below.
 
@@ -151,13 +151,13 @@ Throughout building this Reflex app, Ryan used:
 
 - Supabase database to store all their data
 
-- LLM tools like OpenAI, Tavily, Browserbase, Langchain, and Chroma 
+- LLM tools like OpenAI, Tavily, Browserbase, Langchain, and Chroma
 
 - Google Auth login component for Ansa employees to log in
 
 - AG Grid Table Component
 
-- Download Functionality 
+- Download Functionality
 
 
 Overall Ansa found that with Reflex, as everything is in pure python, they were able to integrate everything they wanted and knew they always could incorporate new tech, which was a concern with their previous framework.

@@ -2,7 +2,7 @@
 title: knowledge_chat
 description: "AI-powered knowledge assistant for real-time Q&A, document search, and collaborative insights across teams."
 author: "Reflex"
-image: "knowledge_chat.png"
+image: "knowledge_chat.webp"
 demo: ""
 video: "https://www.youtube.com/embed/Aob6Fv-T3wg"
 meta: [

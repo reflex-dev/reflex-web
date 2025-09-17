@@ -3,7 +3,7 @@ author: Nikhil Rao
 date: 2024-04-16
 title: Custom Components
 description: Announcing our custom component ecosystem.
-image: /blog/custom_components.jpeg
+image: /blog/custom_components.webp
 meta: [
     {"name": "keywords", "content": ""},
 ]
@@ -14,8 +14,8 @@ from pcweb.pages.docs import wrapping_react, custom_components, styling, events,
 from pcweb.pages.docs.custom_components import custom_components as cc
 ```
 
-We are excited to announce the launch of our [custom component ecosystem]({cc.path})! 
- 
+We are excited to announce the launch of our [custom component ecosystem]({cc.path})!
+
 Custom components allow developers to extend Reflex with their own components and share them with the Reflex community. This includes wrapping React components, as well as creating higher level Reflex components that encapsulate state and UI in a single class.
 
 ### New Features:
@@ -49,7 +49,7 @@ import reflex as rx
 from reflex_image_zoom import image_zoom
 
 def zoom():
-    src = "/blog/custom_components.jpeg"
+    src = "/blog/custom_components.webp"
     return rx.hstack(
         rx.vstack(
             rx.text("Original Image"),

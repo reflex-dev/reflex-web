@@ -2,7 +2,7 @@
 title: chat_bot
 description: "Claude-style AI assistant interface that supports multi-turn conversations, markdown rendering, and streaming responses—powered by Reflex."
 author: "Reflex"
-image: "claude_clone.png"
+image: "claude_clone.webp"
 demo: "https://build.reflex.dev/gen/13e2e1a4-dcc1-4b76-8a09-d1f22b8d281a/"
 video: "https://www.youtube.com/embed/l2rmnKgYoSk"
 meta: [

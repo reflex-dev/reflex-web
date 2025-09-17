@@ -2,7 +2,7 @@
 title: behavioral_ops_dashboard
 description: "Behavioral cohort dashboard for product and marketing teams to create, analyze, and schedule user segments for ongoing insights."
 author: "Reflex"
-image: "behavioral_ops_dashboard.png"
+image: "behavioral_ops_dashboard.webp"
 demo: ""
 video: "https://www.youtube.com/embed/XiSVMcx2Fqw"
 meta: [

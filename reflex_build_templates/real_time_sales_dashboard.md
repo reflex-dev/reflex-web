@@ -2,7 +2,7 @@
 title: real_time_sales_dashboard
 description: "Real-time sales dashboard that tracks revenue, conversion rates, and team performance with up-to-the-minute insights across regions, products, and channels."
 author: "Reflex"
-image: "real_time_sales_dashboard.png"
+image: "real_time_sales_dashboard.webp"
 demo: "https://flexgen-dev.reflex.run/gen/77a233f3-7390-4d0c-abc3-802da28c7976/"
 video: "https://www.youtube.com/embed/ReJPEWmVElw"
 meta: [

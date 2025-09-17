@@ -2,7 +2,7 @@
 title: database_visualization
 description: "Interactive database explorer that transforms complex SQL queries into stunning visualizations in seconds"
 author: "Reflex"
-image: "database_visualization.png"
+image: "database_visualization.webp"
 demo: "https://database-visualization-teal-apple.rxc.app/"
 video: "https://www.youtube.com/embed/PpUkIG8GHmk"
 meta: [

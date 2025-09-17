@@ -13,8 +13,8 @@ def render_image():
         image_zoom(
             rx.image(
                 src=rx.color_mode_cond(
-                    "/ai_builder/app_lifecycle/copy_light.png",
-                    "/ai_builder/app_lifecycle/copy_dark.png",
+                    "/ai_builder/app_lifecycle/copy_light.webp",
+                    "/ai_builder/app_lifecycle/copy_dark.webp",
                 ),
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",

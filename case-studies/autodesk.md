@@ -51,7 +51,7 @@ from pcweb.pages.docs import library
 
 <!-- ```python eval
 rx.vstack(
-    image_zoom(rx.image(src="/case_studies/bayesline_app.png", border_radius="10px", alt="Bayesline App")),
+    image_zoom(rx.image(src="/case_studies/bayesline_app.webp", border_radius="10px", alt="Bayesline App")),
     rx.text("Bayesline App built with Reflex"),
     width="100%",
 )
@@ -85,7 +85,7 @@ Paolo Serra, a Principal Implementation Consultant at Autodesk, was tasked with 
 It normally requires multiple people to get an app up and there was a lack of resources available in the time frame we needed.
 ```
 
-The solution had to be cloud based, to connect to existing systems and they only had 60 days to deliver it all. 
+The solution had to be cloud based, to connect to existing systems and they only had 60 days to deliver it all.
 
 Failure to deliver the value and results, due to contract obligations, could lead to court litigations, financial losses, damaged reputation and losing the customer. And as Consulting services are available for high-end customers in the context of Enterprise Business Agreements, there was a lot at stake.
 

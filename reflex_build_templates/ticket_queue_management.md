@@ -2,7 +2,7 @@
 title: ticket_queue_management
 description: "Smart ticket queue management system that streamlines triage, prioritization, and resolution across IT, security, and customer support workflows."
 author: "Reflex"
-image: "ticket_queue_management.png"
+image: "ticket_queue_management.webp"
 demo: "https://flexgen-dev.reflex.run/gen/77483da6-853a-4699-b6b2-fd9d0c7e3d6e/"
 video: "https://www.youtube.com/embed/BBsQXxMr-NY"
 meta: [

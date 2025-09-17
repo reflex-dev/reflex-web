@@ -30,7 +30,7 @@ def booked_title():
     meta=create_meta_tags(
         title="Call Successfully Booked | Reflex",
         description="Your call has been successfully scheduled. A confirmation email has been sent with all the details.",
-        image="/previews/index_preview.png"
+        image="/previews/index_preview.webp"
     )
 )
 def booked() -> rx.Component:

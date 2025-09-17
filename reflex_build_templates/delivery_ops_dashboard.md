@@ -2,7 +2,7 @@
 title: delivery_ops_dashboard
 description: "Real-time delivery operations dashboard for tracking orders, drivers, routes, and performance metrics across logistics and fulfillment networks."
 author: "Reflex"
-image: "delivery_ops_dashboard.png"
+image: "delivery_ops_dashboard.webp"
 demo: ""
 video: "https://www.youtube.com/embed/zmQt6w3U6Cw"
 meta: [
