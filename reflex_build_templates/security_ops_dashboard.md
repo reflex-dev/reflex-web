@@ -2,7 +2,7 @@
 title: security_ops_dashboard
 description: "Unified Security Operations dashboard for real-time monitoring, alert correlation, ticket syncing, and entity profiling across cloud and SaaS environments."
 author: "Reflex"
-image: "security_ops_dashboard.png"
+image: "security_ops_dashboard.webp"
 demo: "https://app-cyan-orca.reflex.run/"
 video: "https://www.youtube.com/embed/uMomJeza4aU"
 meta: [

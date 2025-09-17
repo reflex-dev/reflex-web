@@ -2,7 +2,7 @@
 title: trade_blotter_dashboard
 description: "Automatically pulls executions from every venue, flags outliers, and emails a compliance-ready PDF to traders each night."
 author: "Reflex"
-image: "trade_blotter_dashboard.png"
+image: "trade_blotter_dashboard.webp"
 video: "https://www.youtube.com/embed/gc_he7I1vGc"
 demo: "https://csv-trade-report-tool-gray-piano.rxc.app/"
 meta: [

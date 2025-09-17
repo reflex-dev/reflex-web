@@ -2,7 +2,7 @@
 title: supply_chain_config_dashboard
 description: "Advanced supply chain configuration platform that optimizes logistics networks, manages supplier relationships, and streamlines operations in real-time"
 author: "Reflex"
-image: "supply_chain_config_dashboard.png"
+image: "supply_chain_config_dashboard.webp"
 demo: "https://supply-chain-config-dashboard-navy-panda.rxc.app/"
 video: "https://www.youtube.com/embed/Pk5nLPqPAho"
 meta: [

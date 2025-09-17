@@ -2,7 +2,7 @@
 title: virtual_machine_life_cycle
 description: "Comprehensive VM management platform that automates provisioning, monitoring, and decommissioning across cloud and on-premise infrastructure"
 author: "Reflex"
-image: "virtual_machine_life_cycle.png"
+image: "virtual_machine_life_cycle.webp"
 demo: "https://vm-lifecycle-management-tool-cyan-wood.rxc.app/"
 video: "https://www.youtube.com/embed/wTPW5Ga6K10"
 meta: [

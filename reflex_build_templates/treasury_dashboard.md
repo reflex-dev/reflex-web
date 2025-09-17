@@ -2,7 +2,7 @@
 title: treasury_dashboard
 description: "Streams balances, pending settlements, and cash forecasts into a single real-time dashboard with threshold alerts."
 author: "Reflex"
-image: "treasury_dashboard.png"
+image: "treasury_dashboard.webp"
 demo: "https://treasury-and-liquidity-monitor-gold-sun.rxc.app/"
 video: "https://www.youtube.com/embed/rIV3AAZxhuc"
 # source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"

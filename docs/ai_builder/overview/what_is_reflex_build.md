@@ -62,8 +62,8 @@ class LandingState(rx.State):
 
 class BuildDocState(rx.State):
     current_feature: dict[str, str] = {
-        "light": "/ai_builder/what_is_reflex_build/project_bar_light.png",
-        "dark": "/ai_builder/what_is_reflex_build/project_bar_dark.png",
+        "light": "/ai_builder/what_is_reflex_build/project_bar_light.webp",
+        "dark": "/ai_builder/what_is_reflex_build/project_bar_dark.webp",
     }
 
     image_opacity: float = 1.0  # Use float instead of string for opacity
@@ -74,8 +74,8 @@ class BuildDocState(rx.State):
             "title": "Project Menu Bar",
             "subtitle": "Browse previously built applications, create new sessions, store database variables, and much more!",
             "img": {
-                "light": "/ai_builder/what_is_reflex_build/project_bar_light.png",
-                "dark": "/ai_builder/what_is_reflex_build/project_bar_dark.png",
+                "light": "/ai_builder/what_is_reflex_build/project_bar_light.webp",
+                "dark": "/ai_builder/what_is_reflex_build/project_bar_dark.webp",
             },
             "selected": True,
         },
@@ -83,8 +83,8 @@ class BuildDocState(rx.State):
             "title": "Chat Area",
             "subtitle": "See your prompts in action with visual cues, editing notifications, and file generations every step of the way.",
             "img": {
-                "light": "/ai_builder/what_is_reflex_build/chat_light.png",
-                "dark": "/ai_builder/what_is_reflex_build/chat_dark.png",
+                "light": "/ai_builder/what_is_reflex_build/chat_light.webp",
+                "dark": "/ai_builder/what_is_reflex_build/chat_dark.webp",
             },
             "selected": False,
         },
@@ -92,8 +92,8 @@ class BuildDocState(rx.State):
             "title": "Application Workspace",
             "subtitle": "Your workspace contains all the folders and files of your application. You can add new files and folders as well!",
             "img": {
-                "light": "/ai_builder/what_is_reflex_build/file_tree_light.png",
-                "dark": "/ai_builder/what_is_reflex_build/file_tree_dark.png",
+                "light": "/ai_builder/what_is_reflex_build/file_tree_light.webp",
+                "dark": "/ai_builder/what_is_reflex_build/file_tree_dark.webp",
             },
             "selected": False,
         },
@@ -101,8 +101,8 @@ class BuildDocState(rx.State):
             "title": "Code Editor",
             "subtitle": "The code editor displays the current selected file. You can edit the code directly and save it instantly.",
             "img": {
-                "light": "/ai_builder/what_is_reflex_build/code_light.png",
-                "dark": "/ai_builder/what_is_reflex_build/code_dark.png",
+                "light": "/ai_builder/what_is_reflex_build/code_light.webp",
+                "dark": "/ai_builder/what_is_reflex_build/code_dark.webp",
             },
             "selected": False,
         },
@@ -110,8 +110,8 @@ class BuildDocState(rx.State):
             "title": "Bottom Menu Bar",
             "subtitle": "This menu contains important actions such as deploying, downloading, and sharing your application.",
             "img": {
-                "light": "/ai_builder/what_is_reflex_build/bottom_light.png",
-                "dark": "/ai_builder/what_is_reflex_build/bottom_dark.png",
+                "light": "/ai_builder/what_is_reflex_build/bottom_light.webp",
+                "dark": "/ai_builder/what_is_reflex_build/bottom_dark.webp",
             },
             "selected": False,
         },
@@ -119,8 +119,8 @@ class BuildDocState(rx.State):
             "title": "Preview Tab",
             "subtitle": "The preview tab showcases a live application. You can navigate to other applications directly from this tab, refresh the app, and even view it in full screen.",
             "img": {
-                "light": "/ai_builder/what_is_reflex_build/preview_light.png",
-                "dark": "/ai_builder/what_is_reflex_build/preview_dark.png",
+                "light": "/ai_builder/what_is_reflex_build/preview_light.webp",
+                "dark": "/ai_builder/what_is_reflex_build/preview_dark.webp",
             },
             "selected": False,
         },
@@ -156,38 +156,38 @@ class BuildDocState(rx.State):
 
 feature_images = [
     [
-        "/ai_builder/what_is_reflex_build/project_bar_light.png",
-        "/ai_builder/what_is_reflex_build/project_bar_dark.png",
+        "/ai_builder/what_is_reflex_build/project_bar_light.webp",
+        "/ai_builder/what_is_reflex_build/project_bar_dark.webp",
         "Project Menu Bar",
         "Browse previously built applications, create new sessions, store database variables, and much more!",
     ],
     [
-        "/ai_builder/what_is_reflex_build/chat_light.png",
-        "/ai_builder/what_is_reflex_build/chat_dark.png",
+        "/ai_builder/what_is_reflex_build/chat_light.webp",
+        "/ai_builder/what_is_reflex_build/chat_dark.webp",
         "Chat Area",
         "See your prompts in action with visual cues, editing notifications, and file generations every step of the way.",
     ],
     [
-        "/ai_builder/what_is_reflex_build/file_tree_light.png",
-        "/ai_builder/what_is_reflex_build/file_tree_dark.png",
+        "/ai_builder/what_is_reflex_build/file_tree_light.webp",
+        "/ai_builder/what_is_reflex_build/file_tree_dark.webp",
         "Application Workspace",
         "Your workspace contains all the folders and files of your application. You can add new files and folders as well!",
     ],
     [
-        "/ai_builder/what_is_reflex_build/code_light.png",
-        "/ai_builder/what_is_reflex_build/code_dark.png",
+        "/ai_builder/what_is_reflex_build/code_light.webp",
+        "/ai_builder/what_is_reflex_build/code_dark.webp",
         "Code Editor",
         "The code editor displays the current selected file. You can edit the code directly and save it instantly.",
     ],
     [
-        "/ai_builder/what_is_reflex_build/bottom_light.png",
-        "/ai_builder/what_is_reflex_build/bottom_dark.png",
+        "/ai_builder/what_is_reflex_build/bottom_light.webp",
+        "/ai_builder/what_is_reflex_build/bottom_dark.webp",
         "Bottom Menu Bar",
         "This menu contains important actions such as deploying, downloading, and sharing your application.",
     ],
     [
-        "/ai_builder/what_is_reflex_build/preview_light.png",
-        "/ai_builder/what_is_reflex_build/preview_dark.png",
+        "/ai_builder/what_is_reflex_build/preview_light.webp",
+        "/ai_builder/what_is_reflex_build/preview_dark.webp",
         "Preview Tab",
         "The preview tab showcases a live application. You can navigate to other applications directly from this tab, refresh the app, and even view it in full screen.",
     ],

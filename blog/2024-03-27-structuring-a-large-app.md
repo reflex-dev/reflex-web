@@ -3,7 +3,7 @@ author: Masen Furer
 date: 2024-03-27
 title: "Structuring a Large App"
 description: "So your Reflex app is getting large? Here's some advice on how to lay it out."
-image: /blog/project_structure.jpeg
+image: /blog/project_structure.webp
 meta: [
     {"name": "keywords", "content": ""},
 ]
@@ -69,7 +69,7 @@ After loading the config, Reflex imports the main app module based on the
 `app_name`, which defines a module-level global named `app` as an instance
 of `rx.App`.
 
-If the app_name is `example_big_app`, then the main module would be 
+If the app_name is `example_big_app`, then the main module would be
 `example_big_app/example_big_app.py`.
 
 The main app module is responsible for importing all other modules that make up the
@@ -277,7 +277,7 @@ This package contains reusable parts of the app, for example headers, footers,
 and menus. If a particular component requires state, the substate may be defined
 in the same module for locality. Any substate defined in a component module
 should only contain fields and event handlers pertaining to that individual
-component. 
+component.
 
 
 ## Database Models: `example_big_app/models.py`

@@ -3,7 +3,7 @@ author: Tom Gotsman
 date: 2025-06-03
 title: The 10 best internal tool builders in 2025
 description: Reflex vs Retool vs Budibase vs Appsmith vs ToolJet vs Zapier Interfaces vs Glide vs Softr vs DronaHQ vs Microsoft Power Apps
-image: /blog/10_best_internal_tool_builders.png
+image: /blog/10_best_internal_tool_builders.webp
 meta: [
   {"name": "keywords", "content": "Reflex vs Retool, internal tool builders 2025, Appsmith alternatives, Budibase vs ToolJet, low-code tools, no-code internal apps, best internal app platforms, enterprise internal tools, Power Apps review, build dashboards, admin panel builders, internal tool comparison, open source internal tools, Zapier Interfaces, Glide app builder, DronaHQ, Softr"}
 ]
@@ -82,9 +82,9 @@ Additionally, we assessed each tool on the following factors:
 
 **No-code and low-code solutions are a better match for less technical teams or those looking to significantly increase the efficiency of their development process.**
 
-No-code platforms gamify the coding process with drag-and-drop interfaces and pre-built components. The downside is, they’re often less customizable as a result. 
+No-code platforms gamify the coding process with drag-and-drop interfaces and pre-built components. The downside is, they’re often less customizable as a result.
 
-Meanwhile, low-code solutions strike a nice balance by offering no-code options (i.e., easy, non-developer-oriented interfaces), as well as the option to write code when needed. 
+Meanwhile, low-code solutions strike a nice balance by offering no-code options (i.e., easy, non-developer-oriented interfaces), as well as the option to write code when needed.
 
 **Low-code platforms are great options for technical teams that want to move fast but still need flexibility and logic customization.**
 
@@ -105,7 +105,7 @@ Here are our picks for best internal tool builders this year.
 
 
 ```python eval
-image_zoom(rx.image(src="/blog/reflex-build.png", border_radius="10px", alt="Reflex AI builder")
+image_zoom(rx.image(src="/blog/reflex-build.webp", border_radius="10px", alt="Reflex AI builder")
 )
 ```
 
@@ -151,7 +151,7 @@ Reflex is ideal for modern dev teams that want to build fast, scale easily, and 
 #### A developer-friendly platform for enterprises
 
 ```python eval
-image_zoom(rx.image(src="/blog/retool.png", border_radius="10px", alt="Retool")
+image_zoom(rx.image(src="/blog/retool.webp", border_radius="10px", alt="Retool")
 )
 ```
 
@@ -184,11 +184,11 @@ Retool is well-suited for midsize to enterprise tech companies with dedicated en
 #### An open-source alternative for SMBs
 
 ```python eval
-image_zoom(rx.image(src="/blog/budibase.png", border_radius="10px", alt="Budibase")
+image_zoom(rx.image(src="/blog/budibase.webp", border_radius="10px", alt="Budibase")
 )
 ```
 
-**[Budibase](https://budibase.com) is an open-source internal tool builder that gives teams the ability to ship apps fast with a modern no-code approach.** It’s designed to support both technical and non-technical users, offering a visual UI builder, support for SQL and REST APIs, and the option to self-host for free or deploy in the cloud. Because it’s open-source, Budibase appeals to teams seeking transparency, control, and the ability to tailor their stack to their exact needs. 
+**[Budibase](https://budibase.com) is an open-source internal tool builder that gives teams the ability to ship apps fast with a modern no-code approach.** It’s designed to support both technical and non-technical users, offering a visual UI builder, support for SQL and REST APIs, and the option to self-host for free or deploy in the cloud. Because it’s open-source, Budibase appeals to teams seeking transparency, control, and the ability to tailor their stack to their exact needs.
 
 #### Pros
 
@@ -218,7 +218,7 @@ Budibase is ideal for smaller teams that want an open-source, no-code platform t
 
 
 ```python eval
-image_zoom(rx.image(src="/blog/appsmith.png", border_radius="10px", alt="Appsmith")
+image_zoom(rx.image(src="/blog/appsmith.webp", border_radius="10px", alt="Appsmith")
 )
 ```
 
@@ -251,7 +251,7 @@ Appsmith is a solid choice for technical teams that want an open-source, develop
 #### An open-source option for small teams
 
 ```python eval
-image_zoom(rx.image(src="/blog/tooljet.png", border_radius="10px", alt="ToolJet")
+image_zoom(rx.image(src="/blog/tooljet.webp", border_radius="10px", alt="ToolJet")
 )
 ```
 
@@ -284,7 +284,7 @@ ToolJet is ideal for small teams, especially those with technical knowledge seek
 #### A simple, no-code builder for lightweight internal tools
 
 ```python eval
-image_zoom(rx.image(src="/blog/zapier.png", border_radius="10px", alt="Zapier Interfaces")
+image_zoom(rx.image(src="/blog/zapier.webp", border_radius="10px", alt="Zapier Interfaces")
 )
 ```
 
@@ -317,7 +317,7 @@ Zapier Interfaces is more of a forms-and-automation tool than a true internal ap
 #### A no-code platform for small teams using spreadsheets
 
 ```python eval
-image_zoom(rx.image(src="/blog/glide.png", border_radius="10px", alt="Glide")
+image_zoom(rx.image(src="/blog/glide.webp", border_radius="10px", alt="Glide")
 )
 ```
 
@@ -348,7 +348,7 @@ Glide is a good fit for HR and support teams that want attractive, functional ap
 #### A no-code platform for teams looking to build, fast
 
 ```python eval
-image_zoom(rx.image(src="/blog/softr.png", border_radius="10px", alt="Softr")
+image_zoom(rx.image(src="/blog/softr.webp", border_radius="10px", alt="Softr")
 )
 ```
 
@@ -382,7 +382,7 @@ Softr is best suited for small to midsize teams who want to turn Airtable or Goo
 #### A low-code platform for enterprises
 
 ```python eval
-image_zoom(rx.image(src="/blog/dronahq.png", border_radius="10px", alt="DronaHQ")
+image_zoom(rx.image(src="/blog/dronahq.webp", border_radius="10px", alt="DronaHQ")
 )
 ```
 
@@ -419,7 +419,7 @@ DronaHQ is a solid choice for midsize to enterprise businesses that want to empo
 **[Microsoft Power Apps](https://www.microsoft.com/en-us/power-platform/products/power-apps) is a low-code platform built for companies already embedded in the Microsoft ecosystem.** It allows teams to rapidly create business apps using a visual interface, with seamless integrations across Microsoft 365, Azure, and Dynamics 365. Power Apps is especially useful for automating workflows, customizing forms, and extending existing Microsoft services without starting from scratch.
 
 ```python eval
-image_zoom(rx.image(src="/blog/microsoft_power_apps.png", border_radius="10px", alt="Microsoft Power Apps")
+image_zoom(rx.image(src="/blog/microsoft_power_apps.webp", border_radius="10px", alt="Microsoft Power Apps")
 )
 ```
 
@@ -452,4 +452,3 @@ Reflex gives you the speed of low-code with the freedom of full-code, all in Pyt
 
 
 [👋 Generate a working Python app in 60 sec. Try Reflex Builder today.](https://build.reflex.dev/)
-

@@ -2,7 +2,7 @@
 title: machine_learning_model_dashboard
 description: "Comprehensive ML model management platform that streamlines training, deployment, and monitoring of machine learning models across production environments"
 author: "Reflex"
-image: "machine_learning_model_dashboard.png"
+image: "machine_learning_model_dashboard.webp"
 demo: "https://ml-model-dashboard-cyan-ocean.reflex.run/"
 video: "https://www.youtube.com/embed/IjIoYpFOnck"
 meta: [
