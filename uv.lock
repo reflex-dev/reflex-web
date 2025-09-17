@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.12'",
@@ -2025,7 +2025,7 @@ wheels = [
 [[package]]
 name = "reflex-ui"
 version = "0.0.1"
-source = { git = "https://github.com/reflex-dev/reflex-ui?rev=main#ae44b303accd3e2c5dfa38c5b6a5992abdd9e473" }
+source = { git = "https://github.com/reflex-dev/reflex-ui?rev=main#65880ea1d3ea8db6d0e64398de7ec92d6597d80c" }
 dependencies = [
     { name = "reflex" },
 ]
