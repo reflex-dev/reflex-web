@@ -111,7 +111,7 @@ def extended_gallery_grid_item(
                             on_click=rx.stop_propagation,
                         ),
                         button(
-                            "Preview", variant="primary", size="md", class_name="flex-1"
+                            "Preview", variant="primary", size="md", class_name="flex-1 shadow-none border-none"
                         ),
                         class_name="flex flex-row gap-x-2 w-full items-stretch px-4 pb-4",
                     ),
