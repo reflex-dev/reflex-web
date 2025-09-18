@@ -35,8 +35,8 @@ rx.el.div(
     image_zoom(
         rx.image(
             src=rx.color_mode_cond(
-                "/ai_builder/overview/tutorial_1_light.png",
-                "/ai_builder/overview/tutorial_1_dark.png",
+                "/ai_builder/overview/tutorial_1_light.webp",
+                "/ai_builder/overview/tutorial_1_dark.webp",
             ),
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
@@ -63,8 +63,8 @@ rx.el.div(
     image_zoom(
         rx.image(
             src=rx.color_mode_cond(
-                "/ai_builder/overview/tutorial_2_light.png",
-                "/ai_builder/overview/tutorial_2_dark.png",
+                "/ai_builder/overview/tutorial_2_light.webp",
+                "/ai_builder/overview/tutorial_2_dark.webp",
             ),
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
@@ -93,8 +93,8 @@ rx.el.div(
     image_zoom(
         rx.image(
             src=rx.color_mode_cond(
-                "/ai_builder/overview/tutorial_3_light.png",
-                "/ai_builder/overview/tutorial_3_dark.png",
+                "/ai_builder/overview/tutorial_3_light.webp",
+                "/ai_builder/overview/tutorial_3_dark.webp",
             ),
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
@@ -123,8 +123,8 @@ rx.el.div(
     image_zoom(
         rx.image(
             src=rx.color_mode_cond(
-                "/ai_builder/overview/tutorial_4_light.png",
-                "/ai_builder/overview/tutorial_4_dark.png",
+                "/ai_builder/overview/tutorial_4_light.webp",
+                "/ai_builder/overview/tutorial_4_dark.webp",
             ),
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",

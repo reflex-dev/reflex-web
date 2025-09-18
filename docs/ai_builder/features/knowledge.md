@@ -11,8 +11,8 @@ def render_image():
         image_zoom(
             rx.image(
                 src=rx.color_mode_cond(
-                    "/ai_builder/features/knowledge_light.png",
-                    "/ai_builder/features/knowledge_dark.png",
+                    "/ai_builder/features/knowledge_light.webp",
+                    "/ai_builder/features/knowledge_dark.webp",
                 ),
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",

@@ -12,8 +12,8 @@ rx.el.div(
     image_zoom(
         rx.image(
             src=rx.color_mode_cond(
-                "/ai_builder/integrations/databricks_light.png",
-                "/ai_builder/integrations/databricks_dark.png",
+                "/ai_builder/integrations/databricks_light.webp",
+                "/ai_builder/integrations/databricks_dark.webp",
             ),
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",

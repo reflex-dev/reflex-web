@@ -49,7 +49,7 @@ from pcweb.pages.docs import library
 
 ```python eval
 rx.vstack(
-    image_zoom(rx.image(src="/case_studies/bayesline_app.png", border_radius="10px", alt="Bayesline App")),
+    image_zoom(rx.image(src="/case_studies/bayesline_app.webp", border_radius="10px", alt="Bayesline App")),
     rx.text("Bayesline App built with Reflex"),
     width="100%",
 )

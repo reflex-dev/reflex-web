@@ -2,7 +2,7 @@
 title: admin_console_dashboard
 description: "Centralized admin console for managing users, system settings, and operational metrics across internal tools and environments."
 author: "Reflex"
-image: "admin_console_dashboard.png"
+image: "admin_console_dashboard.webp"
 demo: "https://flexgen-dev.reflex.run/gen/2fd3e4d6-79d4-43fe-a60c-3926b72bb9e6/"
 video: "https://www.youtube.com/embed/0RvVFHMCh00"
 meta: [

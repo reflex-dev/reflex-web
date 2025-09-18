@@ -2,7 +2,7 @@
 title: finance_dashboard
 description: "GPU-powered analytics dashboard that delivers custom equity-factor risk models in minutes instead of weeks"
 author: "Reflex"
-image: "finance_dashboard.png"
+image: "finance_dashboard.webp"
 demo: "https://finance-dashboard-neon-apple.reflex.run/"
 video: "https://www.youtube.com/embed/iLDv_aUVtl8"
 meta: [

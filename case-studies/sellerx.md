@@ -44,34 +44,34 @@ from pcweb.pages.docs import library
 
 ```python eval
 rx.vstack(
-    image_zoom(rx.image(src="/case_studies/sellerx_app.png", border_radius="10px", alt="SellerX App")),
+    image_zoom(rx.image(src="/case_studies/sellerx_app.webp", border_radius="10px", alt="SellerX App")),
     rx.text("SellerX App built with Reflex"),
     width="100%",
 )
 ```
 
-```python eval 
+```python eval
 rx.box(height="30px")
 ```
 
 
 
-Meet SellerX, a Berlin-based, high-growth eCommerce player that aims to consolidate Amazon’s most successful sellers, acquiring them to scale their business and turn their brands into global household names. 
+Meet SellerX, a Berlin-based, high-growth eCommerce player that aims to consolidate Amazon’s most successful sellers, acquiring them to scale their business and turn their brands into global household names.
 
-SellerX has become one of the largest eCommerce aggregators in the European market. Today it manages more than 50 ecommerce brands. 
+SellerX has become one of the largest eCommerce aggregators in the European market. Today it manages more than 50 ecommerce brands.
 
 
-## SellerX's overwhelming data processing pipeline 
+## SellerX's overwhelming data processing pipeline
 
 SellerX has teams that collect a lot of data from Amazon and different marketplaces to derive insights on their brands and products. SellerX handles around half a million data points daily. It handles hundreds of thousands of products in different marketplaces in 4 different continents and ingests daily DBs the size of 100 GB worth of information.
- 
+
 Some of the processes require information about products, reviews, and prices so they can understand trends and make decisions on companies to look at investing in. This process could be very labour intensive, they would have to go to Amazon and to the companies specific websites, explore different DBs, copy this information and put it all manually in excel.
- 
+
 [Mike Woodcock](https://www.linkedin.com/in/mike-woodcock/), the Head of AI & Automation at SellerX, was placed in charge of working with various teams, among his other duties, to streamline the process of data sourcing. He needed to build a custom interface for the teams to help them collect their data more efficiently.
 
 His main requirements were that the final product needed to be a web interface, it needed SSO (single sign-on) capabilities, and the team needed to be able to iterate quickly with feedback.
 
-His plan was to create a web app to extract the needed information to create insights, therefore streamlining the process and cutting down on hundreds of hours of manual work a month. The data collection task would run in the background and then the end user would open up the app and all the information that they need to make their buying decisions on the companies would be ready for them.  
+His plan was to create a web app to extract the needed information to create insights, therefore streamlining the process and cutting down on hundreds of hours of manual work a month. The data collection task would run in the background and then the end user would open up the app and all the information that they need to make their buying decisions on the companies would be ready for them.
 
 
 
@@ -86,7 +86,7 @@ Mike and his team initially started with [Streamlit](https://streamlit.io), a py
 Streamlit's linear execution model, which re-runs the entire script upon each user interaction, can lead to inefficiencies and potential memory leaks, posing challenges for long-term projects.
 ```
 
-Furthermore, Mike and his team found it hard as Streamlit is not built to be event driven.  
+Furthermore, Mike and his team found it hard as Streamlit is not built to be event driven.
 
 ```md quote
 - name: Mike
@@ -117,7 +117,7 @@ Below are some of the key Reflex features their app took advantage of:
 
 - Reflex's background events for long running scraping tasks to extract all the data that they needed.
 
-- [AG Grid]({library.tables_and_data_grids.ag_grid.path}), which is built into Reflex, to display the data in a table. AG Grid is a high performance data grid that is used in many fortune 500 companies web applications. 
+- [AG Grid]({library.tables_and_data_grids.ag_grid.path}), which is built into Reflex, to display the data in a table. AG Grid is a high performance data grid that is used in many fortune 500 companies web applications.
 
 - SSO was a requirement for the app, and Mike used Azure Auth, one of the many options provided by Reflex for authentication.
 
@@ -143,7 +143,7 @@ The app that Mike and his team built with Reflex has been a huge success. It is 
 A team of 6 non-technical employees use the app to make decisions based on Amazon information. It is allowing this team to be significantly more efficient and structured in the way they work and they are very happy with the improvements in speed. This team is now able to review 5x more Amazon data than their previous approach.
 ```
 
-Reflex also allowed the team to iterate much faster than using React but with the confidence that they will not need to rebuild their entire app as they would with Streamlit. 
+Reflex also allowed the team to iterate much faster than using React but with the confidence that they will not need to rebuild their entire app as they would with Streamlit.
 
 
 ```md quote

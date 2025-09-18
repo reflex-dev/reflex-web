@@ -3,7 +3,7 @@ author: Reflex Team
 date: 2023-08-02
 title: Announcing our Seed Round
 description: Reflex has raised a $5M seed led by Lux Capital.
-image: /blog/fundraise_dark.png
+image: /blog/fundraise_dark.webp
 meta: [
     {"name": "keywords", "content": ""},
 ]
@@ -60,7 +60,7 @@ Our goal is to be the easiest way to build web apps. We're working on adding bas
 
 3. **Core Framework:**
 We will continue to grow our open-source framework to have feature parity with traditional front-end frameworks.
-This includes adding more complex styling methods like detailed animations and improvements to our core component library.  
+This includes adding more complex styling methods like detailed animations and improvements to our core component library.
 
 A more detailed roadmap of what’s coming next can be found [here](https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37).
 Stay tuned for updates on our progress!

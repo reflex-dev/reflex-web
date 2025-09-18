@@ -68,7 +68,7 @@ for route in routes:
             "route": route.path,
             "title": route.title,
             "image": (
-                "/previews/index_preview.png" if route.image is None else route.image
+                "/previews/index_preview.webp" if route.image is None else route.image
             ),
             "meta": [
                 {"name": "theme-color", "content": route.background_color},

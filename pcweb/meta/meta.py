@@ -21,7 +21,7 @@ meta_tags = [
         "property": "og:description",
         "content": "The open-source framework to build and deploy web apps using Python.",
     },
-    {"property": "og:image", "content": "/previews/index_preview.png"},
+    {"property": "og:image", "content": "/previews/index_preview.webp"},
     # Twitter Meta Tags
     {"name": "twitter:card", "content": "summary_large_image"},
     {"property": "twitter:domain", "content": REFLEX_DOMAIN},
@@ -31,7 +31,7 @@ meta_tags = [
         "name": "twitter:description",
         "content": "The open-source framework to build and deploy web apps using Python.",
     },
-    {"name": "twitter:image", "content": "/previews/index_preview.png"},
+    {"name": "twitter:image", "content": "/previews/index_preview.webp"},
     {"name": "twitter:creator", "content": TWITTER_CREATOR},
 ]
 
@@ -54,7 +54,7 @@ hosting_meta_tags = [
         "property": "og:description",
         "content": "The open-source framework to build and deploy web apps using Python.",
     },
-    {"property": "og:image", "content": "/previews/hosting_preview.png"},
+    {"property": "og:image", "content": "/previews/hosting_preview.webp"},
     # Twitter Meta Tags
     {"name": "twitter:card", "content": "summary_large_image"},
     {"property": "twitter:domain", "content": REFLEX_DOMAIN},
@@ -64,7 +64,7 @@ hosting_meta_tags = [
         "name": "twitter:description",
         "content": "The open-source framework to build and deploy web apps using Python.",
     },
-    {"name": "twitter:image", "content": "/previews/hosting_preview.png"},
+    {"name": "twitter:image", "content": "/previews/hosting_preview.webp"},
     {"name": "twitter:creator", "content": TWITTER_CREATOR},
 ]
 
@@ -87,12 +87,12 @@ def favicons_links() -> list[rx.Component]:
 
 def create_meta_tags(title: str, description: str, image: str, url: str = None) -> list[rx.Component]:
     page_url = url if url else REFLEX_DOMAIN_URL
-    
+
     if image and not image.startswith(('http://', 'https://')):
         image_url = f"https://reflex.dev{'' if image.startswith('/') else '/'}{image}"
     else:
         image_url = image
-    
+
     return [
         # HTML Meta Tags
         {"name": "application-name", "content": "Reflex"},

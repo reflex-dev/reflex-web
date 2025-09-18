@@ -3,7 +3,7 @@ author: Nikhil Rao
 date: 2024-03-21
 title: Designing a Pure Python Web Framework
 description: A look at how Reflex works under the hood.
-image: /blog/web_framework.jpeg
+image: /blog/web_framework.webp
 meta: [
     {"name": "keywords", "content": "python web app, python web app framework, web app framework python, python web apps, web app python, react python websocket, python react, react python, react with python, python and react js, react js with python, python and react, react js python"},
 ]
@@ -113,7 +113,7 @@ When you `reflex run` your app, Reflex compiles the frontend down to a single-pa
 
 The frontend's job is to reflect the app's state, and send events to the backend when the user interacts with the UI. No actual logic is run on the frontend.
 
-### Components 
+### Components
 
 Reflex frontends are built using components that can be composed together to create complex UIs. Instead of using a templating language that mixes HTML and Python, we just use Python functions to define the UI.
 
@@ -152,7 +152,7 @@ Under the hood, these components compile down to React components. For example, 
 
 Many of our core components are based on [Radix](https://radix-ui.com/), a popular React component library. We also have many other components for graphing, datatables, and more.
 
-We chose React because it is a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers. 
+We chose React because it is a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers.
 
 This also lets our users bring their own components if we don't have a component they need. Users can [wrap their own React components]({wrapping_react.overview.path}) and then [publish them]({custom_components.overview.path}) for others to use. Over time we will build out our [third party component ecosystem]({cc.path}) so that users can easily find and use components that others have built.
 
@@ -199,7 +199,7 @@ Now we get into the interesting part - how we handle events and state updates.
 
 Normally when writing web apps, you have to write a lot of boilerplate code to connect the frontend and backend. With Reflex, you don't have to worry about that - we handle the communication between the frontend and backend for you. Developers just have to write their event handler logic, and when the vars are updated the UI is automatically updated.
 
-You can refer to the diagram above for a visual representation of the process. Let's walk through it with our Github profile image example. 
+You can refer to the diagram above for a visual representation of the process. Let's walk through it with our Github profile image example.
 
 ### Event Triggers
 
@@ -232,7 +232,7 @@ Let's assume I type my username "picklelo" into the input. In this example, our 
 }
 ```
 
-On the frontend, we maintain an event queue of all pending events. 
+On the frontend, we maintain an event queue of all pending events.
 
 When an event is triggered, it is added to the queue. We have a `processing` flag to make sure only one event is processed at a time. This ensures that the state is always consistent and there aren't any race conditions with two event handlers modifying the state at the same time.
 
@@ -274,7 +274,7 @@ In our case, the state update may look something like this:
 ```json
 {
     "url": "https://github.com/picklelo",
-    "profile_image": "https://avatars.githubusercontent.com/u/104714959" 
+    "profile_image": "https://avatars.githubusercontent.com/u/104714959"
 }
 ```
 

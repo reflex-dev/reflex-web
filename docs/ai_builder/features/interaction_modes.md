@@ -12,8 +12,8 @@ def interaction_mode_image():
         image_zoom(
             rx.image(
                 src=rx.color_mode_cond(
-                    "/ai_builder/features/interaction_modes_light.png",
-                    "/ai_builder/features/interaction_modes_dark.png",
+                    "/ai_builder/features/interaction_modes_light.webp",
+                    "/ai_builder/features/interaction_modes_dark.webp",
                 ),
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",

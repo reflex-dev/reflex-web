@@ -3,7 +3,7 @@ author: Masen Furer
 date: 2023-09-28
 title: Unlocking New Workflows with Background Tasks
 description: What is a background task and how can it help you build better apps?
-image: /blog/background_tasks.jpeg
+image: /blog/background_tasks.webp
 meta: [
     {"name": "keywords", "content": ""},
 ]
@@ -42,7 +42,7 @@ processed in between.
 class State(rx.State):
     last_id: int = 0
     posts: List[str] = []
-     
+
     def get_post(self):
         if self.last_id < 10:
             response = httpx.get(f"https://dummyjson.com/products/{self.last_id}")
@@ -91,7 +91,7 @@ Rewriting the example above shows how background tasks work in practice:
 ```python
 class State(rx.State):
     posts: List[str] = []
-    
+
     @rx.event(background=True)
     async def get_posts(self):
         with httpx.AsyncClient() as client:

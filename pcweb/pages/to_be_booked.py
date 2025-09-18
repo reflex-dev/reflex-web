@@ -28,7 +28,7 @@ def to_be_booked_title():
     meta=create_meta_tags(
         title="Call Request Received | Reflex",
         description="Your request has been received. Our team will reach out to you shortly via email to schedule your call.",
-        image="/previews/index_preview.png"
+        image="/previews/index_preview.webp"
     )
 )
 def to_be_booked() -> rx.Component:
