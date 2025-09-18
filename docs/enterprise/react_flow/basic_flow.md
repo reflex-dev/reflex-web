@@ -72,15 +72,6 @@ class FlowState(rx.State):
     ]
 
 
-    @rx.event
-    def set_nodes(self, nodes: list[Node]):
-        self.nodes = nodes
-
-    @rx.event
-    def set_edges(self, edges: list[Edge]):
-        self.edges = edges
-
-
 def flow_example():
     return rx.box(
         rxe.flow(
