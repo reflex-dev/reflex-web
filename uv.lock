@@ -1946,8 +1946,8 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.8.10.dev1"
-source = { git = "https://github.com/reflex-dev/reflex?rev=main#dd993fd5f0c5731e56ef8024f216b7f73ea2011f" }
+version = "0.8.11.dev1"
+source = { git = "https://github.com/reflex-dev/reflex?rev=main#367b24da18faf481eabf43874dc7e24c56ccf13d" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },

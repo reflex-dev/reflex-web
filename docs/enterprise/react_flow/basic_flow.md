@@ -72,32 +72,19 @@ class FlowState(rx.State):
     ]
 
 
-    @rx.event
-    def set_nodes(self, nodes: list[Node]):
-        self.nodes = nodes
-
-    @rx.event
-    def set_edges(self, edges: list[Edge]):
-        self.edges = edges
-
-
 def flow_example():
     return rx.box(
         rxe.flow(
             # Core flow components
-            rxe.flow.controls(),  # Zoom and pan controls
-            rxe.flow.background(),  # Grid background
-            rxe.flow.mini_map(),  # Mini map for navigation
+            rxe.flow.controls(),
+            rxe.flow.background(),
+            rxe.flow.mini_map(),
 
             # Flow configuration
+            default_nodes=FlowState.nodes,
+            default_edges=FlowState.edges,
             nodes=FlowState.nodes,
             edges=FlowState.edges,
-            on_nodes_change=lambda node_changes: FlowState.set_nodes(
-                rxe.flow.util.apply_node_changes(FlowState.nodes, node_changes)
-            ),
-            on_edges_change=lambda edge_changes: FlowState.set_edges(
-                rxe.flow.util.apply_edge_changes(FlowState.edges, edge_changes)
-            ),
 
             # Visual settings
             fit_view=True,
