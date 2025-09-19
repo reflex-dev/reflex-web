@@ -10,7 +10,6 @@ from pcweb.pages.landing.views.outcomes_section import outcomes_section
 from pcweb.pages.landing.views.products import products
 from pcweb.pages.landing.views.security import security
 from pcweb.pages.landing.views.start_building import start_building
-from pcweb.pages.landing.views.video_demo import video_demo
 from pcweb.templates.mainpage import mainpage
 
 
@@ -18,7 +17,6 @@ from pcweb.templates.mainpage import mainpage
 def landing() -> rx.Component:
     return rx.box(
         hero(),
-        # video_demo(),
         products(),
         companies(),
         ai_section(),
