@@ -248,7 +248,7 @@ def search_trigger() -> rx.Component:
     return rx.box(
         rx.icon(
             "search",
-            class_name="absolute left-2 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
+            class_name="md:absolute md:left-2 md:top-1/2 md:transform md:-translate-y-1/2 text-md w-4 h-4 md:flex-shrink-0 !text-slate-9",
         ),
         rx.text(
             "⌘K",
