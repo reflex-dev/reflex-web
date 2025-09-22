@@ -248,7 +248,7 @@ def search_trigger() -> rx.Component:
     return rx.box(
         rx.icon(
             "search",
-            class_name="md:absolute md:left-2 md:top-1/2 md:transform md:-translate-y-1/2 text-md w-4 h-4 md:flex-shrink-0 !text-slate-9",
+            class_name="md:absolute md:left-2 md:top-1/2 md:transform md:-translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
         ),
         rx.text(
             "⌘K",
@@ -259,7 +259,7 @@ def search_trigger() -> rx.Component:
             read_only=True,
             class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
         ),
-        class_name="py-[6px] px-[12px] w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
+        class_name="py-[6px] md:px-[12px] w-8 md:w-full hover:bg-slate-3 cursor-pointer flex items-center justify-center h-8 border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
     )
 
 def search_breadcrumb(items):
