@@ -54,7 +54,7 @@ def hosting_banner() -> rx.Component:
                     )
                 ),
                 glow(),
-                href="/pricing",
+                href="https://build.reflex.dev/",
                 underline="none",
                 is_external=True,
             ),
