@@ -50,7 +50,7 @@ rx.vstack(
 - **No boilerplate**: Reflex handles the connection between your frontend and backend.
 - **Flexible and expressive**: Reflex comes with over 60 UI components that are highly customizable (supporting Tailwind, custom CSS, etc.).
 - **Database management**: Reflex integrates with SQLAlchemy and offers first-class support for SQLite, Postgres, and MySQL.
-- **Authentication**: Reflex offers multiple authentication options, including Local Auth, Google Auth, Captcha, Magic Link Auth, and Clerk Auth, allowing for easy user management.
+- **Authentication**: Reflex offers multiple authentication options, including Local Auth, Google Auth, Captcha, Magic Link Auth, Descope Auth, and Clerk Auth, allowing for easy user management.
 - **Deployment**: Reflex apps can be deployed to the cloud with a single command (`reflex deploy`).
 
 **Cons**

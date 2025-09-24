@@ -13,6 +13,7 @@ We have solutions that currently exist outside of the core framework:
 3. Captcha: Generates tests that humans can pass but automated systems cannot: https://github.com/masenf/reflex-google-recaptcha-v2
 4. Magic Link Auth: A passwordless login method that sends a unique, one-time-use URL to a user's email: https://github.com/masenf/reflex-magic-link-auth
 5. Clerk Auth: A community member wrapped this component and hooked it up in this app: https://github.com/TimChild/reflex-clerk-api
+6. Descope Auth: Enables authentication with Descope, supporting passwordless, social login, SSO, and MFA: https://github.com/descope-sample-apps/reflex-descope-auth
 
 ## Guidance for Implementing Authentication
 
