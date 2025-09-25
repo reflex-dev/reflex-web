@@ -14,7 +14,7 @@ from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
 from pcweb.pages.use_cases.use_cases import use_cases_page
 from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
-import reflex_ui as ui
+from pcweb.components.icons.hugeicons import hi
 from ...link_button import resources_button
 from ..sidebar import SidebarState
 from .buttons.discord import discord
@@ -28,6 +28,33 @@ def resource_item(text: str, url: str, icon: str, index):
         rx.link(
             rx.box(
                 rx.icon(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
+                rx.spacer(),
+                rx.text(
+                    text,
+                    class_name="font-small text-slate-9 truncate text-start w-[150px]",
+                ),
+                rx.spacer(),
+                rx.icon(
+                    tag="chevron_right",
+                    size=14,
+                    class_name="flex-shrink-0 text-slate-12",
+                ),
+                class_name="flex flex-row flex-nowrap items-center gap-3 hover:bg-slate-3 px-[1.125rem] py-2 rounded-md w-full transition-bg justify-between",
+            ),
+            class_name="w-full text-slate-9 hover:!text-slate-9",
+            underline="none",
+            href=url,
+            on_click=SidebarState.set_sidebar_index(index),
+        ),
+        class_name="w-full",
+    )
+
+
+def resource_item_hi(text: str, url: str, icon: str, index):
+    return rx.el.li(
+        rx.link(
+            rx.box(
+                hi(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
                 rx.spacer(),
                 rx.text(
                     text,
@@ -406,18 +433,38 @@ def doc_section():
 
     return nav_menu.content(
         rx.el.ul(
-            resource_item(
+            resource_item_hi(
                 "AI Builder Docs",
                 ai_builder.overview.best_practices.path,
-                "bot",
+                "magic-wand-01",
                 0,
             ),
-            resource_item(
-                "Open Source Docs", getting_started.introduction.path, "frame", 0
+            resource_item_hi(
+                "Open Source Docs",
+                getting_started.introduction.path,
+                "source-code-circle",
+                0,
             ),
-            resource_item(
-                "Cloud Docs", hosting_page.deploy_quick_start.path, "server", 0
+            resource_item_hi(
+                "Cloud Docs", hosting_page.deploy_quick_start.path, "cloud-server", 0
             ),
+            class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[280px] min-w-max",
+        ),
+    )
+
+
+def products_section():
+
+    return nav_menu.content(
+        rx.el.ul(
+            resource_item_hi(
+                "AI Builder",
+                REFLEX_BUILD_URL,
+                "magic-wand-01",
+                0,
+            ),
+            resource_item_hi("Open Source", framework.path, "source-code-circle", 0),
+            resource_item_hi("Cloud", hosting_landing.path, "cloud-server", 0),
             class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[280px] min-w-max",
         ),
     )
@@ -478,18 +525,9 @@ def new_component_section() -> rx.Component:
                 ),
                 rx.el.div(
                     nav_menu.item(
-                        link_item(
-                            "AI Builder",
-                            REFLEX_BUILD_URL,
-                            "builder",
-                        ),
-                    ),
-                    nav_menu.item(
-                        link_item("Open Source", framework.path, "framework"),
-                        class_name="whitespace-nowrap",
-                    ),
-                    nav_menu.item(
-                        link_item("Cloud", hosting_landing.path, "hosting"),
+                        new_menu_trigger("Products"),
+                        products_section(),
+                        class_name="cursor-pointer",
                     ),
                     class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
                 ),
@@ -548,7 +586,7 @@ def new_component_section() -> rx.Component:
         ),
         rx.box(
             nav_menu.viewport(),
-            class_name="top-[80%] left-[250px] absolute flex justify-start w-full",
+            class_name="top-[80%] left-[120px] absolute flex justify-start w-full",
         ),
     )
 
