@@ -4,6 +4,7 @@ import reflex_ui as ui
 import typesense
 
 from reflex.experimental import ClientStateVar
+from .web_ai import Message
 last_copied = ClientStateVar.create("is_copied", "")
 
 suggestion_items = [
@@ -387,39 +388,80 @@ def search_input():
                 size=14,
                 class_name="absolute left-2 top-1/2 transform -translate-y-1/2 !text-gray-500/40",
             ),
-            rx.box(
-                filter_component(),
-                rx.link(
+            rx.cond(
+                web_interface.value == "search",
+                rx.box(
+                    filter_component(),
+                    # rx.link(
+                        ui.button(
+                            ui.icon(icon="SparklesIcon", class_name="shrink-0 size-2"),
+                            "Ask AI",
+                            type="button",
+                            variant="secondary",
+                            size="xs",
+                            class_name="text-sm flex flex-row gap-x-2 items-center",
+                            on_click=web_interface.set_value("ai_chat"),
+                        ),
+                    #     href="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/"
+                    # ),
                     ui.button(
-                        ui.icon(icon="SparklesIcon", class_name="shrink-0 size-2"),
-                        "Ask AI",
-                        type="button",
-                        variant="secondary",
+                        "Esc",
                         size="xs",
-                        class_name="text-sm flex flex-row gap-x-2 items-center",
-
+                        type="button",
+                        variant="outline",
+                        on_click=rx.run_script(
+                            "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
+                        ),
                     ),
-                    href="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/"
+                    class_name="hidden md:flex absolute right-2 top-1/2 transform -translate-y-1/2 text-sm flex-row items-center gap-x-2",
                 ),
-                ui.button(
-                    "Esc",
-                    size="xs",
-                    type="button",
-                    variant="outline",
-                    on_click=rx.run_script(
-                        "document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"
+                rx.box(
+                    rx.el.div(
+                        rx.el.p("← Back to search", class_name="text-xs text-slate-9 cursor-pointer", on_click=web_interface.set_value("search")),
                     ),
+                    rx.el.button(
+                        rx.cond(
+                            ConversationalSearch.is_loading,
+                            rx.box(
+                                rx.box(
+                                    class_name="absolute inline-flex h-full w-full animate-ping rounded-md bg-orange-4 opacity-75"
+                                ),
+                                rx.box(
+                                    class_name="relative inline-flex size-3 rounded-md bg-orange-5"
+                                ),
+                                class_name="relative flex size-3",
+                            ),
+                            rx.icon(tag="arrow-up", size=13, class_name=rx.cond(ConversationalSearch.current_message.length() > 1, "!text-white", "")),
+                        ),
+                        class_name="p-2 rounded-md cursor-pointer disabled:cursor-not-allowed overflow-hidden "
+                        + rx.cond(ConversationalSearch.current_message.length() > 1, "bg-violet-9", "bg-secondary-3"),
+                        on_click=ConversationalSearch.send_message,
+                    ),
+                    class_name="hidden md:flex absolute right-2 top-1/2 transform -translate-y-1/2 text-sm flex-row items-center gap-x-2",
                 ),
-                class_name="hidden md:flex absolute right-2 top-1/2 transform -translate-y-1/2 text-sm flex-row items-center gap-x-2",
             ),
-            rx.el.input(
-                on_change=[
-                    lambda value: SimpleSearch.user_query(value).debounce(500),
-                    SimpleSearch.perform_search(),
-                ],
-                auto_focus=True,
-                placeholder="Search documentation ...",
-                class_name="py-2 pl-7 md:pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12"
+            rx.cond(
+                web_interface.value == "search",
+                rx.el.input(
+                    on_change=[
+                        lambda value: SimpleSearch.user_query(value).debounce(500),
+                        SimpleSearch.perform_search(),
+                    ],
+                    auto_focus=True,
+                    placeholder="Search documentation ...",
+                    class_name="py-2 pl-7 md:pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12"
+                ),
+                rx.form(
+                    rx.el.input(
+                        on_change=lambda value: ConversationalSearch.set_current_message(value),
+                        auto_focus=True,
+                        placeholder="Ask the AI about Reflex ...",
+                        class_name="py-2 pl-7 md:pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12 resize-none"
+                    ),
+                    enter_key_submit=True,
+                    on_submit=ConversationalSearch.send_message,
+                    reset_on_submit=True,
+                ),
             ),
             class_name="w-full relative focus:outline-none",
         ),
@@ -545,7 +587,6 @@ def searching_in_progress():
         class_name="w-full flex items-center justify-center text-sm py-4",
     )
 
-
 def search_content():
     return rx.scroll_area(
         rx.cond(
@@ -604,6 +645,44 @@ def search_content():
     )
 
 
+def chat_message(message: Message):
+    return rx.cond(
+        message.role == "user",
+        rx.el.div(
+            rx.el.div(
+                rx.el.p(message.content, class_name="text-sm"),
+                class_name="bg-secondary-3 rounded-md p-2 max-w-xs break-words"
+            ),
+            class_name="flex justify-end"
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.markdown(message.content),
+                class_name="p-2 text-sm"
+            ),
+            class_name="flex justify-start"
+        )
+    )
+
+
+
+def chat_content():
+    return rx.box(
+        rx.auto_scroll(
+            rx.foreach(
+                ConversationalSearch.messages, chat_message,
+            ),
+            class_name="h-[57vh] px-1 flex flex-col gap-y-2 [&_.rt-ScrollAreaScrollbar]:right-[0.2875rem] [&_.rt-ScrollAreaScrollbar]:mt-[3rem]"
+        ),
+        class_name="w-full h-full pt-12"
+    ),
+
+
+from .web_ai import ConversationalSearch
+
+web_interface = ClientStateVar.create("web_interface", "search")
+is_processing_prompt = ClientStateVar.create("is_processing_prompt", False)
+
 def typesense_search() -> rx.Component:
     """Create the main search component for Reflex Web"""
     return rx.fragment(
@@ -611,7 +690,11 @@ def typesense_search() -> rx.Component:
             rx.dialog.trigger(search_trigger(), id="search-trigger"),
             rx.dialog.content(
                 search_input(),
-                search_content(),
+                rx.cond(
+                    web_interface.value == "search",
+                    search_content(),
+                    chat_content(),
+                ),
                 on_interact_outside=SimpleSearch.reset_search,
                 on_escape_key_down=SimpleSearch.reset_search,
                 class_name="w-full max-w-[650px] mx-auto bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0 "
