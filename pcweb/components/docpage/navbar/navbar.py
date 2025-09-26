@@ -463,7 +463,6 @@ def products_section():
                 "magic-wand-01",
                 0,
             ),
-            resource_item_hi("Open Source", framework.path, "source-code-circle", 0),
             resource_item_hi("Cloud", hosting_landing.path, "cloud-server", 0),
             class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[280px] min-w-max",
         ),
@@ -524,6 +523,10 @@ def new_component_section() -> rx.Component:
                     class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
                 ),
                 rx.el.div(
+                    nav_menu.item(
+                        link_item("Open Source", framework.path, "framework"),
+                        class_name="whitespace-nowrap",
+                    ),
                     nav_menu.item(
                         new_menu_trigger("Products"),
                         products_section(),
@@ -586,7 +589,7 @@ def new_component_section() -> rx.Component:
         ),
         rx.box(
             nav_menu.viewport(),
-            class_name="top-[80%] left-[120px] absolute flex justify-start w-full",
+            class_name="top-[80%] left-[230px] absolute flex justify-start w-full",
         ),
     )
 
