@@ -1,6 +1,9 @@
 import reflex as rx
-
+from reflex.experimental.client_state import ClientStateVar
 from pcweb.components.tabs import tabs
+import reflex_ui as ui
+
+collapsed_calculator_cs = ClientStateVar.create("collapsed_calculator", default=True)
 
 COMPUTE_TABLE = {
     "c1m.5": {"vcpu": 1, "ram": 0.5, "pph": 0.046},
@@ -48,7 +51,6 @@ def learn_more():
             " only when your app is being used.",
             class_name="text-sm font-medium text-slate-9",
         ),
-        class_name="px-6 py-4 border-b border-slate-4 hover:bg-slate-2",
     )
 
 
@@ -64,7 +66,6 @@ def min_table(cost_text: str, description: bool = False) -> rx.Component:
             )
             for name, specs in COMPUTE_TABLE.items()
         ],
-        learn_more() if description else rx.fragment(),
         class_name="w-full",
     )
 
@@ -81,7 +82,6 @@ def hour_table(cost_text: str, description: bool = False) -> rx.Component:
             )
             for name, specs in COMPUTE_TABLE.items()
         ],
-        learn_more() if description else rx.fragment(),
         class_name="w-full",
     )
 
@@ -106,17 +106,7 @@ def compute_table() -> rx.Component:
     return rx.box(
         tabs.root(
             rx.box(
-                rx.box(
-                    rx.el.h3(
-                        "Compute Pricing",
-                        class_name="text-slate-12 text-3xl font-semibold",
-                    ),
-                    rx.el.p(
-                        "Only pay when your app is being used, nothing more.",
-                        class_name="text-slate-9 text-lg font-semibold text-center lg:text-start text-balance",
-                    ),
-                    class_name="flex flex-col gap-1 justify-center items-center lg:items-start lg:justify-start",
-                ),
+                learn_more(),
                 tabs.list(
                     tabs.tab(
                         "Per min",
@@ -140,7 +130,8 @@ def compute_table() -> rx.Component:
             ),
             default_value="min",
         ),
-        class_name="flex flex-col w-full mt-5 py-24",
+        class_name="flex flex-col w-full relative data-[collapsed=true]:max-h-[11.5rem] data-[collapsed=true]:overflow-hidden transition-all",
+        data_collapsed=collapsed_calculator_cs.value,
     )
 
 
@@ -187,5 +178,35 @@ def compute_table_base() -> rx.Component:
 def calculator_section() -> rx.Component:
     return rx.el.section(
         compute_table(),
-        class_name="flex flex-col w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-t 2xl:border-b pb-[6rem] justify-center items-center",
+        rx.el.div(
+            rx.cond(
+                collapsed_calculator_cs.value,
+                rx.el.div(
+                    class_name="from-slate-1 to-transparent absolute z-10 transition-opacity pointer-events-none opacity-100 bg-linear-to-t -top-27 left-0 w-full h-29",
+                ),
+            ),
+            ui.button(
+                ui.icon(
+                    "ArrowDown01Icon",
+                    size=16,
+                    class_name=(
+                        "transition-all",
+                        rx.cond(collapsed_calculator_cs.value, "", "rotate-180"),
+                    ),
+                ),
+                rx.cond(
+                    collapsed_calculator_cs.value,
+                    "Expand Compute Pricing",
+                    "Collapse Compute Pricing",
+                ),
+                on_click=collapsed_calculator_cs.set_value(
+                    ~collapsed_calculator_cs.value
+                ),
+                size="sm",
+                variant="outline",
+                class_name="w-full",
+            ),
+            class_name="w-full p-2 relative",
+        ),
+        class_name="flex flex-col w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] justify-center items-center",
     )

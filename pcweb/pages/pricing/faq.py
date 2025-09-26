@@ -20,18 +20,20 @@ def header() -> rx.Component:
             "Check FAQ",
             class_name="text-slate-9 text-3xl font-semibold",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col pt-[5rem] xl:border-x border-slate-4",
+        class_name="flex items-center justify-between text-slate-11 flex-col pt-[5rem]",
     )
 
 
 def sales_button() -> rx.Component:
-    return lemcal_dialog(
-        rx.fragment(
-            glow(),
-            button(
-                "Need more help? Contact sales",
-                variant="secondary",
-                class_name="!text-slate-11 !font-semibold !text-sm",
+    return rx.el.div(
+        lemcal_dialog(
+            rx.fragment(
+                glow(),
+                button(
+                    "Need more help? Contact sales",
+                    variant="secondary",
+                    class_name="!text-slate-11 !font-semibold !text-sm w-fit",
+                ),
             ),
         ),
         class_name="self-center relative",
@@ -96,6 +98,10 @@ faq_items = [
     (
         "What happens when I upgrade?",
         "When you upgrade your plan, you'll immediately get access to the new features and increased resource limits. Your app will continue running without interruption.",
+    ),
+    (
+        "What are credits?",
+        "Credits can be used for both hosting and building. In hosting, credits are used for compute resources. In building, credits are consumed per message sent.",
     ),
     (
         "What happens if I cancel the plan?",

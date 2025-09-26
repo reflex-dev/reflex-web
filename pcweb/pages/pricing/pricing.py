@@ -3,12 +3,13 @@ from pcweb.pages.framework.index_colors import index_colors
 from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.pages.pricing.plan_cards import plan_cards
 from pcweb.pages.pricing.table import (
+    comparison_table_reflex_build,
     comparison_table_hosting,
-    comparison_table_ai,
 )
 from pcweb.pages.pricing.faq import faq
 from pcweb.pages.pricing.calculator import calculator_section
 from pcweb.meta.meta import hosting_meta_tags
+from pcweb.pages.pricing.slider_calculator import slider_calculator
 
 pricing_path = "/pricing"
 
@@ -24,8 +25,12 @@ def pricing() -> rx.Component:
         rx.el.main(
             rx.box(
                 plan_cards(),
-                comparison_table_ai(),
+                comparison_table_reflex_build(),
+                rx.el.div(
+                    class_name="w-full max-w-[89rem] h-[0.5px] bg-slate-3 mx-auto"
+                ),
                 comparison_table_hosting(),
+                slider_calculator(),
                 calculator_section(),
                 faq(),
                 class_name="flex flex-col relative justify-center items-center w-full",
