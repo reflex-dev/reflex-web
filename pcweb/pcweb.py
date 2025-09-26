@@ -87,6 +87,11 @@ for route in routes:
 
 # Add redirects
 redirects = [
+    ("/docs/ai-builder/integrations", "/docs/ai-builder/integrations/database"),
+    ("/docs/ai-builder/app-lifecycle", "/docs/ai-builder/app-lifecycle/general"),
+    ("/docs/ai-builder/features", "/docs/ai-builder/features/ide"),
+    ("/docs/ai-builder", "/docs/ai-builder/overview/best-practices"),
+    ("/docs/ai-builder/overview", "/docs/ai-builder/overview/best-practices"),
     ("/framework", "/open-source"),
     ("/docs", "/docs/getting-started/introduction"),
     ("/docs/getting-started", "/docs/getting-started/introduction"),
