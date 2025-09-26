@@ -360,7 +360,7 @@ rx.el.div(
 
 Your notebook's pandas analysis logic stays intact, it just moves into the `load_data` method. The static matplotlib plots become interactive charts, and your print statements become clean KPI cards. The same insights, now accessible to anyone with a web browser.
 
-If you want try this dashboard live, you can do so here on Reflex Build -> [Churn Dashboard](https://build.reflex.dev/gen/c100a12f-4f22-452a-8e3c-74cbf8baba98/)
+If you want to try this dashboard live, you can do so here on Reflex Build -> [Churn Dashboard](https://build.reflex.dev/gen/c100a12f-4f22-452a-8e3c-74cbf8baba98/)
 
 You can edit, re-work, and improve it as you see fit!
 
