@@ -27,7 +27,7 @@ dependencies = [
     "posthog==6.1.1",
     "typesense>=1.1.1",
     "fastapi",
-    "reflex-hosting-cli>=0.1.55",
+    "reflex-hosting-cli>=0.1.56",
 ]
 
 [dependency-groups]
