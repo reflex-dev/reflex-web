@@ -4,7 +4,10 @@ import reflex_ui as ui
 import typesense
 
 from reflex.experimental import ClientStateVar
-from .web_ai import Message
+from .web_ai import Message, ConversationalSearch
+
+web_interface = ClientStateVar.create("web_interface", "search")
+is_processing_prompt = ClientStateVar.create("is_processing_prompt", False)
 last_copied = ClientStateVar.create("is_copied", "")
 
 suggestion_items = [
@@ -392,18 +395,15 @@ def search_input():
                 web_interface.value == "search",
                 rx.box(
                     filter_component(),
-                    # rx.link(
-                        ui.button(
-                            ui.icon(icon="SparklesIcon", class_name="shrink-0 size-2"),
-                            "Ask AI",
-                            type="button",
-                            variant="secondary",
-                            size="xs",
-                            class_name="text-sm flex flex-row gap-x-2 items-center",
-                            on_click=web_interface.set_value("ai_chat"),
-                        ),
-                    #     href="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/"
-                    # ),
+                    ui.button(
+                        ui.icon(icon="SparklesIcon", class_name="shrink-0 size-2"),
+                        "Ask AI",
+                        type="button",
+                        variant="secondary",
+                        size="xs",
+                        class_name="text-sm flex flex-row gap-x-2 items-center",
+                        on_click=web_interface.set_value("ai_chat"),
+                    ),
                     ui.button(
                         "Esc",
                         size="xs",
@@ -423,18 +423,31 @@ def search_input():
                         rx.cond(
                             ConversationalSearch.is_loading,
                             rx.box(
-                                rx.box(
-                                    class_name="absolute inline-flex h-full w-full animate-ping rounded-md bg-orange-4 opacity-75"
-                                ),
-                                rx.box(
-                                    class_name="relative inline-flex size-3 rounded-md bg-orange-5"
-                                ),
-                                class_name="relative flex size-3",
+                                class_name="flex size-3 bg-white rounded-[15px]",
                             ),
-                            rx.icon(tag="arrow-up", size=13, class_name=rx.cond(ConversationalSearch.current_message.length() > 1, "!text-white", "")),
+                            rx.icon(
+                                tag="arrow-up",
+                                size=13,
+                                class_name=rx.cond(
+                                    ConversationalSearch.current_message.length() > 1,
+                                    "!text-white",
+                                    "",
+                                ),
+                            ),
                         ),
-                        class_name="p-2 rounded-md cursor-pointer disabled:cursor-not-allowed overflow-hidden "
-                        + rx.cond(ConversationalSearch.current_message.length() > 1, "bg-violet-9", "bg-secondary-3"),
+                        class_name=(
+                            "p-2 rounded-md cursor-pointer disabled:cursor-not-allowed overflow-hidden "
+                            +
+                            rx.cond(
+                                ConversationalSearch.is_loading,
+                                "bg-violet-9",
+                                rx.cond(
+                                    ConversationalSearch.current_message.length() > 1,
+                                    "bg-violet-9",
+                                    "bg-secondary-3",
+                                )
+                            )
+                        ),
                         on_click=ConversationalSearch.send_message,
                     ),
                     class_name="hidden md:flex absolute right-2 top-1/2 transform -translate-y-1/2 text-sm flex-row items-center gap-x-2",
@@ -456,7 +469,7 @@ def search_input():
                         on_change=lambda value: ConversationalSearch.set_current_message(value),
                         auto_focus=True,
                         placeholder="Ask the AI about Reflex ...",
-                        class_name="py-2 pl-7 md:pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12 resize-none"
+                        class_name="py-2 pl-7 md:pr-[100px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12 resize-none"
                     ),
                     enter_key_submit=True,
                     on_submit=ConversationalSearch.send_message,
@@ -645,6 +658,33 @@ def search_content():
     )
 
 
+@rx.memo
+def markdown_copy_button(
+    content: str,
+):
+    markdown_copy_state = ClientStateVar.create(
+        "content_id", default=False, global_ref=False
+    )
+
+    return rx.el.button(
+        rx.cond(
+            markdown_copy_state.value,
+            rx.icon(tag="check", size=13, class_name="!text-slate-9"),
+            rx.icon(tag="copy", size=13, class_name="!text-slate-9"),
+        ),
+        cursor="pointer",
+        position="absolute",
+        right="15px",
+        top="35px",
+        on_click=[
+            rx.call_function(markdown_copy_state.set_value(True)),
+            rx.set_clipboard(content),
+        ],
+        on_mouse_down=rx.call_function(markdown_copy_state.set_value(False)).debounce(
+            1500
+        ),
+    )
+
 def chat_message(message: Message):
     return rx.cond(
         message.role == "user",
@@ -657,7 +697,45 @@ def chat_message(message: Message):
         ),
         rx.el.div(
             rx.el.div(
-                rx.markdown(message.content),
+                rx.markdown(
+                    message.content,
+                    component_map={
+                        "h1": lambda value: rx.el.h1(value),
+                        "h2": lambda value: rx.el.h2(value),
+                        "h3": lambda value: rx.el.h3(value),
+                        "h4": lambda value: rx.el.h4(value),
+                        "h5": lambda value: rx.el.h5(value),
+                        "h6": lambda value: rx.el.h6(value),
+                        "p": lambda value: rx.el.p(value, class_name="leading-7"),
+                        "strong": lambda value: rx.el.strong(
+                            value, class_name="text-secondary-12"
+                        ),
+                        "ul": lambda value: rx.el.ul(value),
+                        "ol": lambda value: rx.el.ol(value),
+                        "li": lambda value: rx.el.li(value),
+                        "a": lambda value: rx.el.a(
+                            value,
+                            class_name="underline",
+                            target="_blank",
+                        ),
+                        "pre": lambda value: rx.el.pre(value, class_name="not-prose"),
+                        "codeblock": lambda value, **props: rx.el.div(
+                            rx.code_block(
+                                value,
+                                **props,
+                                wrap_long_lines=False,
+                                class_name="code-block !text-xs max-h-[300px] overflow-auto",
+                            ),
+                            markdown_copy_button(content=value),
+                            class_name="flex flex-row relative py-2",
+                        ),
+                        "code": lambda value, **props: rx.el.code(
+                            value,
+                            **props,
+                            class_name="font-mono border border-slate-4 bg-slate-3 px-1 rounded-[0.35rem] font-normal not-prose text-sm text-[12.5px] text-slate-12",
+                        ),
+                    },
+                ),
                 class_name="p-2 text-sm"
             ),
             class_name="flex justify-start"
@@ -677,11 +755,6 @@ def chat_content():
         class_name="w-full h-full pt-12"
     ),
 
-
-from .web_ai import ConversationalSearch
-
-web_interface = ClientStateVar.create("web_interface", "search")
-is_processing_prompt = ClientStateVar.create("is_processing_prompt", False)
 
 def typesense_search() -> rx.Component:
     """Create the main search component for Reflex Web"""

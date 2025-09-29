@@ -56,34 +56,6 @@ class ConversationSetup:
             logger.error(f"Error creating conversation collection: {e}")
             return False
 
-    def test_rag_configuration(self):
-        """Test that RAG configuration is working by making a test search"""
-        try:
-            logger.info("Testing RAG configuration with a simple query...")
-
-            # Test search with conversation flag
-            search_params = {
-                "q": "test query",
-                "collection": "docs",
-                "query_by": "title,content",
-                "per_page": 1
-            }
-
-            try:
-                result = self.client.collections['docs'].documents.search(search_params)
-                logger.info("RAG configuration test successful!")
-                return True
-            except Exception as search_error:
-                if "Not found" in str(search_error) or "Could not find" in str(search_error):
-                    logger.info("RAG configuration appears valid (collection not found is expected during setup)")
-                    return True
-                else:
-                    logger.error(f"RAG configuration test failed: {search_error}")
-                    return False
-
-        except Exception as e:
-            logger.error(f"Error testing RAG configuration: {e}")
-            return False
 
     def setup_all(self, force_recreate: bool = False):
         """Setup conversation collection and test RAG configuration"""
@@ -92,35 +64,7 @@ class ConversationSetup:
         if not self.create_conversation_collection(force_recreate):
             success = False
 
-        if not self.test_rag_configuration():
-            success = False
-
         return success
-
-    def run_test_query(self, query: str, top_k: int = 3):
-        """Run a simple test query against the docs collection and print results"""
-        try:
-            logger.info(f"Running test query: '{query}'")
-            search_params = {
-                "q": query,
-                "collection": "docs",
-                "query_by": "title,content",
-                "per_page": top_k
-            }
-
-            results = self.client.collections['docs'].documents.search(search_params)
-            hits = results.get("hits", [])
-            if not hits:
-                logger.info("No results found for the test query.")
-                return
-
-            logger.info(f"Top {len(hits)} result(s):")
-            for i, hit in enumerate(hits, start=1):
-                doc = hit["document"]
-                logger.info(f"{i}. {doc.get('title', 'No title')} - snippet: {doc.get('content', '')[:200]}...")
-
-        except Exception as e:
-            logger.error(f"Error running test query: {e}")
 
 
 def main():
@@ -143,7 +87,6 @@ def main():
 
     if success:
         logger.info("Conversational RAG setup completed successfully!")
-        # setup.run_test_query("What is rx.State in reflex?")
     else:
         logger.error("Setup failed. Check the logs above for details.")
 
