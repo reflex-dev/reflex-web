@@ -1,57 +1,8 @@
 import reflex as rx
-from pcweb.components.button import button
-from reflex_ui.blocks.lemcal import lemcal_dialog
 import reflex_ui as ui
-
-STYLES = {
-    "cell": "text-slate-12 font-medium text-sm text-wrap",
-    "header_cell": "text-slate-12 font-semibold text-lg",
-    "header_cell_sub": "text-slate-11 font-semibold text-md",
-    "feature_cell": "text-slate-9 font-medium text-sm whitespace-nowrap",
-    "button_base": "!text-sm !font-semibold w-full text-nowrap",
-}
-
-TABLE_STYLE = """
-.rt-TableCell {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    vertical-align: 0 !important;
-    padding: 0 !important;
-    height: 0 !important;
-    gap: 0 !important;
-    width: 100% !important;
-    min-height: max-content !important;
-}
-.rt-TableRow {
-    display: grid !important;
-    grid-template-columns: minmax(100px, 1fr) repeat(3, minmax(100px, 1fr)) !important;
-    padding: 1rem 2.5rem;
-    gap: 1rem !important;
-}
-.rt-ScrollAreaViewport {
-    padding-top: 2rem;
-}
-"""
-
-AI_BUILDER_FEATURES = [
-    ("Open Source Framework", "Apache 2.0 License, free forever."),
-    ("Enterprise Package", "Advanced features and support for enterprises."),
-    ("AI Builder", "Build fullstack Python apps via prompting."),
-    (
-        "One Click Deploy",
-        "Deploy apps with a single click to Reflex Cloud or your own infrastructure.",
-    ),
-    ("Git Provider", "Connect and deploy from Github, Gitlab, and Bitbucket."),
-    ("Integrations", "Connect to Databricks, AWS, GCP, Azure,Snowflake, and more."),
-    ("On Premise Deployments", "Deploy on your own infrastructure."),
-]
-
-AI_BUILDER_SECURITY_FEATURES = [
-    ("SSO/SAML", "Single sign-on and SAML support."),
-    ("Granular Access Control", "Fine-grained user and role management."),
-    ("Audit Logs", "Track and audit user actions."),
-    ("Secret Management Integration", "Integrate with secret management tools."),
-]
+from reflex_ui.blocks.lemcal import lemcal_dialog
+from pcweb.components.hosting_banner import HostingBannerState
+from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
 
 CLOUD_HOSTING_FEATURES = [
     ("Max # Apps", "1", "5", "10"),
@@ -76,98 +27,6 @@ SECURITY_FEATURES = [
     ("HIPAA BAA", False, False, "On prem, custom"),
 ]
 
-AI_BUILDER_ADDITIONAL_FEATURES = [
-    ("Secrets", True, True),
-    ("Audit Logs", False, True),
-]
-
-CLOUD_SECURITY_FEATURES = [
-    ("Web App Firewall", True, True),
-    ("HTTP/SSL", True, True),
-    ("Security Audit Reports", False, True),
-    ("SSO/SAML", False, True),
-    ("Audit Logs", False, True),
-]
-
-SUPPORT_LEVELS = [
-    (
-        "Customer Success",
-        "Dedicated Customer Success contact to ensure you get the most out of Reflex.",
-    ),
-    ("Onboarding", "Get a forward deployed engineer to help you get started."),
-]
-
-PLAN_BUTTONS = [
-    ("Start building for free", "secondary", "!text-slate-11 !w-fit"),
-    ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
-]
-
-ASTERIX_SECTION = [
-    (
-        "* AG Grid comes with a 'Built with Reflex' badge for Hobby tier.",
-        "",
-        "",
-    ),
-    ("", "", ""),
-]
-
-HOSTING_TEXT_SECTION = [
-    (
-        "Compute",
-        "20 hours/month",
-        "Custom",
-    ),
-    ("Build Logs", "1 day", "Custom"),
-    ("Runtime Logs", "1 hour", "Custom"),
-]
-
-HOSTING_BOOLEAN_SECTION = [
-    ("Multiple Regions", True, True),
-    ("App Metrics", True, True),
-    ("Custom Domains", True, True),
-    ("On Premise Deployments", False, True),
-]
-
-FEATURES_SECTION = [
-    ("Secrets", True, True),
-    ("Audit Logs", False, True),
-]
-
-BUILDER_SECURITY_SECTION = [
-    ("SSO/SAML", True, True),
-    ("Granular Access Control", True, True),
-    ("Audit Log", True, True),
-    ("Secret Management Integration", False, True),
-]
-
-SECURITY_SECTION = [
-    ("Web App Firewall", True, True),
-    ("HTTP/SSL", True, True),
-    ("Security Audit Reports", False, True),
-    ("SSO/SAML", False, True),
-    ("Audit Logs", False, True),
-]
-
-SUPPORT_TEXT_SECTION = [
-    ("Support", "Community Support", "Dedicated Support"),
-]
-
-SUPPORT_BOOLEAN_SECTION = [
-    ("White Glove Onboarding", False, True),
-    ("", "", ""),
-]
-
-REFLEX_BUILD_BASIC_FEATURES = [
-    (
-        "Credits",
-        "50 daily credits (up to 150/month)",
-        "1000 monthly credits",
-        "5000+ credits/month",
-    ),
-    ("Agent (10 Credits per msg)", True, True, True),
-    ("Chat (1 Credit)", True, True, True),
-]
-
 SUPPORT_FEATURES = [
     (
         "Customer Success",
@@ -179,8 +38,19 @@ SUPPORT_FEATURES = [
         "Onboarding",
         "Documentation",
         "Documentation",
-        "Get a forward deployed engineer to help you get started.",
+        "Get a forward deployed engineer to help you get started",
     ),
+]
+
+REFLEX_BUILD_BASIC_FEATURES = [
+    (
+        "Credits",
+        "50 daily credits (up to 150/month)",
+        "1000 monthly credits",
+        "Custom",
+    ),
+    ("Agent (10 Credits per msg)", True, True, True),
+    ("Chat (1 Credit)", True, True, True),
 ]
 
 REFLEX_BUILD_FUNCTIONALITY = [
@@ -219,363 +89,222 @@ REFLEX_BUILD_DEPLOYMENT = [
 ]
 
 
-def glow() -> rx.Component:
-    return rx.table.row(
-        class_name="absolute flex-shrink-0 left-1/2 -translate-x-1/2 z-[5] top-[-1rem] pointer-events-none",
-        background_image=rx.color_mode_cond(
-            "radial-gradient(50% 50% at 50% 50%, rgba(235, 228, 255, 0.661) 0%, rgba(252, 252, 253, 0.00) 100%) !important",
-            "radial-gradient(50% 50% at 50% 50%, rgba(58, 45, 118, 0.241) 0%, rgba(21, 22, 24, 0.00) 100%) !important",
-        ),
-        height="6rem !important",
-        width="60.75rem !important",
-    )
+def table_cell(content: str | rx.Component) -> rx.Component:
 
-
-def create_table_cell(content: str | rx.Component) -> rx.Component:
-    if content == "Usage Based":
-        return rx.table.cell(
-            rx.link(
-                content,
-                color=rx.color("violet", 12),
-                href="#calculator-header",
-                text_decoration="underline",
-            ),
-            class_name=STYLES["cell"],
-        )
-    return rx.table.cell(content, class_name=STYLES["cell"])
-
-
-def create_action_button(
-    text: str, variant: str, extra_styles: str = ""
-) -> rx.Component:
-    return lemcal_dialog(
-        button(
-            text,
-            variant=variant,
-            class_name=f"{STYLES['button_base']} {extra_styles}",
-        ),
-        class_name="w-full flex justify-center items-center",
-    )
-
-
-def create_table_row(cells: list) -> rx.Component:
-    row_cells = [create_table_cell(cell) for cell in cells]
-    return rx.table.row(
-        *row_cells,
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 z-[2] !h-[50px] hover:bg-slate-2",
-    )
-
-
-def create_table_row_header(
-    name: str, coming_soon: bool = False, anchor: str = None, badge: str = None
-) -> rx.Component:
-    # Create row attributes
-    base_class = "w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center md:!px-[3.85rem]"
-
-    # Add scroll margin for anchor positioning
-    if anchor:
-        base_class += " scroll-mt-24"
-
-    row_attrs = {
-        "class_name": base_class,
-        "padding_x": "3rem !important",
-    }
-
-    # Add id attribute if anchor is provided
-    if anchor:
-        row_attrs["id"] = anchor
-
-    # Compose the header cell content
-    header_content = rx.el.div(
-        rx.el.span(name),
-        (
-            rx.badge(
-                badge,
-                class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5",
-            )
-            if badge
-            else None
-        ),
-        rx.badge("coming soon", margin_left="0.5rem") if coming_soon else None,
-        class_name="flex items-center gap-x-2",
-    )
-
-    return rx.table.row(
-        rx.table.column_header_cell(header_content, class_name=STYLES["header_cell"]),
-        rx.table.column_header_cell("Free", class_name=STYLES["header_cell_sub"]),
-        rx.table.column_header_cell("Enterprise", class_name=STYLES["header_cell_sub"]),
-        **row_attrs,
-    )
-
-
-def create_table_row_header_three_columns(
-    name: str, coming_soon: bool = False, anchor: str = None, badge: str = None
-) -> rx.Component:
-    # Create row attributes
-    base_class = "w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center md:!px-[3.85rem]"
-
-    # Add scroll margin for anchor positioning
-    if anchor:
-        base_class += " scroll-mt-24"
-
-    row_attrs = {
-        "class_name": base_class,
-    }
-
-    # Add id attribute if anchor is provided
-    if anchor:
-        row_attrs["id"] = anchor
-
-    # Compose the header cell content
-    header_content = rx.el.div(
-        rx.el.span(name),
-        (
-            rx.badge(
-                badge,
-                class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5",
-            )
-            if badge
-            else None
-        ),
-        rx.badge("coming soon", margin_left="0.5rem") if coming_soon else None,
-        class_name="flex items-center gap-x-2",
-    )
-
-    return rx.table.row(
-        rx.table.column_header_cell(header_content, class_name=STYLES["header_cell"]),
-        rx.table.column_header_cell("Free", class_name=STYLES["header_cell_sub"]),
-        rx.table.column_header_cell("Pro", class_name=STYLES["header_cell_sub"]),
-        rx.table.column_header_cell("Enterprise", class_name=STYLES["header_cell_sub"]),
-        **row_attrs,
-    )
-
-
-def create_table_body(*body_content) -> rx.Component:
-    return rx.table.body(
-        *body_content,
-        class_name="w-full divide-y divide-slate-4 border border-slate-4 md:border-t-0 flex flex-col items-center justify-center border-x max-w-[89rem] mx-auto border-b-0",
-    )
-
-
-def create_checkmark_row(feature: str, checks: tuple[bool, ...]) -> rx.Component:
-    cells = [
-        feature,
-        *[
-            rx.box(
-                rx.icon("check", class_name="text-slate-12", size=16) if c else "",
+    if isinstance(content, bool):
+        return rx.el.td(
+            rx.el.div(
+                (
+                    rx.icon("check", class_name="text-secondary-12", size=16)
+                    if content
+                    else ""
+                ),
                 class_name="flex justify-center items-center",
-            )
-            for c in checks
-        ],
-    ]
-    return create_table_row(cells)
+            ),
+            class_name="p-4",
+        )
 
-
-def create_table_row_three_columns(cells: list) -> rx.Component:
-    """Create a table row with 4 cells (feature + 3 columns)."""
-    row_cells = [create_table_cell(cell) for cell in cells]
-    return rx.table.row(
-        *row_cells,
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 z-[2] !h-[50px] min-h-fit hover:bg-slate-2",
+    return rx.el.td(
+        content,
+        class_name="text-secondary-12 first:text-secondary-11 font-medium text-sm text-wrap p-4 first:text-left text-center",
     )
 
 
-def create_plan_feature_row(
-    feature: str, free_val, pro_val, enterprise_val
+def table_header_cell(content: str | rx.Component) -> rx.Component:
+    return rx.el.th(
+        content,
+        class_name=f"text-slate-12 font-semibold text-lg p-4 first:text-left",
+    )
+
+
+def table_row(*cells, is_header: bool = False) -> rx.Component:
+    if is_header:
+        return rx.el.tr(
+            *[table_header_cell(cell) for cell in cells],
+            class_name="px-10",
+        )
+
+    return rx.el.tr(
+        *[table_cell(cell) for cell in cells],
+        class_name="bg-slate-1 hover:bg-slate-2",
+    )
+
+
+def pricing_table(
+    title: str, icon: str, columns: list[str], features: list[tuple], **kwargs
 ) -> rx.Component:
-    """Create a row for Reflex Build comparison with proper handling of different value types."""
-    cells = [feature]
-
-    for val in [free_val, pro_val, enterprise_val]:
-        if isinstance(val, bool):
-            if val:
-                cell_content = rx.box(
-                    rx.icon("check", class_name="text-slate-12", size=16),
-                    class_name="flex justify-center items-center",
-                )
-            else:
-                cell_content = rx.box(
-                    "",  # Show nothing for false values
-                    class_name="flex justify-center items-center",
-                )
-        else:
-            cell_content = str(val)
-        cells.append(cell_content)
-
-    return create_table_row_three_columns(cells)
-
-
-def header_ai() -> rx.Component:
-    return rx.box(
-        rx.el.h3(
-            "The enterprise-grade fullstack AI app building platform.",
-            class_name="text-slate-12 text-3xl font-semibold text-center",
-        ),
-        rx.el.p(
-            "Build customized, secure, and scalable apps in seconds",
-            class_name="text-slate-9 text-xl font-semibold text-center",
-        ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
-    )
-
-
-def create_feature_row(feature: str, description: str) -> rx.Component:
-    return rx.table.row(
-        rx.table.cell(feature, class_name=STYLES["cell"]),
-        rx.table.cell(description, class_name=STYLES["cell"]),
-        class_name="w-full bg-slate-1 z-[2] !h-[50px] hover:bg-slate-2",
-    )
-
-
-def create_feature_table_header(section: str, badge: str = None) -> rx.Component:
     header_content = rx.el.div(
-        rx.el.span(section),
-        (
-            rx.badge(
-                badge,
-                class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5",
-            )
-            if badge
-            else None
+        ui.icon(icon, class_name="text-secondary-11", size=20),
+        rx.el.span(title, class_name="text-secondary-12 font-semibold text-xl"),
+        class_name="flex items-center gap-2.5 flex-row w-full bg-slate-1",
+    )
+
+    # Create header row
+    header_row = table_row(header_content, *columns, is_header=True)
+
+    # Add optional id and scroll margin for anchoring
+    if kwargs.get("anchor"):
+        header_row = rx.el.tr(
+            *header_row.children,
+            class_name=f"{header_row.class_name} scroll-mt-24",
+            id=kwargs.get("anchor"),
+        )
+
+    # Create feature rows
+    feature_rows = []
+    for feature_data in features:
+        feature_rows.append(table_row(*feature_data))
+
+    return rx.el.table(
+        rx.el.thead(
+            header_row,
+            class_name=(
+                "sticky bg-slate-1 z-10",
+                rx.cond(HostingBannerState.show_banner, "top-[161px]", "top-[105px]"),
+            ),
         ),
-        class_name="flex items-center gap-x-2",
-    )
-    return rx.table.row(
-        rx.table.column_header_cell(header_content, class_name=STYLES["header_cell"]),
-        rx.table.cell(
-            "", class_name=STYLES["header_cell"]
-        ),  # Empty cell for alignment, no title
-        class_name="w-full bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center md:!px-[3.85rem]",
+        rx.el.tbody(
+            *feature_rows,
+            class_name="divide-y divide-slate-4 bg-slate-1 border-t border-slate-4",
+        ),
+        class_name="table-fixed w-full max-w-[64.19rem] border-x border-b border-slate-4 rounded-lg bg-slate-1",
     )
 
 
-def header_hosting() -> rx.Component:
+def section_header(title: str, subtitle: str) -> rx.Component:
+    """Create a section header for pricing tables."""
     return rx.box(
         rx.el.h3(
-            "Secure and Scalable Hosting",
+            title,
             class_name="text-slate-12 text-3xl font-semibold text-center",
         ),
         rx.el.p(
-            "Deploy your apps in seconds on cloud, or self-host on your own infra.",
+            subtitle,
             class_name="text-slate-9 text-xl font-semibold text-center",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+        class_name="flex items-center justify-between flex-col py-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full gap-1",
     )
 
 
-def table_body_security() -> rx.Component:
-    """Create the Security comparison table body."""
-    return rx.table.root(
-        rx.el.style(TABLE_STYLE),
-        rx.table.header(
-            create_table_row_header_three_columns("Security"),
-            glow(),
-            class_name="relative",
+def sticky_pricing_header() -> rx.Component:
+
+    def header_item(text: str, button: rx.Component) -> rx.Component:
+        return rx.el.div(
+            rx.el.span(
+                text, class_name="text-secondary-12 font-semibold text-base text-center"
+            ),
+            button,
+            class_name="w-full self-center flex flex-col justify-center items-center gap-2",
+        )
+
+    return rx.el.div(
+        rx.el.div(
+            # Features column
+            rx.el.div(
+                "",
+                class_name="text-secondary-11 font-semibold text-base text-left flex items-baseline justify-start z-0",
+            ),
+            # Free column
+            header_item(
+                "Hobby",
+                ui.link(
+                    render_=ui.button(
+                        "Get started",
+                        variant="secondary",
+                        class_name="font-semibold w-full",
+                    ),
+                    to=REFLEX_BUILD_URL,
+                    target="_blank",
+                ),
+            ),
+            # Pro column with button
+            header_item(
+                "Pro",
+                ui.link(
+                    render_=ui.button(
+                        "Upgrade now",
+                        variant="secondary",
+                        class_name="font-semibold w-full",
+                    ),
+                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/billing",
+                    target="_blank",
+                ),
+            ),
+            # Enterprise column with button
+            header_item(
+                "Enterprise",
+                lemcal_dialog(
+                    ui.button(
+                        "Get a demo",
+                        variant="primary",
+                        class_name="font-semibold w-full",
+                    )
+                ),
+            ),
+            class_name="grid grid-cols-4 gap-6 p-4",
         ),
-        create_table_body(
-            *[
-                create_plan_feature_row(feature, free, pro, enterprise)
-                for feature, free, pro, enterprise in SECURITY_FEATURES
-            ],
+        class_name=(
+            "sticky z-10 bg-slate-1 border-x border-slate-4 border-y",
+            rx.cond(HostingBannerState.show_banner, "top-[121px]", "top-[65px]"),
         ),
-        class_name="w-full overflow-x-auto max-w-[120rem] -mt-[2rem]",
     )
 
 
-def table_body_support() -> rx.Component:
-    """Create the Support comparison table body."""
-    return rx.table.root(
-        rx.el.style(TABLE_STYLE),
-        rx.table.header(
-            create_table_row_header_three_columns("Support"),
-            glow(),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[
-                create_plan_feature_row(feature, free, pro, enterprise)
-                for feature, free, pro, enterprise in SUPPORT_FEATURES
-            ],
-        ),
-        class_name="w-full overflow-x-auto max-w-[120rem] -mt-[2rem]",
+def reflex_build_table() -> rx.Component:
+    all_features = (
+        REFLEX_BUILD_BASIC_FEATURES
+        + REFLEX_BUILD_FUNCTIONALITY
+        + REFLEX_BUILD_DEPLOYMENT
+    )
+
+    return pricing_table(
+        title="Reflex Build",
+        icon="MagicWand01Icon",
+        columns=[],
+        features=all_features,
     )
 
 
-def table_body_hosting() -> rx.Component:
-    return rx.table.root(
-        rx.el.style(TABLE_STYLE),
-        rx.table.header(
-            create_table_row_header_three_columns("Cloud"),
-            glow(),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[
-                create_plan_feature_row(feature, free, pro, enterprise)
-                for feature, free, pro, enterprise in CLOUD_HOSTING_FEATURES
-            ],
-        ),
-        table_body_security(),
-        table_body_support(),
-        rx.el.div(class_name="w-full max-w-[89rem] h-[0.5px] bg-slate-3 mx-auto"),
-        class_name="w-full overflow-x-auto max-w-[120rem] -mt-[2rem]",
+def hosting_table() -> rx.Component:
+    return pricing_table(
+        title="Cloud",
+        icon="CloudServerIcon",
+        columns=[],
+        features=CLOUD_HOSTING_FEATURES,
     )
 
 
-def table_body_reflex_build() -> rx.Component:
-    """Create the Reflex Build comparison table body."""
-    return rx.table.root(
-        rx.el.style(TABLE_STYLE),
-        rx.table.header(
-            create_table_row_header_three_columns("Reflex Build"),
-            glow(),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[
-                create_plan_feature_row(feature, free, pro, enterprise)
-                for feature, free, pro, enterprise in REFLEX_BUILD_BASIC_FEATURES
-            ],
-            *[
-                create_plan_feature_row(feature, free, pro, enterprise)
-                for feature, free, pro, enterprise in REFLEX_BUILD_FUNCTIONALITY
-            ],
-            *[
-                create_plan_feature_row(feature, free, pro, enterprise)
-                for feature, free, pro, enterprise in REFLEX_BUILD_DEPLOYMENT
-            ],
-        ),
-        class_name="w-full overflow-x-auto max-w-[120rem] -mt-[2rem] self-center",
+def security_table() -> rx.Component:
+    return pricing_table(
+        title="Security",
+        icon="ShieldKeyIcon",
+        columns=[],
+        features=SECURITY_FEATURES,
     )
 
 
-def header_reflex_build() -> rx.Component:
-    """Create the header for the Reflex Build comparison table."""
-    return rx.box(
-        rx.el.h3(
-            "The enterprise-grade fullstack AI app building platform.",
-            class_name="text-slate-12 text-3xl font-semibold text-center",
-        ),
-        rx.el.p(
-            "Build customized, secure, and scalable apps in seconds",
-            class_name="text-slate-9 text-xl font-semibold text-center",
-        ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[4.5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+def support_table() -> rx.Component:
+    return pricing_table(
+        title="Support",
+        icon="QuestionIcon",
+        columns=[],
+        features=SUPPORT_FEATURES,
     )
 
 
-def comparison_table_reflex_build() -> rx.Component:
-    """Create the complete Reflex Build comparison table."""
-    return rx.box(
-        header_reflex_build(),
-        table_body_reflex_build(),
-        class_name="flex-col w-full  max-w-[120rem] lg:flex hidden self-center",
-    )
-
-
-def comparison_table_hosting() -> rx.Component:
-    return rx.box(
-        header_hosting(),
-        table_body_hosting(),
-        class_name="flex-col w-full  max-w-[120rem] lg:flex hidden self-center",
+def tiers_tables() -> rx.Component:
+    return rx.el.div(
+        rx.el.div(
+            section_header(
+                "The enterprise-grade fullstack AI app building platform.",
+                "Build customized, secure, and scalable apps in seconds",
+            ),
+            sticky_pricing_header(),
+            reflex_build_table(),
+            hosting_table(),
+            security_table(),
+            support_table(),
+            class_name="flex-col w-full max-w-[64.19rem] lg:flex hidden self-center",
+        ),
+        class_name="relative",
     )

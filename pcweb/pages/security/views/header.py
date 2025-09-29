@@ -16,7 +16,7 @@ def security_title() -> rx.Component:
         ),
         rx.el.h2(
             content["subtitle"],
-            class_name="max-w-full w-full font-large text-center text-slate-11 -mt-2 font-normal text-[1.25rem] mx-auto text-balance word-wrap break-words md:whitespace-pre",
+            class_name="max-w-full w-full font-large text-center text-slate-11 -mt-2 font-normal text-[1.25rem] mx-auto text-balance word-wrap break-words",
         ),
         class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-4 lg:pb-[7.875rem]"
         + rx.cond(

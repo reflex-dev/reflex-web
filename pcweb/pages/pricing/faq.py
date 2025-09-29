@@ -27,7 +27,7 @@ def header() -> rx.Component:
 def sales_button() -> rx.Component:
     return rx.el.div(
         lemcal_dialog(
-            rx.fragment(
+            rx.el.div(
                 glow(),
                 button(
                     "Need more help? Contact sales",

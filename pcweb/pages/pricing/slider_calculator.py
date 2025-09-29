@@ -2,23 +2,52 @@ import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
 from pcweb.pages.pricing.calculator import COMPUTE_TABLE
+from dataclasses import dataclass
+from reflex_ui.blocks.lemcal import lemcal_dialog
 
-MESSAGE_COST = 0.2
-PRO_PLAN_COST = 50
 
-messages_cs = ClientStateVar.create("messages_value", default=0)
+@dataclass
+class Machine:
+    vcpu: int
+    ram: int
+    pph: float
+    index: int
+
+    @property
+    def weekly_cost(self) -> float:
+        """Calculate weekly cost (7 days * 24 hours * pph)"""
+        return round(self.pph * 24 * 7, 2)
+
+    @classmethod
+    def from_index(cls, index: int) -> "Machine":
+        """Create Machine from COMPUTE_TABLE index"""
+        machine_key = machine_keys[index]
+        specs = COMPUTE_TABLE[machine_key]
+        return cls(vcpu=specs["vcpu"], ram=specs["ram"], pph=specs["pph"], index=index)
+
+
+PRO_TIERS_TABLE = {
+    "": {"price": 50, "credits": 1000},
+    "50": {"price": 100, "credits": 2000},
+    "100": {"price": 250, "credits": 5000},
+    "200": {"price": 500, "credits": 10000},
+    "Enterprise": {"price": "custom", "credits": "Custom"},
+}
+
 message_tooltip_open_cs = ClientStateVar.create("message_tooltip_open", default=False)
 machine_keys = list(COMPUTE_TABLE.keys())
-COMPUTE_TABLE_VAR = rx.Var.create(COMPUTE_TABLE)
+pro_tier_keys = list(PRO_TIERS_TABLE.keys())
 COMPUTE_TABLE_KEYS = rx.Var.create(machine_keys)
+PRO_TIER_KEYS = rx.Var.create(pro_tier_keys)
 
 
 class MachineState(rx.State):
-    machines: rx.Field[list[int]] = rx.field(default_factory=list)
+    machines: rx.Field[list[Machine]] = rx.field(default_factory=list)
+    messages_tier_index: rx.Field[int] = rx.field(default=0)
 
     @rx.event(temporal=True)
     def add_machine(self):
-        self.machines.append(0)
+        self.machines.append(Machine.from_index(0))
 
     @rx.event(temporal=True)
     def remove_machine(self, index: int):
@@ -26,17 +55,38 @@ class MachineState(rx.State):
 
     @rx.event(temporal=True)
     def update_machine(self, index: int, new_machine_index: int):
-        self.machines[index] = new_machine_index
+        self.machines[index] = Machine.from_index(new_machine_index)
+
+    @rx.event(temporal=True)
+    def update_messages_tier(self, new_tier_index: int):
+        self.messages_tier_index = new_tier_index
+
+    @rx.var
+    def machines_cost(self) -> float:
+        """Calculate total weekly cost of all machines"""
+        return sum(machine.weekly_cost for machine in self.machines)
+
+    @rx.var
+    def current_tier(self) -> dict:
+        """Get current tier information"""
+        tier_key = pro_tier_keys[self.messages_tier_index]
+        return {"key": tier_key, **PRO_TIERS_TABLE[tier_key]}
 
     @rx.var
     def total_cost(self) -> float:
-        return (
-            sum(
-                COMPUTE_TABLE[machine_keys[machine_index]]["pph"] * 24 * 30
-                for machine_index in self.machines
-            )
-            + PRO_PLAN_COST
-        )
+        tier_price = self.current_tier["price"]
+        if tier_price == "custom":
+            return round(self.machines_cost, 2)
+        return round(self.machines_cost + tier_price, 2)
+
+    @rx.var
+    def selected_pro_tier_cost(self) -> float:
+        tier_price = self.current_tier["price"]
+        return 0 if tier_price == "custom" else tier_price
+
+    @rx.var
+    def is_enterprise_tier(self) -> bool:
+        return self.current_tier["price"] == "custom"
 
     @rx.event
     def reset_machines(self):
@@ -52,34 +102,36 @@ def total_cost_card() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 rx.el.span(
-                    "Pro Plan", class_name="text-secondary-11 text-sm font-medium"
+                    rx.cond(
+                        MachineState.is_enterprise_tier,
+                        "Enterprise",
+                        f"Pro {MachineState.current_tier['key']} Plan",
+                    ),
+                    class_name="text-secondary-11 text-sm font-medium",
                 ),
-                rx.el.span(
-                    f"${PRO_PLAN_COST}",
-                    class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
-                ),
-                class_name="flex flex-row gap-2 items-center justify-between mt-auto",
-            ),
-            rx.el.div(
-                rx.el.span(
-                    "Extra Credits", class_name="text-secondary-11 text-sm font-medium"
-                ),
-                rx.el.span(
-                    f"${round(messages_cs.value * MESSAGE_COST, 2)}",
-                    class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
+                rx.cond(
+                    MachineState.is_enterprise_tier,
+                    rx.el.span(
+                        "Custom",
+                        class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
+                    ),
+                    rx.el.span(
+                        f"${MachineState.selected_pro_tier_cost}",
+                        class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
+                    ),
                 ),
                 class_name="flex flex-row gap-2 items-center justify-between mt-auto",
             ),
             rx.foreach(
                 MachineState.machines,
-                lambda machine_index: rx.el.div(
+                lambda machine: rx.el.div(
                     rx.el.span(
-                        COMPUTE_TABLE_KEYS[machine_index],
+                        COMPUTE_TABLE_KEYS[machine.index],
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                     rx.el.span(
-                        f"${round(COMPUTE_TABLE_VAR[COMPUTE_TABLE_KEYS[machine_index]]['pph'] * 24 * 30, 2)}",
-                        class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
+                        f"${round(machine.pph * 24 * 7, 2)}",
+                        class_name="text-secondary-12 text-sm font-medium font-mono",
                     ),
                     class_name="flex flex-row gap-2 items-center justify-between",
                 ),
@@ -87,11 +139,28 @@ def total_cost_card() -> rx.Component:
             rx.el.div(class_name="h-[0.5px] bg-slate-4 w-full"),
             rx.el.div(
                 rx.el.span("Total", class_name="text-secondary-11 text-sm font-medium"),
-                rx.el.span(
-                    f"${round(MachineState.total_cost + (messages_cs.value * MESSAGE_COST), 2)}",
-                    class_name="text-secondary-12 text-sm font-bold font-mono ml-auto",
+                rx.cond(
+                    MachineState.is_enterprise_tier,
+                    rx.el.span(
+                        "Custom",
+                        class_name="text-secondary-12 text-sm font-bold font-mono ml-auto",
+                    ),
+                    rx.el.span(
+                        f"${MachineState.total_cost}",
+                        class_name="text-secondary-12 text-sm font-bold font-mono ml-auto",
+                    ),
                 ),
                 class_name="flex flex-row gap-2 items-center justify-between",
+            ),
+            rx.cond(
+                MachineState.is_enterprise_tier,
+                lemcal_dialog(
+                    ui.button(
+                        "Contact Sales",
+                        size="sm",
+                        class_name="mt-4 font-semibold w-full",
+                    ),
+                ),
             ),
             class_name="flex flex-col gap-2",
         ),
@@ -105,13 +174,25 @@ def messages_card() -> rx.Component:
             rx.el.div(
                 ui.icon("StarCircleIcon", class_name="text-secondary-11 size-5"),
                 rx.el.span(
-                    "Credits (Messages)",
+                    rx.cond(
+                        MachineState.is_enterprise_tier,
+                        "Enterprise",
+                        f"Pro {MachineState.current_tier['key']} Plan",
+                    ),
                     class_name="text-secondary-12 lg:text-lg text-base font-medium",
                 ),
                 class_name="flex flex-row gap-2 items-center",
             ),
             rx.el.span(
-                f"${round(messages_cs.value * MESSAGE_COST, 2)}",
+                MachineState.current_tier["credits"],
+                rx.cond(
+                    MachineState.is_enterprise_tier,
+                    rx.el.span(""),
+                    rx.el.span(
+                        " Credits",
+                        class_name="text-secondary-11 text-md font-medium font-sans",
+                    ),
+                ),
                 class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
             ),
             class_name="flex flex-row gap-2 items-center justify-between",
@@ -123,7 +204,11 @@ def messages_card() -> rx.Component:
                         ui.slider.indicator(),
                         ui.tooltip(
                             trigger=ui.slider.thumb(),
-                            content=f"{messages_cs.value} Credits",
+                            content=rx.cond(
+                                MachineState.is_enterprise_tier,
+                                "Enterprise",
+                                f"Pro {MachineState.current_tier['key']} Plan",
+                            ),
                             open=message_tooltip_open_cs.value,
                             side="bottom",
                         ),
@@ -131,10 +216,10 @@ def messages_card() -> rx.Component:
                 ),
             ),
             min=0,
-            max=10000,
+            max=PRO_TIER_KEYS.length() - 1,
             step=1,
-            value=messages_cs.value,
-            on_value_change=messages_cs.set_value,
+            value=MachineState.messages_tier_index,
+            on_value_change=MachineState.update_messages_tier,
             class_name="w-full max-w-full",
         ),
         on_mouse_enter=message_tooltip_open_cs.set_value(True),
@@ -147,10 +232,11 @@ def messages_card() -> rx.Component:
 
 
 @rx.memo
-def machine_card(machine_index: rx.Var[int], index: int) -> rx.Component:
+def machine_card(machine: Machine, index: int) -> rx.Component:
     machine_tooltip_open_cs = ClientStateVar.create(
         "machine_tooltip_open", default=False, global_ref=False
     )
+    machine_name = COMPUTE_TABLE_KEYS[machine.index]
 
     return rx.el.div(
         rx.el.button(
@@ -162,14 +248,27 @@ def machine_card(machine_index: rx.Var[int], index: int) -> rx.Component:
             rx.el.div(
                 ui.icon("ComputerIcon", class_name="text-secondary-11 size-5"),
                 rx.el.span(
-                    f"{COMPUTE_TABLE_VAR[COMPUTE_TABLE_KEYS[machine_index]]['vcpu']}vCPU / {COMPUTE_TABLE_VAR[COMPUTE_TABLE_KEYS[machine_index]]['ram']}GB",
+                    f"{machine.vcpu}vCPU / {machine.ram}GB",
                     class_name="text-secondary-12 lg:text-lg text-base font-medium",
                 ),
                 class_name="flex flex-row gap-2 items-center",
             ),
-            rx.el.span(
-                f"${round(COMPUTE_TABLE_VAR[COMPUTE_TABLE_KEYS[machine_index]]['pph'] * 24 * 30, 2)}",
-                class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
+            rx.el.div(
+                ui.tooltip(
+                    trigger=rx.el.span(
+                        ui.icon(
+                            "InformationCircleIcon",
+                            class_name="text-secondary-11 size-4",
+                        ),
+                    ),
+                    hoverable=False,
+                    content="Assuming 7 days of serverless compute.",
+                ),
+                rx.el.span(
+                    f"${round(machine.pph * 24 * 7, 2)}",
+                    class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
+                ),
+                class_name="flex flex-row gap-1.5 items-center",
             ),
             class_name="flex flex-row gap-2 items-center justify-between",
         ),
@@ -180,7 +279,7 @@ def machine_card(machine_index: rx.Var[int], index: int) -> rx.Component:
                         ui.slider.indicator(),
                         ui.tooltip(
                             trigger=ui.slider.thumb(),
-                            content=COMPUTE_TABLE_KEYS[machine_index],
+                            content=machine_name,
                             open=machine_tooltip_open_cs.value,
                             side="bottom",
                         ),
@@ -190,7 +289,7 @@ def machine_card(machine_index: rx.Var[int], index: int) -> rx.Component:
             min=0,
             max=COMPUTE_TABLE_KEYS.length() - 1,
             step=1,
-            value=machine_index,
+            value=machine.index,
             on_value_change=lambda new_machine_index: MachineState.update_machine(
                 index, new_machine_index
             ),
@@ -210,22 +309,20 @@ def slider_calculator() -> rx.Component:
         rx.el.div(
             rx.el.h1(
                 "Pricing Calculator",
-                class_name="text-slate-12 lg:text-3xl text-2xl font-semibold text-start",
+                class_name="text-slate-12 lg:text-3xl text-2xl font-semibold text-center",
             ),
             rx.el.h2(
                 "Only pay for what you use, nothing more.",
-                class_name="text-slate-9 text-lg font-semibold text-start",
+                class_name="text-slate-9 text-2xl font-semibold text-center",
             ),
-            class_name="flex flex-col gap-2 justify-start border-b border-slate-4 w-full mx-auto px-6 pb-10",
+            class_name="flex flex-col gap-1 justify-center border-b border-slate-4 w-full mx-auto px-6 pb-10",
         ),
         rx.el.div(
             rx.el.div(
                 messages_card(),
                 rx.foreach(
                     MachineState.machines,
-                    lambda machine_index, index: machine_card(
-                        machine_index=machine_index, index=index
-                    ),
+                    lambda machine, index: machine_card(machine=machine, index=index),
                 ),
                 ui.button(
                     ui.icon("PlusSignIcon"),
@@ -241,5 +338,5 @@ def slider_calculator() -> rx.Component:
             class_name="flex lg:flex-row flex-col lg:gap-10 gap-6 w-full px-6 h-full",
         ),
         on_mount=MachineState.reset_machines,
-        class_name="flex flex-col w-full max-w-[64.19rem] border-t-0 2xl:border-x divide-y divide-slate-4 2xl:border-b pt-[4rem] justify-center items-center",
+        class_name="flex flex-col w-full max-w-[64.19rem] border-t-0 2xl:border-x divide-y divide-slate-4 2xl:border-b pt-[6rem] justify-center items-center",
     )
