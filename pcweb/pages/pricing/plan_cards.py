@@ -250,7 +250,7 @@ def pricing_cards() -> rx.Component:
                 suffix=f" /monthly",
                 class_name="text-3xl text-secondary-12 font-semibold py-4",
             ),
-            "Build, deploy and scale yours apps.",
+            "Build, deploy and scale your apps.",
             [
                 Feature("StarCircleIcon", "", pro_tiers_dropdown()),
                 Feature("SquareLock02Icon", "Private Projects"),
