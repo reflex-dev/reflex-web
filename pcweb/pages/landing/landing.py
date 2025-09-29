@@ -9,7 +9,6 @@ from pcweb.pages.landing.views.hosting_section import hosting_section
 from pcweb.pages.landing.views.outcomes_section import outcomes_section
 from pcweb.pages.landing.views.products import products
 from pcweb.pages.landing.views.security import security
-from pcweb.pages.landing.views.start_building import start_building
 from pcweb.templates.mainpage import mainpage
 
 
@@ -24,6 +23,5 @@ def landing() -> rx.Component:
         hosting_section(),
         outcomes_section(),
         security(),
-        start_building(),
         class_name="flex flex-col size-full justify-center items-center",
     )
