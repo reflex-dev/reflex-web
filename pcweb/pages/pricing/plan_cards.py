@@ -27,9 +27,9 @@ class ProTierState(rx.State):
     credits: rx.Field[int] = rx.field(default=1000)
 
     @rx.event
-    def redirect_to_billing(self):
+    def redirect_to_billing(self, yearly: bool = False):
         return rx.redirect(
-            f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/?tier={quote_plus(self.selected_tier['tier'])}",
+            f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/?tier={quote_plus(self.selected_tier['tier'])}{'&yearly=true' if yearly else ''}",
             is_external=True,
         )
 
@@ -231,7 +231,9 @@ def pricing_cards() -> rx.Component:
                 variant="primary",
                 size="lg",
                 class_name="w-full font-semibold",
-                on_click=ProTierState.redirect_to_billing,
+                on_click=ProTierState.redirect_to_billing(
+                    monthly_yearly_toggle_cs.value == "yearly"
+                ),
             ),
         ),
         popular_card(
