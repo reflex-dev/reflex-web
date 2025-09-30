@@ -307,7 +307,7 @@ def monthly_yearly_toggle():
 def plan_cards():
     return rx.box(
         header(),
-        monthly_yearly_toggle(),
+        # monthly_yearly_toggle(),
         rx.el.style(
             """
             number-flow-react::part(suffix) {
