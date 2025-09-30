@@ -6,7 +6,7 @@ import reflex_ui as ui
 from typing import NamedTuple
 from reflex.experimental.client_state import ClientStateVar
 from pcweb.components.number_flow import number_flow
-from pcweb.constants import PRO_TIERS_TABLE, PRO_PLAN_COST
+from pcweb.constants import PRO_TIERS_TABLE
 from typing import TypedDict
 from urllib.parse import quote_plus
 
@@ -37,12 +37,12 @@ class ProTierState(rx.State):
     def update_credits(self, credits: str):
         self.credits = int(credits.replace(",", ""))
 
-    @rx.var(initial_value=SelectedTier(tier="Pro", price=PRO_PLAN_COST))
+    @rx.var
     def selected_tier(self) -> SelectedTier:
         for tier_name, tier_data in PRO_TIERS_TABLE.items():
             if tier_data["credits"] == self.credits:
                 return SelectedTier(tier=tier_name, price=tier_data["price"])
-        return SelectedTier(tier="Pro", price=PRO_PLAN_COST)
+        return SelectedTier(tier="Pro", price=PRO_TIERS_TABLE["Pro 50"]["price"])
 
 
 class Feature(NamedTuple):
