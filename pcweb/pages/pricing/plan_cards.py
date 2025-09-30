@@ -200,7 +200,7 @@ def pricing_cards() -> rx.Component:
             ),
         ),
         card(
-            ProTierState.selected_tier["tier"],
+            "Pro",
             number_flow(
                 value=rx.cond(
                     monthly_yearly_toggle_cs.value == "monthly",
