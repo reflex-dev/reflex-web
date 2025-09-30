@@ -31,10 +31,7 @@ Add the Reflex MCP server to your Claude Desktop configuration by editing your c
   "mcpServers": {
     "reflex": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-proxy"],
-      "env": {
-        "MCP_PROXY_URL": "https://mcp.reflex.dev/mcp"
-      }
+      "args": ["-y", "mcp-remote", "https://mcp.reflex.dev/mcp"]
     }
   }
 }
@@ -62,8 +59,7 @@ Add this configuration to your `~/.codex/config.toml` file:
 ```toml
 [mcp_servers.reflex]
 command = "npx"
-args = ["-y", "@modelcontextprotocol/server-proxy"]
-env = { "MCP_PROXY_URL" = "https://mcp.reflex.dev/mcp" }
+args = ["-y", "mcp-remote", "https://mcp.reflex.dev/mcp"]
 ```
 
 Note: Codex requires MCP servers to communicate over stdio. The `@modelcontextprotocol/server-proxy` adapter bridges the connection to the HTTP-based Reflex MCP server.
