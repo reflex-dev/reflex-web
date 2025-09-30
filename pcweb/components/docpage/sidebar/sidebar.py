@@ -3,22 +3,90 @@
 from __future__ import annotations
 
 import reflex as rx
+from reflex.base import Base
 
 from pcweb.components.docpage.navbar.state import NavbarState
-from pcweb.constants import ENTERPRISE_DOCS_URL
 from pcweb.styles.colors import c_color
 
 from .sidebar_items.ai import ai_builder_overview_items, mcp_items
 from .sidebar_items.component_lib import component_lib, graphing_libs
 from .sidebar_items.enterprise import (
+    enterprise_component_items,
     enterprise_items,
     enterprise_usage_items,
-    enterprise_component_items,
 )
 from .sidebar_items.learn import backend, cli_ref, frontend, hosting, learn
 from .sidebar_items.recipes import recipes
 from .sidebar_items.reference import api_reference
-from .state import SideBarBase, SideBarItem, SidebarState
+
+
+class SideBarBase(Base):
+    """Base class for the Side bar."""
+
+    # The name to display in the sidebar.
+    names: str = ""
+
+    alt_name_for_next_prev: str = ""
+
+    # The link to navigate to when the item is clicked.
+    link: str = ""
+
+    # The children items.
+    children: list[SideBarBase] = []  # Changed to allow nested sections
+
+    # Whether the item is a category. Occurs if a single item is at the top level of the sidebar for aesthetics.
+    outer = False
+
+
+class SideBarItem(SideBarBase):
+    """A single item in the sidebar."""
+
+    ...
+
+
+class SideBarSection(SideBarBase):
+    """A section in the sidebar."""
+
+    ...
+
+
+class SidebarState(rx.State):
+    """The state for the sidebar component."""
+
+    @rx.var
+    def sidebar_index(self) -> int:
+        """The index of the current sidebar category."""
+        path = self.router.page.path
+        if path.startswith("/docs/hosting/"):
+            return 0
+        if path.startswith("/docs/ai-builder/"):
+            if "/integrations" in path:
+                return 1
+            return 0
+        if path.startswith("/docs/library") or path.startswith(
+            "/docs/custom-components"
+        ):
+            return 1
+        if path.startswith("/docs/api-reference"):
+            return 2
+        if path.startswith("/docs/enterprise"):
+            return 3
+        if path.startswith("/docs/"):
+            return 0
+        return 0
+
+    @rx.var
+    def doc_section(self) -> str:
+        """The current documentation section."""
+        path = self.router.page.path
+        if path.startswith("/docs/hosting/"):
+            return "hosting"
+        if path.startswith("/docs/ai-builder/"):
+            return "ai-builder"
+        if path.startswith("/docs/"):
+            return "docs"
+        return ""
+
 
 Scrollable_SideBar = """
 function scrollToActiveSidebarLink() {
@@ -40,8 +108,8 @@ window.addEventListener("popstate", () => {
   setTimeout(scrollToActiveSidebarLink, 100);
 });
 
-document.addEventListener('click', (e) => {
-  const link = e.target.closest('a[href^="/docs"]');
+document.addEventListener("click", (e) => {
+  const link = e.target.closest("a[href^=\"/docs\"]");
   if (link) {
     setTimeout(scrollToActiveSidebarLink, 200);
   }
@@ -61,7 +129,7 @@ def sidebar_link(*children, **props):
 
 def sidebar_leaf(
     item_index: str,
-    item: SideBarItem,
+    item: SideBarBase,  # Changed type hint
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
@@ -166,7 +234,7 @@ def sidebar_icon(name):
 
 def sidebar_item_comp(
     item_index: str,
-    item: SideBarItem,
+    item: SideBarBase,  # Changed type hint
     index: list[int],
     url: str,
 ):
@@ -272,16 +340,44 @@ def get_prev_next(url):
     return None, None
 
 
-def filter_out_non_sidebar_items(items: list[SideBarBase]) -> list[SideBarItem]:
-    """Filter out non-sidebar items making sure only SideBarItems are present.
-
-    Args:
-        items: The items to filter.
-
-    Return:
-        The filtered side bar items.
-    """
-    return [item for item in items if isinstance(item, SideBarItem)]
+def create_sidebar_section(
+    section_title: str,
+    section_url: str,
+    items: list[SideBarBase],  # Changed type hint
+    index: rx.Var[list[str]] | list[str],
+    url: rx.Var[str] | str,
+) -> rx.Component:
+    # Check if the section has any nested sections (Like the Other Libraries Section)
+    nested = any(len(child.children) > 0 for item in items for child in item.children)
+    # Make sure the index is a list
+    index = index.to(list)
+    return rx.el.li(
+        rx.link(
+            rx.el.h5(
+                section_title,
+                class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
+            ),
+            underline="none",
+            href=section_url,
+            class_name="py-3",
+        ),
+        rx.accordion.root(
+            *[
+                sidebar_item_comp(
+                    item_index="index" + str(item_index),
+                    item=item,
+                    index=index[1:] if nested else [],
+                    url=url,
+                )
+                for item_index, item in enumerate(items)
+            ],
+            type="multiple",
+            collapsible=True,
+            default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
+            class_name="ml-0 pl-0 w-full !bg-transparent !shadow-none rounded-[0px]",
+        ),
+        class_name="flex flex-col items-start ml-0 w-full",
+    )
 
 
 def sidebar_category(name: str, url: str, icon: str, index: int):
@@ -327,49 +423,9 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                 class_name="inset-0 absolute z-[-1]",
             ),
             class_name="w-full text-slate-9 hover:!text-slate-9 relative",
-            on_click=[SidebarState.set_sidebar_index(index), rx.redirect(url)],
+            on_click=rx.redirect(url),
         ),
         class_name="w-full",
-    )
-
-
-def create_sidebar_section(
-    section_title: str,
-    section_url: str,
-    items: list[SideBarItem],
-    index: rx.Var[list[str]] | list[str],
-    url: rx.Var[str] | str,
-) -> rx.Component:
-    # Check if the section has any nested sections (Like the Other Libraries Section)
-    nested = any(len(child.children) > 0 for item in items for child in item.children)
-    # Make sure the index is a list
-    index = index.to(list)
-    return rx.el.li(
-        rx.link(
-            rx.el.h5(
-                section_title,
-                class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
-            ),
-            underline="none",
-            href=section_url,
-            class_name="py-3",
-        ),
-        rx.accordion.root(
-            *[
-                sidebar_item_comp(
-                    item_index="index" + str(item_index),
-                    item=item,
-                    index=index[1:] if nested else [],
-                    url=url,
-                )
-                for item_index, item in enumerate(items)
-            ],
-            type="multiple",
-            collapsible=True,
-            default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-            class_name="ml-0 pl-0 w-full !bg-transparent !shadow-none rounded-[0px]",
-        ),
-        class_name="flex flex-col items-start ml-0 w-full",
     )
 
 
@@ -387,7 +443,7 @@ def sidebar_comp(
     enterprise_usage_index: list[int],
     enterprise_component_index: list[int],
     mcp_index: list[int],
-    #
+    # 
     cli_ref_index: list[int],
     ai_builder_overview_index: list[int],
     tutorials_index: list[int],
@@ -402,249 +458,217 @@ def sidebar_comp(
     from pcweb.pages.docs.library import library
     from pcweb.pages.docs.recipes_overview import overview
 
-    return rx.box(  # pyright: ignore [reportCallIssue]
-        # Handle sidebar categories for docs/cloud first
-        rx.cond(  # pyright: ignore [reportCallIssue]
-            rx.State.router.page.path.startswith("/docs/hosting/"),
+    hosting_categories = rx.el.ul(
+        sidebar_category("Cloud", hosting_page.deploy_quick_start.path, "cloud", 0),
+        class_name="flex flex-col items-start gap-1 w-full list-none",
+    )
+    ai_builder_categories = rx.el.ul(
+        sidebar_category(
+            "Learn",
+            ai_builder_pages.overview.best_practices.path,
+            "bot",
+            0,
+        ),
+        sidebar_category(
+            "MCP",
+            ai_builder_pages.integrations.mcp_overview.path,
+            "plug",
+            1,
+        ),
+        class_name="flex flex-col items-start gap-1 w-full list-none",
+    )
+    docs_categories = rx.el.ul(
+        sidebar_category(
+            "Learn",
+            getting_started.introduction.path,
+            "graduation-cap",
+            0,
+        ),
+        sidebar_category(
+            "Components",
+            library.path,
+            "layout-panel-left",
+            1,
+        ),
+        sidebar_category(
+            "API Reference",
+            pages[0].path,
+            "book-text",
+            2,
+        ),
+        sidebar_category(
+            "Enterprise",
+            enterprise.overview.path,
+            "building-2",
+            3,
+        ),
+        class_name="flex flex-col items-start gap-1 w-full list-none",
+    )
+
+    hosting_content = rx.el.ul(
+        create_sidebar_section(
+            "Cloud",
+            hosting_page.deploy_quick_start.path,
+            hosting,
+            hosting_index,
+            url,
+        ),
+        class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+    )
+
+    ai_builder_content = rx.match(
+        SidebarState.sidebar_index,
+        (
+            0,
             rx.el.ul(
-                sidebar_category(
-                    "Cloud", hosting_page.deploy_quick_start.path, "cloud", 0
+                create_sidebar_section(
+                    "Overview",
+                    ai_builder_pages.overview.best_practices.path,
+                    ai_builder_overview_items,
+                    ai_builder_overview_index,
+                    url,
                 ),
-                # sidebar_category(
-                #     "CLI Reference", cloud_pages[0].path, "book-marked", 1
-                # ),
-                class_name="flex flex-col items-start gap-1 w-full list-none",
-            ),
-            rx.cond(  # pyright: ignore [reportCallIssue]
-                rx.State.router.page.path.startswith("/docs/ai-builder/"),
-                rx.el.ul(
-                    sidebar_category(
-                        "Learn",
-                        ai_builder_pages.overview.best_practices.path,
-                        "bot",
-                        0,
-                    ),
-                    sidebar_category(
-                        "MCP",
-                        ai_builder_pages.integrations.mcp_overview.path,
-                        "plug",
-                        1,
-                    ),
-                    class_name="flex flex-col items-start gap-1 w-full list-none",
-                ),
-                # If the path doesn't start with /docs/cloud, check for general docs
-                rx.cond(  # pyright: ignore [reportCallIssue]
-                    rx.State.router.page.path.startswith("/docs/"),
-                    rx.el.ul(
-                        sidebar_category(
-                            "Learn",
-                            getting_started.introduction.path,
-                            "graduation-cap",
-                            0,
-                        ),
-                        sidebar_category(
-                            "Components",
-                            library.path,
-                            "layout-panel-left",
-                            1,
-                        ),
-                        sidebar_category(
-                            "API Reference",
-                            pages[0].path,
-                            "book-text",
-                            2,
-                        ),
-                        sidebar_category(
-                            "Enterprise",
-                            enterprise.overview.path,
-                            "building-2",
-                            3,
-                        ),
-                        class_name="flex flex-col items-start gap-1 w-full list-none",
-                    ),
-                ),
+                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
             ),
         ),
-        # Handle the sidebar content based on docs/cloud or docs
-        rx.cond(  # pyright: ignore [reportCallIssue]
-            rx.State.router.page.path.startswith("/docs/hosting/"),
-            rx.match(  # pyright: ignore [reportCallIssue]
-                SidebarState.sidebar_index,
-                (
-                    0,
-                    rx.el.ul(
-                        create_sidebar_section(
-                            "Cloud",
-                            hosting_page.deploy_quick_start.path,
-                            hosting,
-                            hosting_index,
-                            url,
-                        ),
-                        class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                    ),
+        (
+            1,
+            rx.el.ul(
+                create_sidebar_section(
+                    "MCP Integration",
+                    ai_builder_pages.integrations.mcp_overview.path,
+                    mcp_items,
+                    mcp_index,
+                    url,
                 ),
-                # (
-                #     1,
-                #     rx.el.ul(
-                #         create_sidebar_section(
-                #             "CLI Reference",
-                #             cloud_pages[0].path,
-                #             cli_ref,
-                #             cli_ref_index,
-                #             url,
-                #         ),
-                #         class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                #     ),
-                # ),
-            ),
-            rx.cond(  # pyright: ignore [reportCallIssue]
-                rx.State.router.page.path.startswith("/docs/ai-builder/"),
-                rx.match(  # pyright: ignore [reportCallIssue]
-                    SidebarState.sidebar_index,
-                    (
-                        0,
-                        rx.el.ul(
-                            create_sidebar_section(
-                                "Overview",
-                                ai_builder_pages.overview.best_practices.path,
-                                ai_builder_overview_items,
-                                ai_builder_overview_index,
-                                url,
-                            ),
-                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                        ),
-                    ),
-                    (
-                        1,
-                        rx.el.ul(
-                            create_sidebar_section(
-                                "MCP Integration",
-                                ai_builder_pages.integrations.mcp_overview.path,
-                                mcp_items,
-                                mcp_index,
-                                url,
-                            ),
-                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                        ),
-                    ),
-                ),
-                rx.cond(  # pyright: ignore [reportCallIssue]
-                    rx.State.router.page.path.startswith("/docs/"),
-                    rx.match(  # pyright: ignore [reportCallIssue]
-                        SidebarState.sidebar_index,
-                        (
-                            0,
-                            rx.el.ul(
-                                create_sidebar_section(
-                                    "Onboarding",
-                                    getting_started.introduction.path,
-                                    learn,
-                                    learn_index,
-                                    url,
-                                ),
-                                create_sidebar_section(
-                                    "User Interface",
-                                    ui.overview.path,
-                                    filter_out_non_sidebar_items(frontend),
-                                    frontend_index,
-                                    url,
-                                ),
-                                create_sidebar_section(
-                                    "State",
-                                    state.overview.path,
-                                    filter_out_non_sidebar_items(backend),
-                                    backend_index,
-                                    url,
-                                ),
-                                create_sidebar_section(
-                                    "Recipes",
-                                    overview.path,
-                                    recipes,
-                                    recipes_index,
-                                    url,
-                                ),
-                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                            ),
-                        ),
-                        (
-                            1,
-                            rx.el.ul(
-                                create_sidebar_section(
-                                    "Core",
-                                    library.path,
-                                    component_lib,
-                                    component_lib_index,
-                                    url,
-                                ),
-                                create_sidebar_section(
-                                    "Graphing",
-                                    library.path,
-                                    graphing_libs,
-                                    graphing_libs_index,
-                                    url,
-                                ),
-                                rx.link(  # pyright: ignore [reportCallIssue]
-                                    rx.box(  # pyright: ignore [reportCallIssue]
-                                        rx.box(  # pyright: ignore [reportCallIssue]
-                                            rx.icon(
-                                                "atom", size=16
-                                            ),  # pyright: ignore [reportCallIssue]
-                                            rx.el.h5(
-                                                "Custom Components",
-                                                class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
-                                            ),
-                                            class_name="flex flex-row items-center gap-3 text-slate-12",
-                                        ),
-                                        rx.text(  # pyright: ignore [reportCallIssue]
-                                            "See what components people have made with Reflex!",
-                                            class_name="font-small text-slate-9",
-                                        ),
-                                        class_name="flex flex-col gap-2 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-large px-3.5 py-2 border rounded-xl transition-bg",
-                                    ),
-                                    underline="none",
-                                    href=custom_components.path,
-                                ),
-                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                            ),
-                        ),
-                        (
-                            2,
-                            rx.el.ul(
-                                create_sidebar_section(
-                                    "Reference",
-                                    pages[0].path,
-                                    api_reference,
-                                    api_reference_index,
-                                    url,
-                                ),
-                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                            ),
-                        ),
-                        (
-                            3,
-                            rx.el.ul(
-                                create_sidebar_section(
-                                    "Enterprise Usage",
-                                    enterprise.overview.path,
-                                    enterprise_usage_items,
-                                    enterprise_usage_index,
-                                    url,
-                                ),
-                                create_sidebar_section(
-                                    "Components",
-                                    enterprise.components.path,
-                                    enterprise_component_items,
-                                    enterprise_component_index,
-                                    url,
-                                ),
-                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                            ),
-                        ),
-                    ),
-                ),
+                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
             ),
         ),
-        # Handle general docs sections
+    )
+
+    docs_content = rx.match(
+        SidebarState.sidebar_index,
+        (
+            0,
+            rx.el.ul(
+                create_sidebar_section(
+                    "Onboarding",
+                    getting_started.introduction.path,
+                    learn,
+                    learn_index,
+                    url,
+                ),
+                create_sidebar_section(
+                    "User Interface",
+                    ui.overview.path,
+                    frontend,  # Removed filter_out_non_sidebar_items
+                    frontend_index,
+                    url,
+                ),
+                create_sidebar_section(
+                    "State",
+                    state.overview.path,
+                    backend,  # Removed filter_out_non_sidebar_items
+                    backend_index,
+                    url,
+                ),
+                create_sidebar_section(
+                    "Recipes",
+                    overview.path,
+                    recipes,
+                    recipes_index,
+                    url,
+                ),
+                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+            ),
+        ),
+        (
+            1,
+            rx.el.ul(
+                create_sidebar_section(
+                    "Core",
+                    library.path,
+                    component_lib,
+                    component_lib_index,
+                    url,
+                ),
+                create_sidebar_section(
+                    "Graphing",
+                    library.path,
+                    graphing_libs,
+                    graphing_libs_index,
+                    url,
+                ),
+                rx.link(
+                    rx.box(
+                        rx.box(
+                            rx.icon("atom", size=16),
+                            rx.el.h5(
+                                "Custom Components",
+                                class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
+                            ),
+                            class_name="flex flex-row items-center gap-3 text-slate-12",
+                        ),
+                        rx.text(
+                            "See what components people have made with Reflex!",
+                            class_name="font-small text-slate-9",
+                        ),
+                        class_name="flex flex-col gap-2 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-large px-3.5 py-2 border rounded-xl transition-bg",
+                    ),
+                    underline="none",
+                    href=custom_components.path,
+                ),
+                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+            ),
+        ),
+        (
+            2,
+            rx.el.ul(
+                create_sidebar_section(
+                    "Reference",
+                    pages[0].path,
+                    api_reference,
+                    api_reference_index,
+                    url,
+                ),
+                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+            ),
+        ),
+        (
+            3,
+            rx.el.ul(
+                create_sidebar_section(
+                    "Enterprise Usage",
+                    enterprise.overview.path,
+                    enterprise_usage_items,
+                    enterprise_usage_index,
+                    url,
+                ),
+                create_sidebar_section(
+                    "Components",
+                    enterprise.components.path,
+                    enterprise_component_items,
+                    enterprise_component_index,
+                    url,
+                ),
+                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+            ),
+        ),
+    )
+
+    return rx.box(
+        rx.match(
+            SidebarState.doc_section,
+            ("hosting", hosting_categories),
+            ("ai-builder", ai_builder_categories),
+            ("docs", docs_categories),
+        ),
+        rx.match(
+            SidebarState.doc_section,
+            ("hosting", hosting_content),
+            ("ai-builder", ai_builder_content),
+            ("docs", docs_content),
+        ),
         style={
             "&::-webkit-scrollbar-thumb": {
                 "background_color": "transparent",
@@ -690,7 +714,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             ai_builder_overview_index=ai_builder_overview_index,
             cli_ref_index=cli_ref_index,
             mcp_index=mcp_index,
-            #
+            # 
             width=width,
         ),
         on_mount=rx.call_script(Scrollable_SideBar),

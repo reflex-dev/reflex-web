@@ -44,7 +44,6 @@ def resource_item(text: str, url: str, icon: str, index):
             class_name="w-full text-slate-9 hover:!text-slate-9",
             underline="none",
             href=url,
-            on_click=SidebarState.set_sidebar_index(index),
         ),
         class_name="w-full",
     )
@@ -107,7 +106,6 @@ def link_item(name: str, url: str, active_str: str = ""):
             }
         },
         class_name=common_cn + rx.cond(active, active_cn, unactive_cn),
-        on_click=SidebarState.set_sidebar_index(0),
     )
 
 
