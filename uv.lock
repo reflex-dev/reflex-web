@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.12'",
@@ -1946,8 +1946,8 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.8.11.dev1"
-source = { git = "https://github.com/reflex-dev/reflex?rev=main#367b24da18faf481eabf43874dc7e24c56ccf13d" }
+version = "0.8.14.dev1"
+source = { git = "https://github.com/reflex-dev/reflex?rev=main#5feefe33df43d6c76f4865c3db86760397efb0a4" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
