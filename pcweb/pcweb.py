@@ -87,6 +87,7 @@ for route in routes:
 
 # Add redirects
 redirects = [
+    ("/docs/enterprise/ag-grid/index", "/docs/enterprise/ag-grid"),
     ("/docs/ai-builder/integrations", "/docs/ai-builder/integrations/database"),
     ("/docs/ai-builder/app-lifecycle", "/docs/ai-builder/app-lifecycle/general"),
     ("/docs/ai-builder/features", "/docs/ai-builder/features/ide"),
