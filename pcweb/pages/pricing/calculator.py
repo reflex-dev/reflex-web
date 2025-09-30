@@ -5,14 +5,17 @@ import reflex_ui as ui
 
 collapsed_calculator_cs = ClientStateVar.create("collapsed_calculator", default=True)
 
+CREDITS_PER_HOUR_CPU = 0.2
+CREDITS_PER_HOUR_GB = 0.5
+
 COMPUTE_TABLE = {
-    "c1m.5": {"vcpu": 1, "ram": 0.5, "pph": 0.046},
-    "c1m1": {"vcpu": 1, "ram": 1, "pph": 0.083},
-    "c1m2": {"vcpu": 1, "ram": 2, "pph": 0.157},
-    "c2m2": {"vcpu": 2, "ram": 2, "pph": 0.166},
-    "c2m4": {"vcpu": 2, "ram": 4, "pph": 0.312},
-    "c4m4": {"vcpu": 4, "ram": 4, "pph": 0.332},
-    "c4m8": {"vcpu": 4, "ram": 8, "pph": 0.625},
+    "c1m.5": {"vcpu": 1, "ram": 0.5},
+    "c1m1": {"vcpu": 1, "ram": 1},
+    "c1m2": {"vcpu": 1, "ram": 2},
+    "c2m2": {"vcpu": 2, "ram": 2},
+    "c2m4": {"vcpu": 2, "ram": 4},
+    "c4m4": {"vcpu": 4, "ram": 4},
+    "c4m8": {"vcpu": 4, "ram": 8},
 }
 
 
@@ -21,12 +24,18 @@ def table_header(cost_text: str) -> rx.Component:
         rx.text("Machine", class_name="text-sm font-semibold text-slate-12"),
         rx.text("vCPU", class_name="text-sm font-semibold text-slate-12"),
         rx.text("GB RAM", class_name="text-sm font-semibold text-slate-12"),
-        rx.text(cost_text, class_name="text-sm font-semibold text-slate-12 text-end"),
+        rx.el.div(
+            ui.icon("StarCircleIcon", class_name="text-slate-9 size-4"),
+            rx.text(
+                cost_text, class_name="text-sm font-semibold text-slate-12 text-end"
+            ),
+            class_name="flex flex-row gap-1 items-center justify-end",
+        ),
         class_name="grid grid-cols-4 gap-4 px-6 py-3 border-b border-slate-4",
     )
 
 
-def table_row(name: str, cpu: str, ram: str, cost: str) -> rx.Component:
+def table_row(name: str, cpu: str, ram: str, cost: str | rx.Component) -> rx.Component:
     return rx.box(
         rx.box(
             name,
@@ -34,7 +43,11 @@ def table_row(name: str, cpu: str, ram: str, cost: str) -> rx.Component:
         ),
         rx.text(cpu, class_name="font-medium text-sm text-slate-9"),
         rx.text(ram, class_name="font-medium text-sm text-slate-9"),
-        rx.text(cost, class_name="font-medium text-sm text-slate-9 text-end"),
+        (
+            rx.text(cost, class_name="font-medium text-sm text-slate-9 text-end")
+            if isinstance(cost, str)
+            else cost
+        ),
         class_name="grid grid-cols-4 gap-4 px-6 py-2 border-b border-slate-4 hover:bg-slate-2",
     )
 
@@ -62,7 +75,13 @@ def min_table(cost_text: str, description: bool = False) -> rx.Component:
                 name,
                 str(specs["vcpu"]),
                 str(specs["ram"]),
-                f"${specs['pph'] / 60:.6f}",
+                rx.el.span(
+                    rx.el.span(
+                        f"{(specs['vcpu'] * CREDITS_PER_HOUR_CPU + specs['ram'] * CREDITS_PER_HOUR_GB) / 60:.3f}",
+                        class_name="font-medium text-sm text-slate-9",
+                    ),
+                    class_name="flex flex-row gap-1 items-center justify-end",
+                ),
             )
             for name, specs in COMPUTE_TABLE.items()
         ],
@@ -78,7 +97,13 @@ def hour_table(cost_text: str, description: bool = False) -> rx.Component:
                 name,
                 str(specs["vcpu"]),
                 str(specs["ram"]),
-                f"${specs['pph']:.3f}",
+                rx.el.span(
+                    rx.el.span(
+                        f"{specs['vcpu'] * CREDITS_PER_HOUR_CPU + specs['ram'] * CREDITS_PER_HOUR_GB:.3f}",
+                        class_name="font-medium text-sm text-slate-9",
+                    ),
+                    class_name="flex flex-row gap-1 items-center justify-end",
+                ),
             )
             for name, specs in COMPUTE_TABLE.items()
         ],
@@ -94,7 +119,13 @@ def month_table(cost_text: str) -> rx.Component:
                 name,
                 str(specs["vcpu"]),
                 str(specs["ram"]),
-                f"${specs['price_per_min'] * 60 * 24 * 30:.2f}",
+                rx.el.span(
+                    rx.el.span(
+                        f"{specs['vcpu'] * CREDITS_PER_HOUR_CPU + specs['ram'] * CREDITS_PER_HOUR_GB:.3f}",
+                        class_name="font-medium text-sm text-slate-9",
+                    ),
+                    class_name="flex flex-row gap-1 items-center justify-end",
+                ),
             )
             for name, specs in COMPUTE_TABLE.items()
         ],
@@ -121,11 +152,11 @@ def compute_table() -> rx.Component:
                 class_name="flex flex-col lg:flex-row gap-4 items-center justify-center lg:justify-between p-6 border-b border-slate-4",
             ),
             tabs.panel(
-                min_table("Cost / min", description=True),
+                min_table("Credits / min", description=True),
                 value="min",
             ),
             tabs.panel(
-                hour_table("Cost / hour", description=True),
+                hour_table("Credits / hour", description=True),
                 value="hour",
             ),
             default_value="min",
@@ -162,11 +193,11 @@ def compute_table_base() -> rx.Component:
                 class_name="flex flex-row gap-2 items-center justify-end pb-6 border-b border-slate-4",
             ),
             tabs.panel(
-                min_table("Cost / min"),
+                min_table("Credits / min"),
                 value="min",
             ),
             tabs.panel(
-                hour_table("Cost / hour"),
+                hour_table("Credits / hour"),
                 value="hour",
             ),
             default_value="min",

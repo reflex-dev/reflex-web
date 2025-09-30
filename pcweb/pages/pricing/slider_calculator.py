@@ -1,36 +1,42 @@
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
-from pcweb.pages.pricing.calculator import COMPUTE_TABLE
+from pcweb.pages.pricing.calculator import (
+    COMPUTE_TABLE,
+    CREDITS_PER_HOUR_CPU,
+    CREDITS_PER_HOUR_GB,
+)
 from dataclasses import dataclass
 from reflex_ui.blocks.lemcal import lemcal_dialog
+from pcweb.constants import REFLEX_CLOUD_URL, PRO_TIERS_TABLE
+
+
+def format_number(number: int) -> str:
+    return rx.Var(f"({number}).toLocaleString('en-US')").to(str)
 
 
 @dataclass
 class Machine:
     vcpu: int
-    ram: int
-    pph: float
+    ram: float
     index: int
-
-    @property
-    def weekly_cost(self) -> float:
-        """Calculate weekly cost (7 days * 24 hours * pph)"""
-        return round(self.pph * 24 * 7, 2)
 
     @classmethod
     def from_index(cls, index: int) -> "Machine":
         """Create Machine from COMPUTE_TABLE index"""
         machine_key = machine_keys[index]
         specs = COMPUTE_TABLE[machine_key]
-        return cls(vcpu=specs["vcpu"], ram=specs["ram"], pph=specs["pph"], index=index)
+        return cls(vcpu=specs["vcpu"], ram=specs["ram"], index=index)
+
+
+def calculate_weekly_credits(vcpu: int, ram: float) -> float:
+    """Calculate weekly credits for a machine"""
+    credits_per_hour = vcpu * CREDITS_PER_HOUR_CPU + ram * CREDITS_PER_HOUR_GB
+    return round(credits_per_hour * 24 * 7, 2)
 
 
 PRO_TIERS_TABLE = {
-    "": {"price": 50, "credits": 1000},
-    "50": {"price": 100, "credits": 2000},
-    "100": {"price": 250, "credits": 5000},
-    "200": {"price": 500, "credits": 10000},
+    **PRO_TIERS_TABLE,
     "Enterprise": {"price": "custom", "credits": "Custom"},
 }
 
@@ -62,9 +68,12 @@ class MachineState(rx.State):
         self.messages_tier_index = new_tier_index
 
     @rx.var
-    def machines_cost(self) -> float:
-        """Calculate total weekly cost of all machines"""
-        return sum(machine.weekly_cost for machine in self.machines)
+    def machines_weekly_credits(self) -> float:
+        """Calculate total weekly credits of all machines"""
+        return sum(
+            calculate_weekly_credits(machine.vcpu, machine.ram)
+            for machine in self.machines
+        )
 
     @rx.var
     def current_tier(self) -> dict:
@@ -73,52 +82,69 @@ class MachineState(rx.State):
         return {"key": tier_key, **PRO_TIERS_TABLE[tier_key]}
 
     @rx.var
-    def total_cost(self) -> float:
-        tier_price = self.current_tier["price"]
-        if tier_price == "custom":
-            return round(self.machines_cost, 2)
-        return round(self.machines_cost + tier_price, 2)
-
-    @rx.var
-    def selected_pro_tier_cost(self) -> float:
-        tier_price = self.current_tier["price"]
-        return 0 if tier_price == "custom" else tier_price
-
-    @rx.var
     def is_enterprise_tier(self) -> bool:
-        return self.current_tier["price"] == "custom"
+        return self.current_tier["credits"] == "Custom"
+
+    @rx.var
+    def total_credits(self) -> str:
+        """Calculate total credits (tier + machines)"""
+        tier_credits = self.current_tier["credits"]
+        if tier_credits == "Custom":
+            return "Custom"
+        return f"{tier_credits + round(self.machines_weekly_credits):,}"
+
+    @rx.var
+    def recommended_tier_info(self) -> dict:
+        """Get recommended tier based on total credits"""
+        tier_credits = self.current_tier["credits"]
+        if tier_credits == "Custom":
+            return {
+                "price": "Custom",
+                "needs_enterprise": True,
+                "name": "Enterprise",
+                "credits": "Custom",
+            }
+
+        total = tier_credits + round(self.machines_weekly_credits)
+
+        for tier_key in pro_tier_keys[:-1]:
+            tier_data = PRO_TIERS_TABLE[tier_key]
+            if total <= tier_data["credits"]:
+                tier_name = f"{tier_key} Plan"
+                return {
+                    "price": f"${tier_data['price']}/mo",
+                    "needs_enterprise": False,
+                    "name": tier_name,
+                    "credits": tier_data["credits"],
+                }
+
+        return {
+            "price": "Custom",
+            "needs_enterprise": True,
+            "name": "Enterprise",
+            "credits": "Custom",
+        }
 
     @rx.event
     def reset_machines(self):
         self.reset()
 
 
-def total_cost_card() -> rx.Component:
+def total_credits_card() -> rx.Component:
     return rx.el.div(
         rx.el.span(
-            "Estimated Cost (Monthly)",
+            "Estimated Credits (Monthly)",
             class_name="text-secondary-12 text-sm font-medium mb-2",
         ),
         rx.el.div(
             rx.el.div(
                 rx.el.span(
-                    rx.cond(
-                        MachineState.is_enterprise_tier,
-                        "Enterprise",
-                        f"Pro {MachineState.current_tier['key']} Plan",
-                    ),
+                    "AI Builder Messages",
                     class_name="text-secondary-11 text-sm font-medium",
                 ),
-                rx.cond(
-                    MachineState.is_enterprise_tier,
-                    rx.el.span(
-                        "Custom",
-                        class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
-                    ),
-                    rx.el.span(
-                        f"${MachineState.selected_pro_tier_cost}",
-                        class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
-                    ),
+                rx.el.span(
+                    format_number(MachineState.current_tier["credits"]),
+                    class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
                 ),
                 class_name="flex flex-row gap-2 items-center justify-between mt-auto",
             ),
@@ -130,7 +156,9 @@ def total_cost_card() -> rx.Component:
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                     rx.el.span(
-                        f"${round(machine.pph * 24 * 7, 2)}",
+                        format_number(
+                            calculate_weekly_credits(machine.vcpu, machine.ram)
+                        ),
                         class_name="text-secondary-12 text-sm font-medium font-mono",
                     ),
                     class_name="flex flex-row gap-2 items-center justify-between",
@@ -139,27 +167,58 @@ def total_cost_card() -> rx.Component:
             rx.el.div(class_name="h-[0.5px] bg-slate-4 w-full"),
             rx.el.div(
                 rx.el.span("Total", class_name="text-secondary-11 text-sm font-medium"),
-                rx.cond(
-                    MachineState.is_enterprise_tier,
-                    rx.el.span(
-                        "Custom",
-                        class_name="text-secondary-12 text-sm font-bold font-mono ml-auto",
-                    ),
-                    rx.el.span(
-                        f"${MachineState.total_cost}",
-                        class_name="text-secondary-12 text-sm font-bold font-mono ml-auto",
-                    ),
+                rx.el.span(
+                    MachineState.total_credits,
+                    class_name="text-secondary-12 text-sm font-bold font-mono ml-auto",
                 ),
                 class_name="flex flex-row gap-2 items-center justify-between",
             ),
+            rx.el.div(
+                rx.el.span(
+                    rx.cond(
+                        MachineState.recommended_tier_info["needs_enterprise"],
+                        rx.el.span(
+                            "Get a custom quote for your needs",
+                            class_name="text-secondary-12 text-sm font-medium",
+                        ),
+                        rx.el.div(
+                            rx.el.span(
+                                f"{MachineState.recommended_tier_info['name']} ({MachineState.recommended_tier_info['price']})",
+                                class_name="text-secondary-12 text-sm font-semibold",
+                            ),
+                            ui.tooltip(
+                                trigger=rx.el.span(
+                                    ui.icon(
+                                        "InformationCircleIcon",
+                                        class_name="text-secondary-11 size-4",
+                                    ),
+                                ),
+                                content=f"{format_number(MachineState.recommended_tier_info['credits'])} credits included",
+                            ),
+                            class_name="flex flex-row gap-2 items-center justify-center",
+                        ),
+                    ),
+                    class_name="text-center",
+                ),
+                class_name="flex flex-col gap-2 mt-4 pt-2 justify-center",
+            ),
             rx.cond(
-                MachineState.is_enterprise_tier,
+                MachineState.recommended_tier_info["needs_enterprise"],
                 lemcal_dialog(
                     ui.button(
                         "Contact Sales",
                         size="sm",
-                        class_name="mt-4 font-semibold w-full",
+                        class_name="font-semibold w-full",
                     ),
+                ),
+                ui.link(
+                    render_=ui.button(
+                        "Upgrade Now",
+                        size="sm",
+                        class_name="font-semibold w-full",
+                    ),
+                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
+                    target="_blank",
                 ),
             ),
             class_name="flex flex-col gap-2",
@@ -174,23 +233,19 @@ def messages_card() -> rx.Component:
             rx.el.div(
                 ui.icon("StarCircleIcon", class_name="text-secondary-11 size-5"),
                 rx.el.span(
-                    rx.cond(
-                        MachineState.is_enterprise_tier,
-                        "Enterprise",
-                        f"Pro {MachineState.current_tier['key']} Plan",
-                    ),
+                    "AI Builder Messages / Month",
                     class_name="text-secondary-12 lg:text-lg text-base font-medium",
                 ),
                 class_name="flex flex-row gap-2 items-center",
             ),
             rx.el.span(
-                MachineState.current_tier["credits"],
+                format_number(MachineState.current_tier["credits"]),
                 rx.cond(
                     MachineState.is_enterprise_tier,
                     rx.el.span(""),
                     rx.el.span(
                         " Credits",
-                        class_name="text-secondary-11 text-md font-medium font-sans",
+                        class_name="text-secondary-11 lg:text-base text-sm font-medium font-sans",
                     ),
                 ),
                 class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
@@ -206,8 +261,8 @@ def messages_card() -> rx.Component:
                             trigger=ui.slider.thumb(),
                             content=rx.cond(
                                 MachineState.is_enterprise_tier,
-                                "Enterprise",
-                                f"Pro {MachineState.current_tier['key']} Plan",
+                                "Custom",
+                                f"{format_number(MachineState.current_tier['credits'])} Messages",
                             ),
                             open=message_tooltip_open_cs.value,
                             side="bottom",
@@ -264,9 +319,16 @@ def machine_card(machine: Machine, index: int) -> rx.Component:
                     hoverable=False,
                     content="Assuming 7 days of serverless compute.",
                 ),
-                rx.el.span(
-                    f"${round(machine.pph * 24 * 7, 2)}",
-                    class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
+                rx.el.div(
+                    rx.el.span(
+                        f"{calculate_weekly_credits(machine.vcpu, machine.ram)}",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
+                    ),
+                    rx.el.span(
+                        " Credits",
+                        class_name="text-secondary-11 lg:text-base text-sm font-medium",
+                    ),
+                    class_name="flex flex-row gap-1 items-baseline",
                 ),
                 class_name="flex flex-row gap-1.5 items-center",
             ),
@@ -334,7 +396,7 @@ def slider_calculator() -> rx.Component:
                 ),
                 class_name="flex flex-col gap-4 w-full py-6",
             ),
-            total_cost_card(),
+            total_credits_card(),
             class_name="flex lg:flex-row flex-col lg:gap-10 gap-6 w-full px-6 h-full",
         ),
         on_mount=MachineState.reset_machines,

@@ -226,7 +226,7 @@ def sticky_pricing_header() -> rx.Component:
                         variant="secondary",
                         class_name="font-semibold w-full",
                     ),
-                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/billing",
+                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
                     target="_blank",
                 ),
             ),

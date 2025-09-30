@@ -6,14 +6,43 @@ import reflex_ui as ui
 from typing import NamedTuple
 from reflex.experimental.client_state import ClientStateVar
 from pcweb.components.number_flow import number_flow
+from pcweb.constants import PRO_TIERS_TABLE, PRO_PLAN_COST
+from typing import TypedDict
+from urllib.parse import quote_plus
 
-PRO_PLAN_COST = 50
 YEARLY_MONTHS_FREE = 2  # 2 months free
 YEARLY_DISCOUNT_MULTIPLIER = (12 - YEARLY_MONTHS_FREE) / 12
 monthly_yearly_toggle_cs = ClientStateVar.create(
     "monthly_yearly_toggle_value",
     default="monthly",
 )
+
+
+class SelectedTier(TypedDict):
+    tier: str
+    price: int
+
+
+class ProTierState(rx.State):
+    credits: rx.Field[int] = rx.field(default=1000)
+
+    @rx.event
+    def redirect_to_billing(self):
+        return rx.redirect(
+            f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/?tier={quote_plus(self.selected_tier['tier'])}",
+            is_external=True,
+        )
+
+    @rx.event
+    def update_credits(self, credits: str):
+        self.credits = int(credits.replace(",", ""))
+
+    @rx.var(initial_value=SelectedTier(tier="Pro", price=PRO_PLAN_COST))
+    def selected_tier(self) -> SelectedTier:
+        for tier_name, tier_data in PRO_TIERS_TABLE.items():
+            if tier_data["credits"] == self.credits:
+                return SelectedTier(tier=tier_name, price=tier_data["price"])
+        return SelectedTier(tier="Pro", price=PRO_PLAN_COST)
 
 
 class Feature(NamedTuple):
@@ -49,8 +78,7 @@ def card(
     price: str | rx.Component,
     description: str | rx.Component,
     features: list[Feature],
-    button_text: str,
-    to: str,
+    cta_button: rx.Component,
 ) -> rx.Component:
     return rx.box(
         rx.el.h3(title, class_name="font-medium text-secondary-12 text-2xl mb-1.5"),
@@ -83,17 +111,7 @@ def card(
             class_name="flex flex-col gap-2",
         ),
         rx.box(class_name="flex-1"),
-        rx.el.a(
-            ui.button(
-                button_text,
-                variant="secondary",
-                size="lg",
-                class_name="w-full font-semibold",
-            ),
-            to=to,
-            target="_blank",
-            underline="none",
-        ),
+        cta_button,
         class_name="flex flex-col p-10 border border-slate-4 rounded-[1.125rem] shadow-small bg-slate-2 w-full h-[30.5rem]",
     )
 
@@ -103,8 +121,7 @@ def popular_card(
     price: str | rx.Component,
     description: str,
     features: list[Feature],
-    button_text: str,
-    to: str,
+    cta_button: rx.Component,
 ) -> rx.Component:
     return rx.box(
         radial_circle(),
@@ -135,87 +152,24 @@ def popular_card(
             class_name="flex flex-col gap-2",
         ),
         rx.box(class_name="flex-1"),
-        (
-            rx.el.a(
-                ui.button(
-                    button_text,
-                    variant="primary",
-                    size="lg",
-                    class_name="w-full font-semibold",
-                ),
-                to=to,
-                target="_blank",
-                underline="none",
-            )
-            if to != "lemcal"
-            else lemcal_dialog(
-                ui.button(
-                    button_text,
-                    variant="primary",
-                    size="lg",
-                    class_name="w-full font-semibold",
-                ),
-            )
-        ),
+        cta_button,
         class_name="flex flex-col p-10 border border-slate-4 rounded-[1.125rem] shadow-small bg-secondary-2 w-full h-[30.5rem] relative z-[1]",
     )
 
 
-def pro_tiers_dropdown() -> rx.Component:
-    tiers = [
-        {"tier": "Pro 50", "price": "$100", "credits": "2,000"},
-        {"tier": "Pro 100", "price": "$250", "credits": "5,000"},
-        {"tier": "Pro 200", "price": "$500", "credits": "10,000"},
-    ]
-    return ui.preview_card(
-        trigger=rx.el.div(
-            rx.el.span(
-                "1000 monthly credits",
-                class_name="text-secondary-12 text-sm font-medium underline decoration-dashed underline-offset-[2.5px] decoration-secondary-10",
-            ),
-            ui.icon("InformationCircleIcon", class_name="text-secondary-11", size=16),
-            class_name="flex items-center gap-1 cursor-help",
+def pro_tiers_select() -> rx.Component:
+    return rx.el.div(
+        ui.select(
+            items=[f"{int(tier['credits']):,}" for tier in PRO_TIERS_TABLE.values()],
+            value=f"{ProTierState.credits:,}",
+            on_value_change=ProTierState.update_credits,
+            size="xs",
         ),
-        content=rx.el.table(
-            rx.el.thead(
-                rx.el.tr(
-                    rx.el.th(
-                        "Tier",
-                        class_name="font-semibold text-secondary-12 text-sm text-left pb-2",
-                    ),
-                    rx.el.th(
-                        "Price",
-                        class_name="font-semibold text-secondary-12 text-sm text-left pb-2",
-                    ),
-                    rx.el.th(
-                        "Credits",
-                        class_name="font-semibold text-secondary-12 text-sm pb-2 text-right",
-                    ),
-                    class_name="border-b border-slate-4",
-                )
-            ),
-            rx.el.tbody(
-                *[
-                    rx.el.tr(
-                        rx.el.td(
-                            tier["tier"],
-                            class_name="text-secondary-11 text-sm font-medium py-2",
-                        ),
-                        rx.el.td(
-                            tier["price"],
-                            class_name="text-secondary-11 text-sm font-medium py-2",
-                        ),
-                        rx.el.td(
-                            tier["credits"],
-                            class_name="text-secondary-12 text-sm font-medium py-2 text-right",
-                        ),
-                    )
-                    for tier in tiers
-                ]
-            ),
-            class_name="table-auto w-full",
+        rx.el.span(
+            "monthly credits",
+            class_name="text-sm font-medium text-secondary-12",
         ),
-        class_name="w-fit p-4",
+        class_name="flex flex-row gap-2 items-center **:data-[slot=select-trigger]:min-w-22",
     )
 
 
@@ -234,16 +188,28 @@ def pricing_cards() -> rx.Component:
                 Feature("CheckmarkBadge02Icon", "Built with Reflex Attribution"),
                 Feature("PlugSocketIcon", "Integrations"),
             ],
-            "Start building for free",
-            REFLEX_BUILD_URL,
+            ui.link(
+                render_=ui.button(
+                    "Start building for free",
+                    variant="secondary",
+                    size="lg",
+                    class_name="w-full font-semibold",
+                ),
+                to=REFLEX_BUILD_URL,
+                target="_blank",
+            ),
         ),
         card(
-            "Pro",
+            ProTierState.selected_tier["tier"],
             number_flow(
                 value=rx.cond(
                     monthly_yearly_toggle_cs.value == "monthly",
-                    PRO_PLAN_COST,
-                    round(PRO_PLAN_COST * YEARLY_DISCOUNT_MULTIPLIER, 1),
+                    ProTierState.selected_tier["price"],
+                    round(
+                        ProTierState.selected_tier["price"]
+                        * YEARLY_DISCOUNT_MULTIPLIER,
+                        1,
+                    ),
                 ),
                 trend="0",
                 prefix="$",
@@ -252,7 +218,7 @@ def pricing_cards() -> rx.Component:
             ),
             "Build, deploy and scale your apps.",
             [
-                Feature("StarCircleIcon", "", pro_tiers_dropdown()),
+                Feature("StarCircleIcon", "", pro_tiers_select()),
                 Feature("SquareLock02Icon", "Private Projects"),
                 Feature("CursorInWindowIcon", "Full-Fledged Browser IDE"),
                 Feature("PlugSocketIcon", "Integrations"),
@@ -260,8 +226,13 @@ def pricing_cards() -> rx.Component:
                 Feature("Globe02Icon", "Custom Domains"),
                 Feature("CpuIcon", "Up to 8 GB RAM / 4 vCPU per deployed app"),
             ],
-            "Start with Pro plan",
-            f"{REFLEX_CLOUD_URL.rstrip('/')}/billing",
+            ui.button(
+                "Start with Pro plan",
+                variant="primary",
+                size="lg",
+                class_name="w-full font-semibold",
+                on_click=ProTierState.redirect_to_billing,
+            ),
         ),
         popular_card(
             "Enterprise",
@@ -281,8 +252,14 @@ def pricing_cards() -> rx.Component:
                 Feature("QuestionIcon", "Dedicated Support Channel"),
                 Feature("CustomerSupportIcon", "Onboarding support"),
             ],
-            "Contact sales",
-            "lemcal",
+            lemcal_dialog(
+                ui.button(
+                    "Contact sales",
+                    variant="primary",
+                    size="lg",
+                    class_name="w-full font-semibold",
+                ),
+            ),
         ),
         class_name="grid xl:grid-cols-3 grid-cols-1 gap-4 w-full",
     )
