@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.12'",
@@ -1946,8 +1946,8 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.8.11.dev1"
-source = { git = "https://github.com/reflex-dev/reflex?rev=main#367b24da18faf481eabf43874dc7e24c56ccf13d" }
+version = "0.8.13"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
@@ -1966,6 +1966,10 @@ dependencies = [
     { name = "starlette" },
     { name = "typing-extensions" },
     { name = "wrapt" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/91/bb/196626610c3268db769539b42d2b6e32edc0b21a57365921a00399ff6dde/reflex-0.8.13.tar.gz", hash = "sha256:866b5c1c2738b9330c0e48810439f09c0d830157f28e6d87ad0ef1b7764ec808", size = 601359, upload-time = "2025-09-29T18:52:34.541Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c6/37/3fc65bf23d2ee6528a50356c05dab547ccf80741469e9ec2d7f61daf26d5/reflex-0.8.13-py3-none-any.whl", hash = "sha256:3f9d9dd6eaaff939f8aa1ec60c6235f00bd4d8bf274122d8e7b18d6d89994058", size = 889238, upload-time = "2025-09-29T18:52:31.536Z" },
 ]
 
 [[package]]
@@ -2078,7 +2082,7 @@ requires-dist = [
     { name = "plotly-express", specifier = "==0.4.1" },
     { name = "posthog", specifier = "==6.1.1" },
     { name = "psycopg", extras = ["binary"], specifier = "==3.2.9" },
-    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
+    { name = "reflex", specifier = ">=0.8.13" },
     { name = "reflex-enterprise", specifier = ">=0.3.3" },
     { name = "reflex-hosting-cli", specifier = ">=0.1.55" },
     { name = "reflex-image-zoom", specifier = ">=0.0.2" },
