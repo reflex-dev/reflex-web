@@ -91,7 +91,7 @@ class MachineState(rx.State):
         tier_credits = self.current_tier["credits"]
         if tier_credits == "Custom":
             return "Custom"
-        return f"{tier_credits + round(self.machines_weekly_credits):,}"
+        return f"{tier_credits + round(self.machines_weekly_credits, 2):,}"
 
     @rx.var
     def recommended_tier_info(self) -> dict:
@@ -233,7 +233,7 @@ def messages_card() -> rx.Component:
             rx.el.div(
                 ui.icon("StarCircleIcon", class_name="text-secondary-11 size-5"),
                 rx.el.span(
-                    "AI Builder Messages / Month",
+                    f"{format_number(MachineState.current_tier['credits'])} AI Builder Messages / Month",
                     class_name="text-secondary-12 lg:text-lg text-base font-medium",
                 ),
                 class_name="flex flex-row gap-2 items-center",
