@@ -211,7 +211,7 @@ def total_credits_card() -> rx.Component:
                 class_name="flex flex-row gap-2 items-center justify-between",
             ),
             rx.el.div(
-                rx.el.span(
+                 rx.el.span(
                     rx.cond(
                         MachineState.recommended_tier_info["needs_enterprise"],
                         rx.el.span(
@@ -236,27 +236,27 @@ def total_credits_card() -> rx.Component:
                         ),
                     ),
                     class_name="text-center",
-                ),
+                 ),
                 class_name="flex flex-col gap-2 mt-4 pt-2 justify-center",
             ),
             rx.cond(
                 MachineState.recommended_tier_info["needs_enterprise"],
-                lemcal_dialog(
-                    ui.button(
-                        "Contact Sales",
-                        size="sm",
-                        class_name="font-semibold w-full",
-                    ),
-                ),
-                ui.link(
-                    render_=ui.button(
-                        "Upgrade Now",
-                        size="sm",
-                        class_name="font-semibold w-full",
-                    ),
-                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
-                    target="_blank",
-                ),
+                 lemcal_dialog(
+                     ui.button(
+                         "Contact Sales",
+                         size="sm",
+                         class_name="font-semibold w-full",
+                     ),
+                 ),
+                 ui.link(
+                     render_=ui.button(
+                         "Upgrade Now",
+                         size="sm",
+                         class_name="font-semibold w-full",
+                     ),
+                     to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
+                     target="_blank",
+                 ),
             ),
             class_name="flex flex-col gap-2",
         ),
@@ -283,18 +283,18 @@ def messages_card() -> rx.Component:
                 class_name="flex flex-row gap-2 items-center",
             ),
             rx.el.div(
-                rx.cond(
-                    MachineState.is_enterprise_tier,
-                    rx.el.span(
-                        "Custom",
-                        class_name="text-secondary-12 lg:text-lg text-base font-medium",
-                    ),
-                    rx.el.span(
-                        format_number(MachineState.current_tier["credits"]),
-                        " Credits",
-                        class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
-                    ),
-                ),
+                 rx.cond(
+                     MachineState.is_enterprise_tier,
+                     rx.el.span(
+                         "Custom",
+                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
+                     ),
+                     rx.el.span(
+                         format_number(MachineState.current_tier["credits"]),
+                         " Credits",
+                         class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
+                     ),
+                 ),
                 class_name="flex flex-row gap-1.5 items-center",
             ),
             class_name="flex flex-row gap-2 items-center justify-between",
@@ -312,7 +312,7 @@ def messages_card() -> rx.Component:
                                 MachineState.is_enterprise_tier,
                                 "Custom Messages",
                                 f"{format_number(MachineState.current_tier['messages'])} Messages",
-                            ),
+                             ),
                         ),
                         open=message_tooltip_open_cs.value,
                         side="bottom",
