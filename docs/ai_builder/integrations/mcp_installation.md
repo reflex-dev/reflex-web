@@ -62,4 +62,4 @@ command = "npx"
 args = ["-y", "mcp-remote", "https://mcp.reflex.dev/mcp"]
 ```
 
-Note: Codex requires MCP servers to communicate over stdio. The `@modelcontextprotocol/server-proxy` adapter bridges the connection to the HTTP-based Reflex MCP server.
+Note: Codex requires MCP servers to communicate over stdio. The `mcp-remote` package bridges the connection to the HTTP-based Reflex MCP server.
