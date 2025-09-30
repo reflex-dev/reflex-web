@@ -35,11 +35,6 @@ def calculate_weekly_credits(vcpu: int, ram: float) -> float:
     return round(credits_per_hour * 24 * 7, 2)
 
 
-PRO_TIERS_TABLE = {
-    **PRO_TIERS_TABLE,
-    "Enterprise": {"price": "custom", "credits": "Custom"},
-}
-
 message_tooltip_open_cs = ClientStateVar.create("message_tooltip_open", default=False)
 machine_keys = list(COMPUTE_TABLE.keys())
 pro_tier_keys = list(PRO_TIERS_TABLE.keys())
@@ -69,64 +64,81 @@ class MachineState(rx.State):
     def update_messages_tier(self, new_tier_index: int):
         self.messages_tier_index = new_tier_index
 
-    @rx.var
-    def machines_weekly_credits(self) -> float:
+    def _get_message_credits(self) -> int:
+        """Get credits from message tier slider"""
+        return MESSAGES_VALUES[self.messages_tier_index]
+
+    def _get_machines_credits(self) -> float:
         """Calculate total weekly credits of all machines"""
         return sum(
             calculate_weekly_credits(machine.vcpu, machine.ram)
             for machine in self.machines
         )
 
-    @rx.var
-    def current_tier(self) -> dict:
-        """Get current tier information based on MESSAGES_VALUES"""
-        # Check if at the last index (Enterprise tier)
-        if self.messages_tier_index == len(MESSAGES_VALUES) - 1:
-            credits = MESSAGES_VALUES[self.messages_tier_index]
-            return {"key": "Enterprise", "credits": credits, "price": "custom"}
+    def _get_total_credits(self) -> float:
+        """Calculate total credits as numeric value"""
+        return self._get_message_credits() + round(self._get_machines_credits(), 2)
 
-        credits = MESSAGES_VALUES[self.messages_tier_index]
-        # Determine pricing based on credits
-        for tier_key in pro_tier_keys[:-1]:
+    def _find_tier_for_credits(self, credits: float) -> dict | None:
+        """Find Pro tier that fits the given credits, or None if Enterprise needed"""
+        for tier_key in pro_tier_keys:
             tier_data = PRO_TIERS_TABLE[tier_key]
             if credits <= tier_data["credits"]:
-                return {
-                    "key": tier_key,
-                    "credits": credits,
-                    "price": tier_data["price"],
-                    "messages": round(credits / 10, 1),
-                }
-        return {"key": "Enterprise", "credits": credits, "price": "custom"}
+                return {"key": tier_key, **tier_data}
+        return None
+
+    @rx.var
+    def machines_weekly_credits(self) -> float:
+        """For UI display of machine credits"""
+        return self._get_machines_credits()
 
     @rx.var
     def is_enterprise_tier(self) -> bool:
+        """Check if slider is at Enterprise position"""
         return self.messages_tier_index == len(MESSAGES_VALUES) - 1
 
     @rx.var
-    def total_credits(self) -> str:
-        """Calculate total credits (tier + machines)"""
+    def current_tier(self) -> dict:
+        """Current tier info based on message credits only"""
+        msg_credits = self._get_message_credits()
+
         if self.is_enterprise_tier:
+            return {
+                "key": "Enterprise",
+                "credits": msg_credits,
+                "price": "custom",
+                "messages": "custom",
+            }
+
+        tier = self._find_tier_for_credits(msg_credits)
+        return {
+            "key": tier["key"] if tier else "Enterprise",
+            "credits": msg_credits,
+            "price": tier["price"] if tier else "custom",
+            "messages": msg_credits,
+        }
+
+    @rx.var
+    def total_credits(self) -> str:
+        """Total credits display string"""
+        total = self._get_total_credits()
+        if self.is_enterprise_tier or not self._find_tier_for_credits(total):
             return "Custom"
-        tier_credits = self.current_tier["credits"]
-        return f"{tier_credits + round(self.machines_weekly_credits, 2):,}"
+        return f"{total:,}"
 
     @rx.var
     def recommended_tier_info(self) -> dict:
-        """Get recommended tier based on total credits"""
-        tier_credits = self.current_tier["credits"]
-        total = tier_credits + round(self.machines_weekly_credits)
+        """Recommended tier based on total usage"""
+        tier = self._find_tier_for_credits(self._get_total_credits())
 
-        for tier_key in pro_tier_keys[:-1]:
-            tier_data = PRO_TIERS_TABLE[tier_key]
-            if total <= tier_data["credits"]:
-                tier_name = f"{tier_key} Plan"
-                return {
-                    "price": f"${tier_data['price']}/mo",
-                    "needs_enterprise": False,
-                    "name": tier_name,
-                    "credits": tier_data["credits"],
-                    "messages": round(tier_data["credits"] / 10, 1),
-                }
+        if tier:
+            return {
+                "price": f"${tier['price']}/mo",
+                "needs_enterprise": False,
+                "name": f"{tier['key']} Plan",
+                "credits": tier["credits"],
+                "messages": round(tier["credits"] / 10, 1),
+            }
 
         return {
             "price": "Custom",
@@ -152,11 +164,11 @@ def total_credits_card() -> rx.Component:
                 rx.cond(
                     MachineState.is_enterprise_tier,
                     rx.el.span(
-                        "AI Messages (Custom)",
+                        "Reflex Build Credits (Custom)",
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                     rx.el.span(
-                        f"AI Messages ({format_number(MachineState.current_tier['messages'])})",
+                        f"Reflex Build Credits ({format_number(MachineState.current_tier['messages'])})",
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                 ),
@@ -260,11 +272,11 @@ def messages_card() -> rx.Component:
                 rx.cond(
                     MachineState.is_enterprise_tier,
                     rx.el.span(
-                        "Custom AI Builder Messages / Month",
+                        "Custom Reflex Build Credits / Month",
                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
                     ),
                     rx.el.span(
-                        f"{format_number(MachineState.current_tier['messages'])} AI Builder Messages / Month",
+                        f"{format_number(MachineState.current_tier['messages'])} Reflex Build Credits / Month",
                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
                     ),
                 ),
