@@ -183,7 +183,7 @@ def total_credits_card() -> rx.Component:
                         ),
                         rx.el.div(
                             rx.el.span(
-                                f"{MachineState.recommended_tier_info['name']} ({MachineState.recommended_tier_info['price']})",
+                                f"Pro Plan ({MachineState.recommended_tier_info['price']})",
                                 class_name="text-secondary-12 text-sm font-semibold",
                             ),
                             ui.tooltip(
