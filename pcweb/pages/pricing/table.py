@@ -10,7 +10,7 @@ CLOUD_HOSTING_FEATURES = [
     ("Dedicated Machines", False, False, True),
     ("Custom Domains", "0", "5", "Unlimited"),
     ("App Metrics", True, True, True),
-    ("Log Retention", "1 hours", "7 day", "90-Day Log History"),
+    ("Log Retention", "1 hour", "7 day", "90-Day Log History"),
     ("Multiple Regions", False, True, True),
     ('"Built with Reflex" Attribution', True, False, False),
     ("One-click rollbacks", True, True, True),

@@ -228,7 +228,7 @@ def pricing_cards() -> rx.Component:
             ],
             ui.button(
                 "Start with Pro plan",
-                variant="primary",
+                variant="secondary",
                 size="lg",
                 class_name="w-full font-semibold",
                 on_click=ProTierState.redirect_to_billing(

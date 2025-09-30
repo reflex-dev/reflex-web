@@ -46,6 +46,8 @@ pro_tier_keys = list(PRO_TIERS_TABLE.keys())
 COMPUTE_TABLE_KEYS = rx.Var.create(machine_keys)
 PRO_TIER_KEYS = rx.Var.create(pro_tier_keys)
 
+MESSAGES_VALUES = [0] + [50 * (2**i) for i in range(9)] + [20000, 0]
+
 
 class MachineState(rx.State):
     machines: rx.Field[list[Machine]] = rx.field(default_factory=list)
@@ -77,34 +79,41 @@ class MachineState(rx.State):
 
     @rx.var
     def current_tier(self) -> dict:
-        """Get current tier information"""
-        tier_key = pro_tier_keys[self.messages_tier_index]
-        return {"key": tier_key, **PRO_TIERS_TABLE[tier_key]}
+        """Get current tier information based on MESSAGES_VALUES"""
+        # Check if at the last index (Enterprise tier)
+        if self.messages_tier_index == len(MESSAGES_VALUES) - 1:
+            credits = MESSAGES_VALUES[self.messages_tier_index]
+            return {"key": "Enterprise", "credits": credits, "price": "custom"}
+
+        credits = MESSAGES_VALUES[self.messages_tier_index]
+        # Determine pricing based on credits
+        for tier_key in pro_tier_keys[:-1]:
+            tier_data = PRO_TIERS_TABLE[tier_key]
+            if credits <= tier_data["credits"]:
+                return {
+                    "key": tier_key,
+                    "credits": credits,
+                    "price": tier_data["price"],
+                    "messages": round(credits / 10, 1),
+                }
+        return {"key": "Enterprise", "credits": credits, "price": "custom"}
 
     @rx.var
     def is_enterprise_tier(self) -> bool:
-        return self.current_tier["credits"] == "Custom"
+        return self.messages_tier_index == len(MESSAGES_VALUES) - 1
 
     @rx.var
     def total_credits(self) -> str:
         """Calculate total credits (tier + machines)"""
-        tier_credits = self.current_tier["credits"]
-        if tier_credits == "Custom":
+        if self.is_enterprise_tier:
             return "Custom"
+        tier_credits = self.current_tier["credits"]
         return f"{tier_credits + round(self.machines_weekly_credits, 2):,}"
 
     @rx.var
     def recommended_tier_info(self) -> dict:
         """Get recommended tier based on total credits"""
         tier_credits = self.current_tier["credits"]
-        if tier_credits == "Custom":
-            return {
-                "price": "Custom",
-                "needs_enterprise": True,
-                "name": "Enterprise",
-                "credits": "Custom",
-            }
-
         total = tier_credits + round(self.machines_weekly_credits)
 
         for tier_key in pro_tier_keys[:-1]:
@@ -116,6 +125,7 @@ class MachineState(rx.State):
                     "needs_enterprise": False,
                     "name": tier_name,
                     "credits": tier_data["credits"],
+                    "messages": round(tier_data["credits"] / 10, 1),
                 }
 
         return {
@@ -123,6 +133,7 @@ class MachineState(rx.State):
             "needs_enterprise": True,
             "name": "Enterprise",
             "credits": "Custom",
+            "messages": "custom",
         }
 
     @rx.event
@@ -138,13 +149,27 @@ def total_credits_card() -> rx.Component:
         ),
         rx.el.div(
             rx.el.div(
-                rx.el.span(
-                    "AI Builder Messages",
-                    class_name="text-secondary-11 text-sm font-medium",
+                rx.cond(
+                    MachineState.is_enterprise_tier,
+                    rx.el.span(
+                        "AI Messages (Custom)",
+                        class_name="text-secondary-11 text-sm font-medium",
+                    ),
+                    rx.el.span(
+                        f"AI Messages ({format_number(MachineState.current_tier['messages'])})",
+                        class_name="text-secondary-11 text-sm font-medium",
+                    ),
                 ),
-                rx.el.span(
-                    format_number(MachineState.current_tier["credits"]),
-                    class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
+                rx.cond(
+                    MachineState.is_enterprise_tier,
+                    rx.el.span(
+                        "Custom",
+                        class_name="text-secondary-12 text-sm font-medium ml-auto font-mono",
+                    ),
+                    rx.el.span(
+                        format_number(MachineState.current_tier["credits"]),
+                        class_name="text-secondary-12 text-sm font-medium font-mono ml-auto",
+                    ),
                 ),
                 class_name="flex flex-row gap-2 items-center justify-between mt-auto",
             ),
@@ -232,46 +257,58 @@ def messages_card() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 ui.icon("StarCircleIcon", class_name="text-secondary-11 size-5"),
-                rx.el.span(
-                    f"{format_number(MachineState.current_tier['credits'])} AI Builder Messages / Month",
-                    class_name="text-secondary-12 lg:text-lg text-base font-medium",
+                rx.cond(
+                    MachineState.is_enterprise_tier,
+                    rx.el.span(
+                        "Custom AI Builder Messages / Month",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium",
+                    ),
+                    rx.el.span(
+                        f"{format_number(MachineState.current_tier['messages'])} AI Builder Messages / Month",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium",
+                    ),
                 ),
                 class_name="flex flex-row gap-2 items-center",
             ),
-            rx.el.span(
-                format_number(MachineState.current_tier["credits"]),
+            rx.el.div(
                 rx.cond(
                     MachineState.is_enterprise_tier,
-                    rx.el.span(""),
                     rx.el.span(
+                        "Custom",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium",
+                    ),
+                    rx.el.span(
+                        format_number(MachineState.current_tier["credits"]),
                         " Credits",
-                        class_name="text-secondary-11 lg:text-base text-sm font-medium font-sans",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
                     ),
                 ),
-                class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
+                class_name="flex flex-row gap-1.5 items-center",
             ),
             class_name="flex flex-row gap-2 items-center justify-between",
         ),
         ui.slider.root(
             ui.slider.control(
-                ui.slider.control(
-                    ui.slider.track(
-                        ui.slider.indicator(),
-                        ui.tooltip(
-                            trigger=ui.slider.thumb(),
-                            content=rx.cond(
+                ui.slider.track(
+                    ui.slider.indicator(),
+                    ui.tooltip(
+                        trigger=ui.slider.thumb(),
+                        content=rx.cond(
+                            MachineState.is_enterprise_tier,
+                            "Custom",
+                            rx.cond(
                                 MachineState.is_enterprise_tier,
-                                "Custom",
-                                f"{format_number(MachineState.current_tier['credits'])} Messages",
+                                "Custom Messages",
+                                f"{format_number(MachineState.current_tier['messages'])} Messages",
                             ),
-                            open=message_tooltip_open_cs.value,
-                            side="bottom",
                         ),
+                        open=message_tooltip_open_cs.value,
+                        side="bottom",
                     ),
                 ),
             ),
             min=0,
-            max=PRO_TIER_KEYS.length() - 1,
+            max=len(MESSAGES_VALUES) - 1,
             step=1,
             value=MachineState.messages_tier_index,
             on_value_change=MachineState.update_messages_tier,
@@ -336,15 +373,13 @@ def machine_card(machine: Machine, index: int) -> rx.Component:
         ),
         ui.slider.root(
             ui.slider.control(
-                ui.slider.control(
-                    ui.slider.track(
-                        ui.slider.indicator(),
-                        ui.tooltip(
-                            trigger=ui.slider.thumb(),
-                            content=machine_name,
-                            open=machine_tooltip_open_cs.value,
-                            side="bottom",
-                        ),
+                ui.slider.track(
+                    ui.slider.indicator(),
+                    ui.tooltip(
+                        trigger=ui.slider.thumb(),
+                        content=machine_name,
+                        open=machine_tooltip_open_cs.value,
+                        side="bottom",
                     ),
                 ),
             ),
