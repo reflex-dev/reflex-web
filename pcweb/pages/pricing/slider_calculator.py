@@ -11,8 +11,11 @@ from reflex_ui.blocks.lemcal import lemcal_dialog
 from pcweb.constants import REFLEX_CLOUD_URL, PRO_TIERS_TABLE
 
 
-def format_number(number: int) -> str:
-    return rx.Var(f"({number}).toLocaleString('en-US')").to(str)
+def format_number(number: int | float) -> str:
+    """Format number with locale string, handling non-numeric values"""
+    return rx.Var(
+        f"(typeof {number} === 'number' ? {number} : 0).toLocaleString('en-US')"
+    ).to(str)
 
 
 @dataclass
@@ -20,13 +23,20 @@ class Machine:
     vcpu: int
     ram: float
     index: int
+    weekly_credits: float = 0.0
 
     @classmethod
     def from_index(cls, index: int) -> "Machine":
         """Create Machine from COMPUTE_TABLE index"""
         machine_key = machine_keys[index]
         specs = COMPUTE_TABLE[machine_key]
-        return cls(vcpu=specs["vcpu"], ram=specs["ram"], index=index)
+        weekly_credits = calculate_weekly_credits(specs["vcpu"], specs["ram"])
+        return cls(
+            vcpu=specs["vcpu"],
+            ram=specs["ram"],
+            index=index,
+            weekly_credits=weekly_credits,
+        )
 
 
 def calculate_weekly_credits(vcpu: int, ram: float) -> float:
@@ -58,36 +68,92 @@ class MachineState(rx.State):
     machines: rx.Field[list[Machine]] = rx.field(default_factory=list)
     messages_tier_index: rx.Field[int] = rx.field(default=0)
 
+    machines_weekly_credits: rx.Field[float] = rx.field(default=0.0)
+    current_tier: rx.Field[dict] = rx.field(
+        default_factory=lambda: {"key": "Pro", "credits": 0, "price": 0}
+    )
+    total_credits: rx.Field[str] = rx.field(default="0")
+    recommended_tier_info: rx.Field[dict] = rx.field(
+        default_factory=lambda: {
+            "price": "$0/mo",
+            "needs_enterprise": False,
+            "name": "Pro Plan",
+            "credits": 0,
+        }
+    )
+
+    def _recalculate_all(self):
+        """Recalculate all derived values when state changes"""
+        # Calculate machines weekly credits using cached values
+        self.machines_weekly_credits = sum(
+            machine.weekly_credits for machine in self.machines
+        )
+
+        # Calculate current tier based on message credits
+        msg_credits = get_message_credits(self.messages_tier_index)
+        is_enterprise = get_is_enterprise_tier(self.messages_tier_index)
+
+        if is_enterprise:
+            self.current_tier = {
+                "key": "Enterprise",
+                "credits": msg_credits,
+                "price": "custom",
+            }
+        else:
+            tier = self._find_tier_for_credits(msg_credits)
+            self.current_tier = {
+                "key": tier["key"] if tier else "Enterprise",
+                "credits": msg_credits,
+                "price": tier["price"] if tier else "custom",
+            }
+
+        # Calculate total credits and find tier once
+        total = msg_credits + round(self.machines_weekly_credits, 2)
+        total_tier = None if is_enterprise else self._find_tier_for_credits(total)
+
+        # Set total credits display
+        if is_enterprise or not total_tier:
+            self.total_credits = "Custom"
+        else:
+            self.total_credits = f"{total:,}"
+
+        # Set recommended tier info
+        if total_tier:
+            self.recommended_tier_info = {
+                "price": f"${total_tier['price']}/mo",
+                "needs_enterprise": False,
+                "name": f"{total_tier['key']} Plan",
+                "credits": total_tier["credits"],
+            }
+        else:
+            self.recommended_tier_info = {
+                "price": "Custom",
+                "needs_enterprise": True,
+                "name": "Enterprise",
+                "credits": "Custom",
+            }
+
     @rx.event(temporal=True)
     def add_machine(self):
         self.machines.append(Machine.from_index(0))
+        self._recalculate_all()
 
     @rx.event(temporal=True)
     def remove_machine(self, index: int):
         self.machines = self.machines[:index] + self.machines[index + 1 :]
+        self._recalculate_all()
 
     @rx.event(temporal=True)
     def update_machine(self, index: int, new_machine_index: int):
         self.machines[index] = Machine.from_index(new_machine_index)
+        self._recalculate_all()
 
     @rx.event(temporal=True)
     def update_messages_tier(self, new_tier_index: int):
         if new_tier_index == self.messages_tier_index:
             return
         self.messages_tier_index = new_tier_index
-
-    def _get_machines_credits(self) -> float:
-        """Calculate total weekly credits of all machines"""
-        return sum(
-            calculate_weekly_credits(machine.vcpu, machine.ram)
-            for machine in self.machines
-        )
-
-    def _get_total_credits(self) -> float:
-        """Calculate total credits as numeric value"""
-        return get_message_credits(self.messages_tier_index) + round(
-            self._get_machines_credits(), 2
-        )
+        self._recalculate_all()
 
     def _find_tier_for_credits(self, credits: float) -> dict | None:
         """Find Pro tier that fits the given credits, or None if Enterprise needed"""
@@ -97,63 +163,15 @@ class MachineState(rx.State):
                 return {"key": tier_key, **tier_data}
         return None
 
-    @rx.var
-    def machines_weekly_credits(self) -> float:
-        """For UI display of machine credits"""
-        return self._get_machines_credits()
-
-    @rx.var
-    def current_tier(self) -> dict:
-        """Current tier info based on message credits only"""
-        msg_credits = get_message_credits(self.messages_tier_index)
-
-        if get_is_enterprise_tier(self.messages_tier_index):
-            return {
-                "key": "Enterprise",
-                "credits": msg_credits,
-                "price": "custom",
-            }
-
-        tier = self._find_tier_for_credits(msg_credits)
-        return {
-            "key": tier["key"] if tier else "Enterprise",
-            "credits": msg_credits,
-            "price": tier["price"] if tier else "custom",
-        }
-
-    @rx.var
-    def total_credits(self) -> str:
-        """Total credits display string"""
-        total = self._get_total_credits()
-        if get_is_enterprise_tier(
-            self.messages_tier_index
-        ) or not self._find_tier_for_credits(total):
-            return "Custom"
-        return f"{total:,}"
-
-    @rx.var
-    def recommended_tier_info(self) -> dict:
-        """Recommended tier based on total usage"""
-        tier = self._find_tier_for_credits(self._get_total_credits())
-
-        if tier:
-            return {
-                "price": f"${tier['price']}/mo",
-                "needs_enterprise": False,
-                "name": f"{tier['key']} Plan",
-                "credits": tier["credits"],
-            }
-
-        return {
-            "price": "Custom",
-            "needs_enterprise": True,
-            "name": "Enterprise",
-            "credits": "Custom",
-        }
-
-    @rx.event
+    @rx.event(temporal=True)
     def reset_machines(self):
         self.reset()
+        self._recalculate_all()
+
+    @rx.event(temporal=True)
+    def on_load(self):
+        """Initialize calculated values on page load"""
+        self._recalculate_all()
 
 
 def total_credits_card() -> rx.Component:
@@ -196,9 +214,7 @@ def total_credits_card() -> rx.Component:
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                     rx.el.span(
-                        format_number(
-                            calculate_weekly_credits(machine.vcpu, machine.ram)
-                        ),
+                        format_number(machine.weekly_credits),
                         class_name="text-secondary-12 text-sm font-medium font-mono",
                     ),
                     class_name="flex flex-row gap-2 items-center justify-between",
@@ -311,13 +327,7 @@ def messages_card() -> rx.Component:
                         content=rx.cond(
                             get_is_enterprise_tier(MachineState.messages_tier_index),
                             "Custom",
-                            rx.cond(
-                                get_is_enterprise_tier(
-                                    MachineState.messages_tier_index
-                                ),
-                                "Custom Messages",
-                                f"{format_number(MachineState.current_tier['credits'])} Messages",
-                            ),
+                            f"{format_number(MachineState.current_tier['credits'])} Messages",
                         ),
                         open=message_tooltip_open_cs.value,
                         side="bottom",
@@ -375,7 +385,7 @@ def machine_card(machine: Machine, index: int) -> rx.Component:
                 ),
                 rx.el.div(
                     rx.el.span(
-                        f"{calculate_weekly_credits(machine.vcpu, machine.ram)}",
+                        f"{machine.weekly_credits}",
                         class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
                     ),
                     rx.el.span(
@@ -451,6 +461,6 @@ def slider_calculator() -> rx.Component:
             total_credits_card(),
             class_name="flex lg:flex-row flex-col lg:gap-10 gap-6 w-full px-6 h-full",
         ),
-        on_mount=MachineState.reset_machines,
+        on_mount=[MachineState.reset_machines, MachineState.on_load],
         class_name="flex flex-col w-full max-w-[64.19rem] border-t-0 2xl:border-x divide-y divide-slate-4 2xl:border-b pt-[6rem] justify-center items-center",
     )
