@@ -137,17 +137,6 @@ def animated_box() -> rx.Component:
 def deploy_animation() -> rx.Component:
     return rx.el.section(
         grid(),
-        rx.box(
-            rx.el.h2(
-                "Deploy, manage, and scale.",
-                class_name="lg:text-3xl text-xl font-semibold text-slate-12 text-balance",
-            ),
-            rx.el.span(
-                "A complete infrastructure for your apps",
-                class_name="lg:text-3xl text-xl font-semibold text-slate-9 z-[1] text-balance",
-            ),
-            class_name="flex flex-col text-center",
-        ),
         animated_box(),
         class_name="overflow-hidden flex flex-col justify-center gap-[3.5rem] w-full h-auto max-w-[64.19rem] lg:border-x border-slate-3 lg:px-[8.5rem] lg:pt-[5.5rem] pt-12 border-b border-t relative",
     )
