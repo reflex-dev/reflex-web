@@ -44,6 +44,16 @@ PRO_TIER_KEYS = rx.Var.create(pro_tier_keys)
 MESSAGES_VALUES = [0] + [50 * (2**i) for i in range(9)] + [20000, 0]
 
 
+def get_is_enterprise_tier(messages_tier_index: int) -> bool:
+    """Check if slider is at Enterprise position"""
+    return messages_tier_index == len(MESSAGES_VALUES) - 1
+
+
+def get_message_credits(messages_tier_index: int) -> int:
+    """Get credits from message tier slider"""
+    return MESSAGES_VALUES[messages_tier_index]
+
+
 class MachineState(rx.State):
     machines: rx.Field[list[Machine]] = rx.field(default_factory=list)
     messages_tier_index: rx.Field[int] = rx.field(default=0)
@@ -62,11 +72,9 @@ class MachineState(rx.State):
 
     @rx.event(temporal=True)
     def update_messages_tier(self, new_tier_index: int):
+        if new_tier_index == self.messages_tier_index:
+            return
         self.messages_tier_index = new_tier_index
-
-    def _get_message_credits(self) -> int:
-        """Get credits from message tier slider"""
-        return MESSAGES_VALUES[self.messages_tier_index]
 
     def _get_machines_credits(self) -> float:
         """Calculate total weekly credits of all machines"""
@@ -77,7 +85,9 @@ class MachineState(rx.State):
 
     def _get_total_credits(self) -> float:
         """Calculate total credits as numeric value"""
-        return self._get_message_credits() + round(self._get_machines_credits(), 2)
+        return get_message_credits(self.messages_tier_index) + round(
+            self._get_machines_credits(), 2
+        )
 
     def _find_tier_for_credits(self, credits: float) -> dict | None:
         """Find Pro tier that fits the given credits, or None if Enterprise needed"""
@@ -93,21 +103,15 @@ class MachineState(rx.State):
         return self._get_machines_credits()
 
     @rx.var
-    def is_enterprise_tier(self) -> bool:
-        """Check if slider is at Enterprise position"""
-        return self.messages_tier_index == len(MESSAGES_VALUES) - 1
-
-    @rx.var
     def current_tier(self) -> dict:
         """Current tier info based on message credits only"""
-        msg_credits = self._get_message_credits()
+        msg_credits = get_message_credits(self.messages_tier_index)
 
-        if self.is_enterprise_tier:
+        if get_is_enterprise_tier(self.messages_tier_index):
             return {
                 "key": "Enterprise",
                 "credits": msg_credits,
                 "price": "custom",
-                "messages": "custom",
             }
 
         tier = self._find_tier_for_credits(msg_credits)
@@ -115,14 +119,15 @@ class MachineState(rx.State):
             "key": tier["key"] if tier else "Enterprise",
             "credits": msg_credits,
             "price": tier["price"] if tier else "custom",
-            "messages": msg_credits,
         }
 
     @rx.var
     def total_credits(self) -> str:
         """Total credits display string"""
         total = self._get_total_credits()
-        if self.is_enterprise_tier or not self._find_tier_for_credits(total):
+        if get_is_enterprise_tier(
+            self.messages_tier_index
+        ) or not self._find_tier_for_credits(total):
             return "Custom"
         return f"{total:,}"
 
@@ -137,7 +142,6 @@ class MachineState(rx.State):
                 "needs_enterprise": False,
                 "name": f"{tier['key']} Plan",
                 "credits": tier["credits"],
-                "messages": round(tier["credits"] / 10, 1),
             }
 
         return {
@@ -145,7 +149,6 @@ class MachineState(rx.State):
             "needs_enterprise": True,
             "name": "Enterprise",
             "credits": "Custom",
-            "messages": "custom",
         }
 
     @rx.event
@@ -162,18 +165,18 @@ def total_credits_card() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 rx.cond(
-                    MachineState.is_enterprise_tier,
+                    get_is_enterprise_tier(MachineState.messages_tier_index),
                     rx.el.span(
                         "Reflex Build Credits (Custom)",
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                     rx.el.span(
-                        f"Reflex Build Credits ({format_number(MachineState.current_tier['messages'])})",
+                        f"Reflex Build Credits ({format_number(MachineState.current_tier['credits'])})",
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                 ),
                 rx.cond(
-                    MachineState.is_enterprise_tier,
+                    get_is_enterprise_tier(MachineState.messages_tier_index),
                     rx.el.span(
                         "Custom",
                         class_name="text-secondary-12 text-sm font-medium ml-auto font-mono",
@@ -211,9 +214,9 @@ def total_credits_card() -> rx.Component:
                 class_name="flex flex-row gap-2 items-center justify-between",
             ),
             rx.el.div(
-                 rx.el.span(
+                rx.el.span(
                     rx.cond(
-                        MachineState.recommended_tier_info["needs_enterprise"],
+                        get_is_enterprise_tier(MachineState.messages_tier_index),
                         rx.el.span(
                             "Get a custom quote for your needs",
                             class_name="text-secondary-12 text-sm font-medium",
@@ -236,27 +239,27 @@ def total_credits_card() -> rx.Component:
                         ),
                     ),
                     class_name="text-center",
-                 ),
+                ),
                 class_name="flex flex-col gap-2 mt-4 pt-2 justify-center",
             ),
             rx.cond(
-                MachineState.recommended_tier_info["needs_enterprise"],
-                 lemcal_dialog(
-                     ui.button(
-                         "Contact Sales",
-                         size="sm",
-                         class_name="font-semibold w-full",
-                     ),
-                 ),
-                 ui.link(
-                     render_=ui.button(
-                         "Upgrade Now",
-                         size="sm",
-                         class_name="font-semibold w-full",
-                     ),
-                     to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
-                     target="_blank",
-                 ),
+                get_is_enterprise_tier(MachineState.messages_tier_index),
+                lemcal_dialog(
+                    ui.button(
+                        "Contact Sales",
+                        size="sm",
+                        class_name="font-semibold w-full",
+                    ),
+                ),
+                ui.link(
+                    render_=ui.button(
+                        "Upgrade Now",
+                        size="sm",
+                        class_name="font-semibold w-full",
+                    ),
+                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
+                    target="_blank",
+                ),
             ),
             class_name="flex flex-col gap-2",
         ),
@@ -270,31 +273,31 @@ def messages_card() -> rx.Component:
             rx.el.div(
                 ui.icon("StarCircleIcon", class_name="text-secondary-11 size-5"),
                 rx.cond(
-                    MachineState.is_enterprise_tier,
+                    get_is_enterprise_tier(MachineState.messages_tier_index),
                     rx.el.span(
                         "Custom Reflex Build Credits / Month",
                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
                     ),
                     rx.el.span(
-                        f"{format_number(MachineState.current_tier['messages'])} Reflex Build Credits / Month",
+                        f"{format_number(MachineState.current_tier['credits'])} Reflex Build Credits / Month",
                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
                     ),
                 ),
                 class_name="flex flex-row gap-2 items-center",
             ),
             rx.el.div(
-                 rx.cond(
-                     MachineState.is_enterprise_tier,
-                     rx.el.span(
-                         "Custom",
-                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
-                     ),
-                     rx.el.span(
-                         format_number(MachineState.current_tier["credits"]),
-                         " Credits",
-                         class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
-                     ),
-                 ),
+                rx.cond(
+                    get_is_enterprise_tier(MachineState.messages_tier_index),
+                    rx.el.span(
+                        "Custom",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium",
+                    ),
+                    rx.el.span(
+                        format_number(MachineState.current_tier["credits"]),
+                        " Credits",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
+                    ),
+                ),
                 class_name="flex flex-row gap-1.5 items-center",
             ),
             class_name="flex flex-row gap-2 items-center justify-between",
@@ -306,13 +309,15 @@ def messages_card() -> rx.Component:
                     ui.tooltip(
                         trigger=ui.slider.thumb(),
                         content=rx.cond(
-                            MachineState.is_enterprise_tier,
+                            get_is_enterprise_tier(MachineState.messages_tier_index),
                             "Custom",
                             rx.cond(
-                                MachineState.is_enterprise_tier,
+                                get_is_enterprise_tier(
+                                    MachineState.messages_tier_index
+                                ),
                                 "Custom Messages",
-                                f"{format_number(MachineState.current_tier['messages'])} Messages",
-                             ),
+                                f"{format_number(MachineState.current_tier['credits'])} Messages",
+                            ),
                         ),
                         open=message_tooltip_open_cs.value,
                         side="bottom",
