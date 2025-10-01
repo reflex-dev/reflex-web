@@ -39,7 +39,7 @@ class TextfieldBlur(rx.State):
 
     @rx.event
     def set_text(self, value: str):
-        self.text = text
+        self.text = value
 
 def blur_example():
     return rx.vstack(
