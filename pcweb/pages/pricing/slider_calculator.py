@@ -337,7 +337,6 @@ def messages_card() -> rx.Component:
             min=0,
             max=len(MESSAGES_VALUES) - 1,
             step=1,
-            value=MachineState.messages_tier_index,
             on_value_change=lambda new_tier_index: rx.cond(
                 MachineState.messages_tier_index != new_tier_index,
                 MachineState.update_messages_tier(new_tier_index),
