@@ -53,6 +53,7 @@ available_items = ["2:00", "3:00", "4:00", "5:00"]
 class SingleSelectionChipsState(rx.State):
     selected_item: str = ""
 
+    @rx.event
     def set_selected_item(self, value: str):
         self.selected_item = value
 
