@@ -467,6 +467,5 @@ def slider_calculator() -> rx.Component:
             total_credits_card(),
             class_name="flex lg:flex-row flex-col lg:gap-10 gap-6 w-full px-6 h-full",
         ),
-        on_mount=[MachineState.reset_machines, MachineState.on_load],
         class_name="flex flex-col w-full max-w-[64.19rem] border-t-0 2xl:border-x divide-y divide-slate-4 2xl:border-b pt-[6rem] justify-center items-center",
     )
