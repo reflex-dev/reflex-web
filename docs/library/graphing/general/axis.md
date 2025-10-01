@@ -179,12 +179,13 @@ class AxisState(rx.State):
     y_axis_offset: int
 
     @rx.event
-    def set_y_axis_postion(self, position: str):
-        self.y_axis_postion = position
+    @rx.event
+    def set_y_axis_position(self, position: str):
+        self.y_axis_position = position
 
     @rx.event
-    def set_x_axis_postion(self, position: str):
-        self.x_axis_postion = position
+    def set_x_axis_position(self, position: str):
+        self.x_axis_position = position
 
     @rx.event
     def set_x_axis_offset(self, offset: str):
