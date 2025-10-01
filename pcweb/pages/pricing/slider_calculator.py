@@ -11,6 +11,11 @@ from reflex_ui.blocks.lemcal import lemcal_dialog
 from pcweb.constants import REFLEX_CLOUD_URL, PRO_TIERS_TABLE
 
 
+_SORTED_TIERS = sorted(
+    [{"key": k, **v} for k, v in PRO_TIERS_TABLE.items()], key=lambda x: x["credits"]
+)
+
+
 def format_number(number: int | float) -> str:
     """Format number with locale string, handling non-numeric values"""
     return rx.Var(
@@ -85,37 +90,43 @@ class MachineState(rx.State):
     def _recalculate_all(self):
         """Recalculate all derived values when state changes"""
         # Calculate machines weekly credits using cached values
-        self.machines_weekly_credits = sum(
-            machine.weekly_credits for machine in self.machines
-        )
+        machines_credits = sum(m.weekly_credits for m in self.machines)
+        self.machines_weekly_credits = machines_credits
 
         # Calculate current tier based on message credits
         msg_credits = get_message_credits(self.messages_tier_index)
         is_enterprise = get_is_enterprise_tier(self.messages_tier_index)
 
+        # Early return path for enterprise tier
         if is_enterprise:
             self.current_tier = {
                 "key": "Enterprise",
                 "credits": msg_credits,
                 "price": "custom",
             }
-        else:
-            tier = self._find_tier_for_credits(msg_credits)
-            self.current_tier = {
-                "key": tier["key"] if tier else "Enterprise",
-                "credits": msg_credits,
-                "price": tier["price"] if tier else "custom",
+            self.total_credits = "Custom"
+            self.recommended_tier_info = {
+                "price": "Custom",
+                "needs_enterprise": True,
+                "name": "Enterprise",
+                "credits": "Custom",
             }
+            return
 
-        # Calculate total credits and find tier once
-        total = msg_credits + round(self.machines_weekly_credits, 2)
-        total_tier = None if is_enterprise else self._find_tier_for_credits(total)
+        # Non-enterprise path - find tiers once
+        current_tier = self._find_tier_for_credits(msg_credits)
+        total = msg_credits + machines_credits
+        total_tier = self._find_tier_for_credits(total)
+
+        # Set current tier
+        self.current_tier = {
+            "key": current_tier["key"] if current_tier else "Enterprise",
+            "credits": msg_credits,
+            "price": current_tier["price"] if current_tier else "custom",
+        }
 
         # Set total credits display
-        if is_enterprise or not total_tier:
-            self.total_credits = "Custom"
-        else:
-            self.total_credits = f"{total:,}"
+        self.total_credits = f"{total:,}" if total_tier else "Custom"
 
         # Set recommended tier info
         if total_tier:
@@ -156,11 +167,10 @@ class MachineState(rx.State):
         self._recalculate_all()
 
     def _find_tier_for_credits(self, credits: float) -> dict | None:
-        """Find Pro tier that fits the given credits, or None if Enterprise needed"""
-        for tier_key in pro_tier_keys:
-            tier_data = PRO_TIERS_TABLE[tier_key]
-            if credits <= tier_data["credits"]:
-                return {"key": tier_key, **tier_data}
+        """Find Pro tier that fits the given credits using binary search"""
+        for tier in _SORTED_TIERS:
+            if credits <= tier["credits"]:
+                return tier
         return None
 
     @rx.event(temporal=True)
@@ -342,6 +352,7 @@ def messages_card() -> rx.Component:
                 MachineState.update_messages_tier(new_tier_index),
                 rx.noop(),
             ),
+            min_steps_between_values=1,
             class_name="w-full max-w-full",
         ),
         on_mouse_enter=message_tooltip_open_cs.set_value(True),
@@ -417,6 +428,7 @@ def machine_card(machine: Machine, index: int) -> rx.Component:
             max=COMPUTE_TABLE_KEYS.length() - 1,
             step=1,
             value=machine.index,
+            min_steps_between_values=1,
             on_value_change=lambda new_machine_index: rx.cond(
                 machine.index != new_machine_index,
                 MachineState.update_machine(index, new_machine_index),
