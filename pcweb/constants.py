@@ -99,3 +99,13 @@ TWITTER_CREATOR = "@getreflex"
 POSTHOG_API_KEY = os.getenv("POSTHOG_API_KEY")
 
 SLACK_DEMO_WEBHOOK_URL: str = os.environ.get("SLACK_DEMO_WEBHOOK_URL")
+
+# Pricing
+PRO_TIERS_TABLE = {
+    "Pro 50": {"price": 50, "credits": 1000},
+    "Pro 100": {"price": 100, "credits": 2000},
+    "Pro 250": {"price": 250, "credits": 5000},
+    "Pro 500": {"price": 500, "credits": 10000},
+    "Pro 750": {"price": 750, "credits": 15000},
+    "Pro 1000": {"price": 1000, "credits": 20000},
+}

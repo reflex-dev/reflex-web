@@ -1984,7 +1984,7 @@ wheels = [
 
 [[package]]
 name = "reflex-hosting-cli"
-version = "0.1.55"
+version = "0.1.56"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -1993,9 +1993,9 @@ dependencies = [
     { name = "platformdirs" },
     { name = "rich" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/80/04/5920b46c3363edf5b4165909c3f87a197ee42d42a33cbd8497479f2cfefd/reflex_hosting_cli-0.1.55.tar.gz", hash = "sha256:f5d5b0c26cefdc7ba3356954b7be6bfa8ec50267c13a2247f6cf18a140e95918", size = 35818, upload-time = "2025-08-14T21:04:55.157Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/98/51/029207a63593f25cddb9cfe5c59147cf1e5de9a967dfa87cd8b6296e7c41/reflex_hosting_cli-0.1.56.tar.gz", hash = "sha256:b29bb0a2bee0ee59ac4f1c7beecc727e914c3c0ab73fc4a536a5b33c237f40b7", size = 35889, upload-time = "2025-09-25T03:28:29.977Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7f/b3/e3e96eec558368cce20d7064862f50849886565187b2dd1df600874799c9/reflex_hosting_cli-0.1.55-py3-none-any.whl", hash = "sha256:84e78715a1f112996a0a1f8c5503958931a7fc6f0f61b7332645b8fde96c3b17", size = 45323, upload-time = "2025-08-14T21:04:53.9Z" },
+    { url = "https://files.pythonhosted.org/packages/c6/10/ab023eabe375eed3a0e0ac3350f007465e10a59ca6d70dbde455abcb404d/reflex_hosting_cli-0.1.56-py3-none-any.whl", hash = "sha256:9c6e5f0a26ab61fa20a89a4ea053d36d94e3134507fc1fca428500a0738139b2", size = 45420, upload-time = "2025-09-25T03:28:28.685Z" },
 ]
 
 [[package]]
@@ -2080,7 +2080,7 @@ requires-dist = [
     { name = "psycopg", extras = ["binary"], specifier = "==3.2.9" },
     { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
     { name = "reflex-enterprise", specifier = ">=0.3.3" },
-    { name = "reflex-hosting-cli", specifier = ">=0.1.55" },
+    { name = "reflex-hosting-cli", specifier = ">=0.1.56" },
     { name = "reflex-image-zoom", specifier = ">=0.0.2" },
     { name = "reflex-pyplot", specifier = "==0.2.1" },
     { name = "reflex-ui", git = "https://github.com/reflex-dev/reflex-ui?rev=main" },

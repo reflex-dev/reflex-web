@@ -246,8 +246,8 @@ def keyboard_shortcut_script() -> rx.Component:
 def search_trigger() -> rx.Component:
     """Render the search trigger button."""
     return rx.box(
-        rx.icon(
-            "search",
+        ui.icon(
+            "Search01Icon",
             class_name="md:absolute md:left-2 md:top-1/2 md:transform md:-translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
         ),
         rx.text(
@@ -257,7 +257,7 @@ def search_trigger() -> rx.Component:
         rx.el.input(
             placeholder="Search",
             read_only=True,
-            class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
+            class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block font-medium",
         ),
         class_name="py-[6px] md:px-[12px] w-8 md:w-full hover:bg-slate-3 cursor-pointer flex items-center justify-center h-8 border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
     )
