@@ -338,7 +338,11 @@ def messages_card() -> rx.Component:
             max=len(MESSAGES_VALUES) - 1,
             step=1,
             value=MachineState.messages_tier_index,
-            on_value_change=MachineState.update_messages_tier,
+            on_value_change=lambda new_tier_index: rx.cond(
+                MachineState.messages_tier_index != new_tier_index,
+                MachineState.update_messages_tier(new_tier_index),
+                rx.noop(),
+            ),
             class_name="w-full max-w-full",
         ),
         on_mouse_enter=message_tooltip_open_cs.set_value(True),
@@ -414,8 +418,10 @@ def machine_card(machine: Machine, index: int) -> rx.Component:
             max=COMPUTE_TABLE_KEYS.length() - 1,
             step=1,
             value=machine.index,
-            on_value_change=lambda new_machine_index: MachineState.update_machine(
-                index, new_machine_index
+            on_value_change=lambda new_machine_index: rx.cond(
+                machine.index != new_machine_index,
+                MachineState.update_machine(index, new_machine_index),
+                rx.noop(),
             ),
             class_name="w-full max-w-full",
         ),
