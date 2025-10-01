@@ -83,6 +83,7 @@ class EditableText(rx.ComponentState):
     original_text: str
     editing: bool = False
 
+    @rx.event
     def set_text(self, value: str):
         self.text = value
 
