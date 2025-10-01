@@ -174,7 +174,8 @@ EditableText._per_component_state_instance_count = 4
 class EditableTextDemoState(rx.State):
     value: str = "Global state text"
 
-    def set_value(self, value):
+    @rx.event
+    def set_value(self, value: str):
         self.value = value
 
 def editable_text_with_global_state():
