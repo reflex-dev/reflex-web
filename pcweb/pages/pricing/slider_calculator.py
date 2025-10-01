@@ -157,6 +157,7 @@ class MachineState(rx.State):
     @rx.event(temporal=True)
     def update_machine(self, index: int, new_machine_index: int):
         self.machines[index] = Machine.from_index(new_machine_index)
+        yield
         self._recalculate_all()
 
     @rx.event(temporal=True)
@@ -164,6 +165,7 @@ class MachineState(rx.State):
         if new_tier_index == self.messages_tier_index:
             return
         self.messages_tier_index = new_tier_index
+        yield
         self._recalculate_all()
 
     def _find_tier_for_credits(self, credits: float) -> dict | None:
@@ -349,9 +351,10 @@ def messages_card() -> rx.Component:
             step=1,
             on_value_change=lambda new_tier_index: rx.cond(
                 MachineState.messages_tier_index != new_tier_index,
-                MachineState.update_messages_tier(new_tier_index),
+                MachineState.update_messages_tier(new_tier_index).throttle(150),
                 rx.noop(),
             ),
+            on_value_committed=MachineState.update_messages_tier,
             min_steps_between_values=1,
             class_name="w-full max-w-full",
         ),
@@ -431,8 +434,11 @@ def machine_card(machine: Machine, index: int) -> rx.Component:
             min_steps_between_values=1,
             on_value_change=lambda new_machine_index: rx.cond(
                 machine.index != new_machine_index,
-                MachineState.update_machine(index, new_machine_index),
+                MachineState.update_machine(index, new_machine_index).throttle(150),
                 rx.noop(),
+            ),
+            on_value_committed=lambda new_machine_index: MachineState.update_machine(
+                index, new_machine_index
             ),
             class_name="w-full max-w-full",
         ),
