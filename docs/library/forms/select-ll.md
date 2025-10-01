@@ -125,6 +125,9 @@ class SelectState2(rx.State):
 
     value: str = ""
 
+    def set_value(self, value: str):
+        self.value = value
+
     @rx.event
     def choose_randomly(self):
         """Change the select value var."""
@@ -157,24 +160,28 @@ If `on_open_change` handler does not alter the `open` prop, the select will not 
 
 ```python demo exec
 class SelectState8(rx.State):
-   is_open: bool = False
+    is_open: bool = False
+
+    @rx.event
+    def set_is_open(self, value: bool):
+        self.is_open = value
 
 def select_example8():
-   return rx.flex(
-       rx.select.root(
-           rx.select.trigger(placeholder="No Selection"),
-           rx.select.content(
-               rx.select.group(
-                   rx.select.item("Apple", value="apple"),
-                   rx.select.item("Grape", value="grape"),
-               ),
-           ),
-           open=SelectState8.is_open,
-           on_open_change=SelectState8.set_is_open,
-       ),
-       rx.button("Toggle", on_click=SelectState8.set_is_open(~SelectState8.is_open)),
-       spacing="2",
-   )
+    return rx.flex(
+        rx.select.root(
+            rx.select.trigger(placeholder="No Selection"),
+            rx.select.content(
+                rx.select.group(
+                    rx.select.item("Apple", value="apple"),
+                    rx.select.item("Grape", value="grape"),
+                ),
+            ),
+            open=SelectState8.is_open,
+            on_open_change=SelectState8.set_is_open,
+        ),
+        rx.button("Toggle", on_click=SelectState8.set_is_open(~SelectState8.is_open)),
+        spacing="2",
+    )
 ```
 
 ### Submitting a Form with Select

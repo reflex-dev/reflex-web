@@ -251,6 +251,14 @@ class LineChartState(rx.State):
     uv_type: str = "monotone"
 
     @rx.event
+    def set_pv_type(self, pv_type: str):
+        self.pv_type = pv_type
+
+    @rx.event
+    def set_uv_type(self, uv_type: str):
+        self.uv_type = uv_type
+
+    @rx.event
     def munge_data(self):
         for row in self.data:
             row["uv"] += random.randint(-500, 500)

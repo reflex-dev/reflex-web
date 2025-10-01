@@ -12,7 +12,7 @@ State mixins allow you to define shared functionality that can be reused across 
 A state mixin is a State class marked with `mixin=True` that cannot be instantiated directly but can be inherited by other State classes. Mixins provide a way to share:
 
 - Base variables
-- Computed variables  
+- Computed variables
 - Event handlers
 - Backend variables
 
@@ -204,7 +204,7 @@ This pattern allows you to build complex functionality by composing simpler mixi
 # Mixin Design Guidelines
 
 - **Single Responsibility**: Each mixin should have a focused purpose
-- **Avoid Deep Inheritance**: Keep mixin hierarchies shallow for clarity  
+- **Avoid Deep Inheritance**: Keep mixin hierarchies shallow for clarity
 - **Document Dependencies**: If mixins depend on specific variables, document them
 - **Test Mixins**: Create test cases for mixin functionality
 - **Naming Convention**: Use descriptive names ending with "Mixin"
@@ -261,13 +261,22 @@ class ContactFormState(ValidationMixin, rx.State):
     email: str = ""
     message: str = ""
 
+    def set_name(self, value: str):
+        self.name = value
+
+    def set_email(self, value: str):
+        self.email = value
+
+    def set_message(self, value: str):
+        self.message = value
+
     @rx.event
     def submit_form(self):
         self.clear_errors()
         valid_name = self.validate_required("name", self.name)
         valid_email = self.validate_email(self.email)
         valid_message = self.validate_required("message", self.message)
-        
+
         if valid_name and valid_email and valid_message:
             self.is_loading = True
             yield rx.sleep(1)

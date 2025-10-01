@@ -26,6 +26,10 @@ class FeedbackState(rx.State):
     score: Optional[int] = None
 
     @rx.event
+    def set_score(self, value: int):
+        self.score = value
+
+    @rx.event
     def handle_submit(self, form_data: dict):
         feedback = form_data["feedback"]
         if len(feedback) < 10 or len(feedback) > 500:

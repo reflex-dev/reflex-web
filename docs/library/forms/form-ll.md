@@ -325,6 +325,19 @@ class RadixFormState(rx.State):
 
     mock_username_db: list[str] = ["reflex", "admin"]
 
+    # Add explicit setters
+    def set_user_entered_username(self, value: str):
+        self.user_entered_username = value
+
+    def set_user_entered_email(self, value: str):
+        self.user_entered_email = value
+
+    def set_username(self, value: str):
+        self.username = value
+
+    def set_email(self, value: str):
+        self.email = value
+
     @rx.var
     def invalid_email(self) -> bool:
         return not re.match(r"[^@]+@[^@]+\.[^@]+", self.user_entered_email)

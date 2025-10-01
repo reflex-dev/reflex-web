@@ -32,6 +32,10 @@ class TranslationState(rx.State):
     input_text: str = "Hola Mundo"
     current_translation: Translation = Translation(original_text="", translated_text="")
 
+    # Explicitly define the setter method
+    def set_input_text(self, value: str):
+        self.input_text = value
+
     @rx.event
     def translate(self):
         self.current_translation.original_text = self.input_text
@@ -39,7 +43,11 @@ class TranslationState(rx.State):
 
 def translation_example():
     return rx.vstack(
-        rx.input(on_blur=TranslationState.setvar("input_text"), default_value=TranslationState.input_text, placeholder="Text to translate...",),
+        rx.input(
+            on_blur=TranslationState.set_input_text,
+            default_value=TranslationState.input_text,
+            placeholder="Text to translate...",
+        ),
         rx.button("Translate", on_click=TranslationState.translate),
         rx.text(TranslationState.current_translation.translated_text),
     )

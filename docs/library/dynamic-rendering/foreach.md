@@ -94,6 +94,10 @@ class ListState(rx.State):
     new_item: str
 
     @rx.event
+    def set_new_item(self, new_item: str):
+        self.new_item = new_item
+
+    @rx.event
     def add_item(self):
         self.items += [self.new_item]
 

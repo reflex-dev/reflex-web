@@ -37,6 +37,9 @@ The `on_blur` event handler is called when focus has left the `input` for exampl
 class TextfieldBlur(rx.State):
     text: str = "Hello World!"
 
+    @rx.event
+    def set_text(self, value: str):
+        self.text = text
 
 def blur_example():
     return rx.vstack(
@@ -54,6 +57,9 @@ The `on_change` event handler is called when the `value` of `input` has changed.
 class TextfieldControlled(rx.State):
     text: str = "Hello World!"
 
+    @rx.event
+    def set_text(self, value: str):
+        self.text = value
 
 def controlled_example():
     return rx.vstack(

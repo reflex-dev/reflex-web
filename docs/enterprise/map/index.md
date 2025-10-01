@@ -196,12 +196,12 @@ import reflex_enterprise as rxe
 class InteractiveMapState(rx.State):
     last_click: str = "No clicks yet"
     current_zoom: float = 13.0
-    
+
     def handle_map_click(self, event):
         lat = event.get("latlng", {}).get("lat", 0)
         lng = event.get("latlng", {}).get("lng", 0)
         self.last_click = f"Clicked at: {lat:.4f}, {lng:.4f}"
-    
+
     def handle_zoom_change(self, event):
         self.current_zoom = float(event.get("target", {}).get("_zoom", 13.0))
 
@@ -290,11 +290,11 @@ map_api = rxe.map.api("api-demo-map")
 
 class MapAPIState(rx.State):
     current_location: str = "London"
-    
+
     def fly_to_london(self):
         yield map_api.fly_to([51.505, -0.09], 13)
         self.current_location = "London"
-    
+
     def fly_to_paris(self):
         yield map_api.fly_to([48.8566, 2.3522], 13)
         self.current_location = "Paris"
@@ -373,44 +373,47 @@ class AdvancedMapState(rx.State):
     constraints_applied: bool = False
     location_tracking: bool = False
     location_status: str = "Location tracking disabled"
-    
+
+    def set_location_status(self, status: str):
+        self.location_status = status
+
     def setup_map_constraints(self):
         map_api = rxe.map.api("advanced-demo-map")
-        
+
         # Set maximum bounds (restrict panning to London area)
         max_bounds = rxe.map.latlng_bounds(
             corner1_lat=51.4, corner1_lng=-0.3,
             corner2_lat=51.6, corner2_lng=0.1
         )
         yield map_api.set_max_bounds(max_bounds)
-        
+
         # Set min/max zoom levels
         yield map_api.set_min_zoom(10)
         yield map_api.set_max_zoom(16)
-        
+
         # Disable scroll wheel zoom
         yield map_api.scroll_wheel_zoom(False)
-        
+
         self.constraints_applied = True
-    
+
     def remove_constraints(self):
         map_api = rxe.map.api("advanced-demo-map")
-        
+
         # Remove bounds restriction
         yield map_api.set_max_bounds(None)
-        
+
         # Reset zoom limits
         yield map_api.set_min_zoom(1)
         yield map_api.set_max_zoom(18)
-        
+
         # Re-enable scroll wheel zoom
         yield map_api.scroll_wheel_zoom(True)
-        
+
         self.constraints_applied = False
-    
+
     def toggle_location_tracking(self):
         map_api = rxe.map.api("advanced-demo-map")
-        
+
         if self.location_tracking == False:
             # Start location tracking
             locate_options = rxe.map.locate_options(
@@ -466,8 +469,8 @@ def advanced_example():
             zoom=12.0,
             height="400px",
             width="100%",
-            on_locationfound=lambda e: AdvancedMapState.setvar("location_status", "Location found!"),
-            on_locationerror=lambda e: AdvancedMapState.setvar("location_status", "Location error - permission denied or unavailable"),
+            on_locationfound=lambda e: AdvancedMapState.set_location_status("Location found!"),
+            on_locationerror=lambda e: AdvancedMapState.set_location_status("Location error - permission denied or unavailable"),
         ),
         spacing="3"
     )
@@ -480,16 +483,16 @@ Many API methods that retrieve information require callbacks to handle the resul
 ```python
 class CallbackMapState(rx.State):
     map_info: str = ""
-    
+
     def handle_center_result(self, result):
         lat = result.get("lat", 0)
         lng = result.get("lng", 0)
         self.map_info = f"Center: {lat:.4f}, {lng:.4f}"
-    
+
     def handle_bounds_result(self, result):
         # result will contain bounds information
         self.map_info = f"Bounds: {result}"
-    
+
     def get_map_info(self):
         map_api = rxe.map.api("info-map")
         yield map_api.get_center(self.handle_center_result)
@@ -538,7 +541,7 @@ def dynamic_markers():
             lambda marker: rxe.map.marker(
                 rxe.map.popup(marker["title"]),
                 position=rxe.map.latlng(
-                    lat=marker["lat"], 
+                    lat=marker["lat"],
                     lng=marker["lng"]
                 )
             )

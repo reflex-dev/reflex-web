@@ -451,7 +451,7 @@ def chat() -> rx.Component:
 
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", on_change=State.set_question, style=style.input_style),
+        rx.input(placeholder="Ask a question", on_change=State.set_question1, style=style.input_style),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
 ```
@@ -491,7 +491,7 @@ def action_bar() -> rx.Component:
         rx.input(
             value=State.question,
             placeholder="Ask a question",
-            on_change=State.set_question,
+            on_change=State.set_question2,
             style=style.input_style),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
@@ -565,7 +565,7 @@ We will use OpenAI's API to give our chatbot some intelligence.
 
 First, ensure you have an active OpenAI subscription.
 Next, install the latest openai package:
-```bash 
+```bash
 pip install --upgrade openai
 ```
 
@@ -591,7 +591,7 @@ Making your chatbot intelligent requires connecting to a language model API. Thi
 
 1. First, the user types a prompt that is updated via the `on_change` event handler.
 2. Next, when a prompt is ready, the user can choose to submit it by clicking the `Ask` button which in turn triggers the `State.answer` method inside our `state.py` file.
-3. Finally, if the method is triggered, the `prompt` is sent via a request to OpenAI client and returns an answer that we can trim and use to update the chat history! 
+3. Finally, if the method is triggered, the `prompt` is sent via a request to OpenAI client and returns an answer that we can trim and use to update the chat history!
 
 
 ```python
@@ -602,7 +602,7 @@ def action_bar() -> rx.Component:
             value=State.question,
             placeholder="Ask a question",
             # on_change event updates the input as the user types a prompt.
-            on_change=State.set_question,
+            on_change=State.set_question3,
             style=style.input_style),
 
         # on_click event triggers the API to send the prompt to OpenAI.
@@ -737,13 +737,13 @@ class State(rx.State):
 
     async def answer(self):
         client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
-        
+
         # Start streaming completion from OpenAI
         session = await client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
                 \{"role": "user", "content": self.question}
-            ],    
+            ],
             temperature=0.7,
             stream=True,
         )
@@ -753,7 +753,7 @@ class State(rx.State):
         self.chat_history.append((self.question, answer))
         self.question = ""
         yield
-        
+
         # Process streaming response
         async for item in session:
             if hasattr(item.choices[0].delta, "content"):

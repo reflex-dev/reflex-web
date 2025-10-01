@@ -257,13 +257,13 @@ class DatabaseTableState(rx.State):
     sort_value = ""
     search_value = ""
 
-    
+
     @rx.event
     def load_entries(self):
         """Simulate querying the database with filter and sort."""
         # Start with all users
         result = self.users.copy()
-        
+
         # Apply filtering if search value exists
         if self.search_value != "":
             search_term = self.search_value.lower()
@@ -271,14 +271,14 @@ class DatabaseTableState(rx.State):
                 user for user in result
                 if any(search_term in str(value).lower() for value in user.values())
             ]
-        
+
         # Apply sorting if sort column is selected
         if self.sort_value != "":
             result = sorted(result, key=lambda x: x[self.sort_value])
-            
+
         self.filtered_users = result
         yield
-        
+
     @rx.event
     def sort_values(self, sort_value):
         """Update sort value and reload data."""
@@ -360,6 +360,14 @@ class InMemoryTableState(rx.State):
 
     sort_value = ""
     search_value = ""
+
+    @rx.event
+    def set_sort_value(self, value: str):
+        self.sort_value = value
+
+    @rx.event
+    def set_search_value(self, value: str):
+        self.search_value = value
 
     @rx.var(cache=True)
     def current_people(self) -> list[Person]:
@@ -584,7 +592,7 @@ class DatabaseTableState2(rx.State):
         {"name": "Charlie Wilson", "email": "charlie@example.com", "phone": "555-7890", "address": "654 Elm St"},
         {"name": "Emily Davis", "email": "emily@example.com", "phone": "555-2345", "address": "987 Cedar Ln"},
     ]
-    
+
     users: list[dict] = []
     sort_value = ""
     search_value = ""
@@ -593,7 +601,7 @@ class DatabaseTableState2(rx.State):
     def load_entries(self):
         # Start with all users
         result = self._users.copy()
-        
+
         # Apply filtering if search value exists
         if self.search_value != "":
             search_term = self.search_value.lower()
@@ -601,11 +609,11 @@ class DatabaseTableState2(rx.State):
                 user for user in result
                 if any(search_term in str(value).lower() for value in user.values())
             ]
-        
+
         # Apply sorting if sort column is selected
         if self.sort_value != "":
             result = sorted(result, key=lambda x: x[self.sort_value])
-            
+
         self.users = result
 
     @rx.event
@@ -986,7 +994,7 @@ class TableDownloadState(rx.State):
         if not self.users:
             self.load_entries()
 
-        fieldnames = ["id", "name", "email", "phone", "address"] 
+        fieldnames = ["id", "name", "email", "phone", "address"]
         output = io.StringIO()
         writer = csv.DictWriter(output, fieldnames=fieldnames)
         writer.writeheader()

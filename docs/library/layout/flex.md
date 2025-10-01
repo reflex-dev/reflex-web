@@ -76,8 +76,24 @@ class FlexPlaygroundState(rx.State):
     justify: str = "start"
     direction: str = "row"
     wrap: str = "nowrap"
-    
-    
+
+    @rx.event
+    def set_align(self, value: str):
+        self.align = value
+
+    @rx.event
+    def set_justify(self, value: str):
+        self.justify = value
+
+    @rx.event
+    def set_direction(self, value: str):
+        self.direction = value
+
+    @rx.event
+    def set_wrap(self, value: str):
+        self.wrap = value
+
+
 def select(label, items, value, on_change):
     return rx.flex(
         rx.text(label),
@@ -155,12 +171,12 @@ affects the computed  sizes of the flex items based on the props that are set.
 ```python demo exec
 class FlexGrowShrinkState(rx.State):
     width_pct: list[int] = [100]
-    
+
     @rx.event
     def set_width_pct(self, value: list[int | float]):
         self.width_pct = [int(value[0])]
-    
-    
+
+
 def border_box(*children, **props):
     return rx.box(
         *children,
@@ -169,7 +185,7 @@ def border_box(*children, **props):
         **props,
     )
 
-    
+
 def example2():
     return rx.box(
         rx.flex(

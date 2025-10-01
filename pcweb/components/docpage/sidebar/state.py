@@ -45,7 +45,7 @@ class SidebarState(rx.State):
 
     @rx.var(initial_value=-1)
     def sidebar_index(self) -> int:
-        route = self.router.page.path
+        route = self.router.url.path
         if self._sidebar_index < 0:
             if "library" in route:
                 return 1

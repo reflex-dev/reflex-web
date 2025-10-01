@@ -43,6 +43,10 @@ SYNTHETIC_EVENTS = [
         "state": """class ChangeState(rx.State):
     checked: bool = False
 
+    @rx.event
+    def set_checked(self):
+        self.checked = not self.checked
+
 """,
         "example": """rx.switch(on_change=ChangeState.set_checked)""",
     },
@@ -102,7 +106,7 @@ SYNTHETIC_EVENTS = [
     @rx.event
     def on_mount(self):
         self.events = self.events[-4:] + ["on_mount @ " + str(datetime.now())]
-        
+
     @rx.event
     async def load_data(self):
         # Common pattern: Set loading state, yield to update UI, then fetch data
@@ -141,7 +145,7 @@ SYNTHETIC_EVENTS = [
         self.events = self.events[-4:] + ["on_unmount @ " + str(datetime.now())]
         # Common pattern: Clean up resources when component is removed
         self.status = f"Resource {self.resource_id} cleaned up"
-        
+
     @rx.event
     def initialize_resource(self):
         self.status = f"Resource {self.resource_id} initialized"

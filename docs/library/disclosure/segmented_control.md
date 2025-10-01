@@ -11,6 +11,12 @@ class SegmentedState(rx.State):
     """The app state."""
 
     control: str = "test"
+
+    @rx.event
+    def set_control(self, value: str | list[str]):
+        self.control = value
+
+
 ```
 
 # Segmented Control
@@ -31,7 +37,7 @@ rx.vstack(
         rx.segmented_control.item("Home", value="home"),
         rx.segmented_control.item("About", value="about"),
         rx.segmented_control.item("Test", value="test"),
-        on_change=SegmentedState.setvar("control"),
+        on_change=SegmentedState.set_control,
         value=SegmentedState.control,
     ),
     rx.card(

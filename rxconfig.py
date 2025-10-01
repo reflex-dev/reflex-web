@@ -1,6 +1,7 @@
 import reflex as rx
 
 config = rx.Config(
+    state_auto_setters=True,
     port=3000,
     app_name="pcweb",
     deploy_url="https://reflex.dev",

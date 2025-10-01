@@ -19,6 +19,10 @@ class NavbarState(rx.State):
 
     current_category = "All"
 
+    @rx.event
+    def set_sidebar_open(self, value: bool):
+        self.sidebar_open = value
+
     def toggle_banner(self):
         self.banner = not self.banner
 

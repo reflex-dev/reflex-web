@@ -53,7 +53,7 @@ You can also set props conditionally using `rx.cond`. In this example, we set th
 class PropCondState(rx.State):
 
     value: int
-    
+
     @rx.event
     def set_end(self, value: list[int | float]):
         self.value = value[0]
@@ -94,6 +94,10 @@ class MatchState(rx.State):
         "pug",
         "corgi",
     ]
+
+    @rx.event
+    def set_cat_breed(self, breed: str):
+        self.cat_breed = breed
 
 
 def match_demo():

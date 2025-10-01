@@ -35,6 +35,9 @@ rx.input(
 class TextfieldBlur1(rx.State):
     text: str = "Hello World!"
 
+    @rx.event
+    def set_text(self, text: str):
+        self.text = text
 
 def blur_example1():
     return rx.vstack(
@@ -55,6 +58,9 @@ def blur_example1():
 class TextfieldControlled1(rx.State):
     text: str = "Hello World!"
 
+    @rx.event
+    def set_text(self, text: str):
+        self.text = text
 
 def controlled_example1():
     return rx.vstack(
