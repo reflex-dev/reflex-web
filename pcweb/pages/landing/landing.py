@@ -9,8 +9,10 @@ from pcweb.pages.landing.views.hosting_section import hosting_section
 from pcweb.pages.landing.views.outcomes_section import outcomes_section
 from pcweb.pages.landing.views.products import products
 from pcweb.pages.landing.views.security import security
+from pcweb.pages.landing.views.infra import stats, landing_infra
+from pcweb.pages.landing.views.cloud import landing_animation
 from pcweb.templates.mainpage import mainpage
-
+from pcweb.pages.hosting.views.features import features
 
 @mainpage(path="/", title="Reflex · Web apps in Pure Python", meta=meta_tags)
 def landing() -> rx.Component:
@@ -21,7 +23,11 @@ def landing() -> rx.Component:
         ai_section(),
         framework_section(),
         hosting_section(),
-        outcomes_section(),
-        security(),
+        # outcomes_section(),
+        # security(),
+        landing_infra(),
+        stats(),
+        landing_animation(),
+        features(),
         class_name="flex flex-col size-full justify-center items-center",
     )
