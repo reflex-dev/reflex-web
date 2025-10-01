@@ -4,11 +4,11 @@ title: Aligned Grids
 
 AgGrid provides a way to align multiple grids together. This is useful when you want to display related data in a synchronized manner.
 
-You can do so through the `aligned_grids` prop. This prop takes a list of grid IDs that you want to align. 
+You can do so through the `aligned_grids` prop. This prop takes a list of grid IDs that you want to align.
 
 ```python demo exec
 import pandas as pd
-
+import reflex as rx
 import reflex_enterprise as rxe
 
 # Olympic winners data (originally from https://www.ag-grid.com/example-assets/olympic-winners.json)
@@ -41,18 +41,21 @@ column_defs = [
 
 def aligned_grids_page():
     """Aligned grids demo."""
-    return rxe.ag_grid(
-        id="grid1",
-        column_defs=column_defs,
-        row_data=row_data,
-        aligned_grids=["grid2"],
-        width="100%",
-    ), rxe.ag_grid(
-        id="grid2",
-        column_defs=column_defs,
-        row_data=row_data,
-        aligned_grids=["grid1"],
-        width="100%",
+    return rx.el.div(
+        rxe.ag_grid(
+            id="grid1",
+            column_defs=column_defs,
+            row_data=row_data,
+            aligned_grids=["grid2"],
+            width="100%",
+        ), rxe.ag_grid(
+            id="grid2",
+            column_defs=column_defs,
+            row_data=row_data,
+            aligned_grids=["grid1"],
+            width="100%",
+        ),
+        class_name="flex flex-col gap-y-6 w-full"
     )
 
 ```
