@@ -15,6 +15,8 @@ _SORTED_TIERS = sorted(
     [{"key": k, **v} for k, v in PRO_TIERS_TABLE.items()], key=lambda x: x["credits"]
 )
 
+machine_keys = list(COMPUTE_TABLE.keys())
+
 
 def format_number(number: int | float) -> str:
     """Format number with locale string, handling non-numeric values"""
@@ -51,7 +53,6 @@ def calculate_weekly_credits(vcpu: int, ram: float) -> float:
 
 
 message_tooltip_open_cs = ClientStateVar.create("message_tooltip_open", default=False)
-machine_keys = list(COMPUTE_TABLE.keys())
 pro_tier_keys = list(PRO_TIERS_TABLE.keys())
 COMPUTE_TABLE_KEYS = rx.Var.create(machine_keys)
 PRO_TIER_KEYS = rx.Var.create(pro_tier_keys)
