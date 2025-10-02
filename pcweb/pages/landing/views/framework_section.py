@@ -1,7 +1,8 @@
 import reflex as rx
 from pcweb.components.icons.hugeicons import hi
-from pcweb.pages.framework.demos.demos import demo_section
-
+# from pcweb.pages.framework.demos.demos import demo_section
+from pcweb.pages.framework.views.frontend_features import frontend_grid
+from pcweb.pages.framework.views.stats import stats
 
 def header() -> rx.Component:
     return rx.box(
@@ -15,12 +16,12 @@ def header() -> rx.Component:
             class_name="flex flex-row gap-2 items-center text-jade-10",
         ),
         rx.el.h2(
-            """Write full-stack apps in pure Python. 
+            """Write full-stack apps in pure Python.
 No JavaScript, no limits""",
             class_name="max-w-full w-full lg:text-3xl text-2xl text-center text-slate-12 font-semibold text-balance word-wrap break-words md:whitespace-pre",
         ),
         rx.el.p(
-            """Write, test, and refine your full-stack app using just Python—no need to manage 
+            """Write, test, and refine your full-stack app using just Python—no need to manage
 complex frameworks or switch between languages.""",
             class_name="text-slate-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
@@ -31,6 +32,8 @@ complex frameworks or switch between languages.""",
 def framework_section() -> rx.Component:
     return rx.el.section(
         header(),
-        demo_section(color="jade"),
+        frontend_grid(),
+        stats(),
+        # demo_section(color="jade"),
         class_name="flex flex-col mx-auto w-full max-w-[84.19rem] justify-center items-center",
     )

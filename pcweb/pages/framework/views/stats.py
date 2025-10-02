@@ -21,7 +21,7 @@ def stat_card(stat: str, text: str, icon: str, class_name: str = "") -> rx.Compo
 def stats_grid() -> rx.Component:
     return rx.box(
         stat_card(
-            stat=f"{GithubStarState.stars:,}",
+            stat=f"{GithubStarState.stars:,}+",
             text="Stars",
             icon="star",
             class_name="lg:!border-l !border-slate-3",

@@ -96,7 +96,7 @@ def stat_card(stat: Union[str, rx.Component], text: str, icon: str, class_name: 
             rx.text(text, class_name="font-base text-slate-9"),
             class_name="flex flex-row gap-2 items-center",
         ),
-        stat if isinstance(stat, rx.Component) else rx.text(stat, class_name="font-x-large text-slate-12"),
+        stat if isinstance(stat, rx.Component) else rx.text(stat, class_name="text-3xl font-semibold text-slate-12"),
         class_name="flex flex-col gap-2 w-full p-10 items-center lg:items-start"
         + " "
         + class_name,
