@@ -49,6 +49,15 @@ jobs:
           python scripts/typesense_indexer.py --docs-path ./docs --blog-path ./blog --force
           python scripts/synonym_indexer.py
 
+      - name: Create Conversational RAG
+        env:
+          TYPESENSE_ADMIN_API_KEY: ${{ secrets.DEV_TYPESENSE_ADMIN_API_KEY }}
+          TYPESENSE_HOST: ${{ secrets.DEV_TYPESENSE_HOST }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          uv pip install typesense
+          python scripts/conversation_indexer.py --force
+
       - name: Deploy to Reflex
         id: deploy
         run: |
