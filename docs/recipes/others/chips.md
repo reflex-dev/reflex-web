@@ -53,12 +53,16 @@ available_items = ["2:00", "3:00", "4:00", "5:00"]
 class SingleSelectionChipsState(rx.State):
     selected_item: str = ""
 
+    @rx.event
+    def set_selected_item(self, value: str):
+        self.selected_item = value
+
 def unselected_item(item: str) -> rx.Component:
     return rx.badge(
         item,
         color_scheme="gray",
         **chip_props,
-        on_click=SingleSelectionChipsState.setvar("selected_item", item),
+        on_click=SingleSelectionChipsState.set_selected_item(item),
     )
 
 def selected_item(item: str) -> rx.Component:
@@ -67,7 +71,7 @@ def selected_item(item: str) -> rx.Component:
         item,
         color_scheme="mint",
         **chip_props,
-        on_click=SingleSelectionChipsState.setvar("selected_item", ""),
+        on_click=SingleSelectionChipsState.set_selected_item(""),
     )
 
 def item_chip(item: str) -> rx.Component:

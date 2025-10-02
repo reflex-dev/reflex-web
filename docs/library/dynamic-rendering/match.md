@@ -45,6 +45,9 @@ class MatchState(rx.State):
     cat_breed: str = ""
     animal_options: List[str] = ["persian", "siamese", "maine coon", "ragdoll", "pug", "corgi"]
 
+    @rx.event
+    def set_cat_breed(self, breed: str):
+        self.cat_breed = breed
 
 def match_demo():
     return rx.flex(
@@ -147,6 +150,10 @@ import reflex as rx
 class MultiMatchState(rx.State):
     animal_breed: str = ""
     animal_options: List[str] = ["persian", "siamese", "maine coon", "pug", "corgi", "mustang", "rahvan", "football", "golf"]
+
+    @rx.event
+    def set_animal_breed(self, breed: str):
+        self.animal_breed = breed
 
 def multi_match_demo():
     return rx.flex(

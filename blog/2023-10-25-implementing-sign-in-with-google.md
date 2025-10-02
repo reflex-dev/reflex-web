@@ -46,7 +46,7 @@ and sign in with the Google account that should manage the app and credential to
 
 ```python eval
 rx.center(
-    rx.video(url="https://github.com/reflex-dev/reflex-examples/assets/1524005/af2499a6-0bda-4d60-b52b-4f51b7322fd5"),
+    rx.video(src="https://github.com/reflex-dev/reflex-examples/assets/1524005/af2499a6-0bda-4d60-b52b-4f51b7322fd5"),
     rx.box(height="3em"),
     width="100%",
     padding_y="2em"
@@ -492,7 +492,7 @@ app.add_page(index)
 
 ```python eval
 rx.center(
-    rx.video(url="https://github.com/reflex-dev/reflex-examples/assets/1524005/b0c7145b-6c19-4072-bc9d-ae8927c8988f"),
+    rx.video(src="https://github.com/reflex-dev/reflex-examples/assets/1524005/b0c7145b-6c19-4072-bc9d-ae8927c8988f"),
     rx.box(height="3em"),
     width="100%",
     padding_y="2em"

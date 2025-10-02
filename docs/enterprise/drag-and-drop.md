@@ -29,6 +29,10 @@ import reflex_enterprise as rxe
 class BasicDndState(rx.State):
     drop_count: int = 0
 
+    def increment_drop_count(self):
+        self.drop_count += 1
+
+
 @rx.memo
 def draggable_card():
     return rxe.dnd.draggable(
@@ -64,7 +68,7 @@ def basic_drag_drop():
                     font_weight="bold"
                 ),
                 accept=["BasicCard"],
-                on_drop=BasicDndState.setvar("drop_count", BasicDndState.drop_count + 1),
+                on_drop=BasicDndState.increment_drop_count,
             ),
             spacing="4",
             align="start"
@@ -83,6 +87,10 @@ import reflex_enterprise as rxe
 
 class MultiPositionState(rx.State):
     card_position: int = 0
+
+    def set_card_position(self, position: int):
+        self.card_position = position
+
 
 @rx.memo
 def movable_card():
@@ -118,7 +126,7 @@ def drop_zone(position: int):
         border_color=rx.cond(params.is_over, "green.500", "red.500"),
         bg=rx.cond(params.is_over, "green.100", "blue.100"),
         accept=["MovableCard"],
-        on_drop=MultiPositionState.setvar("card_position", position),
+        on_drop=lambda _: MultiPositionState.set_card_position(position),
         display="flex",
         align_items="center",
         justify_content="center"
@@ -129,7 +137,7 @@ def multi_position_example():
         rx.text("Drag the card between positions", weight="bold"),
         rx.grid(
             drop_zone(0),
-            drop_zone(1), 
+            drop_zone(1),
             drop_zone(2),
             drop_zone(3),
             columns="2",
@@ -152,7 +160,10 @@ import reflex_enterprise as rxe
 class StateTrackingState(rx.State):
     drag_info: str = "No drag activity"
 
-@rx.memo  
+    def set_drag_info(self, value: str):
+        self.drag_info = value
+
+@rx.memo
 def tracked_draggable():
     drag_params = rxe.dnd.Draggable.collected_params
     return rxe.dnd.draggable(
@@ -165,7 +176,7 @@ def tracked_draggable():
             opacity=rx.cond(drag_params.is_dragging, 0.5, 1.0)
         ),
         type="TrackedItem",
-        on_end=StateTrackingState.setvar("drag_info", "Drag ended")
+        on_end=StateTrackingState.set_drag_info("Drag ended")
     )
 
 def tracked_drop_target():
@@ -184,8 +195,8 @@ def tracked_drop_target():
             justify_content="center"
         ),
         accept=["TrackedItem"],
-        on_drop=StateTrackingState.setvar("drag_info", "Item successfully dropped!"),
-        on_hover=StateTrackingState.setvar("drag_info", "Item hovering over drop zone")
+        on_drop=StateTrackingState.set_drag_info("Item successfully dropped!"),
+        on_hover=StateTrackingState.set_drag_info("Item hovering over drop zone")
     )
 
 def state_tracking_example():
@@ -227,10 +238,10 @@ class DynamicListState(rx.State):
     def move_item(self, item_data: dict, target_list: str):
         item_id = item_data.get("id")
         source_list = item_data.get("list_id")
-        
+
         if not item_id or not source_list:
             return
-            
+
         # Find the item in the source list
         source_items = getattr(self, f"list_{source_list.lower()}")
         item_to_move = None
@@ -238,23 +249,23 @@ class DynamicListState(rx.State):
             if item.id == item_id:
                 item_to_move = item
                 break
-                
+
         if not item_to_move:
             return
-            
+
         # Remove from source list only
         if source_list == "A":
             self.list_a = [item for item in self.list_a if item.id != item_id]
         else:
             self.list_b = [item for item in self.list_b if item.id != item_id]
-        
+
         # Create new item for target list
         new_item = ListItem(
             id=item_id,
             text=item_to_move.text,
             list_id=target_list
         )
-        
+
         # Add to target list
         if target_list == "A":
             self.list_a.append(new_item)
@@ -421,6 +432,9 @@ import reflex_enterprise as rxe
 class SimpleState(rx.State):
     message: str = "No items dropped yet"
 
+    def set_message_from_item(self, item: dict):
+        self.message = f"Dropped: {item['name']}"
+
 def simple_draggable():
     return rxe.dnd.draggable(
         rx.box(
@@ -444,7 +458,7 @@ def simple_drop_target():
             min_height="100px"
         ),
         accept=["simple"],
-        on_drop=lambda item: SimpleState.setvar("message", f"Dropped: {item['name']}")
+        on_drop=SimpleState.set_message_from_item
     )
 
 def item_data_example():
@@ -466,6 +480,12 @@ import reflex_enterprise as rxe
 class CollectState(rx.State):
     drag_info: str = "No drag activity"
     drop_info: str = "No drop activity"
+
+    def handle_drop(self, item: dict):
+        self.drop_info = f"Dropped: {item.get('name', 'Unknown')}"
+        return rx.toast(f"Successfully dropped {item.get('name', 'item')}")
+
+
 
 def collect_draggable():
     params = rxe.dnd.Draggable.collected_params
@@ -516,10 +536,7 @@ def collect_drop_target():
             min_height="120px"
         ),
         accept=["collect_item"],
-        on_drop=lambda item: [
-            CollectState.setvar("drop_info", f"Dropped: {item.get('name', 'Unknown')}"),
-            rx.toast(f"Successfully dropped {item.get('name', 'item')}")
-        ]
+        on_drop=CollectState.handle_drop,
     )
 
 def custom_collect_example():

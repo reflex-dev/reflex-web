@@ -38,6 +38,10 @@ options: list[str] = ["1", "2", "3", "4"]
 class SetterState2(rx.State):
     selected: str = "1"
 
+    @rx.event
+    def set_selected(self, selected: str):
+        self.selected = selected
+
 def code_setter_2():
     return rx.vstack(
         rx.badge(SetterState2.selected, color_scheme="green"),

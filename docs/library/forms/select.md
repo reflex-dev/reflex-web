@@ -105,6 +105,9 @@ class SelectState3(rx.State):
 
     value: str = "apple"
 
+    def set_value(self, value: str):
+        self.value = value
+
     @rx.event
     def change_value(self):
         """Change the select value var."""

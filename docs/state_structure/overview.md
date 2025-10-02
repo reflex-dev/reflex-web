@@ -106,6 +106,8 @@ input `on_change` event, which improves performance.
 class SettingsState(rx.State):
      salutation: str = "Hello"
 
+     def set_salutation(self, value: str):
+        self.salutation = value
 
 def set_salutation_popover():
     return rx.popover.root(
@@ -169,7 +171,7 @@ Here's an example that demonstrates how to use `get_var_value` to access data be
 class CounterState(rx.State):
     # This variable will be accessed from another state
     count: int = 0
-    
+
     @rx.event
     async def increment(self):
         # Increment the counter when the button is clicked
@@ -179,7 +181,7 @@ class CounterState(rx.State):
 class DisplayState(rx.State):
     # This will show the current count value
     message: str = ""
-    
+
     @rx.event
     async def show_count(self):
         # Use get_var_value to access just the count variable from CounterState

@@ -20,7 +20,7 @@ from pcweb.templates.docpage import docdemo, docdemobox, doccode, docgraphing
 ## Examples
 
 Using a date from a state var as a value, we will display it in a few different
-way using `rx.moment`. 
+way using `rx.moment`.
 
 The `date_now` state var is initialized when the site was deployed. The
 button below can be used to update the var to the current datetime, which will
@@ -110,7 +110,7 @@ subtract_example = """rx.vstack(
 ```python eval
 rx.tabs(
     rx.tabs.list(
-        rx.tabs.trigger("Add", value="add"), 
+        rx.tabs.trigger("Add", value="add"),
         rx.tabs.trigger("Subtract", value="subtract")
     ),
     rx.tabs.content(docdemo(add_example, comp=eval(add_example)), value="add"),
@@ -151,6 +151,9 @@ class MomentLiveState(rx.State):
     def on_update(self, date):
         return rx.toast(f"Date updated: {date}")
 
+    @rx.event
+    def set_updating(self, value: bool):
+        self.updating = value
 
 def moment_live_example():
     return rx.hstack(

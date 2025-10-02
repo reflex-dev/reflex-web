@@ -74,87 +74,98 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
         has_content = bool(content.strip())
 
         if has_content:
-            return rx.accordion.root(
-                rx.accordion.item(
-                    rx.accordion.header(
-                        rx.accordion.trigger(
-                            rx.hstack(
-                                rx.box(
-                                    rx.match(
-                                        status,
-                                        (
-                                            "info",
-                                            rx.icon(
-                                                tag="info", size=18, margin_right=".5em"
+            return rx.box(
+                rx.accordion.root(
+                    rx.accordion.item(
+                        rx.accordion.header(
+                            rx.accordion.trigger(
+                                rx.hstack(
+                                    rx.box(
+                                        rx.match(
+                                            status,
+                                            (
+                                                "info",
+                                                rx.icon(
+                                                    tag="info", size=18, margin_right=".5em"
+                                                ),
+                                            ),
+                                            (
+                                                "success",
+                                                rx.icon(
+                                                    tag="circle_check",
+                                                    size=18,
+                                                    margin_right=".5em",
+                                                ),
+                                            ),
+                                            (
+                                                "warning",
+                                                rx.icon(
+                                                    tag="triangle_alert",
+                                                    size=18,
+                                                    margin_right=".5em",
+                                                ),
+                                            ),
+                                            (
+                                                "error",
+                                                rx.icon(
+                                                    tag="ban", size=18, margin_right=".5em"
+                                                ),
                                             ),
                                         ),
-                                        (
-                                            "success",
-                                            rx.icon(
-                                                tag="circle_check",
-                                                size=18,
-                                                margin_right=".5em",
-                                            ),
-                                        ),
-                                        (
-                                            "warning",
-                                            rx.icon(
-                                                tag="triangle_alert",
-                                                size=18,
-                                                margin_right=".5em",
-                                            ),
-                                        ),
-                                        (
-                                            "error",
-                                            rx.icon(
-                                                tag="ban", size=18, margin_right=".5em"
-                                            ),
-                                        ),
+                                        color=f"{rx.color(color, 11)}",
                                     ),
-                                    color=f"{rx.color(color, 11)}",
+                                    (
+                                        markdown_with_shiki(
+                                            title,
+                                            margin_y="0px",
+                                            style=get_code_style(color),
+                                        )
+                                        if title
+                                        else self.render_fn(content=content)
+                                    ),
+                                    rx.spacer(),
+                                    rx.accordion.icon(color=f"{rx.color(color, 11)}"),
+                                    align_items="center",
+                                    justify_content="left",
+                                    text_align="left",
+                                    spacing="2",
+                                    width="100%",
+                                    margin_top="5px",
                                 ),
-                                (
-                                    markdown_with_shiki(
-                                        title,
-                                        margin_y="0px",
-                                        style=get_code_style(color),
-                                    )
-                                    if title
-                                    else self.render_fn(content=content)
-                                ),
-                                rx.spacer(),
-                                rx.accordion.icon(color=f"{rx.color(color, 11)}"),
-                                align_items="center",
-                                justify_content="left",
-                                text_align="left",
-                                spacing="2",
-                                width="100%",
+                                padding="0px",
+                                color=f"{rx.color(color, 11)} !important",
+                                background_color="transparent !important",
+                                border_radius="12px",
+                                _hover={},
                             ),
-                            padding="0px",
-                            color=f"{rx.color(color, 11)} !important",
-                            background_color="transparent !important",
-                            border_radius="12px",
-                            _hover={},
                         ),
+                        (
+                            rx.accordion.content(
+                                markdown(content),
+                                padding="0px",
+                                margin_top="16px"
+                            )
+                            if title
+                            else rx.fragment()
+                        ),
+                        border_radius="12px",
+                        padding=["16px", "24px"],
+                        background_color=f"{rx.color(color, 3)}",
+                        border="none",
                     ),
-                    (
-                        rx.accordion.content(
-                            markdown(content), padding="0px", margin_top="16px"
-                        )
-                        if title
-                        else rx.fragment()
-                    ),
+                    background="transparent !important",
                     border_radius="12px",
-                    padding=["16px", "24px"],
-                    background_color=f"{rx.color(color, 3)}",
-                    border=f"1px solid {rx.color(color, 4)}",
+                    box_shadow="none !important",
+                    collapsible=True,
+                    width="100%",
                 ),
-                background="none !important",
-                border_radius="0px",
-                box_shadow="unset !important",
-                collapsible=True,
+                border=f"1px solid {rx.color(color, 4)}",
+                border_radius="12px",
+                background_color=f"{rx.color(color, 3)} !important",
                 width="100%",
                 margin_bottom="16px",
+                margin_top="16px",
+                overflow="hidden",
             )
         else:
             return rx.vstack(
@@ -194,7 +205,11 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                 background_color=f"{rx.color(color, 3)}",
                 border_radius="12px",
                 margin_bottom="16px",
+                margin_top="16px",
+                width="100%",
             )
+
+
 
 
 class SectionBlock(flexdown.blocks.Block):
@@ -417,57 +432,65 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
 
         color = "blue"
 
-        return rx.accordion.root(
-            rx.accordion.item(
-                rx.accordion.header(
-                    rx.accordion.trigger(
-                        rx.hstack(
-                            (
-                                markdown_with_shiki(
-                                    title,
-                                    margin_y="0px",
-                                    style=get_code_style(color),
-                                )
-                                if title
-                                else markdown_with_shiki("Video Description")
+        return rx.box(
+            rx.accordion.root(
+                rx.accordion.item(
+                    rx.accordion.header(
+                        rx.accordion.trigger(
+                            rx.hstack(
+                                (
+                                    markdown_with_shiki(
+                                        title,
+                                        margin_y="0px",
+                                        style=get_code_style(color),
+                                    )
+                                    if title
+                                    else markdown_with_shiki("Video Description")
+                                ),
+                                rx.spacer(),
+                                rx.accordion.icon(color=f"{rx.color(color, 11)}"),
+                                align_items="center",
+                                justify_content="left",
+                                text_align="left",
+                                spacing="2",
+                                width="100%",
                             ),
-                            rx.spacer(),
-                            rx.accordion.icon(color=f"{rx.color(color, 11)}"),
-                            align_items="center",
-                            justify_content="left",
-                            text_align="left",
-                            spacing="2",
-                            width="100%",
+                            padding="0px",
+                            color=f"{rx.color(color, 11)} !important",
+                            background_color="transparent !important",
+                            border_radius="12px",
+                            _hover={},
                         ),
+                    ),
+                    rx.accordion.content(
+                        rx.video(
+                            src=url,
+                            width="100%",
+                            height="500px",
+                            border_radius="10px",
+                            overflow="hidden",
+                        ),
+                        margin_top="16px",
                         padding="0px",
-                        color=f"{rx.color(color, 11)} !important",
-                        background_color="transparent !important",
-                        border_radius="12px",
-                        _hover={},
                     ),
+                    border_radius="0px",
+                    border="none",
+                    background_color="transparent",
+                    padding=["16px", "24px"],
                 ),
-                rx.accordion.content(
-                    rx.video(
-                        url=url,
-                        width="100%",
-                        height="500px",
-                        border_radius="10px",
-                        overflow="hidden",
-                    ),
-                    margin_top="16px",
-                    padding="0px",
-                ),
-                border_radius="12px",
-                border=f"1px solid {rx.color(color, 4)}",
-                background_color=f"{rx.color(color, 3)}",
-                padding=["16px", "24px"],
+                background="transparent !important",
+                box_shadow="none !important",
+                collapsible=True,
+                width="100%",
+                border_radius="0px",
             ),
-            margin_bottom="16px",
-            background="none !important",
-            border_radius="0px",
-            box_shadow="unset !important",
-            collapsible=True,
+            border=f"1px solid {rx.color(color, 4)}",
+            border_radius="12px",
+            background_color=f"{rx.color(color, 3)} !important",
             width="100%",
+            margin_bottom="16px",
+            margin_top="16px",
+            overflow="hidden",
         )
 
 

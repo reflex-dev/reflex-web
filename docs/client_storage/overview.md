@@ -24,6 +24,17 @@ class ClientStorageState(rx.State):
     my_local_storage: str = rx.LocalStorage("")
     custom_cookie: str = rx.Cookie(name="CustomNamedCookie", max_age=3600)
 
+    @rx.event
+    def set_my_cookie(self, value: str):
+        self.my_cookie = value
+
+    @rx.event
+    def set_my_local_storage(self, value: str):
+        self.my_local_storage = value
+
+    @rx.event
+    def set_custom_cookie(self, value: str):
+        self.custom_cookie = value
 
 def client_storage_example():
     return rx.vstack(

@@ -15,6 +15,18 @@ class ChatappState(rx.State):
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
+    def set_question(self, q: str):
+        self.question = q
+
+    def set_question1(self, q: str):
+        self.question = q
+
+    def set_question2(self, q: str):
+        self.question = q
+
+    def set_question3(self, q: str):
+        self.question = q
+
     def answer(self) -> None:
         # Our chatbot is not very smart right now...
         answer = "I don't know!"

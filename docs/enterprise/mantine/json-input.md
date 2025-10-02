@@ -13,7 +13,11 @@ import reflex as rx
 import reflex_enterprise as rxe
 
 class JsonInputState(rx.State):
-    json_data: str = ''
+    json_data: str = ""
+
+    def set_json_data(self, value: str):
+        self.json_data = value
+
 
 def json_input_example():
     return rxe.mantine.json_input(
@@ -25,7 +29,7 @@ def json_input_example():
         required=True,
         size="md",
         format_on_blur=True,
-        on_change=lambda value: JsonInputState.setvar("json_data", value),
+        on_change=JsonInputState.set_json_data,
         width="300px",
     )
 ```

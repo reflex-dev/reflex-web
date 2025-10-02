@@ -66,7 +66,7 @@ def video_demo() -> rx.Component:
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 z-[-1] rounded-md",
                 ),
                 rx.video(
-                    url=DEMO_VIDEO_URL,
+                    src=DEMO_VIDEO_URL,
                     playing=True,
                     controls=False,
                     class_name="size-full z-[1]",

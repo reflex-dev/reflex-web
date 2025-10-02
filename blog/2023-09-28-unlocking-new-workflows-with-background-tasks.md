@@ -122,7 +122,7 @@ screen updating and processing simultaneously.
 
 ```python eval
 rx.center(
-    rx.video(url="https://user-images.githubusercontent.com/1524005/271007407-09c832ff-ecbd-4a9d-a8a5-67779c673045.mov"),
+    rx.video(src="https://user-images.githubusercontent.com/1524005/271007407-09c832ff-ecbd-4a9d-a8a5-67779c673045.mov"),
     rx.box(height="3em"),
     width="100%",
     padding_y="2em"

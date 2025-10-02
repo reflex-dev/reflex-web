@@ -24,6 +24,10 @@ class ReusableCounter(rx.ComponentState):
     count: int = 0
 
     @rx.event
+    def set_count(self, value: int):
+        self.count = value
+
+    @rx.event
     def increment(self):
         self.count += 1
 
@@ -78,6 +82,10 @@ class EditableText(rx.ComponentState):
     text: str = "Click to edit"
     original_text: str
     editing: bool = False
+
+    @rx.event
+    def set_text(self, value: str):
+        self.text = value
 
     @rx.event
     def start_editing(self, original_text: str):
@@ -166,6 +174,9 @@ EditableText._per_component_state_instance_count = 4
 class EditableTextDemoState(rx.State):
     value: str = "Global state text"
 
+    @rx.event
+    def set_value(self, value: str):
+        self.value = value
 
 def editable_text_with_global_state():
     return rx.vstack(

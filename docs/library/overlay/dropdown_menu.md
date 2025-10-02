@@ -233,6 +233,10 @@ class DropdownMenuState2(rx.State):
     which_dialog_open: str = ""
 
     @rx.event
+    def set_which_dialog_open(self, value: str):
+        self.which_dialog_open = value
+
+    @rx.event
     def delete(self):
         yield rx.toast("Deleted item")
 

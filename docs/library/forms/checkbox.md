@@ -20,6 +20,10 @@ The `on_change` trigger is called when the `checkbox` is clicked.
 class CheckboxState(rx.State):
     checked: bool = False
 
+    @rx.event
+    def set_checked(self, value: bool):
+        self.checked = value
+
 def checkbox_example():
     return rx.vstack(
         rx.heading(CheckboxState.checked),

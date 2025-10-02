@@ -254,6 +254,13 @@ class ScatterChartState2(rx.State):
     }
   ]
 
+    @rx.event
+    def set_shape(self, shape: str):
+        self.shape = shape
+
+    @rx.event
+    def set_legend_type(self, legend_type: str):
+        self.legend_type = legend_type
 
 def scatter_shape():
   return rx.vstack(

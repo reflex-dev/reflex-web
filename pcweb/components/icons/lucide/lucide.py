@@ -55,6 +55,10 @@ class IconState(rx.State):
     expanded: bool = False
 
     @rx.event
+    def set_expanded(self):
+        self.expanded = not self.expanded
+
+    @rx.event
     def fetch_icons(self):
         default_svg_attrs = {
             "xmlns": "http://www.w3.org/2000/svg",
@@ -183,7 +187,7 @@ def lucide_icons():
                 f"Show all ({IconState.filtered_icons.length()})",
             ),
             on_click=[
-                IconState.setvar("expanded", ~IconState.expanded),
+                IconState.set_expanded,
                 rx.scroll_to("icons-list"),
             ],
             display=rx.cond(IconState.filtered_icons.length() > 40, "block", "none"),

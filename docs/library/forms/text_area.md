@@ -22,6 +22,9 @@ The text area component can be controlled by a single value. The `on_blur` prop 
 class TextAreaBlur(rx.State):
     text: str = "Hello World!"
 
+    @rx.event
+    def set_text(self, text: str):
+        self.text = text
 
 def blur_example():
     return rx.vstack(
@@ -41,6 +44,10 @@ Here we show how to use a text area in a form. We use the `name` prop to identif
 class TextAreaFeedbackState(rx.State):
     feedback: str = ""
     submitted: bool = False
+
+    @rx.event
+    def set_feedback(self, value: str):
+        self.feedback = value
 
     @rx.event
     def submit_feedback(self, form_data: dict):

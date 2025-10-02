@@ -18,6 +18,9 @@ Try typing in the input box and clicking out.
 class UppercaseState(rx.State):
     text: str = "hello"
 
+    def set_text(self, value: str):
+        self.text = value
+
     @rx.var
     def upper_text(self) -> str:
         # This will be recomputed whenever `text` changes.
@@ -105,13 +108,13 @@ Async computed vars are useful for operations that require asynchronous processi
 ```python demo exec
 class AsyncVarState(rx.State):
     count: int = 0
-    
+
     @rx.var
     async def delayed_count(self) -> int:
         # Simulate an async operation like an API call
         await asyncio.sleep(0.5)
         return self.count * 2
-    
+
     @rx.event
     def increment(self):
         self.count += 1
@@ -139,26 +142,26 @@ useful for expensive async operations like API calls or database queries.
 class AsyncCachedVarState(rx.State):
     user_id: int = 1
     refresh_trigger: int = 0
-    
+
     @rx.var(cache=True)
     async def user_data(self) -> dict:
         # In a real app, this would be an API call
         await asyncio.sleep(1)  # Simulate network delay
-        
+
         # Simulate different user data based on user_id
         users = {
             1: {"name": "Alice", "email": "alice@example.com"},
             2: {"name": "Bob", "email": "bob@example.com"},
             3: {"name": "Charlie", "email": "charlie@example.com"},
         }
-        
+
         return users.get(self.user_id, {"name": "Unknown", "email": "unknown"})
-    
+
     @rx.event
     def change_user(self):
         # Cycle through users 1-3
         self.user_id = (self.user_id % 3) + 1
-    
+
     @rx.event
     def force_refresh(self):
         # This will not affect user_data dependencies, but will trigger a state update

@@ -39,6 +39,9 @@ coins = ["BTC", "ETH", "LTC", "DOGE"]
 class VarSelectState(rx.State):
     selected: str = "DOGE"
 
+    def set_selected(self, value: str):
+        self.selected = value
+
 def var_operations_example():
     return rx.vstack(
         # Using a var operation to concatenate a string with a var.
@@ -73,10 +76,13 @@ class EqualsState(rx.State):
     selected: str = "Apple"
     favorite: str = "Banana"
 
+    def set_selected(self, value: str):
+        self.selected = value
+
 
 def var_equals_example():
     return rx.vstack(
-        rx.text(EqualsState.favorite.to_string() + "is my favorite fruit!"),
+        rx.text(EqualsState.favorite.to_string() + " is my favorite fruit!"),
         rx.select(
             fruits,
             value=EqualsState.selected,

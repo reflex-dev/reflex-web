@@ -752,6 +752,9 @@ class RadixDocState(rx.State):
 
     color: str = "tomato"
 
+    @rx.event
+    def set_color(self, color: str):
+        self.color = color
 
 def hover_item(component: rx.Component, component_str: str) -> rx.Component:
     return rx.hover_card.root(
@@ -971,7 +974,7 @@ def style_grid(
                                     " hidden",
                                 ),
                             ),
-                            on_click=RadixDocState.setvar("color", color),
+                            on_click=RadixDocState.set_color(color),
                             background_color=f"var(--{color}-9)",
                             class_name="relative rounded-md cursor-pointer shrink-0 size-[30px]"
                             + rx.cond(

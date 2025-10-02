@@ -14,7 +14,7 @@ The video component can display a video given an src path as an argument. This c
 
 ```python demo
 rx.video(
-    url="https://www.youtube.com/embed/9bZkp7q19f0", 
+    src="https://www.youtube.com/embed/9bZkp7q19f0",
     width="400px",
     height="auto"
 )
