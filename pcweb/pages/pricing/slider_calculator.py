@@ -11,8 +11,18 @@ from reflex_ui.blocks.lemcal import lemcal_dialog
 from pcweb.constants import REFLEX_CLOUD_URL, PRO_TIERS_TABLE
 
 
-def format_number(number: int) -> str:
-    return rx.Var(f"({number}).toLocaleString('en-US')").to(str)
+_SORTED_TIERS = sorted(
+    [{"key": k, **v} for k, v in PRO_TIERS_TABLE.items()], key=lambda x: x["credits"]
+)
+
+machine_keys = list(COMPUTE_TABLE.keys())
+
+
+def format_number(number: int | float) -> str:
+    """Format number with locale string, handling non-numeric values"""
+    return rx.Var(
+        f"(typeof {number} === 'number' ? {number} : 0).toLocaleString('en-US')"
+    ).to(str)
 
 
 @dataclass
@@ -20,13 +30,20 @@ class Machine:
     vcpu: int
     ram: float
     index: int
+    weekly_credits: float = 0.0
 
     @classmethod
     def from_index(cls, index: int) -> "Machine":
         """Create Machine from COMPUTE_TABLE index"""
         machine_key = machine_keys[index]
         specs = COMPUTE_TABLE[machine_key]
-        return cls(vcpu=specs["vcpu"], ram=specs["ram"], index=index)
+        weekly_credits = calculate_weekly_credits(specs["vcpu"], specs["ram"])
+        return cls(
+            vcpu=specs["vcpu"],
+            ram=specs["ram"],
+            index=index,
+            weekly_credits=weekly_credits,
+        )
 
 
 def calculate_weekly_credits(vcpu: int, ram: float) -> float:
@@ -36,7 +53,6 @@ def calculate_weekly_credits(vcpu: int, ram: float) -> float:
 
 
 message_tooltip_open_cs = ClientStateVar.create("message_tooltip_open", default=False)
-machine_keys = list(COMPUTE_TABLE.keys())
 pro_tier_keys = list(PRO_TIERS_TABLE.keys())
 COMPUTE_TABLE_KEYS = rx.Var.create(machine_keys)
 PRO_TIER_KEYS = rx.Var.create(pro_tier_keys)
@@ -44,113 +60,126 @@ PRO_TIER_KEYS = rx.Var.create(pro_tier_keys)
 MESSAGES_VALUES = [0] + [50 * (2**i) for i in range(9)] + [20000, 0]
 
 
+def get_is_enterprise_tier(messages_tier_index: int) -> bool:
+    """Check if slider is at Enterprise position"""
+    return messages_tier_index == len(MESSAGES_VALUES) - 1
+
+
+def get_message_credits(messages_tier_index: int) -> int:
+    """Get credits from message tier slider"""
+    return MESSAGES_VALUES[messages_tier_index]
+
+
 class MachineState(rx.State):
     machines: rx.Field[list[Machine]] = rx.field(default_factory=list)
     messages_tier_index: rx.Field[int] = rx.field(default=0)
 
+    machines_weekly_credits: rx.Field[float] = rx.field(default=0.0)
+    current_tier: rx.Field[dict] = rx.field(
+        default_factory=lambda: {"key": "Pro", "credits": 0, "price": 0}
+    )
+    total_credits: rx.Field[str] = rx.field(default="0")
+    recommended_tier_info: rx.Field[dict] = rx.field(
+        default_factory=lambda: {
+            "price": "$0/mo",
+            "needs_enterprise": False,
+            "name": "Pro Plan",
+            "credits": 0,
+        }
+    )
+
+    def _recalculate_all(self):
+        """Recalculate all derived values when state changes"""
+        # Calculate machines weekly credits using cached values
+        machines_credits = sum(m.weekly_credits for m in self.machines)
+        self.machines_weekly_credits = machines_credits
+
+        # Calculate current tier based on message credits
+        msg_credits = get_message_credits(self.messages_tier_index)
+        is_enterprise = get_is_enterprise_tier(self.messages_tier_index)
+
+        # Early return path for enterprise tier
+        if is_enterprise:
+            self.current_tier = {
+                "key": "Enterprise",
+                "credits": msg_credits,
+                "price": "custom",
+            }
+            self.total_credits = "Custom"
+            self.recommended_tier_info = {
+                "price": "Custom",
+                "needs_enterprise": True,
+                "name": "Enterprise",
+                "credits": "Custom",
+            }
+            return
+
+        # Non-enterprise path - find tiers once
+        current_tier = self._find_tier_for_credits(msg_credits)
+        total = msg_credits + machines_credits
+        total_tier = self._find_tier_for_credits(total)
+
+        # Set current tier
+        self.current_tier = {
+            "key": current_tier["key"] if current_tier else "Enterprise",
+            "credits": msg_credits,
+            "price": current_tier["price"] if current_tier else "custom",
+        }
+
+        # Set total credits display
+        self.total_credits = f"{total:,}" if total_tier else "Custom"
+
+        # Set recommended tier info
+        if total_tier:
+            self.recommended_tier_info = {
+                "price": f"${total_tier['price']}/mo",
+                "needs_enterprise": False,
+                "name": f"{total_tier['key']} Plan",
+                "credits": total_tier["credits"],
+            }
+        else:
+            self.recommended_tier_info = {
+                "price": "Custom",
+                "needs_enterprise": True,
+                "name": "Enterprise",
+                "credits": "Custom",
+            }
+
     @rx.event(temporal=True)
     def add_machine(self):
         self.machines.append(Machine.from_index(0))
+        self._recalculate_all()
 
     @rx.event(temporal=True)
     def remove_machine(self, index: int):
         self.machines = self.machines[:index] + self.machines[index + 1 :]
+        self._recalculate_all()
 
     @rx.event(temporal=True)
     def update_machine(self, index: int, new_machine_index: int):
         self.machines[index] = Machine.from_index(new_machine_index)
+        yield
+        self._recalculate_all()
 
     @rx.event(temporal=True)
     def update_messages_tier(self, new_tier_index: int):
+        if new_tier_index == self.messages_tier_index:
+            return
         self.messages_tier_index = new_tier_index
-
-    def _get_message_credits(self) -> int:
-        """Get credits from message tier slider"""
-        return MESSAGES_VALUES[self.messages_tier_index]
-
-    def _get_machines_credits(self) -> float:
-        """Calculate total weekly credits of all machines"""
-        return sum(
-            calculate_weekly_credits(machine.vcpu, machine.ram)
-            for machine in self.machines
-        )
-
-    def _get_total_credits(self) -> float:
-        """Calculate total credits as numeric value"""
-        return self._get_message_credits() + round(self._get_machines_credits(), 2)
+        yield
+        self._recalculate_all()
 
     def _find_tier_for_credits(self, credits: float) -> dict | None:
-        """Find Pro tier that fits the given credits, or None if Enterprise needed"""
-        for tier_key in pro_tier_keys:
-            tier_data = PRO_TIERS_TABLE[tier_key]
-            if credits <= tier_data["credits"]:
-                return {"key": tier_key, **tier_data}
+        """Find Pro tier that fits the given credits using binary search"""
+        for tier in _SORTED_TIERS:
+            if credits <= tier["credits"]:
+                return tier
         return None
 
-    @rx.var
-    def machines_weekly_credits(self) -> float:
-        """For UI display of machine credits"""
-        return self._get_machines_credits()
-
-    @rx.var
-    def is_enterprise_tier(self) -> bool:
-        """Check if slider is at Enterprise position"""
-        return self.messages_tier_index == len(MESSAGES_VALUES) - 1
-
-    @rx.var
-    def current_tier(self) -> dict:
-        """Current tier info based on message credits only"""
-        msg_credits = self._get_message_credits()
-
-        if self.is_enterprise_tier:
-            return {
-                "key": "Enterprise",
-                "credits": msg_credits,
-                "price": "custom",
-                "messages": "custom",
-            }
-
-        tier = self._find_tier_for_credits(msg_credits)
-        return {
-            "key": tier["key"] if tier else "Enterprise",
-            "credits": msg_credits,
-            "price": tier["price"] if tier else "custom",
-            "messages": msg_credits,
-        }
-
-    @rx.var
-    def total_credits(self) -> str:
-        """Total credits display string"""
-        total = self._get_total_credits()
-        if self.is_enterprise_tier or not self._find_tier_for_credits(total):
-            return "Custom"
-        return f"{total:,}"
-
-    @rx.var
-    def recommended_tier_info(self) -> dict:
-        """Recommended tier based on total usage"""
-        tier = self._find_tier_for_credits(self._get_total_credits())
-
-        if tier:
-            return {
-                "price": f"${tier['price']}/mo",
-                "needs_enterprise": False,
-                "name": f"{tier['key']} Plan",
-                "credits": tier["credits"],
-                "messages": round(tier["credits"] / 10, 1),
-            }
-
-        return {
-            "price": "Custom",
-            "needs_enterprise": True,
-            "name": "Enterprise",
-            "credits": "Custom",
-            "messages": "custom",
-        }
-
-    @rx.event
+    @rx.event(temporal=True)
     def reset_machines(self):
         self.reset()
+        self._recalculate_all()
 
 
 def total_credits_card() -> rx.Component:
@@ -162,18 +191,18 @@ def total_credits_card() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 rx.cond(
-                    MachineState.is_enterprise_tier,
+                    get_is_enterprise_tier(MachineState.messages_tier_index),
                     rx.el.span(
                         "Reflex Build Credits (Custom)",
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                     rx.el.span(
-                        f"Reflex Build Credits ({format_number(MachineState.current_tier['messages'])})",
+                        f"Reflex Build Credits ({format_number(MachineState.current_tier['credits'])})",
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                 ),
                 rx.cond(
-                    MachineState.is_enterprise_tier,
+                    get_is_enterprise_tier(MachineState.messages_tier_index),
                     rx.el.span(
                         "Custom",
                         class_name="text-secondary-12 text-sm font-medium ml-auto font-mono",
@@ -193,9 +222,7 @@ def total_credits_card() -> rx.Component:
                         class_name="text-secondary-11 text-sm font-medium",
                     ),
                     rx.el.span(
-                        format_number(
-                            calculate_weekly_credits(machine.vcpu, machine.ram)
-                        ),
+                        format_number(machine.weekly_credits),
                         class_name="text-secondary-12 text-sm font-medium font-mono",
                     ),
                     class_name="flex flex-row gap-2 items-center justify-between",
@@ -211,9 +238,9 @@ def total_credits_card() -> rx.Component:
                 class_name="flex flex-row gap-2 items-center justify-between",
             ),
             rx.el.div(
-                 rx.el.span(
+                rx.el.span(
                     rx.cond(
-                        MachineState.recommended_tier_info["needs_enterprise"],
+                        get_is_enterprise_tier(MachineState.messages_tier_index),
                         rx.el.span(
                             "Get a custom quote for your needs",
                             class_name="text-secondary-12 text-sm font-medium",
@@ -236,27 +263,27 @@ def total_credits_card() -> rx.Component:
                         ),
                     ),
                     class_name="text-center",
-                 ),
+                ),
                 class_name="flex flex-col gap-2 mt-4 pt-2 justify-center",
             ),
             rx.cond(
-                MachineState.recommended_tier_info["needs_enterprise"],
-                 lemcal_dialog(
-                     ui.button(
-                         "Contact Sales",
-                         size="sm",
-                         class_name="font-semibold w-full",
-                     ),
-                 ),
-                 ui.link(
-                     render_=ui.button(
-                         "Upgrade Now",
-                         size="sm",
-                         class_name="font-semibold w-full",
-                     ),
-                     to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
-                     target="_blank",
-                 ),
+                get_is_enterprise_tier(MachineState.messages_tier_index),
+                lemcal_dialog(
+                    ui.button(
+                        "Contact Sales",
+                        size="sm",
+                        class_name="font-semibold w-full",
+                    ),
+                ),
+                ui.link(
+                    render_=ui.button(
+                        "Upgrade Now",
+                        size="sm",
+                        class_name="font-semibold w-full",
+                    ),
+                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
+                    target="_blank",
+                ),
             ),
             class_name="flex flex-col gap-2",
         ),
@@ -270,31 +297,31 @@ def messages_card() -> rx.Component:
             rx.el.div(
                 ui.icon("StarCircleIcon", class_name="text-secondary-11 size-5"),
                 rx.cond(
-                    MachineState.is_enterprise_tier,
+                    get_is_enterprise_tier(MachineState.messages_tier_index),
                     rx.el.span(
                         "Custom Reflex Build Credits / Month",
                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
                     ),
                     rx.el.span(
-                        f"{format_number(MachineState.current_tier['messages'])} Reflex Build Credits / Month",
+                        f"{format_number(MachineState.current_tier['credits'])} Reflex Build Credits / Month",
                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
                     ),
                 ),
                 class_name="flex flex-row gap-2 items-center",
             ),
             rx.el.div(
-                 rx.cond(
-                     MachineState.is_enterprise_tier,
-                     rx.el.span(
-                         "Custom",
-                         class_name="text-secondary-12 lg:text-lg text-base font-medium",
-                     ),
-                     rx.el.span(
-                         format_number(MachineState.current_tier["credits"]),
-                         " Credits",
-                         class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
-                     ),
-                 ),
+                rx.cond(
+                    get_is_enterprise_tier(MachineState.messages_tier_index),
+                    rx.el.span(
+                        "Custom",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium",
+                    ),
+                    rx.el.span(
+                        format_number(MachineState.current_tier["credits"]),
+                        " Credits",
+                        class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
+                    ),
+                ),
                 class_name="flex flex-row gap-1.5 items-center",
             ),
             class_name="flex flex-row gap-2 items-center justify-between",
@@ -306,13 +333,9 @@ def messages_card() -> rx.Component:
                     ui.tooltip(
                         trigger=ui.slider.thumb(),
                         content=rx.cond(
-                            MachineState.is_enterprise_tier,
+                            get_is_enterprise_tier(MachineState.messages_tier_index),
                             "Custom",
-                            rx.cond(
-                                MachineState.is_enterprise_tier,
-                                "Custom Messages",
-                                f"{format_number(MachineState.current_tier['messages'])} Messages",
-                             ),
+                            f"{format_number(MachineState.current_tier['credits'])} Messages",
                         ),
                         open=message_tooltip_open_cs.value,
                         side="bottom",
@@ -322,8 +345,13 @@ def messages_card() -> rx.Component:
             min=0,
             max=len(MESSAGES_VALUES) - 1,
             step=1,
-            value=MachineState.messages_tier_index,
-            on_value_change=MachineState.update_messages_tier,
+            on_value_change=lambda new_tier_index: rx.cond(
+                MachineState.messages_tier_index != new_tier_index,
+                MachineState.update_messages_tier(new_tier_index).throttle(150),
+                rx.noop(),
+            ),
+            on_value_committed=MachineState.update_messages_tier,
+            min_steps_between_values=1,
             class_name="w-full max-w-full",
         ),
         on_mouse_enter=message_tooltip_open_cs.set_value(True),
@@ -370,7 +398,7 @@ def machine_card(machine: Machine, index: int) -> rx.Component:
                 ),
                 rx.el.div(
                     rx.el.span(
-                        f"{calculate_weekly_credits(machine.vcpu, machine.ram)}",
+                        f"{machine.weekly_credits}",
                         class_name="text-secondary-12 lg:text-lg text-base font-medium font-mono",
                     ),
                     rx.el.span(
@@ -399,7 +427,13 @@ def machine_card(machine: Machine, index: int) -> rx.Component:
             max=COMPUTE_TABLE_KEYS.length() - 1,
             step=1,
             value=machine.index,
-            on_value_change=lambda new_machine_index: MachineState.update_machine(
+            min_steps_between_values=1,
+            on_value_change=lambda new_machine_index: rx.cond(
+                machine.index != new_machine_index,
+                MachineState.update_machine(index, new_machine_index).throttle(150),
+                rx.noop(),
+            ),
+            on_value_committed=lambda new_machine_index: MachineState.update_machine(
                 index, new_machine_index
             ),
             class_name="w-full max-w-full",
@@ -446,6 +480,5 @@ def slider_calculator() -> rx.Component:
             total_credits_card(),
             class_name="flex lg:flex-row flex-col lg:gap-10 gap-6 w-full px-6 h-full",
         ),
-        on_mount=MachineState.reset_machines,
         class_name="flex flex-col w-full max-w-[64.19rem] border-t-0 2xl:border-x divide-y divide-slate-4 2xl:border-b pt-[6rem] justify-center items-center",
     )
