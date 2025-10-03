@@ -8,13 +8,11 @@ from .integration_request import request_integration_dialog
 
 selected_filter = ClientStateVar.create("selected_filter", "All")
 
-# The filter options the integration gallery
 FilterOptions = [
     {"name": "AI", "icon": "BotIcon"},
     {"name": "DevTools", "icon": "WorkflowSquare10Icon"},
     {"name": "Data Infrastructure", "icon": "DatabaseAddIcon"},
     {"name": "Authentication", "icon": "LockPasswordIcon"},
-    {"name": "Cloud Services", "icon": "CloudIcon"},
     {"name": "All", "icon":"CellsIcon"},
 ]
 

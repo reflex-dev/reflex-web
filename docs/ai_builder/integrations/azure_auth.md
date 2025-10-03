@@ -1,6 +1,6 @@
 ---
-tags: Cloud Services
-description: Integrate with Microsoft Azure services for cloud compute, storage, and deployment.
+tags: Authentication
+description: Integrate Azure for secure authentication and access management within your application.
 ---
 # Azure Auth Manager Integration
 
