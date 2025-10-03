@@ -1,3 +1,7 @@
+---
+tags: Cloud Services
+description: Integrate with Microsoft Azure services for cloud compute, storage, and deployment.
+---
 # Azure Auth Manager Integration
 
 The **Azure Auth Manager Integration** allows your app to authenticate users through Microsoft Azure Active Directory (Azure AD). This integration provides secure OAuth 2.0 authentication and supports multi-tenant applications with customizable tenant access.

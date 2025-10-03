@@ -1,3 +1,8 @@
+---
+tags: Data Infrastructure
+description: Connect with Databricks to run data pipelines and advanced analytics seamlessly.
+---
+
 # Databricks Integration
 
 The **Databricks Integration** allows your app to connect to a Databricks workspace, query data from warehouses, and use catalogs and schemas directly in your app. This integration supports secure authentication via tokens and can be configured per environment.

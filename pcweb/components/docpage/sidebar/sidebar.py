@@ -430,6 +430,12 @@ def sidebar_comp(
                         "plug",
                         1,
                     ),
+                    sidebar_category(
+                        "Integrations",
+                        "/integrations",
+                        "codesandbox",
+                        3,
+                    ),
                     class_name="flex flex-col items-start gap-1 w-full list-none",
                 ),
                 # If the path doesn't start with /docs/cloud, check for general docs

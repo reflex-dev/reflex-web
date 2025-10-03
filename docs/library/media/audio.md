@@ -14,7 +14,7 @@ The audio component can display an audio given an src path as an argument. This 
 
 ```python demo
 rx.audio(
-    url="https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
+    src="https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
     width="400px",
     height="32px",
 )
