@@ -61,8 +61,8 @@ def integration_gallery_cards(data):
                 class_name="w-full flex flex-row items-center justify-between"
             ),
             rx.el.div(
-                rx.el.p(data['title'], class_name="text-lg font-bold text-secondary-12"),
-                rx.el.p(data['description'], class_name="font-medium text-secondary-11"),
+                rx.el.p(data['title'], class_name="text-lg font-semibold text-secondary-12"),
+                rx.el.p(data['description'], class_name="font-medium text-secondary-11 leading-[1.35]"),
                 class_name="flex flex-col gap-y-1"
             ),
             class_name="flex flex-col gap-y-6 rounded-ui-xl border border-secondary-a4 bg-secondary-1 shadow-small p-6 h-[13rem] justify-between hover:bg-secondary-2"
@@ -90,5 +90,5 @@ def integration_request_form():
     return rx.el.div(
         rx.el.p("Missing an integration?"),
         rx.el.p(rx.fragment("Click ", request_integration_dialog(), " to tell us what you need.")),
-        class_name="w-full max-w-[64.19rem] flex flex-col gap-y-1 text-md font-bold py-10 items-center justify-center lg:border-x border-slate-3"
+        class_name="w-full max-w-[64.19rem] flex flex-col gap-y-1 text-md font-semibold py-10 items-center justify-center lg:border-x border-slate-3"
     )
