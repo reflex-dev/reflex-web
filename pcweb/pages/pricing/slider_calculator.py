@@ -295,7 +295,7 @@ def messages_card() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.el.div(
-                ui.icon("StarCircleIcon", class_name="text-secondary-11 size-5"),
+                ui.icon("TokenCircleIcon", class_name="text-secondary-11 size-5"),
                 rx.cond(
                     get_is_enterprise_tier(MachineState.messages_tier_index),
                     rx.el.span(
