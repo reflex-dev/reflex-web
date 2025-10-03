@@ -6,7 +6,7 @@ def request_integration_dialog() -> rx.Component:
     return ui.dialog(
         title="Request Integration",
         description="Let us know what integration you'd like to see added.",
-        trigger=rx.el.strong(rx.el.u("here"), class_name="cursor-pointer"),
+        trigger=rx.el.strong(rx.el.u("here"), class_name="cursor-pointer text-primary-11 decoration-primary-9"),
         content=rx.el.form(
             ui.textarea(
                 placeholder="Requested integration...",
