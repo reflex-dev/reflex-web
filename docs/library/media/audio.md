@@ -20,7 +20,7 @@ rx.audio(
 )
 ```
 
-If we had a local file in the `assets` folder named `test.mp3` we could set `url="/test.mp3"` to view the audio file.
+If we had a local file in the `assets` folder named `test.mp3` we could set `src="/test.mp3"` to view the audio file.
 
 ```md alert info
 # How to let your user upload an audio file
