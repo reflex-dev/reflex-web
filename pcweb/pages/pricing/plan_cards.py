@@ -181,7 +181,7 @@ def pricing_cards() -> rx.Component:
             "Perfect for getting started and trying out Reflex.",
             [
                 Feature(
-                    "StarCircleIcon",
+                    "TokenCircleIcon",
                     "50 daily credits (up to 150/month)",
                 ),
                 Feature("EarthIcon", "Public apps only"),
@@ -218,7 +218,7 @@ def pricing_cards() -> rx.Component:
             ),
             "Build, deploy and scale your apps.",
             [
-                Feature("StarCircleIcon", "", pro_tiers_select()),
+                Feature("TokenCircleIcon", "", pro_tiers_select()),
                 Feature("SquareLock02Icon", "Private Projects"),
                 Feature("CursorInWindowIcon", "Full-Fledged Browser IDE"),
                 Feature("PlugSocketIcon", "Integrations"),

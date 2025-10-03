@@ -25,7 +25,7 @@ def table_header(cost_text: str) -> rx.Component:
         rx.text("vCPU", class_name="text-sm font-semibold text-slate-12"),
         rx.text("GB RAM", class_name="text-sm font-semibold text-slate-12"),
         rx.el.div(
-            ui.icon("StarCircleIcon", class_name="text-slate-9 size-4"),
+            ui.icon("TokenCircleIcon", class_name="text-slate-9 size-4"),
             rx.text(
                 cost_text, class_name="text-sm font-semibold text-slate-12 text-end"
             ),
