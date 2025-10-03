@@ -14,13 +14,13 @@ The audio component can display an audio given an src path as an argument. This 
 
 ```python demo
 rx.audio(
-    url="https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
+    src="https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
     width="400px",
     height="32px",
 )
 ```
 
-If we had a local file in the `assets` folder named `test.mp3` we could set `url="/test.mp3"` to view the audio file.
+If we had a local file in the `assets` folder named `test.mp3` we could set `src="/test.mp3"` to view the audio file.
 
 ```md alert info
 # How to let your user upload an audio file

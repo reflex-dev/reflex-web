@@ -1,3 +1,7 @@
+---
+tags: AI
+description: Connect to OpenAI's powerful language models for text generation, analysis, and more.
+---
 # OpenAI Integration
 
 The **OpenAI Integration** allows your app to use OpenAI APIs for features such as text generation, embeddings, and other AI-powered functionality.

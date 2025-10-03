@@ -1,3 +1,8 @@
+---
+tags: Authentication
+description: Enable secure authentication using Google sign-in and OAuth 2.0 workflows.
+---
+
 # Google Auth Integration
 
 The **Google Auth Integration** allows your app to authenticate users using their Google accounts. This provides a secure, familiar login experience and simplifies user management.
