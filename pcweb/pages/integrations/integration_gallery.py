@@ -33,14 +33,17 @@ def integration_filter_button(data: dict):
 
 def integration_filters():
     return rx.el.div(
-        *[integration_filter_button(data) for data in FilterOptions],
-        class_name="flex flex-row gap-3 items-center justify-center flex-wrap"
+        rx.el.div(
+            *[integration_filter_button(data) for data in FilterOptions],
+            class_name="flex flex-row gap-3 items-center justify-center flex-wrap"
+        ),
+        class_name="w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-12"
     )
 
 
 
 def integration_gallery_cards(data):
-    return rx.link(
+    return rx.el.a(
         rx.el.div(
             rx.el.div(
                 rx.image(
@@ -58,14 +61,14 @@ def integration_gallery_cards(data):
                 class_name="w-full flex flex-row items-center justify-between"
             ),
             rx.el.div(
-                rx.el.p(data['title'], class_name="text-lg font-bold"),
-                rx.el.p(data['description'], class_name="text-sm"),
+                rx.el.p(data['title'], class_name="text-lg font-bold text-secondary-12"),
+                rx.el.p(data['description'], class_name="font-medium text-secondary-11"),
                 class_name="flex flex-col gap-y-1"
             ),
-            class_name="flex flex-col gap-y-6 rounded-ui-xl border border-secondary-a4 bg-secondary-1 shadow-small p-6 h-[12rem] justify-between hover:bg-secondary-2"
+            class_name="flex flex-col gap-y-6 rounded-ui-xl border border-secondary-a4 bg-secondary-1 shadow-small p-6 h-[13rem] justify-between hover:bg-secondary-2"
         ),
         href=data['path'],
-        class_name="group text-inherit hover:!text-inherit decoration-none "
+        class_name="group text-inherit hover:!text-inherit decoration-none no-underline "
         + rx.cond(
             (selected_filter.value == data['tags']) | (selected_filter.value == "All"), "flex", "hidden"
         ),
@@ -73,17 +76,19 @@ def integration_gallery_cards(data):
 
 def integration_gallery():
     return rx.el.div(
-        *[
-            integration_gallery_cards(list(item.values())[0])
-            for item in get_integration_path()
-        ],
-        class_name="w-full lg:w-[86%] grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 px-10 py-12"
+        rx.el.div(
+            *[
+                integration_gallery_cards(list(item.values())[0])
+                for item in get_integration_path()
+            ],
+            class_name="w-full lg:max-w-[80rem] grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 px-4 md:px-10"
+        ),
+        class_name=""
     )
-
 
 def integration_request_form():
     return rx.el.div(
         rx.el.p("Missing an integration?"),
         rx.el.p(rx.fragment("Click ", request_integration_dialog(), " to tell us what you need.")),
-        class_name="flex flex-col gap-y-1 text-sm text-slate-12 py-6 items-center justify-center"
+        class_name="w-full max-w-[64.19rem] flex flex-col gap-y-1 text-md font-bold py-10 items-center justify-center lg:border-x border-slate-3"
     )

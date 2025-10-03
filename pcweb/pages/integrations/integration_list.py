@@ -34,6 +34,9 @@ def get_integration_path() -> list:
                 description = post.get('description', '').strip()
                 title = key.replace('_', ' ').title()
 
+                if title == "Open Ai":
+                    title = "Open AI"
+
             result.append({
                 key: {
                     'path': f"{web_path_prefix}/{slug}",
