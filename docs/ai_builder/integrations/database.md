@@ -1,3 +1,7 @@
+---
+tags: Data Infrastructure
+description: Connect to SQL or NoSQL databases to query, store, and manage structured data.
+---
 # Database Integration
 
 The Database Integration allows you to connect your AI-generated applications to real databases, automatically generating schemas and enabling data-driven functionality.
