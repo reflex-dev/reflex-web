@@ -7,7 +7,7 @@ def get_integration_path() -> list:
     web_path_prefix = '/docs/ai-builder/integrations'
     result = []
 
-    exclude_files = ["mcp_installation", "mcp_overview"]  # without .md extension
+    exclude_files = ["mcp_installation", "mcp_overview", "overview"]  # without .md extension
 
     for filename in os.listdir(base_dir):
         if filename.endswith('.md'):

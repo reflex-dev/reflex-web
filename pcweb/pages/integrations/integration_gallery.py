@@ -13,6 +13,7 @@ FilterOptions = [
     {"name": "DevTools", "icon": "WorkflowSquare10Icon"},
     {"name": "Data Infrastructure", "icon": "DatabaseAddIcon"},
     {"name": "Authentication", "icon": "LockPasswordIcon"},
+    {"name": "Communication", "icon": "SentIcon"},
     {"name": "All", "icon":"CellsIcon"},
 ]
 
@@ -35,7 +36,7 @@ def integration_filters():
             *[integration_filter_button(data) for data in FilterOptions],
             class_name="flex flex-row gap-3 items-center justify-center flex-wrap"
         ),
-        class_name="w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-12"
+        class_name="w-full max-w-[64.19rem] pb-12"
     )
 
 
@@ -79,14 +80,13 @@ def integration_gallery():
                 integration_gallery_cards(list(item.values())[0])
                 for item in get_integration_path()
             ],
-            class_name="w-full lg:max-w-[80rem] grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 px-4 md:px-10"
+            class_name="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6"
         ),
-        class_name=""
     )
 
 def integration_request_form():
     return rx.el.div(
         rx.el.p("Missing an integration?"),
         rx.el.p(rx.fragment("Click ", request_integration_dialog(), " to tell us what you need.")),
-        class_name="w-full max-w-[64.19rem] flex flex-col gap-y-1 text-md font-semibold py-10 items-center justify-center lg:border-x border-slate-3"
+        class_name="w-full max-w-[64.19rem] flex flex-col gap-y-1 text-md font-semibold py-10 items-center justify-center"
     )

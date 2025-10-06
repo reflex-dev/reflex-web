@@ -42,9 +42,29 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.app_lifecycle.share_app,
             ],
         ),
+        # create_item(
+        #     "Integrations",
+        #     children=[
+        #         ai_builder.integrations.overview,
+        #         ai_builder.integrations.github,
+        #         ai_builder.integrations.database,
+        #         ai_builder.integrations.databricks,
+        #         ai_builder.integrations.azure_auth,
+        #         ai_builder.integrations.okta_auth,
+        #         ai_builder.integrations.google_auth,
+        #         ai_builder.integrations.open_ai,
+        #     ],
+        # ),
+    ]
+
+def get_ai_builder_integrations():
+    from pcweb.pages.docs import ai_builder
+
+    return [
         create_item(
             "Integrations",
             children=[
+                ai_builder.integrations.overview,
                 ai_builder.integrations.github,
                 ai_builder.integrations.database,
                 ai_builder.integrations.databricks,
@@ -52,6 +72,7 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.integrations.okta_auth,
                 ai_builder.integrations.google_auth,
                 ai_builder.integrations.open_ai,
+                ai_builder.integrations.resend,
             ],
         ),
     ]
@@ -72,4 +93,5 @@ def get_sidebar_items_mcp():
 
 
 ai_builder_overview_items = get_sidebar_items_ai_builder_overview()
+ai_builder_integrations = get_ai_builder_integrations()
 mcp_items = get_sidebar_items_mcp()

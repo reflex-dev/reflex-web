@@ -8,7 +8,7 @@ from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.constants import ENTERPRISE_DOCS_URL
 from pcweb.styles.colors import c_color
 
-from .sidebar_items.ai import ai_builder_overview_items, mcp_items
+from .sidebar_items.ai import ai_builder_overview_items, mcp_items, ai_builder_integrations
 from .sidebar_items.component_lib import component_lib, graphing_libs
 from .sidebar_items.enterprise import (
     enterprise_items,
@@ -255,6 +255,7 @@ append_to_items(
     + graphing_libs
     + recipes
     + ai_builder_overview_items
+    + ai_builder_integrations
     + api_reference
     + enterprise_items,
     flat_items,
@@ -390,6 +391,7 @@ def sidebar_comp(
     #
     cli_ref_index: list[int],
     ai_builder_overview_index: list[int],
+    ai_builder_integrations_index: list[int],
     tutorials_index: list[int],
     width: str = "100%",
 ):
@@ -432,9 +434,9 @@ def sidebar_comp(
                     ),
                     sidebar_category(
                         "Integrations",
-                        "/integrations",
+                        ai_builder_pages.integrations.overview.path,
                         "codesandbox",
-                        3,
+                        2,
                     ),
                     class_name="flex flex-col items-start gap-1 w-full list-none",
                 ),
@@ -528,6 +530,19 @@ def sidebar_comp(
                                 ai_builder_pages.integrations.mcp_overview.path,
                                 mcp_items,
                                 mcp_index,
+                                url,
+                            ),
+                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                        ),
+                    ),
+                    (
+                        2,
+                        rx.el.ul(
+                            create_sidebar_section(
+                                "Integration",
+                                ai_builder_pages.integrations.overview.path,
+                                ai_builder_integrations,
+                                ai_builder_integrations_index,
                                 url,
                             ),
                             class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
@@ -678,6 +693,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
 
     cli_ref_index = calculate_index(cli_ref, url)
     ai_builder_overview_index = calculate_index(ai_builder_overview_items, url)
+    ai_builder_integrations_index = calculate_index(ai_builder_integrations, url)
     mcp_index = calculate_index(mcp_items, url)
 
     return rx.box(
@@ -694,9 +710,9 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             enterprise_usage_index=enterprise_usage_index,
             enterprise_component_index=enterprise_component_index,
             ai_builder_overview_index=ai_builder_overview_index,
+            ai_builder_integrations_index=ai_builder_integrations_index,
             cli_ref_index=cli_ref_index,
             mcp_index=mcp_index,
-            #
             width=width,
         ),
         on_mount=rx.call_script(Scrollable_SideBar),
