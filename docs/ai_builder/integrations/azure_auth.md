@@ -1,3 +1,7 @@
+---
+tags: Authentication
+description: Integrate Azure for secure authentication and access management within your application.
+---
 # Azure Auth Manager Integration
 
 The **Azure Auth Manager Integration** allows your app to authenticate users through Microsoft Azure Active Directory (Azure AD). This integration provides secure OAuth 2.0 authentication and supports multi-tenant applications with customizable tenant access.

@@ -28,6 +28,7 @@ dependencies = [
     "typesense>=1.1.1",
     "fastapi",
     "reflex-hosting-cli>=0.1.56",
+    "python-frontmatter>=1.1.0"
 ]
 
 [dependency-groups]

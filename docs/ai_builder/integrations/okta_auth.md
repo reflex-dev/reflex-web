@@ -1,3 +1,8 @@
+---
+tags: Authentication
+description: Use Okta for secure identity and access management via Single Sign-On provisioning.
+---
+
 # Okta Auth Manager Integration
 
 The **Okta Auth Manager Integration** allows your app to authenticate users through [Okta](https://okta.com). This integration provides secure OAuth 2.0 / OIDC authentication and supports multi-tenant environments with customizable access policies.
