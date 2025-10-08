@@ -2,6 +2,7 @@ import reflex as rx
 from reflex.experimental import ClientStateVar
 from pcweb.components.icons.icons import get_icon
 from pcweb.pages.framework.views.companies import companies as index_companies
+import reflex_ui as ui
 
 company_cs = ClientStateVar.create("company", "")
 area_x_pos = ClientStateVar.create(var_name="area_x_pos", default=0)
@@ -77,7 +78,7 @@ companies_case_studies_var = rx.Var.create(companies_case_studies)
 
 def stat(stat: str, text: str) -> rx.Component:
     return rx.el.section(
-        get_icon("feather"),
+        get_icon("feather_unstyled", class_name="text-primary-9"),
         rx.box(
             rx.text(
                 stat,
@@ -86,7 +87,7 @@ def stat(stat: str, text: str) -> rx.Component:
             rx.text(text, class_name="text-sm text-slate-9 font-medium"),
             class_name="flex flex-col justify-center items-center text-center text-nowrap",
         ),
-        get_icon("feather", class_name="scale-x-[-1]"),
+        get_icon("feather_unstyled", class_name="scale-x-[-1] text-primary-9"),
         class_name="flex flex-row items-center gap-4 justify-center",
     )
 
@@ -122,18 +123,18 @@ def case_study_badge() -> rx.Component:
     return rx.box(
         rx.text("Case Study", class_name="text-xs text-violet-9 font-semibold"),
         get_icon(
-            "arrow_top_right",
-            class_name="size-3 group-hover:rotate-0 transition-transform rotate-45",
+            "chevron_right",
+            class_name="size-3",
         ),
-        class_name="absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
+        class_name="absolute bottom-4 right-4 bg-violet-3 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
     )
 
 
 def quote_badge() -> rx.Component:
     return rx.box(
         rx.text("Quote", class_name="text-xs text-violet-9 font-semibold"),
-        get_icon("quote", class_name="size-3"),
-        class_name="absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
+        ui.icon("QuoteDownIcon", class_name="size-3"),
+        class_name="absolute bottom-4 right-4 bg-violet-3 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
     )
 
 
@@ -227,7 +228,7 @@ def company_card(name: str, id: str) -> rx.Component:
         ],
         id=id,
         class_name=(
-            "relative w-full after:content[''] after:absolute after:z-[1] after:bg-slate-3 after:left-0 after:top-[-1px] after:w-full after:h-[1px] before:content[''] before:absolute before:z-[1] before:bg-slate-3 before:top-0 before:left-[-1px] before:h-full before:w-[1px] group",
+            "relative w-full group border-b border-r border-slate-3",
             rx.cond(
                 name == "STATS",
                 "col-span-2",
@@ -245,7 +246,6 @@ def company_card(name: str, id: str) -> rx.Component:
 
 def companies() -> rx.Component:
     return rx.el.section(
-        rx.box(class_name="h-[3rem] w-full border-b border-slate-3 lg:flex hidden"),
         rx.box(
             *[
                 company_card(
@@ -260,5 +260,5 @@ def companies() -> rx.Component:
             index_companies(),
             class_name="lg:hidden flex border-t border-slate-3 lg:border-t-0",
         ),
-        class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] border-slate-3 relative z-[1] overflow-hidden isolate lg:border-b lg:border-x",
+        class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] border-slate-3 relative z-[1] overflow-hidden isolate lg:border-l",
     )

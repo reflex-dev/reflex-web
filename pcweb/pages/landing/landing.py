@@ -10,18 +10,26 @@ from pcweb.pages.landing.views.outcomes_section import outcomes_section
 from pcweb.pages.landing.views.products import products
 from pcweb.pages.landing.views.security import security
 from pcweb.templates.mainpage import mainpage
+from pcweb.pages.landing.views.app_build import app_build
+from pcweb.pages.landing.views.social_stats import social_stats
+from pcweb.pages.landing.views.integrations import integrations
+from pcweb.pages.landing.views.video import video
 
 
 @mainpage(path="/", title="Reflex · Web apps in Pure Python", meta=meta_tags)
 def landing() -> rx.Component:
     return rx.box(
         hero(),
+        app_build(),
+        social_stats(),
         products(),
+        integrations(),
+        video(),
         companies(),
-        ai_section(),
-        framework_section(),
-        hosting_section(),
-        outcomes_section(),
-        security(),
+        # ai_section(),
+        # framework_section(),
+        # hosting_section(),
+        # outcomes_section(),
+        # security(),
         class_name="flex flex-col size-full justify-center items-center",
     )

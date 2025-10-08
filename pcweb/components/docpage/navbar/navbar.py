@@ -365,11 +365,11 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
         rx.box(
             rx.text(
                 title,
-                class_name="p-[1.406rem_0px] font-small text-slate-9 group-hover:text-slate-11 transition-colors",
+                class_name="p-[1.406rem_0px] font-small text-secondary-10 group-hover:text-secondary-11 transition-colors",
             ),
             rx.icon(
                 "chevron-down",
-                class_name="chevron size-5 !text-slate-9 group-hover:!text-slate-11 py-1 mr-0 transition-all ease-out",
+                class_name="chevron size-5 !text-secondary-10 group-hover:!text-secondary-11 py-1 mr-0 transition-all ease-out",
             ),
             class_name="flex-row items-center gap-x-1 group user-select-none cursor-pointer xl:flex hidden",
             on_click=rx.stop_propagation,
@@ -523,10 +523,11 @@ def new_component_section() -> rx.Component:
             nav_menu.item(discord(), class_name="xl:flex hidden"),
             nav_menu.item(
                 rx.link(
-                    button(
+                    ui.button(
                         "Sign In",
+                        size="sm",
                         variant="secondary",
-                        class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
+                        class_name="font-semibold text-secondary-11 whitespace-nowrap",
                     ),
                     underline="none",
                     is_external=True,
@@ -536,9 +537,11 @@ def new_component_section() -> rx.Component:
             ),
             nav_menu.item(
                 lemcal_dialog(
-                    button(
+                    ui.button(
                         "Book a Demo",
-                        class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
+                        size="sm",
+                        variant="primary",
+                        class_name="font-semibold whitespace-nowrap",
                     ),
                 ),
                 class_name="xl:flex hidden",
