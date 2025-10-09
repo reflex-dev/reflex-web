@@ -1,10 +1,12 @@
 """Components for rendering code demos in the documentation."""
 
-import reflex as rx
 import textwrap
 from typing import Any
+
+import reflex as rx
+import ruff_api
+
 from .code import code_block, code_block_dark
-import black
 
 
 def docdemobox(*children, **props) -> rx.Component:
@@ -42,14 +44,12 @@ def doccode(
     """
     # For Python snippets, lint the code with black.
     if language == "python":
-        code = black.format_str(
-            textwrap.dedent(code), mode=black.FileMode(line_length=60)
-        ).strip()
+        code = ruff_api.format_string(path="", source=textwrap.dedent(code)).strip()
 
     # If needed, only display a subset of the lines.
     if lines is not None:
         code = textwrap.dedent(
-            "\n".join(code.strip().split("\n")[lines[0] : lines[1]])
+            "\n".join(code.strip().splitlines()[lines[0] : lines[1]])
         ).strip()
 
     # Create the code snippet.
