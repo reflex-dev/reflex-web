@@ -646,6 +646,11 @@ def markdown(text):
     return xd.get_default_block().render_fn(content=text)
 
 
+def markdown_codeblock(value: str, **props: object) -> rx.Component:
+    """Render a code block using the Shiki-based code block component."""
+    return rx._x.code_block(value, **props)
+
+
 def markdown_with_shiki(*args, **kwargs):
     """
     Wrapper for the markdown component with a customized component map.
@@ -657,8 +662,6 @@ def markdown_with_shiki(*args, **kwargs):
     """
     return rx.markdown(
         *args,
-        component_map={
-            "codeblock": lambda value, **props: rx._x.code_block(value, **props)
-        },
+        component_map={"codeblock": markdown_codeblock},
         **kwargs,
     )

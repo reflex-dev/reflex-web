@@ -9,7 +9,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "email-validator==2.2.0",
-    "black>=25.0",
     "pandas>=1.5.3",
     "psycopg[binary]==3.2.9",
     "plotly-express==0.4.1",
@@ -28,7 +27,8 @@ dependencies = [
     "typesense>=1.1.1",
     "fastapi",
     "reflex-hosting-cli>=0.1.56",
-    "python-frontmatter>=1.1.0"
+    "python-frontmatter>=1.1.0",
+    "ruff-api>=0.1.0",
 ]
 
 [dependency-groups]
