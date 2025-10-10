@@ -1,8 +1,34 @@
-from click.decorators import R
 import reflex as rx
 import reflex_ui as ui
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.progressive_blur import progressive_blur
+
+
+# Animation delays (in ms)
+DELAY_USER_PROFILE = 250
+DURATION_USER_PROFILE = 900
+DELAY_OKTA = 1050
+DURATION_OKTA = 300
+DELAY_DIVIDER = 1200
+DURATION_DIVIDER = 200
+DELAY_GRAPH_OVERVIEW = 1350
+DURATION_GRAPH_OVERVIEW = 700
+DELAY_GRAPH_Y_AXIS = 1550
+DURATION_GRAPH_Y_AXIS = 700
+DELAY_DATABRICKS = 2100
+DURATION_DATABRICKS = 300
+DELAY_GRAPH_BARS = 1950
+DURATION_GRAPH_BARS = 300
+DELAY_METRICS_HEADER = 2250
+DURATION_METRICS_HEADER = 800
+DELAY_METRICS_BADGE = 2500
+DURATION_METRICS_BADGE = 700
+DELAY_METRICS_TABS = 2350
+DURATION_METRICS_TABS = 700
+DELAY_METRICS_CONTENT = 2450
+DURATION_METRICS_CONTENT = 600
+DELAY_SLACK = 3050
+DURATION_SLACK = 300
 
 
 def integration_card(icon: str, class_name: str = ""):
@@ -21,14 +47,14 @@ def integration_card(icon: str, class_name: str = ""):
 def okta_card():
     return integration_card(
         "okta",
-        class_name="rounded-t-[14px] rounded-bl-[14px] rounded-br-[4px] absolute top-2 left-2 animate-scale-rotate-in animate-duration-300 animate-ease-out animate-delay-1000",
+        class_name=f"rounded-t-[14px] rounded-bl-[14px] rounded-br-[4px] absolute top-2 left-2 animate-scale-rotate-in animate-duration-{DURATION_OKTA} animate-ease-out animate-delay-{DELAY_OKTA}",
     )
 
 
 def databricks_card():
     return integration_card(
         "databricks",
-        class_name="rounded-t-[14px] rounded-br-[14px] rounded-bl-[4px] absolute top-[5.25rem] right-[11rem] animate-scale-rotate-in animate-duration-300 animate-ease-out animate-delay-2100",
+        class_name=f"rounded-t-[14px] rounded-br-[14px] rounded-bl-[4px] absolute top-[5.25rem] right-[11rem] animate-scale-rotate-in animate-duration-{DURATION_DATABRICKS} animate-ease-out animate-delay-{DELAY_DATABRICKS}",
     )
 
 
@@ -46,7 +72,7 @@ def user_profile():
             class_name="text-slate-12 text-sm font-semibold",
         ),
         get_icon("arrow-fill-down", class_name="size-4 text-slate-9 -ml-2"),
-        class_name="flex flex-row items-center gap-4 animate-slide-in-left animate-duration-1000 animate-ease-out",
+        class_name=f"flex flex-row items-center gap-4 animate-slide-in-left animate-duration-{DURATION_USER_PROFILE} animate-ease-out animate-delay-{DELAY_USER_PROFILE}",
     )
 
 
@@ -76,7 +102,7 @@ def slack_alert():
             "now",
             class_name="absolute top-3 right-2 text-xs text-slate-7 font-medium",
         ),
-        class_name="flex flex-row items-center gap-3.5 border border-slate-6 h-[72px] w-[326px] rounded-[14px] px-3 shadow-large absolute top-2 right-2 z-[10] bg-white/88 backdrop-blur-[6px] animate-scale-in-top-right animate-duration-300 animate-ease-out animate-delay-3100",
+        class_name=f"flex flex-row items-center gap-3.5 border border-slate-6 h-[72px] w-[326px] rounded-[14px] px-3 shadow-large absolute top-2 right-2 z-[10] bg-white/88 backdrop-blur-[6px] animate-scale-in-top-right animate-duration-{DURATION_SLACK} animate-ease-out animate-delay-{DELAY_SLACK}",
     )
 
 
@@ -97,7 +123,7 @@ def metrics_tabs():
             ),
             class_name="flex flex-row items-center w-[246px] h-[32px] rounded-[8px] bg-white-1 border border-slate-4 divide-x divide-slate-4 overflow-hidden",
         ),
-        class_name="w-full h-[32px] animate-slide-in-right animate-duration-700 animate-ease-out animate-delay-2400 pl-6",
+        class_name=f"w-full h-[32px] animate-slide-in-right animate-duration-{DURATION_METRICS_TABS} animate-ease-out animate-delay-{DELAY_METRICS_TABS} pl-6",
     )
 
 
@@ -128,11 +154,11 @@ def metrics_header():
             rx.el.div(
                 get_icon("alert"),
                 "Critical Level",
-                class_name="text-red-10 bg-red-2 border-red-6 border flex flex-row items-center gap-1.5 text-xs font-medium rounded-md px-1.5 h-[24px] animate-delay-2400 animate-duration-700 animate-slide-in-right animate-ease-out",
+                class_name=f"text-red-10 bg-red-2 border-red-6 border flex flex-row items-center gap-1.5 text-xs font-medium rounded-md px-1.5 h-[24px] animate-delay-{DELAY_METRICS_BADGE} animate-duration-{DURATION_METRICS_BADGE} animate-slide-in-right animate-ease-out",
             ),
             class_name="flex flex-col gap-2",
         ),
-        class_name="flex flex-row gap-6 w-full justify-start relative animate-slide-in-right animate-duration-800 animate-ease-out animate-delay-2300 pl-6",
+        class_name=f"flex flex-row gap-6 w-full justify-start relative animate-slide-in-right animate-duration-{DURATION_METRICS_HEADER} animate-ease-out animate-delay-{DELAY_METRICS_HEADER} pl-6",
     )
 
 
@@ -153,7 +179,7 @@ def metrics_content():
         metrics_row("Critical", "89%", "09:41"),
         metrics_row("Normal", "34%", "08:14"),
         metrics_row("Normal", "12%", "05:36"),
-        class_name="flex flex-col w-[294px] divide-y divide-slate-4 border-t border-slate-3 animate-slide-in-up animate-delay-2500 animate-ease-out animate-duration-600",
+        class_name=f"flex flex-col w-[294px] divide-y divide-slate-4 border-t border-slate-3 animate-slide-in-up animate-delay-{DELAY_METRICS_CONTENT} animate-ease-out animate-duration-{DURATION_METRICS_CONTENT}",
     )
 
 
@@ -191,7 +217,7 @@ def graph_y_axis():
             )
             for i in [64, 48, 32, 24, 16, 8, 4]
         ],
-        class_name="flex flex-col items-end gap-7 w-4 pt-9 animate-slide-in-up animate-duration-700 animate-ease-out animate-delay-1600",
+        class_name=f"flex flex-col items-end gap-7 w-4 pt-9 animate-slide-in-up animate-duration-{DURATION_GRAPH_Y_AXIS} animate-ease-out animate-delay-{DELAY_GRAPH_Y_AXIS}",
     )
 
 
@@ -225,7 +251,7 @@ def graph_chart():
             stacked_bar_chart(primary_height=13.25, secondary_height=16),
             stacked_bar_chart(primary_height=9.875, secondary_height=15.0625),
             stacked_bar_chart(primary_height=6.75, secondary_height=16),
-            class_name="flex flex-row justify-between w-full animate-slide-in-up animate-duration-300 animate-ease-out animate-delay-2100",
+            class_name=f"flex flex-row justify-between w-full animate-slide-in-up animate-duration-{DURATION_GRAPH_BARS} animate-ease-out animate-delay-{DELAY_GRAPH_BARS}",
         ),
         class_name="flex flex-row gap-6 w-full px-8 pt-8 border border-slate-4 rounded-t-lg overflow-hidden h-[408px]",
     )
@@ -264,7 +290,7 @@ def graph_overview():
             class_name="flex flex-row justify-between items-baseline w-full",
         ),
         graph_chart(),
-        class_name="flex flex-col gap-6 size-full border-r border-slate-4 px-6 pt-6 animate-slide-in-up animate-duration-800 animate-ease-out animate-delay-1300 h-[408px] relative",
+        class_name=f"flex flex-col gap-6 size-full border-r border-slate-4 px-6 pt-6 animate-slide-in-up animate-duration-{DURATION_GRAPH_OVERVIEW} animate-ease-out animate-delay-{DELAY_GRAPH_OVERVIEW} h-[408px] relative",
     )
 
 
@@ -284,8 +310,8 @@ def app_build():
                 class_name="w-full h-[4.5rem] shrink-0 relative p-4 overflow-hidden rounded-t-[32px]",
             ),
             rx.el.div(
-                height="1px",
-                class_name="w-full bg-slate-4 animate-fade animate-duration-200 animate-ease-out animate-delay-1100 shrink-0",
+                height="0.5px",
+                class_name=f"w-full bg-slate-4 animate-fade animate-duration-{DURATION_DIVIDER} animate-ease-out animate-delay-{DELAY_DIVIDER} shrink-0",
             ),
             rx.el.div(
                 graph_overview(),

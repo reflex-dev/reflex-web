@@ -14,6 +14,7 @@ from pcweb.components.numbers_pattern import numbers_pattern
 import reflex_ui as ui
 from reflex.experimental import ClientStateVar
 from typing import TypedDict
+from reflex.experimental import ClientStateVar
 
 
 def is_content_type_valid(content_type: str) -> bool:
@@ -24,6 +25,9 @@ def is_content_type_valid(content_type: str) -> bool:
 textarea_x_pos = ClientStateVar.create(var_name="textarea_x_pos", default=0)
 textarea_y_pos = ClientStateVar.create(var_name="textarea_y_pos", default=0)
 textarea_opacity = ClientStateVar.create(var_name="textarea_opacity", default=0)
+show_default_prompt = ClientStateVar.create(
+    var_name="show_default_prompt", default=True
+)
 
 
 class ImageData(TypedDict):
@@ -143,32 +147,64 @@ def integration_text(text: str, integration: str) -> rx.Component:
 
 
 def prompt_box() -> rx.Component:
-    return rx.el.div(
+    return rx.el.form(
         rx.el.div(
-            rx.el.span(
-                "Build a dashboard with ",
-                integration_text(
-                    "Databricks",
-                    "databricks",
-                ),
-                "metrics, use ",
-                integration_text(
-                    "Okta",
-                    "okta",
-                ),
-                "for auth, ping me on ",
-                integration_text(
-                    "Slack",
-                    "slack",
-                ),
-                "when critical metrics",
-                # Cursor
+            rx.cond(
+                show_default_prompt.value,
                 rx.el.span(
-                    class_name="w-0.5 h-8 bg-slate-12 animate-blink inline-block align-middle",
+                    rx.el.span(
+                        "Build a dashboard with ",
+                        integration_text(
+                            "Databricks",
+                            "databricks",
+                        ),
+                        "metrics,",
+                        class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-3 left-5 h-10 pointer-events-none",
+                    ),
+                    rx.el.span(
+                        "use ",
+                        integration_text(
+                            "Okta",
+                            "okta",
+                        ),
+                        "for auth, ping me on ",
+                        integration_text(
+                            "Slack",
+                            "slack",
+                        ),
+                        class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-13 left-5 h-10 animate-delay-200 animate-fill-both pointer-events-none",
+                    ),
+                    rx.el.span(
+                        "when critical metrics",
+                        # Cursor
+                        rx.el.span(
+                            class_name="w-0.5 h-8 bg-slate-12 animate-blink inline-block align-middle animate-fill-both animate-delay-450",
+                        ),
+                        class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-23 left-5 h-10 animate-delay-400 animate-fill-both pointer-events-none",
+                    ),
+                    class_name="text-slate-11 text-xl leading-[2.5rem] font-medium cursor-text",
                 ),
-                class_name="text-slate-11 text-xl leading-[2.5rem] font-medium",
+                rx.el.textarea(
+                    placeholder="What do you want to build?",
+                    auto_focus=True,
+                    custom_attrs={
+                        "autoComplete": "off",
+                        "autoCapitalize": "none",
+                        "autoCorrect": "off",
+                        "spellCheck": "false",
+                    },
+                    class_name="text-slate-12 text-xl font-medium size-full placeholder:text-slate-9 border-none focus:border-none focus:outline-none outline-none resize-none caret-slate-12 mt-2",
+                ),
             ),
-            class_name="h-[9rem] w-[29rem] rounded-2xl bg-white-1 border border-slate-4 px-5 py-3",
+            rx.cond(
+                show_default_prompt.value,
+                rx.el.span(
+                    class_name="absolute inset-0 cursor-text z-10",
+                    on_click=show_default_prompt.set_value(False),
+                ),
+                None,
+            ),
+            class_name="h-[9rem] w-[29rem] rounded-2xl bg-white-1 border border-slate-4 px-5 py-3 relative overflow-hidden",
             style={
                 "box-shadow": "0 2px 0 0 #FFF inset, 0 2px 6px 0 rgba(28, 32, 36, 0.08) inset, 0 1px 5px 0 rgba(28, 32, 36, 0.03) inset;",
             },
@@ -178,6 +214,7 @@ def prompt_box() -> rx.Component:
                 ui.icon(icon="AttachmentIcon"),
                 "Attach",
                 size="lg",
+                type="button",
                 variant="ghost",
                 class_name="rounded-[10px] font-semibold text-slate-10",
             ),
@@ -185,6 +222,7 @@ def prompt_box() -> rx.Component:
                 "Build Your App",
                 size="lg",
                 variant="primary",
+                on_click=show_default_prompt.set_value(False),
                 class_name="rounded-[10px] font-semibold",
             ),
             class_name="flex flex-row items-center gap-2 justify-between",

@@ -1478,6 +1478,20 @@
         }
     }
 
+    @keyframes prompt-box-line {
+        0% {
+            filter: blur(8px);
+            opacity: 0;
+            transform: scale(0.25);
+        }
+
+        100% {
+            filter: blur(0);
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
 }
 
 @layer base {
