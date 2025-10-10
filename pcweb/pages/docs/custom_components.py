@@ -34,7 +34,7 @@ class CustomComponentGalleryState(rx.State):
     # Added available limits for the number of items per page
     limits: list[str] = ["10", "20", "50", "100"]
 
-    @rx.event(background=True, temporal=True)
+    @rx.event(background=True)
     async def fetch_components_list(self):
         try:
             async with httpx.AsyncClient() as client:
