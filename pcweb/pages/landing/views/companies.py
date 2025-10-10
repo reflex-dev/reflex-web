@@ -260,5 +260,5 @@ def companies() -> rx.Component:
             index_companies(),
             class_name="lg:hidden flex border-t border-slate-3 lg:border-t-0",
         ),
-        class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] border-slate-3 relative z-[1] overflow-hidden isolate lg:border-l",
+        class_name="z-0 flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] border-slate-3 relative overflow-hidden isolate lg:border-l",
     )

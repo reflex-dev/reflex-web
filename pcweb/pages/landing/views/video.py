@@ -24,7 +24,7 @@ def video_demo() -> rx.Component:
                     class_name="object-cover size-full dark:hidden block scale-110",
                 ),
                 rx.el.span(
-                    class_name="inset-0 size-full absolute z-[1] dark:bg-[#0000001f] backdrop-blur-[0.1px] rounded-lg",
+                    class_name="inset-0 size-full absolute z-[1] bg-[#00000008] backdrop-blur-[0.1px] rounded-lg",
                 ),
                 class_name="shadow-small aspect-video rounded-xl overflow-hidden cursor-pointer relative isolate group border border-slate-4",
             ),
@@ -53,9 +53,9 @@ def text() -> rx.Component:
             "Build With Reflex. ",
             rx.el.span(
                 "A Single Platform to Build With AI And Iterate in Python",
-                class_name="text-slate-10 text-2xl font-semibold",
+                class_name="text-slate-10 text-3xl font-semibold",
             ),
-            class_name="text-slate-12 text-2xl font-semibold max-w-[57rem]",
+            class_name="text-slate-12 text-3xl font-semibold max-w-[57rem]",
         ),
         ui.link(
             render_=ui.button(
@@ -72,7 +72,25 @@ def text() -> rx.Component:
 
 def video() -> rx.Component:
     return rx.el.section(
-        text(),
-        video_demo(),
-        class_name="grid grid-cols-1 lg:grid-cols-2 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden lg:border-y",
+        rx.html(
+            """<svg xmlns="http://www.w3.org/2000/svg" width="1319" height="561" viewBox="0 0 1319 561" fill="none">
+          <g opacity="0.48" filter="url(#filter0_f_18083_222594)">
+            <path d="M178.56 223.585C69.0001 74.636 -27.8842 31.9438 647.928 112.695C910.498 144.068 1430.13 -8.92554 1175 174.327C999.595 300.313 1180 239.557 1234 349.094C1255.21 392.116 1279 555.245 1022 458.015C962.219 435.399 591.448 442.522 392.794 475.504C194.14 508.487 103.578 462.994 75.3378 380.537C47.0978 298.08 254.184 326.398 178.56 223.585Z" stroke="#C2B5F5" stroke-width="16"/>
+          </g>
+          <defs>
+            <filter id="filter0_f_18083_222594" x="0.671143" y="0.454102" width="1317.53" height="559.985" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feGaussianBlur stdDeviation="32" result="effect1_foregroundBlur_18083_222594"/>
+            </filter>
+          </defs>
+        </svg>""",
+            class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-1  pointer-events-none",
+        ),
+        rx.el.div(
+            text(),
+            video_demo(),
+            class_name="grid grid-cols-1 lg:grid-cols-2 w-full rounded-2xl border border-slate-4 bg-white-1 z-5",
+        ),
+        class_name="mx-auto w-full max-w-[71.125rem] relative rounded-4xl border border-slate-4 backdrop-blur-[6px] bg-slate-2/48 p-4 flex z-1",
     )
