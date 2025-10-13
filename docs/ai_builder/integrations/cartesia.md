@@ -19,7 +19,7 @@ The **Cartesia Integration** allows your app to generate **high-quality, realist
 
 ## Step 2: Configure the Integration in Your App
 
-1. Open your app and go to **Integrations → Add Cartesia Integration**.  
+1. Open your app and go to **Integrations → Add Cartesia**.  
 2. Paste your **Cartesia API Key** in the input field.  
 3. Click **Connect** to validate and save your integration.  
 

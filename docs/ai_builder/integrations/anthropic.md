@@ -19,7 +19,7 @@ The **Anthropic Integration** allows your app to use [Anthropic’s Claude model
 
 ## Step 2: Configure the Integration in Your App
 
-1. Go to **Integrations → Add Anthropic Integration** in your app settings.
+1. Go to **Integrations → Add Anthropic** in your app settings.
 2. Paste your **Anthropic API Key** in the input field.
 3. Click **Connect** to validate and save your integration.
 
