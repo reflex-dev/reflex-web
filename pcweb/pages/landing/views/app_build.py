@@ -44,8 +44,25 @@ def integration_card(icon: str, class_name: str = ""):
     )
 
 
+def integration_card_light_dark(icon: str, class_name: str = ""):
+    return rx.el.div(
+        rx.image(
+            src=f"/landing/integrations/light/{icon}.svg",
+            class_name="size-7 pointer-events-none shrink-0 dark:hidden",
+        ),
+        rx.image(
+            src=f"/landing/integrations/dark/{icon}.svg",
+            class_name="size-7 pointer-events-none shrink-0 hidden dark:block",
+        ),
+        class_name=ui.cn(
+            "z-100 flex justify-center items-center size-12 bg-white-1/88 backdrop-blur-[6px] border border-slate-6 shadow-large",
+            class_name,
+        ),
+    )
+
+
 def okta_card():
-    return integration_card(
+    return integration_card_light_dark(
         "okta",
         class_name=f"rounded-t-[14px] rounded-bl-[14px] rounded-br-[4px] absolute top-2 left-2 animate-scale-rotate-in animate-duration-{DURATION_OKTA} animate-ease-out animate-delay-{DELAY_OKTA}",
     )
@@ -102,7 +119,10 @@ def slack_alert():
             "now",
             class_name="absolute top-3 right-2 text-xs text-slate-7 font-medium",
         ),
-        class_name=f"flex flex-row items-center gap-3.5 border border-slate-6 h-[72px] w-[326px] rounded-[14px] px-3 shadow-large absolute top-2 right-2 z-[10] bg-white/88 backdrop-blur-[6px] animate-scale-in-top-right animate-duration-{DURATION_SLACK} animate-ease-out animate-delay-{DELAY_SLACK}",
+        style={
+            "box-shadow": "0 25px 7px 0 rgba(0, 0, 0, 0.00), 0 16px 6px 0 rgba(0, 0, 0, 0.01), 0 9px 5px 0 rgba(0, 0, 0, 0.03), 0 4px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.05)"
+        },
+        class_name=f"flex flex-row items-center gap-3.5 border border-slate-6 h-[4.5rem] w-[20.375rem] rounded-[0.875rem] px-3 absolute top-2 right-2 z-[10] bg-white/88 backdrop-blur-[6px] animate-scale-in-top-right animate-duration-{DURATION_SLACK} animate-ease-out animate-delay-{DELAY_SLACK}",
     )
 
 

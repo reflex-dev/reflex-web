@@ -1130,6 +1130,11 @@
     --animate-slide-down: slide-down 2.4s linear infinite;
     --animate-slide-down-full: slide-down-full 2.4s linear infinite;
     --animate-blink: blink 1.25s step-end infinite;
+    --animate-ellipse-1: ellipse-1 2400ms ease-out infinite;
+    --animate-ellipse-2: ellipse-2 2400ms ease-out infinite;
+    --animate-ellipse-3: ellipse-3 2400ms ease-out infinite;
+    --animate-ellipse-4: ellipse-4 2400ms ease-out infinite;
+    --animate-ellipse-reversed: ellipse-reversed 2400ms ease-out infinite;
     /* Radius */
     --radius-ui-xxs: calc(var(--radius) - 0.25rem);
     --radius-ui-xs: calc(var(--radius) - 0.125rem);
@@ -1491,6 +1496,47 @@
             transform: scale(1);
         }
     }
+
+    @keyframes ellipse-1 {
+        0% {
+            top: calc(-100% - 16.81rem);
+        }
+
+        100% {
+            top: calc(100% + 2rem);
+        }
+    }
+
+    @keyframes ellipse-2 {
+        0% {
+            top: calc(-100% - 10.12rem);
+        }
+
+        100% {
+            top: calc(100% + 3.06rem);
+        }
+    }
+
+    @keyframes ellipse-3 {
+        0% {
+            top: calc(-100% - 10rem);
+        }
+
+        100% {
+            top: calc(100% + 11.69rem);
+        }
+    }
+
+    @keyframes ellipse-4 {
+        0% {
+            top: calc(-100% - 2rem);
+        }
+
+        100% {
+            top: calc(100% + 19.31rem);
+        }
+    }
+
 
 }
 

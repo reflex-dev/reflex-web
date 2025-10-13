@@ -146,6 +146,24 @@ def integration_text(text: str, integration: str) -> rx.Component:
     )
 
 
+def integration_text_light_dark(text: str, integration: str) -> rx.Component:
+    return rx.el.span(
+        rx.image(
+            src=f"/landing/integrations/light/{integration}.svg",
+            class_name="size-7 pointer-events-none shrink-0 inline-block align-text-bottom dark:hidden",
+        ),
+        rx.image(
+            src=f"/landing/integrations/dark/{integration}.svg",
+            class_name="size-7 pointer-events-none shrink-0 align-text-bottom hidden dark:inline-block",
+        ),
+        rx.el.span(
+            text,
+            class_name="text-slate-12 text-xl leading-[2.5rem] font-semibold",
+        ),
+        class_name="inline-flex items-center gap-2 align-bottom mx-1",
+    )
+
+
 def prompt_box() -> rx.Component:
     return rx.el.form(
         rx.el.div(
@@ -163,7 +181,7 @@ def prompt_box() -> rx.Component:
                     ),
                     rx.el.span(
                         "use ",
-                        integration_text(
+                        integration_text_light_dark(
                             "Okta",
                             "okta",
                         ),
@@ -187,6 +205,7 @@ def prompt_box() -> rx.Component:
                 rx.el.textarea(
                     placeholder="What do you want to build?",
                     auto_focus=True,
+                    id="prompt-box",
                     custom_attrs={
                         "autoComplete": "off",
                         "autoCapitalize": "none",
@@ -204,6 +223,7 @@ def prompt_box() -> rx.Component:
                 ),
                 None,
             ),
+            on_click=rx.set_focus("prompt-box"),
             class_name="h-[9rem] w-[29rem] rounded-2xl bg-white-1 border border-slate-4 px-5 py-3 relative overflow-hidden",
             style={
                 "box-shadow": "0 2px 0 0 #FFF inset, 0 2px 6px 0 rgba(28, 32, 36, 0.08) inset, 0 1px 5px 0 rgba(28, 32, 36, 0.03) inset;",
