@@ -14,7 +14,7 @@ FilterOptions = [
     {"name": "Data Infrastructure", "icon": "DatabaseAddIcon"},
     {"name": "Authentication", "icon": "LockPasswordIcon"},
     {"name": "Communication", "icon": "SentIcon"},
-    {"name": "All", "icon":"CellsIcon"},
+    {"name": "All", "icon": "CellsIcon"},
 ]
 
 
@@ -26,52 +26,74 @@ def integration_filter_button(data: dict):
         ui.icon(icon=data["icon"]),
         rx.el.p(data["name"], class_name="text-sm"),
         variant="outline",
-        class_name="flex flex-row items-center " + rx.cond(selected_filter.value == data["name"], active_pill, "").to(str),
-        on_click=selected_filter.set_value(data["name"])
+        class_name="flex flex-row items-center "
+        + rx.cond(selected_filter.value == data["name"], active_pill, "").to(str),
+        on_click=selected_filter.set_value(data["name"]),
     )
+
 
 def integration_filters():
     return rx.el.div(
         rx.el.div(
             *[integration_filter_button(data) for data in FilterOptions],
-            class_name="flex flex-row gap-3 items-center justify-center flex-wrap"
+            class_name="flex flex-row gap-3 items-center justify-center flex-wrap",
         ),
-        class_name="w-full max-w-[64.19rem] pb-12"
+        class_name="w-full max-w-[64.19rem] pb-12",
     )
-
 
 
 def integration_gallery_cards(data):
     return rx.el.a(
         rx.el.div(
             rx.el.div(
-                rx.image(
-                    src=rx.color_mode_cond(
-                        f"/integrations/{data['name']}.svg",
-                        f"/integrations/{data['name']}_light.svg",
+                ui.avatar.root(
+                    ui.avatar.image(
+                        src=rx.color_mode_cond(
+                            f"/integrations/light/{data['name']}.svg",
+                            f"/integrations/dark/{data['name']}.svg",
+                        ),
+                        unstyled=True,
+                        class_name="size-full",
                     ),
-                    class_name="size-8",
+                    ui.avatar.fallback(
+                        data["name"][0],
+                        class_name="text-secondary-12 text-xl font-semibold uppercase size-full",
+                        unstyled=True,
+                    ),
+                    unstyled=True,
+                    class_name="size-8 flex items-center justify-center",
                 ),
-                rx.link(
-                    ui.button("Learn More", variant="outline", class_name="group-hover:bg-secondary-2 hover:bg-transparent"),
-                    href=data['path'],
-                    text_decoration="none",
+                ui.link(
+                    render_=ui.button(
+                        "Learn More",
+                        variant="outline",
+                        class_name="group-hover:bg-secondary-2 hover:bg-transparent",
+                    ),
+                    to=data["path"],
                 ),
-                class_name="w-full flex flex-row items-center justify-between"
+                class_name="w-full flex flex-row items-center justify-between",
             ),
             rx.el.div(
-                rx.el.p(data['title'], class_name="text-lg font-semibold text-secondary-12"),
-                rx.el.p(data['description'], class_name="font-medium text-secondary-11 leading-[1.35]"),
-                class_name="flex flex-col gap-y-1"
+                rx.el.p(
+                    data["title"], class_name="text-lg font-semibold text-secondary-12"
+                ),
+                rx.el.p(
+                    data["description"],
+                    class_name="font-medium text-secondary-11 leading-[1.35]",
+                ),
+                class_name="flex flex-col gap-y-1",
             ),
-            class_name="flex flex-col gap-y-6 rounded-ui-xl border border-secondary-a4 bg-secondary-1 shadow-small p-6 h-[13rem] justify-between hover:bg-secondary-2"
+            class_name="flex flex-col gap-y-6 rounded-ui-xl border border-secondary-a4 bg-secondary-1 shadow-small p-6 h-[13rem] justify-between hover:bg-secondary-2",
         ),
-        href=data['path'],
+        href=data["path"],
         class_name="group text-inherit hover:!text-inherit decoration-none no-underline "
         + rx.cond(
-            (selected_filter.value == data['tags']) | (selected_filter.value == "All"), "flex", "hidden"
+            (selected_filter.value == data["tags"]) | (selected_filter.value == "All"),
+            "flex",
+            "hidden",
         ),
     )
+
 
 def integration_gallery():
     return rx.el.div(
@@ -80,13 +102,18 @@ def integration_gallery():
                 integration_gallery_cards(list(item.values())[0])
                 for item in get_integration_path()
             ],
-            class_name="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6"
+            class_name="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6",
         ),
     )
+
 
 def integration_request_form():
     return rx.el.div(
         rx.el.p("Missing an integration?"),
-        rx.el.p(rx.fragment("Click ", request_integration_dialog(), " to tell us what you need.")),
-        class_name="w-full max-w-[64.19rem] flex flex-col gap-y-1 text-md font-semibold py-10 items-center justify-center"
+        rx.el.p(
+            rx.fragment(
+                "Click ", request_integration_dialog(), " to tell us what you need."
+            )
+        ),
+        class_name="w-full max-w-[64.19rem] flex flex-col gap-y-1 text-md font-semibold py-10 items-center justify-center",
     )
