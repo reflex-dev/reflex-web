@@ -27,4 +27,3 @@ Once connected, your app can use Gemini for AI-powered features across workflows
 * **Keep your key secure:** Do not hardcode your Gemini API key in public code repositories.  
 * **Use environment-specific keys:** Separate dev, staging, and production keys help manage access and security.  
 * **Secure API access:** The key allows your app to interact with Gemini endpoints securely and efficiently.
-```
