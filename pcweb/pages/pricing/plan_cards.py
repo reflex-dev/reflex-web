@@ -1,14 +1,14 @@
-import reflex as rx
-from pcweb.components.hosting_banner import HostingBannerState
-from pcweb.constants import REFLEX_CLOUD_URL, REFLEX_BUILD_URL
-from reflex_ui.blocks.lemcal import lemcal_dialog
-import reflex_ui as ui
-from typing import NamedTuple
-from reflex.experimental.client_state import ClientStateVar
-from pcweb.components.number_flow import number_flow
-from pcweb.constants import PRO_TIERS_TABLE
-from typing import TypedDict
+from typing import NamedTuple, TypedDict
 from urllib.parse import quote_plus
+
+import reflex as rx
+import reflex_ui as ui
+from reflex.experimental.client_state import ClientStateVar
+from reflex_ui.blocks.lemcal import lemcal_dialog
+
+from pcweb.components.hosting_banner import HostingBannerState
+from pcweb.components.number_flow import number_flow
+from pcweb.constants import PRO_TIERS_TABLE, REFLEX_BUILD_URL, REFLEX_CLOUD_URL
 
 YEARLY_MONTHS_FREE = 2  # 2 months free
 YEARLY_DISCOUNT_MULTIPLIER = (12 - YEARLY_MONTHS_FREE) / 12
@@ -213,7 +213,7 @@ def pricing_cards() -> rx.Component:
                 ),
                 trend="0",
                 prefix="$",
-                suffix=f" /monthly",
+                suffix=" /monthly",
                 class_name="text-3xl text-secondary-12 font-semibold py-4",
             ),
             "Build, deploy and scale your apps.",

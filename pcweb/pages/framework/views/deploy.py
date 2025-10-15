@@ -1,8 +1,9 @@
 import reflex as rx
-from pcweb.pages.docs import hosting
-from pcweb.components.icons.icons import get_icon
+
 from pcweb.components.button import button
+from pcweb.components.icons.icons import get_icon
 from pcweb.constants import DISCORD_URL
+from pcweb.pages.docs import hosting
 
 
 def card(

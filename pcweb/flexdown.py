@@ -1,11 +1,13 @@
 import flexdown
-from pcweb.styles.colors import c_color
-
 import reflex as rx
+
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import base, code
 from pcweb.templates.docpage import (
     code_block_markdown,
     code_block_markdown_dark,
     code_comp,
+    definition,
     docdemo,
     docdemobox,
     docgraphing,
@@ -14,14 +16,11 @@ from pcweb.templates.docpage import (
     h2_comp_xd,
     h3_comp_xd,
     h4_comp_xd,
-    text_comp,
     list_comp,
-    definition,
-    unordered_list_comp,
     ordered_list_comp,
+    text_comp,
+    unordered_list_comp,
 )
-
-from pcweb.styles.fonts import base, code
 
 
 def get_code_style(color: str):
@@ -86,7 +85,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                             (
                                                 "info",
                                                 rx.icon(
-                                                    tag="info", size=18, margin_right=".5em"
+                                                    tag="info",
+                                                    size=18,
+                                                    margin_right=".5em",
                                                 ),
                                             ),
                                             (
@@ -108,7 +109,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                             (
                                                 "error",
                                                 rx.icon(
-                                                    tag="ban", size=18, margin_right=".5em"
+                                                    tag="ban",
+                                                    size=18,
+                                                    margin_right=".5em",
                                                 ),
                                             ),
                                         ),
@@ -141,9 +144,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                         ),
                         (
                             rx.accordion.content(
-                                markdown(content),
-                                padding="0px",
-                                margin_top="16px"
+                                markdown(content), padding="0px", margin_top="16px"
                             )
                             if title
                             else rx.fragment()
@@ -208,8 +209,6 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                 margin_top="16px",
                 width="100%",
             )
-
-
 
 
 class SectionBlock(flexdown.blocks.Block):
@@ -425,10 +424,7 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
             args = ["info"]
         url = args[0]
 
-        if lines[1].startswith("#"):
-            title = lines[1].strip("#").strip()
-        else:
-            title = ""
+        title = lines[1].strip("#").strip() if lines[1].startswith("#") else ""
 
         color = "blue"
 
@@ -582,12 +578,12 @@ class TabsBlock(flexdown.blocks.Block):
                     block.render_fn = env["__xd"].flexdown_memo
                 try:
                     tab_content.append(block.render(env=env))
-                except Exception as e:
+                except Exception:
                     print(
                         f"Error while rendering {type(block)} on line {block.start_line_number}. "
                         f"\n{block.get_content(env)}"
                     )
-                    raise e
+                    raise
 
             contents.append(rx.tabs.content(rx.fragment(*tab_content), value=value))
 
@@ -652,8 +648,7 @@ def markdown_codeblock(value: str, **props: object) -> rx.Component:
 
 
 def markdown_with_shiki(*args, **kwargs):
-    """
-    Wrapper for the markdown component with a customized component map.
+    """Wrapper for the markdown component with a customized component map.
     Uses the experimental Shiki-based code block (rx._x.code_block)
     instead of the default CodeBlock component for code blocks.
 

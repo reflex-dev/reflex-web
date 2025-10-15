@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-
 import reflex as rx
+
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
 from pcweb.signup import IndexState

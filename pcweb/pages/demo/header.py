@@ -1,6 +1,7 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
+from reflex_ui.blocks.lemcal import lemcal_dialog
+
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.pages.framework.views.companies import pricing_page_companies
 

@@ -1,6 +1,5 @@
-import flexdown
-from flexdown.document import Document
 import reflex as rx
+from flexdown.document import Document
 
 from pcweb.components.docpage.navbar import navbar
 from pcweb.flexdown import xd2 as xd

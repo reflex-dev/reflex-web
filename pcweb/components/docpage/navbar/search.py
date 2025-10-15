@@ -1,6 +1,7 @@
 """Search bar component for the navbar."""
 
 import reflex as rx
+
 from .typesense import typesense_search
 
 

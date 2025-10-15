@@ -2,12 +2,11 @@
 
 import re
 
-from playwright.sync_api import Page, expect
-
 import pytest
+from playwright.sync_api import Page, expect
 from reflex.testing import AppHarness
-
 from utils import get_full_url
+
 
 @pytest.fixture
 def intro_page_url() -> str:

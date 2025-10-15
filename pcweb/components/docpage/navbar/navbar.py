@@ -1,6 +1,7 @@
 """UI and logic for the navbar component."""
 
 import reflex as rx
+from reflex_ui.blocks.lemcal import lemcal_dialog
 
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
@@ -13,8 +14,7 @@ from pcweb.pages.faq import faq
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
 from pcweb.pages.use_cases.use_cases import use_cases_page
-from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
-import reflex_ui as ui
+
 from ...link_button import resources_button
 from ..sidebar import SidebarState
 from .buttons.discord import discord
@@ -140,14 +140,14 @@ def blog_section() -> rx.Component:
         rx.box(
             rx.link(
                 rx.moment(
-                    str(list(blog_data.values())[0].metadata["date"]),
+                    str(next(iter(blog_data.values())).metadata["date"]),
                     format="MMM DD, YYYY",
                     class_name="z-[2] pt-[0.875rem] pl-[1.125rem] font-instrument-sans font-medium text-[0.8125rem] text-white truncate leading-[1.25rem] tracking-[-0.01013rem]",
                 ),
                 rx.spacer(),
                 rx.box(
                     rx.text(
-                        list(blog_data.values())[0].metadata["title"],
+                        next(iter(blog_data.values())).metadata["title"],
                         class_name="font-base text-white truncate self-start",
                     ),
                     rx.box(
@@ -163,10 +163,10 @@ def blog_section() -> rx.Component:
                     class_name="z-[2] flex flex-row justify-between px-[1.125rem] pb-[0.875rem] w-full",
                 ),
                 rx.box(
-                    background_image=f"linear-gradient(to top, rgba(0, 0, 0, 3) 0%, rgba(0, 0, 0, 0) 35%), url({list(blog_data.values())[0].metadata['image']})",
+                    background_image=f"linear-gradient(to top, rgba(0, 0, 0, 3) 0%, rgba(0, 0, 0, 0) 35%), url({next(iter(blog_data.values())).metadata['image']})",
                     class_name="group-hover:scale-105 absolute inset-0 bg-cover bg-no-repeat bg-center rounded-md transition-all duration-150 ease-out brightness-[0.8] group-hover:brightness-100",
                 ),
-                href="/" + list(blog_data.keys())[0],
+                href="/" + next(iter(blog_data.keys())),
                 underline="none",
                 class_name="relative flex flex-col flex-shrink-0 justify-start items-start gap-[6px] rounded-md w-[295px] h-[236px] text-white hover:text-white overflow-hidden group",
             ),
@@ -358,7 +358,9 @@ def new_resource_section():
     )
 
 
-def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Component:
+def new_menu_trigger(
+    title: str, url: str | None = None, active_str: str = ""
+) -> rx.Component:
     if url:
         return nav_menu.trigger(link_item(title, url, active_str))
     return nav_menu.trigger(

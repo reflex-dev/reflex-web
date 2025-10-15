@@ -4,7 +4,7 @@ import textwrap
 from typing import Any
 
 import reflex as rx
-import ruff_api
+import ruff_format
 
 from .code import code_block, code_block_dark
 
@@ -14,6 +14,7 @@ def docdemobox(*children, **props) -> rx.Component:
 
     Args:
         children: The children to display.
+        props: Additional props to apply to the box.
 
     Returns:
         The styled demo box.
@@ -37,14 +38,14 @@ def doccode(
         code: The code to display.
         language: The language of the code.
         lines: The start/end lines to display.
-        props: Props to apply to the code snippet.
+        theme: The theme for the code snippet.
 
     Returns:
         The styled code snippet.
     """
     # For Python snippets, lint the code with black.
     if language == "python":
-        code = ruff_api.format_string(path="", source=textwrap.dedent(code)).strip()
+        code = ruff_format.format_string(textwrap.dedent(code)).strip()
 
     # If needed, only display a subset of the lines.
     if lines is not None:
@@ -76,6 +77,8 @@ def docdemo(
         state: Code for any state needed for the component.
         comp: The pre-rendered component.
         context: Whether to wrap the render code in a function.
+        demobox_props: Props to apply to the demo box.
+        theme: The theme for the code snippet.
         props: Additional props to apply to the component.
 
     Returns:

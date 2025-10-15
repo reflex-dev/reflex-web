@@ -3,8 +3,8 @@ from collections import defaultdict
 from pathlib import Path
 from types import SimpleNamespace
 
-import reflex as rx
 import flexdown
+import reflex as rx
 from flexdown.document import Document
 
 # External Components
@@ -12,17 +12,17 @@ from reflex_pyplot import pyplot as pyplot
 
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
+from pcweb.pages.library_previews import components_previews_pages
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage, get_toc
 from pcweb.whitelist import _check_whitelisted_path
 
+from .apiref import pages as apiref_pages
+from .cloud import pages as cloud_pages
+from .cloud_cliref import pages as cloud_cliref_pages
+from .custom_components import custom_components
 from .library import library
 from .recipes_overview import overview
-from .custom_components import custom_components
-from .apiref import pages as apiref_pages
-from .cloud_cliref import pages as cloud_cliref_pages
-from pcweb.pages.library_previews import components_previews_pages
-from .cloud import pages as cloud_pages
 
 
 def should_skip_compile(doc: flexdown.Document):
@@ -83,7 +83,7 @@ def get_components_from_metadata(current_doc):
             components.append((component, comp_str))
         elif hasattr(component, "__self__"):
             components.append((component.__self__, comp_str))
-        elif isinstance(component, SimpleNamespace) and hasattr(component, "__call__"):
+        elif isinstance(component, SimpleNamespace) and hasattr(component, "__call__"):  # noqa: B004
             components.append((component.__call__.__self__, comp_str))
         else:
             raise ValueError(f"Invalid component: {component}")
@@ -123,7 +123,7 @@ manual_titles = {
     "docs/custom-components/command-reference.md": "Custom Component CLI Reference",
     "docs/api-routes/overview.md": "API Routes Overview",
     "docs/client_storage/overview.md": "Client Storage Overview",
-    "docs/state_structure/overview.md": "State Structure Overview", 
+    "docs/state_structure/overview.md": "State Structure Overview",
     "docs/state/overview.md": "State Overview",
     "docs/styling/overview.md": "Styling Overview",
     "docs/ui/overview.md": "UI Overview",
@@ -149,10 +149,7 @@ def get_component(doc: str, title: str):
     # Handle index files: /folder/index/ -> /folder/
     if route.endswith("/index/"):
         route = route[:-7] + "/"
-    if doc in manual_titles.keys():
-        title2 = manual_titles[doc]
-    else:
-        title2 = to_title_case(title)
+    title2 = manual_titles[doc] if doc in manual_titles else to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
 
     if not _check_whitelisted_path(route):
@@ -193,18 +190,16 @@ def get_component(doc: str, title: str):
     return docpage(set_path=route, t=title2)(comp)
 
 
-doc_routes = (
-    [
-        library,
-        custom_components,
-        overview,
-        *components_previews_pages,
-    ]
-    + apiref_pages
-    + cloud_cliref_pages
-    # + ai_builder_pages
-    + cloud_pages
-)
+doc_routes = [
+    library,
+    custom_components,
+    overview,
+    *components_previews_pages,
+    *apiref_pages,
+    *cloud_cliref_pages,
+    # * ai_builder_pages,
+    *cloud_pages,
+]
 
 for cloud_page in cloud_pages:
     title = rx.utils.format.to_snake_case(cloud_page.title)
@@ -246,8 +241,7 @@ for doc in sorted(flexdown_docs):
 
     if comp is not None:
         if isinstance(comp, tuple):
-            for c in comp:
-                doc_routes.append(c)
+            doc_routes.extend(comp)
         else:
             doc_routes.append(comp)
 

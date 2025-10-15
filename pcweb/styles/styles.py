@@ -1,9 +1,9 @@
 """App styling."""
 
-from pcweb.styles.colors import c_color
-import pcweb.styles.fonts as fonts
-
 import reflex as rx
+
+import pcweb.styles.fonts as fonts
+from pcweb.styles.colors import c_color
 
 font_weights = {
     "bold": "800",

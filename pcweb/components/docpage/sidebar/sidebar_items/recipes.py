@@ -2,9 +2,7 @@ from .item import create_item
 
 
 def get_sidebar_items_recipes():
-    from pcweb.pages.docs import (
-        recipes,
-    )
+    from pcweb.pages.docs import recipes
 
     return [
         create_item(

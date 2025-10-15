@@ -11,8 +11,8 @@ DEFAULT_TITLE = "Web Apps in Pure Python"
 def mainpage(
     path: str,
     title: str = DEFAULT_TITLE,
-    description: str = None,
-    image: str = None,
+    description: str | None = None,
+    image: str | None = None,
     meta: list[dict[str, str]] = meta_tags,
     props=None,
     add_as_page=True,
@@ -24,6 +24,9 @@ def mainpage(
     Args:
         path: The path of the page.
         title: The title of the page.
+        description: The description of the page.
+        image: The image of the page.
+        meta: The meta tags of the page.
         props: Props to apply to the template.
         add_as_page: whether to add the route to the app pages.
 
@@ -55,7 +58,6 @@ def mainpage(
             # Import here to avoid circular imports.
             from pcweb.components.docpage.navbar import navbar
             from pcweb.components.hosting_banner import HostingBannerState
-            from pcweb.components.webpage.badge import badge
             from pcweb.pages.framework.index_colors import index_colors
             from pcweb.pages.framework.views.footer_index import footer_index
             from pcweb.pages.framework.views.get_started import get_started

@@ -1,7 +1,8 @@
 import reflex as rx
+
 from pcweb.pages.hosting_countdown.animated_box import (
-    terminal_box,
     deploy_box,
+    terminal_box,
     typing_text_script,
 )
 

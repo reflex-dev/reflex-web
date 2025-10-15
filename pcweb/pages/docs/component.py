@@ -1,32 +1,33 @@
 """Utility functions for the component docs page."""
 
+import hashlib
 import inspect
 import os
 import re
+import textwrap
 from types import UnionType
 from typing import (
     Any,
+    Literal,
     Sequence,
     Type,
-    Literal,
-    _GenericAlias,
     Union,
+    _GenericAlias,
     get_args,
     get_origin,
 )
+
 import reflex as rx
-import flexdown
 from flexdown.document import Document
-import textwrap
-from pcweb.flexdown import markdown, xd
-from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp, docdemobox
 from reflex.base import Base
+from reflex.components.base.fragment import Fragment
 from reflex.components.component import Component
+from reflex.components.el.elements.base import BaseHTML
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
-from reflex.components.base.fragment import Fragment
-from reflex.components.el.elements.base import BaseHTML
-import hashlib
+
+from pcweb.flexdown import markdown, xd
+from pcweb.templates.docpage import docdemobox, docpage, get_toc, h1_comp, h2_comp
 
 
 def get_code_style(color: str):
@@ -447,11 +448,11 @@ def prop_docs(
 
     literal_values = []  # Literal values of the prop
     all_types = []  # List for all the prop types
-    MAX_PROP_VALUES = 2
+    max_prop_values = 2
 
     short_type_name = None
 
-    COMMON_TYPES = {}  # Used to exclude common types from the MAX_PROP_VALUES
+    common_types = {}  # Used to exclude common types from the max_prop_values
     if origin in (Union, UnionType):
         non_literal_types = []  # List for all the non-literal types
 
@@ -489,7 +490,7 @@ def prop_docs(
 
     elif origin is Literal:
         literal_values = list(map(str, args))
-        if len(literal_values) > MAX_PROP_VALUES and prop.name not in COMMON_TYPES:
+        if len(literal_values) > max_prop_values and prop.name not in common_types:
             type_name = "Literal"
         else:
             type_name = " | ".join([f'"{value}"' for value in literal_values])
@@ -523,14 +524,14 @@ def prop_docs(
         rx.table.cell(
             rx.box(
                 rx.cond(
-                    (len(literal_values) > 0) & (prop.name not in COMMON_TYPES),
+                    (len(literal_values) > 0) & (prop.name not in common_types),
                     rx.code(
                         (
                             " | ".join(
-                                [f'"{v}"' for v in literal_values[:MAX_PROP_VALUES]]
+                                [f'"{v}"' for v in literal_values[:max_prop_values]]
                                 + ["..."]
                             )
-                            if len(literal_values) > MAX_PROP_VALUES
+                            if len(literal_values) > max_prop_values
                             else type_name
                         ),
                         style=get_code_style(color),
@@ -543,8 +544,8 @@ def prop_docs(
                     ),
                 ),
                 rx.cond(
-                    len(literal_values) > MAX_PROP_VALUES
-                    and prop.name not in COMMON_TYPES,
+                    len(literal_values) > max_prop_values
+                    and prop.name not in common_types,
                     hovercard(
                         rx.icon(
                             tag="circle-ellipsis",
@@ -892,7 +893,10 @@ def generate_props(src, component, comp):
             except Exception:
                 comp = rx.fragment()
             if "data" in component.__name__.lower():
-                raise Exception("Data components cannot be created")
+                print(
+                    "Data components cannot be created without a data source. Skipping interactive example."
+                )
+                comp = rx.fragment()
     except Exception as e:
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
@@ -1059,7 +1063,6 @@ def generate_valid_children(comp):
 
 def component_docs(component_tuple, comp):
     """Generates documentation for a given component."""
-
     component = component_tuple[0]
     src = Source(component=component)
     props = generate_props(src, component, comp)

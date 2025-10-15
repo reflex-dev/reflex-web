@@ -37,6 +37,7 @@ class Route(Base):
     add_as_page: bool = True
 
     def __hash__(self):
+        """Hash the route based on the path and title."""
         return hash(f"{self.path}-{self.title}")
 
 

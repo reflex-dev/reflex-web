@@ -21,7 +21,7 @@ class Feedback(rx.Model, table=True):
 
 
 class FeedbackState(rx.State):
-    """The state for feedback components"""
+    """The state for feedback components."""
 
     score: Optional[int] = None
 
@@ -30,8 +30,7 @@ class FeedbackState(rx.State):
         self.score = value
 
     def _send_to_webhook(self, payload: dict, webhook_url: str) -> bool:
-        """
-        Send payload to webhook URL.
+        """Send payload to webhook URL.
 
         Returns:
             True if successful, False otherwise
@@ -92,8 +91,7 @@ Integration Request: {request}
         payload = {"text": discord_message}
 
         success = self._send_to_webhook(
-            payload,
-            REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL
+            payload, REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL
         )
 
         if not success:
@@ -125,8 +123,7 @@ please file a Github issue or stop by our Discord.""",
         payload = {"text": discord_message}
 
         success = self._send_to_webhook(
-            payload,
-            REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL
+            payload, REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL
         )
 
         if not success:

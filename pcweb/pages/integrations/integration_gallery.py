@@ -1,6 +1,5 @@
 import reflex as rx
 import reflex_ui as ui
-
 from reflex.experimental import ClientStateVar
 
 from .integration_list import get_integration_path
@@ -19,7 +18,6 @@ FilterOptions = [
 
 
 def integration_filter_button(data: dict):
-
     active_pill = "border border-violet-8 bg-violet-3 hover:bg-violet-3 !text-violet-10"
 
     return ui.button(
@@ -99,7 +97,7 @@ def integration_gallery():
     return rx.el.div(
         rx.el.div(
             *[
-                integration_gallery_cards(list(item.values())[0])
+                integration_gallery_cards(next(iter(item.values())))
                 for item in get_integration_path()
             ],
             class_name="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6",

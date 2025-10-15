@@ -5,15 +5,18 @@ from __future__ import annotations
 import reflex as rx
 
 from pcweb.components.docpage.navbar.state import NavbarState
-from pcweb.constants import ENTERPRISE_DOCS_URL
 from pcweb.styles.colors import c_color
 
-from .sidebar_items.ai import ai_builder_overview_items, mcp_items, ai_builder_integrations
+from .sidebar_items.ai import (
+    ai_builder_integrations,
+    ai_builder_overview_items,
+    mcp_items,
+)
 from .sidebar_items.component_lib import component_lib, graphing_libs
 from .sidebar_items.enterprise import (
+    enterprise_component_items,
     enterprise_items,
     enterprise_usage_items,
-    enterprise_component_items,
 )
 from .sidebar_items.learn import backend, cli_ref, frontend, hosting, learn
 from .sidebar_items.recipes import recipes
@@ -233,7 +236,7 @@ def calculate_index(sidebar_items, url: str) -> list[int]:
             return [i - sub]
         index = calculate_index(item.children, url)
         if index:
-            return [i - sub] + index
+            return [i - sub, *index]
 
     return index_list
 
@@ -396,9 +399,8 @@ def sidebar_comp(
     width: str = "100%",
 ):
     from pcweb.pages.docs import ai_builder as ai_builder_pages
-    from pcweb.pages.docs import enterprise, getting_started
+    from pcweb.pages.docs import enterprise, getting_started, state, ui
     from pcweb.pages.docs import hosting as hosting_page
-    from pcweb.pages.docs import state, ui
     from pcweb.pages.docs.apiref import pages
     from pcweb.pages.docs.custom_components import custom_components
     from pcweb.pages.docs.library import library
@@ -607,9 +609,7 @@ def sidebar_comp(
                                 rx.link(  # pyright: ignore [reportCallIssue]
                                     rx.box(  # pyright: ignore [reportCallIssue]
                                         rx.box(  # pyright: ignore [reportCallIssue]
-                                            rx.icon(
-                                                "atom", size=16
-                                            ),  # pyright: ignore [reportCallIssue]
+                                            rx.icon("atom", size=16),  # pyright: ignore [reportCallIssue]
                                             rx.el.h5(
                                                 "Custom Components",
                                                 class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",

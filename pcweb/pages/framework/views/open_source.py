@@ -1,6 +1,7 @@
 import reflex as rx
+
 from pcweb.components.icons.icons import get_icon
-from pcweb.constants import GITHUB_STARS, CONTRIBUTION_URL, BUGS_URL
+from pcweb.constants import GITHUB_STARS
 
 
 def stat(icon: str, stat: str, text: str) -> rx.Component:

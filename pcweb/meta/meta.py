@@ -1,6 +1,6 @@
 import reflex as rx
-from pcweb.constants import REFLEX_DOMAIN_URL, REFLEX_DOMAIN, TWITTER_CREATOR
 
+from pcweb.constants import REFLEX_DOMAIN, REFLEX_DOMAIN_URL, TWITTER_CREATOR
 
 meta_tags = [
     # HTML Meta Tags
@@ -85,10 +85,12 @@ def favicons_links() -> list[rx.Component]:
     ]
 
 
-def create_meta_tags(title: str, description: str, image: str, url: str = None) -> list[rx.Component]:
+def create_meta_tags(
+    title: str, description: str, image: str, url: str | None = None
+) -> list[rx.Component]:
     page_url = url if url else REFLEX_DOMAIN_URL
 
-    if image and not image.startswith(('http://', 'https://')):
+    if image and not image.startswith(("http://", "https://")):
         image_url = f"https://reflex.dev{'' if image.startswith('/') else '/'}{image}"
     else:
         image_url = image

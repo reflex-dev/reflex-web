@@ -1,17 +1,43 @@
 import os
+
 import reflex as rx
 import reflex_ui as ui
 import typesense
-
 from reflex.experimental import ClientStateVar
+
 last_copied = ClientStateVar.create("is_copied", "")
 
 suggestion_items = [
-    {"name": "Components Overview", "path": "/docs/library", "icon": "blocks", "description": "Discover and explore the full library of available components"},
-    {"name": "State Management", "path": "/docs/state/overview", "icon": "database", "description": "Master state handling, data flow, and reactive programming"},
-    {"name": "Event Overview", "path": "/docs/events/events-overview", "icon": "zap", "description": "Learn how to handle user interactions and system events"},
-    {"name": "Styling and Theming", "path": "/docs/styling/overview", "icon": "palette", "description": "Customize colors, layouts, and create beautiful app designs"},
-    {"name": "Deployment Guide", "path": "/docs/hosting/deploy-quick-start/", "icon": "cloud", "description": "Deploy and host your application in production environments"},
+    {
+        "name": "Components Overview",
+        "path": "/docs/library",
+        "icon": "blocks",
+        "description": "Discover and explore the full library of available components",
+    },
+    {
+        "name": "State Management",
+        "path": "/docs/state/overview",
+        "icon": "database",
+        "description": "Master state handling, data flow, and reactive programming",
+    },
+    {
+        "name": "Event Overview",
+        "path": "/docs/events/events-overview",
+        "icon": "zap",
+        "description": "Learn how to handle user interactions and system events",
+    },
+    {
+        "name": "Styling and Theming",
+        "path": "/docs/styling/overview",
+        "icon": "palette",
+        "description": "Customize colors, layouts, and create beautiful app designs",
+    },
+    {
+        "name": "Deployment Guide",
+        "path": "/docs/hosting/deploy-quick-start/",
+        "icon": "cloud",
+        "description": "Deploy and host your application in production environments",
+    },
 ]
 
 CLUSTERS = {
@@ -21,16 +47,37 @@ CLUSTERS = {
     "Components": ["custom-components", "recipes"],
     "Enterprise": ["enterprise"],
     "API Reference": ["api-reference", "api-routes"],
-    "Docs": ["advanced_onboarding", "assets", "authentication", "client_storage", "components", "database", "events", "getting_started", "library", "pages", "state", "state_structure", "styling", "ui", "utility_methods", "vars", "wrapping-react"],
-    "Blog Posts": []
+    "Docs": [
+        "advanced_onboarding",
+        "assets",
+        "authentication",
+        "client_storage",
+        "components",
+        "database",
+        "events",
+        "getting_started",
+        "library",
+        "pages",
+        "state",
+        "state_structure",
+        "styling",
+        "ui",
+        "utility_methods",
+        "vars",
+        "wrapping-react",
+    ],
+    "Blog Posts": [],
 }
 
 
 TYPESENSE_CONFIG = {
-    "nodes": [{"host": os.getenv("TYPESENSE_HOST"), "port": "443", "protocol": "https"}],
+    "nodes": [
+        {"host": os.getenv("TYPESENSE_HOST"), "port": "443", "protocol": "https"}
+    ],
     "api_key": os.getenv("TYPESENSE_SEARCH_API_KEY"),
     "connection_timeout_seconds": 2,
 }
+
 
 class SimpleSearch(rx.State):
     query: str
@@ -46,14 +93,14 @@ class SimpleSearch(rx.State):
 
     @rx.event(temporal=True)
     def reset_search(self):
-        """Reset state variables"""
+        """Reset state variables."""
         self.idxed_blogs_results = []
         self.idxed_docs_results = []
         self.query = ""
 
     @rx.event(temporal=True)
     async def apply_filter_search(self, selected_filter: str):
-        """Re-run search with new filter"""
+        """Re-run search with new filter."""
         if self.selected_filter == selected_filter:
             return
 
@@ -64,7 +111,7 @@ class SimpleSearch(rx.State):
 
     @rx.event(background=True, temporal=True)
     async def perform_search(self):
-        """Perform Typesense search and split results"""
+        """Perform Typesense search and split results."""
         async with self:
             if not self.query.strip():
                 self.idxed_docs_results = []
@@ -84,7 +131,6 @@ class SimpleSearch(rx.State):
                 "query_by_weights": "6,8,3,12",
                 "per_page": 15,
                 "num_typos": 2,
-                "sort_by": "_text_match:desc",
                 "sort_by": "_text_match:desc",
                 "text_match_threshold": "0.6",
                 "exhaustive_search": True,
@@ -123,25 +169,32 @@ class SimpleSearch(rx.State):
                 self.idxed_blogs_results = blog_results
                 self.is_fetching = False
 
-        except Exception as e:
+        except Exception:
             async with self:
                 self.idxed_docs_results = []
                 self.idxed_blogs_results = []
                 self.is_fetching = False
 
-    def _get_highlighted_content(self, doc, highlights, snippet_length=350):
+    def _get_highlighted_content(
+        self, doc, highlights: list | None, snippet_length=350
+    ):
         import re
 
-        BOLD_STYLE = '<span style="font-weight: 900; color: #AA99EC;">'
-        CLOSE_TAG = '</span>'
+        bold_stype = '<span style="font-weight: 900; color: #AA99EC;">'
+        close_tag = "</span>"
         content = doc.get("content", "") or ""
 
         def bold_tokens(snippet: str, tokens: list[str]) -> str:
-            for tok in sorted(set(t for t in tokens if t), key=len, reverse=True):
+            for tok in sorted({t for t in tokens if t}, key=len, reverse=True):
                 try:
-                    snippet = re.sub(re.escape(tok), f"{BOLD_STYLE}\\g<0>{CLOSE_TAG}", snippet, flags=re.I)
+                    snippet = re.sub(
+                        re.escape(tok),
+                        f"{bold_stype}\\g<0>{close_tag}",
+                        snippet,
+                        flags=re.IGNORECASE,
+                    )
                 except re.error:
-                    snippet = snippet.replace(tok, f"{BOLD_STYLE}{tok}{CLOSE_TAG}")
+                    snippet = snippet.replace(tok, f"{bold_stype}{tok}{close_tag}")
             return snippet
 
         # 1) Typesense content/title highlights
@@ -149,13 +202,17 @@ class SimpleSearch(rx.State):
             if h.get("field") in ("content", "title"):
                 snippet = h.get("snippet") or h.get("value") or ""
                 if snippet:
-                    marked = re.findall(r"<mark>(.*?)</mark>", snippet, flags=re.I)
+                    marked = re.findall(
+                        r"<mark>(.*?)</mark>", snippet, flags=re.IGNORECASE
+                    )
                     if marked:
                         token = marked[0]
                         idx = content.lower().find(token.lower())
                         if idx != -1:
                             start = max(0, idx - snippet_length // 2)
-                            end = min(len(content), idx + len(token) + snippet_length // 2)
+                            end = min(
+                                len(content), idx + len(token) + snippet_length // 2
+                            )
                             snippet = content[start:end]
                             snippet = bold_tokens(snippet, marked)
                             if start > 0:
@@ -164,15 +221,23 @@ class SimpleSearch(rx.State):
                                 snippet = snippet + "..."
                             return snippet
 
-                    snippet = snippet.replace("<mark>", BOLD_STYLE).replace("</mark>", CLOSE_TAG)
-                    return snippet[:snippet_length] + ("..." if len(snippet) > snippet_length else snippet)
+                    snippet = snippet.replace("<mark>", bold_stype).replace(
+                        "</mark>", close_tag
+                    )
+                    return snippet[:snippet_length] + (
+                        "..." if len(snippet) > snippet_length else snippet
+                    )
 
         # 2) Typesense component highlights (simplified)
         for h in highlights or []:
             if h.get("field", "").startswith("components"):
                 values = h.get("values") or ([h.get("value")] if h.get("value") else [])
                 if values:
-                    cleaned = [v.replace("<mark>", BOLD_STYLE).replace("</mark>", CLOSE_TAG) for v in values if v]
+                    cleaned = [
+                        v.replace("<mark>", bold_stype).replace("</mark>", close_tag)
+                        for v in values
+                        if v
+                    ]
                     return f"Matches found: {', '.join(cleaned[:6])}"
 
         # 3) Client-side components match
@@ -181,33 +246,37 @@ class SimpleSearch(rx.State):
             comps = doc.get("components") or []
             matched = [c for c in comps if isinstance(c, str) and q in c.lower()]
             if matched:
-                bolded = [re.sub(re.escape(q), f"{BOLD_STYLE}\\g<0>{CLOSE_TAG}", c, flags=re.I) for c in matched[:6]]
+                bolded = [
+                    re.sub(
+                        re.escape(q),
+                        f"{bold_stype}\\g<0>{close_tag}",
+                        c,
+                        flags=re.IGNORECASE,
+                    )
+                    for c in matched[:6]
+                ]
                 return f"Matches found: {', '.join(bolded)}"
 
         # 4) fallback: truncated content
         return self._truncate_content(content, max_length=snippet_length)
 
-
     def _get_sections_for_cluster(self, cluster_name: str) -> list[str]:
-        """Map cluster names to section names"""
+        """Map cluster names to section names."""
         return CLUSTERS.get(cluster_name, [])
 
-    def _format_result(self, doc: dict, highlights: list = []) -> dict:
-        """Format Typesense result to match your fuzzy search structure"""
-
+    def _format_result(self, doc: dict, highlights: list | None = None) -> dict:
+        """Format Typesense result to match your fuzzy search structure."""
         if doc.get("section") != "Blog":
-
             return {
                 "name": doc.get("title", ""),
                 "parts": doc.get("parts", []),
                 "url": doc.get("url", ""),
-                "image": doc.get('path', ""),
+                "image": doc.get("path", ""),
                 "cluster": self._get_cluster_from_section(doc.get("section", "")),
-                "description":self._get_highlighted_content(doc, highlights),
+                "description": self._get_highlighted_content(doc, highlights),
             }
 
         else:
-
             return {
                 "title": doc.get("title", ""),
                 "url": doc.get("url", ""),
@@ -218,17 +287,18 @@ class SimpleSearch(rx.State):
             }
 
     def _get_cluster_from_section(self, section: str) -> str:
-        """Map section back to cluster name"""
+        """Map section back to cluster name."""
         for cluster, sections in CLUSTERS.items():
             if section in sections:
                 return cluster
         return "Docs"
 
     def _truncate_content(self, content: str, max_length: int = 200) -> str:
-        """Truncate content for description"""
+        """Truncate content for description."""
         if len(content) <= max_length:
             return content
         return content[:max_length].rstrip() + "..."
+
 
 def keyboard_shortcut_script() -> rx.Component:
     """Add keyboard shortcut support for opening search."""
@@ -242,6 +312,7 @@ def keyboard_shortcut_script() -> rx.Component:
         });
         """
     )
+
 
 def search_trigger() -> rx.Component:
     """Render the search trigger button."""
@@ -262,6 +333,7 @@ def search_trigger() -> rx.Component:
         class_name="py-[6px] md:px-[12px] w-8 md:w-full hover:bg-slate-3 cursor-pointer flex items-center justify-center h-8 border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
     )
 
+
 def search_breadcrumb(items):
     """Create a breadcrumb navigation component."""
     return rx.hstack(
@@ -271,9 +343,9 @@ def search_breadcrumb(items):
                 rx.cond(
                     index > 0,
                     rx.el.label(
-                        "›",
+                        "›",  # noqa: RUF001
                         class_name="text-sm font-medium",
-                        color=rx.color("slate", 11)
+                        color=rx.color("slate", 11),
                     ),
                 ),
                 rx.el.label(
@@ -281,19 +353,20 @@ def search_breadcrumb(items):
                     class_name=rx.cond(
                         index == (items.length() - 1),
                         "text-sm font-medium",
-                        "text-sm font-regular"
+                        "text-sm font-regular",
                     ),
                     color=rx.cond(
                         index == (items.length() - 1),
                         rx.color("slate", 12),
-                        rx.color("slate", 11)
+                        rx.color("slate", 11),
                     ),
-                )
-            )
+                ),
+            ),
         ),
         spacing="1",
-        cursor="pointer"
+        cursor="pointer",
     )
+
 
 def cluster_icon(filter_name: str):
     icons = {
@@ -308,6 +381,7 @@ def cluster_icon(filter_name: str):
     }
     return ui.icon(icon=icons.get(filter_name, ""), class_name="shrink-0 size-4")
 
+
 def filter_items(filter_name: str):
     return ui.popover.close(
         rx.el.div(
@@ -318,20 +392,22 @@ def filter_items(filter_name: str):
                     class_name="w-full text-left",
                     type="button",
                 ),
-                class_name="flex flex-row items-center gap-x-3"
+                class_name="flex flex-row items-center gap-x-3",
             ),
             rx.cond(
                 SimpleSearch.selected_filter == filter_name,
-                rx.icon(tag="check", size=12)
+                rx.icon(tag="check", size=12),
             ),
             on_click=SimpleSearch.apply_filter_search(filter_name),
             class_name="flex flex-row gap-x-2 items-center px-3 py-1 w-full justify-between cursor-pointer outline-none hover:bg-slate-3 focus:border-none",
         )
     )
 
+
 def filter_icon(tag: str):
     """Helper to render icons for filters consistently."""
     return ui.icon(icon=tag, class_name="shrink-0 size-3")
+
 
 def filter_component():
     return ui.popover.root(
@@ -359,14 +435,14 @@ def filter_component():
                 class_name="flex flex-row justify-between items-center gap-x-4 rounded-md outline-none",
                 type="button",
                 variant="outline",
-                size="xs"
+                size="xs",
             ),
         ),
         ui.popover.portal(
             ui.popover.positioner(
                 ui.popover.popup(
                     rx.box(
-                        *[filter_items(filter_name) for filter_name in CLUSTERS.keys()],
+                        *[filter_items(filter_name) for filter_name in CLUSTERS],
                         class_name="w-[190px] flex flex-col text-sm rounded-md shadow-md gap-y-1 py-2",
                     ),
                     class_name="items-center !p-0 w-auto overflow-visible pointer-events-auto",
@@ -378,6 +454,7 @@ def filter_component():
         class_name="rounded-md border border-slate-5",
         id="my-popover",
     )
+
 
 def search_input():
     return rx.box(
@@ -397,9 +474,8 @@ def search_input():
                         variant="secondary",
                         size="xs",
                         class_name="text-sm flex flex-row gap-x-2 items-center",
-
                     ),
-                    href="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/"
+                    href="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/",
                 ),
                 ui.button(
                     "Esc",
@@ -419,12 +495,13 @@ def search_input():
                 ],
                 auto_focus=True,
                 placeholder="Search documentation ...",
-                class_name="py-2 pl-7 md:pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12"
+                class_name="py-2 pl-7 md:pr-[310px] w-full placeholder:text-sm text-sm rounded-lg outline-none focus:outline-none border border-secondary-a4 bg-secondary-1 text-secondary-12",
             ),
             class_name="w-full relative focus:outline-none",
         ),
         class_name="w-full flex flex-col absolute top-0 left-0 p-3 z-[999]",
     )
+
 
 def copy_button(url: str):
     return ui.button(
@@ -442,13 +519,14 @@ def copy_button(url: str):
         on_mouse_down=rx.call_function(last_copied.set_value("")).debounce(1500),
     )
 
+
 def search_result(tags: list, value: dict):
     return rx.link(
         rx.box(
             rx.box(
                 rx.text(value["name"], class_name="text-sm font-bold"),
                 copy_button(url=f"https://reflex.dev/{value['url'].to(str)}"),
-                class_name="flex flex-row items-center justify-between pr-1 w-full"
+                class_name="flex flex-row items-center justify-between pr-1 w-full",
             ),
             rx.html(
                 value["description"],
@@ -456,7 +534,11 @@ def search_result(tags: list, value: dict):
                     "text-sm font-regular opacity-[0.81] "
                     "line-clamp-2 overflow-hidden text-ellipsis"
                 ),
-                style={"display": "-webkit-box", "-webkit-line-clamp": "2", "-webkit-box-orient": "vertical"},
+                style={
+                    "display": "-webkit-box",
+                    "-webkit-line-clamp": "2",
+                    "-webkit-box-orient": "vertical",
+                },
             ),
             search_breadcrumb(tags),
             class_name="p-2 w-full flex flex-col gap-y-2 justify-start items-start align-start",
@@ -464,6 +546,7 @@ def search_result(tags: list, value: dict):
         href=f"/{value['url'].to(str)}",
         class_name="!text-inherit no-underline hover:!text-inherit hover:bg-secondary-2 group",
     )
+
 
 def search_result_blog(value: dict):
     return rx.link(
@@ -476,7 +559,7 @@ def search_result_blog(value: dict):
                     class_name="flex flex-row gap-x-2 items-center text-sm !text-slate-10",
                 ),
                 copy_button(url=f"https://reflex.dev{value['url'].to(str)}"),
-                class_name="flex flex-row w-full items-center justify-between pr-1"
+                class_name="flex flex-row w-full items-center justify-between pr-1",
             ),
             rx.text(value["title"], class_name="text-md font-bold"),
             rx.text(
@@ -485,7 +568,11 @@ def search_result_blog(value: dict):
                     "text-sm font-regular opacity-[0.81] "
                     "line-clamp-2 overflow-hidden text-ellipsis"
                 ),
-                style={"display": "-webkit-box", "-webkit-line-clamp": "2", "-webkit-box-orient": "vertical"},
+                style={
+                    "display": "-webkit-box",
+                    "-webkit-line-clamp": "2",
+                    "-webkit-box-orient": "vertical",
+                },
             ),
             rx.box(
                 rx.image(
@@ -499,6 +586,7 @@ def search_result_blog(value: dict):
         href=f"{value['url'].to(str)}",
         class_name="!text-inherit no-underline hover:!text-inherit hover:bg-secondary-2",
     )
+
 
 def search_result_start(item: dict):
     return rx.link(
@@ -514,13 +602,18 @@ def search_result_start(item: dict):
                     "text-xs font-regular opacity-[0.81] "
                     "line-clamp-2 overflow-hidden text-ellipsis"
                 ),
-                style={"display": "-webkit-box", "-webkit-line-clamp": "2", "-webkit-box-orient": "vertical"},
+                style={
+                    "display": "-webkit-box",
+                    "-webkit-line-clamp": "2",
+                    "-webkit-box-orient": "vertical",
+                },
             ),
             class_name="p-2 w-full flex flex-col gap-y-1 justify-start items-start align-start",
         ),
         href=item["path"],
         class_name="!text-inherit no-underline hover:!text-inherit rounded-md hover:bg-secondary-2",
     )
+
 
 def no_results_found():
     return rx.box(
@@ -532,6 +625,7 @@ def no_results_found():
         ),
         class_name="w-full flex items-center justify-center text-sm py-4",
     )
+
 
 def searching_in_progress():
     return rx.box(
@@ -557,19 +651,22 @@ def search_content():
             rx.cond(
                 SimpleSearch.is_fetching,
                 rx.cond(
-                    (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
+                    (SimpleSearch.idxed_docs_results.length() >= 1)
+                    | (SimpleSearch.idxed_blogs_results.length() >= 1),
                     rx.box(
                         rx.box(
                             rx.foreach(
                                 SimpleSearch.idxed_docs_results,
-                                lambda value: search_result(value["parts"].to(list), value)
+                                lambda value: search_result(
+                                    value["parts"].to(list), value
+                                ),
                             ),
                             class_name="flex flex-col gap-y-2",
                         ),
                         rx.box(
                             rx.foreach(
                                 SimpleSearch.idxed_blogs_results,
-                                lambda value: search_result_blog(value)
+                                lambda value: search_result_blog(value),
                             ),
                             class_name="flex flex-col gap-y-2",
                         ),
@@ -578,34 +675,37 @@ def search_content():
                     searching_in_progress(),
                 ),
                 rx.cond(
-                    (SimpleSearch.idxed_docs_results.length() >= 1) | (SimpleSearch.idxed_blogs_results.length() >= 1),
+                    (SimpleSearch.idxed_docs_results.length() >= 1)
+                    | (SimpleSearch.idxed_blogs_results.length() >= 1),
                     rx.box(
                         rx.box(
                             rx.foreach(
                                 SimpleSearch.idxed_docs_results,
-                                lambda value: search_result(value["parts"].to(list), value)
+                                lambda value: search_result(
+                                    value["parts"].to(list), value
+                                ),
                             ),
                             class_name="flex flex-col gap-y-2",
                         ),
                         rx.box(
                             rx.foreach(
                                 SimpleSearch.idxed_blogs_results,
-                                lambda value: search_result_blog(value)
+                                lambda value: search_result_blog(value),
                             ),
                             class_name="flex flex-col gap-y-2",
                         ),
                         class_name="flex flex-col",
                     ),
-                    no_results_found()
-                )
-            )
+                    no_results_found(),
+                ),
+            ),
         ),
         class_name="w-full h-full pt-11 [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem] [&_.rt-ScrollAreaScrollbar]:mt-[3rem]",
     )
 
 
 def typesense_search() -> rx.Component:
-    """Create the main search component for Reflex Web"""
+    """Create the main search component for Reflex Web."""
     return rx.fragment(
         rx.dialog.root(
             rx.dialog.trigger(search_trigger(), id="search-trigger"),

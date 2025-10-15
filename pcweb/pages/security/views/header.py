@@ -1,7 +1,9 @@
 """Header section for security page."""
 
 import reflex as rx
+
 from pcweb.components.hosting_banner import HostingBannerState
+
 from ..data import PAGE_CONTENT
 
 

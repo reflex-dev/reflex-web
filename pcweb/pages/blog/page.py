@@ -1,7 +1,9 @@
 import reflex as rx
+
 from pcweb.components.icons import get_icon
 from pcweb.components.webpage.comps import h1_title
 from pcweb.flexdown import xd2 as xd
+
 from .paths import blog_data
 
 

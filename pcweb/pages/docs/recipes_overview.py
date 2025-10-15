@@ -1,11 +1,6 @@
 import reflex as rx
 
-from pcweb.templates.docpage import (
-    docpage,
-    h1_comp,
-    h2_comp,
-    text_comp_2,
-)
+from pcweb.templates.docpage import docpage, h1_comp, h2_comp, text_comp_2
 
 
 def get_component_link(category, clist) -> str:

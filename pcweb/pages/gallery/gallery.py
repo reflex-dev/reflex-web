@@ -1,19 +1,21 @@
+import re
+
 import flexdown
 import reflex as rx
-import re
-from pcweb.templates.webpage import webpage
+
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
 from pcweb.components.r_svg_loader import r_svg_loader
+from pcweb.templates.webpage import webpage
 
 REFLEX_BUILD_TEMPLATES_PATH = "reflex_build_templates/"
 REFLEX_BUILD_TEMPLATES_IMAGES = "reflex_build_template_images/"
 
 
 def get_templatey_apps(paths):
-    """Method to parse each markdown file and return the data from the file"""
+    """Method to parse each markdown file and return the data from the file."""
     gallery_apps = {}
-    for path in reversed(sorted(paths)):
+    for path in sorted(paths, reverse=True):
         document = flexdown.Document.from_file(path)  # This has metadata
         key = str(path).replace(".md", "/")
         gallery_apps[key] = document
@@ -31,7 +33,7 @@ def app_dialog_with_trigger(
     app_thread: str,
     app_inner_page: str,
     trigger_content: rx.Component,
-    app_video_url: str
+    app_video_url: str,
 ):
     return rx.dialog.root(
         rx.dialog.trigger(trigger_content, class_name="w-full h-full"),
@@ -81,7 +83,7 @@ def extended_gallery_grid_item(
     app_thread: str,
     app_image: str,
     app_inner_page: str,
-    app_video_url: str
+    app_video_url: str,
 ):
     return app_dialog_with_trigger(
         app_url=app_url,
@@ -111,7 +113,10 @@ def extended_gallery_grid_item(
                             on_click=rx.stop_propagation,
                         ),
                         button(
-                            "Preview", variant="primary", size="md", class_name="flex-1 shadow-none border-none"
+                            "Preview",
+                            variant="primary",
+                            size="md",
+                            class_name="flex-1 shadow-none border-none",
                         ),
                         class_name="flex flex-row gap-x-2 w-full items-stretch px-4 pb-4",
                     ),
@@ -144,7 +149,7 @@ def extended_gallery_grid_item(
 
 def create_grid_with_items():
     items = []
-    for path, document in template_apps_data.items():
+    for document in template_apps_data.values():
         meta = document.metadata
         app_url = meta.get("demo", "#")
         app_name = meta.get("title", "Untitled").replace("_", " ").title()
@@ -153,7 +158,7 @@ def create_grid_with_items():
         app_image = meta.get("image", "")
         slug = re.sub(r"[\s_]+", "-", meta.get("title", "")).lower()
         app_inner_page = f"/templates/{slug}"
-        app_video_url = meta.get('video', "#")
+        app_video_url = meta.get("video", "#")
 
         items.append(
             extended_gallery_grid_item(
@@ -163,7 +168,7 @@ def create_grid_with_items():
                 app_thread=app_thread,
                 app_image=f"/{REFLEX_BUILD_TEMPLATES_IMAGES}{app_image}",
                 app_inner_page=app_inner_page,
-                app_video_url=app_video_url
+                app_video_url=app_video_url,
             )
         )
 

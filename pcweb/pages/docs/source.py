@@ -3,11 +3,12 @@ import inspect
 import re
 
 # Get the comment for a specific field.
-from typing import Callable, ClassVar, Type, get_origin, get_type_hints
+from typing import Callable, Type
 
 import reflex as rx
-from pcweb.templates.docpage import h1_comp, h2_comp
+
 from pcweb.flexdown import markdown
+from pcweb.templates.docpage import h1_comp, h2_comp
 
 
 class Source(rx.Base):
@@ -56,23 +57,25 @@ class Source(rx.Base):
 
     def get_fields(self) -> list[dict]:
         if dataclasses.is_dataclass(self.module):
-            return self.get_annotations({f.name: f for f in dataclasses.fields(self.module)})
+            return self.get_annotations(
+                {f.name: f for f in dataclasses.fields(self.module)}
+            )
         elif isinstance(self.module, type) and issubclass(self.module, rx.Base):
             return self.get_annotations(self.module.__fields__)
         return []
 
     def get_methods(self):
         return [
-            dict(
-                name=name,
-                signature=str(
+            {
+                "name": name,
+                "signature": str(
                     inspect.signature(
                         fn.__func__
                         if isinstance(fn, (classmethod, staticmethod))
                         else fn
                     )
                 ),
-                description=(
+                "description": (
                     fn.__func__.__doc__
                     if isinstance(fn, (classmethod, staticmethod))
                     else fn.__doc__
@@ -80,26 +83,24 @@ class Source(rx.Base):
                 .split("Args:")[0]
                 .split("Returns:")[0]
                 .strip(),
-                params=dict(
+                "params": dict(
                     inspect.signature(
                         fn.__func__
                         if isinstance(fn, (classmethod, staticmethod))
                         else fn
                     ).parameters
                 ),
-                ret=inspect.signature(
+                "ret": inspect.signature(
                     fn.__func__ if isinstance(fn, (classmethod, staticmethod)) else fn
                 ).return_annotation,
-            )
+            }
             for name, fn in self.module.__dict__.items()
             if (
                 fn.__func__.__doc__
                 if isinstance(fn, (classmethod, staticmethod))
                 else fn.__doc__
             )
-            and (
-                isinstance(fn, Callable) or isinstance(fn, (classmethod, staticmethod))
-            )
+            and isinstance(fn, (Callable, classmethod, staticmethod))
             and not name.startswith("_")
             and name != "Config"
         ]
@@ -123,7 +124,7 @@ class Source(rx.Base):
                 break
 
             # If we've reached a docstring, clear the comments.
-            if '"""' == line.strip():
+            if line.strip() == '"""':
                 comments.clear()
                 continue
 
@@ -162,10 +163,10 @@ class Source(rx.Base):
 
             # Add the prop to the output.
             out.append(
-                dict(
-                    prop=prop,
-                    description=comment,
-                )
+                {
+                    "prop": prop,
+                    "description": comment,
+                }
             )
 
         # Return the output.
@@ -179,10 +180,7 @@ def format_field(field):
     except AttributeError:
         type_ = prop.type
     default = field["prop"].default
-    if default is dataclasses.MISSING:
-        default = None
-    else:
-        default = repr(default)
+    default = None if default is dataclasses.MISSING else repr(default)
     type_str = type_.__name__ if hasattr(type_, "__name__") else str(type_)
     if default:
         type_str += f" = {default}"

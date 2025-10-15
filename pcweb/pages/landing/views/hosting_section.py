@@ -21,7 +21,7 @@ A complete infrastructure for your app""",
             class_name="max-w-full w-full lg:text-3xl text-2xl text-center text-slate-12 font-semibold text-balance word-wrap break-words md:whitespace-pre",
         ),
         rx.el.p(
-            """Deploy anywhere — Reflex supports all major cloud providers, 
+            """Deploy anywhere — Reflex supports all major cloud providers,
 including Databricks, AWS, GCP, Azure, Snowflake and more.""",
             class_name="text-slate-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre pb-6",
         ),
@@ -77,11 +77,11 @@ def content() -> rx.Component:
         ),
         rx.box(
             rx.image(
-                src=f"/landing/hosting_features/light/card.webp",
+                src="/landing/hosting_features/light/card.webp",
                 class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:hidden",
             ),
             rx.image(
-                src=f"/landing/hosting_features/dark/card.webp",
+                src="/landing/hosting_features/dark/card.webp",
                 class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:block hidden",
             ),
             class_name="justify-center items-center relative overflow-hidden w-full lg:flex hidden",

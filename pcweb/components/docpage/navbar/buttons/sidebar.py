@@ -1,13 +1,14 @@
 import reflex as rx
-from pcweb.components.icons.icons import get_icon
-from pcweb.constants import GITHUB_URL, TWITTER_URL, DISCORD_URL
-from pcweb.pages.docs import getting_started
-from pcweb.pages.hosting.hosting import hosting_landing
-from pcweb.pages.docs.library import library
-from pcweb.pages.blog import blogs
-from pcweb.pages.gallery import gallery
-from pcweb.pages.framework.framework import framework
 from reflex.style import toggle_color_mode
+
+from pcweb.components.icons.icons import get_icon
+from pcweb.constants import DISCORD_URL, GITHUB_URL, TWITTER_URL
+from pcweb.pages.blog import blogs
+from pcweb.pages.docs import getting_started
+from pcweb.pages.docs.library import library
+from pcweb.pages.framework.framework import framework
+from pcweb.pages.gallery import gallery
+from pcweb.pages.hosting.hosting import hosting_landing
 
 
 def social_menu_item(

@@ -1,6 +1,8 @@
-from PIL import Image
 import os
 import sys
+
+from PIL import Image
+
 
 def convert_images_to_webp(folder_path, quality=80):
     if not os.path.isdir(folder_path):
@@ -14,7 +16,7 @@ def convert_images_to_webp(folder_path, quality=80):
     for filename in os.listdir(folder_path):
         if filename.lower().endswith(valid_extensions):
             img_path = os.path.join(folder_path, filename)
-            base, ext = os.path.splitext(filename)
+            base, _ext = os.path.splitext(filename)
             webp_path = os.path.join(folder_path, base + ".webp")
 
             try:
@@ -26,6 +28,7 @@ def convert_images_to_webp(folder_path, quality=80):
                 print(f"⚠️ Skipped {filename}: {e}")
 
     print(f"\nDone! Processed {count} image(s) in '{folder_path}'.")
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

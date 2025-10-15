@@ -1,8 +1,7 @@
 import reflex as rx
 
 from pcweb.components.icons.icons import get_icon
-from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
-from pcweb.pages.docs import ai_builder, getting_started
+from pcweb.pages.docs import getting_started
 
 
 def product_card(

@@ -1,10 +1,12 @@
 import reflex as rx
+
+from pcweb.components.icons.icons import get_icon
+from pcweb.components.webpage.comps import h1_title
+from pcweb.meta.meta import create_meta_tags
 from pcweb.templates.webpage import webpage
+
 from .page import page
 from .paths import blog_data
-from pcweb.components.webpage.comps import h1_title
-from pcweb.components.icons.icons import get_icon
-from pcweb.meta.meta import create_meta_tags
 
 
 def first_post_card(meta: dict, path: str) -> rx.Component:
@@ -119,7 +121,7 @@ def card_content(meta: dict, path: str) -> rx.Component:
 
 def first_post() -> rx.Component:
     for path, document in blog_data.items():
-        if path == list(blog_data.keys())[0]:
+        if path == next(iter(blog_data.keys())):
             return first_post_card(meta=document.metadata, path=f"/blog/{path}")
 
 
@@ -167,7 +169,7 @@ for path, document in blog_data.items():
             image=document.metadata["image"],
             url=f"https://reflex.dev{route}",
         ),
-    )(lambda doc=document: page(doc, route))
+    )(lambda doc=document, route=route: page(doc, route))
 
     # Add the route to the list of routes.
     blog_routes.append(comp)
