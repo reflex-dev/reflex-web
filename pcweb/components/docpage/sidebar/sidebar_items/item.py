@@ -1,3 +1,5 @@
+import re
+
 from pcweb.route import Route
 from ..state import SideBarItem
 
@@ -12,13 +14,12 @@ def create_item(route: Route, children=None):
             alt_name_for_next_prev = name
         else:
             alt_name_for_next_prev = ""
-        name = (
-            name.replace("Api", "API")
-            .replace("Cli", "CLI")
-            .replace("Ai", "AI")
-            .replace("Ide", "IDE")
-            .replace("Mcp", "MCP")
-
+        # Capitalize acronyms
+        acronyms = {"Api": "API", "Cli": "CLI", "Ide": "IDE", "Mcp": "MCP", "Ai": "AI"}
+        name = re.sub(
+            r"\b(" + "|".join(acronyms.keys()) + r")\b",
+            lambda m: acronyms[m.group(0)],
+            name,
         )
         return SideBarItem(
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=url
