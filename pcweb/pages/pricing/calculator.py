@@ -1,7 +1,8 @@
 import reflex as rx
-from reflex.experimental.client_state import ClientStateVar
-from pcweb.components.tabs import tabs
 import reflex_ui as ui
+from reflex.experimental.client_state import ClientStateVar
+
+from pcweb.components.tabs import tabs
 
 collapsed_calculator_cs = ClientStateVar.create("collapsed_calculator", default=True)
 

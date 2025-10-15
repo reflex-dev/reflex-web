@@ -1,31 +1,50 @@
-"""Generate indexed docs + collection for typesense search"""
+"""Generate indexed docs + collection for typesense search."""
 
+import datetime
+import logging
 import os
 import pathlib
-import datetime
 import re
 import sys
-import yaml
-import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Dict, List, Any, Optional
+from typing import Any, Dict, List, Optional
 
-import typesense
 import reflex as rx
-
+import typesense
+import yaml
 
 project_root = pathlib.Path(__file__).resolve().parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from pcweb.pages.docs.source import Source
 from pcweb.pages.docs.apiref import modules
 from pcweb.pages.docs.env_vars import EnvVarDocs
+from pcweb.pages.docs.source import Source
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
-ACRONYMS = {"AI", "API", "HTTP", "HTTPS", "SQL", "JSON", "XML", "CPU", "GPU", "OAuth", "CLI", "URL", "DNS", "IP", "UI", "MCP"}
+ACRONYMS = {
+    "AI",
+    "API",
+    "HTTP",
+    "HTTPS",
+    "SQL",
+    "JSON",
+    "XML",
+    "CPU",
+    "GPU",
+    "OAuth",
+    "CLI",
+    "URL",
+    "DNS",
+    "IP",
+    "UI",
+    "MCP",
+}
+
 
 def _render_component_to_text(c: Any) -> str:
     """Render a Reflex component to a text string."""
@@ -39,19 +58,21 @@ def _render_component_to_text(c: Any) -> str:
     texts = [_render_component_to_text(child) for child in c.children]
     return " ".join(filter(None, texts))
 
+
 def _extract_headings_from_component(c: Any) -> List[str]:
     """Extract headings from a component tree."""
     headings = []
     if not isinstance(c, rx.Component):
         return headings
 
-    if c.tag and c.tag.startswith('h') and c.tag[1:].isdigit():
+    if c.tag and c.tag.startswith("h") and c.tag[1:].isdigit():
         headings.append(_render_component_to_text(c))
 
     for child in c.children:
         headings.extend(_extract_headings_from_component(child))
 
     return headings
+
 
 CLUSTERS = {
     "All Content": [],
@@ -60,39 +81,54 @@ CLUSTERS = {
     "Components": ["custom-components", "recipes"],
     "Enterprise": ["enterprise"],
     "API Reference": ["api-reference", "api-routes"],
-    "Docs": ["advanced_onboarding", "assets", "authentication", "client_storage", "components", "database", "events", "getting_started", "library", "pages", "state", "state_structure", "styling", "ui", "utility_methods", "vars", "wrapping-react"],
-    "Blog Posts": []
+    "Docs": [
+        "advanced_onboarding",
+        "assets",
+        "authentication",
+        "client_storage",
+        "components",
+        "database",
+        "events",
+        "getting_started",
+        "library",
+        "pages",
+        "state",
+        "state_structure",
+        "styling",
+        "ui",
+        "utility_methods",
+        "vars",
+        "wrapping-react",
+    ],
+    "Blog Posts": [],
 }
 
 TYPESENSE_CONFIG = {
-    'nodes': [{
-        'host': os.getenv('TYPESENSE_HOST'),
-        'port': '443',
-        'protocol': 'https'
-    }],
-    'api_key': os.getenv('TYPESENSE_ADMIN_API_KEY'),
-    'connection_timeout_seconds': 60
+    "nodes": [
+        {"host": os.getenv("TYPESENSE_HOST"), "port": "443", "protocol": "https"}
+    ],
+    "api_key": os.getenv("TYPESENSE_ADMIN_API_KEY"),
+    "connection_timeout_seconds": 60,
 }
 
 
 COLLECTION_SCHEMA = {
-    'name': 'docs',
-    'fields': [
-        {'name': 'id', 'type': 'string', "infix": True},
-        {'name': 'title', 'type': 'string', "infix": True},
-        {'name': 'content', 'type': 'string', "infix": True},
-        {'name': 'headings', 'type': 'string[]'},
-        {'name': 'components', 'type': 'string[]', 'optional': True},
-        {'name': 'path', 'type': 'string'},
-        {'name': 'url', 'type': 'string'},
-        {'name': 'section', 'type': 'string'},
-        {'name': 'subsection', 'type': 'string', 'optional': True},
-        {'name': 'cluster', 'type': 'string'},
-        {'name': 'is_blog', 'type': 'bool'},
-        {'name': 'parts', 'type': 'string[]'},
+    "name": "docs",
+    "fields": [
+        {"name": "id", "type": "string", "infix": True},
+        {"name": "title", "type": "string", "infix": True},
+        {"name": "content", "type": "string", "infix": True},
+        {"name": "headings", "type": "string[]"},
+        {"name": "components", "type": "string[]", "optional": True},
+        {"name": "path", "type": "string"},
+        {"name": "url", "type": "string"},
+        {"name": "section", "type": "string"},
+        {"name": "subsection", "type": "string", "optional": True},
+        {"name": "cluster", "type": "string"},
+        {"name": "is_blog", "type": "bool"},
+        {"name": "parts", "type": "string[]"},
     ],
 }
-
 
 
 class SimpleTypesenseIndexer:
@@ -102,7 +138,7 @@ class SimpleTypesenseIndexer:
         self.client = typesense.Client(TYPESENSE_CONFIG)
 
     def smart_title_case(self, name: str) -> str:
-        words = name.split(' ')
+        words = name.split(" ")
         title_cased_words = []
         for word in words:
             if word.upper() in ACRONYMS:
@@ -132,20 +168,20 @@ class SimpleTypesenseIndexer:
     def extract_headings(self, content: str) -> List[str]:
         """Extract headings from markdown content."""
         headings = []
-        lines = content.split('\n')
+        lines = content.split("\n")
 
         for line in lines:
             line = line.strip()
-            if line.startswith('#'):
-                heading_text = re.sub(r'^#+\s*', '', line)
-                heading_text = re.sub(r'\{[^}]*\}', '', heading_text)
+            if line.startswith("#"):
+                heading_text = re.sub(r"^#+\s*", "", line)
+                heading_text = re.sub(r"\{[^}]*\}", "", heading_text)
                 if heading_text:
                     headings.append(heading_text.strip())
 
         return headings
 
     def summarize_markdown(self, md_path: str, max_lines: int = 100) -> str:
-        """Your existing summarize function - simplified"""
+        """Your existing summarize function - simplified."""
         with open(md_path, "r", encoding="utf-8") as f:
             content = f.read()
 
@@ -174,8 +210,8 @@ class SimpleTypesenseIndexer:
             content = f.read()
 
         patterns = [
-            r'(?:rx|reflex)\.([A-Z][a-zA-Z0-9_]*)',
-            r'\b([A-Z][a-z]+(?:[A-Z][a-z]*)*Component?)\b',
+            r"(?:rx|reflex)\.([A-Z][a-zA-Z0-9_]*)",
+            r"\b([A-Z][a-z]+(?:[A-Z][a-z]*)*Component?)\b",
         ]
         components = set()
         for pattern in patterns:
@@ -184,7 +220,7 @@ class SimpleTypesenseIndexer:
         return list(components)
 
     def process_doc_file(self, docs_path: str, file: str, root: str) -> Optional[dict]:
-        """Your existing process_file function adapted for Typesense"""
+        """Your existing process_file function adapted for Typesense."""
         file_path = os.path.join(root, file)
         rel_path = os.path.relpath(file_path, docs_path)
         parts = pathlib.Path(rel_path).parts
@@ -211,7 +247,7 @@ class SimpleTypesenseIndexer:
 
         full_content = self.summarize_markdown(file_path, max_lines=100)
         components = self.extract_components(file_path)
-        headings = self.extract_headings(open(file_path, 'r', encoding='utf-8').read())
+        headings = self.extract_headings(open(file_path, "r", encoding="utf-8").read())
 
         parent = parts[0] if parts else ""
         cluster = "Uncategorized"
@@ -224,7 +260,7 @@ class SimpleTypesenseIndexer:
             "id": str(rel_path),
             "title": name,
             "content": full_content,
-            "components":components,
+            "components": components,
             "headings": headings,
             "path": str(rel_path),
             "url": f"docs{url}",
@@ -266,8 +302,9 @@ class SimpleTypesenseIndexer:
                 headings.append("Class Fields")
                 for field in class_fields:
                     prop = field.get("prop")
-                    if not prop: continue
-                    prop_name = getattr(prop, 'name', '')
+                    if not prop:
+                        continue
+                    prop_name = getattr(prop, "name", "")
                     description = field.get("description", "")
                     content_parts.append(f"### {prop_name}\n{description}\n")
                     headings.append(prop_name)
@@ -280,8 +317,9 @@ class SimpleTypesenseIndexer:
                 headings.append("Fields")
                 for field in fields:
                     prop = field.get("prop")
-                    if not prop: continue
-                    prop_name = getattr(prop, 'name', '')
+                    if not prop:
+                        continue
+                    prop_name = getattr(prop, "name", "")
                     description = field.get("description", "")
                     content_parts.append(f"### {prop_name}\n{description}\n")
                     headings.append(prop_name)
@@ -294,7 +332,9 @@ class SimpleTypesenseIndexer:
                     method_name = method.get("name", "")
                     signature = method.get("signature", "")
                     description = method.get("description", "")
-                    content_parts.append(f"### {method_name}{signature}\n{description}\n")
+                    content_parts.append(
+                        f"### {method_name}{signature}\n{description}\n"
+                    )
                     headings.append(f"{method_name}{signature}")
 
             content = "\n".join(content_parts)
@@ -303,20 +343,22 @@ class SimpleTypesenseIndexer:
             title = self.name_from_url(f"docs{url_path}")
             path = f"api-reference/{name}"
 
-            documents.append({
-                "id": path,
-                "title": title,
-                "content": self.clean_markdown(content),
-                "headings": headings,
-                "path": path,
-                "url": f"docs{url_path}",
-                "section": "API Reference",
-                "subsection": name,
-                "cluster": "API Reference",
-                "is_blog": False,
-                "parts": ["API Reference", title],
-                "components": [],
-            })
+            documents.append(
+                {
+                    "id": path,
+                    "title": title,
+                    "content": self.clean_markdown(content),
+                    "headings": headings,
+                    "path": path,
+                    "url": f"docs{url_path}",
+                    "section": "API Reference",
+                    "subsection": name,
+                    "cluster": "API Reference",
+                    "is_blog": False,
+                    "parts": ["API Reference", title],
+                    "components": [],
+                }
+            )
 
         # Process Environment Variables page
         env_var_url_path = "/api-reference/environment-variables"
@@ -331,32 +373,40 @@ class SimpleTypesenseIndexer:
         for name, var in all_vars:
             if not getattr(var, "internal", False):
                 docstring = EnvVarDocs.get_env_var_docstring(name) or ""
-                var_type = var.type_.__name__ if hasattr(var.type_, "__name__") else str(var.type_)
-                content_parts.append(f"{var.name}: {docstring} (Type: {var_type}, Default: {var.default})")
+                var_type = (
+                    var.type_.__name__
+                    if hasattr(var.type_, "__name__")
+                    else str(var.type_)
+                )
+                content_parts.append(
+                    f"{var.name}: {docstring} (Type: {var_type}, Default: {var.default})"
+                )
                 headings.append(var.name)
 
         content = "\n".join(content_parts)
 
-        documents.append({
-            "id": env_var_path,
-            "title": env_var_title,
-            "content": self.clean_markdown(content),
-            "headings": headings,
-            "path": env_var_path,
-            "url": f"docs{env_var_url_path}",
-            "section": "API Reference",
-            "subsection": "Environment Variables",
-            "cluster": "API Reference",
-            "is_blog": False,
-            "parts": ["API Reference", env_var_title],
-            "components": [],
-        })
+        documents.append(
+            {
+                "id": env_var_path,
+                "title": env_var_title,
+                "content": self.clean_markdown(content),
+                "headings": headings,
+                "path": env_var_path,
+                "url": f"docs{env_var_url_path}",
+                "section": "API Reference",
+                "subsection": "Environment Variables",
+                "cluster": "API Reference",
+                "is_blog": False,
+                "parts": ["API Reference", env_var_title],
+                "components": [],
+            }
+        )
 
         logger.info(f"Found {len(documents)} programmatic docs.")
         return documents
 
     def extract_frontmatter(self, md_path: str) -> dict:
-        """Your existing frontmatter extraction"""
+        """Your existing frontmatter extraction."""
         with open(md_path, "r", encoding="utf-8") as f:
             content = f.read()
 
@@ -371,18 +421,20 @@ class SimpleTypesenseIndexer:
             return {}
 
     def process_blog_file(self, blog_root: str, file: str, root: str) -> Optional[dict]:
-        """Your existing blog processing adapted for Typesense"""
+        """Your existing blog processing adapted for Typesense."""
         file_path = os.path.join(root, file)
         fm = self.extract_frontmatter(file_path)
 
-        if not fm or not all(k in fm for k in ("title", "author", "date", "description")):
+        if not fm or not all(
+            k in fm for k in ("title", "author", "date", "description")
+        ):
             return None
 
         rel_path = os.path.relpath(file_path, blog_root)
         slug = pathlib.Path(file_path).stem.lower().replace("_", "-")
         url = f"/blog/{slug}"
 
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
 
         full_content = self.clean_markdown(content)
@@ -392,7 +444,9 @@ class SimpleTypesenseIndexer:
             "id": str(rel_path),
             "title": fm["title"],
             "image": fm["image"],
-            "date": fm["date"].strftime("%b %d, %Y") if isinstance(fm["date"], (datetime.date, datetime.datetime)) else fm["date"],
+            "date": fm["date"].strftime("%b %d, %Y")
+            if isinstance(fm["date"], (datetime.date, datetime.datetime))
+            else fm["date"],
             "author": fm["author"],
             "content": full_content,
             "headings": headings,
@@ -409,10 +463,10 @@ class SimpleTypesenseIndexer:
         """Create or recreate the collection."""
         try:
             try:
-                self.client.collections['docs'].retrieve()
+                self.client.collections["docs"].retrieve()
                 if force_recreate:
                     logger.info("Deleting existing collection...")
-                    self.client.collections['docs'].delete()
+                    self.client.collections["docs"].delete()
                 else:
                     logger.info("Collection already exists. Use --force to recreate.")
                     return True
@@ -424,30 +478,44 @@ class SimpleTypesenseIndexer:
             logger.info("Collection created successfully.")
             return True
 
-        except Exception as e:
-            logger.error(f"Error creating collection: {e}")
+        except Exception:
+            logger.exception("Error creating collection")
             return False
 
-    def index_documents(self, docs_path: str, blog_path: str, max_workers: int = 4, batch_size: int = 100) -> bool:
-        """Index both docs and blog files"""
+    def index_documents(
+        self,
+        docs_path: str,
+        blog_path: str,
+        max_workers: int = 4,
+        batch_size: int = 100,
+    ) -> bool:
+        """Index both docs and blog files."""
         try:
             programmatic_docs = self._index_programmatic_docs()
 
             docs_files = []
             for root, _, files in os.walk(docs_path):
-                for file in files:
-                    if file.endswith(".md"):
-                        docs_files.append((docs_path, file, root, False))
+                docs_files.extend(
+                    [
+                        (docs_path, file, root, False)
+                        for file in files
+                        if file.endswith(".md")
+                    ]
+                )
 
             blog_files = []
             if os.path.exists(blog_path):
                 for root, _, files in os.walk(blog_path):
-                    for file in files:
-                        if file.endswith(".md"):
-                            blog_files.append((blog_path, file, root, True))
+                    blog_files.extend(
+                        (blog_path, file, root, True)
+                        for file in files
+                        if file.endswith(".md")
+                    )
 
             all_files = docs_files + blog_files
-            logger.info(f"Found {len(docs_files)} docs and {len(blog_files)} blog files")
+            logger.info(
+                f"Found {len(docs_files)} docs and {len(blog_files)} blog files"
+            )
 
             documents = programmatic_docs
             processed = 0
@@ -467,28 +535,34 @@ class SimpleTypesenseIndexer:
                         if len(documents) >= batch_size:
                             self._index_batch(documents)
                             documents = []
-                            logger.info(f"Processed {processed}/{len(all_files)} files (plus programmatic docs)")
+                            logger.info(
+                                f"Processed {processed}/{len(all_files)} files (plus programmatic docs)"
+                            )
 
             if documents:
                 self._index_batch(documents)
-                logger.info(f"Processed {processed}/{len(all_files)} files (plus programmatic docs)")
+                logger.info(
+                    f"Processed {processed}/{len(all_files)} files (plus programmatic docs)"
+                )
 
             logger.info("Indexing completed successfully!")
             return True
 
-        except Exception as e:
-            logger.error(f"Error during indexing: {e}")
+        except Exception:
+            logger.exception("Error during indexing")
             return False
 
-    def _process_file_wrapper(self, path: str, file: str, root: str, is_blog: bool) -> Optional[dict]:
-        """Wrapper to route to correct processing function"""
+    def _process_file_wrapper(
+        self, path: str, file: str, root: str, is_blog: bool
+    ) -> Optional[dict]:
+        """Wrapper to route to correct processing function."""
         try:
             if is_blog:
                 return self.process_blog_file(path, file, root)
             else:
                 return self.process_doc_file(path, file, root)
-        except Exception as e:
-            logger.error(f"Error processing {file}: {e}")
+        except Exception:
+            logger.exception(f"Error processing {file}")
             return None
 
     def _index_batch(self, documents: List[Dict[str, Any]]) -> None:
@@ -497,41 +571,46 @@ class SimpleTypesenseIndexer:
             clean_docs = []
             for doc in documents:
                 clean_doc = {k: v for k, v in doc.items() if v is not None}
-                if 'subsection' not in clean_doc:
-                    clean_doc['subsection'] = ""
+                if "subsection" not in clean_doc:
+                    clean_doc["subsection"] = ""
                 clean_docs.append(clean_doc)
 
-            results = self.client.collections['docs'].documents.import_(
-                clean_docs,
-                {'action': 'upsert'}
+            results = self.client.collections["docs"].documents.import_(
+                clean_docs, {"action": "upsert"}
             )
 
             for result in results:
-                if not result.get('success', False):
+                if not result.get("success", False):
                     logger.warning(f"Failed to index document: {result}")
 
-        except Exception as e:
-            logger.error(f"Error indexing batch: {e}")
+        except Exception:
+            logger.exception("Error indexing batch")
 
 
 def main():
     """Main function to run the indexing process."""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Simple Typesense indexer for Reflex docs')
-    parser.add_argument('--docs-path', default='./docs', help='Path to docs directory')
-    parser.add_argument('--blog-path', default='./blog', help='Path to blog directory')
-    parser.add_argument('--force', action='store_true', help='Force recreate collection')
-    parser.add_argument('--batch-size', type=int, default=100, help='Batch size for indexing')
-    parser.add_argument('--max-workers', type=int, default=4, help='Max worker threads')
+    parser = argparse.ArgumentParser(
+        description="Simple Typesense indexer for Reflex docs"
+    )
+    parser.add_argument("--docs-path", default="./docs", help="Path to docs directory")
+    parser.add_argument("--blog-path", default="./blog", help="Path to blog directory")
+    parser.add_argument(
+        "--force", action="store_true", help="Force recreate collection"
+    )
+    parser.add_argument(
+        "--batch-size", type=int, default=100, help="Batch size for indexing"
+    )
+    parser.add_argument("--max-workers", type=int, default=4, help="Max worker threads")
 
     args = parser.parse_args()
 
-    if not os.getenv('TYPESENSE_HOST'):
+    if not os.getenv("TYPESENSE_HOST"):
         logger.error("TYPESENSE_HOST environment variable is required")
         return False
 
-    if not os.getenv('TYPESENSE_ADMIN_API_KEY'):
+    if not os.getenv("TYPESENSE_ADMIN_API_KEY"):
         logger.error("TYPESENSE_ADMIN_API_KEY environment variable is required")
         return False
 
@@ -555,12 +634,12 @@ def main():
         str(docs_path),
         str(blog_path) if blog_path.exists() else "",
         max_workers=args.max_workers,
-        batch_size=args.batch_size
+        batch_size=args.batch_size,
     )
 
     return success
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     success = main()
     exit(0 if success else 1)

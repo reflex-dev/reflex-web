@@ -289,7 +289,7 @@ def download(download_url: str) -> rx.Component:
 
 def table_rows(category: dict):
     name = rx.Var(
-        f"{str(category['package_name'])}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')",
+        f"{category['package_name']!s}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')",
     )
 
     updated_at = rx.Var(

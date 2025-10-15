@@ -1,7 +1,7 @@
 import reflex as rx
+from reflex_ui.blocks.lemcal import lemcal_dialog
+
 from pcweb.components.button import button
-from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
-import reflex_ui as ui
 
 
 def glow() -> rx.Component:

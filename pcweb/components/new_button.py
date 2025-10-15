@@ -1,6 +1,8 @@
 from typing import Any, Dict, Literal, Optional
-from pcweb.components.utils.twmerge import cn
+
 import reflex as rx
+
+from pcweb.components.utils.twmerge import cn
 
 LiteralButtonVariant = Literal[
     "primary", "secondary", "transparent", "destructive", "outline"
@@ -52,7 +54,7 @@ def button(
     text: str = "",
     variant: LiteralButtonVariant = "primary",
     size: LiteralButtonSize = "sm",
-    style: Dict[str, Any] = None,
+    style: Dict[str, Any] | None = None,
     class_name: str = "",
     icon: Optional[rx.Component] = None,
     **props,

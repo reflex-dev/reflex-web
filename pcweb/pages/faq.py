@@ -1,11 +1,12 @@
 import reflex as rx
+
+from pcweb.components.webpage.comps import h1_title
+from pcweb.constants import CONTRIBUTING_URL, DISCORD_URL
+from pcweb.flexdown import markdown_with_shiki
 from pcweb.pages.docs import hosting, wrapping_react
 from pcweb.pages.gallery import gallery
 from pcweb.templates.docpage import doclink
 from pcweb.templates.webpage import webpage
-from pcweb.constants import DISCORD_URL, CONTRIBUTING_URL
-from pcweb.components.webpage.comps import h1_title
-from pcweb.flexdown import markdown_with_shiki
 
 faq_items = [
     {

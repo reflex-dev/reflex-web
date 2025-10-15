@@ -1,11 +1,11 @@
 import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.docpage.navbar import navbar
+from pcweb.meta.meta import create_meta_tags
+from pcweb.pages.docs import getting_started
 from pcweb.pages.framework.index_colors import index_colors
 from pcweb.pages.framework.views.footer_index import footer_index
-import reflex_ui as ui
-from pcweb.pages.docs import getting_started
-from pcweb.meta.meta import create_meta_tags
 
 
 def booked_title():
@@ -22,16 +22,14 @@ def booked_title():
     )
 
 
-
-
 @rx.page(
     route="/booked",
     title="Call Successfully Booked | Reflex",
     meta=create_meta_tags(
         title="Call Successfully Booked | Reflex",
         description="Your call has been successfully scheduled. A confirmation email has been sent with all the details.",
-        image="/previews/index_preview.webp"
-    )
+        image="/previews/index_preview.webp",
+    ),
 )
 def booked() -> rx.Component:
     return rx.box(
@@ -40,9 +38,16 @@ def booked() -> rx.Component:
         rx.el.section(
             booked_title(),
             rx.box(
-                ui.button("Home", variant="primary", size="lg", on_click=rx.redirect("/")),
-                ui.button("Installation", variant="secondary", size="lg", on_click=rx.redirect(getting_started.installation.path)),
-                class_name="flex flex-row items-center gap-x-4 pb-14"
+                ui.button(
+                    "Home", variant="primary", size="lg", on_click=rx.redirect("/")
+                ),
+                ui.button(
+                    "Installation",
+                    variant="secondary",
+                    size="lg",
+                    on_click=rx.redirect(getting_started.installation.path),
+                ),
+                class_name="flex flex-row items-center gap-x-4 pb-14",
             ),
             id="booked",
             class_name="section-content",

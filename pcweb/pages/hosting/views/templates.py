@@ -1,5 +1,6 @@
-import reflex as rx
 import copy
+
+import reflex as rx
 
 
 def gallery_app_card(app: dict) -> rx.Component:
@@ -53,7 +54,7 @@ def component_grid() -> rx.Component:
     apps_copy = copy.deepcopy(gallery_apps_data_open_source)
 
     posts = []
-    for path, document in list(apps_copy.items()):
+    for document in list(apps_copy.values()):
         document.metadata["url"] = document.metadata["title"]
         document.metadata["title"] = templates_name_map.get(
             document.metadata["title"], document.metadata["title"]

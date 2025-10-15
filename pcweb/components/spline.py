@@ -1,6 +1,7 @@
 import reflex as rx
-from pcweb.constants import SPLINE_SCENE_URL, SPLINE_RUNTIME_VERSION
 from reflex.vars import Var
+
+from pcweb.constants import SPLINE_RUNTIME_VERSION, SPLINE_SCENE_URL
 
 
 class Spline(rx.Component):

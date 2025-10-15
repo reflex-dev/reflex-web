@@ -6,6 +6,7 @@ from typing import Callable
 
 import flexdown
 import mistletoe
+import reflex as rx
 from reflex.components.radix.themes.base import LiteralAccentColor
 from reflex.utils.format import to_snake_case, to_title_case
 
@@ -278,7 +279,7 @@ def link_pill(text: str, href: str) -> rx.Component:
 def docpage_footer(path: str):
     from pcweb.constants import FORUM_URL, ROADMAP_URL
     from pcweb.pages.blog import blogs
-    from pcweb.pages.docs import ai_builder, getting_started, hosting
+    from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.docs.library import library
     from pcweb.pages.errors import errors
     from pcweb.pages.faq import faq
@@ -508,7 +509,10 @@ def docpage(
 
     Args:
         set_path: The path to set for the sidebar.
-        prop: Props to apply to the template.
+        t: The title to set for the page.
+        right_sidebar: Whether to show the right sidebar.
+        page_title: The full title to set for the page. If None, defaults to `{title} · Reflex Docs`.
+        pseudo_right_bar: Whether to show a pseudo right sidebar (empty space).
 
     Returns:
         A wrapper function that returns the full webpage.
@@ -523,7 +527,6 @@ def docpage(
         Returns:
             The final route with the template applied.
         """
-
         path = get_path(contents) if set_path is None else set_path
 
         title = contents.__name__.replace("_", " ").title() if t is None else t
@@ -539,7 +542,6 @@ def docpage(
             Returns:
                 The page with the template applied.
             """
-
             from pcweb.components.docpage.navbar import navbar
             from pcweb.components.docpage.sidebar import get_prev_next
             from pcweb.components.docpage.sidebar import sidebar as sb
@@ -619,7 +621,6 @@ def docpage(
             return rx.box(
                 navbar(),
                 rx.el.main(
-
                     rx.box(
                         sidebar,
                         class_name=(
@@ -631,7 +632,6 @@ def docpage(
                             )
                         ),
                     ),
-
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
@@ -653,7 +653,7 @@ def docpage(
                             docpage_footer(path=path.rstrip("/")),
                             class_name="lg:mt-0 mt-6 px-4 xl:px-10 h-auto bg-slate-1",
                         ),
-                        class_name="flex-1 bg-slate-1 h-auto mx-auto max-w-4xl overflow-y-auto"
+                        class_name="flex-1 bg-slate-1 h-auto mx-auto max-w-4xl overflow-y-auto",
                         # class_name="flex-1 bg-slate-1 h-auto mx-auto overflow-y-auto "
                         #     + "max-w-4xl" if show_right_sidebar and not pseudo_right_bar else "!max-w-7xl",
                     ),
@@ -672,7 +672,9 @@ def docpage(
                                                     text,
                                                     class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color break-words",
                                                     underline="none",
-                                                    href=path + "#" + text.lower().replace(" ", "-"),
+                                                    href=path
+                                                    + "#"
+                                                    + text.lower().replace(" ", "-"),
                                                 )
                                             )
                                             if level == 1
@@ -682,7 +684,11 @@ def docpage(
                                                         text,
                                                         class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color break-words",
                                                         underline="none",
-                                                        href=path + "#" + text.lower().replace(" ", "-"),
+                                                        href=path
+                                                        + "#"
+                                                        + text.lower().replace(
+                                                            " ", "-"
+                                                        ),
                                                     )
                                                 )
                                                 if level == 2
@@ -691,7 +697,11 @@ def docpage(
                                                         text,
                                                         underline="none",
                                                         class_name="pl-3 block text-sm text-slate-9 hover:!text-slate-11 transition-color break-words",
-                                                        href=path + "#" + text.lower().replace(" ", "-"),
+                                                        href=path
+                                                        + "#"
+                                                        + text.lower().replace(
+                                                            " ", "-"
+                                                        ),
                                                     )
                                                 )
                                             )
@@ -715,14 +725,16 @@ def docpage(
                         class_name=(
                             "w-[240px] h-screen sticky top-0 shrink-0 hidden xl:block"
                         ),
-                    ) if show_right_sidebar and not pseudo_right_bar else rx.box(class_name="w-[180px] h-screen sticky top-0 shrink-0 hidden xl:block"),
-
+                    )
+                    if show_right_sidebar and not pseudo_right_bar
+                    else rx.box(
+                        class_name="w-[180px] h-screen sticky top-0 shrink-0 hidden xl:block"
+                    ),
                     class_name="flex justify-center mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full lg:px-10",
                 ),
                 class_name="flex flex-col justify-center bg-slate-1 w-full relative",
                 on_mount=rx.call_script(right_sidebar_item_highlight()),
             )
-
 
         components = path.split("/")
         category = (
@@ -755,6 +767,7 @@ class RadixDocState(rx.State):
     @rx.event
     def set_color(self, color: str):
         self.color = color
+
 
 def hover_item(component: rx.Component, component_str: str) -> rx.Component:
     return rx.hover_card.root(

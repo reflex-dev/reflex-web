@@ -1,6 +1,8 @@
-import reflex as rx
-from pcweb.components.button import button_with_icon
 import random
+
+import reflex as rx
+
+from pcweb.components.button import button_with_icon
 
 data = [
     {

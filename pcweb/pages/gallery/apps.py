@@ -1,16 +1,17 @@
+import copy
+import re
+
 import flexdown
 import reflex as rx
-import re
+from reflex_ui.blocks.lemcal import lemcal_dialog
+
 from pcweb.components.button import button, button_with_icon
-from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
 from pcweb.components.code_card import gallery_app_card
 from pcweb.components.icons import get_icon
 from pcweb.constants import SCREENSHOT_BUCKET
 from pcweb.flexdown import xd2 as xd
 from pcweb.pages.gallery import gallery
 from pcweb.templates.gallery_app_page import gallery_app_page
-import copy
-import reflex_ui as ui
 
 GALLERY_APP_SOURCES = [
     ("templates/", "docs/getting-started/open-source-templates/"),
@@ -23,7 +24,7 @@ def load_all_gallery_apps():
     gallery_apps = {}
     for folder, _ in GALLERY_APP_SOURCES:
         paths = flexdown.utils.get_flexdown_files(folder)
-        for path in reversed(sorted(paths)):
+        for path in sorted(paths, reverse=True):
             document = flexdown.Document.from_file(path)  # This has metadata
             document.metadata["title"] = (
                 document.metadata.get("title", "Untitled").replace("_", " ").title()
@@ -71,7 +72,7 @@ def more_posts(current_post: dict) -> rx.Component:
             else:
                 selected_posts = other_posts[current_index - 2 : current_index + 1]
 
-    for path, document in selected_posts:
+    for _path, document in selected_posts:
         posts.append(gallery_app_card(app=document.metadata))
 
     return rx.el.section(
@@ -218,7 +219,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
 
 
 gallery_apps_routes = []
-for (path, source_folder), document in gallery_apps_data.items():
+for (_path, source_folder), document in gallery_apps_data.items():
     is_reflex_template = source_folder.startswith("reflex_build_templates")
     base_url = (
         "templates/"

@@ -1,6 +1,7 @@
 import reflex as rx
+from reflex.utils.format import to_snake_case, to_title_case
+
 from ..state import SideBarItem
-from reflex.utils.format import to_title_case, to_snake_case
 
 
 def get_component_link(category, clist, prefix="") -> str:

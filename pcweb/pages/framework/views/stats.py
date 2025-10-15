@@ -1,7 +1,8 @@
 import reflex as rx
+
 from pcweb.components.icons import get_icon
+from pcweb.constants import CONTRIBUTORS, DISCORD_USERS
 from pcweb.github import GithubStarState
-from pcweb.constants import DISCORD_USERS, CONTRIBUTORS
 
 
 def stat_card(stat: str, text: str, icon: str, class_name: str = "") -> rx.Component:

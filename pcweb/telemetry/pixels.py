@@ -1,20 +1,18 @@
 """This module contains the pixel trackers for the website."""
 
 import reflex as rx
-
 from reflex_ui.blocks.telemetry import (
+    get_clearbit_trackers,
     get_common_room_trackers,
     get_google_analytics_trackers,
-    get_clearbit_trackers,
+    get_koala_trackers,
     get_posthog_trackers,
     get_rb2b_trackers,
-    get_koala_trackers,
 )
 
 
 def get_pixel_website_trackers() -> list[rx.Component]:
     """Get the pixel trackers for the website."""
-
     return [
         get_common_room_trackers(site_id="b608b3c3-5dea-4365-b685-6b6635c7fda5"),
         get_koala_trackers(

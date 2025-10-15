@@ -1,6 +1,7 @@
 import re
 
 from pcweb.route import Route
+
 from ..state import SideBarItem
 
 
@@ -9,11 +10,8 @@ def create_item(route: Route, children=None):
     if children is None:
         name = route.title
         url = route.path
-        if name.endswith("Overview"):
-            # For "Overview", we want to keep the qualifier prefix ("Components overview")
-            alt_name_for_next_prev = name
-        else:
-            alt_name_for_next_prev = ""
+        # For "Overview", we want to keep the qualifier prefix ("Components overview")
+        alt_name_for_next_prev = name if name.endswith("Overview") else ""
         # Capitalize acronyms
         acronyms = {"Api": "API", "Cli": "CLI", "Ide": "IDE", "Mcp": "MCP", "Ai": "AI"}
         name = re.sub(

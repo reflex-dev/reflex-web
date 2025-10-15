@@ -1,7 +1,9 @@
 """Grid section for security page featuring trust services criteria."""
 
 import reflex as rx
+
 from pcweb.components.icons import get_icon
+
 from ..data import PAGE_CONTENT, TRUST_SERVICES_CRITERIA
 
 
@@ -60,9 +62,7 @@ def outcomes_showcase() -> rx.Component:
                 rx.box(
                     *[
                         rx.image(
-                            src=logo["src"],
-                            alt=logo["alt"],
-                            class_name="h-24 w-auto"
+                            src=logo["src"], alt=logo["alt"], class_name="h-24 w-auto"
                         )
                         for logo in showcase["logos"]
                     ],
@@ -83,31 +83,22 @@ def security_grid() -> rx.Component:
     # Mobile layout - simple single column stack
     mobile_layout = rx.box(
         *[security_card(**criterion) for criterion in criteria],
-        class_name="lg:hidden flex flex-col divide-y divide-slate-3 border border-slate-3"
+        class_name="lg:hidden flex flex-col divide-y divide-slate-3 border border-slate-3",
     )
 
     # Desktop layout - complex grid with showcase
     desktop_layout = rx.box(
         # Last card (spans 2 columns) -> moved to top
-        security_card(
-            **criteria[4],
-            cols="2",
-            class_name="lg:col-span-2"
-        ),
-
+        security_card(**criteria[4], cols="2", class_name="lg:col-span-2"),
         # Center showcase (spans 3 rows, 1 column)
         outcomes_showcase(),
-
         # First 2 cards
         *[security_card(**criterion) for criterion in criteria[:2]],
-
         # Next 2 cards
         *[security_card(**criterion) for criterion in criteria[2:4]],
-
         class_name=(
-            "hidden lg:grid lg:grid-cols-3 lg:grid-rows-3 "
-            "w-full border border-slate-3"
-        )
+            "hidden lg:grid lg:grid-cols-3 lg:grid-rows-3 w-full border border-slate-3"
+        ),
     )
 
     return rx.box(

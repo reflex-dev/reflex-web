@@ -3,14 +3,6 @@ from datetime import datetime
 import reflex as rx
 
 from pcweb.components.button import button
-from pcweb.pages.gallery import gallery
-from pcweb.pages.docs import getting_started, hosting
-from pcweb.pages.docs.library import library
-from pcweb.pages.blog import blogs
-from pcweb.pages.use_cases.use_cases import use_cases_page
-from pcweb.pages.faq import faq
-from pcweb.pages.errors import errors
-from pcweb.signup import IndexState
 from pcweb.components.icons import get_icon
 from pcweb.constants import (
     DISCORD_URL,
@@ -21,14 +13,14 @@ from pcweb.constants import (
     TWITTER_URL,
 )
 from pcweb.pages.blog import blogs
-from pcweb.pages.docs import ai_builder, getting_started, hosting
+from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
 from pcweb.pages.faq import faq
-from pcweb.pages.gallery import gallery
-from pcweb.signup import IndexState
-
 from pcweb.pages.framework.views.footer_index import dark_mode_toggle
+from pcweb.pages.gallery import gallery
+from pcweb.pages.use_cases.use_cases import use_cases_page
+from pcweb.signup import IndexState
 from pcweb.views.footer import ph_1
 
 

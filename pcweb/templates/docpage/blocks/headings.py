@@ -13,7 +13,7 @@ icon_margins = {
 def h_comp_common(
     text: str,
     heading: str,
-    style: dict = {},
+    style: dict | None = None,
     mt: str = "4",
     class_name: str = "",
 ) -> rx.Component:
@@ -25,7 +25,7 @@ def h_comp_common(
             text,
             id=id_,
             as_=heading,
-            style=style,
+            style=style if style is not None else {},
             class_name=class_name + " scroll-m-[5rem] mt-" + mt,
         ),
         rx.icon(

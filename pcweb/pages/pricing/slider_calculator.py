@@ -1,15 +1,16 @@
+from dataclasses import dataclass
+
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
+from reflex_ui.blocks.lemcal import lemcal_dialog
+
+from pcweb.constants import PRO_TIERS_TABLE, REFLEX_CLOUD_URL
 from pcweb.pages.pricing.calculator import (
     COMPUTE_TABLE,
     CREDITS_PER_HOUR_CPU,
     CREDITS_PER_HOUR_GB,
 )
-from dataclasses import dataclass
-from reflex_ui.blocks.lemcal import lemcal_dialog
-from pcweb.constants import REFLEX_CLOUD_URL, PRO_TIERS_TABLE
-
 
 _SORTED_TIERS = sorted(
     [{"key": k, **v} for k, v in PRO_TIERS_TABLE.items()], key=lambda x: x["credits"]
@@ -19,7 +20,7 @@ machine_keys = list(COMPUTE_TABLE.keys())
 
 
 def format_number(number: int | float) -> str:
-    """Format number with locale string, handling non-numeric values"""
+    """Format number with locale string, handling non-numeric values."""
     return rx.Var(
         f"(typeof {number} === 'number' ? {number} : 0).toLocaleString('en-US')"
     ).to(str)
@@ -34,7 +35,7 @@ class Machine:
 
     @classmethod
     def from_index(cls, index: int) -> "Machine":
-        """Create Machine from COMPUTE_TABLE index"""
+        """Create Machine from COMPUTE_TABLE index."""
         machine_key = machine_keys[index]
         specs = COMPUTE_TABLE[machine_key]
         weekly_credits = calculate_weekly_credits(specs["vcpu"], specs["ram"])
@@ -47,7 +48,7 @@ class Machine:
 
 
 def calculate_weekly_credits(vcpu: int, ram: float) -> float:
-    """Calculate weekly credits for a machine"""
+    """Calculate weekly credits for a machine."""
     credits_per_hour = vcpu * CREDITS_PER_HOUR_CPU + ram * CREDITS_PER_HOUR_GB
     return round(credits_per_hour * 24 * 7, 2)
 
@@ -61,12 +62,12 @@ MESSAGES_VALUES = [0] + [50 * (2**i) for i in range(9)] + [20000, 0]
 
 
 def get_is_enterprise_tier(messages_tier_index: int) -> bool:
-    """Check if slider is at Enterprise position"""
+    """Check if slider is at Enterprise position."""
     return messages_tier_index == len(MESSAGES_VALUES) - 1
 
 
 def get_message_credits(messages_tier_index: int) -> int:
-    """Get credits from message tier slider"""
+    """Get credits from message tier slider."""
     return MESSAGES_VALUES[messages_tier_index]
 
 
@@ -89,7 +90,7 @@ class MachineState(rx.State):
     )
 
     def _recalculate_all(self):
-        """Recalculate all derived values when state changes"""
+        """Recalculate all derived values when state changes."""
         # Calculate machines weekly credits using cached values
         machines_credits = sum(m.weekly_credits for m in self.machines)
         self.machines_weekly_credits = machines_credits
@@ -170,7 +171,7 @@ class MachineState(rx.State):
         self._recalculate_all()
 
     def _find_tier_for_credits(self, credits: float) -> dict | None:
-        """Find Pro tier that fits the given credits using binary search"""
+        """Find Pro tier that fits the given credits using binary search."""
         for tier in _SORTED_TIERS:
             if credits <= tier["credits"]:
                 return tier

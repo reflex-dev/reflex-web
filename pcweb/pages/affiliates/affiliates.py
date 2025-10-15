@@ -2,11 +2,9 @@ import reflex as rx
 
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar import navbar
-from pcweb.components.webpage.badge import badge
 from pcweb.pages.framework.index_colors import index_colors
 from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.pages.hosting.views.features import grid
-
 
 meta_tags = [
     {"property": "og:url", "content": "https://reflex.dev/affiliates/"},
@@ -91,7 +89,7 @@ def features() -> rx.Component:
                 feature_card(
                     "audio-lines",
                     "Track Your Referrals",
-                    "Log in to your Affiliate Dashboard to see clicks, sign‑ups, and revenue data.",
+                    "Log in to your Affiliate Dashboard to see clicks, sign‑ups, and revenue data.",  # noqa: RUF001
                 ),
                 spacer(),
                 class_name="flex flex-col pt-8 lg:border-r border-slate-3",
@@ -146,7 +144,7 @@ def features_small_screen():
                 feature_card(
                     "audio-lines",
                     "Track Your Referrals",
-                    "Log in to your Affiliate Dashboard to see clicks, sign‑ups, and revenue data.",
+                    "Log in to your Affiliate Dashboard to see clicks, sign‑ups, and revenue data.",  # noqa: RUF001
                 ),
                 class_name="flex flex-col",
             ),

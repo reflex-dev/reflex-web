@@ -57,6 +57,7 @@ def get_sidebar_items_ai_builder_overview():
         # ),
     ]
 
+
 def get_ai_builder_integrations():
     from pcweb.pages.docs import ai_builder
 

@@ -1,7 +1,8 @@
 import reflex as rx
+
+from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
 from pcweb.pages.docs import hosting
-from pcweb.components.hosting_banner import HostingBannerState
 
 
 def hero() -> rx.Component:

@@ -1,15 +1,15 @@
+import contextlib
 from dataclasses import asdict, dataclass
 from typing import Any
 
 import httpx
 from posthog import Posthog
 from reflex.utils.console import log
+
 from pcweb.constants import POSTHOG_API_KEY, SLACK_DEMO_WEBHOOK_URL
 
-try:
+with contextlib.suppress(Exception):
     posthog = Posthog(POSTHOG_API_KEY, host="https://us.i.posthog.com")
-except Exception:
-    pass
 
 
 @dataclass(kw_only=True)
@@ -64,7 +64,7 @@ async def send_data_to_posthog(event_instance: PosthogEvent):
 
 async def send_data_to_slack(event_instance: DemoEvent):
     """Send demo form data to Slack webhook.
-    
+
     Args:
         event_instance: An instance of DemoEvent with form data.
     """
@@ -78,15 +78,15 @@ async def send_data_to_slack(event_instance: DemoEvent):
         "companyName": event_instance.company_name,
         "firstName": event_instance.first_name,
         "lastName": event_instance.last_name,
-        "phoneNumber": event_instance.phone_number
+        "phoneNumber": event_instance.phone_number,
     }
-    
+
     try:
         async with httpx.AsyncClient() as client:
             response = await client.post(
                 SLACK_DEMO_WEBHOOK_URL,
                 json=slack_payload,
-                headers={"Content-Type": "application/json"}
+                headers={"Content-Type": "application/json"},
             )
             response.raise_for_status()
     except Exception as e:

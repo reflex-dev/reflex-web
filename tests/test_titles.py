@@ -1,8 +1,9 @@
 """Integration tests for all titles in Reflex."""
 
-from pathlib import Path
-from collections import Counter
 import sys
+from collections import Counter
+from pathlib import Path
+
 import pytest
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
@@ -18,10 +19,7 @@ def routes_fixture():
 def test_unique_titles(routes_fixture):
     assert routes_fixture is not None
 
-    titles = []
-    for route in routes_fixture:
-        if hasattr(route, "title"):
-            titles.append(route)
+    titles = [route for route in routes_fixture if hasattr(route, "title")]
 
     # Count occurrences of each title
     title_counts = Counter(titles)

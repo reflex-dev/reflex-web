@@ -1,5 +1,7 @@
+from typing import Callable, Literal
+
 import reflex as rx
-from typing import Literal, Callable
+
 from pcweb.components.icons import get_icon
 
 LiteralButtonVariant = Literal[
@@ -40,22 +42,22 @@ variant_styles = {
 def button(
     text: str,
     variant: LiteralButtonVariant = "primary",
-    onclick: Callable = None,
-    style: dict = {},
+    onclick: Callable | None = None,
+    style: dict | None = None,
     class_name: str = "",
     *children,
     **props,
 ) -> rx.Component:
     return rx.el.button(
         text,
+        *children,
         onclick=onclick,
-        style=style,
+        style=style if style is not None else {},
         class_name=default_class_name
         + " "
         + variant_styles[variant]["class_name"]
         + " "
         + class_name,
-        *children,
         **props,
     )
 
@@ -64,8 +66,8 @@ def button_with_icon(
     text: str,
     icon: str,
     variant: LiteralButtonVariant = "primary",
-    onclick: Callable = None,
-    style: dict = {},
+    onclick: Callable | None = None,
+    style: dict | None = None,
     class_name: str = "",
     *children,
     **props,
@@ -73,13 +75,13 @@ def button_with_icon(
     return rx.el.button(
         get_icon(icon, class_name="[&>svg]:size-5"),
         text,
+        *children,
         onclick=onclick,
-        style=style,
+        style=style if style is not None else {},
         class_name=default_class_name
         + " "
         + variant_styles[variant]["class_name"]
         + " "
         + class_name,
-        *children,
         **props,
     )

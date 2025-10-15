@@ -1,7 +1,8 @@
 import reflex as rx
-from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
+from reflex.utils.format import to_snake_case, to_title_case
+
 from pcweb.components.icons import get_icon
-from reflex.utils.format import to_title_case, to_snake_case
+from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 
 
 def component_grid():
@@ -12,38 +13,37 @@ def component_grid():
         components,
         prefix: str = "",
     ):
-        sidebar = []
-        for category in components:
-            sidebar.append(
-                rx.box(
-                    rx.link(
-                        rx.el.h1(
-                            to_title_case(to_snake_case(category), sep=" "),
-                            class_name="font-large text-slate-12",
-                        ),
-                        get_icon("new_tab", class_name="text-slate-11 [&>svg]:size-4"),
-                        href=f"/docs/library/{prefix.strip('/') + '/' if prefix.strip('/') else ''}{category.lower()}",
-                        underline="none",
-                        class_name="px-4 py-2 bg-slate-1 hover:bg-slate-3 transition-bg flex flex-row justify-between items-center !text-slate-12",
+        sidebar = [
+            rx.box(
+                rx.link(
+                    rx.el.h1(
+                        to_title_case(to_snake_case(category), sep=" "),
+                        class_name="font-large text-slate-12",
                     ),
-                    rx.box(
-                        *[
-                            rx.link(
-                                to_title_case(to_snake_case(c[0]), sep=" "),
-                                href=get_component_link(
-                                    category=category,
-                                    clist=c,
-                                    prefix=prefix,
-                                ),
-                                class_name="font-small text-slate-11 hover:!text-violet-9 transition-color w-fit",
-                            )
-                            for c in components[category]
-                        ],
-                        class_name="flex flex-col gap-2.5 px-4 py-2 border-t border-slate-5",
-                    ),
-                    class_name="flex flex-col border border-slate-5 rounded-xl bg-slate-2 shadow-large overflow-hidden",
+                    get_icon("new_tab", class_name="text-slate-11 [&>svg]:size-4"),
+                    href=f"/docs/library/{prefix.strip('/') + '/' if prefix.strip('/') else ''}{category.lower()}",
+                    underline="none",
+                    class_name="px-4 py-2 bg-slate-1 hover:bg-slate-3 transition-bg flex flex-row justify-between items-center !text-slate-12",
                 ),
+                rx.box(
+                    *[
+                        rx.link(
+                            to_title_case(to_snake_case(c[0]), sep=" "),
+                            href=get_component_link(
+                                category=category,
+                                clist=c,
+                                prefix=prefix,
+                            ),
+                            class_name="font-small text-slate-11 hover:!text-violet-9 transition-color w-fit",
+                        )
+                        for c in components[category]
+                    ],
+                    class_name="flex flex-col gap-2.5 px-4 py-2 border-t border-slate-5",
+                ),
+                class_name="flex flex-col border border-slate-5 rounded-xl bg-slate-2 shadow-large overflow-hidden",
             )
+            for category in components
+        ]
 
         return sidebar
 

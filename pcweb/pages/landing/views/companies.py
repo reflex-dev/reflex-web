@@ -1,5 +1,6 @@
 import reflex as rx
 from reflex.experimental import ClientStateVar
+
 from pcweb.components.icons.icons import get_icon
 from pcweb.pages.framework.views.companies import companies as index_companies
 
@@ -31,8 +32,8 @@ companies_list = [
 companies_case_studies = {
     "dell": {
         "company_name": "Dell",
-        "quote": """Reflex has been a game changer. 
-        In just a week, I had a demo up and running with excellent performance. 
+        "quote": """Reflex has been a game changer.
+        In just a week, I had a demo up and running with excellent performance.
         It made the project feasible for my support team, helping us build a smooth, efficient interface.""",
         "person": "JL",
         "picture": "/favicon.ico",
@@ -63,7 +64,7 @@ companies_case_studies = {
     # },
     "sellerx": {
         "company_name": "SellerX",
-        "quote": """With Reflex, we're able to ingest 100 GB of data and over 500,000 data points daily, all while developing ten times faster than with React and FastAPI. 
+        "quote": """With Reflex, we're able to ingest 100 GB of data and over 500,000 data points daily, all while developing ten times faster than with React and FastAPI.
         The built-in AG Grid functionality seamlessly integrates, making it the perfect solution for handling and visualizing large-scale data efficiently.""",
         "person": "Mike",
         "picture": "/favicon.ico",

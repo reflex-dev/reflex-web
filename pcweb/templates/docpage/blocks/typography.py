@@ -1,6 +1,7 @@
 """Typography blocks for doc pages."""
 
 import reflex as rx
+
 from pcweb.styles import fonts
 
 

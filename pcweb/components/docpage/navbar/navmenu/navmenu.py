@@ -1,10 +1,10 @@
 """Reflex custom component NavMenu."""
 
 from types import SimpleNamespace
-import reflex as rx
 from typing import Any, Dict, Literal
+
+import reflex as rx
 from reflex.vars import Var
-from reflex.components.component import ComponentNamespace
 
 LiteralMenuComponentDir = Literal["ltr", "rtl"]
 LiteralMenuComponentOrientation = Literal["vertical", "horizontal"]
@@ -17,7 +17,7 @@ class NavMenu(rx.Component):
 
 
 class NavMenuRoot(NavMenu):
-    """Navigation menu root component"""
+    """Navigation menu root component."""
 
     tag = "Root"
     alias = "RadixNavigationMenuRoot"

@@ -9,7 +9,7 @@ def typing_text_script():
 
         function typeWriter(element, i) {
             if (isAnimating) return;  // Don't start if animation is running
-            
+
             if (i < txt.length) {
                 element.innerHTML += txt.charAt(i);
                 i++;
@@ -23,24 +23,24 @@ def typing_text_script():
             try {
                 if (isAnimating) return;  // Don't start if animation is running
                 isAnimating = true;  // Set flag when animation starts
-                
+
                 // Hide typing cursor and show "Deploying..."
                 document.querySelector('.typing-square').classList.replace('opacity-100', 'opacity-0');
                 document.querySelector('.terminal-box').classList.add('expanded-height');
                 document.querySelector('.deploying-text').classList.replace('hidden', 'flex');
-                
+
                 // After 800ms, collapse terminal and show deploy box
                 setTimeout(function() {
                     try {
                         document.querySelector('.terminal-box').classList.add('collapsed');
                         document.querySelector('.deploy-box').classList.add('expanded');
-                        
+
                         // After 2.5s, switch badge from loading to ready
                         setTimeout(function() {
                             try {
                                 document.querySelector('.loading-badge').classList.add('hidden');
                                 document.querySelector('.ready-badge').classList.remove('hidden', 'opacity-0');
-                                
+
                                 // After 3s with "Ready" showing, start unexpanding deploy box and reset terminal simultaneously
                                 setTimeout(function() {
                                     try {
@@ -51,7 +51,7 @@ def typing_text_script():
                                         document.querySelector('.terminal-box').classList.remove('expanded-height', 'collapsed');
                                         document.querySelector('.deploying-text').classList.replace('flex', 'hidden');
                                         document.querySelector('.typing-square').classList.replace('opacity-0', 'opacity-100');
-                                        
+
                                         // Reset badge after deploy box transition
                                         setTimeout(function() {
                                             try {
@@ -60,7 +60,7 @@ def typing_text_script():
                                                 isAnimating = false;  // Reset flag on error
                                             }
                                         }, 550);
-                                        
+
                                         // Wait for transitions to complete + extra delay before starting new typing
                                         setTimeout(function() {
                                             try {

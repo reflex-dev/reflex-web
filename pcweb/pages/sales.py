@@ -2,9 +2,7 @@ import httpx
 import reflex as rx
 
 from pcweb.components.button import button
-from pcweb.constants import (
-    REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL,
-)
+from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL
 from pcweb.templates.webpage import webpage
 
 

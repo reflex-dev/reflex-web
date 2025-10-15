@@ -5,8 +5,8 @@ from reflex.event import EventHandler, EventSpec
 from reflex.vars.base import get_unique_variable_name
 
 from pcweb.components.icons import get_icon
-from pcweb.components.utils.twmerge import cn
 from pcweb.components.icons.hugeicons import hi
+from pcweb.components.utils.twmerge import cn
 
 
 def user_input(
@@ -93,6 +93,7 @@ def input(
         icon (str): Icon to display in the input. Defaults to "".
         type_ (str): Type of the input. Defaults to "text".
         clear_button_event (Optional[EventType[[]]]): Event to trigger when clear button is clicked. Defaults to None.
+        class_name (str): Additional CSS classes to apply to the form component. Defaults to "".
         **props: Additional properties to pass to the form element.
 
     Returns:

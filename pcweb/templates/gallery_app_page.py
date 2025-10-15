@@ -1,8 +1,10 @@
 import functools
 from typing import Callable
+
 import reflex as rx
-from pcweb.route import Route
+
 from pcweb.pages.framework.index_colors import index_colors
+from pcweb.route import Route
 
 
 def gallery_app_page(
@@ -11,7 +13,7 @@ def gallery_app_page(
     description: str,
     image: str,
     demo: str,
-    meta: list[dict[str, str]] = None,
+    meta: list[dict[str, str]] | None = None,
     props=None,
     add_as_page=True,
 ) -> Callable:
@@ -22,6 +24,10 @@ def gallery_app_page(
     Args:
         path: The path of the page.
         title: The title of the page.
+        description: The description of the page.
+        image: The image of the page.
+        demo: The demo link of the app.
+        meta: The meta tags of the page.
         props: Props to apply to the template.
         add_as_page: whether to add the route to the app pages.
 
@@ -53,9 +59,8 @@ def gallery_app_page(
             """
             # Import here to avoid circular imports.
             from pcweb.components.docpage.navbar import navbar
-            from pcweb.components.webpage.badge import badge
-            from pcweb.views.bottom_section.bottom_section import bottom_section
             from pcweb.pages.framework.views.footer_index import footer_index
+            from pcweb.views.bottom_section.bottom_section import bottom_section
 
             # Wrap the component in the template.
             return rx.box(

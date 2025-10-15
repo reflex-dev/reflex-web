@@ -1,5 +1,6 @@
 import reflex as rx
-from reflex.utils.format import to_title_case, to_snake_case
+from reflex.utils.format import to_snake_case, to_title_case
+
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 
 
@@ -72,7 +73,9 @@ def create_previews(
                     component_card(
                         name=component[0],
                         link=get_component_link(
-                            component_category, component, prefix.strip("/") + "/" if prefix.strip("/") else ""
+                            component_category,
+                            component,
+                            prefix.strip("/") + "/" if prefix.strip("/") else "",
                         ),
                         section=component_category,
                     )

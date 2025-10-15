@@ -1,11 +1,13 @@
-""" Dynamically generate synonyms for docs to better type match"""
+"""Dynamically generate synonyms for docs to better type match."""
+
 import os
 import pathlib
-import typesense
 
+import typesense
 from typesense_indexer import TYPESENSE_CONFIG
 
 client = typesense.Client(TYPESENSE_CONFIG)
+
 
 def get_folder_hierarchy(root: str) -> dict:
     """Recursively build folder hierarchy from root, ignoring unwanted folders."""
@@ -15,15 +17,15 @@ def get_folder_hierarchy(root: str) -> dict:
             hierarchy[entry.name] = get_folder_hierarchy(entry.path)
     return hierarchy
 
+
 def generate_synonyms(name: str) -> list[str]:
-    """
-    Generate multiple synonym forms for a folder/component name:
+    """Generate multiple synonym forms for a folder/component name:
     - flattened lowercase: reactflow
     - lowercase spaced: react flow
     - title case spaced: React Flow
     - underscore: react_flow
     - hyphen: react-flow
-    - camelcase: ReactFlow
+    - camelcase: ReactFlow.
     """
     clean_name = name.replace("_", " ").replace("-", " ").strip()
     words = clean_name.split()
@@ -45,9 +47,9 @@ def generate_synonyms(name: str) -> list[str]:
 
     return list(synonyms)
 
+
 def flatten_hierarchy(hierarchy: dict) -> dict:
-    """
-    Flatten nested folder hierarchy into a single dict with synonyms
+    """Flatten nested folder hierarchy into a single dict with synonyms
     keyed by flattened lowercase name.
     """
     flat = {}
@@ -63,17 +65,17 @@ def flatten_hierarchy(hierarchy: dict) -> dict:
     recurse(hierarchy)
     return flat
 
+
 def main() -> bool:
     try:
         docs_root = pathlib.Path("docs")
         hierarchy = get_folder_hierarchy(docs_root)
-        SYNONYMS = flatten_hierarchy(hierarchy)
+        synonyms = flatten_hierarchy(hierarchy)
 
         print("Upserting new synonyms to Typesense ...")
-        for canonical, info in SYNONYMS.items():
+        for canonical, info in synonyms.items():
             client.collections["docs"].synonyms.upsert(
-                canonical,
-                {"synonyms": info["synonyms"]}
+                canonical, {"synonyms": info["synonyms"]}
             )
 
         print("Synonyms synced successfully!")
@@ -82,6 +84,7 @@ def main() -> bool:
     except Exception as e:
         print("Error syncing synonyms:", e)
         return False
+
 
 if __name__ == "__main__":
     success = main()

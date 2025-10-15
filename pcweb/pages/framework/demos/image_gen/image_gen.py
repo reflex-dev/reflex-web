@@ -1,7 +1,8 @@
 import reflex as rx
+import replicate
+
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
-import replicate
 
 
 class ImageGenState(rx.State):
