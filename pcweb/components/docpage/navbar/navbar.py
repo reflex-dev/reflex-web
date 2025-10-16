@@ -1,9 +1,9 @@
 """UI and logic for the navbar component."""
 
 import reflex as rx
+import reflex_ui as ui
 from reflex_ui.blocks.lemcal import lemcal_dialog
 
-from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
 from pcweb.components.hosting_banner import hosting_banner
 from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL

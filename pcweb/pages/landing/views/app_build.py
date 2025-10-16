@@ -1,8 +1,8 @@
 import reflex as rx
 import reflex_ui as ui
+
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.progressive_blur import progressive_blur
-
 
 # Animation delays (in ms)
 DELAY_USER_PROFILE = 250
@@ -97,7 +97,7 @@ def slack_alert():
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src=f"/landing/integrations/light/slack.svg",
+                src="/landing/integrations/light/slack.svg",
                 class_name="size-full pointer-events-none shrink-0 object-cover",
             ),
             class_name="size-9 bg-white-1 rounded-[8px] border-[0.5px] border-slate-6 overflow-hidden flex justify-center items-center p-1 shadow-small shrink-0",

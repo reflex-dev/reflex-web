@@ -1,8 +1,8 @@
 import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.icons.icons import get_icon
 from pcweb.constants import DISCORD_URL
-import reflex_ui as ui
 
 
 def discord() -> rx.Component:

@@ -4,10 +4,10 @@ from typing import TypedDict
 
 import httpx
 import reflex as rx
+import reflex_ui as ui
 from reflex.experimental import ClientStateVar
 
-from pcweb.components.icons.hugeicons import hi
-from pcweb.components.icons.icons import get_icon_var
+from pcweb.components.numbers_pattern import numbers_pattern
 from pcweb.constants import (
     MAX_FILE_SIZE_BYTES,
     MAX_FILE_SIZE_MB,
@@ -16,8 +16,6 @@ from pcweb.constants import (
     REFLEX_BUILD_URL,
     RX_BUILD_BACKEND,
 )
-
-from .video_demo import watch_preview
 
 
 def is_content_type_valid(content_type: str) -> bool:
@@ -259,8 +257,8 @@ def hero() -> rx.Component:
         numbers_pattern(side="left", class_name="lg:top-[65px] top-[45px]"),
         numbers_pattern(side="right", class_name="lg:top-[65px] top-[45px]"),
         rx.el.h1(
-            """Build From Prompt to 
-Production App, In Seconds""",
+            """Build From Prompt to
+ Production App, In Seconds""",
             class_name="text-slate-12 text-4xl font-semibold text-center max-w-[576px] word-wrap break-words whitespace-pre",
         ),
         prompt_box(),

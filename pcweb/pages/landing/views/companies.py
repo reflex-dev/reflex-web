@@ -1,9 +1,9 @@
 import reflex as rx
+import reflex_ui as ui
 from reflex.experimental import ClientStateVar
 
 from pcweb.components.icons.icons import get_icon
 from pcweb.pages.framework.views.companies import companies as index_companies
-import reflex_ui as ui
 
 company_cs = ClientStateVar.create("company", "")
 area_x_pos = ClientStateVar.create(var_name="area_x_pos", default=0)

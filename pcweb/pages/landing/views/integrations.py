@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from pcweb.pages.framework.demos.demos import demo_section
+
 from pcweb.components.numbers_pattern import numbers_pattern
 
 
@@ -82,7 +82,7 @@ def r_logo_card() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src=f"/landing/integrations/light/r_logo.svg",
+                src="/landing/integrations/light/r_logo.svg",
                 class_name="h-8 w-autopointer-events-none shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
             ),
             class_name="size-15 rounded-lg border border-slate-5 shadow-large bg-white-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]",

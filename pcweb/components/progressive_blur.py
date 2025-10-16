@@ -1,5 +1,6 @@
-import reflex as rx
 from typing import Literal
+
+import reflex as rx
 
 
 class ProgressiveBlur(rx.Component):

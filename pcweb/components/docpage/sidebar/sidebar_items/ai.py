@@ -42,14 +42,40 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.app_lifecycle.share_app,
             ],
         ),
+        # create_item(
+        #     "Integrations",
+        #     children=[
+        #         ai_builder.integrations.overview,
+        #         ai_builder.integrations.github,
+        #         ai_builder.integrations.database,
+        #         ai_builder.integrations.databricks,
+        #         ai_builder.integrations.azure_auth,
+        #         ai_builder.integrations.okta_auth,
+        #         ai_builder.integrations.google_auth,
+        #         ai_builder.integrations.open_ai,
+        #     ],
+        # ),
+    ]
+
+
+def get_ai_builder_integrations():
+    from pcweb.pages.docs import ai_builder
+
+    return [
         create_item(
             "Integrations",
             children=[
-                ai_builder.integrations.github,
+                ai_builder.integrations.overview,
+                ai_builder.integrations.airtable,
+                ai_builder.integrations.anthropic,
+                ai_builder.integrations.azure_auth,
+                ai_builder.integrations.cartesia,
+                ai_builder.integrations.cohere,
                 ai_builder.integrations.database,
                 ai_builder.integrations.databricks,
-                ai_builder.integrations.azure,
-                ai_builder.integrations.okta,
+                ai_builder.integrations.descope,
+                ai_builder.integrations.gemini,
+                ai_builder.integrations.github,
                 ai_builder.integrations.google_auth,
                 ai_builder.integrations.groq,
                 ai_builder.integrations.hubspot,

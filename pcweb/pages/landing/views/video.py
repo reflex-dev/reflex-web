@@ -1,8 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
 
-import reflex as rx
-
 from pcweb.components.dialog import dialog
 from pcweb.constants import DEMO_VIDEO_URL, REFLEX_BUILD_URL
 

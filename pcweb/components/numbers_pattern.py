@@ -4,7 +4,7 @@ import reflex_ui as ui
 
 def ellipses(side: str = "left"):
     direction = "right" if side == "right" else "left"
-    common_class = f"absolute bg-violet-11 blur-[8px]"
+    common_class = "absolute bg-violet-11 blur-[8px]"
     return rx.el.div(
         # Ellipse 1
         rx.el.div(
