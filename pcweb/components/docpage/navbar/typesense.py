@@ -316,21 +316,23 @@ def keyboard_shortcut_script() -> rx.Component:
 
 def search_trigger() -> rx.Component:
     """Render the search trigger button."""
-    return rx.box(
-        ui.icon(
-            "Search01Icon",
-            class_name="md:absolute md:left-2 md:top-1/2 md:transform md:-translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
+    return ui.button(
+        rx.html(
+            """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M11.6681 11.6671L14.6681 14.6671M13.3347 7.33374C13.3347 4.02003 10.6485 1.33374 7.33472 1.33374C4.02101 1.33374 1.33472 4.02003 1.33472 7.33374C1.33472 10.6475 4.02101 13.3337 7.33472 13.3337C10.6485 13.3337 13.3347 10.6475 13.3347 7.33374Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>"""
         ),
-        rx.text(
-            "⌘K",
-            class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm bg-slate-3 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
+        rx.el.span(
+            "Search",
+            class_name="hidden md:block text-sm font-medium",
         ),
-        rx.el.input(
-            placeholder="Search",
-            read_only=True,
-            class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block font-medium",
+        rx.el.span(
+            "⌘ + K",
+            class_name="px-2 bg-slate-4 rounded-sm ml-0.25 hidden md:block",
         ),
-        class_name="py-[6px] md:px-[12px] w-8 md:w-full hover:bg-slate-3 cursor-pointer flex items-center justify-center h-8 border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
+        variant="outline",
+        size="sm",
+        class_name="md:w-full text-secondary-11",
     )
 
 

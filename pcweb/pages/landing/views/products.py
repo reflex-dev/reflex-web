@@ -18,29 +18,7 @@ def product_card(
         rx.el.div(
             rx.el.span(title, class_name="text-slate-12 text-xl font-semibold"),
             rx.el.span(description, class_name="text-slate-9 text-sm font-medium"),
-            rx.link(
-                rx.el.span(
-                    link,
-                    class_name="text-sm font-medium text-slate-12 underline-none hover:text-slate-12",
-                ),
-                get_icon(
-                    "chevron_right",
-                    class_name="size-4 text-slate-9 group-hover:text-slate-12 group-hover:translate-x-1 transition-all duration-300",
-                ),
-                href=url,
-                underline="none",
-                class_name="flex flex-row gap-2 items-center gap-[0.375rem] mt-4 group",
-            ),
-            class_name="flex flex-col gap-2 p-10",
-        ),
-        rx.el.div(
-            rx.el.span(number),
-            rx.el.span(name),
-            rx.image(
-                src=f"/landing/lines/light/lines_{color[0]}.webp",
-                class_name="h-6 w-auto pointer-events-none",
-            ),
-            class_name=f"flex flex-row gap-5 items-center px-3.5 h-10 font-mono text-xs font-medium text-{color[0]}-{color[1]} overflow-hidden",
+            class_name="flex flex-col gap-2 px-10 pt-10",
         ),
         rx.el.div(
             rx.image(
@@ -51,8 +29,21 @@ def product_card(
                 src=f"/landing/products/dark/product_{graphic}.webp",
                 class_name="w-auto pointer-events-none hidden dark:block",
             ),
+            class_name="w-full h-[17.25rem]",
         ),
-        class_name="flex flex-col divide-y divide-slate-3",
+        rx.el.a(
+            rx.el.span(
+                link,
+                class_name="text-sm font-medium text-slate-12 underline-none hover:text-slate-12",
+            ),
+            get_icon(
+                "chevron_right",
+                class_name="size-4 text-slate-9 group-hover:text-slate-12 group-hover:translate-x-1 transition-all duration-300",
+            ),
+            to=url,
+            class_name="flex flex-row items-center gap-2 justify-between group h-[4rem] px-10 hover:bg-slate-2 transition-colors border-t border-slate-3",
+        ),
+        class_name="flex flex-col",
     )
 
 
@@ -88,5 +79,5 @@ def products() -> rx.Component:
             ("amber", "11"),
             "hosting",
         ),
-        class_name="grid grid-cols-1 md:grid-cols-3 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 lg:divide-x divide-slate-3 lg:border-y",
+        class_name="grid grid-cols-1 md:grid-cols-3 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 lg:divide-x divide-slate-3 lg:border-t",
     )

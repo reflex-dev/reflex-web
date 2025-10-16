@@ -1,4 +1,5 @@
 import reflex as rx
+import reflex_ui as ui
 from reflex.experimental import ClientStateVar
 
 from pcweb.components.icons.icons import get_icon
@@ -78,7 +79,7 @@ companies_case_studies_var = rx.Var.create(companies_case_studies)
 
 def stat(stat: str, text: str) -> rx.Component:
     return rx.el.section(
-        get_icon("feather"),
+        get_icon("feather_unstyled", class_name="text-primary-9"),
         rx.box(
             rx.text(
                 stat,
@@ -87,7 +88,7 @@ def stat(stat: str, text: str) -> rx.Component:
             rx.text(text, class_name="text-sm text-slate-9 font-medium"),
             class_name="flex flex-col justify-center items-center text-center text-nowrap",
         ),
-        get_icon("feather", class_name="scale-x-[-1]"),
+        get_icon("feather_unstyled", class_name="scale-x-[-1] text-primary-9"),
         class_name="flex flex-row items-center gap-4 justify-center",
     )
 
@@ -97,24 +98,24 @@ def quote_box(company: str) -> rx.Component:
     return rx.fragment(
         rx.text(
             f"“{case_study['quote']}”",
-            class_name="text-xs text-slate-12 italic font-medium animate-fade animate-duration-[750ms] animate-fill-both",
+            class_name="text-xs text-slate-12 font-medium animate-fade animate-duration-[505ms] animate-ease-out animate-fill-both",
         ),
         rx.box(
-            rx.image(
-                src=case_study["picture"],
+            ui.gradient_profile(
+                seed=case_study["person"],
                 class_name="size-6 rounded-full",
             ),
             rx.box(
                 rx.text(
                     f"{case_study['person']}",
-                    class_name="text-xs text-slate-9 font-medium",
+                    class_name="text-xs text-slate-10 font-medium",
                 ),
                 rx.text(
                     case_study["role"],
                     class_name="text-xs text-slate-9 font-medium",
                 ),
             ),
-            class_name="flex flex-row items-center gap-2 w-full animate-fade animate-duration-[750ms] animate-fill-both",
+            class_name="flex flex-row items-center gap-2 w-full animate-fade animate-duration-[550ms] animate-ease-out animate-fill-both",
         ),
     )
 
@@ -123,18 +124,18 @@ def case_study_badge() -> rx.Component:
     return rx.box(
         rx.text("Case Study", class_name="text-xs text-violet-9 font-semibold"),
         get_icon(
-            "arrow_top_right",
-            class_name="size-3 group-hover:rotate-0 transition-transform rotate-45",
+            "chevron_right",
+            class_name="size-3",
         ),
-        class_name="absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
+        class_name="absolute bottom-4 right-4 bg-violet-3 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
     )
 
 
 def quote_badge() -> rx.Component:
     return rx.box(
         rx.text("Quote", class_name="text-xs text-violet-9 font-semibold"),
-        get_icon("quote", class_name="size-3"),
-        class_name="absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
+        ui.icon("QuoteDownIcon", class_name="size-3"),
+        class_name="absolute bottom-4 right-4 bg-violet-3 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
     )
 
 
@@ -158,7 +159,7 @@ def company_card(name: str, id: str) -> rx.Component:
                     quote_box(company_cs.value),
                     rx.box(
                         stat(stat="300K+", text="Apps built with Reflex"),
-                        class_name="animate-fade flex justify-center items-center size-full animate-duration-[750ms] animate-fill-both",
+                        class_name="animate-fade flex justify-center items-center size-full animate-duration-[550ms] animate-ease-out animate-fill-both",
                     ),
                 ),
                 class_name="flex flex-col gap-2.5 w-full h-[10.75rem] justify-between bg-slate-1 border-box p-4 overflow-hidden",
@@ -228,7 +229,7 @@ def company_card(name: str, id: str) -> rx.Component:
         ],
         id=id,
         class_name=(
-            "relative w-full after:content[''] after:absolute after:z-[1] after:bg-slate-3 after:left-0 after:top-[-1px] after:w-full after:h-[1px] before:content[''] before:absolute before:z-[1] before:bg-slate-3 before:top-0 before:left-[-1px] before:h-full before:w-[1px] group",
+            "relative w-full group border-b border-r border-slate-3",
             rx.cond(
                 name == "STATS",
                 "col-span-2",
@@ -246,7 +247,6 @@ def company_card(name: str, id: str) -> rx.Component:
 
 def companies() -> rx.Component:
     return rx.el.section(
-        rx.box(class_name="h-[3rem] w-full border-b border-slate-3 lg:flex hidden"),
         rx.box(
             *[
                 company_card(
@@ -261,5 +261,5 @@ def companies() -> rx.Component:
             index_companies(),
             class_name="lg:hidden flex border-t border-slate-3 lg:border-t-0",
         ),
-        class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] border-slate-3 relative z-[1] overflow-hidden isolate lg:border-b lg:border-x",
+        class_name="z-0 flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] border-slate-3 relative overflow-hidden isolate lg:border-l",
     )

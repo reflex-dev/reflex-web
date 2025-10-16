@@ -8,7 +8,7 @@ def glow() -> rx.Component:
 
 
 class HostingBannerState(rx.State):
-    show_banner: bool = True
+    show_banner: bool = False
 
     def hide_banner(self):
         self.show_banner = False

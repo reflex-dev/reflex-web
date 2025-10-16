@@ -1,9 +1,9 @@
 """UI and logic for the navbar component."""
 
 import reflex as rx
+import reflex_ui as ui
 from reflex_ui.blocks.lemcal import lemcal_dialog
 
-from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
 from pcweb.components.hosting_banner import hosting_banner
 from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
@@ -25,9 +25,9 @@ from .search import search_bar
 
 def resource_item(text: str, url: str, icon: str, index):
     return rx.el.li(
-        rx.link(
+        rx.el.a(
             rx.box(
-                rx.icon(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
+                ui.icon(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
                 rx.spacer(),
                 rx.text(
                     text,
@@ -37,13 +37,12 @@ def resource_item(text: str, url: str, icon: str, index):
                 rx.icon(
                     tag="chevron_right",
                     size=14,
-                    class_name="flex-shrink-0 text-slate-12",
+                    class_name="flex-shrink-0 text-slate-8",
                 ),
-                class_name="flex flex-row flex-nowrap items-center gap-3 hover:bg-slate-3 px-[1.125rem] py-2 rounded-md w-full transition-bg justify-between",
+                class_name="flex flex-row flex-nowrap items-center gap-3 hover:bg-secondary-3 px-[1.125rem] py-2 rounded-md w-full transition-bg justify-between",
             ),
-            class_name="w-full text-slate-9 hover:!text-slate-9",
-            underline="none",
-            href=url,
+            class_name="w-full text-slate-9 hover:text-slate-9",
+            to=url,
             on_click=SidebarState.set_sidebar_index(index),
         ),
         class_name="w-full",
@@ -92,20 +91,13 @@ def link_item(name: str, url: str, active_str: str = ""):
     else:
         active = False
 
-    common_cn = "transition-color p-[1.406rem_0px] font-small xl:flex hidden items-center justify-center "
-    active_cn = "shadow-[inset_0_-1px_0_0_var(--c-violet-9)] text-violet-9"
-    unactive_cn = "shadow-none text-slate-9"
+    common_cn = "transition-color p-[1.406rem_0px] font-small xl:flex hidden items-center justify-center hover:text-secondary-12 "
+    active_cn = "shadow-[inset_0_-0.5px_0_0_var(--c-violet-9)] text-violet-9"
+    unactive_cn = "shadow-none text-secondary-11"
 
-    return rx.link(
+    return rx.el.a(
         name,
-        href=url,
-        underline="none",
-        _hover={"color": rx.cond(active, "var(--c-violet-9)", "var(--c-slate-11)")},
-        style={
-            ":hover": {
-                "color": rx.cond(active, "var(--c-violet-9)", "var(--c-slate-11)")
-            }
-        },
+        to=url,
         class_name=common_cn + rx.cond(active, active_cn, unactive_cn),
         on_click=SidebarState.set_sidebar_index(0),
     )
@@ -213,12 +205,12 @@ def blog_section() -> rx.Component:
 
 
 def link_button(label: str, url: str) -> rx.Component:
-    return rx.link(
+    return rx.el.a(
         resources_button(
             label, size="md", variant="transparent", class_name="justify-start w-full"
         ),
-        href=url,
-        is_external=True,
+        to=url,
+        target="_blank",
         underline="none",
         class_name="!w-full",
     )
@@ -227,7 +219,7 @@ def link_button(label: str, url: str) -> rx.Component:
 def grid_card(
     title: str, description: str, url: str, image: str, image_style: str
 ) -> rx.Component:
-    return rx.link(
+    return rx.el.a(
         rx.box(
             rx.text(title, class_name="text-slate-12 text-base font-semibold"),
             rx.el.button(
@@ -241,9 +233,7 @@ def grid_card(
             src=image,
             class_name=image_style,
         ),
-        href=url,
-        is_external=False,
-        underline="none",
+        to=url,
         class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[16.5625rem] overflow-hidden group",
     )
 
@@ -305,7 +295,7 @@ def new_resource_section():
     ]
 
     def _link_button(label: str, url: str, icon: str) -> rx.Component:
-        return rx.link(
+        return rx.el.a(
             resources_button(
                 rx.icon(icon, class_name="size-4"),
                 label,
@@ -313,10 +303,8 @@ def new_resource_section():
                 variant="transparent",
                 class_name="justify-start w-full items-center",
             ),
-            href=url,
-            is_external=False,
-            underline="none",
-            class_name="!w-full",
+            to=url,
+            class_name="w-full",
         )
 
     def _resource_section_column(
@@ -354,7 +342,7 @@ def new_resource_section():
             ),
             class_name="grid grid-cols-2 gap-3 p-3 bg-slate-1",
         ),
-        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 border border-slate-5 w-[34.55rem] font-sans overflow-hidden",
+        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 w-[34.55rem] font-sans overflow-hidden",
     )
 
 
@@ -367,11 +355,11 @@ def new_menu_trigger(
         rx.box(
             rx.text(
                 title,
-                class_name="p-[1.406rem_0px] font-small text-slate-9 group-hover:text-slate-11 transition-colors",
+                class_name="p-[1.406rem_0px] font-medium text-sm text-secondary-11 group-hover:text-secondary-12 transition-colors",
             ),
             rx.icon(
                 "chevron-down",
-                class_name="chevron size-5 !text-slate-9 group-hover:!text-slate-11 py-1 mr-0 transition-all ease-out",
+                class_name="chevron size-5 !text-secondary-11 group-hover:!text-secondary-12 py-1 mr-0 transition-all ease-out",
             ),
             class_name="flex-row items-center gap-x-1 group user-select-none cursor-pointer xl:flex hidden",
             on_click=rx.stop_propagation,
@@ -411,14 +399,17 @@ def doc_section():
             resource_item(
                 "AI Builder Docs",
                 ai_builder.overview.best_practices.path,
-                "bot",
+                "MagicWand01Icon",
                 0,
             ),
             resource_item(
-                "Open Source Docs", getting_started.introduction.path, "frame", 0
+                "Open Source Docs",
+                getting_started.introduction.path,
+                "SourceCodeCircleIcon",
+                0,
             ),
             resource_item(
-                "Cloud Docs", hosting_page.deploy_quick_start.path, "server", 0
+                "Cloud Docs", hosting_page.deploy_quick_start.path, "CloudServerIcon", 0
             ),
             class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[280px] min-w-max",
         ),
@@ -525,10 +516,11 @@ def new_component_section() -> rx.Component:
             nav_menu.item(discord(), class_name="xl:flex hidden"),
             nav_menu.item(
                 rx.link(
-                    button(
+                    ui.button(
                         "Sign In",
+                        size="sm",
                         variant="secondary",
-                        class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
+                        class_name="font-semibold text-secondary-11 whitespace-nowrap",
                     ),
                     underline="none",
                     is_external=True,
@@ -538,9 +530,11 @@ def new_component_section() -> rx.Component:
             ),
             nav_menu.item(
                 lemcal_dialog(
-                    button(
+                    ui.button(
                         "Book a Demo",
-                        class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
+                        size="sm",
+                        variant="primary",
+                        class_name="font-semibold whitespace-nowrap",
                     ),
                 ),
                 class_name="xl:flex hidden",
@@ -561,7 +555,7 @@ def navbar() -> rx.Component:
         hosting_banner(),
         rx.el.header(
             new_component_section(),
-            class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
+            class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-0.5px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
         ),
-        class_name="flex flex-col w-full top-0 z-[9999] fixed text-slate-12",
+        class_name="flex flex-col w-full top-0 z-[9999] fixed text-secondary-12",
     )
