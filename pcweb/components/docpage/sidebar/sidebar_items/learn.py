@@ -17,7 +17,6 @@ def get_sidebar_items_learn():
                 getting_started.dashboard_tutorial,
                 getting_started.chatapp_tutorial,
                 getting_started.open_source_templates,
-
             ],
         ),
         create_item(
@@ -119,10 +118,10 @@ def get_sidebar_items_backend():
         api_routes,
         authentication,
         client_storage,
-        state_structure,
         database,
         events,
         state,
+        state_structure,
         utility_methods,
         vars,
     )
@@ -252,8 +251,6 @@ def get_sidebar_items_hosting():
 
 
 def get_sidebar_items_hosting_cli_ref():
-    from pcweb.pages.docs.cloud_cliref import pages as cloud_pages
-
     items = [
         create_item("CLI Reference", children=cloud_cliref.pages),
     ]

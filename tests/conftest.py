@@ -2,7 +2,6 @@ import sys
 from pathlib import Path
 
 import pytest
-
 from reflex.testing import AppHarness
 
 # Add tests directory to Python path for absolute imports
@@ -51,7 +50,7 @@ def pytest_runtest_makereport(item, call):
                 page = item.funcargs["page"]
             else:
                 # Look for page object in other fixtures
-                for fixture_name, fixture_value in item.funcargs.items():
+                for fixture_value in item.funcargs.values():
                     if hasattr(fixture_value, "page") and hasattr(
                         fixture_value.page, "video"
                     ):

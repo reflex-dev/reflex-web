@@ -1,8 +1,10 @@
 """Features table section for security page."""
 
 import reflex as rx
-from ..data import SECURITY_FEATURES, PAGE_CONTENT
+
 from pcweb.pages.pricing.table import pricing_table, section_header
+
+from ..data import PAGE_CONTENT, SECURITY_FEATURES
 
 
 def security_features_table() -> rx.Component:

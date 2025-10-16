@@ -1,11 +1,12 @@
 import reflex as rx
 
-from .forms.forms import form, form_code
-from .image_gen.image_gen import image_gen, image_gen_code
+from pcweb.components.icons.icons import get_icon
+
 from .charts.charts import charts, charts_code
 from .chatbot.chatbot import chatbot, chatbot_code
+from .forms.forms import form, form_code
+from .image_gen.image_gen import image_gen, image_gen_code
 from .react.react import react, react_code
-from pcweb.components.icons.icons import get_icon
 
 
 class DemoState(rx.State):

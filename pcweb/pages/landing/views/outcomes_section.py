@@ -202,8 +202,7 @@ def _create_grid_items() -> List[rx.Component]:
     grid_items.append(outcomes_showcase())
 
     # Add remaining outcomes cards
-    for feature in OUTCOMES_FEATURES[1:]:
-        grid_items.append(outcomes_card(**feature))
+    grid_items.extend([outcomes_card(**feature) for feature in OUTCOMES_FEATURES[1:]])
 
     return grid_items
 

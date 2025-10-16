@@ -8,31 +8,38 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "email-validator==2.2.0",
-    "pandas>=1.5.3",
-    "psycopg[binary]==3.2.9",
-    "plotly-express==0.4.1",
-    "googletrans-py==4.0.0",
-    "openai==1.97.0",
-    "flexdown>=0.2.0",
-    "reflex @ git+https://github.com/reflex-dev/reflex@main",
-    "reflex-ui @ git+https://github.com/reflex-dev/reflex-ui@main",
-    "mistletoe>=1.2.1",
-    "reflex-image-zoom>=0.0.2",
-    "replicate==1.0.7",
-    "reflex-pyplot==0.2.1",
-    "reflex-enterprise>=0.3.3",
-    "requests>=2.32.3",
-    "posthog==6.1.1",
-    "typesense>=1.1.1",
+    "email-validator",
     "fastapi",
-    "reflex-hosting-cli>=0.1.56",
-    "python-frontmatter>=1.1.0",
-    "ruff-api>=0.1.0",
+    "flexdown",
+    "googletrans-py",
+    "mistletoe",
+    "openai",
+    "pandas",
+    "plotly-express",
+    "posthog",
+    "psycopg[binary]",
+    "python-frontmatter",
+    "reflex @ git+https://github.com/reflex-dev/reflex@main",
+    "reflex-enterprise",
+    "reflex-hosting-cli",
+    "reflex-image-zoom",
+    "reflex-pyplot",
+    "reflex-ui @ git+https://github.com/reflex-dev/reflex-ui@main",
+    "replicate",
+    "requests",
+    "ruff-format",
+    "typesense",
 ]
 
 [dependency-groups]
-dev = ["pytest", "playwright", "pytest-playwright", "uvicorn"]
+dev = [
+    "playwright",
+    "pre-commit",
+    "pytest-playwright",
+    "pytest",
+    "ruff",
+    "uvicorn",
+]
 
 [tool.setuptools.packages.find]
 where = ["pcweb"]
@@ -54,7 +61,6 @@ lint.select = [
     "N",
     "PERF",
     "PGH",
-    "PTH",
     "RUF",
     "SIM",
     "T",
@@ -62,16 +68,29 @@ lint.select = [
     "W",
 ]
 lint.ignore = [
+    "ANN001",
     "B008",
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D107",
     "D205",
+    "E402",
     "E501",
+    "ERA001",
     "F403",
-    "SIM115",
     "RUF006",
     "RUF008",
     "RUF012",
+    "SIM115",
+    "T201",
     "TRY0",
+    "TRY300",
 ]
 lint.pydocstyle.convention = "google"
+lint.allowed-confusables = ['’']
+
 [tool.uv]
 required-version = ">=0.7.0"

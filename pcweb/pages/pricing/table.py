@@ -1,6 +1,7 @@
 import reflex as rx
 import reflex_ui as ui
 from reflex_ui.blocks.lemcal import lemcal_dialog
+
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
 
@@ -90,7 +91,6 @@ REFLEX_BUILD_DEPLOYMENT = [
 
 
 def table_cell(content: str | rx.Component) -> rx.Component:
-
     if isinstance(content, bool):
         return rx.el.td(
             rx.el.div(
@@ -113,7 +113,7 @@ def table_cell(content: str | rx.Component) -> rx.Component:
 def table_header_cell(content: str | rx.Component) -> rx.Component:
     return rx.el.th(
         content,
-        class_name=f"text-slate-12 font-semibold text-lg p-4 first:text-left",
+        class_name="text-slate-12 font-semibold text-lg p-4 first:text-left",
     )
 
 
@@ -151,9 +151,7 @@ def pricing_table(
         )
 
     # Create feature rows
-    feature_rows = []
-    for feature_data in features:
-        feature_rows.append(table_row(*feature_data))
+    feature_rows = [table_row(*feature_data) for feature_data in features]
 
     return rx.el.table(
         rx.el.thead(
@@ -187,7 +185,6 @@ def section_header(title: str, subtitle: str) -> rx.Component:
 
 
 def sticky_pricing_header() -> rx.Component:
-
     def header_item(text: str, button: rx.Component) -> rx.Component:
         return rx.el.div(
             rx.el.span(

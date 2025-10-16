@@ -27,7 +27,7 @@ def hosting_banner() -> rx.Component:
                             class_name="inline-flex items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1]",
                         ),
                         rx.text(
-                            "Reflex Build – ",
+                            "Reflex Build – ",  # noqa: RUF001
                             # Descriptive text: hidden on small, inline on md+
                             rx.el.span(
                                 "The first AI agent to build internal Python enterprise apps",

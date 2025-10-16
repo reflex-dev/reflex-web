@@ -29,7 +29,7 @@ class TemplatesState(rx.State):
         from pcweb.pages.gallery.apps import gallery_apps_data
 
         filtered = []
-        for (path, folder), document in gallery_apps_data.items():
+        for (_path, folder), document in gallery_apps_data.items():
             if folder != "templates/":
                 continue
 
@@ -142,7 +142,6 @@ def checkbox_item(text: str, value: str):
     )
 
 
-
 def filter_section(title: str, content: list[str]):
     return rx.accordion.item(
         rx.accordion.trigger(
@@ -197,7 +196,7 @@ def sidebar() -> rx.Component:
         ),
         rx.accordion.root(
             *[filter_section(title, content) for title, content in TAGS.items()],
-            default_value=list(TAGS.keys())[0],
+            default_value=next(iter(TAGS.keys())),
             collapsible=True,
             class_name="!p-0 w-full !bg-transparent !rounded-none !shadow-none flex flex-col gap-4",
         ),

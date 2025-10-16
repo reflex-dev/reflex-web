@@ -1,4 +1,4 @@
-from tailwind_radix_map import radix_colors_dict, custom_colors_dict
+from tailwind_radix_map import custom_colors_dict, radix_colors_dict
 
 tw_config = {
     "plugins": [

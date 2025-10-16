@@ -1,6 +1,7 @@
 import reflex as rx
-from pcweb.views.bottom_section.newsletter import newsletter
+
 from pcweb.views.bottom_section.get_started import get_started
+from pcweb.views.bottom_section.newsletter import newsletter
 
 
 @rx.memo

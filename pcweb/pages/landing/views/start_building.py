@@ -1,8 +1,7 @@
 import reflex as rx
+from reflex_ui.blocks.lemcal import lemcal_dialog
 
 from pcweb.components.new_button import button
-from reflex_ui.blocks.lemcal import lemcal_dialog, LEMCAL_DEMO_URL
-import reflex_ui as ui
 
 
 def start_building() -> rx.Component:

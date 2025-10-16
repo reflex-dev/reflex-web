@@ -1,4 +1,4 @@
-"""empty message
+"""empty message.
 
 Revision ID: 0e2da5026c00
 Revises:
@@ -8,9 +8,10 @@ Create Date: 2024-05-22 17:31:15.245402
 
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
 import sqlmodel
+
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision: str = "0e2da5026c00"
@@ -49,7 +50,7 @@ def upgrade() -> None:
     )
     # ### end Alembic commands ###
 
-    op.execute("""INSERT INTO Customer (name, email, phone, address) VALUES 
+    op.execute("""INSERT INTO Customer (name, email, phone, address) VALUES
 ('John Doe', 'john.doe@example.com', '123-456-7890', '123 Elm Street, Springfield'),
 ('Jane Smith', 'jane.smith@example.com', '234-567-8901', '456 Oak Street, Springfield'),
 ('Alice Johnson', 'alice.johnson@example.com', '345-678-9012', '789 Pine Street, Springfield'),

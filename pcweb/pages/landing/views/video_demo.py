@@ -27,7 +27,7 @@ def video_demo() -> rx.Component:
                         "Reflex Build ",
                         class_name="inline text-slate-12 font-semibold text-2xl",
                     ),
-                    class_name="flex flex-row items-center gap-x-2 justify-center lg:justify-start"
+                    class_name="flex flex-row items-center gap-x-2 justify-center lg:justify-start",
                 ),
                 rx.el.span(
                     "The first AI agent to build internal Python enterprise apps.",

@@ -1,8 +1,7 @@
 import reflex as rx
-from pcweb.components.icons import get_icon
-
-
 from reflex.style import toggle_color_mode
+
+from pcweb.components.icons import get_icon
 
 
 def color() -> rx.Component:

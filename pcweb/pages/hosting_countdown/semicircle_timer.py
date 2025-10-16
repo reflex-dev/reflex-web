@@ -32,7 +32,7 @@ def semicircle_timer():
                 background-color: var(--slate-3, #222326);
                 transition: all 0.2s ease-out;
             }
-            
+
             .timer-segment.active {
                 background-color: var(--violet-9, #6E56CF);
                 box-shadow: 0px 0px 8px 0px var(--violet-9, #6E56CF);

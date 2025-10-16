@@ -12,7 +12,7 @@ from pcweb.constants import (
     TWITTER_URL,
 )
 from pcweb.pages.blog import blogs
-from pcweb.pages.docs import ai_builder, getting_started, hosting
+from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
 from pcweb.pages.faq import faq

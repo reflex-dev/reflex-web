@@ -1,15 +1,16 @@
 from __future__ import annotations
-from collections.abc import Callable, Sequence
+
 import dataclasses
+from collections.abc import Callable, Sequence
 from importlib.util import find_spec
 from typing import Any, TypedDict
 
-
 import click
-from pcweb.templates.docpage import docpage
 import reflex as rx
-from pcweb.flexdown import markdown
 from reflex.reflex import cli
+
+from pcweb.flexdown import markdown
+from pcweb.templates.docpage import docpage
 
 
 @dataclasses.dataclass(frozen=True)

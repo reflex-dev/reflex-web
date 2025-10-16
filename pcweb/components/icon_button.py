@@ -1,5 +1,6 @@
+from typing import Callable, Literal
+
 import reflex as rx
-from typing import Literal, Callable
 
 LiteralButtonVariant = Literal[
     "primary", "success", "destructive", "secondary", "muted"
@@ -38,21 +39,21 @@ variant_styles = {
 def icon_button(
     icon: str,
     variant: LiteralButtonVariant = "primary",
-    onclick: Callable = None,
-    style: dict = {},
+    onclick: Callable | None = None,
+    style: dict | None = None,
     class_name: str = "",
     *children,
     **props,
 ) -> rx.Component:
     return rx.el.button(
         rx.icon(icon, size=16, class_name="shrink-0"),
+        *children,
         onclick=onclick,
-        style=style,
+        style=style if style is not None else {},
         class_name=default_class_name
         + " "
         + variant_styles[variant]["class_name"]
         + " "
         + class_name,
-        *children,
         **props,
     )

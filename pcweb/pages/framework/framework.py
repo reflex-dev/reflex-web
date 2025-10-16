@@ -1,15 +1,17 @@
 import reflex as rx
-from .views.hero import hero
-from .views.companies import companies
-from .demos.demos import demo_section
-from .views.frontend_features import frontend_features
-from .views.backend_features import backend_features
-from .views.hosting_features import hosting_features
+
 from pcweb.components.icons.patterns import index_patterns
-from .views.stats import stats
-from .views.os_newsletter import os_newsletter
 from pcweb.meta.meta import meta_tags
 from pcweb.templates.mainpage import mainpage
+
+from .demos.demos import demo_section
+from .views.backend_features import backend_features
+from .views.companies import companies
+from .views.frontend_features import frontend_features
+from .views.hero import hero
+from .views.hosting_features import hosting_features
+from .views.os_newsletter import os_newsletter
+from .views.stats import stats
 
 
 @mainpage(path="/open-source", title="Reflex · Web apps in Pure Python", meta=meta_tags)

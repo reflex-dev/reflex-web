@@ -48,7 +48,7 @@ def button(
     text: str = "",
     variant: LiteralButtonVariant = "primary",
     size: LiteralButtonSize = "sm",
-    style: Dict[str, Any] = None,
+    style: Dict[str, Any] | None = None,
     class_name: str = "",
     icon: Optional[rx.Component] = None,
     **props,

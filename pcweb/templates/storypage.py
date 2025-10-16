@@ -2,9 +2,10 @@ import functools
 from typing import Callable
 
 import reflex as rx
-from pcweb.route import Route
-from pcweb.pages.framework.index_colors import index_colors
+
 from pcweb.components.icons.icons import get_icon
+from pcweb.pages.framework.index_colors import index_colors
+from pcweb.route import Route
 
 
 def hero(company: str, description: str, stats: list[dict[str, str]]) -> rx.Component:
@@ -200,11 +201,11 @@ def storypage(
     path: str,
     description: str,
     company: str,
-    domain: str = None,
-    founded: str = None,
-    investors: str = None,
-    stats: list[dict[str, str]] = None,
-    meta: list[dict[str, str]] = None,
+    domain: str | None = None,
+    founded: str | None = None,
+    investors: str | None = None,
+    stats: list[dict[str, str]] | None = None,
+    meta: list[dict[str, str]] | None = None,
     props=None,
     add_as_page=True,
 ) -> Callable:
@@ -214,7 +215,13 @@ def storypage(
 
     Args:
         path: The path of the page.
-        title: The title of the page.
+        description: The description of the page.
+        company: The company name.
+        domain: The company domain.
+        founded: The company founded date.
+        investors: The company investors.
+        stats: The company stats to show in the hero.
+        meta: Additional meta tags to add to the page.
         props: Props to apply to the template.
         add_as_page: whether to add the route to the app pages.
 
@@ -247,7 +254,6 @@ def storypage(
             # Import here to avoid circular imports.
             from pcweb.components.docpage.navbar import navbar
             from pcweb.pages.customers.views.footer import footer_customer
-            from pcweb.components.webpage.badge import badge
             from pcweb.views.bottom_section.bottom_section import bottom_section
 
             # Wrap the component in the template.

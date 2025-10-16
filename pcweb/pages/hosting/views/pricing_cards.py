@@ -1,6 +1,7 @@
 import reflex as rx
-from pcweb.pages.pricing.plan_cards import plan_cards
+
 from pcweb.components.new_button import button
+from pcweb.pages.pricing.plan_cards import plan_cards
 
 
 def pricing_cards() -> rx.Component:

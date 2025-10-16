@@ -1,10 +1,12 @@
-import reflex as rx
-from reflex.components.lucide.icon import LUCIDE_ICON_LIST
-from typing import List, Dict
-from pcweb.components.hint import hint
-from pcweb.components.button import button
 import json
 import os
+from typing import Dict, List
+
+import reflex as rx
+from reflex.components.lucide.icon import LUCIDE_ICON_LIST
+
+from pcweb.components.button import button
+from pcweb.components.hint import hint
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(current_dir, "data")
@@ -23,7 +25,7 @@ icon_categories = load_json("icon-categories.json")
 LUCIDE_ICON_LIST = [icon_name.replace("_", "-") for icon_name in LUCIDE_ICON_LIST]
 
 
-def create_lucide_icon(tag: str, attrs: dict, children: list = None) -> str:
+def create_lucide_icon(tag: str, attrs: dict, children: list | None = None) -> str:
     default_attributes = {
         "xmlns": "http://www.w3.org/2000/svg",
         "width": "24",
@@ -125,10 +127,7 @@ class IconState(rx.State):
             return True
 
         # Substring match with minimum length
-        if len(query) >= 3 and query in target:
-            return True
-
-        return False
+        return len(query) >= 3 and query in target
 
     @rx.event
     def update_search(self, value: str):

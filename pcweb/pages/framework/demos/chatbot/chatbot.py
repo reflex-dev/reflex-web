@@ -1,9 +1,10 @@
 # state.py
 import os
 
-from openai import AsyncOpenAI
-from pcweb.components.icon_button import icon_button
 import reflex as rx
+from openai import AsyncOpenAI
+
+from pcweb.components.icon_button import icon_button
 
 
 class TutorialState(rx.State):

@@ -50,7 +50,7 @@ TRUST_SERVICES_CRITERIA = [
         "title": "Privacy",
         "description": "Covers the collection, use, retention, and disposal of personal information according to regulatory and contractual obligations.",
         "icon": "clipboard",
-    }
+    },
 ]
 
 # Page content configuration
@@ -62,11 +62,11 @@ PAGE_CONTENT = {
         "subtitle": "SOC 2 compliant with enterprise-grade security and flexible deployment options.",
         "logos": [
             {"src": "/soc2.webp", "alt": "SOC 2 Compliance"},
-            {"src": "/databricks-partner.svg", "alt": "Databricks Partner"}
-        ]
+            {"src": "/databricks-partner.svg", "alt": "Databricks Partner"},
+        ],
     },
     "table": {
         "title": "Enterprise-Grade Security at Every Layer",
-        "description": "From data protection to privacy compliance, Reflex is built with security-first principles to meet the needs of modern teams and enterprises."
-    }
+        "description": "From data protection to privacy compliance, Reflex is built with security-first principles to meet the needs of modern teams and enterprises.",
+    },
 }

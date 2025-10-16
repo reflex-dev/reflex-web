@@ -1,8 +1,8 @@
 from typing import Dict, Literal
 
 import reflex as rx
-from pcweb.components.utils.twmerge import cn
 
+from pcweb.components.utils.twmerge import cn
 
 LiteralButtonVariant = Literal[
     "primary", "secondary", "transparent", "destructive", "outline"
@@ -58,6 +58,7 @@ def resources_button(
     """Create a button component.
 
     Args:
+        *children: The content of the button.
         variant (LiteralButtonVariant, optional): The button variant. Defaults to "primary".
         size (LiteralButtonSize, optional): The button size. Defaults to "sm".
         class_name (str, optional): Additional CSS classes to apply to the button. Defaults to "".

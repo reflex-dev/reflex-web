@@ -1,20 +1,23 @@
-import reflex as rx
-import uuid
-import httpx
 import base64
+import uuid
+from typing import TypedDict
+
+import httpx
+import reflex as rx
+from reflex.experimental import ClientStateVar
+
+from pcweb.components.icons.hugeicons import hi
+from pcweb.components.icons.icons import get_icon_var
 from pcweb.constants import (
-    REFLEX_BUILD_URL,
-    RX_BUILD_BACKEND,
-    MAX_FILE_SIZE_MB,
     MAX_FILE_SIZE_BYTES,
+    MAX_FILE_SIZE_MB,
     MAX_IMAGES_COUNT,
     PROMPT_MAP,
+    REFLEX_BUILD_URL,
+    RX_BUILD_BACKEND,
 )
-from pcweb.components.numbers_pattern import numbers_pattern
-import reflex_ui as ui
-from reflex.experimental import ClientStateVar
-from typing import TypedDict
-from reflex.experimental import ClientStateVar
+
+from .video_demo import watch_preview
 
 
 def is_content_type_valid(content_type: str) -> bool:

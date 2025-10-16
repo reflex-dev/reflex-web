@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import inspect
-from typing import Any, Dict, List, Optional, Tuple, Type
+from typing import Any, List, Optional, Tuple
 
 import reflex as rx
-from reflex.config import EnvironmentVariables, environment
-from pcweb.templates.docpage import docpage, h1_comp, h2_comp
+from reflex.config import EnvironmentVariables
+
 from pcweb.flexdown import markdown
+from pcweb.templates.docpage import docpage, h1_comp, h2_comp
 
 
 class EnvVarDocs:
@@ -148,7 +149,7 @@ def env_vars_page():
             """
             Reflex provides a number of environment variables that can be used to configure the behavior of your application.
             These environment variables can be set in your shell environment or in a `.env` file.
-            
+
             This page documents all available environment variables in Reflex.
             """
         ),
