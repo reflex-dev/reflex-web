@@ -201,7 +201,7 @@ def prompt_box() -> rx.Component:
                         ),
                         class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-23 left-5 h-10 animate-delay-400 animate-fill-both pointer-events-none",
                     ),
-                    class_name="text-slate-11 text-xl leading-[2.5rem] font-medium cursor-text",
+                    class_name="text-slate-11 dark:text-slate-9 text-xl leading-[2.5rem] font-medium cursor-text",
                 ),
                 rx.el.textarea(
                     placeholder="What do you want to build?",
@@ -225,9 +225,9 @@ def prompt_box() -> rx.Component:
                 None,
             ),
             on_click=rx.set_focus("prompt-box"),
-            class_name="h-[9rem] w-[29rem] rounded-2xl bg-white-1 border border-slate-4 px-5 py-3 relative overflow-hidden",
+            class_name="h-[9rem] w-[29rem] rounded-2xl bg-white-1 dark:bg-[#151618] border border-slate-4 px-5 py-3 relative overflow-hidden dark:!shadow-none",
             style={
-                "box-shadow": "0 2px 0 0 #FFF inset, 0 2px 6px 0 rgba(28, 32, 36, 0.08) inset, 0 1px 5px 0 rgba(28, 32, 36, 0.03) inset;",
+                "box-shadow": "0 2px 0 0 #FFF inset, 0 2px 6px 0 light-dark(rgba(28, 32, 36, 0.08), rgba(0, 0, 0, 0)) inset, 0 1px 5px 0 light-dark(rgba(28, 32, 36, 0.03), rgba(0, 0, 0, 0)) inset;",
             },
         ),
         rx.el.div(
@@ -237,7 +237,7 @@ def prompt_box() -> rx.Component:
                 size="lg",
                 type="button",
                 variant="ghost",
-                class_name="rounded-[10px] font-semibold text-slate-10",
+                class_name="rounded-[10px] font-semibold text-slate-10 dark:text-slate-9",
             ),
             ui.button(
                 "Build Your App",

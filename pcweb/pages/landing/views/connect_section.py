@@ -1,8 +1,8 @@
 import reflex as rx
-
-from pcweb.components.numbers_pattern import numbers_pattern
 import reflex_ui as ui
+
 from pcweb.components.icons.icons import get_icon
+from pcweb.components.numbers_pattern import numbers_pattern
 
 
 def header() -> rx.Component:
@@ -10,7 +10,7 @@ def header() -> rx.Component:
         rx.el.div(
             ui.icon("DatabaseAddIcon", class_name="shrink-0"),
             rx.el.span("Data", class_name="text-sm font-semibold"),
-            class_name="flex flex-row gap-2 items-center text-violet-9",
+            class_name="flex flex-row gap-2 items-center text-primary-9",
         ),
         rx.el.h2(
             "Connect to Any Data Source",

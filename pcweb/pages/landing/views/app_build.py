@@ -38,7 +38,7 @@ def integration_card(icon: str, class_name: str = ""):
             class_name="size-7 pointer-events-none shrink-0",
         ),
         class_name=ui.cn(
-            "z-100 flex justify-center items-center size-12 bg-white-1/88 backdrop-blur-[6px] border border-slate-6 shadow-large",
+            "z-100 flex justify-center items-center size-12 bg-white-1/88 dark:bg-black/20 backdrop-blur-[6px] border border-slate-6 dark:border-[#1C2024] shadow-large",
             class_name,
         ),
     )
@@ -55,7 +55,7 @@ def integration_card_light_dark(icon: str, class_name: str = ""):
             class_name="size-7 pointer-events-none shrink-0 hidden dark:block",
         ),
         class_name=ui.cn(
-            "z-100 flex justify-center items-center size-12 bg-white-1/88 backdrop-blur-[6px] border border-slate-6 shadow-large",
+            "z-100 flex justify-center items-center size-12 bg-white-1/88 dark:bg-black/20 backdrop-blur-[6px] border border-slate-6 dark:border-[#1C2024] shadow-large",
             class_name,
         ),
     )
@@ -82,7 +82,7 @@ def user_profile():
                 src="/landing/app_build/user.webp",
                 class_name="object-cover pointer-events-none",
             ),
-            class_name="size-10 bg-violet-5 rounded-full border border-violet-7 overflow-hidden",
+            class_name="size-10 bg-violet-5 dark:bg-[#E1D9FF] rounded-full border border-violet-7 overflow-hidden",
         ),
         rx.el.span(
             "Amelia Wong",
@@ -100,7 +100,7 @@ def slack_alert():
                 src="/landing/integrations/light/slack.svg",
                 class_name="size-full pointer-events-none shrink-0 object-cover",
             ),
-            class_name="size-9 bg-white-1 rounded-[8px] border-[0.5px] border-slate-6 overflow-hidden flex justify-center items-center p-1 shadow-small shrink-0",
+            class_name="size-9 bg-white-1 dark:bg-white rounded-[8px] border-[0.5px] border-slate-6 dark:border-[#1C2024] overflow-hidden flex justify-center items-center p-1 shadow-small shrink-0",
         ),
         rx.el.div(
             rx.el.p(
@@ -117,12 +117,12 @@ def slack_alert():
         ),
         rx.el.span(
             "now",
-            class_name="absolute top-3 right-2 text-xs text-slate-7 font-medium",
+            class_name="absolute top-3 right-2 text-xs text-slate-7 dark:text-slate-9 font-medium",
         ),
         style={
             "box-shadow": "0 25px 7px 0 rgba(0, 0, 0, 0.00), 0 16px 6px 0 rgba(0, 0, 0, 0.01), 0 9px 5px 0 rgba(0, 0, 0, 0.03), 0 4px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.05)"
         },
-        class_name=f"flex flex-row items-center gap-3.5 border border-slate-6 h-[4.5rem] w-[20.375rem] rounded-[0.875rem] px-3 absolute top-2 right-2 z-[10] bg-white/88 backdrop-blur-[6px] animate-scale-in-top-right animate-duration-{DURATION_SLACK} animate-ease-out animate-delay-{DELAY_SLACK}",
+        class_name=f"flex flex-row items-center gap-3.5 border border-slate-6 dark:border-[#1C2024] h-[4.5rem] w-[20.375rem] rounded-[0.875rem] px-3 absolute top-2 right-2 z-[10] bg-white/88 dark:bg-black/20 backdrop-blur-[6px] animate-scale-in-top-right animate-duration-{DURATION_SLACK} animate-ease-out animate-delay-{DELAY_SLACK}",
     )
 
 
@@ -141,7 +141,7 @@ def metrics_tabs():
                 "Normal",
                 class_name="text-slate-10 text-xs font-medium size-full text-center overflow-hidden flex items-center justify-center",
             ),
-            class_name="flex flex-row items-center w-[246px] h-[32px] rounded-[8px] bg-white-1 border border-slate-4 divide-x divide-slate-4 overflow-hidden",
+            class_name="flex flex-row items-center w-[246px] h-[32px] rounded-[8px] bg-white-1 dark:bg-[#151618] border border-slate-4 dark:border-[#1C2024] divide-x divide-slate-4 dark:divide-[#1C2024] overflow-hidden",
         ),
         class_name=f"w-full h-[32px] animate-slide-in-right animate-duration-{DURATION_METRICS_TABS} animate-ease-out animate-delay-{DELAY_METRICS_TABS} pl-6",
     )
@@ -157,7 +157,18 @@ def metrics_header():
 <defs>
 <clipPath id="paint0_angular_17892_9711_clip_path"><path d="M32 2.68C32 1.19988 33.2021 -0.0116695 34.6771 0.112117C41.629 0.695569 48.2278 3.53931 53.4426 8.24679C59.3229 13.5551 63.0253 20.8559 63.8332 28.7366C64.6411 36.6172 62.4971 44.5173 57.8161 50.9084C53.1352 57.2994 46.25 61.727 38.4929 63.3344C30.7357 64.9417 22.6581 63.6146 15.823 59.6099C8.98791 55.6051 3.88125 49.2073 1.49116 41.6546C-0.898926 34.1018 -0.402527 25.931 2.88431 18.7231C5.79911 12.3311 10.7246 7.09933 16.8723 3.80148C18.1766 3.1018 19.7612 3.73591 20.3493 5.09416C20.9375 6.45241 20.3047 8.0187 19.0124 8.74026C14.078 11.4954 10.1252 15.7628 7.76119 20.947C5.0249 26.9475 4.61164 33.7498 6.60139 40.0374C8.59114 46.3251 12.8424 51.6512 18.5326 54.9852C24.2229 58.3192 30.9475 59.424 37.4053 58.0859C43.8631 56.7477 49.595 53.0618 53.4919 47.7412C57.3888 42.4207 59.1737 35.8438 58.5011 29.2832C57.8285 22.7226 54.7463 16.6446 49.851 12.2255C45.6216 8.4075 40.2986 6.06215 34.6756 5.49465C33.203 5.34602 32 4.16012 32 2.68Z"/></clipPath></defs>
 </svg>
-"""
+""",
+                class_name="block dark:hidden",
+            ),
+            rx.html(
+                """<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <path d="M64 32C64 49.6731 49.6731 64 32 64C14.3269 64 0 49.6731 0 32C0 14.3269 14.3269 0 32 0C49.6731 0 64 14.3269 64 32ZM5.36 32C5.36 46.7129 17.2871 58.64 32 58.64C46.7129 58.64 58.64 46.7129 58.64 32C58.64 17.2871 46.7129 5.36 32 5.36C17.2871 5.36 5.36 17.2871 5.36 32Z" fill="#1C2024"/>
+  <g clip-path="url(#paint0_angular_18310_73918_clip_path)" data-figma-skip-parse="true"><g transform="matrix(0 -0.032 -0.032 0 32 32)"><foreignObject x="-1031.25" y="-1031.25" width="2062.5" height="2062.5"><div xmlns="http://www.w3.org/1999/xhtml" style="background:conic-gradient(from 90deg,rgba(220, 62, 66, 1) 0deg,rgba(229, 72, 77, 1) 90deg,rgba(101, 77, 196, 1) 180deg,rgba(101, 77, 196, 1) 360deg);height:100%;width:100%;opacity:1"></div></foreignObject></g></g><path d="M32 2.68C32 1.19988 33.2021 -0.0116695 34.6771 0.112117C41.629 0.695569 48.2278 3.53931 53.4426 8.24679C59.3229 13.5551 63.0253 20.8559 63.8332 28.7366C64.6411 36.6172 62.4971 44.5173 57.8161 50.9084C53.1352 57.2994 46.25 61.727 38.4929 63.3344C30.7357 64.9417 22.6581 63.6146 15.823 59.6099C8.98791 55.6051 3.88125 49.2073 1.49116 41.6546C-0.898926 34.1018 -0.402527 25.931 2.88431 18.7231C5.79911 12.3311 10.7246 7.09933 16.8723 3.80148C18.1766 3.1018 19.7612 3.73591 20.3493 5.09416C20.9375 6.45241 20.3047 8.0187 19.0124 8.74026C14.078 11.4954 10.1252 15.7628 7.76119 20.947C5.0249 26.9475 4.61164 33.7498 6.60139 40.0374C8.59114 46.3251 12.8424 51.6512 18.5326 54.9852C24.2229 58.3192 30.9475 59.424 37.4053 58.0859C43.8631 56.7477 49.595 53.0618 53.4919 47.7412C57.3888 42.4207 59.1737 35.8438 58.5011 29.2832C57.8285 22.7226 54.7463 16.6446 49.851 12.2255C45.6216 8.4075 40.2986 6.06215 34.6756 5.49465C33.203 5.34602 32 4.16012 32 2.68Z" data-figma-gradient-fill="{&quot;type&quot;:&quot;GRADIENT_ANGULAR&quot;,&quot;stops&quot;:[{&quot;color&quot;:{&quot;r&quot;:0.86274510622024536,&quot;g&quot;:0.24313725531101227,&quot;b&quot;:0.25882354378700256,&quot;a&quot;:1.0},&quot;position&quot;:0.0},{&quot;color&quot;:{&quot;r&quot;:0.89803922176361084,&quot;g&quot;:0.28235295414924622,&quot;b&quot;:0.30196079611778259,&quot;a&quot;:1.0},&quot;position&quot;:0.250},{&quot;color&quot;:{&quot;r&quot;:0.39607843756675720,&quot;g&quot;:0.30196079611778259,&quot;b&quot;:0.76862746477127075,&quot;a&quot;:1.0},&quot;position&quot;:0.50},{&quot;color&quot;:{&quot;r&quot;:0.39607843756675720,&quot;g&quot;:0.30196079611778259,&quot;b&quot;:0.76862746477127075,&quot;a&quot;:1.0},&quot;position&quot;:1.0}],&quot;stopsVar&quot;:[{&quot;color&quot;:{&quot;r&quot;:0.86274510622024536,&quot;g&quot;:0.24313725531101227,&quot;b&quot;:0.25882354378700256,&quot;a&quot;:1.0},&quot;position&quot;:0.0},{&quot;color&quot;:{&quot;r&quot;:0.89803922176361084,&quot;g&quot;:0.28235295414924622,&quot;b&quot;:0.30196079611778259,&quot;a&quot;:1.0},&quot;position&quot;:0.250},{&quot;color&quot;:{&quot;r&quot;:0.39607843756675720,&quot;g&quot;:0.30196079611778259,&quot;b&quot;:0.76862746477127075,&quot;a&quot;:1.0},&quot;position&quot;:0.50},{&quot;color&quot;:{&quot;r&quot;:0.39607843756675720,&quot;g&quot;:0.30196079611778259,&quot;b&quot;:0.76862746477127075,&quot;a&quot;:1.0},&quot;position&quot;:1.0}],&quot;transform&quot;:{&quot;m00&quot;:2.4542457774173396e-15,&quot;m01&quot;:-64.0,&quot;m02&quot;:64.0,&quot;m10&quot;:-64.0,&quot;m11&quot;:-1.6665100492619343e-14,&quot;m12&quot;:64.0},&quot;opacity&quot;:1.0,&quot;blendMode&quot;:&quot;NORMAL&quot;,&quot;visible&quot;:true}"/>
+  <defs>
+    <clipPath id="paint0_angular_18310_73918_clip_path"><path d="M32 2.68C32 1.19988 33.2021 -0.0116695 34.6771 0.112117C41.629 0.695569 48.2278 3.53931 53.4426 8.24679C59.3229 13.5551 63.0253 20.8559 63.8332 28.7366C64.6411 36.6172 62.4971 44.5173 57.8161 50.9084C53.1352 57.2994 46.25 61.727 38.4929 63.3344C30.7357 64.9417 22.6581 63.6146 15.823 59.6099C8.98791 55.6051 3.88125 49.2073 1.49116 41.6546C-0.898926 34.1018 -0.402527 25.931 2.88431 18.7231C5.79911 12.3311 10.7246 7.09933 16.8723 3.80148C18.1766 3.1018 19.7612 3.73591 20.3493 5.09416C20.9375 6.45241 20.3047 8.0187 19.0124 8.74026C14.078 11.4954 10.1252 15.7628 7.76119 20.947C5.0249 26.9475 4.61164 33.7498 6.60139 40.0374C8.59114 46.3251 12.8424 51.6512 18.5326 54.9852C24.2229 58.3192 30.9475 59.424 37.4053 58.0859C43.8631 56.7477 49.595 53.0618 53.4919 47.7412C57.3888 42.4207 59.1737 35.8438 58.5011 29.2832C57.8285 22.7226 54.7463 16.6446 49.851 12.2255C45.6216 8.4075 40.2986 6.06215 34.6756 5.49465C33.203 5.34602 32 4.16012 32 2.68Z"/></clipPath></defs>
+    </svg>
+""",
+                class_name="hidden dark:block",
             ),
             # Text
             rx.el.div(
@@ -174,7 +185,7 @@ def metrics_header():
             rx.el.div(
                 get_icon("alert"),
                 "Critical Level",
-                class_name=f"text-red-10 bg-red-2 border-red-6 border flex flex-row items-center gap-1.5 text-xs font-medium rounded-md px-1.5 h-[24px] animate-delay-{DELAY_METRICS_BADGE} animate-duration-{DURATION_METRICS_BADGE} animate-slide-in-right animate-ease-out",
+                class_name=f"text-red-10 dark:text-white bg-red-2 dark:bg-[#641723] border-red-6 dark:border-[#641723] border flex flex-row items-center gap-1.5 text-xs font-medium rounded-md px-1.5 h-[24px] animate-delay-{DELAY_METRICS_BADGE} animate-duration-{DURATION_METRICS_BADGE} animate-slide-in-right animate-ease-out",
             ),
             class_name="flex flex-col gap-2",
         ),
@@ -249,7 +260,7 @@ def stacked_bar_chart(primary_height: int = 8, secondary_height: int = 16):
         ),
         rx.el.div(
             height=f"{secondary_height}rem",
-            class_name="w-4 rounded-t-sm bg-violet-3 absolute bottom-0 left-0 z-10",
+            class_name="w-4 rounded-t-sm bg-violet-3 dark:bg-[#151618] absolute bottom-0 left-0 z-10",
         ),
         class_name="relative h-full w-4",
     )
@@ -273,7 +284,7 @@ def graph_chart():
             stacked_bar_chart(primary_height=6.75, secondary_height=16),
             class_name=f"flex flex-row justify-between w-full animate-slide-in-up animate-duration-{DURATION_GRAPH_BARS} animate-ease-out animate-delay-{DELAY_GRAPH_BARS}",
         ),
-        class_name="flex flex-row gap-6 w-full px-8 pt-8 border border-slate-4 rounded-t-lg overflow-hidden h-[408px]",
+        class_name="flex flex-row gap-6 w-full px-8 pt-8 border border-slate-4 dark:border-[#1C2024] rounded-t-lg overflow-hidden h-[408px]",
     )
 
 
@@ -293,7 +304,9 @@ def graph_overview():
                         class_name="flex flex-row items-center gap-2 text-xs font-medium text-slate-10",
                     ),
                     rx.el.div(
-                        rx.el.span(class_name="size-4 rounded-sm bg-violet-4"),
+                        rx.el.span(
+                            class_name="size-4 rounded-sm bg-violet-4 dark:bg-[#151618]"
+                        ),
                         "Capacity Per Day",
                         class_name="flex flex-row items-center gap-2 text-xs font-medium text-slate-10",
                     ),
@@ -305,12 +318,12 @@ def graph_overview():
                 "24 June ",
                 rx.el.span(" - ", class_name="text-slate-8 ml-0.5"),
                 " Today",
-                class_name="text-slate-10 text-sm font-medium rounded-lg px-3.5 h-8 border border-slate-4 bg-white-1 flex items-center",
+                class_name="text-slate-10 dark:text-slate-9 text-sm font-medium rounded-lg px-3.5 h-8 border border-slate-4 dark:border-[#1C2024] bg-white-1 flex items-center",
             ),
             class_name="flex flex-row justify-between items-baseline w-full",
         ),
         graph_chart(),
-        class_name=f"flex flex-col gap-6 size-full border-r border-slate-4 px-6 pt-6 animate-slide-in-up animate-duration-{DURATION_GRAPH_OVERVIEW} animate-ease-out animate-delay-{DELAY_GRAPH_OVERVIEW} h-[408px] relative",
+        class_name=f"flex flex-col gap-6 size-full border-r border-slate-4 dark:border-[#1C2024] px-6 pt-6 animate-slide-in-up animate-duration-{DURATION_GRAPH_OVERVIEW} animate-ease-out animate-delay-{DELAY_GRAPH_OVERVIEW} h-[408px] relative",
     )
 
 
@@ -331,7 +344,7 @@ def app_build():
             ),
             rx.el.div(
                 height="0.5px",
-                class_name=f"w-full bg-slate-4 animate-fade animate-duration-{DURATION_DIVIDER} animate-ease-out animate-delay-{DELAY_DIVIDER} shrink-0",
+                class_name=f"w-full bg-slate-4 dark:bg-[#1C2024] animate-fade animate-duration-{DURATION_DIVIDER} animate-ease-out animate-delay-{DELAY_DIVIDER} shrink-0",
             ),
             rx.el.div(
                 graph_overview(),
@@ -345,7 +358,7 @@ def app_build():
                 fall_of_percentage=100,
                 class_name="h-[9rem] inset-x-0 absolute bottom-0 z-50 pointer-events-none -mb-1",
             ),
-            class_name="border-t border-x border-slate-4 rounded-t-[32px] bg-white-1 relative size-full shadow-[0px_2px_16px_0px_rgba(28,32,36,0.04)] flex flex-col",
+            class_name="border-t border-x border-slate-4 dark:border-[#1C2024] rounded-t-[32px] bg-white-1 relative size-full shadow-[0px_2px_16px_0px_rgba(28,32,36,0.04)] flex flex-col",
         ),
         class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden border-t px-6 pt-6 h-[504px]",
     )

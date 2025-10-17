@@ -1,9 +1,7 @@
 import reflex as rx
-
-import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.numbers_pattern import numbers_pattern
-import reflex_ui as ui
 
 
 def header() -> rx.Component:
@@ -11,7 +9,7 @@ def header() -> rx.Component:
         rx.el.div(
             ui.icon("UserGroupIcon", class_name="shrink-0"),
             rx.el.span("Teams", class_name="text-sm font-semibold"),
-            class_name="flex flex-row gap-2 items-center text-violet-9",
+            class_name="flex flex-row gap-2 items-center text-primary-9",
         ),
         rx.el.h2(
             "Hear from the teams that use Reflex",
@@ -31,7 +29,7 @@ def enterprise_card(image: str, name: str, stat: str, text: str) -> rx.Component
     return rx.el.a(
         rx.el.div(
             rx.image(
-                src=f"/customers/{rx.color_mode_cond("light", "dark")}/{image}",
+                src=f"/customers/{rx.color_mode_cond('light', 'dark')}/{image}",
                 class_name="w-auto h-[1.875rem]",
             ),
             rx.el.span(
@@ -57,7 +55,7 @@ def enterprise_card(image: str, name: str, stat: str, text: str) -> rx.Component
             ),
             class_name="flex flex-col gap-2",
         ),
-        to=f"/customers/{name.lower().replace(" ", "-")}",
+        to=f"/customers/{name.lower().replace(' ', '-')}",
         class_name="flex flex-col gap-10 p-10 shadow-small border border-slate-3 hover:border-slate-4 rounded-2xl bg-white-1 hover:bg-slate-2 transition-colors h-[15.875rem] cursor-pointer",
     )
 

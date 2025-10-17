@@ -83,7 +83,22 @@ def video() -> rx.Component:
             </filter>
           </defs>
         </svg>""",
-            class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-1  pointer-events-none",
+            class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-1 pointer-events-none dark:hidden block",
+        ),
+        rx.html(
+            """<svg xmlns="http://www.w3.org/2000/svg" width="1298" height="560" viewBox="0 0 1298 560" fill="none">
+  <g opacity="0.48" filter="url(#filter0_f_18310_74204)">
+    <path d="M176.126 223.136C68.3898 74.182 -26.8819 31.4882 637.681 112.242C895.881 143.617 1406.87 -9.38262 1155.98 173.877C983.495 299.868 1160.9 239.109 1214 348.65C1234.85 391.673 1258.25 554.808 1005.53 457.575C946.741 434.958 582.142 442.081 386.794 475.065C191.447 508.049 102.392 462.554 74.622 380.094C46.8521 297.634 250.491 325.953 176.126 223.136Z" stroke="#2F265F" stroke-width="16"/>
+  </g>
+  <defs>
+    <filter id="filter0_f_18310_74204" x="0" y="0" width="1298" height="560" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="32" result="effect1_foregroundBlur_18310_74204"/>
+    </filter>
+  </defs>
+</svg>""",
+            class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden dark:block",
         ),
         rx.el.div(
             text(),

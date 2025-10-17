@@ -1,5 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
+
 from pcweb.components.numbers_pattern import numbers_pattern
 
 
@@ -8,7 +9,7 @@ def header() -> rx.Component:
         rx.el.div(
             ui.icon("Layers01Icon", class_name="shrink-0"),
             rx.el.span("Features", class_name="text-sm font-semibold"),
-            class_name="flex flex-row gap-2 items-center text-violet-9",
+            class_name="flex flex-row gap-2 items-center text-primary-9",
         ),
         rx.el.h2(
             "Generate your app with AI",
@@ -28,7 +29,6 @@ def frontend_card(
     image: str,
     height: str = "auto",
     cols: str = "1",
-    image_cn: str = "",
 ) -> rx.Component:
     return rx.box(
         rx.el.div(

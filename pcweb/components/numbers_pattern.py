@@ -4,7 +4,7 @@ import reflex_ui as ui
 
 def ellipses(side: str = "left"):
     direction = "right" if side == "right" else "left"
-    common_class = "absolute bg-violet-11 blur-[8px]"
+    common_class = "absolute bg-violet-11 dark:bg-[#534a87] blur-[10px]"
     return rx.el.div(
         # Ellipse 1
         rx.el.div(
@@ -27,9 +27,7 @@ def ellipses(side: str = "left"):
 
 def ellipses_reversed(side: str = "left"):
     direction = "right" if side == "right" else "left"
-    common_class = (
-        f"absolute bg-violet-11 blur-[12px] [animation-direction:reverse] {direction}"
-    )
+    common_class = f"absolute bg-violet-11 dark:bg-[#534a87] blur-[10px] [animation-direction:reverse] {direction}"
     return rx.el.div(
         # Ellipse 1
         rx.el.div(
@@ -56,14 +54,22 @@ def numbers_pattern(
     """Numbers pattern with static background and masked animated ellipses."""
     position_class = "left-0" if side == "left" else "right-0"
 
+    light_dark_path = rx.color_mode_cond("light", "dark")
+
     image_sources = {
-        ("left", False): "/landing/patterns/light/numbers-img.webp",
-        ("left", True): "/landing/patterns/light/numbers-reversed-img.webp",
-        ("right", False): "/landing/patterns/light/numbers-right-img.webp",
-        ("right", True): "/landing/patterns/light/numbers-right-reversed-img.webp",
+        ("left", False): f"/landing/patterns/{light_dark_path}/numbers-img.webp",
+        (
+            "left",
+            True,
+        ): f"/landing/patterns/{light_dark_path}/numbers-reversed-img.webp",
+        ("right", False): f"/landing/patterns/{light_dark_path}/numbers-right-img.webp",
+        (
+            "right",
+            True,
+        ): f"/landing/patterns/{light_dark_path}/numbers-right-reversed-img.webp",
     }
     src = image_sources.get(
-        (side, reversed), "/landing/patterns/light/numbers-img.webp"
+        (side, reversed), f"/landing/patterns/{light_dark_path}/numbers-img.webp"
     )
 
     mask_style = {

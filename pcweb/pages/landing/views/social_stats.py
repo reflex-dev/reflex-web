@@ -6,7 +6,7 @@ from pcweb.components.numbers_pattern import numbers_pattern
 
 def stat(icon: str, text: str) -> rx.Component:
     return rx.el.section(
-        get_icon(icon, class_name="text-violet-9"),
+        get_icon(icon, class_name="text-primary-9"),
         rx.el.span(text, class_name="font-medium text-sm text-slate-12"),
         class_name="flex flex-row items-center gap-2",
     )
