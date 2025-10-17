@@ -32,7 +32,7 @@ Video and streaming inputs are not yet supported.
 ## Step 2: Set up your Model in Roboflow
 
 1. Go to Workflows and create a new workflow.
-2. Set up the workflow you want to use in your app, ensuring that is takes an image as input.
+2. Set up the workflow you want to use in your app, ensuring that it takes an image as input.
 3. Click the `deploy` button, select `Images` and then select `Integrate with my app or website`.
 4. Copy the `workspace_name` and `workflow_id` from the provided code snippet.
 
