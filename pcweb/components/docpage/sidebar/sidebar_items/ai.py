@@ -113,6 +113,12 @@ def get_ai_builder_integrations():
                 ai_builder.files,
             ]
         ),
+        create_item(
+            "Images",
+            children=[
+                ai_builder.images,
+            ]
+        ),
     ]
 
 
