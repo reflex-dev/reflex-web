@@ -62,20 +62,15 @@ def get_ai_builder_integrations():
     from pcweb.pages.docs import ai_builder
 
     return [
-        create_item(
-            "Integrations",
-            children=[
-                ai_builder.integrations.overview,
-                create_item("Python Libraries", children=[ai_builder.integrations.python_libraries]),
-                create_item("APIs", children=[ai_builder.integrations.apis]),
-                create_item("Webhook", children=[ai_builder.integrations.webhook]),
-                create_item("Files", children=[ai_builder.integrations.files]),
-                create_item("Databases", children=[ai_builder.integrations.databases]),
-                create_item("Agents/MCPs", children=[ai_builder.integrations.agents_mcps]),
-                create_item("Images/Video", children=[ai_builder.integrations.images_video]),
-                create_item("Figma (Coming Soon)", children=[ai_builder.integrations.figma]),
-            ],
-        ),
+        ai_builder.integrations.overview,
+        ai_builder.integrations.python_libraries,
+        ai_builder.integrations.apis,
+        ai_builder.integrations.webhook,
+        ai_builder.integrations.files,
+        ai_builder.integrations.databases,
+        ai_builder.integrations.agents_mcps,
+        ai_builder.integrations.images_video,
+        ai_builder.integrations.figma,
     ]
 
 
