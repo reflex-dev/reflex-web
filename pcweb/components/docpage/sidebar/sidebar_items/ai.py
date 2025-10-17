@@ -81,10 +81,25 @@ def get_ai_builder_integrations():
                 ai_builder.integrations.hubspot,
                 ai_builder.integrations.huggingface,
                 ai_builder.integrations.langchain,
+                ai_builder.integrations.linear,
+                ai_builder.integrations.notion,
                 ai_builder.integrations.okta_auth,
                 ai_builder.integrations.open_ai,
+                ai_builder.integrations.perplexity,
+                ai_builder.integrations.replicate,
                 ai_builder.integrations.resend,
+                ai_builder.integrations.roboflow,
+                ai_builder.integrations.stripe,
+                ai_builder.integrations.supabase,
+                ai_builder.integrations.twilio,
+                
             ],
+        ),
+        create_item(
+            "Python Libraries",
+            children=[
+                ai_builder.python_libraries,
+            ]
         ),
     ]
 
