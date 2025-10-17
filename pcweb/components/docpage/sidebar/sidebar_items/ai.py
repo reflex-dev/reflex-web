@@ -101,6 +101,18 @@ def get_ai_builder_integrations():
                 ai_builder.python_libraries,
             ]
         ),
+        create_item(
+            "APIs",
+            children=[
+                ai_builder.apis,
+            ]
+        ),
+        create_item(
+            "Files",
+            children=[
+                ai_builder.files,
+            ]
+        ),
     ]
 
 
