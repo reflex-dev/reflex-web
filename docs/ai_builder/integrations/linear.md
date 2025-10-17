@@ -38,4 +38,4 @@ Once connected, your app can interact with Linear to automate issue tracking and
 * **Use environment-specific keys:** Separate dev, staging, and production keys.  
 * **Streamlined workflows:** Automate ticket creation, status updates, and reporting directly from your app.  
 * **Real-time visibility:** Fetch and sync project data to power internal tools or dashboards.
-```
+
