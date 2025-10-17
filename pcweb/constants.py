@@ -102,6 +102,7 @@ SLACK_DEMO_WEBHOOK_URL: str = os.environ.get("SLACK_DEMO_WEBHOOK_URL")
 
 # Pricing
 PRO_TIERS_TABLE = {
+    "Pro 25": {"price": 25, "credits": 500},
     "Pro 50": {"price": 50, "credits": 1000},
     "Pro 100": {"price": 100, "credits": 2000},
     "Pro 250": {"price": 250, "credits": 5000},
