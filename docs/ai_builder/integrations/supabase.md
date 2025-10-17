@@ -40,4 +40,3 @@ Once connected, your app can query and update your Supabase database directly fr
 * **Use environment-specific keys:** Separate dev, staging, and production projects for clean access control.  
 * **Realtime support:** Supabase enables live syncing of data changes.  
 * **Row-level security:** Make sure to configure policies appropriately for your use case.
-```

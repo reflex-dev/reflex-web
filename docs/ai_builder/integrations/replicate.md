@@ -38,4 +38,3 @@ Once connected, your app can call Replicate models directly in workflows, UI act
 * **Use environment-specific tokens:** Separate dev, staging, and production environments for security.  
 * **Secure API access:** The token allows your app to interact with Replicate endpoints safely and efficiently.  
 * **Model flexibility:** You can use community models or deploy your own for full control.
-```

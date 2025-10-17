@@ -37,4 +37,4 @@ Once connected, your app can read and write to Notion directly from workflows an
 * **Use environment-specific tokens:** Separate dev, staging, and production access.  
 * **Granular permissions:** Only share the integration with the pages or databases it needs to access.  
 * **Powerful building block:** Use Notion as a single source of truth for content, tasks, or structured data.
-```
+

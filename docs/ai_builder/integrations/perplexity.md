@@ -38,4 +38,3 @@ Once connected, your app can use Perplexity for retrieval-augmented AI features 
 * **Use environment-specific keys:** Separate dev, staging, and production keys for better control.  
 * **Secure API access:** The key allows your app to interact with Perplexity endpoints securely and efficiently.  
 * **Real-time power:** Perplexity is ideal for use cases where freshness and factual grounding matter.
-```
