@@ -6,42 +6,46 @@ from pcweb.pages import docs
 from pcweb.styles.styles import get_code_style, cell_style
 
 
-regions = {
+REGIONS_DICT = {
     "ams": "Amsterdam, Netherlands",
     "arn": "Stockholm, Sweden",
-    "atl": "Atlanta, Georgia (US)",
-    "bog": "Bogotá, Colombia",
     "bom": "Mumbai, India",
-    "bos": "Boston, Massachusetts (US)",
     "cdg": "Paris, France",
-    "den": "Denver, Colorado (US)",
     "dfw": "Dallas, Texas (US)",
     "ewr": "Secaucus, NJ (US)",
-    "eze": "Ezeiza, Argentina",
     "fra": "Frankfurt, Germany",
-    "gdl": "Guadalajara, Mexico",
-    "gig": "Rio de Janeiro, Brazil",
     "gru": "Sao Paulo, Brazil",
-    "hkg": "Hong Kong, Hong Kong",
     "iad": "Ashburn, Virginia (US)",
     "jnb": "Johannesburg, South Africa",
     "lax": "Los Angeles, California (US)",
     "lhr": "London, United Kingdom",
-    "mad": "Madrid, Spain",
-    "mia": "Miami, Florida (US)",
     "nrt": "Tokyo, Japan",
     "ord": "Chicago, Illinois (US)",
-    "otp": "Bucharest, Romania",
-    "phx": "Phoenix, Arizona (US)",
-    "qro": "Querétaro, Mexico",
-    "scl": "Santiago, Chile",
-    "sea": "Seattle, Washington (US)",
-    "sin": "Singapore, Singapore",
     "sjc": "San Jose, California (US)",
+    "sin": "Singapore, Singapore",
     "syd": "Sydney, Australia",
-    "waw": "Warsaw, Poland",
-    "yul": "Montreal, Canada",
-    "yyz": "Toronto, Canada"
+    "yyz": "Toronto, Canada",
+}
+
+COUNTRIES_CODES = {
+    "ams": "NL",
+    "arn": "SE",
+    "bom": "IN",
+    "cdg": "FR",
+    "dfw": "US",
+    "ewr": "US",
+    "fra": "DE",
+    "gru": "BR",
+    "iad": "US",
+    "jnb": "ZA",
+    "lax": "US",
+    "lhr": "GB",
+    "nrt": "JP",
+    "ord": "US",
+    "sjc": "US",
+    "sin": "SG",
+    "syd": "AU",
+    "yyz": "CA",
 }
 
 
@@ -57,12 +61,55 @@ To scale your app to multiple regions in the Cloud UI, click on the `Settings` t
 image_zoom(rx.image(src="/scaling_regions.webp", padding_bottom="20px"))
 ```
 
-The images below show all the regions that can be deployed in.
+The table below show all the regions that can be deployed in.
 
 ```python eval
-rx.hstack(
-    image_zoom(rx.image(src="/regions_1.webp", padding_bottom="20px")),
-    image_zoom(rx.image(src="/regions_2.webp", padding_bottom="20px")),
+rx.el.table(
+    rx.el.thead(
+        rx.el.tr(
+            rx.el.th(
+                rx.el.div(
+                    "Region",
+                ),
+                class_name="px-6 py-3 text-left text-sm font-semibold text-secondary-12 text-nowrap",
+            ),
+            rx.el.th(
+                rx.el.div(
+                    "Country",
+                ),
+                class_name="px-6 py-3 text-left text-sm font-semibold text-secondary-12 text-nowrap",
+            ),
+        ),
+        class_name="bg-slate-2",
+    ),
+    rx.el.tbody(
+        *[
+            rx.el.tr(
+                rx.el.td(
+                    rx.el.div(
+                        region,
+                        class_name="h-5 rounded-md border justify-start items-center inline-flex bg-slate-1 text-xs font-medium shrink-0 px-1.5 w-fit text-slate-12 border-slate-6"
+                    ),
+                    class_name="px-6 py-3",
+                ),
+                rx.el.td(
+                    rx.el.div(
+                        rx.image(
+                            src=f"https://cloud.reflex.dev/flags/{COUNTRIES_CODES[region]}.svg",
+                            class_name="rounded-[2px] mr-2 w-5 h-4",
+                        ),
+                        REGIONS_DICT[region],
+                        class_name="flex flex-row items-center gap-2",
+                    ),
+                    class_name="px-6 py-3 text-sm font-medium text-slate-9"
+                ),
+                class_name="even:bg-slate-2 odd:bg-slate-1 hover:bg-secondary-3",
+            )
+            for region in REGIONS_DICT.keys()
+        ],
+        class_name="divide-y divide-slate-4",
+    ),
+    class_name="w-full table-fixed rounded-xl overflow-hidden divide-y divide-slate-4",
 )
 ```
 
