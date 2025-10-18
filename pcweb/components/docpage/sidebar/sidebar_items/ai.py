@@ -92,7 +92,7 @@ def get_ai_builder_integrations():
                 ai_builder.integrations.stripe,
                 ai_builder.integrations.supabase,
                 ai_builder.integrations.twilio,
-                
+
             ],
         ),
         create_item(
