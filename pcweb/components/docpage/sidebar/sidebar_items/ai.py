@@ -63,7 +63,7 @@ def get_ai_builder_integrations():
 
     return [
         create_item(
-            "Integrations",
+            "First Class Integrations",
             children=[
                 ai_builder.integrations.overview,
                 ai_builder.integrations.airtable,
@@ -108,6 +108,18 @@ def get_ai_builder_integrations():
             ]
         ),
         create_item(
+            "Webhooks",
+            children=[
+                ai_builder.webhooks,
+            ]
+        ),
+        create_item(
+            "Databases",
+            children=[
+                ai_builder.integrations.database,
+            ]
+        ),
+        create_item(
             "Files",
             children=[
                 ai_builder.files,
@@ -117,6 +129,12 @@ def get_ai_builder_integrations():
             "Images",
             children=[
                 ai_builder.images,
+            ]
+        ),
+        create_item(
+            "Figma",
+            children=[
+                ai_builder.figma,
             ]
         ),
     ]
