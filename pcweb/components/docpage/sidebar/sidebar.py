@@ -423,7 +423,7 @@ def sidebar_comp(
                 rx.State.router.page.path.startswith("/docs/ai-builder/"),
                 rx.el.ul(
                     sidebar_category(
-                        "Learn",
+                        "AI Builder",
                         ai_builder_pages.overview.best_practices.path,
                         "bot",
                         0,
@@ -434,12 +434,12 @@ def sidebar_comp(
                         "plug",
                         1,
                     ),
-                    sidebar_category(
-                        "Integrations",
-                        ai_builder_pages.integrations.overview.path,
-                        "codesandbox",
-                        2,
-                    ),
+                    # sidebar_category(
+                    #     "Integrations",
+                    #     ai_builder_pages.integrations.overview.path,
+                    #     "codesandbox",
+                    #     2,
+                    # ),
                     class_name="flex flex-col items-start gap-1 w-full list-none",
                 ),
                 # If the path doesn't start with /docs/cloud, check for general docs
@@ -521,6 +521,13 @@ def sidebar_comp(
                                 ai_builder_overview_index,
                                 url,
                             ),
+                            create_sidebar_section(
+                                "Integrations",
+                                ai_builder_pages.integrations.overview.path,
+                                ai_builder_integrations,
+                                ai_builder_integrations_index,
+                                url,
+                            ),
                             class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                         ),
                     ),
@@ -537,19 +544,19 @@ def sidebar_comp(
                             class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                         ),
                     ),
-                    (
-                        2,
-                        rx.el.ul(
-                            create_sidebar_section(
-                                "Integration",
-                                ai_builder_pages.integrations.overview.path,
-                                ai_builder_integrations,
-                                ai_builder_integrations_index,
-                                url,
-                            ),
-                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                        ),
-                    ),
+                    # (
+                    #     2,
+                    #     rx.el.ul(
+                    #         create_sidebar_section(
+                    #             "Integration",
+                    #             ai_builder_pages.integrations.overview.path,
+                    #             ai_builder_integrations,
+                    #             ai_builder_integrations_index,
+                    #             url,
+                    #         ),
+                    #         class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                    #     ),
+                    # ),
                 ),
                 rx.cond(  # pyright: ignore [reportCallIssue]
                     rx.State.router.page.path.startswith("/docs/"),

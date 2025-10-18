@@ -102,3 +102,10 @@ Database (mydatabase) - Target database name
    - Analyzes the database structure
    - Generates SQLAlchemy models
    - Makes schema available to the AI for queries
+
+
+```md alert
+# NoSQL Databases
+
+NoSQL databases (e.g., MongoDB, DynamoDB) can be accessed via Python SDKs which the AI Builder can install if you prompt for it. The first class Database integration currently supports only SQL databases.
+```

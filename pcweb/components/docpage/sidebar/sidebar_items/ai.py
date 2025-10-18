@@ -63,7 +63,7 @@ def get_ai_builder_integrations():
 
     return [
         create_item(
-            "Integrations",
+            "First Class Integrations",
             children=[
                 ai_builder.integrations.overview,
                 ai_builder.integrations.airtable,
@@ -81,9 +81,65 @@ def get_ai_builder_integrations():
                 ai_builder.integrations.hubspot,
                 ai_builder.integrations.huggingface,
                 ai_builder.integrations.langchain,
+                ai_builder.integrations.linear,
+                ai_builder.integrations.notion,
                 ai_builder.integrations.okta_auth,
                 ai_builder.integrations.open_ai,
+                ai_builder.integrations.perplexity,
+                ai_builder.integrations.replicate,
                 ai_builder.integrations.resend,
+                ai_builder.integrations.roboflow,
+                ai_builder.integrations.stripe,
+                ai_builder.integrations.supabase,
+                ai_builder.integrations.twilio,
+            ],
+        ),
+        create_item(
+            "Python Libraries",
+            children=[
+                ai_builder.python_libraries,
+            ],
+        ),
+        create_item(
+            "APIs",
+            children=[
+                ai_builder.apis,
+            ],
+        ),
+        create_item(
+            "Webhooks",
+            children=[
+                ai_builder.webhooks,
+            ],
+        ),
+        create_item(
+            "URLs",
+            children=[
+                ai_builder.urls,
+            ],
+        ),
+        create_item(
+            "Databases",
+            children=[
+                ai_builder.integrations.database,
+            ],
+        ),
+        create_item(
+            "Files",
+            children=[
+                ai_builder.files,
+            ],
+        ),
+        create_item(
+            "Images",
+            children=[
+                ai_builder.images,
+            ],
+        ),
+        create_item(
+            "Figma",
+            children=[
+                ai_builder.figma,
             ],
         ),
     ]
