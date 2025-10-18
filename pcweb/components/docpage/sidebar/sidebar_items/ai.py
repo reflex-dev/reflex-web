@@ -92,56 +92,55 @@ def get_ai_builder_integrations():
                 ai_builder.integrations.stripe,
                 ai_builder.integrations.supabase,
                 ai_builder.integrations.twilio,
-
             ],
         ),
         create_item(
             "Python Libraries",
             children=[
                 ai_builder.python_libraries,
-            ]
+            ],
         ),
         create_item(
             "APIs",
             children=[
                 ai_builder.apis,
-            ]
+            ],
         ),
         create_item(
             "Webhooks",
             children=[
                 ai_builder.webhooks,
-            ]
+            ],
         ),
         create_item(
             "URLs",
             children=[
                 ai_builder.urls,
-            ]
+            ],
         ),
         create_item(
             "Databases",
             children=[
                 ai_builder.integrations.database,
-            ]
+            ],
         ),
         create_item(
             "Files",
             children=[
                 ai_builder.files,
-            ]
+            ],
         ),
         create_item(
             "Images",
             children=[
                 ai_builder.images,
-            ]
+            ],
         ),
         create_item(
             "Figma",
             children=[
                 ai_builder.figma,
-            ]
+            ],
         ),
     ]
 
