@@ -114,6 +114,12 @@ def get_ai_builder_integrations():
             ]
         ),
         create_item(
+            "URLs",
+            children=[
+                ai_builder.urls,
+            ]
+        ),
+        create_item(
             "Databases",
             children=[
                 ai_builder.integrations.database,
