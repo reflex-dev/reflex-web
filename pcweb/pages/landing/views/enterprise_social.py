@@ -55,8 +55,12 @@ def enterprise_card(image: str, name: str, stat: str, text: str) -> rx.Component
             ),
             class_name="flex flex-col gap-2",
         ),
+        ui.icon(
+            "ArrowUpRight01Icon",
+            class_name="group-hover:opacity-100 opacity-0 scale-50 group-hover:scale-100 transition-all duration-100 absolute top-4 right-4 size-5 text-secondary-11 origin-top-right ease-in-out z-100",
+        ),
         to=f"/customers/{name.lower().replace(' ', '-')}",
-        class_name="flex flex-col gap-10 p-10 shadow-small border border-slate-3 hover:border-slate-4 rounded-2xl bg-white-1 hover:bg-slate-2 transition-colors h-[15.875rem] cursor-pointer",
+        class_name="flex flex-col gap-10 p-10 shadow-small border border-slate-3 hover:border-slate-4 rounded-2xl bg-white-1 hover:bg-slate-2 transition-colors h-[15.875rem] cursor-pointer group relative",
     )
 
 
