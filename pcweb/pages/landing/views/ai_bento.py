@@ -75,7 +75,7 @@ def bento_cards() -> rx.Component:
         ),
         frontend_card(
             title="Integrate With Tools",
-            description="Over 15 integrations are available.",
+            description="Over 100+ integrations are available.",
             image="bento2.webp",
         ),
         frontend_card(

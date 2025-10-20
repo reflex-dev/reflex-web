@@ -23,27 +23,24 @@ from .search import search_bar
 
 
 def resource_item(text: str, url: str, icon: str, index):
-    return rx.el.li(
-        rx.el.a(
-            rx.box(
-                ui.icon(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
-                rx.text(
-                    text,
-                    class_name="font-small text-slate-9 truncate text-start w-[150px]",
-                ),
-                rx.icon(
-                    tag="chevron_right",
-                    size=14,
-                    stroke_width=2,
-                    class_name="flex-shrink-0 text-slate-8 ml-auto",
-                ),
-                class_name="flex flex-row flex-nowrap items-center gap-4 hover:bg-secondary-3 px-[1.125rem] py-2 rounded-md w-full transition-colors",
+    return rx.el.a(
+        rx.box(
+            ui.icon(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
+            rx.text(
+                text,
+                class_name="font-small text-slate-9 truncate text-start w-[150px]",
             ),
-            class_name="w-full text-slate-9 hover:text-slate-9",
-            to=url,
-            on_click=SidebarState.set_sidebar_index(index),
+            rx.icon(
+                tag="chevron_right",
+                size=14,
+                stroke_width=2,
+                class_name="flex-shrink-0 text-slate-8 ml-auto",
+            ),
+            class_name="flex flex-row flex-nowrap items-center gap-4 hover:bg-secondary-3 px-[1.125rem] py-2 rounded-md w-full transition-colors",
         ),
-        class_name="w-full",
+        class_name="w-full text-slate-9 hover:text-slate-9",
+        to=url,
+        on_click=SidebarState.set_sidebar_index(index),
     )
 
 
@@ -416,7 +413,7 @@ def doc_section():
         unstyled=True,
         class_name=ui.cn(
             ui.navigation_menu.class_names.CONTENT,
-            "items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[280px] min-w-max",
+            "flex flex-col gap-1.5 m-0 p-1.5 w-[280px] min-w-max h-auto",
         ),
     )
 
