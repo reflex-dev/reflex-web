@@ -29,7 +29,7 @@ def enterprise_card(image: str, name: str, stat: str, text: str) -> rx.Component
     return rx.el.a(
         rx.el.div(
             rx.image(
-                src=f"/customers/{rx.color_mode_cond('light', 'dark')}/{image}",
+                src=f"/customers/{rx.color_mode_cond('light', 'dark')}{image}",
                 class_name="w-auto h-[1.875rem]",
             ),
             rx.el.span(

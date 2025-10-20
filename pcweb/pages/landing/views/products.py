@@ -41,7 +41,7 @@ def product_card(
                 class_name="size-4 text-slate-9 group-hover:text-slate-12 group-hover:translate-x-1 transition-all duration-300",
             ),
             to=url,
-            class_name="flex flex-row items-center gap-2 justify-between group h-[4rem] px-10 hover:bg-slate-2 transition-colors border-t border-slate-3",
+            class_name="flex flex-row items-center gap-2 justify-between group h-[4rem] px-10 hover:bg-slate-2 transition-colors border-t max-lg:border-b border-slate-3",
         ),
         class_name="flex flex-col",
     )

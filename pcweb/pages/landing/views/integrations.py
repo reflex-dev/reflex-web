@@ -43,7 +43,7 @@ def intregation_card(
                 class_name="size-7 pointer-events-none shrink-0",
             ),
             class_name=ui.cn(
-                "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-14 rounded-[0.625rem] border border-slate-5 shadow-medium bg-white-1 z-[3] flex justify-center items-center",
+                "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-14 rounded-[0.625rem] border border-slate-5 dark:border-[#1C2024] shadow-medium bg-white-1 z-[3] flex justify-center items-center",
                 "animate-[fade-scale-out] animate-duration-[8000ms] animate-ease-out animate-infinite",
                 class_name,
             ),
@@ -54,7 +54,7 @@ def intregation_card(
                 class_name="size-7 pointer-events-none shrink-0",
             ),
             class_name=ui.cn(
-                "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-14 rounded-[0.625rem] border border-slate-5 shadow-medium bg-white-1 z-[3] flex justify-center items-center",
+                "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-14 rounded-[0.625rem] border border-slate-5 dark:border-[#1C2024] shadow-medium bg-white-1 z-[3] flex justify-center items-center",
                 "animate-[fade-scale-in] animate-duration-[8000ms] animate-ease-out animate-infinite",
                 class_name,
             ),
@@ -105,9 +105,9 @@ def r_logo_card() -> rx.Component:
                 src="/landing/integrations/light/r_logo.svg",
                 class_name="h-8 w-autopointer-events-none shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
             ),
-            class_name="size-15 rounded-lg border border-slate-5 shadow-large bg-white-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]",
+            class_name="size-15 rounded-lg border border-slate-5 dark:border-[#1C2024] shadow-large bg-white-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]",
         ),
-        class_name="size-18 rounded-xl border border-slate-3 shadow-large bg-white/76 dark:bg-black/76 relative z-[2]",
+        class_name="size-18 rounded-xl border border-slate-3 dark:border-[#1C2024] shadow-large bg-white/76 dark:bg-slate-1 relative z-[2]",
     )
 
 
@@ -127,7 +127,7 @@ def lines() -> rx.Component:
             line_svg(class_name="right-[12rem] top-1/2 -translate-y-1/2 scale-x-[-1]"),
             class_name="relative overflow-hidden",
         ),
-        class_name="grid grid-cols-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[43.5rem] z-[0] overflow-hidden h-[20rem]",
+        class_name="grid grid-cols-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-[43.5rem] w-[36rem] z-[0] overflow-hidden h-[20rem]",
     )
 
 
@@ -147,7 +147,7 @@ def integrations_row() -> rx.Component:
             intregation_card("databricks", "reflex"),
             class_name="flex flex-col gap-10",
         ),
-        class_name="flex flex-row items-center gap-[7.5rem] mt-10 relative",
+        class_name="flex flex-row items-center lg:gap-[7.5rem] gap-14 mt-10 relative max-lg:w-full justify-center",
     )
 
 
@@ -157,5 +157,5 @@ def integrations() -> rx.Component:
         numbers_pattern(side="right", class_name="right-0 top-0"),
         header(),
         integrations_row(),
-        class_name="flex flex-col items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden border-t pb-26 pt-20",
+        class_name="flex flex-col items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden lg:border-t lg:pb-26 pb-20 pt-20",
     )

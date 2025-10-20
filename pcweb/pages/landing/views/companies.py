@@ -134,7 +134,7 @@ def case_study_badge() -> rx.Component:
 def quote_badge() -> rx.Component:
     return rx.box(
         rx.text("Quote", class_name="text-xs text-violet-9 font-semibold"),
-        ui.icon("QuoteDownIcon", class_name="size-3"),
+        # ui.icon("QuoteDownIcon", class_name="size-3"),
         class_name="absolute bottom-4 right-4 bg-violet-3 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
     )
 

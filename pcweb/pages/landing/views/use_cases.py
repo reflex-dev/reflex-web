@@ -44,7 +44,7 @@ def pill_item(name: str, icon: str) -> rx.Component:
         ui.icon(icon),
         rx.el.span(name),
         class_name=ui.cn(
-            "h-8 flex flex-row gap-2 items-center px-3 text-slate-9 font-medium text-sm cursor-pointer hover:bg-slate-2 transition-colors",
+            "h-8 flex flex-row gap-2 items-center px-3 text-slate-9 font-medium text-sm cursor-pointer hover:bg-slate-2 transition-colors text-nowrap",
             rx.cond(is_active, active_cn, ""),
         ),
         on_click=selected_industry.set_value(name),
@@ -54,7 +54,7 @@ def pill_item(name: str, icon: str) -> rx.Component:
 def pills() -> rx.Component:
     return rx.el.div(
         *[pill_item(name, icon) for name, icon in items],
-        class_name="flex flex-row items-center justify-center border border-slate-4 rounded-lg shadow-small bg-white-1 divide-x divide-slate-4 h-8 overflow-hidden mt-10",
+        class_name="flex flex-row items-center justify-start border border-slate-4 rounded-lg shadow-small bg-white-1 divide-x divide-slate-4 h-8 mt-10 flex-nowrap overflow-x-auto max-lg:w-full lg:justify-center max-lg:overflow-y-hidden",
     )
 
 
@@ -99,10 +99,19 @@ def app_card() -> rx.Component:
     return rx.el.div(
         gradients(),
         rx.image(
-            src="/case_studies/analytics_dashboard.webp",
-            class_name="w-full h-[33.05038rem] object-cover rounded-2xl border border-slate-4 z-5 p-4 bg-slate-1 object-top",
+            src=rx.match(
+                selected_industry.value,
+                ("Analytics", "/case_studies/analytics_dashboard.webp"),
+                ("Finance", "/case_studies/bayesline_app.webp"),
+                ("E-commerce", "/case_studies/sellerx_app.webp"),
+                ("DevOps", "/case_studies/devops_app.webp"),
+                ("Databases", "/case_studies/admin_app.webp"),
+                ("AI Workflows", "/case_studies/ai_workflow.webp"),
+                "/case_studies/analytics_dashboard.webp",
+            ),
+            class_name="w-full lg:h-[33.05038rem] h-[24rem] object-cover rounded-2xl border border-slate-4 z-5 lg:p-4 bg-slate-1 object-top",
         ),
-        class_name="w-full rounded-4xl border border-slate-4 backdrop-blur-[6px] bg-slate-2/48 p-4 flex relative z-1",
+        class_name="w-full rounded-4xl lg:border border-slate-4 lg:backdrop-blur-[6px] lg:bg-slate-2/48 lg:p-4 flex relative z-1",
     )
 
 

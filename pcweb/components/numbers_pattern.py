@@ -94,7 +94,7 @@ def numbers_pattern(
             class_name="relative size-full",
         ),
         class_name=ui.cn(
-            f"absolute {position_class} pointer-events-none overflow-hidden z-[-1] w-[234px] h-auto",
+            f"absolute {position_class} pointer-events-none overflow-hidden z-[-1] lg:w-[234px] w-[180px] h-auto",
             class_name,
         ),
     )

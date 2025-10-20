@@ -327,8 +327,8 @@ def search_trigger() -> rx.Component:
             class_name="hidden md:block text-sm font-medium",
         ),
         rx.el.span(
-            "⌘ + K",
-            class_name="px-2 bg-slate-4 rounded-sm ml-0.25 hidden md:block",
+            "⌘ K",
+            class_name="px-2 bg-slate-4 rounded-sm ml-0.5 hidden md:block h-5 font-medium",
         ),
         variant="outline",
         size="sm",

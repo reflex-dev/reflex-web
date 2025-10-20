@@ -360,5 +360,5 @@ def app_build():
             ),
             class_name="border-t border-x border-slate-4 dark:border-[#1C2024] rounded-t-[32px] bg-white-1 relative size-full shadow-[0px_2px_16px_0px_rgba(28,32,36,0.04)] flex flex-col",
         ),
-        class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden border-t px-6 pt-6 h-[504px]",
+        class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden border-t px-6 pt-6 h-[504px] max-lg:hidden",
     )

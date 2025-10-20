@@ -1,6 +1,6 @@
 import reflex as rx
+import reflex_ui as ui
 
-from pcweb.components.button import button
 from pcweb.components.hint import hint
 from pcweb.components.icons.icons import get_icon
 from pcweb.pages.docs import getting_started
@@ -51,12 +51,14 @@ def code_block() -> rx.Component:
                 "Need help? Learn how to use Reflex.",
                 class_name="font-small text-slate-9",
             ),
-            rx.link(
-                button(
+            ui.link(
+                render_=ui.button(
                     "Docs",
-                    class_name="!h-10 !py-2 !px-[1.125rem] !rounded-[0.875rem]",
+                    size="lg",
+                    class_name="font-semibold text-lg",
                 ),
-                href=getting_started.introduction.path,
+                to=getting_started.introduction.path,
+                target="_blank",
             ),
             class_name="flex flex-row justify-between items-center gap-2",
         ),

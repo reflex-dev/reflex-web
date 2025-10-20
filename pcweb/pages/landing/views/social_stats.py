@@ -19,5 +19,5 @@ def social_stats():
         stat("browser", "1M+ Apps Built"),
         stat("checkmark", "Used by 25% of Fortune 500"),
         stat("github_navbar", "25K GitHub Stars"),
-        class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden border-t gap-4 py-[5rem]",
+        class_name="flex flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden border-t gap-4 lg:py-[5rem] py-[3.5rem] max-lg:border-b",
     )

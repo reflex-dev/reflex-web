@@ -41,7 +41,7 @@ BUTTON_STYLES: Dict[str, Dict[str, str]] = {
     "variant": {
         "primary": f"{get_variant_bg_cn('violet')} text-[#FCFCFD] font-semibold",
         "secondary": "bg-slate-4 hover:bg-slate-5 text-slate-11 font-semibold",
-        "transparent": "bg-transparent hover:bg-secondary-3 text-secondary-11 font-medium",
+        "transparent": "bg-transparent hover:bg-secondary-3 text-slate-9 font-medium",
         "destructive": f"{get_variant_bg_cn('red')} text-[#FCFCFD] font-semibold",
         "outline": "bg-slate-1 hover:bg-slate-3 text-secondary-11 font-medium border border-slate-5",
     },

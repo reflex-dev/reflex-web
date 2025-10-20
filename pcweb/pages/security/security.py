@@ -8,7 +8,7 @@ from .views import features_table_section, security_grid, security_title
 
 
 @mainpage(path="/security", title="Security - Reflex")
-def security():
+def security_page() -> rx.Component:
     """Main security page with modular sections."""
     return rx.box(
         rx.box(

@@ -41,7 +41,7 @@ def video_demo() -> rx.Component:
             ),
             class_name="!max-w-[70rem] !p-0 !bg-transparent overflow-hidden",
         ),
-        class_name="p-10",
+        class_name="lg:p-10 p-8",
     )
 
 
@@ -51,9 +51,9 @@ def text() -> rx.Component:
             "Build With Reflex. ",
             rx.el.span(
                 "A Single Platform to Build With AI And Iterate in Python",
-                class_name="text-slate-10 text-3xl font-semibold",
+                class_name="text-slate-10 lg:text-3xl text-2xl font-semibold",
             ),
-            class_name="text-slate-12 text-3xl font-semibold max-w-[57rem]",
+            class_name="text-slate-12 lg:text-3xl text-2xl font-semibold max-w-[57rem]",
         ),
         ui.link(
             render_=ui.button(
@@ -64,7 +64,7 @@ def text() -> rx.Component:
             to=REFLEX_BUILD_URL,
             target="_blank",
         ),
-        class_name="flex flex-col gap-6 items-start justify-center py-20 px-10",
+        class_name="flex flex-col gap-6 items-start justify-center lg:py-20 py-8 px-10",
     )
 
 
@@ -105,5 +105,5 @@ def video() -> rx.Component:
             video_demo(),
             class_name="grid grid-cols-1 lg:grid-cols-2 w-full rounded-2xl border border-slate-4 bg-white-1 z-5",
         ),
-        class_name="mx-auto w-full max-w-[71.125rem] relative rounded-4xl border border-slate-4 backdrop-blur-[6px] bg-slate-2/48 p-4 flex z-1",
+        class_name="mx-auto w-full max-w-[71.125rem] relative rounded-4xl border border-slate-4 backdrop-blur-[6px] bg-slate-2/48 p-4 flex z-1 max-lg:mb-6",
     )

@@ -17,7 +17,7 @@ def header() -> rx.Component:
             class_name="max-w-full w-full lg:text-3xl text-2xl text-center text-slate-12 font-semibold text-balance word-wrap break-words md:whitespace-pre",
         ),
         rx.el.p(
-            "Build powerful data-driven apps with seamless integrations to APIs, databases, Python libraries, and file formats",
+            "Build powerful data-driven apps with seamless integrations to APIs, databases, Python libraries, and file formats.",
             class_name="text-slate-9 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
         class_name="flex flex-col gap-4 items-center mx-auto w-full relative overflow-hidden",
