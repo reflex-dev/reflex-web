@@ -29,7 +29,7 @@ def product_card(
                 src=f"/landing/products/dark/product_{graphic}.webp",
                 class_name="w-auto pointer-events-none hidden dark:block",
             ),
-            class_name="w-full h-[17.25rem]",
+            class_name="w-full max-h-[17.25rem] h-full overflow-hidden",
         ),
         rx.el.a(
             rx.el.span(
@@ -79,5 +79,5 @@ def products() -> rx.Component:
             ("amber", "11"),
             "hosting",
         ),
-        class_name="grid grid-cols-1 md:grid-cols-3 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 lg:divide-x divide-slate-3 lg:border-t",
+        class_name="grid grid-cols-1 lg:grid-cols-3 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 lg:divide-x divide-slate-3 lg:border-t",
     )

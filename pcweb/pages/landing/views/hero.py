@@ -232,14 +232,14 @@ def prompt_box() -> rx.Component:
                         class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-13 left-5 h-10 animate-delay-200 animate-fill-both pointer-events-none",
                     ),
                     rx.el.span(
-                        "when critical metrics",
+                        "for critical metrics",
                         # Cursor
                         rx.el.span(
                             class_name="w-0.5 h-8 bg-slate-12 animate-blink inline-block align-middle animate-fill-both animate-delay-450",
                         ),
                         class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-23 left-5 h-10 animate-delay-400 animate-fill-both pointer-events-none",
                     ),
-                    class_name="text-slate-11 dark:text-slate-9 text-xl leading-[2.5rem] font-medium cursor-text",
+                    class_name="text-slate-11 dark:text-slate-9 text-xl leading-[2.5rem] font-medium cursor-text max-lg:hidden",
                 ),
                 rx.el.div(
                     rx.el.textarea(
