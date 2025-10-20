@@ -4,10 +4,10 @@ from typing import TypedDict
 
 import httpx
 import reflex as rx
+import reflex_ui as ui
 from reflex.experimental import ClientStateVar
 
-from pcweb.components.icons.hugeicons import hi
-from pcweb.components.icons.icons import get_icon_var
+from pcweb.components.numbers_pattern import numbers_pattern
 from pcweb.constants import (
     MAX_FILE_SIZE_BYTES,
     MAX_FILE_SIZE_MB,
@@ -16,8 +16,6 @@ from pcweb.constants import (
     REFLEX_BUILD_URL,
     RX_BUILD_BACKEND,
 )
-
-from .video_demo import watch_preview
 
 
 def is_content_type_valid(content_type: str) -> bool:
@@ -28,6 +26,9 @@ def is_content_type_valid(content_type: str) -> bool:
 textarea_x_pos = ClientStateVar.create(var_name="textarea_x_pos", default=0)
 textarea_y_pos = ClientStateVar.create(var_name="textarea_y_pos", default=0)
 textarea_opacity = ClientStateVar.create(var_name="textarea_opacity", default=0)
+show_default_prompt = ClientStateVar.create(
+    var_name="show_default_prompt", default=True
+)
 
 
 class ImageData(TypedDict):
@@ -37,7 +38,8 @@ class ImageData(TypedDict):
 
 class SubmitPromptState(rx.State):
     _images: list[ImageData] | None = None
-    is_uploading: bool = False
+    is_uploading: rx.Field[bool] = rx.field(False)
+    is_processing: rx.Field[bool] = rx.field(False)
 
     @rx.event(background=True, temporal=True)
     async def redirect_to_ai_builder(self, form_data: dict):
@@ -58,6 +60,7 @@ class SubmitPromptState(rx.State):
                 )
             async with self:
                 self.reset()
+                self.is_processing = True
             return (
                 rx.redirect("/")
                 if not response.is_success
@@ -132,359 +135,208 @@ class SubmitPromptState(rx.State):
         ]
 
 
-@rx.memo
-def preset_cards(text: str, id: str, icon: str) -> rx.Component:
-    textarea_x_pos = ClientStateVar.create(
-        var_name="textarea_x_pos", default=0, global_ref=False
-    )
-    textarea_y_pos = ClientStateVar.create(
-        var_name="textarea_y_pos", default=0, global_ref=False
-    )
-    textarea_opacity = ClientStateVar.create(
-        var_name="textarea_opacity", default=0, global_ref=False
-    )
-    return rx.box(
-        rx.el.button(
-            get_icon_var(icon, class_name="shrink-0"),
+def integration_text(text: str, integration: str) -> rx.Component:
+    return rx.el.span(
+        rx.image(
+            src=f"/landing/integrations/light/{integration}.svg",
+            class_name="size-7 pointer-events-none shrink-0 inline-block align-text-bottom",
+        ),
+        rx.el.span(
             text,
-            on_click=SubmitPromptState.redirect_to_ai_builder({"prompt": text}),
-            on_mouse_enter=rx.call_function(textarea_opacity.set_value(1)),
-            on_mouse_leave=rx.call_function(textarea_opacity.set_value(0)),
-            id=id,
-            on_mouse_move=[
-                rx.call_function(
-                    textarea_x_pos.set_value(
-                        rx.Var(
-                            f"event.clientX - document.getElementById({id}).getBoundingClientRect().left"
-                        )
-                    )
-                ),
-                rx.call_function(
-                    textarea_y_pos.set_value(
-                        rx.Var(
-                            f"event.clientY - document.getElementById({id}).getBoundingClientRect().top"
-                        )
-                    )
-                ),
-            ],
-            class_name="flex flex-row gap-2.5 p-2.5 rounded-[0.625rem] transition-bg cursor-pointer flex-1 text-sm font-medium text-slate-9 border-[rgba(190,_190,_210,_0.40)] dark:border-[rgba(255,_255,_255,_0.06)] hover:bg-[#fdfdfd78] dark:hover:bg-[#15161863] border-[1.5px] items-center justify-start w-full",
+            class_name="text-slate-12 text-xl leading-[2.5rem] font-semibold",
         ),
-        rx.box(
-            aria_hidden=True,
-            style={
-                "border": "2px solid var(--c-violet-6)",
-                "opacity": textarea_opacity.value,
-                "WebkitMaskImage": f"radial-gradient(50% 40px at {textarea_x_pos.value}px {textarea_y_pos.value}px, black 45%, transparent)",
-            },
-            class_name="pointer-events-none absolute left-0 top-0 z-10 h-full w-full rounded-[0.625rem] border-[1.5px] bg-[transparent] opacity-0 transition-opacity duration-500 box-border",
+        class_name="inline-flex items-center gap-2 align-bottom mx-1",
+    )
+
+
+def integration_text_light_dark(text: str, integration: str) -> rx.Component:
+    return rx.el.span(
+        rx.image(
+            src=f"/landing/integrations/light/{integration}.svg",
+            class_name="size-7 pointer-events-none shrink-0 inline-block align-text-bottom dark:hidden",
         ),
-        class_name="relative w-full",
+        rx.image(
+            src=f"/landing/integrations/dark/{integration}.svg",
+            class_name="size-7 pointer-events-none shrink-0 align-text-bottom hidden dark:inline-block",
+        ),
+        rx.el.span(
+            text,
+            class_name="text-slate-12 text-xl leading-[2.5rem] font-semibold",
+        ),
+        class_name="inline-flex items-center gap-2 align-bottom mx-1",
     )
 
 
 @rx.memo
-def preset_image_card(text: str, id: str):
-    textarea_x_pos = ClientStateVar.create(
-        var_name="textarea_x_pos", default=0, global_ref=False
-    )
-    textarea_y_pos = ClientStateVar.create(
-        var_name="textarea_y_pos", default=0, global_ref=False
-    )
-    textarea_opacity = ClientStateVar.create(
-        var_name="textarea_opacity", default=0, global_ref=False
-    )
-    return rx.upload.root(
-        rx.box(
+def one_upload_file_display(file_data_uri: str, index: int) -> rx.Component:
+    return ui.preview_card(
+        trigger=rx.box(
             rx.el.button(
-                get_icon_var("image-03", class_name="shrink-0"),
-                text,
-                on_click=rx.set_value("prompt", text),
-                class_name="flex flex-row gap-2 p-2.5 rounded-xl transition-bg cursor-pointer flex-1 text-sm font-medium text-slate-9 text-start border-[rgba(190,_190,_210,_0.40)] dark:border-[rgba(255,_255,_255,_0.06)] hover:bg-[#fdfdfd78] dark:hover:bg-[#15161863] border-[1.5px] w-full items-center",
-                on_mouse_enter=textarea_opacity.set_value(1),
-                on_mouse_leave=textarea_opacity.set_value(0),
-                id=id,
-                on_mouse_move=[
-                    rx.call_function(
-                        textarea_x_pos.set_value(
-                            rx.Var(
-                                f"event.clientX - document.getElementById({id}).getBoundingClientRect().left"
-                            )
-                        )
-                    ),
-                    rx.call_function(
-                        textarea_y_pos.set_value(
-                            rx.Var(
-                                f"event.clientY - document.getElementById({id}).getBoundingClientRect().top"
-                            )
-                        )
-                    ),
-                ],
+                rx.html("""<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path opacity="0.64" d="M8 0.833344C11.9581 0.833344 15.1667 4.04197 15.1667 8.00001C15.1667 11.9581 11.9581 15.1667 8 15.1667C4.04196 15.1667 0.833336 11.9581 0.833336 8.00001C0.833336 4.04197 4.04196 0.833344 8 0.833344Z" fill="#1C2024"/>
+  <path d="M6.4205 5.48325C6.15866 5.26969 5.77265 5.28477 5.52857 5.52882C5.28458 5.7729 5.26945 6.15893 5.483 6.42075L5.52857 6.47153L7.05719 8.00018L5.52922 9.52884C5.26897 9.78918 5.26888 10.2112 5.52922 10.4715C5.78957 10.7316 6.21164 10.7318 6.47193 10.4715L7.99992 8.94291L9.52792 10.4715L9.57872 10.5171C9.84046 10.7306 10.2265 10.7154 10.4707 10.4715C10.7147 10.2276 10.7302 9.84144 10.5169 9.57958L10.4707 9.52884L8.94199 8.00018L10.4713 6.47153L10.5169 6.42075C10.7304 6.15892 10.7153 5.7729 10.4713 5.52882C10.2272 5.28477 9.84119 5.26969 9.57932 5.48325L9.52859 5.52882L7.99992 7.05744L6.47128 5.52882L6.4205 5.48325Z" fill="white"/>
+</svg>"""),
                 type="button",
+                on_click=SubmitPromptState.cancel_upload(index),
+                class_name="absolute top-1 right-1 rounded-full transition-colors flex justify-center items-center size-[0.89581rem]",
             ),
-            rx.box(
-                aria_hidden=True,
-                style={
-                    "border": "2px solid var(--c-violet-6)",
-                    "opacity": textarea_opacity.value,
-                    "WebkitMaskImage": f"radial-gradient(50% 40px at {textarea_x_pos.value}px {textarea_y_pos.value}px, black 45%, transparent)",
-                },
-                class_name="pointer-events-none absolute left-0 top-0 z-10 h-full w-full rounded-xl border bg-[transparent] opacity-0 transition-opacity duration-500 box-border",
-            ),
-            id=id,
-            class_name="relative w-full",
-        ),
-        on_drop=SubmitPromptState.handle_upload(
-            rx.upload_files(
-                upload_id="upload-image-button",
-            )
-        ),
-        accept={
-            "image/png": [".png"],
-            "image/jpeg": [".jpg", ".jpeg"],
-            "image/webp": [".webp"],
-        },
-        multiple=True,
-        id="upload-image-button",
-    )
-
-
-@rx.memo
-def one_upload_image_display(image_data_uri: str, index: int):
-    return rx.hover_card.root(
-        rx.hover_card.trigger(
-            rx.box(
-                rx.el.button(
-                    hi(
-                        "multiplication-sign",
-                        size=11,
-                        stroke_width=3.5,
-                    ),
-                    type="button",
-                    on_click=SubmitPromptState.cancel_upload(index),
-                    class_name="absolute top-1 right-1 -translate-y-1/2 translate-x-1/2 rounded-full transition-colors dark:border-token-main-surface-secondary border-[3px] border-slate-2 bg-slate-12 p-[2px] text-slate-1 flex justify-center items-center",
-                ),
-                rx.image(
-                    src=image_data_uri,
-                    class_name="rounded-lg object-cover h-full w-full aspect-square",
-                ),
-                class_name="flex items-center gap-2 relative size-12",
-            ),
-        ),
-        rx.hover_card.content(
             rx.image(
-                src=image_data_uri,
-                class_name="rounded-lg object-cover h-full w-full",
+                src=file_data_uri,
+                class_name="rounded-lg object-cover h-full w-full aspect-square border border-slate-3",
             ),
-            side="top",
-            align="center",
-            class_name="bg-slate-1 p-2 rounded-xl shadow-large border border-slate-5",
+            class_name="flex items-center gap-2 relative size-12 shrink-0",
+        ),
+        content=rx.image(
+            src=file_data_uri,
+            class_name="rounded-lg object-cover h-full max-h-[10rem] w-auto",
         ),
     )
 
 
-def uploaded_image_display():
+def uploaded_file_display() -> rx.Component:
     return rx.foreach(
         SubmitPromptState.image_data_uris,
-        lambda image_data_uri, index: one_upload_image_display(
-            image_data_uri=image_data_uri,
+        lambda file_data_uri, index: one_upload_file_display(
+            file_data_uri=file_data_uri,
             index=index,
         ),
     )
 
 
-def uploading_image_display():
-    return rx.box(
-        rx.el.button(
-            hi(
-                "multiplication-sign",
-                size=11,
-                stroke_width=3.5,
-            ),
-            type="button",
-            on_click=SubmitPromptState.cancel_upload(-1),
-            class_name="absolute top-1 right-1 -translate-y-1/2 translate-x-1/2 rounded-full transition-colors dark:border-token-main-surface-secondary border-[3px] border-slate-2 bg-slate-12 p-[2px] text-slate-1 flex justify-center items-center",
-        ),
-        rx.skeleton(
-            class_name="rounded-lg object-cover h-full w-full aspect-square",
-        ),
-        class_name="flex items-center gap-2 relative size-12",
-    )
-
-
 def prompt_box() -> rx.Component:
-    return rx.box(
-        rx.el.form(
+    return rx.el.form(
+        rx.el.div(
             rx.cond(
-                SubmitPromptState.image_data_uris | SubmitPromptState.is_uploading,
-                rx.box(
-                    rx.cond(
-                        SubmitPromptState.is_uploading,
-                        uploading_image_display(),
-                        uploaded_image_display(),
-                    ),
-                    class_name="h-auto flex flex-row items-center gap-2 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-4 scrollbar-track-transparent overflow-y-visible pt-2",
-                ),
-            ),
-            rx.box(
-                rx.upload.root(
-                    rx.box(
-                        rx.el.input(
-                            placeholder="What do you want to build?",
-                            id="prompt",
-                            class_name="font-medium text-slate-12 text-base placeholder:text-slate-9 outline-none focus:outline-none caret-slate-12 w-full bg-transparent",
+                show_default_prompt.value,
+                rx.el.span(
+                    rx.el.span(
+                        "Build a dashboard with ",
+                        integration_text(
+                            "Databricks",
+                            "databricks",
                         ),
-                        rx.box(
-                            rx.upload.root(
-                                rx.el.button(
-                                    hi("image-add-02"),
-                                    type="button",
-                                    title="Upload images",
-                                    class_name="w-full [background:linear-gradient(45deg,var(--c-violet-2),var(--c-violet-2)_50%,var(--c-violet-2))_padding-box,conic-gradient(from_var(--border-angle),#9a79fd7a_60%,#8b5cf680_70%,#745dd1db_85%,#8b5cf680_90%,#9a79fd7a)_border-box] dark:[background:linear-gradient(45deg,var(--c-violet-3),var(--c-violet-3)_50%,var(--c-violet-3))_padding-box,conic-gradient(from_var(--border-angle),#5F43D0CC_60%,#7c57f8e3_72%,#926bfee6_85%,#7c57f8e3_95%,#5F43D0CC)_border-box] border-[1.5px] border-transparent animate-border text-violet-9 text-sm cursor-pointer inline-flex items-center justify-center relative transition-bg shrink-0 font-sans disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:!text-slate-8 transition-bg outline-none peer-placeholder-shown:!bg-slate-3 peer-placeholder-shown:!bg-none peer-placeholder-shown:cursor-not-allowed peer-placeholder-shown:border peer-placeholder-shown:border-slate-5 peer-placeholder-shown:!text-slate-8 text-nowrap px-1.5 h-7 rounded-md gap-1.5 bg-transparent hover:bg-slate-3 font-medium",
-                                ),
-                                on_drop=SubmitPromptState.handle_upload(
-                                    rx.upload_files(
-                                        upload_id="upload-image-button",
-                                    )
-                                ),
-                                accept={
-                                    "image/png": [".png"],
-                                    "image/jpeg": [".jpg", ".jpeg"],
-                                    "image/webp": [".webp"],
-                                },
-                                no_drag=True,
-                                multiple=True,
-                                max_files=MAX_IMAGES_COUNT,
-                                id="upload-image-button",
-                            ),
-                            rx.el.button(
-                                rx.html(
-                                    """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-  <path d="M8 13V3M8 3L3 8M8 3L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>"""
-                                ),
-                                class_name="bg-[#6E56CF] hover:bg-[#654DC4] text-white rounded-full size-6 shrink-0 flex items-center justify-center cursor-pointer",
-                            ),
-                            class_name="flex flex-row gap-2.5 items-center",
+                        "metrics,",
+                        class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-3 left-5 h-10 pointer-events-none",
+                    ),
+                    rx.el.span(
+                        "use ",
+                        integration_text_light_dark(
+                            "Okta",
+                            "okta",
                         ),
-                        on_mouse_enter=textarea_opacity.set_value(1),
-                        on_mouse_leave=textarea_opacity.set_value(0),
-                        on_mouse_move=[
-                            rx.call_function(
-                                textarea_x_pos.set_value(
-                                    rx.Var(
-                                        "event.clientX - document.getElementById('landing-input-box').getBoundingClientRect().left"
-                                    )
-                                )
-                            ),
-                            rx.call_function(
-                                textarea_y_pos.set_value(
-                                    rx.Var(
-                                        "event.clientY - document.getElementById('landing-input-box').getBoundingClientRect().top"
-                                    )
-                                )
-                            ),
-                        ],
-                        id="landing-input-box",
-                        class_name="bg-[#fdfdfd78] dark:bg-[#16161ac2] border-[rgba(190,_190,_210,_0.40)] dark:border-[rgba(255,_255,_255,_0.06)] overflow-hidden border-[1.5px] rounded-xl px-3 py-2.5 w-full flex flex-row items-center gap-3 focus-within:border-violet-6",
+                        "for auth, ping me on ",
+                        integration_text(
+                            "Slack",
+                            "slack",
+                        ),
+                        class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-13 left-5 h-10 animate-delay-200 animate-fill-both pointer-events-none",
                     ),
-                    accept={
-                        "image/png": [".png"],
-                        "image/jpeg": [".jpg", ".jpeg"],
-                        "image/webp": [".webp"],
-                    },
-                    on_drop=SubmitPromptState.handle_upload(
-                        rx.upload_files(  # pyright: ignore [reportArgumentType]
-                            upload_id="upload-landing-box",
-                        )
+                    rx.el.span(
+                        "when critical metrics",
+                        # Cursor
+                        rx.el.span(
+                            class_name="w-0.5 h-8 bg-slate-12 animate-blink inline-block align-middle animate-fill-both animate-delay-450",
+                        ),
+                        class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-23 left-5 h-10 animate-delay-400 animate-fill-both pointer-events-none",
                     ),
-                    no_click=True,
-                    multiple=True,
-                    max_files=MAX_IMAGES_COUNT,
-                    id="upload-landing-box",
-                    drag_active_style=rx.Style(
-                        style_dict={
-                            "& #landing-input-box": {
-                                "border": "1.5px dashed var(--c-slate-9)"
-                            }
-                        }
-                    ),
+                    class_name="text-slate-11 dark:text-slate-9 text-xl leading-[2.5rem] font-medium cursor-text",
                 ),
-                rx.box(
-                    aria_hidden=True,
-                    style={
-                        "border": "2px solid var(--c-violet-6)",
-                        "opacity": textarea_opacity.value,
-                        "WebkitMaskImage": f"radial-gradient(45% 40px at {textarea_x_pos.value}px {textarea_y_pos.value}px, black 45%, transparent)",
-                    },
-                    class_name="pointer-events-none absolute left-0 top-0 z-10 h-full w-full rounded-xl border bg-[transparent] opacity-0 transition-opacity duration-500 box-border",
+                rx.el.div(
+                    rx.el.textarea(
+                        placeholder="What do you want to build?",
+                        auto_focus=True,
+                        id="prompt",
+                        custom_attrs={
+                            "autoComplete": "off",
+                            "autoCapitalize": "none",
+                            "autoCorrect": "off",
+                            "spellCheck": "false",
+                        },
+                        auto_height=True,
+                        enter_key_submit=True,
+                        class_name="text-slate-12 text-xl font-medium size-full placeholder:text-slate-9 border-none focus:border-none focus:outline-none outline-none resize-none caret-slate-12 mt-2 resize-none w-full [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-grayA-3 [&::-webkit-scrollbar-thumb]:bg-slate-7 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full bg-transparent min-h-[2.5rem] max-h-[10.5rem]",
+                    ),
+                    rx.el.div(
+                        uploaded_file_display(),
+                        class_name="flex flex-row gap-2 items-center overflow-x-auto mb-2",
+                    ),
+                    class_name="flex flex-col gap-2",
                 ),
-                class_name="relative w-full",
             ),
-            rx.box(
-                preset_image_card(text="Use an Image", id="upload-image-box"),
-                preset_cards(text="Chat App", id="chat-app", icon="ai-chat-02"),
-                preset_cards(
-                    text="Live Dashboard", id="live-dashboard", icon="webpage"
+            rx.cond(
+                show_default_prompt.value,
+                rx.el.span(
+                    class_name="absolute inset-0 cursor-text z-10",
+                    on_click=show_default_prompt.set_value(False),
                 ),
-                class_name="grid grid-cols-1 lg:grid-cols-3 gap-2",
+                None,
             ),
-            class_name="flex flex-col gap-4 w-full",
-            on_submit=SubmitPromptState.redirect_to_ai_builder,
+            on_click=rx.set_focus("prompt"),
+            class_name="min-h-[9rem] h-full lg:w-[29rem] max-w-[29rem] max-lg:w-full rounded-2xl bg-white-1 dark:bg-[#151618] border border-slate-4 px-5 py-3 relative overflow-hidden dark:!shadow-none",
+            style={
+                "box-shadow": "0 2px 0 0 #FFF inset, 0 2px 6px 0 light-dark(rgba(28, 32, 36, 0.08), rgba(0, 0, 0, 0)) inset, 0 1px 5px 0 light-dark(rgba(28, 32, 36, 0.03), rgba(0, 0, 0, 0)) inset;",
+            },
         ),
-        class_name="max-w-[34.125rem] rounded-[1.75rem] p-4 flex flex-col gap-4 w-full mt-[1.5rem] bg-[linear-gradient(180deg,_rgba(252,_252,_253,_0.82)_0%,_rgba(252,_252,_253,_0.80)_88%)] shadow-[0px_0px_0px_1px_rgba(190,_190,_210,_0.40)] dark:bg-[linear-gradient(180deg,_rgba(21,_22,_24,_0.82)_0%,_rgba(21,_22,_24,_0.80)_88%)] dark:shadow-[0px_0px_0px_1px_rgba(255,_255,_255,_0.06)] backdrop-blur-[6px] z-[1]",
+        rx.el.div(
+            rx.upload.root(
+                ui.button(
+                    ui.icon(icon="AttachmentIcon"),
+                    "Attach",
+                    size="lg",
+                    type="button",
+                    variant="ghost",
+                    on_click=show_default_prompt.set_value(False),
+                    class_name="rounded-[10px] font-semibold text-slate-10 dark:text-slate-9",
+                ),
+                on_drop=SubmitPromptState.handle_upload(
+                    rx.upload_files(
+                        upload_id="upload-image-button",
+                    )
+                ),
+                accept={
+                    "image/png": [".png"],
+                    "image/jpeg": [".jpg", ".jpeg"],
+                    "image/webp": [".webp"],
+                },
+                on_drop_rejected=rx.toast.error(
+                    f"Unsupported file type or file too large (Max {MAX_FILE_SIZE_MB}MB, up to {MAX_IMAGES_COUNT} files)."
+                ),
+                max_files=MAX_IMAGES_COUNT,
+                max_size=MAX_FILE_SIZE_BYTES,
+                multiple=True,
+                id="upload-image-button",
+            ),
+            ui.button(
+                "Build Your App",
+                size="lg",
+                variant="primary",
+                loading=SubmitPromptState.is_processing,
+                on_click=show_default_prompt.set_value(False),
+                class_name="rounded-[10px] font-semibold",
+            ),
+            class_name="flex flex-row items-center gap-2 justify-between",
+        ),
+        on_mount=rx.call_script(
+            f"""
+            if (window.innerWidth < 1024) {{
+                {show_default_prompt.set}(false);
+            }}
+        """
+        ),
+        on_submit=SubmitPromptState.redirect_to_ai_builder,
+        class_name="flex flex-col gap-4 mt-6 max-w-[29rem] w-full",
     )
 
 
 def hero() -> rx.Component:
     return rx.el.section(
-        # Dark Waves
-        rx.image(
-            src="/landing/patterns/dark/wave.webp",
-            class_name="absolute lg:top-[65px] top-[45px] lg:right-0 right-[-150px] z-[-1] pointer-events-none hidden dark:lg:block w-[514px] lg:h-[406px] h-[506px] dark:block",
-        ),
-        rx.image(
-            src="/landing/patterns/dark/wave.webp",
-            class_name="absolute lg:top-[65px] top-[45px] lg:left-0 left-[-150px] z-[-1] pointer-events-none hidden dark:lg:block scale-x-[-1] w-[514px] lg:h-[406px] h-[506px] dark:block",
-        ),
-        # Light Waves
-        rx.image(
-            src="/landing/patterns/light/wave.webp",
-            class_name="absolute lg:top-[65px] top-[45px] lg:right-0 right-[-150px] z-[-1] pointer-events-none hidden lg:block w-[514px] lg:h-[406px] h-[506px] dark:hidden dark:lg:hidden",
-        ),
-        rx.image(
-            src="/landing/patterns/light/wave.webp",
-            class_name="absolute lg:top-[65px] top-[45px] lg:left-0 left-[-150px] z-[-1] pointer-events-none hidden lg:block scale-x-[-1] w-[514px] lg:h-[406px] h-[506px] dark:hidden dark:lg:hidden",
-        ),
-        # Triangle
-        rx.box(
-            rx.image(
-                src="/landing/patterns/dark/triangle.webp",
-                class_name="size-full bg-transparent",
-            ),
-            class_name="absolute top-[232px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover z-[1] pointer-events-none w-[31rem] h-[20.875rem] hidden lg:block bg-transparent mix-blend-overlay",
-        ),
-        # Small gradient
-        rx.box(
-            class_name="z-[-1] blur-[16px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[37rem] lg:h-[9.5rem] h-[6.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:top-[22.5rem] top-[25.5rem] saturate-[1.25] lg:-mx-0 -mx-8 opacity-80 md:opacity-100 max-lg:opacity-50"
-        ),
-        # Big gradient
-        rx.box(
-            class_name="z-[-1] blur-[28px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_#D4CAFE_0%,_rgba(21,_22,_24,_0)_100%)] dark:bg-[radial-gradient(50%_50%_at_50%_50%,_#4329AC_0%,_rgba(21,_22,_24,_0)_100%)] w-[45rem] lg:h-[10.25rem] h-[18.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[26.25rem] saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100 max-lg:hidden"
-        ),
-        # New Ellipse gradient
-        rx.box(
-            class_name="absolute w-[1076px] h-[676px] lg:top-[-369px] top-[-26rem] bg-[radial-gradient(37.87%_37.87%_at_50%_50%,_#F4F0FE_0%,_rgba(21,_22,_24,_0)_100%)] dark:bg-[radial-gradient(37.87%_37.87%_at_50%_50%,_#261958_0%,_rgba(21,_22,_24,_0)_100%)] z-[-1] pointer-events-none saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100"
-        ),
-        # Headings
+        numbers_pattern(side="left", class_name="lg:top-[65px] top-[45px]"),
+        numbers_pattern(side="right", class_name="lg:top-[65px] top-[45px]"),
         rx.el.h1(
-            "Prompt to production app, in seconds",
-            class_name="max-w-full inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-5xl lg:text-6xl font-semibold text-center text-transparent text-balance mx-auto break-words z-[1]",
-        ),
-        rx.el.h2(
-            "A unified platform to build and deploy all in Python.",
-            class_name="max-w-full w-full text-lg lg:text-xl text-center text-slate-9 font-medium mx-auto text-balance word-wrap break-words md:whitespace-pre z-[1]",
+            """Build From Prompt to
+ Production App, In Seconds""",
+            class_name="text-slate-12 lg:text-4xl text-3xl font-semibold text-center lg:max-w-[576px] word-wrap break-words lg:whitespace-pre",
         ),
         prompt_box(),
-        watch_preview(),
-        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[6.31rem] pt-28 lg:pt-[10rem] relative lg:overflow-hidden overflow-visible z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
+        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[3rem] pt-28 lg:pt-[8rem] relative lg:overflow-hidden overflow-hidden z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
     )

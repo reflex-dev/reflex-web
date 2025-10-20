@@ -1,6 +1,6 @@
 import reflex as rx
+import reflex_ui as ui
 
-from pcweb.components.button import button
 from pcweb.components.hint import hint
 from pcweb.components.icons.icons import get_icon
 from pcweb.pages.docs import getting_started
@@ -27,7 +27,7 @@ def code_block() -> rx.Component:
                 rx.el.p("$ pip install reflex"),
                 rx.el.p("$ reflex init"),
                 rx.el.p("$ reflex run"),
-                class_name="font-['JetBrains_Mono'] !font-bold text-[0.8125rem] text-slate-12 leading-6 tracking-[-0.01219rem]",
+                class_name="font-['JetBrains_Mono'] !font-medium text-[0.8125rem] text-slate-12 leading-6 tracking-[-0.01219rem]",
             ),
             hint(
                 text="Copy",
@@ -47,24 +47,24 @@ def code_block() -> rx.Component:
             class_name="flex flex-row justify-between",
         ),
         rx.box(
-            rx.link(
+            rx.el.a(
                 "Need help? Learn how to use Reflex.",
-                href=getting_started.introduction.path,
-                underline="none",
+                to=getting_started.introduction.path,
                 class_name="font-small text-slate-9 hover:!text-slate-11 transition-color",
             ),
-            rx.link(
-                button(
+            ui.link(
+                render_=ui.button(
                     "Docs",
-                    class_name="!h-10 !py-2 !px-[1.125rem] !rounded-[0.875rem] !w-full lg:!w-auto",
+                    size="md",
+                    class_name="font-semibold",
                 ),
-                href=getting_started.introduction.path,
-                class_name="w-full lg:!w-auto",
+                to=getting_started.introduction.path,
+                target="_blank",
             ),
-            class_name="flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-2",
+            class_name="flex flex-row justify-between items-center gap-4 lg:gap-2",
         ),
         box_shadow="0px 24px 12px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)), 0px 8px 8px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)), 0px 2px 6px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00))",
-        class_name="relative flex flex-col gap-4 border-slate-3 bg-[rgba(249,249,251,0.48)] dark:bg-[rgba(26,27,29,0.48)] backdrop-filter backdrop-blur-[6px] p-4 border rounded-2xl max-w-[24.5rem] self-center w-full",
+        class_name="relative flex flex-col gap-4 border-slate-3 bg-[rgba(249,249,251,0.48)] dark:bg-[rgba(26,27,29,0.48)] backdrop-filter backdrop-blur-[6px] p-6 border rounded-2xl max-w-[24.5rem] self-center w-full",
     )
 
 

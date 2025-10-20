@@ -1,8 +1,7 @@
 import reflex as rx
 
 from pcweb.components.icons import get_icon
-from pcweb.constants import CONTRIBUTORS, DISCORD_USERS
-from pcweb.github import GithubStarState
+from pcweb.constants import CONTRIBUTORS, DISCORD_USERS, GITHUB_STARS
 
 
 def stat_card(stat: str, text: str, icon: str, class_name: str = "") -> rx.Component:
@@ -22,7 +21,7 @@ def stat_card(stat: str, text: str, icon: str, class_name: str = "") -> rx.Compo
 def stats_grid() -> rx.Component:
     return rx.box(
         stat_card(
-            stat=f"{GithubStarState.stars:,}",
+            stat=f"{GITHUB_STARS:,}",
             text="Stars",
             icon="star",
             class_name="lg:!border-l !border-slate-3",

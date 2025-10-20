@@ -18,7 +18,7 @@ from .landing.landing import landing as landing
 from .page404 import page404 as page404
 from .pricing.pricing import pricing as pricing
 from .sales import sales as sales
-from .security.security import security as security
+from .security.security import security_page as security_page
 from .to_be_booked import to_be_booked as to_be_booked
 from .use_cases.use_cases import use_cases_page as use_cases_page
 

@@ -1,20 +1,19 @@
 import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.icons.icons import get_icon
-from pcweb.constants import GITHUB_URL
-from pcweb.github import GithubStarState
+from pcweb.constants import GITHUB_STARS, GITHUB_URL
 
 
 def github() -> rx.Component:
-    return rx.link(
-        rx.flex(
-            get_icon(icon="github_navbar", class_name="shrink-0 !text-slate-9"),
-            rx.text(
-                GithubStarState.stars_short,
-                class_name="font-small",
-            ),
-            class_name="text-slate-9 flex-row gap-2 hover:bg-slate-3 flex justify-center rounded-[10px] border border-slate-5 bg-slate-1 transition-bg cursor-pointer py-0.5 px-3 items-center h-8",
+    return ui.link(
+        render_=ui.button(
+            get_icon(icon="github_navbar", class_name="shrink-0 text-secondary-11"),
+            f"{GITHUB_STARS // 1000}K",
+            custom_attrs={"aria-label": "Github link"},
+            size="sm",
+            variant="outline",
+            class_name="text-secondary-11",
         ),
-        href=GITHUB_URL,
-        underline="none",
+        to=GITHUB_URL,
     )
