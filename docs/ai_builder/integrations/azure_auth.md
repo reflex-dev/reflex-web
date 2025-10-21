@@ -35,20 +35,17 @@ Before connecting, you need to register your app in Azure Portal:
 1. Go to [Azure Portal](https://portal.azure.com) → **App Registrations**
 2. Click **New registration**
 3. Configure your app settings
-4. In **Authentication**, add the Web Redirect URI: `https://3a992b51-c34a-405a-b90c-4b3320eb3b6a.fly.dev/authorization-code/callback`
+4. In **Authentication**, add the Web Redirect URI: `https://{your-sandbox}/authorization-code/callback`
 
 ## Step 2: Gather Your Credentials
 
 After registering your app, collect the following information:
 
-- **AZURE_CLIENT_ID**: `12345678-1234-1234-1234-123456789abc`
-  *Your application (client) ID from App Registration*
+- **AZURE_CLIENT_ID**: *Your application (client) ID from App Registration*
 
-- **AZURE_CLIENT_SECRET**: `abcdef123456~ABCdef123456-ABCdef123456`
-  *Client secret generated in Certificates & secrets*
+- **AZURE_CLIENT_SECRET**: *Client secret generated in Certificates & secrets*
 
-- **AZURE_VALID_TENANT_IDS**: `87654321-4321-4321-4321-210987654321`
-  *Comma-separated list of tenant IDs that can access your app*
+- **AZURE_VALID_TENANT_IDS**: *Comma-separated list of tenant IDs that can access your app*
 
 > **Note:** Keep your client secret secure and use different registrations for development, staging, and production environments.
 

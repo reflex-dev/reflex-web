@@ -33,6 +33,7 @@ rx.el.div(
 - **PostgreSQL** - Recommended for production applications
 - **MySQL** - Popular open-source database
 - **SQLite** - Lightweight database, perfect for development and small applications
+- **MSSQL** - Microsoft SQL Server support
 
 ## Getting Started
 
@@ -51,10 +52,10 @@ The Database Integration offers two convenient ways to connect:
 
 This user-friendly form breaks down your database connection into individual fields:
 
-**For PostgreSQL and MySQL:**
-- **Database Type**: Select from dropdown (PostgreSQL/MySQL)
+**For PostgreSQL, MySQL and MSSQL:**
+- **Database Type**: Select from dropdown (PostgreSQL/MySQL/MSSQL)
 - **Hostname**: Your database server address (e.g., `localhost`, `db.company.com`)
-- **Port**: Automatically filled (PostgreSQL: 5432, MySQL: 3306) or specify custom port
+- **Port**: Automatically filled (PostgreSQL: 5432, MySQL: 3306, MSSQL: 1433) or specify custom port
 - **Username**: Your database username
 - **Password**: Your database password (securely handled)
 - **Database Name**: The specific database to connect to
@@ -75,6 +76,11 @@ postgresql://username:password@hostname:port/database_name
 **MySQL:**
 ```
 mysql://username:password@hostname:port/database_name
+```
+
+**MSSQL:**
+```
+mssql://username:password@hostname:port/database_name
 ```
 
 **SQLite:**

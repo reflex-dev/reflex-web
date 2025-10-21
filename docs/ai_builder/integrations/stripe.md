@@ -20,7 +20,7 @@ With Stripe, your app can:
 2. Navigate to **Developers → API Keys**.  
 3. Copy your **Secret Key** (or create a restricted key for added security).
 
-   * **Example:** `sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+   * **Example:** `sk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
 > 💡 Use test keys in development environments and live keys in production.
 

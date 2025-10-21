@@ -12,7 +12,6 @@ The **Gemini Integration** allows your app to use [Google’s Gemini models](htt
 2. Navigate to **Get API Key** or create a new key for your project.
 3. Copy the generated key.
 
-   * **Example:** `AIzaSyDxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
 ## Step 2: Configure the Integration in Your App
 
