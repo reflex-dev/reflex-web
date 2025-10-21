@@ -12,14 +12,21 @@ import reflex as rx
 from reflex_image_zoom import image_zoom
 ```
 
+
+## Step 1: Create a Google OAuth Client
+
+1 - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+
+2 - Navigate to **APIs & Services → Credentials**
+
+3 - Click **Create Credentials**
+
+
 ```python eval
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/integrations/google_light.webp",
-                "/ai_builder/integrations/google_dark.webp",
-            ),
+            src="/ai_builder/integrations/google_auth_1.webp",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -29,19 +36,55 @@ rx.el.div(
 )
 ```
 
-## Step 1: Create a Google OAuth Client
+4 - Choose **OAuth client ID**.
 
-1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
-2. Navigate to **APIs & Services → Credentials**.
-3. Click **Create Credentials → OAuth Client ID**.
-4. Select **Web Application** as the application type.
-5. Add the following **Authorized JavaScript Origin**:
-   - https://3a992b51-c34a-405a-b90c-4b3320eb3b6a.fly.dev
-   - The URL can be copied directly from the Google Auth integration panel.
-6. Set your authorized redirect URIs to match your app environment.
-7. Save the client and copy the following credentials:
-   - **Client ID**: `YOUR_GOOGLE_CLIENT_ID`
-   - **Client Secret**: `YOUR_GOOGLE_CLIENT_SECRET`
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/google_auth_2.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+5 - Choose **Web Application** as the application type, name the application and enter your sandbox URL, which you get from the Google Auth integration panel, as the **Authorized JavaScript Origin** and **Authorized Redirect URIs**.
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/google_auth_3.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+6 - Copy the generated **Client ID** (`GOOGLE_CLIENT_ID`) and **Client Secret** (`GOOGLE_CLIENT_SECRET`).
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/google_auth_4.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+
 
 ## Step 2: Configure the Integration in Your App
 
