@@ -24,7 +24,7 @@ class SelectedTier(TypedDict):
 
 
 class ProTierState(rx.State):
-    credits: rx.Field[int] = rx.field(default=PRO_TIERS_TABLE["Pro 50"]["credits"])
+    credits: rx.Field[int] = rx.field(default=PRO_TIERS_TABLE["Pro 25"]["credits"])
 
     @rx.event
     def redirect_to_billing(self, yearly: bool = False):
@@ -42,7 +42,7 @@ class ProTierState(rx.State):
         for tier_name, tier_data in PRO_TIERS_TABLE.items():
             if tier_data["credits"] == self.credits:
                 return SelectedTier(tier=tier_name, price=tier_data["price"])
-        return SelectedTier(tier="Pro 50", price=PRO_TIERS_TABLE["Pro 50"]["price"])
+        return SelectedTier(tier="Pro 25", price=PRO_TIERS_TABLE["Pro 25"]["price"])
 
 
 class Feature(NamedTuple):
