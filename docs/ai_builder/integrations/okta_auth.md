@@ -113,8 +113,12 @@ rx.el.div(
 
 Example:
 ```
-If your Issuer URI is `https://{yourOktaDomain}.okta.com/oauth2/default`, use `https://{yourOktaDomain}.okta.com`
+If your Issuer URI is `https://{yourOktaDomain}.okta.com/oauth2/default`
 ```
+```
+use `https://{yourOktaDomain}.okta.com`
+```
+
 
 ```python eval
 rx.el.div(
