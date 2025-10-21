@@ -13,7 +13,6 @@ The **Cohere Integration** allows your app to use [Cohere’s](https://cohere.co
 2. Log in or create an account.  
 3. Navigate to **API Keys** in your account settings.  
 4. Click **Create Key**, give it a descriptive name (e.g., “AI Builder”), and copy the key.  
-   - **Example:** `kY9y0xxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
 
 ## Step 2: Configure the Integration in Your App

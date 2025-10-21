@@ -6,27 +6,6 @@ description: Send transactional and automated emails directly from your AI-gener
 
 The **Resend Integration** allows your AI-generated apps to send emails directly from workflows, user actions, or automated triggers — perfect for notifications, confirmations, or any email-based communication your app needs.
 
-```python exec
-import reflex as rx
-from reflex_image_zoom import image_zoom
-```
-
-```python eval
-rx.el.div(
-    image_zoom(
-        rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/integrations/resend_light.webp",
-                "/ai_builder/integrations/resend_dark.webp",
-            ),
-            class_name="p-2 rounded-md h-auto",
-            border=f"0.81px solid {rx.color('slate', 5)}",
-        ),
-        class_name="rounded-md overflow-hidden",
-    ),
-    class_name="w-full flex flex-col rounded-md cursor-pointer",
-)
-```
 
 ## What You Can Do
 
@@ -42,7 +21,7 @@ With the Resend Integration, your app can:
 2. Log in or create a free account.
 3. Navigate to **API Keys** from the dashboard sidebar.
 4. Click **Create API Key**, give it a name (e.g. “AI Builder”), and copy it.
-   - Example: `re_1234567890abcdefghijklmn`
+   - Example: `re_xxxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
 ## Step 2: Configure the Integration in Your App
 

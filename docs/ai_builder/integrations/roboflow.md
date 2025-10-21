@@ -26,8 +26,6 @@ Video and streaming inputs are not yet supported.
 2. Navigate to **Settings → API Keys**.  
 3. Copy your Private API Key.
 
-   * **Example:** `YWpnxxxxxxxxxxx`
-
 
 ## Step 2: Set up your Model in Roboflow
 
