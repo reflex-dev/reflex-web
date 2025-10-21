@@ -24,7 +24,7 @@ With Supabase, your app can:
 5. Then go to **API Keys** and copy your `Supabase_Key` (the secret key).
 
    * **Example URL:** `https://your-project.supabase.co`  
-   * **Example Key:** `sb_secret_oeaGxxxxxxxxxxxxxxxxxxx.`
+   * **Example Key:** `sb_xxxxxxxxxxxxxxxxxxxxxxxxxxxx.`
 
 ## Step 2: Configure the Integration in Your App
 

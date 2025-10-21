@@ -11,14 +11,20 @@ import reflex as rx
 from reflex_image_zoom import image_zoom
 ```
 
+
+## Step 1: Set Up Azure App Registration
+
+Before connecting, you need to register your app in Azure Portal:
+
+1 - Go to [Azure Portal](https://portal.azure.com) → **App Registrations**
+
+2 - Click **New registration** as shown in the image below:
+
 ```python eval
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/integrations/azure_auth_light.webp",
-                "/ai_builder/integrations/azure_auth_dark.webp",
-            ),
+            src="/ai_builder/integrations/azure_auth_1.webp",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -28,31 +34,60 @@ rx.el.div(
 )
 ```
 
-## Step 1: Set Up Azure App Registration
+3 - Register your app. Ensure that for the Redirect URI you select **Web** and enter the following URI that you find in the Azure Auth Manager integration settings in AI Builder:
+   ```
+   https://{your-sandbox}/authorization-code/callback
+   ```
 
-Before connecting, you need to register your app in Azure Portal:
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/azure_auth_2.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
 
-1. Go to [Azure Portal](https://portal.azure.com) → **App Registrations**
-2. Click **New registration**
-3. Configure your app settings
-4. In **Authentication**, add the Web Redirect URI: `https://3a992b51-c34a-405a-b90c-4b3320eb3b6a.fly.dev/authorization-code/callback`
+4 - On the next page get your `client_id` (`AZURE_CLIENT_ID`) and `tenant_id` (`AZURE_VALID_TENANT_IDS`) from the **Overview** tab.
 
-## Step 2: Gather Your Credentials
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/azure_auth_3.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
 
-After registering your app, collect the following information:
+5 - Next click `Add a certificate or secret` and copy the generated secret value (`AZURE_CLIENT_SECRET`).
 
-- **AZURE_CLIENT_ID**: `12345678-1234-1234-1234-123456789abc`
-  *Your application (client) ID from App Registration*
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/azure_auth_4.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
 
-- **AZURE_CLIENT_SECRET**: `abcdef123456~ABCdef123456-ABCdef123456`
-  *Client secret generated in Certificates & secrets*
 
-- **AZURE_VALID_TENANT_IDS**: `87654321-4321-4321-4321-210987654321`
-  *Comma-separated list of tenant IDs that can access your app*
 
-> **Note:** Keep your client secret secure and use different registrations for development, staging, and production environments.
-
-## Step 3: Configure the Integration
+## Step 2: Configure the Integration
 
 1. Go to the **Integrations** section in your app settings by clicking **`@`** and then clicking the **Integrations** tab at the top.
 2. Click **Add** next to Azure Auth Manager.

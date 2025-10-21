@@ -24,6 +24,7 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.features.secrets,
                 ai_builder.features.installing_external_packages,
                 ai_builder.features.integration_shortcut,
+                ai_builder.features.connect_to_github,
                 ai_builder.features.knowledge,
                 ai_builder.features.image_as_prompt,
                 ai_builder.features.interaction_modes,
@@ -66,7 +67,7 @@ def get_ai_builder_integrations():
             "First Class Integrations",
             children=[
                 ai_builder.integrations.overview,
-                ai_builder.integrations.airtable,
+                # ai_builder.integrations.airtable,
                 ai_builder.integrations.anthropic,
                 ai_builder.integrations.azure_auth,
                 ai_builder.integrations.cartesia,

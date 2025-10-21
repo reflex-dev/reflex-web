@@ -1,36 +1,48 @@
 ---
-tags: DevTools
-description: Integrate with GitHub to automate workflows and interact with your code repositories.
+tags: Developer Tools
+description: Connect your app to GitHub to automate workflows, manage repositories, and integrate developer operations.
 ---
+# GitHub Integration
 
-# Connecting to Github
+The **GitHub Integration** lets your app connect directly to [GitHub](https://github.com) to automate actions, fetch data, and build powerful developer workflows. Once connected, your app can interact with repositories, issues, pull requests, and more.
 
-```python exec
-import reflex as rx
-from reflex_image_zoom import image_zoom
+## What You Can Do
+
+With GitHub, your app can:
+- Fetch and display repository data (commits, branches, issues, etc.).  
+- Create or update issues, pull requests, and discussions.  
+- Trigger workflows or CI/CD pipelines.  
+- Sync GitHub activity into your app’s dashboards or automations.  
+- Build custom developer tools using GitHub’s API.
+
+## Step 1: Generate a Personal Access Token
+
+1. Go to your [GitHub Settings](https://github.com/settings/tokens).  
+2. Navigate to **Developer settings → Personal access tokens**.  
+3. Click **Generate new token** (classic or fine-grained).  
+4. Select the required scopes (e.g., `repo`, `workflow`, `read:user`).  
+5. Copy the token.  
+   *Example:*  
 ```
 
-The Github integration is important to make sure that you don't lose your progress. It also allows you to revert to previous versions of your app.
+ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-
-```python eval
-rx.image(
-    src="/ai_builder/connecting_to_github.gif",
-    height="auto",
-    padding_bottom="2rem",
-)
 ```
 
-The GitHub integration allows you to:
+> 💡 Fine-grained tokens are recommended for better security.
 
-- Save your app progress
-- Work on your code locally and push your local changes back to Reflex.Build
+## Step 2: Configure the Integration in Your App
 
+1. In your app, go to **Integrations → Add GitHub**.  
+2. Paste your **GitHub Personal Access Token** in the input field.  
+3. Click **Connect** to validate and save your integration.
 
-## Github Commit History
+Once connected, your app can start interacting with GitHub through workflows and actions.
 
-The commit history is a great way to see the changes that you have made to your app. You can also revert to previous versions of your app from here.
+## Step 3: Notes
 
-```python eval
-image_zoom(rx.image(src="/ai_builder/github_commit_history.png"))
-```
+* **Keep your token secure:** Never expose your GitHub token in public code.  
+* **Use fine-grained permissions:** Limit access to only what’s needed.  
+* **API rate limits:** GitHub imposes API limits, so plan automations accordingly.  
+* **Combine with AI:** For example, auto-generate release notes from commits or summarize PRs with LLMs.
+

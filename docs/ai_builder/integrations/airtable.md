@@ -25,7 +25,7 @@ With the Airtable Integration, your app can:
 4. Under **Personal access tokens**, click **Create token**.
 5. Add the appropriate scopes (e.g. `data.records:read` and `data.records:write`).
 6. Copy your API token.
-   * Example: `patl2IhDFoZK0Rabc12345xyz`
+   * Example: `patxxxxxxxxxxxxxxxxxxxx`
 
 ## Step 2: Configure the Integration in Your App
 
