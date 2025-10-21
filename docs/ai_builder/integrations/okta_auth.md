@@ -112,12 +112,11 @@ rx.el.div(
 3. Remove the trailing `/oauth2/default` from the URI to get your **Okta Issuer URI** (`OKTA_ISSUER_URI`).
 
 Example:
-```
+
 If your Issuer URI is `https://{yourOktaDomain}.okta.com/oauth2/default`
-```
-```
-use `https://{yourOktaDomain}.okta.com`
-```
+
+Use `https://{yourOktaDomain}.okta.com`
+
 
 
 ```python eval
