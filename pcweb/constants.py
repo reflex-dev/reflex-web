@@ -44,6 +44,7 @@ SPLINE_URL = "https://github.com/splinetool/react-spline"
 ENTERPRISE_DOCS_URL = "https://enterprise.reflex.dev"
 DATABRICKS_NOTION_URL = "https://reflex-dev.notion.site/reflex-x-databricks"
 DEMO_VIDEO_URL = "https://www.youtube.com/watch?v=lO-N_IRaWhQ"
+LAUNCH_VIDEO_URL = "https://www.youtube.com/watch?v=Hy3uhBVRdtk"
 
 # Install urls.
 BUN_URL = "https://bun.sh"
@@ -102,6 +103,7 @@ SLACK_DEMO_WEBHOOK_URL: str = os.environ.get("SLACK_DEMO_WEBHOOK_URL")
 
 # Pricing
 PRO_TIERS_TABLE = {
+    "Pro 25": {"price": 25, "credits": 500},
     "Pro 50": {"price": 50, "credits": 1000},
     "Pro 100": {"price": 100, "credits": 2000},
     "Pro 250": {"price": 250, "credits": 5000},
