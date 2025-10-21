@@ -2,7 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.dialog import dialog
-from pcweb.constants import DEMO_VIDEO_URL, REFLEX_BUILD_URL
+from pcweb.constants import LAUNCH_VIDEO_URL, REFLEX_BUILD_URL
 
 
 def video_demo() -> rx.Component:
@@ -14,12 +14,8 @@ def video_demo() -> rx.Component:
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 z-[2] group-hover:scale-110 transition-transform duration-300 backdrop rounded-full bg-slate-10 size-10 flex items-center justify-center",
                 ),
                 rx.image(
-                    "/landing/video/dark/video_demo_dark.webp",
-                    class_name="object-cover size-full dark:block hidden scale-110",
-                ),
-                rx.image(
-                    "/landing/video/light/video_demo_light.webp",
-                    class_name="object-cover size-full dark:hidden block scale-110",
+                    "/landing/video/preview_video.webp",
+                    class_name="object-cover size-full scale-110",
                 ),
                 rx.el.span(
                     class_name="inset-0 size-full absolute z-[1] bg-[#00000008] backdrop-blur-[0.1px] rounded-lg",
@@ -32,7 +28,7 @@ def video_demo() -> rx.Component:
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 z-[-1] rounded-md",
                 ),
                 rx.video(
-                    src=DEMO_VIDEO_URL,
+                    src=LAUNCH_VIDEO_URL,
                     playing=True,
                     controls=False,
                     class_name="size-full z-[1]",

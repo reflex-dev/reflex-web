@@ -553,7 +553,7 @@ def new_component_section() -> rx.Component:
                         "Book a Demo",
                         size="sm",
                         variant="primary",
-                        class_name="font-semibold whitespace-nowrap",
+                        class_name="font-semibold whitespace-nowrap max-xl:hidden",
                     ),
                 ),
                 unstyled=True,
