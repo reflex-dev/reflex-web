@@ -147,7 +147,7 @@ Bun requires runtime components of Visual C++ libraries to run on windows. This 
 ---
 
 
-The command will return four template options to choose from as shown below.
+The command will return several template options to choose from as shown below.
 
 ```bash
 Initializing the web directory.
