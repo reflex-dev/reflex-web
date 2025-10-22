@@ -7,8 +7,11 @@ def glow() -> rx.Component:
     )
 
 
+POST_LINK = "https://www.linkedin.com/posts/y-combinator_reflex-is-an-ai-app-builder-for-creating-activity-7386793491064008704-sMLz/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAB5u_e0B4BJ2Y79KMlho0J5wpWD5Kz9McKw"
+
+
 class HostingBannerState(rx.State):
-    show_banner: bool = False
+    show_banner: bool = True
 
     def hide_banner(self):
         self.show_banner = False
@@ -54,7 +57,7 @@ def hosting_banner() -> rx.Component:
                     )
                 ),
                 glow(),
-                href="https://build.reflex.dev/",
+                href=POST_LINK,
                 underline="none",
                 is_external=True,
             ),
