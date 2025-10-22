@@ -45,7 +45,7 @@ rx.el.div(
 )
 ```
 
-1. Log in to the **Descope Console** (or sign up).
+1. Log in to the [**Descope Console** (or sign up)](https://www.descope.com/sign-up).
 2. Create your first Project. 
 3. Go to the Project page under Settings.
 4. Copy the `Project ID`.
