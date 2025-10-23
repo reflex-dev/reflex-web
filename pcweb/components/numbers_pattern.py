@@ -51,7 +51,7 @@ def numbers_pattern(
     # Background image style
     image_style = {"opacity": rx.color_mode_cond("1", "0.3")}
     if is_flipped:
-        image_style = {"transform": "scaleX(-1)"}
+        image_style |= {"transform": "scaleX(-1)"}
 
     # Gradient masks
     vertical_gradient = "linear-gradient(360deg, rgba(0, 0, 0, 0) 0%, #000000 12%, #000000 88%, rgba(0, 0, 0, 0) 100%)"
