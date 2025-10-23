@@ -1,72 +1,105 @@
+import datetime
+
 import reflex as rx
 
 
 def glow() -> rx.Component:
     return rx.box(
-        class_name="absolute w-[120rem] h-[23.75rem] flex-shrink-0 rounded-[120rem] left-1/2 -translate-x-1/2 z-[0] top-[-16rem] dark:[background-image:radial-gradient(50%_50%_at_50%_50%,_rgba(58,45,118,1)_0%,_rgba(21,22,24,0.00)_100%)] [background-image:radial-gradient(50%_50%_at_50%_50%,_rgba(235,228,255,0.95)_0%,_rgba(252,252,253,0.00)_100%)]",
+        class_name="absolute w-[120rem] h-[23.75rem] flex-shrink-0 rounded-[120rem] left-1/2 -translate-x-1/2 z-[0] top-[-16rem] dark:[background-image:radial-gradient(50%_50%_at_50%_50%,_rgba(58,45,118,1)_0%,_rgba(21,22,24,0.00)_100%)] [background-image:radial-gradient(50%_50%_at_50%_50%,_rgba(235,228,255,0.95)_0%,_rgba(252,252,253,0.00)_100%)] saturate-200 dark:saturate-100 group-hover:saturate-300 transition-[saturate] dark:group-hover:saturate-100",
     )
 
 
-POST_LINK = "https://www.linkedin.com/posts/y-combinator_reflex-is-an-ai-app-builder-for-creating-activity-7386793491064008704-sMLz/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAB5u_e0B4BJ2Y79KMlho0J5wpWD5Kz9McKw"
+POST_LINK = "https://www.producthunt.com/products/reflex-5?launch=reflex-7"
+
+# October 25, 2025 12:01 AM PDT (UTC-7) = October 25, 2025 07:01 AM UTC
+DEADLINE = datetime.datetime(2025, 10, 25, 7, 1, tzinfo=datetime.UTC)
 
 
 class HostingBannerState(rx.State):
-    show_banner: bool = True
+    show_banner: rx.Field[bool] = rx.field(False)
+    force_hide_banner: rx.Field[bool] = rx.field(False)
 
+    @rx.event
     def hide_banner(self):
-        self.show_banner = False
+        self.force_hide_banner = True
+
+    @rx.event
+    def check_deadline(self):
+        if datetime.datetime.now(datetime.UTC) < DEADLINE:
+            self.show_banner = True
+
+
+def timer():
+    remove_negative_sign = rx.vars.function.ArgsFunctionOperation.create(
+        args_names=("t",),
+        return_expr=rx.vars.sequence.string_replace_operation(
+            rx.Var("t").to(str), "-", ""
+        ),
+    )
+
+    return rx.el.div(
+        rx.moment(
+            date=DEADLINE,
+            duration_from_now=True,
+            format="DD[d] HH[h] mm[m] ss[s]",
+            custom_attrs={"filter": remove_negative_sign},
+            interval=1000,
+            class_name="font-medium text-sm",
+        ),
+        class_name="items-center gap-1 z-[1] bg-orange-4 border border-orange-5 rounded-md px-1.5 py-0.5 text-orange-11 font-medium text-sm md:flex hidden",
+    )
 
 
 def hosting_banner() -> rx.Component:
-    return rx.cond(
-        HostingBannerState.show_banner,
-        rx.hstack(
-            rx.link(
-                rx.box(
+    return rx.el.div(
+        rx.cond(
+            HostingBannerState.show_banner & ~HostingBannerState.force_hide_banner,
+            rx.hstack(
+                rx.el.a(
                     rx.box(
-                        # Header text with responsive spans
-                        rx.el.span(
-                            "New",
-                            class_name="inline-flex items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1]",
-                        ),
-                        rx.text(
-                            "Reflex Build – ",  # noqa: RUF001
-                            # Descriptive text: hidden on small, inline on md+
+                        rx.box(
+                            # Header text with responsive spans
                             rx.el.span(
-                                "The first AI agent to build internal Python enterprise apps",
-                                class_name="hidden md:inline-block text-slate-12 font-medium text-sm",
+                                "Launch",
+                                class_name="items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1] inline-flex",
                             ),
-                            # Mobile CTA: inline on small, hidden on md+
-                            rx.el.span(
-                                "Early Access",
-                                class_name="inline-block md:hidden text-slate-12 font-medium text-sm",
+                            rx.text(
+                                rx.el.span(
+                                    "We're live on Product Hunt - ",
+                                    class_name="inline-block text-slate-12 font-semibold text-sm",
+                                ),
+                                # Mobile CTA: inline on small, hidden on md+
+                                rx.el.span(
+                                    " 50% ",
+                                    class_name="text-slate-12 font-semibold text-sm underline decoration-slate-11",
+                                ),
+                                rx.el.span(
+                                    " launch",
+                                    class_name="text-slate-12 font-semibold text-sm underline decoration-slate-11 hidden md:inline-block",
+                                ),
+                                rx.el.span(
+                                    " discount!",
+                                    class_name="text-slate-12 font-semibold text-sm underline decoration-slate-11",
+                                ),
+                                class_name="text-slate-12 font-semibold text-sm z-[1]",
                             ),
-                            class_name="text-slate-12 font-semibold text-sm z-[1]",
-                        ),
-                        # Standalone CTA button: hidden on small, inline on md+
-                        rx.el.button(
-                            "Get Access",
-                            class_name=(
-                                "hidden md:inline-block "
-                                "text-green-11 h-[1.65rem] rounded-md bg-green-4 "
-                                "px-1.5 text-sm font-semibold z-[1] items-center "
-                                "justify-center shrink-0 border border-green-5 hover:bg-green-5 transition-colors"
-                            ),
-                        ),
-                        class_name="flex items-center gap-4",
-                    )
+                            # Standalone CTA button: hidden on small, inline on md+
+                            timer(),
+                            class_name="flex items-center md:gap-3.5 gap-2",
+                        )
+                    ),
+                    glow(),
+                    to=POST_LINK,
+                    target="_blank",
                 ),
-                glow(),
-                href=POST_LINK,
-                underline="none",
-                is_external=True,
+                rx.icon(
+                    "x",
+                    on_click=HostingBannerState.hide_banner,
+                    size=16,
+                    class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-4 z-10",
+                ),
+                class_name="px-4 lg:px-6 w-screen h-auto lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-between md:justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full group",
             ),
-            rx.icon(
-                "x",
-                on_click=HostingBannerState.hide_banner,
-                size=16,
-                class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-4 z-10",
-            ),
-            class_name="px-4 lg:px-6 w-screen h-auto lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-between md:justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full",
         ),
+        on_mount=HostingBannerState.check_deadline,
     )

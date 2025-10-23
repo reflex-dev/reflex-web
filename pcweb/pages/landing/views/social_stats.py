@@ -15,8 +15,8 @@ def stat(icon: str, text: str) -> rx.Component:
 
 def social_stats():
     return rx.el.section(
-        numbers_pattern(side="left", reversed=True, class_name="left-0 top-0"),
-        numbers_pattern(side="right", reversed=True, class_name="right-0 top-0"),
+        numbers_pattern(side="left", reverse=True, class_name="left-0 top-0"),
+        numbers_pattern(side="right", reverse=True, class_name="right-0 top-0"),
         stat("browser", "1M+ Apps Built"),
         stat("checkmark", "Used by 25% of Fortune 500"),
         stat("github_navbar", f"{GITHUB_STARS // 1000}K GitHub Stars"),
