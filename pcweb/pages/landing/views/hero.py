@@ -330,8 +330,14 @@ def prompt_box() -> rx.Component:
 
 def hero() -> rx.Component:
     return rx.el.section(
-        numbers_pattern(side="left", class_name="lg:top-[65px] top-[45px]"),
-        numbers_pattern(side="right", class_name="lg:top-[65px] top-[45px]"),
+        numbers_pattern(
+            side="left",
+            class_name="lg:top-[65px] top-[45px] lg:h-[calc(100%-65px)] h-[calc(100%-45px)]",
+        ),
+        numbers_pattern(
+            side="right",
+            class_name="lg:top-[65px] top-[45px] lg:h-[calc(100%-65px)] h-[calc(100%-45px)]",
+        ),
         rx.el.h1(
             """Build From Prompt to
  Production App, In Seconds""",

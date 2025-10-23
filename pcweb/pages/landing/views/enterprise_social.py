@@ -67,8 +67,8 @@ def enterprise_card(image: str, name: str, stat: str, text: str) -> rx.Component
 def enterprise_social() -> rx.Component:
     return rx.el.section(
         rx.el.div(
-            numbers_pattern(side="left", reversed=True, class_name="left-0 top-0"),
-            numbers_pattern(side="right", reversed=True, class_name="right-0 top-0"),
+            numbers_pattern(side="left", reverse=True, class_name="left-0 top-0"),
+            numbers_pattern(side="right", reverse=True, class_name="right-0 top-0"),
             header(),
             class_name="flex flex-col items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden py-20",
         ),

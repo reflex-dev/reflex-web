@@ -2,46 +2,24 @@ import reflex as rx
 import reflex_ui as ui
 
 
-def ellipses(side: str = "left"):
+def _ellipses(side: str, reverse_animation: bool = False) -> rx.Component:
+    """Create animated ellipses for the pattern effect."""
     direction = "right" if side == "right" else "left"
-    common_class = "absolute bg-violet-11 dark:bg-[#534a87] blur-[10px]"
-    return rx.el.div(
-        # Ellipse 1
-        rx.el.div(
-            class_name=f"w-[32px] h-[88px] {direction}-[0.5rem] {common_class} animate-ellipse-1"
-        ),
-        # Ellipse 2
-        rx.el.div(
-            class_name=f"w-[32px] h-[178px] {direction}-[9.5rem] {common_class} animate-ellipse-2"
-        ),
-        # Ellipse 3
-        rx.el.div(
-            class_name=f"w-[16px] h-[42px] {direction}-[4.19rem] {common_class} animate-ellipse-3"
-        ),
-        # Ellipse 4
-        rx.el.div(
-            class_name=f"w-[32px] h-[48px] {direction}-[0.44rem] {common_class} animate-ellipse-4"
-        ),
+    animation_class = "[animation-direction:reverse]" if reverse_animation else ""
+    common_class = (
+        f"absolute bg-violet-11 dark:bg-[#534a87] blur-[10px] {animation_class}"
     )
 
-
-def ellipses_reversed(side: str = "left"):
-    direction = "right" if side == "right" else "left"
-    common_class = f"absolute bg-violet-11 dark:bg-[#534a87] blur-[10px] [animation-direction:reverse] {direction}"
     return rx.el.div(
-        # Ellipse 1
         rx.el.div(
             class_name=f"w-[32px] h-[88px] {direction}-[0.5rem] {common_class} animate-ellipse-1"
         ),
-        # Ellipse 2
         rx.el.div(
             class_name=f"w-[32px] h-[178px] {direction}-[9.5rem] {common_class} animate-ellipse-2"
         ),
-        # Ellipse 3
         rx.el.div(
             class_name=f"w-[16px] h-[42px] {direction}-[4.19rem] {common_class} animate-ellipse-3"
         ),
-        # Ellipse 4
         rx.el.div(
             class_name=f"w-[32px] h-[48px] {direction}-[0.44rem] {common_class} animate-ellipse-4"
         ),
@@ -49,52 +27,78 @@ def ellipses_reversed(side: str = "left"):
 
 
 def numbers_pattern(
-    side: str = "left", reversed: bool = False, class_name: str = ""
+    side: str = "left", reverse: bool = False, class_name: str = ""
 ) -> rx.Component:
-    """Numbers pattern with static background and masked animated ellipses."""
-    position_class = "left-0" if side == "left" else "right-0"
+    """Numbers pattern with static background and masked animated ellipses.
 
+    Matches Figma design structure with layered gradients.
+
+    Args:
+        side: Position side ("left" or "right")
+        reverse: Reverse the ellipse animation direction
+        class_name: Additional CSS classes
+    """
+    position_class = "left-0" if side == "left" else "right-0"
     light_dark_path = rx.color_mode_cond("light", "dark")
 
-    image_sources = {
-        ("left", False): f"/landing/patterns/{light_dark_path}/numbers-img.webp",
-        (
-            "left",
-            True,
-        ): f"/landing/patterns/{light_dark_path}/numbers-reversed-img.webp",
-        ("right", False): f"/landing/patterns/{light_dark_path}/numbers-right-img.webp",
-        (
-            "right",
-            True,
-        ): f"/landing/patterns/{light_dark_path}/numbers-right-reversed-img.webp",
-    }
-    src = image_sources.get(
-        (side, reversed), f"/landing/patterns/{light_dark_path}/numbers-img.webp"
-    )
+    src = f"landing/patterns/{light_dark_path}/numbers-pattern.webp"
 
-    mask_style = {
-        "mask_image": f"url({src})",
-        "mask_size": "100% 100%",
-        "mask_repeat": "no-repeat",
-        "webkit_mask_image": f"url({src})",
-        "webkit_mask_size": "100% 100%",
-        "webkit_mask_repeat": "no-repeat",
+    # Determine if we need to flip: right side XOR reverse
+    # - right side normally flips
+    # - reverse inverts the flip behavior
+    is_flipped = (side == "right") != reverse
+
+    # Background image style
+    image_style = {"opacity": rx.color_mode_cond("1", "0.3")}
+    if is_flipped:
+        image_style = {"transform": "scaleX(-1)"}
+
+    # Gradient masks
+    vertical_gradient = "linear-gradient(360deg, rgba(0, 0, 0, 0) 0%, #000000 12%, #000000 88%, rgba(0, 0, 0, 0) 100%)"
+    # Angled gradient - angle changes based on reverse
+    gradient_angle = "105deg" if reverse else "280deg"
+    angled_gradient = f"linear-gradient({gradient_angle}, rgba(0, 0, 0, 0) 18.13%, rgba(0, 0, 0, 0.88) 66.72%, rgba(0, 0, 0, 0) 85.62%)"
+
+    # Container mask combining both gradients
+    container_mask_style = {
+        "mask_image": f"{angled_gradient}, {vertical_gradient}",
+        "webkit_mask_image": f"{angled_gradient}, {vertical_gradient}",
+        "mask_composite": "intersect",
+        "webkit_mask_composite": "intersect",
     }
+    if is_flipped:
+        container_mask_style["transform"] = "scaleX(-1)"
+
+    # Image mask style for the ellipses layer
+    ellipses_mask_style = {
+        "mask_image": f"url({src})",
+        "mask_size": "cover",
+        "mask_repeat": "no-repeat",
+        "mask_position": "center",
+        "webkit_mask_image": f"url({src})",
+        "webkit_mask_size": "cover",
+        "webkit_mask_repeat": "no-repeat",
+        "webkit_mask_position": "center",
+    }
+    if is_flipped:
+        ellipses_mask_style["transform"] = "scaleX(-1)"
 
     return rx.el.div(
+        # Layer 1: Background pattern image
+        rx.image(
+            src=src,
+            class_name="pointer-events-none w-full h-full absolute inset-0 object-cover",
+            style=image_style,
+        ),
+        # Layer 2: Masked animated ellipses
         rx.el.div(
-            # Static background pattern (always visible)
-            rx.image(src=src, class_name="pointer-events-none"),
-            # Masked layer with ellipses
-            rx.el.div(
-                ellipses(side=side) if not reversed else ellipses_reversed(side=side),
-                class_name="absolute inset-0 w-full h-full",
-                style=mask_style,
-            ),
-            class_name="relative size-full",
+            _ellipses(side=side, reverse_animation=reverse),
+            class_name="absolute inset-0 w-full h-full",
+            style=ellipses_mask_style,
         ),
         class_name=ui.cn(
-            f"absolute {position_class} pointer-events-none overflow-hidden z-[-1] lg:w-[234px] w-[180px] h-auto",
+            f"absolute {position_class} pointer-events-none z-[-1] lg:w-[234px] w-[180px] h-full bottom-0",
             class_name,
         ),
+        style=container_mask_style,
     )
