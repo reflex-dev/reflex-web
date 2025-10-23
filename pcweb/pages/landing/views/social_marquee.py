@@ -28,7 +28,7 @@ class Social:
 SOCIALS_1 = [
     Social(
         name="vishnudeva",
-        role="Hacker News",
+        role="Data Scientist",
         text=get_normal_text(
             "Been a lurker on Hacker News for years but I created an account just so I could say how excited I am! Love the effort you're putting into ",
             get_highlight("Reflex"),
@@ -48,7 +48,7 @@ SOCIALS_1 = [
     ),
     Social(
         name="Andrew",
-        role="Discord",
+        role="Software Engineer",
         text=get_normal_text(
             "I've recently started using ",
             get_highlight("Reflex"),
@@ -60,7 +60,7 @@ SOCIALS_1 = [
 SOCIALS_2 = [
     Social(
         name="PoshoDev",
-        role="Discord",
+        role="Product Manager",
         text=get_normal_text(
             "I'm experimenting with ",
             get_highlight("Reflex"),
@@ -69,7 +69,7 @@ SOCIALS_2 = [
     ),
     Social(
         name="vikinghckr",
-        role="Hacker News",
+        role="ML Engineer",
         text=get_normal_text(
             "I'm not exaggerating but this might just be the highest impact library I've seen. As a backend developer who has lots of great project ideas but bail at the thought of having to use JavaScript and HTML, ",
             get_highlight("Reflex"),
@@ -79,7 +79,7 @@ SOCIALS_2 = [
     ),
     Social(
         name="Chaumy",
-        role="Discord",
+        role="Software Architect",
         text=get_normal_text(
             "Finally managed to work through the docs - ",
             get_highlight("Reflex"),
