@@ -2,7 +2,6 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.numbers_pattern import numbers_pattern
-from pcweb.pages.docs import ai_builder
 
 
 def header() -> rx.Component:
@@ -25,10 +24,7 @@ def intregation_card(
     text: str = "",
     class_name: str = "",
 ):
-    first_light_dark_path = rx.color_mode_cond(
-        f"/landing/integrations/light/{first_integration}.svg",
-        f"/landing/integrations/dark/{first_integration}.svg",
-    )
+    first_light_dark_path = f"/landing/integrations/light/{first_integration}.svg"
     return rx.el.div(
         rx.el.div(
             rx.image(
@@ -90,12 +86,12 @@ def r_logo_card() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src="/landing/integrations/light/r_logo.svg",
+                src="/landing/integrations/light/r_logo_violet.svg",
                 class_name="h-8 w-autopointer-events-none shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
             ),
-            class_name="size-15 rounded-lg border border-slate-5 dark:border-[#1C2024] shadow-large bg-white-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]",
+            class_name="size-15 rounded-lg shadow-large bg-primary-9 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]",
         ),
-        class_name="size-18 rounded-xl border border-violet-9 dark:border-[#1C2024] shadow-large bg-violet-8 dark:bg-violet-1 relative z-[2]",
+        class_name="size-18 rounded-xl border border-violet-6 shadow-large bg-violet-3 dark:bg-violet-1 relative z-[2]",
     )
 
 
