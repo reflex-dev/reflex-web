@@ -39,5 +39,5 @@ def landing() -> rx.Component:
         os_stats(),
         deploy_section(),
         final_cta(),
-        class_name="flex flex-col size-full justify-center items-center",
+        class_name="flex flex-col size-full justify-center items-center max-w-[calc(100vw-2rem)] mx-auto",
     )

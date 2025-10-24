@@ -41,7 +41,7 @@ def numbers_pattern(
     position_class = "left-0" if side == "left" else "right-0"
     light_dark_path = rx.color_mode_cond("light", "dark")
 
-    src = f"landing/patterns/{light_dark_path}/numbers-pattern.webp"
+    src = f"/landing/patterns/{light_dark_path}/numbers-pattern.webp"
 
     # Determine if we need to flip: right side XOR reverse
     # - right side normally flips
