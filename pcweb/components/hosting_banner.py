@@ -28,6 +28,10 @@ class HostingBannerState(rx.State):
         if datetime.datetime.now(datetime.UTC) < DEADLINE:
             self.show_banner = True
 
+    @rx.var
+    def is_banner_visible(self) -> bool:
+        return self.show_banner and not self.force_hide_banner
+
 
 def timer():
     remove_negative_sign = rx.vars.function.ArgsFunctionOperation.create(
@@ -53,7 +57,7 @@ def timer():
 def hosting_banner() -> rx.Component:
     return rx.el.div(
         rx.cond(
-            HostingBannerState.show_banner & ~HostingBannerState.force_hide_banner,
+            HostingBannerState.is_banner_visible,
             rx.hstack(
                 rx.el.a(
                     rx.box(
@@ -98,7 +102,7 @@ def hosting_banner() -> rx.Component:
                     size=16,
                     class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-4 z-10",
                 ),
-                class_name="px-4 lg:px-6 w-screen h-auto lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-between md:justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full group",
+                class_name="px-4 lg:px-6 w-screen h-[2rem] lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-between md:justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full group",
             ),
         ),
         on_mount=HostingBannerState.check_deadline,

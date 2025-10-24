@@ -76,5 +76,5 @@ def get_started() -> rx.Component:
             "bottom_logo",
             class_name="absolute left-1/2 bottom-0 transform -translate-x-1/2 z-[-1] md:w-auto w-[21.9375rem] md:h-auto h-[4.125rem]",
         ),
-        class_name="flex flex-col gap-8 max-w-[64.19rem] justify-center items-center w-full lg:border border-slate-3 relative pt-14 lg:pt-40 pb-[5.5rem]",
+        class_name="flex flex-col gap-8 max-w-[64.19rem] justify-center items-center w-full lg:border border-slate-3 relative pt-14 lg:pt-40 pb-[5.5rem] mx-auto",
     )
