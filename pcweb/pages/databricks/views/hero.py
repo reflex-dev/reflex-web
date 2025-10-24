@@ -14,7 +14,7 @@ def hero() -> rx.Component:
             class_name="lg:top-[65px] top-[45px] lg:h-[calc(100%-65px)] h-[calc(100%-45px)]",
         ),
         rx.el.h1(
-            "Reflex X Databricks",
+            "Reflex x Databricks",
             class_name="text-slate-12 lg:text-4xl text-3xl font-semibold text-center lg:max-w-[576px] text-balance",
         ),
         rx.el.h2(

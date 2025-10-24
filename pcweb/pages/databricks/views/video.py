@@ -32,7 +32,7 @@ def text() -> rx.Component:
         rx.el.h2(
             "Build With Reflex. ",
             rx.el.span(
-                "A Single Platform to Build With AI And Iterate in Python",
+                "Deploy your apps directly to Databricks Apps.",
                 class_name="text-slate-10 lg:text-3xl text-2xl font-semibold",
             ),
             class_name="text-slate-12 lg:text-3xl text-2xl font-semibold max-w-[57rem]",
