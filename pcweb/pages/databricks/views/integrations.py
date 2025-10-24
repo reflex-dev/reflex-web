@@ -95,7 +95,7 @@ def r_logo_card() -> rx.Component:
             ),
             class_name="size-15 rounded-lg border border-slate-5 dark:border-[#1C2024] shadow-large bg-white-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]",
         ),
-        class_name="size-18 rounded-xl border border-slate-3 dark:border-[#1C2024] shadow-large bg-white/76 dark:bg-slate-1 relative z-[2]",
+        class_name="size-18 rounded-xl border border-violet-9 dark:border-[#1C2024] shadow-large bg-violet-8 dark:bg-violet-1 relative z-[2]",
     )
 
 
@@ -137,31 +137,29 @@ def integrations_row() -> rx.Component:
 def content_text() -> rx.Component:
     return rx.el.div(
         rx.el.p(
-            "With Reflex's Databricks integration, you can build customizable, performant web apps that seamlessly leverage Databricks' powerful data and AI services — including SQL Warehouse, Unity Catalog, Genie AI, and OAuth-based authentication. These are just a few examples — Reflex can hook into most Databricks services, giving you the flexibility to integrate analytics, governance, AI, and data pipelines directly into your apps.",
-            class_name="text-slate-12 text-center mb-6",
+            "With Reflex's Databricks integration, you can build customizable, performant web apps that seamlessly leverage Databricks' powerful data and AI services:",
+            class_name="text-slate-12 text-left mb-4",
         ),
-        rx.el.div(
-            rx.el.p(
-                "This integration enables you to:",
-                class_name="text-slate-12 text-center font-medium mb-4",
-            ),
-            rx.el.ul(
-                rx.el.li("Query and visualize data directly from Databricks SQL Warehouses.", class_name="text-slate-12 mb-2"),
-                rx.el.li("Securely manage access and permissions through Unity Catalog and OAuth.", class_name="text-slate-12 mb-2"),
-                rx.el.li("Incorporate AI-driven insights and automation using Genie AI.", class_name="text-slate-12 mb-2"),
-                rx.el.li("Build responsive, production-grade interfaces in Python with Reflex's simple yet powerful framework.", class_name="text-slate-12 mb-2"),
-                class_name="text-left max-w-2xl mx-auto mb-6 space-y-2",
-            ),
+        rx.el.ul(
+            rx.el.li("SQL Warehouse", class_name="text-slate-12 mb-1"),
+            rx.el.li("Unity Catalog", class_name="text-slate-12 mb-1"),
+            rx.el.li("Genie AI", class_name="text-slate-12 mb-1"),
+            rx.el.li("OAuth-based authentication", class_name="text-slate-12 mb-1"),
+            class_name="text-left mb-4 ml-4 list-disc",
+        ),
+        rx.el.p(
+            "These are just a few examples — Reflex can hook into most Databricks services, giving you the flexibility to integrate analytics, governance, AI, and data pipelines directly into your apps.",
+            class_name="text-slate-12 text-left mb-6",
         ),
         rx.el.p(
             "Once your app is ready, you can deploy it directly to Databricks Apps, ensuring that all data, compute, and governance remain fully within your organization's Databricks environment — maintaining compliance, security, and performance at scale.",
-            class_name="text-slate-12 text-center mb-6",
+            class_name="text-slate-12 text-left mb-6",
         ),
         rx.el.p(
             "With Reflex + Databricks, you can transform data workflows, analytics dashboards, and AI interfaces into interactive, secure, and enterprise-ready applications — all without leaving your Databricks ecosystem.",
-            class_name="text-slate-12 text-center font-medium mb-8",
+            class_name="text-slate-12 text-left mb-8",
         ),
-        class_name="flex flex-col items-center mx-auto w-full justify-center max-w-[36rem] mt-8",
+        class_name="flex flex-col items-start mx-auto w-full justify-start max-w-[36rem] mt-8",
     )
 
 
