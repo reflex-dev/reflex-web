@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.constants import PRO_TIERS_TABLE, REFLEX_CLOUD_URL
 from pcweb.pages.pricing.calculator import (
@@ -269,7 +269,7 @@ def total_credits_card() -> rx.Component:
             ),
             rx.cond(
                 get_is_enterprise_tier(MachineState.messages_tier_index),
-                lemcal_dialog(
+                demo_form_dialog(
                     ui.button(
                         "Contact Sales",
                         size="sm",

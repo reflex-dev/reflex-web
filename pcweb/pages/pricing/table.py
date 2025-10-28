@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
@@ -230,7 +230,7 @@ def sticky_pricing_header() -> rx.Component:
             # Enterprise column with button
             header_item(
                 "Enterprise",
-                lemcal_dialog(
+                demo_form_dialog(
                     ui.button(
                         "Get a demo",
                         variant="primary",

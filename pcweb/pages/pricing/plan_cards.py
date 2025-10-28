@@ -4,7 +4,7 @@ from urllib.parse import quote_plus
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.number_flow import number_flow
@@ -254,7 +254,7 @@ def pricing_cards() -> rx.Component:
                 Feature("QuestionIcon", "Dedicated Support Channel"),
                 Feature("CustomerSupportIcon", "Onboarding support"),
             ],
-            lemcal_dialog(
+            demo_form_dialog(
                 ui.button(
                     "Contact sales",
                     variant="primary",

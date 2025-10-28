@@ -50,7 +50,41 @@ rx.el.div(
 )
 ```
 
-3 - Generate a **Personal Access Token** (**DATABRICKS_TOKEN**):
+
+3 - Get your **DATABRICKS_CATALOG** and **DATABRICKS_SCHEMA**:
+   - Click the SQL Editor from the sidebar.
+   - Choose the **DATABRICKS_CATALOG** and **DATABRICKS_SCHEMA** from the dropdowns as shown below.
+
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/databricks_integration_4.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+```python eval
+rx.box(height="2rem")
+```
+
+4 - Obtain your authentication credentials:
+
+There are two methods to authenticate your app with Databricks: using a **Personal Access Token** or via **OAuth**. Choose one of the methods below to obtain the necessary credentials.
+
+
+---md tabs
+
+--tab Personal Access Token
+## Generate a Personal Access Token (DATABRICKS_TOKEN)
+
+
    - Click on your profile icon → **Settings**.
    - Click **Developer**.
    - Click **Manage** in Access Tokens.
@@ -86,16 +120,21 @@ rx.el.div(
 )
 ```
 
-4 - Get your **DATABRICKS_CATALOG** and **DATABRICKS_SCHEMA**:
-   - Click the SQL Editor from the sidebar.
-   - Choose the **DATABRICKS_CATALOG** and **DATABRICKS_SCHEMA** from the dropdowns as shown below.
+
+
+
+--
+--tab OAuth
+## Use OAuth (DATABRICKS_CLIENT_ID and DATABRICKS_CLIENT_SECRET)
+
+- Open the dropdown in the top right corner and select **Manage Account**.
 
 
 ```python eval
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/integrations/databricks_integration_4.webp",
+            src="/ai_builder/integrations/databricks_integration_oauth_1.webp",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -104,6 +143,107 @@ rx.el.div(
     class_name="w-full flex flex-col rounded-md cursor-pointer",
 )
 ```
+
+- Select `Users and Groups`
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/databricks_integration_oauth_2.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+- Select the `Service Principals` tab and click `Add Service Principal`.
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/databricks_integration_oauth_3.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+- Fill in the details and click `Add Service Principal`.
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/databricks_integration_oauth_4.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+- Click the `Credentials and Secrets` tab and click `Generate Secret`.
+
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/databricks_integration_oauth_5.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+- Set a lifetime for the secrets and click `Generate`.
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/databricks_integration_oauth_6.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+- Copy the generated **DATABRICKS_CLIENT_ID** and **DATABRICKS_CLIENT_SECRET**.
+
+```python eval
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/integrations/databricks_integration_oauth_7.webp",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
+)
+```
+
+--
+
+---
 
 
 
