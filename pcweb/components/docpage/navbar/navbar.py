@@ -2,7 +2,7 @@
 
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.hosting_banner import hosting_banner
 from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
@@ -548,7 +548,7 @@ def new_component_section() -> rx.Component:
                 class_name="desktop-only",
             ),
             ui.navigation_menu.item(
-                render_=lemcal_dialog(
+                render_=demo_form_dialog(
                     ui.button(
                         "Book a Demo",
                         size="sm",

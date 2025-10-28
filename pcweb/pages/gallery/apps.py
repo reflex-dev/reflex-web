@@ -3,7 +3,7 @@ import re
 
 import flexdown
 import reflex as rx
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.button import button, button_with_icon
 from pcweb.components.code_card import gallery_app_card
@@ -163,7 +163,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                     *(
                         [
                             rx.box(
-                                lemcal_dialog(
+                                demo_form_dialog(
                                     button_with_icon(
                                         "Book a Demo",
                                         icon="new_tab",
