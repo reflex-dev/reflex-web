@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 VIDEO_URL = "https://youtu.be/Hy3uhBVRdtk?si=Z5szIyInkBfeG2lk&t=92s"
 
@@ -37,7 +37,7 @@ def text() -> rx.Component:
             ),
             class_name="text-slate-12 lg:text-3xl text-2xl font-semibold max-w-[57rem]",
         ),
-        lemcal_dialog(
+        demo_form_dialog(
             ui.button(
                 "Get Personalized Walkthrough",
                 size="lg",

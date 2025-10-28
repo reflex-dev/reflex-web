@@ -1,5 +1,5 @@
 import reflex as rx
-from reflex_ui.blocks.lemcal import lemcal_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.button import button
 
@@ -26,7 +26,7 @@ def header() -> rx.Component:
 
 def sales_button() -> rx.Component:
     return rx.el.div(
-        lemcal_dialog(
+        demo_form_dialog(
             rx.el.div(
                 glow(),
                 button(
