@@ -2391,7 +2391,7 @@ wheels = [
 [[package]]
 name = "reflex-ui"
 version = "0.0.1"
-source = { git = "https://github.com/reflex-dev/reflex-ui?rev=main#096c86ff202e9d1918a6106440eba256a4b5d0a5" }
+source = { git = "https://github.com/reflex-dev/reflex-ui?rev=main#6f959cc4107ee959f3a4cfd59c8496a78cc29134" }
 dependencies = [
     { name = "reflex" },
 ]
