@@ -45,6 +45,23 @@ class DeadLinkChecker:
             normalized += f"?{parsed.query}"
         return normalized
 
+    def is_image_url(self, url):
+        """Check if URL points to an image file."""
+        image_extensions = {
+            ".webp",
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".gif",
+            ".svg",
+            ".ico",
+            ".bmp",
+            ".tiff",
+        }
+        parsed = urlparse(url)
+        path_lower = parsed.path.lower()
+        return any(path_lower.endswith(ext) for ext in image_extensions)
+
     def check_link(self, url, source_page):
         """Check if a single link is working."""
         if url in self.checked_links:
@@ -113,7 +130,9 @@ class DeadLinkChecker:
 
             if url:
                 absolute_url = urljoin(page_url, url)
-                if not absolute_url.startswith(("javascript:", "mailto:", "tel:")):
+                if not absolute_url.startswith(
+                    ("javascript:", "mailto:", "tel:", "data:")
+                ):
                     links.append(absolute_url)
 
         return links
@@ -139,9 +158,10 @@ class DeadLinkChecker:
             links = self.extract_links(response.text, url)
 
             for link in links:
-                self.check_link(link, url)
+                # Only check internal links and skip images
+                if self.is_internal_url(link) and not self.is_image_url(link):
+                    self.check_link(link, url)
 
-                if self.is_internal_url(link):
                     normalized = self.normalize_url(link)
                     if normalized not in self.visited_pages:
                         self.pages_to_visit.append(normalized)

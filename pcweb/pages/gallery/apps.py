@@ -10,7 +10,7 @@ from pcweb.components.code_card import gallery_app_card
 from pcweb.components.icons import get_icon
 from pcweb.constants import SCREENSHOT_BUCKET
 from pcweb.flexdown import xd2 as xd
-from pcweb.pages.gallery import gallery
+from pcweb.pages import docs
 from pcweb.templates.gallery_app_page import gallery_app_page
 
 GALLERY_APP_SOURCES = [
@@ -73,7 +73,8 @@ def more_posts(current_post: dict) -> rx.Component:
                 selected_posts = other_posts[current_index - 2 : current_index + 1]
 
     for _path, document in selected_posts:
-        posts.append(gallery_app_card(app=document.metadata))
+        if not _path[0].startswith("reflex_build_templates/"):
+            posts.append(gallery_app_card(app=document.metadata))
 
     return rx.el.section(
         rx.box(
@@ -87,7 +88,7 @@ def more_posts(current_post: dict) -> rx.Component:
                     class_name="flex items-center gap-1.5 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small px-1.5 py-0.5 border rounded-md w-auto max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden border-solid",
                 ),
                 underline="none",
-                href=gallery.path,
+                href=docs.getting_started.open_source_templates.path,
             ),
             class_name="flex flex-row items-center justify-between gap-4",
         ),

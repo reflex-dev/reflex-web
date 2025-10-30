@@ -1606,7 +1606,7 @@ The `radius` prop sets the global radius value for the app that is inherited by 
 
 The `accent_color` prop sets the accent color of the app. Check out other options for the accent color [here]({docs.library.other.theme.path}).
 
-To see other props that can be set at the app level check out this [documentation](docs.styling.theming.path)
+To see other props that can be set at the app level check out this [documentation]({docs.styling.theming.path})
 
 ```python
 app = rx.App(

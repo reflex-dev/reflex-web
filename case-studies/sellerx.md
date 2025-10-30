@@ -117,7 +117,7 @@ Below are some of the key Reflex features their app took advantage of:
 
 - Reflex's background events for long running scraping tasks to extract all the data that they needed.
 
-- [AG Grid]({library.tables_and_data_grids.ag_grid.path}), which is built into Reflex, to display the data in a table. AG Grid is a high performance data grid that is used in many fortune 500 companies web applications.
+- [AG Grid](/docs/enterprise/ag-grid), which is built into Reflex, to display the data in a table. AG Grid is a high performance data grid that is used in many fortune 500 companies web applications.
 
 - SSO was a requirement for the app, and Mike used Azure Auth, one of the many options provided by Reflex for authentication.
 
