@@ -51,7 +51,7 @@ rx.vstack(
 )
 ```
 
-Meet [Ansa](www.ansa.co), a venture capital firm based in New York City that invests in companies from Series A to C. They have invested in companies like Defense Unicorns, Bland, Gradient, and Selector and prior to founding the firm, supported investments in many of the venture-capital industry’s largest outcomes including Crowdstrike, Coinbase, and SurveyMonkey to name a few.
+Meet [Ansa](https://www.ansa.co), a venture capital firm based in New York City that invests in companies from Series A to C. They have invested in companies like Defense Unicorns, Bland, Gradient, and Selector and prior to founding the firm, supported investments in many of the venture-capital industry’s largest outcomes including Crowdstrike, Coinbase, and SurveyMonkey to name a few.
 
 Ryan Sullivan is an investor and oversees the engineering and data science team at Ansa. He finds and supports new investments and is the architect behind Ansa's data-driven sourcing strategy, working closely with the firms’ Managing Partner Marco Demeireles to build the firms’ proprietary sourcing applications and research products.
 

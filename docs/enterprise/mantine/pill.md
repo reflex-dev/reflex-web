@@ -51,7 +51,7 @@ def pill_group_page():
 By itself it does not include any logic, it only renders given children.
 
 ```md alert info
-# For a fully functional out-of-the-box component, consider using [`rxe.mantine.tags_input`]({docs.mantine.tags_input.route}) instead.
+# For a fully functional out-of-the-box component, consider using [`rxe.mantine.tags_input`](/docs/enterprise/mantine/tags-input/) instead.
 ```
 
 ## Example

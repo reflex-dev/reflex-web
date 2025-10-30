@@ -87,6 +87,10 @@ for route in routes:
 
 # Add redirects
 redirects = [
+    ("/docs/ui", "/docs/ui/overview"),
+    ("/docs/enterprise/react-flow", "/docs/enterprise/react-flow/overview"),
+    ("/docs/advanced-onboarding", "/docs/advanced-onboarding/code-structure"),
+    ("/docs/hosting/cli", "/docs/hosting"),
     ("/docs/enterprise/ag-grid/index", "/docs/enterprise/ag-grid"),
     ("/docs/ai-builder/integrations", "/docs/ai-builder/integrations/overview"),
     ("/docs/ai-builder/app-lifecycle", "/docs/ai-builder/app-lifecycle/general"),

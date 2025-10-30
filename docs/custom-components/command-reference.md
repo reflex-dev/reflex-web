@@ -1,3 +1,7 @@
+```python exec
+from pcweb.pages import docs
+```
+
 # Command Reference
 
 The custom component commands are under `reflex component` subcommand. To see the list of available commands, run `reflex component --help`. To see the manual on a specific command, run `reflex component <command> --help`, for example, `reflex component init --help`.
@@ -81,11 +85,11 @@ The `custom_components` folder is where the actual implementation is. Do not wor
 
 `reflex_google_auth` is the top folder for importable code. The `reflex_google_auth/__init__.py` imports everything from the `reflex_google_auth/google_auth.py`. For the user of the package, the import looks like `from reflex_google_auth import ABC, XYZ`.
 
-`reflex_google_auth/google_auth.py` is prefilled with code example and instructions from the [wrapping react guide]({wrapping_react.overview.path}).
+`reflex_google_auth/google_auth.py` is prefilled with code example and instructions from the [wrapping react guide]({docs.wrapping_react.overview.path}).
 
 ### Demo App Folder
 
-A demo app is generated inside `google_auth_demo` folder with import statements and example usage of the component. This is a regular Reflex app. Go into this directory and start using any reflex commands for testing. The user is encouraged to deploy the demo app, so it can later be included as part of the [Gallery]({gallery.path}).
+A demo app is generated inside `google_auth_demo` folder with import statements and example usage of the component. This is a regular Reflex app. Go into this directory and start using any reflex commands for testing.
 
 ### Help Manual
 
