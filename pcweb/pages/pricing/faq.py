@@ -104,12 +104,16 @@ faq_items = [
         "Credits can be used for both hosting and building. In hosting, credits are used for compute resources. In building, credits are consumed per message sent.",
     ),
     (
-        "What happens if I cancel the plan?",
-        "If you cancel, you'll maintain access until the end of your current billing period. After that, your app will be downgraded to the free tier limits.",
+        "If I upgrade my tier, do I get the extra credits immediately?",
+        "Yes! When you upgrade your tier (for example, from Tier 25 to Tier 50), the additional credits (e.g., 1,000) are added to your balance right away, and you're charged the corresponding amount for the higher plan.",
     ),
     (
-        "What determines the total amount billed?",
-        "Your bill is determined by your base plan plus any usage-based charges for compute resources that exceed the plan limits.",
+        "Do credits ever expire?",
+        "Credits only reset if you're on the Free tier. As long as you maintain any Pro subscription, your credits will continue to roll over each month.",
+    ),
+    (
+        "What happens if I cancel the plan?",
+        "If you cancel, you'll maintain access until the end of your current billing period. After that, your app will be downgraded to the free tier limits.",
     ),
     (
         "How to cancel subscription?",
@@ -117,7 +121,7 @@ faq_items = [
     ),
     (
         "Can I add members to my project?",
-        "Yes! You can add unlimited members to your project with a per seat monthly charge on additional seats.",
+        "Yes! You can add unlimited members to your project on the Enterprise tier with a per seat monthly charge on additional seats.",
     ),
 ]
 
