@@ -71,7 +71,7 @@ class Hello(rx.Component):
     # Define everything else as normal.
     tag = "Hello"
 
-    name: rx.Var[str] = rx.Var("World")
+    name: rx.Var[str] = rx.Var.create("World")
     on_greet: rx.EventHandler[rx.event.passthrough_event_spec(str)]
 
     # Include any related CSS files with rx.asset to ensure they are copied.
