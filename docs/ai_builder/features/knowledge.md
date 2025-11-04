@@ -31,7 +31,7 @@ rx.el.div(render_image())
 
 ## How to Add Knowledge
 
-1. In the AI Builder workspace, go to the **Knowledge** section by clicking the **`@`** symbol in the bottom-left corner inside the chat area, and selecting the **Knowledge** tab. If you haven't submitted a prompt yet, you can click the **`@ Integrations`** button in the prompt area.
+1. In the AI Builder workspace, go to the **Knowledge** section by clicking the **`Context`** button in the bottom bar, and then on the top bar click the **`Knowledge`** tab.
 2. Enter your rule, guideline, or context description.
 3. Save the entry. The AI Builder will automatically use it when generating apps.
 

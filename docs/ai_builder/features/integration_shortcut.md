@@ -2,7 +2,9 @@
 
 Reflex Build supports powerful integrations like databases, OpenAI, and Databricks, allowing you to connect external services to your app without complex setup. These integrations help you add advanced functionality—like AI-powered features, data analytics, or persistent storage—while speeding up development.
 
-The **@** feature makes it easy to reference integrations directly while chatting with the AI Builder. By typing **@**, you can quickly insert integrations into your prompts without needing to configure them manually first.
+The **Add Integrations** button makes it easy to connect external services to your app while chatting with the AI Builder. A panel with a list of available integrations will appear, you can quickly add integrations that your app can reference and connect to.
+
+Once in your app, you can access your integrations by clicking the flow or cog icon in the bottom left inside the chat area.
 
 ```python exec
 import reflex as rx
@@ -28,22 +30,22 @@ rx.el.div(
 
 ## How to Use
 
-1. In the AI Builder chat, type **@**.
-2. A **popover list** of available integrations will appear (e.g. Database, Databricks, OpenAI).
-3. Select an integration from the list.
-4. The integration will be inserted into your message as **@IntegrationName**.
-5. Continue typing your request, and the AI Builder will use that integration context when generating.
+1. In the AI Builder home, click the **Add Integrations** button. And if you're already in an app, click the flow or cog icon in the bottom left inside the chat area.
+2. A list of available integrations will appear (e.g. Database, Databricks, OpenAI, etc.).
+3. Click the Add button next to an integration to select it.
+4. The integration will be added to your app and becomes available for connection. Then you can fill the required fields for the integration.
+5. The AI Builder now knows your app has access to this integration and can generate code that uses it.
 
 ## What It Does
 
-- **Quick Access** – No need to remember integration names.
-- **Context-Aware** – The AI Builder understands that `@Database` or `@OpenAI` refers to the actual integration.
-- **Faster Building** – Jump directly into using integrations in your prompts.
+- **Quick Access** – Easily browse and select from available integrations.
+- **Automatic Connection** – Integrations are added to your app and become available for the AI to use in generated code.
+- **No Manual Setup** – Skip complex configuration—the AI Builder handles the integration setup for you.
 
 ## Common Use Cases
 
-- **Query Data**
-  "Show me the top 10 users from **@Database** ordered by signup date."
+- **Database Queries**
+  Show me the top 10 users ordered by signup date from my database.
 
-- **Generate with AI**
-  "Use **@OpenAI** to summarize the user feedback table."
+- **AI Features**
+  Create a chat application that uses OpenAI to generate responses.
