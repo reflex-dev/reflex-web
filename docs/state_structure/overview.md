@@ -30,7 +30,7 @@ class IndexState(rx.State):
 
 @rx.page()
 def index():
-    return rx.box(rx.text(IndexState.data)
+    return rx.box(rx.text(IndexState.data))
 
 # signup.py
 import reflex as rx
