@@ -27,7 +27,6 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.features.connect_to_github,
                 ai_builder.features.knowledge,
                 ai_builder.features.image_as_prompt,
-                ai_builder.features.interaction_modes,
                 ai_builder.features.automated_testing,
                 ai_builder.features.customization,
             ],
