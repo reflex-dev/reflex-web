@@ -3,42 +3,127 @@ import reflex_ui as ui
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.hosting_banner import HostingBannerState
-from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
+from pcweb.constants import REFLEX_BUILD_URL  # , REFLEX_CLOUD_URL
 
 CLOUD_HOSTING_FEATURES = [
-    ("Max # Apps", "1", "5", "10"),
-    ("Max Machine Size", "1cpu, 1gb", "2cpu, 4gb shared", "Beyond 2cpu, 4gb"),
-    ("Dedicated Machines", False, False, True),
-    ("Custom Domains", "0", "5", "Unlimited"),
-    ("App Metrics", True, True, True),
-    ("Log Retention", "1 hour", "7 day", "90-Day Log History"),
-    ("Multiple Regions", False, True, True),
-    ('"Built with Reflex" Attribution', True, False, False),
-    ("One-click rollbacks", True, True, True),
+    (
+        "Max # Apps",
+        "1",
+        # "5",
+        "10",
+    ),
+    (
+        "Max Machine Size",
+        "1cpu, 1gb",
+        # "2cpu, 4gb shared",
+        "Beyond 2cpu, 4gb",
+    ),
+    (
+        "Dedicated Machines",
+        False,
+        # False,
+        True,
+    ),
+    (
+        "Custom Domains",
+        "0",
+        # "5",
+        "Unlimited",
+    ),
+    (
+        "App Metrics",
+        True,
+        # True,
+        True,
+    ),
+    (
+        "Log Retention",
+        "1 hour",
+        # "7 day",
+        "90-Day Log History",
+    ),
+    (
+        "Multiple Regions",
+        False,
+        # True,
+        True,
+    ),
+    (
+        '"Built with Reflex" Attribution',
+        True,
+        # False,
+        False,
+    ),
+    (
+        "One-click rollbacks",
+        True,
+        # True,
+        True,
+    ),
 ]
 
 SECURITY_FEATURES = [
-    ("SSO/SAML", False, True, True),
-    ("Role-based access control", False, False, True),
-    ("On Premise Deployments", False, False, True),
-    ("Audit Logs", False, False, True),
-    ("HTTP/SSL", True, True, True),
-    ("Web App Firewall", True, True, True),
-    ("SOC 2 compliance", False, False, "On prem, custom"),
-    ("HIPAA BAA", False, False, "On prem, custom"),
+    (
+        "SSO/SAML",
+        False,
+        # True,
+        True,
+    ),
+    (
+        "Role-based access control",
+        False,
+        # False,
+        True,
+    ),
+    (
+        "On Premise Deployments",
+        False,
+        # False,
+        True,
+    ),
+    (
+        "Audit Logs",
+        False,
+        # False,
+        True,
+    ),
+    (
+        "HTTP/SSL",
+        True,
+        # True,
+        True,
+    ),
+    (
+        "Web App Firewall",
+        True,
+        # True,
+        True,
+    ),
+    (
+        "SOC 2 compliance",
+        False,
+        # False,
+        "On prem, custom",
+    ),
+    (
+        "HIPAA BAA",
+        False,
+        # False,
+        "On prem, custom",
+    ),
 ]
 
 SUPPORT_FEATURES = [
     (
         "Customer Success",
         "Discord/Github Community",
-        "Discord/Github Community",
+        # "Discord/Github Community",
         "Dedicated Support Channel",
     ),
     (
         "Onboarding",
         "Documentation",
-        "Documentation",
+        # "Documentation",
         "Get a forward deployed engineer to help you get started",
     ),
 ]
@@ -47,46 +132,81 @@ REFLEX_BUILD_BASIC_FEATURES = [
     (
         "Credits",
         "50 daily credits (up to 150/month)",
-        "1000 monthly credits",
+        # "1000 monthly credits",
         "Custom",
     ),
-    ("Agent (10 Credits per msg)", True, True, True),
-    ("Chat (1 Credit)", True, True, True),
+    (
+        "Agent (10 Credits per msg)",
+        True,
+        # True,
+        True,
+    ),
+    (
+        "Chat (1 Credit)",
+        True,
+        # True,
+        True,
+    ),
 ]
 
 REFLEX_BUILD_FUNCTIONALITY = [
     (
         "Privacy",
         "Public Projects",
-        "Private Projects",
+        # "Private Projects",
         "Private Projects /Group based controls",
     ),
     (
         "Design",
         "Custom Designs/Theming",
-        "Custom Designs/Theming",
+        # "Custom Designs/Theming",
         "Custom Designs/Theming",
     ),
-    ("Data", False, False, "Opt out of data training"),
-    ("Collaborators", "Single", "Single", "Multiple Collaborators/Editors"),
-    ("Integration", "Basic 5", "Pro 100+", "Enterprise Integrations"),
-    ("Download App Code", False, True, True),
+    (
+        "Data",
+        False,
+        # False,
+        "Opt out of data training",
+    ),
+    (
+        "Collaborators",
+        "Single",
+        # "Single",
+        "Multiple Collaborators/Editors",
+    ),
+    (
+        "Integration",
+        "Basic 5",
+        # "Pro 100+",
+        "Enterprise Integrations",
+    ),
+    (
+        "Download App Code",
+        False,
+        # True,
+        True,
+    ),
 ]
 
 REFLEX_BUILD_DEPLOYMENT = [
     (
         "Github",
         "Public Repo Sync",
-        "Private Repo Sync",
+        # "Private Repo Sync",
         "Enterprise Repo Sync Github, Gitlab, and Bitbucket.",
     ),
     (
         "One Click Deploy",
         "Reflex Cloud",
-        "Reflex Cloud",
+        # "Reflex Cloud",
         "Databricks, AWS, Azure, GCP, Other",
     ),
-    ("SSH access", False, True, True),
+    (
+        "SSH access",
+        False,
+        # True,
+        True,
+    ),
 ]
 
 
@@ -215,18 +335,18 @@ def sticky_pricing_header() -> rx.Component:
                 ),
             ),
             # Pro column with button
-            header_item(
-                "Pro",
-                ui.link(
-                    render_=ui.button(
-                        "Upgrade now",
-                        variant="secondary",
-                        class_name="font-semibold w-full",
-                    ),
-                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
-                    target="_blank",
-                ),
-            ),
+            # header_item(
+            #     "Pro",
+            #     ui.link(
+            #         render_=ui.button(
+            #             "Upgrade now",
+            #             variant="secondary",
+            #             class_name="font-semibold w-full",
+            #         ),
+            #         to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
+            #         target="_blank",
+            #     ),
+            # ),
             # Enterprise column with button
             header_item(
                 "Enterprise",
@@ -238,7 +358,7 @@ def sticky_pricing_header() -> rx.Component:
                     )
                 ),
             ),
-            class_name="grid grid-cols-4 gap-6 p-4",
+            class_name="grid grid-cols-3 gap-6 p-4",
         ),
         class_name=(
             "sticky z-10 bg-slate-1 border-x border-slate-4 border-y",
