@@ -252,6 +252,8 @@ def prompt_box() -> rx.Component:
                             "autoCorrect": "off",
                             "spellCheck": "false",
                         },
+                        required=True,
+                        min_length=5,
                         auto_height=True,
                         enter_key_submit=True,
                         class_name="text-slate-12 text-xl font-medium size-full placeholder:text-slate-9 border-none focus:border-none focus:outline-none outline-none resize-none caret-slate-12 mt-2 resize-none w-full [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-grayA-3 [&::-webkit-scrollbar-thumb]:bg-slate-7 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full bg-transparent min-h-[2.5rem] max-h-[10.5rem]",
