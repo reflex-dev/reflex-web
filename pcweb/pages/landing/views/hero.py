@@ -252,6 +252,8 @@ def prompt_box() -> rx.Component:
                             "autoCorrect": "off",
                             "spellCheck": "false",
                         },
+                        required=True,
+                        min_length=5,
                         auto_height=True,
                         enter_key_submit=True,
                         class_name="text-slate-12 text-xl font-medium size-full placeholder:text-slate-9 border-none focus:border-none focus:outline-none outline-none resize-none caret-slate-12 mt-2 resize-none w-full [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-grayA-3 [&::-webkit-scrollbar-thumb]:bg-slate-7 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full bg-transparent min-h-[2.5rem] max-h-[10.5rem]",
@@ -338,10 +340,16 @@ def hero() -> rx.Component:
             side="right",
             class_name="lg:top-[65px] top-[45px] lg:h-[calc(100%-65px)] h-[calc(100%-45px)]",
         ),
-        rx.el.h1(
-            """Build From Prompt to
- Production App, In Seconds""",
-            class_name="text-slate-12 lg:text-4xl text-3xl font-semibold text-center lg:max-w-[576px] word-wrap break-words lg:whitespace-pre",
+        rx.el.div(
+            rx.el.h1(
+                "Prompt to Production App",
+                class_name="text-secondary-12 lg:text-4xl text-3xl font-semibold text-center max-lg:text-balance",
+            ),
+            rx.el.h2(
+                "A unified platform to build and deploy all in Python.",
+                class_name="text-secondary-10 lg:text-lg text-md font-medium text-center max-lg:text-pretty",
+            ),
+            class_name="flex flex-col items-center justify-center gap-3",
         ),
         prompt_box(),
         class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[3rem] pt-28 lg:pt-[8rem] relative lg:overflow-hidden overflow-hidden z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
