@@ -29,6 +29,8 @@
     --primary-a10: var(--violet-a10);
     --primary-a11: var(--violet-a11);
     --primary-a12: var(--violet-a12);
+    /* Contrast */
+    --primary-contrast: var(--violet-contrast);
     /* Secondary */
     --secondary-1: var(--slate-1);
     --secondary-2: var(--slate-2);
@@ -192,6 +194,8 @@
     --color-violet-11: var(--c-violet-11);
     --color-violet-12: var(--c-violet-12);
     --color-transparent: transparent;
+    /* Contrast */
+    --color-primary-contrast: var(--primary-contrast);
     /* Primary */
     --color-primary-1: var(--primary-1);
     --color-primary-2: var(--primary-2);
