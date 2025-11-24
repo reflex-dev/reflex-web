@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "supply chain management, logistics optimization, supplier dashboard, inventory tracking, procurement automation, Reflex app, operations management"},
 ]
 tags: ["Dashboard", "Supply Chain", "Logistics", "Operations"]
+integrations: ["Databricks"]
 ---
 
 

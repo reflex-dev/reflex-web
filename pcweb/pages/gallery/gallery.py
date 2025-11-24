@@ -2,9 +2,9 @@ import re
 
 import flexdown
 import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.button import button
-from pcweb.components.icons import get_icon
 from pcweb.components.r_svg_loader import r_svg_loader
 from pcweb.templates.webpage import webpage
 
@@ -56,6 +56,7 @@ def app_dialog_with_trigger(
                             "Learn More",
                             variant="secondary",
                             size="md",
+                            class_name="!text-secondary-12",
                         ),
                         href=app_inner_page,
                         class_name="no-underline outline-none",
@@ -71,8 +72,30 @@ def app_dialog_with_trigger(
                 ),
                 class_name="flex flex-col w-full h-full gap-y-3 relative",
             ),
-            class_name="w-full !max-w-[90em] xl:max-w-[110em] 2xl:max-w-[120em] h-[80vh]",
+            class_name="w-full !max-w-[90em] xl:max-w-[110em] 2xl:max-w-[120em] h-[80vh] font-sans",
         ),
+    )
+
+
+def integration_image(integration: str):
+    integration_logo = integration.replace(" ", "_").lower()
+    return ui.tooltip(
+        trigger=ui.avatar.root(
+            ui.avatar.image(
+                src=rx.color_mode_cond(
+                    f"/integrations/light/{integration_logo}.svg",
+                    f"/integrations/dark/{integration_logo}.svg",
+                ),
+                unstyled=True,
+                class_name="size-full",
+            ),
+            ui.avatar.fallback(
+                unstyled=True,
+            ),
+            unstyled=True,
+            class_name="size-4.75 flex items-center justify-center",
+        ),
+        content=integration,
     )
 
 
@@ -84,6 +107,7 @@ def extended_gallery_grid_item(
     app_image: str,
     app_inner_page: str,
     app_video_url: str,
+    app_integrations: list[str],
 ):
     return app_dialog_with_trigger(
         app_url=app_url,
@@ -94,55 +118,57 @@ def extended_gallery_grid_item(
         app_video_url=app_video_url,
         trigger_content=rx.el.div(
             rx.el.div(
-                rx.image(
-                    src=app_image,
-                    class_name="group-hover:scale-105 duration-200 ease-out object-center object-cover absolute inset-0 h-full w-full blur-in transition-all rounded-[12px] z-10",
-                ),
                 rx.el.div(
+                    rx.image(
+                        src=app_image,
+                        class_name="group-hover:scale-105 duration-200 ease-out object-center object-cover absolute inset-0 size-full blur-in transition-all z-10",
+                    ),
                     rx.el.div(
-                        rx.link(
-                            button(
-                                "Learn More",
-                                variant="secondary",
-                                size="md",
-                                class_name="w-full",
+                        rx.el.div(
+                            rx.link(
+                                button(
+                                    "Learn More",
+                                    variant="secondary",
+                                    size="md",
+                                    class_name="w-full !text-secondary-12",
+                                    on_click=rx.stop_propagation,
+                                ),
+                                href=app_inner_page,
+                                class_name="no-underline flex-1",
                                 on_click=rx.stop_propagation,
                             ),
-                            href=app_inner_page,
-                            class_name="no-underline flex-1",
-                            on_click=rx.stop_propagation,
+                            button(
+                                "Preview",
+                                variant="primary",
+                                size="md",
+                                class_name="flex-1 shadow-none border-none",
+                            ),
+                            class_name="flex flex-row gap-x-2 w-full items-stretch px-4 pb-4",
                         ),
-                        button(
-                            "Preview",
-                            variant="primary",
-                            size="md",
-                            class_name="flex-1 shadow-none border-none",
-                        ),
-                        class_name="flex flex-row gap-x-2 w-full items-stretch px-4 pb-4",
+                        class_name="absolute inset-0 flex items-end justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out pointer-events-none group-hover:pointer-events-auto z-[99]",
                     ),
-                    class_name="absolute inset-0 flex items-end justify-center z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out pointer-events-none group-hover:pointer-events-auto z-[99]",
+                    class_name="overflow-hidden relative size-full aspect-video ease-out transition-all outline-none ",
                 ),
-                class_name="overflow-hidden rounded-[12px] relative w-full h-full aspect-video ease-out duration-200 transition-all outline-none border border-slate-4 group-hover:border-slate-3",
-            ),
-            rx.el.div(
                 rx.el.div(
-                    get_icon(
-                        icon="badge_logo",
-                        class_name="size-5 flex-shrink-0",
+                    rx.el.span(
+                        app_name,
+                        class_name="text-sm font-semibold text-m-slate-13 dark:text-m-slate-3 truncate min-w-0 max-w-[90%]",
                     ),
                     rx.el.div(
-                        rx.el.p(app_name, class_name="text-sm font-medium truncate"),
-                        rx.el.p(
-                            app_author,
-                            class_name="text-sm font-regular text-slate-9 truncate",
-                        ),
-                        class_name="flex flex-col gap-y-0 min-w-0 w-full",
+                        *[
+                            integration_image(integration)
+                            for integration in app_integrations
+                        ],
+                        class_name="flex flex-row gap-3.5 items-center",
                     ),
-                    class_name="flex flex-row gap-x-2 items-start min-w-0 w-full",
+                    class_name=(
+                        "flex flex-col w-full px-4 py-3 border-t border-m-slate-4 dark:border-m-slate-12 gap-4 relative pb-4",
+                    ),
                 ),
-                class_name="flex flex-row items-center gap-4 justify-between !text-slate-10 group-hover:!text-slate-11 w-full",
+                class_name="flex flex-col w-full",
             ),
-            class_name="flex flex-col gap-2 w-full p-2 rounded-[14px] group hover:bg-slate-3 transition-all duration-200 ease-out cursor-pointer !w-full",
+            key=app_name,
+            class_name="group cursor-pointer rounded-2xl shadow-small border border-slate-4 dark:border-m-slate-12 bg-white-1 dark:bg-m-slate-14 flex flex-col w-full relative overflow-hidden",
         ),
     )
 
@@ -159,6 +185,7 @@ def create_grid_with_items():
         slug = re.sub(r"[\s_]+", "-", meta.get("title", "")).lower()
         app_inner_page = f"/templates/{slug}"
         app_video_url = meta.get("video", "#")
+        app_integrations = meta.get("integrations", [])
 
         items.append(
             extended_gallery_grid_item(
@@ -169,12 +196,13 @@ def create_grid_with_items():
                 app_image=f"/{REFLEX_BUILD_TEMPLATES_IMAGES}{app_image}",
                 app_inner_page=app_inner_page,
                 app_video_url=app_video_url,
+                app_integrations=app_integrations,
             )
         )
 
     return rx.el.div(
         *items,
-        class_name="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:px-8 lg:px-8",
+        class_name="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:px-8 lg:px-8",
     )
 
 

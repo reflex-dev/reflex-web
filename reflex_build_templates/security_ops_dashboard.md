@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "security dashboard, SOC platform, alert monitoring, threat detection, incident response, security operations center, Reflex app"},
 ]
 tags: ["Dashboard", "Security", "DevSecOps", "Monitoring"]
+integrations: ["AWS"]
 ---
 
 

@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "database visualization, SQL dashboard, data explorer, interactive charts, database analytics, Reflex app, business intelligence"},
 ]
 tags: ["Dashboard", "Database", "Visualization", "Analytics"]
+integrations: ["Okta Auth", "Database"]
 ---
 
 

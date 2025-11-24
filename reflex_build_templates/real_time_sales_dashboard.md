@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "real-time sales dashboard, revenue tracking, sales KPIs, CRM analytics, conversion rate, team performance, Reflex app"},
 ]
 tags: ["Dashboard", "Sales", "Analytics", "Real-Time"]
+integrations: ["Stripe", "Hubspot"]
 ---
 
 

@@ -10,6 +10,7 @@ meta: [
     {"name": "keywords", "content": "treasury dashboard, liquidity management, cash forecasting, real-time balances, corporate treasury tools, finance analytics"},
 ]
 tags: ["Dashboard", "Finance", "Treasury", "Analytics"]
+integrations: ["MongoDB", "Stripe"]
 ---
 
 # Treasury & Liquidity Monitor

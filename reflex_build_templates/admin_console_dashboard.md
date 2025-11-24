@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "admin dashboard, internal tools, user management, system monitoring, admin console, Reflex app, operational control panel"},
 ]
 tags: ["Dashboard", "Admin", "Internal Tools", "Operations"]
+integrations: ["Azure MSSQL", "Azure Auth"]
 ---
 
 
