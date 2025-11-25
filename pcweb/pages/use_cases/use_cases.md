@@ -7,6 +7,7 @@ Organizations across industries use **Reflex** to build internal tools, dashboar
 ```python exec
 import reflex as rx
 from reflex_image_zoom import image_zoom
+from pcweb.pages.use_cases.finance_use_case import finance_use_case_page
 ```
 
 ```python eval
@@ -26,6 +27,9 @@ From buyside analytics desks to compliance back offices, finance teams choose *
 - **Asset-Allocation Simulator** – visualizes portfolio mixes and projected returns over time; users drag weight sliders and instantly see downside and drawdown scenarios.
 - **Treasury & Liquidity Monitor** – streams balances, pending settlements, and cash forecasts into a single real-time dashboard with threshold alerts.
 - **Loan-Underwriting Workflow** – scores new credit applications against live KYC/AML data, routes edge cases for manual review, and retrains the model on a weekly schedule.
+
+
+Learn more about the [Finance Use Case]({finance_use_case_page.path}).
 
 <br>
 <br>
