@@ -1,5 +1,7 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_BUILD_URL
+
 
 def hero_section() -> rx.Component:
     return rx.el.section(
@@ -433,7 +435,7 @@ def cta_section() -> rx.Component:
                     "Spin up your first finance app",
                     "Connect your data source, and ship a working internal tool in an afternoon—no JavaScript required.",
                     "Go to the Builder",
-                    href="https://build.reflex.dev/",
+                    href=REFLEX_BUILD_URL,
                     is_primary=False,
                 ),
                 class_name="grid gap-8 lg:grid-cols-2 max-w-7xl mx-auto",
