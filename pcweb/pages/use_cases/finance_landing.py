@@ -456,5 +456,5 @@ def finance_landing_page() -> rx.Component:
             cta_section(),
             class_name="w-full",
         ),
-        class_name="font-['Raleway'] antialiased text-gray-900 bg-white selection:bg-violet-100 selection:text-violet-900 min-h-screen",
+        class_name="font-['Instrument_Sans'] antialiased text-gray-900 bg-white selection:bg-violet-100 selection:text-violet-900 min-h-screen",
     )
