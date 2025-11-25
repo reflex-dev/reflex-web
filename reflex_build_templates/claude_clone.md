@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "Claude clone, AI assistant UI, chat interface, chatbot frontend, streaming responses, LLM UX"},
 ]
 tags: ["AI", "Chatbot", "Frontend", "Assistant"]
+integrations: ["Anthropic", "Descope"]
 ---
 
 

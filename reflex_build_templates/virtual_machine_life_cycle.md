@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "virtual machine management, VM lifecycle, cloud infrastructure, server provisioning, VM monitoring, Reflex app, DevOps automation"},
 ]
 tags: ["Dashboard", "Infrastructure", "VM Management", "DevOps"]
+integrations: ["AWS"]
 ---
 
 

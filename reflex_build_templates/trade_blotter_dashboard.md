@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "trade blotter, trading dashboard, financial operations, execution management, outlier detection, compliance reporting, nightly pdf, trading analytics"},
 ]
 tags: ["Trading", "Finance", "Compliance", "Analytics"]
+integrations: ["Resend", "Database"]
 ---
 
 # End-of-Day Trade Blotter

@@ -3,6 +3,7 @@ import re
 
 import flexdown
 import reflex as rx
+import reflex_ui as ui
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.button import button, button_with_icon
@@ -17,6 +18,28 @@ GALLERY_APP_SOURCES = [
     ("templates/", "docs/getting-started/open-source-templates/"),
     ("reflex_build_templates/", "templates/"),
 ]
+
+
+def integration_image(integration: str):
+    integration_logo = integration.replace(" ", "_").lower()
+    return ui.tooltip(
+        trigger=ui.avatar.root(
+            ui.avatar.image(
+                src=rx.color_mode_cond(
+                    f"/integrations/light/{integration_logo}.svg",
+                    f"/integrations/dark/{integration_logo}.svg",
+                ),
+                unstyled=True,
+                class_name="size-full",
+            ),
+            ui.avatar.fallback(
+                unstyled=True,
+            ),
+            unstyled=True,
+            class_name="size-5 flex items-center justify-center",
+        ),
+        content=integration,
+    )
 
 
 def load_all_gallery_apps():
@@ -158,6 +181,23 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                         else rx.fragment()
                     ),
                     rx.el.h2(meta["description"], class_name="font-md text-slate-11"),
+                    (
+                        rx.el.div(
+                            rx.el.span(
+                                "Integrations: ", class_name="text-slate-9 font-base"
+                            ),
+                            rx.el.div(
+                                *[
+                                    integration_image(integration)
+                                    for integration in meta.get("integrations", [])
+                                ],
+                                class_name="flex flex-row gap-3.5 items-center",
+                            ),
+                            class_name="flex flex-row items-center gap-2 mt-2",
+                        )
+                        if meta.get("integrations")
+                        else rx.fragment()
+                    ),
                     class_name="flex flex-col gap-3 p-8",
                 ),
                 rx.box(

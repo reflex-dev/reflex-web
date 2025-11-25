@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "ticket queue management, support dashboard, ticket triage, ITSM, incident tracking, helpdesk workflow, Reflex app"},
 ]
 tags: ["Dashboard", "Support", "ITSM", "Workflow"]
+integrations: ["Linear", "Notion", "Github", "Anthropic"]
 ---
 
 

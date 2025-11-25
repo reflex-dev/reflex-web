@@ -9,6 +9,7 @@ meta: [
 {"name": "keywords", "content": "service health dashboard, real-time monitoring, canary deployments, incident management, SRE tools, Reflex app, DevOps analytics"},
 ]
 tags: ["Dashboard", "DevOps", "Monitoring", "Analytics"]
+integrations: ["Cloudwatch", "Github", "Jira"]
 ---
 
 

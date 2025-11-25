@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "behavioral cohort explorer, user segmentation dashboard, product analytics, marketing analytics, cohort scheduling, Reflex app"},
 ]
 tags: ["Dashboard", "Behavioral Analytics", "Cohort Analysis", "Product Growth", "Marketing Insights"]
+integrations: ["Airtable", "Salesforce"]
 ---
 
 # Behavioral Ops Dashboard

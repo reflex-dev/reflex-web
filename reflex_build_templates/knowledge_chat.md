@@ -9,6 +9,7 @@ meta: [
     {"name": "keywords", "content": "knowledge chat, AI assistant, Q&A, document search, enterprise knowledge base, team collaboration, Reflex app"},
 ]
 tags: ["AI", "Chat", "Knowledge Management", "Collaboration", "Assistant"]
+integrations: ["Azure", "Azure Auth", "Azure OpenAI"]
 ---
 
 
