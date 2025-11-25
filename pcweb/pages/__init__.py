@@ -20,6 +20,7 @@ from .pricing.pricing import pricing as pricing
 from .sales import sales as sales
 from .security.security import security_page as security_page
 from .to_be_booked import to_be_booked as to_be_booked
+from .use_cases.finance_use_case import finance_use_case_page as finance_use_case_page
 from .use_cases.use_cases import use_cases_page as use_cases_page
 
 routes = [
