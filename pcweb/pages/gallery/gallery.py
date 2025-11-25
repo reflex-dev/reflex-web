@@ -155,11 +155,17 @@ def extended_gallery_grid_item(
                         class_name="text-sm font-semibold text-m-slate-13 dark:text-m-slate-3 truncate min-w-0 max-w-[90%]",
                     ),
                     rx.el.div(
-                        *[
-                            integration_image(integration)
-                            for integration in app_integrations
-                        ],
-                        class_name="flex flex-row gap-3.5 items-center",
+                        rx.el.span(
+                            "App Integrations: ", class_name="text-slate-9 font-base"
+                        ),
+                        rx.el.div(
+                            *[
+                                integration_image(integration)
+                                for integration in app_integrations
+                            ],
+                            class_name="flex flex-row gap-3.5 items-center",
+                        ),
+                        class_name="flex flex-row items-center gap-2 mt-2",
                     ),
                     class_name=(
                         "flex flex-col w-full px-4 py-3 border-t border-m-slate-4 dark:border-m-slate-12 gap-4 relative pb-4",
