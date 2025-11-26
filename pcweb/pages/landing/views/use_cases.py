@@ -2,7 +2,9 @@ import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
 
+from pcweb.components.icons.icons import get_icon
 from pcweb.components.numbers_pattern import numbers_pattern
+from pcweb.pages.gallery import gallery
 
 items = [
     ("Analytics", "Analytics01Icon"),
@@ -54,7 +56,7 @@ def pill_item(name: str, icon: str) -> rx.Component:
 def pills() -> rx.Component:
     return rx.el.div(
         *[pill_item(name, icon) for name, icon in items],
-        class_name="flex flex-row items-center justify-start border border-slate-4 rounded-lg shadow-small bg-white-1 divide-x divide-slate-4 h-8 mt-10 flex-nowrap overflow-x-auto max-lg:w-full lg:justify-center max-lg:overflow-y-hidden",
+        class_name="flex flex-row items-center justify-start border border-slate-4 rounded-lg shadow-small bg-white-1 divide-x divide-slate-4 h-8 mt-10 flex-nowrap overflow-x-auto max-lg:w-full lg:justify-center overflow-y-hidden",
     )
 
 
@@ -115,6 +117,29 @@ def app_card() -> rx.Component:
     )
 
 
+def bottom_link(link: str, url: str) -> rx.Component:
+    return rx.el.a(
+        rx.el.span(
+            link,
+            class_name="text-sm font-medium text-slate-12 underline-none hover:text-slate-12",
+        ),
+        get_icon(
+            "chevron_right",
+            class_name="size-4 text-slate-9 group-hover:text-slate-12 group-hover:translate-x-1 transition-all duration-300",
+        ),
+        to=url,
+        class_name="flex flex-row items-center gap-2 justify-between group h-[4rem] px-10 hover:bg-slate-2 transition-colors",
+    )
+
+
+def bottom_links() -> rx.Component:
+    return rx.el.div(
+        bottom_link("View all Use Cases", "/use-cases"),
+        bottom_link("View Templates", gallery.path),
+        class_name="grid grid-cols-2 w-full lg:border-b lg:border-x border-slate-3 max-w-[64.19rem] divide-x divide-slate-3",
+    )
+
+
 def use_cases_section() -> rx.Component:
     return rx.el.section(
         rx.el.div(
@@ -126,6 +151,7 @@ def use_cases_section() -> rx.Component:
                 class_name="max-w-[64.19rem] w-full lg:border-x border-slate-3 flex flex-col items-center mx-auto pt-20 pb-10 relative overflow-hidden",
             ),
             app_card(),
+            bottom_links(),
             class_name="relative max-w-[71.125rem] mx-auto flex flex-col items-center justify-center w-full",
         ),
         class_name="flex flex-col items-center mx-auto w-full max-w-[84.5rem]",
