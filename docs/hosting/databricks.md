@@ -44,7 +44,7 @@ env:
   - name: "REFLEX_ACCESS_TOKEN"
     value: "your-token-here"
   - name: "DATABRICKS_WAREHOUSE_ID"
-    valueFrom: "sql_warehouse"
+    value: "your-sql-warehouse-id"
   - name: "DATABRICKS_CATALOG"
     value: "your-catalog-name"
   - name: "DATABRICKS_SCHEMA"
@@ -61,6 +61,7 @@ env:
    - Create a new token and copy the value
    - Replace `your-token-here` in the configuration
 2. **Databricks Resources**
+   - Update `DATABRICKS_WAREHOUSE_ID` with your SQL warehouse ID
    - Update `DATABRICKS_CATALOG` with your target catalog name
    - Update `DATABRICKS_SCHEMA` with your target schema name
 
@@ -103,6 +104,8 @@ app = rxe.App(
    - Configure SQL warehouse for your application
 
 ## Step 5: Set Permissions
+
+If you are using the `samples` Catalog then you can skip the permissions section.
 
 ### Catalog Permissions
 
