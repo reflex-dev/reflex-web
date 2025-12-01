@@ -12,6 +12,7 @@ from pcweb.components.icons import get_icon
 from pcweb.constants import SCREENSHOT_BUCKET
 from pcweb.flexdown import xd2 as xd
 from pcweb.pages import docs
+from pcweb.pages.gallery.gallery import integrations_stack
 from pcweb.templates.gallery_app_page import gallery_app_page
 
 GALLERY_APP_SOURCES = [
@@ -187,10 +188,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                                 "Integrations: ", class_name="text-slate-9 font-base"
                             ),
                             rx.el.div(
-                                *[
-                                    integration_image(integration)
-                                    for integration in meta.get("integrations", [])
-                                ],
+                                integrations_stack(meta.get("integrations", [])),
                                 class_name="flex flex-row gap-3.5 items-center",
                             ),
                             class_name="flex flex-row items-center gap-2 mt-2",

@@ -77,25 +77,36 @@ def app_dialog_with_trigger(
     )
 
 
-def integration_image(integration: str):
+def integration_image(integration: str, class_name: str = ""):
     integration_logo = integration.replace(" ", "_").lower()
-    return ui.tooltip(
-        trigger=ui.avatar.root(
-            ui.avatar.image(
-                src=rx.color_mode_cond(
-                    f"/integrations/light/{integration_logo}.svg",
-                    f"/integrations/dark/{integration_logo}.svg",
-                ),
-                unstyled=True,
-                class_name="size-full",
-            ),
-            ui.avatar.fallback(
-                unstyled=True,
+    return ui.avatar.root(
+        ui.avatar.image(
+            src=rx.color_mode_cond(
+                f"/integrations/light/{integration_logo}.svg",
+                f"/integrations/dark/{integration_logo}.svg",
             ),
             unstyled=True,
-            class_name="size-4.75 flex items-center justify-center",
+            class_name="size-full",
         ),
-        content=integration,
+        ui.avatar.fallback(
+            unstyled=True,
+        ),
+        unstyled=True,
+        class_name=ui.cn("size-4 flex items-center justify-center", class_name),
+    )
+
+
+def integrations_stack(integrations: list[str]) -> rx.Component:
+    return rx.el.div(
+        rx.foreach(
+            integrations,
+            lambda integration: rx.el.div(
+                integration_image(integration, class_name="size-4"),
+                title=integration,
+                class_name="size-8 shrink-0 flex justify-center items-center rounded-full shadow-small border border-secondary-a5 bg-white-1 dark:bg-secondary-1",
+            ),
+        ),
+        class_name="flex flex-row -space-x-2 flex-wrap gap-y-2",
     )
 
 
@@ -156,19 +167,17 @@ def extended_gallery_grid_item(
                     ),
                     rx.el.div(
                         rx.el.span(
-                            "App Integrations: ", class_name="text-slate-9 font-base"
+                            "App Integrations: ",
+                            class_name="text-slate-9 text-sm font-medium",
                         ),
                         rx.el.div(
-                            *[
-                                integration_image(integration)
-                                for integration in app_integrations
-                            ],
-                            class_name="flex flex-row gap-3.5 items-center",
+                            integrations_stack(app_integrations),
+                            class_name="flex flex-row gap-3.5 items-center flex-wrap",
                         ),
                         class_name="flex flex-row items-center gap-2 mt-2",
                     ),
                     class_name=(
-                        "flex flex-col w-full px-4 py-3 border-t border-m-slate-4 dark:border-m-slate-12 gap-4 relative pb-4",
+                        "flex flex-col w-full px-4 py-3 border-t border-m-slate-4 dark:border-m-slate-12 gap-2 relative pb-4",
                     ),
                 ),
                 class_name="flex flex-col w-full",
