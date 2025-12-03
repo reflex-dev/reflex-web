@@ -21,7 +21,7 @@ def header() -> rx.Component:
         ),
         rx.el.p(
             "Reflex is the only solution that gives you full flexibility while staying in the language your team knows - Python.",
-            class_name="text-slate-9 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
+            class_name="text-secondary-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
         class_name="flex flex-col gap-4 items-center mx-auto w-full relative overflow-hidden",
     )

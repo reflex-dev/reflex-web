@@ -33,7 +33,7 @@ def header() -> rx.Component:
         ),
         rx.el.p(
             "See what’s built with Reflex.",
-            class_name="text-slate-9 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
+            class_name="text-secondary-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
         class_name="flex flex-col gap-4 items-center mx-auto w-full relative overflow-hidden",
     )
@@ -46,7 +46,7 @@ def pill_item(name: str, icon: str) -> rx.Component:
         ui.icon(icon),
         rx.el.span(name),
         class_name=ui.cn(
-            "h-8 flex flex-row gap-2 items-center px-3 text-slate-9 font-medium text-sm cursor-pointer hover:bg-slate-2 transition-colors text-nowrap",
+            "h-8 flex flex-row gap-2 items-center px-3 text-secondary-11 font-medium text-sm cursor-pointer hover:bg-slate-2 transition-colors text-nowrap",
             rx.cond(is_active, active_cn, ""),
         ),
         on_click=selected_industry.set_value(name),
@@ -111,6 +111,8 @@ def app_card() -> rx.Component:
                 ("AI Workflows", "/case_studies/ai_workflow.webp"),
                 "/case_studies/analytics_dashboard.webp",
             ),
+            loading="lazy",
+            alt="Use case image",
             class_name="w-full lg:h-[33.05038rem] h-[24rem] object-cover rounded-2xl border border-slate-4 z-5 lg:p-4 bg-slate-1 object-top",
         ),
         class_name="w-full rounded-4xl lg:border border-slate-4 lg:backdrop-blur-[6px] lg:bg-slate-2/48 lg:p-4 flex relative z-1",
@@ -125,7 +127,7 @@ def bottom_link(link: str, url: str) -> rx.Component:
         ),
         get_icon(
             "chevron_right",
-            class_name="size-4 text-slate-9 group-hover:text-slate-12 group-hover:translate-x-1 transition-all duration-300",
+            class_name="size-4 text-secondary-11 group-hover:text-slate-12 group-hover:translate-x-1 transition-all duration-300",
         ),
         to=url,
         class_name="flex flex-row items-center gap-2 justify-between group h-[4rem] px-10 hover:bg-slate-2 transition-colors",

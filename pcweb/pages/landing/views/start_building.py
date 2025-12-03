@@ -20,7 +20,7 @@ def start_building() -> rx.Component:
         ),
         rx.el.h3(
             "Start building with Reflex",
-            class_name="text-slate-9 text-2xl lg:text-4xl font-semibold text-center",
+            class_name="text-secondary-11 text-2xl lg:text-4xl font-semibold text-center",
         ),
         demo_form_dialog(
             button(

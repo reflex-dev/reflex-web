@@ -1,11 +1,11 @@
 from typing import List, Optional, Union
 
 import reflex as rx
+import reflex_ui as ui
 from reflex.event import EventHandler, EventSpec
 from reflex.vars.base import get_unique_variable_name
 
 from pcweb.components.icons import get_icon
-from pcweb.components.icons.hugeicons import hi
 from pcweb.components.utils.twmerge import cn
 
 
@@ -103,7 +103,7 @@ def input(
     padding_left_cn = "pl-8" if icon else "pl-2.5"
     icon_component = (
         rx.box(
-            hi(
+            ui.icon(
                 icon,
                 class_name="!text-slate-9 pointer-events-none",
             ),

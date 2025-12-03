@@ -1,7 +1,7 @@
 import reflex as rx
+import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
 
-from pcweb.components.icons.hugeicons import hi
 from pcweb.components.icons.icons import get_icon
 
 
@@ -14,12 +14,12 @@ def install_command(
     return rx.el.button(
         rx.cond(
             copied.value,
-            hi(
-                "tick-02",
+            ui.icon(
+                "Tick02Icon",
                 size=14,
                 class_name="ml-[5px] shrink-0",
             ),
-            hi("copy-01", size=14, class_name="shrink-0 ml-[5px]"),
+            ui.icon("Copy01Icon", size=14, class_name="shrink-0 ml-[5px]"),
         ),
         rx.text(
             rx.cond(

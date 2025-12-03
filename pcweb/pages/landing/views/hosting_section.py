@@ -1,7 +1,7 @@
 import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.icons import get_icon
-from pcweb.components.icons.hugeicons import hi
 
 
 def header() -> rx.Component:
@@ -11,7 +11,7 @@ def header() -> rx.Component:
             class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none",
         ),
         rx.box(
-            hi("cloud-server", class_name="shrink-0"),
+            ui.icon("CloudServerIcon", class_name="shrink-0"),
             rx.el.span("Hosting Platform", class_name="text-sm font-semibold"),
             class_name="flex flex-row gap-2 items-center text-amber-11",
         ),
@@ -36,11 +36,13 @@ including Databricks, AWS, GCP, Azure, Snowflake and more.""",
 def feature_card(icon: str, title: str, description: str) -> rx.Component:
     return rx.box(
         rx.box(
-            get_icon(icon, class_name="!text-slate-9 !size-5"),
+            get_icon(icon, class_name="!text-secondary-11 !size-5"),
             rx.text(title, class_name="text-slate-12 text-base font-semibold"),
             class_name="flex flex-row gap-2 items-center",
         ),
-        rx.text(description, class_name="text-slate-9 font-medium text-sm text-start"),
+        rx.text(
+            description, class_name="text-secondary-11 font-medium text-sm text-start"
+        ),
         class_name="flex flex-col gap-2 w-full lg:w-[22rem] h-[8rem] px-8 py-5",
     )
 

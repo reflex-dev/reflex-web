@@ -38,7 +38,7 @@ def header() -> rx.Component:
         ),
         rx.el.p(
             "Your success, guaranteed. Real outcomes, real support",
-            class_name="lg:text-3xl text-xl font-semibold text-slate-9 text-balance",
+            class_name="lg:text-3xl text-xl font-semibold text-secondary-11 text-balance",
         ),
         class_name="flex text-center flex-col py-[3.5rem] 2xl:border-x border-t border-slate-3 max-w-[64.19rem] mx-auto w-full max-lg:border-b",
     )
@@ -139,7 +139,7 @@ def outcomes_showcase() -> rx.Component:
             ),
             rx.el.p(
                 "Everything you need to achieve your goals",
-                class_name="font-medium text-slate-9 text-center mt-2 text-base",
+                class_name="font-medium text-secondary-11 text-center mt-2 text-base",
             ),
             rx.link(
                 button(
@@ -178,7 +178,7 @@ def outcomes_card(
 def _card_header(title: str, icon: str) -> rx.Component:
     """Card header with icon and title."""
     return rx.box(
-        get_icon(icon, class_name="!text-slate-9"),
+        get_icon(icon, class_name="!text-secondary-11"),
         rx.el.h3(title, class_name="text-slate-12 text-base font-semibold"),
         class_name="flex flex-row items-center gap-2",
     )
@@ -187,7 +187,7 @@ def _card_header(title: str, icon: str) -> rx.Component:
 def _card_description(description: str) -> rx.Component:
     """Card description text."""
     return rx.el.p(
-        description, class_name="text-slate-9 font-medium text-sm text-start"
+        description, class_name="text-secondary-11 font-medium text-sm text-start"
     )
 
 

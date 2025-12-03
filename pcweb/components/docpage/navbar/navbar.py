@@ -25,10 +25,10 @@ from .search import search_bar
 def resource_item(text: str, url: str, icon: str, index):
     return rx.el.a(
         rx.box(
-            ui.icon(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
+            ui.icon(icon, size=16, class_name="flex-shrink-0 text-secondary-11"),
             rx.text(
                 text,
-                class_name="font-small text-slate-9 truncate text-start w-[150px]",
+                class_name="font-small text-secondary-11 truncate text-start w-[150px]",
             ),
             rx.icon(
                 tag="chevron_right",
@@ -38,7 +38,7 @@ def resource_item(text: str, url: str, icon: str, index):
             ),
             class_name="flex flex-row flex-nowrap items-center gap-4 hover:bg-secondary-3 px-[1.125rem] py-2 rounded-md w-full transition-colors",
         ),
-        class_name="w-full text-slate-9 hover:text-slate-9",
+        class_name="w-full text-secondary-11 hover:text-secondary-11",
         to=url,
         on_click=SidebarState.set_sidebar_index(index),
     )
@@ -104,7 +104,7 @@ def blog_section_item(date: str, title: str, url: str) -> rx.Component:
             rx.moment(
                 date,
                 format="MMM DD, YYYY",
-                class_name="font-medium font-size-[0.8125rem] text-slate-9 truncate leading-[1.25rem] tracking-[-0.01013rem]",
+                class_name="font-medium font-size-[0.8125rem] text-secondary-11 truncate leading-[1.25rem] tracking-[-0.01013rem]",
             ),
             rx.box(
                 rx.text(
@@ -167,7 +167,7 @@ def blog_section() -> rx.Component:
                         rx.box(
                             rx.text(
                                 "View all",
-                                class_name="font-small text-slate-9 truncate",
+                                class_name="font-small text-secondary-11 truncate",
                             ),
                             rx.icon(
                                 tag="chevron-right",
@@ -218,12 +218,12 @@ def grid_card(
         rx.box(
             rx.text(title, class_name="text-slate-12 text-base font-semibold"),
             rx.el.button(
-                rx.icon("chevron-right", class_name="text-slate-9 size-4"),
+                rx.icon("chevron-right", class_name="text-secondary-11 size-4"),
                 class_name="size-6 group-hover:bg-secondary-3 transition-colors rounded-md flex items-center justify-center",
             ),
             class_name="flex flex-row items-center gap-2 justify-between",
         ),
-        rx.text(description, class_name="text-slate-9 text-sm font-medium"),
+        rx.text(description, class_name="text-secondary-11 text-sm font-medium"),
         rx.image(
             src=image,
             class_name=image_style,
@@ -238,12 +238,12 @@ def grid_card_unique(title: str, description: str, url: str, component) -> rx.Co
         rx.box(
             rx.text(title, class_name="text-slate-12 text-base font-semibold"),
             rx.el.button(
-                rx.icon("chevron-right", class_name="text-slate-9 size-4"),
+                rx.icon("chevron-right", class_name="text-secondary-11 size-4"),
                 class_name="size-6 group-hover:bg-slate-3 transition-bg rounded-md flex items-center justify-center",
             ),
             class_name="flex flex-row items-center gap-2 justify-between",
         ),
-        rx.text(description, class_name="text-slate-9 text-sm font-medium"),
+        rx.text(description, class_name="text-secondary-11 text-sm font-medium"),
         component,
         href=url,
         is_external=True,
@@ -359,6 +359,7 @@ def new_menu_trigger(
             rx.icon(
                 "chevron-down",
                 class_name="chevron size-5 !text-secondary-11 group-hover:!text-secondary-12 py-1 mr-0 transition-all ease-out",
+                aria_hidden="true",
             ),
             class_name="flex-row items-center gap-x-1 group user-select-none cursor-pointer xl:flex hidden",
             on_click=rx.stop_propagation,
@@ -368,6 +369,7 @@ def new_menu_trigger(
                 "transform": "rotate(180deg)",
             },
         },
+        aria_label=f"{title} menu",
         unstyled=True,
     )
 
@@ -449,7 +451,7 @@ def new_component_section() -> rx.Component:
                 rx.State.router.page.path.contains("docs")
                 | rx.State.router.page.path.contains("ai-builder")
                 | rx.State.router.page.path.contains("cloud"),
-                rx.el.div(
+                ui.navigation_menu.list(
                     ui.navigation_menu.item(
                         render_=link_item(
                             "AI Builder",
@@ -475,7 +477,7 @@ def new_component_section() -> rx.Component:
                     ),
                     class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
                 ),
-                rx.el.div(
+                ui.navigation_menu.list(
                     ui.navigation_menu.item(
                         render_=link_item(
                             "AI Builder",
@@ -528,6 +530,7 @@ def new_component_section() -> rx.Component:
                 unstyled=True,
             ),
             class_name="flex flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
+            custom_attrs={"role": "menubar"},
         ),
         ui.navigation_menu.list(
             ui.navigation_menu.item(search_bar()),
@@ -565,6 +568,7 @@ def new_component_section() -> rx.Component:
                 unstyled=True,
             ),
             class_name="flex flex-row gap-2 m-0 h-full list-none items-center",
+            custom_attrs={"role": "menubar"},
         ),
         ui.navigation_menu.portal(
             ui.navigation_menu.positioner(

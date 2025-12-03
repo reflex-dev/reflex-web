@@ -14,17 +14,25 @@ def video_demo() -> rx.Component:
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 z-[2] group-hover:scale-110 transition-transform duration-300 backdrop rounded-full bg-slate-10 size-10 flex items-center justify-center",
                 ),
                 rx.image(
-                    "/landing/video/preview_video.webp",
-                    class_name="object-cover size-full scale-110",
+                    "/landing/video/preview_video.avif",
+                    loading="lazy",
+                    alt="Reflex video preview",
+                    class_name="object-cover size-full",
                 ),
                 rx.el.span(
                     class_name="inset-0 size-full absolute z-[1] bg-[#00000008] backdrop-blur-[0.1px] rounded-lg",
                 ),
                 class_name="shadow-small aspect-video rounded-xl overflow-hidden cursor-pointer relative isolate group border border-slate-4",
+                custom_attrs={
+                    "role": "button",
+                    "aria-label": "Play Reflex demo video",
+                },
             ),
             content=rx.el.div(
                 rx.image(
                     "/logo.jpg",
+                    loading="lazy",
+                    alt="Reflex logo",
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 z-[-1] rounded-md",
                 ),
                 rx.video(

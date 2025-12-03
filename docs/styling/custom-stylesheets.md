@@ -137,12 +137,12 @@ This package is included in the default Reflex installation, so you typically do
 
 You can take advantage of Reflex's support for custom stylesheets to add custom fonts to your app.
 
-In this example, we will use the [IBM Plex Mono]({"https://fonts.google.com/specimen/IBM+Plex+Mono"}) font from Google Fonts. First, add the stylesheet with the font to your app. You can get this link from the "Get embed code" section of the Google font page.
+In this example, we will use the [JetBrains Mono]({"https://fonts.google.com/specimen/JetBrains+Mono"}) font from Google Fonts. First, add the stylesheet with the font to your app. You can get this link from the "Get embed code" section of the Google font page.
 
 ```python
 app = rx.App(
     stylesheets=[
-        "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap",
+        "https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap",
     ],
 )
 ```
@@ -152,7 +152,7 @@ Then you can use the font in your component by setting the `font_family` prop.
 ```python demo
 rx.text(
     "Check out my font",
-    font_family="IBM Plex Mono",
+    font_family="JetBrains Mono",
     font_size="1.5em",
 )
 ```

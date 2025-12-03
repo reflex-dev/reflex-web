@@ -6,12 +6,16 @@ from pcweb.constants import CONTRIBUTORS, DISCORD_USERS, GITHUB_STARS
 
 
 def stat_card(
-    stat: str, text: str, icon: str, class_name: str = "", color: str = "!text-slate-9"
+    stat: str,
+    text: str,
+    icon: str,
+    class_name: str = "",
+    color: str = "!text-secondary-11",
 ) -> rx.Component:
     return rx.box(
         rx.box(
             get_icon(icon, class_name=color),
-            rx.text(text, class_name="font-base text-slate-9"),
+            rx.text(text, class_name="font-base text-secondary-11"),
             class_name="flex flex-row gap-2 items-center",
         ),
         rx.text(stat, class_name="font-x-large text-slate-12"),

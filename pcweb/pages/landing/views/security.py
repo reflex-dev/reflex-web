@@ -22,7 +22,7 @@ def security():
                 ),
                 rx.el.h3(
                     "SOC 2 compliant with enterprise-grade security and flexible deployment options.",
-                    class_name="text-slate-9 text-lg lg:text-2xl font-semibold text-start",
+                    class_name="text-secondary-11 text-lg lg:text-2xl font-semibold text-start",
                 ),
                 class_name="flex flex-col gap-2 lg:col-span-2 p-10 max-lg:border-b border-slate-3",
             ),

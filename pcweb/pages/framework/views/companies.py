@@ -25,7 +25,7 @@ def companies() -> rx.Component:
         rx.box(
             rx.el.span(
                 "Trusted by industry leading teams",
-                class_name="px-2 py-0.5 font-small text-center text-slate-9",
+                class_name="px-2 py-0.5 font-small text-center text-secondary-11",
             ),
             class_name="flex flex-row justify-center items-center w-full",
         ),

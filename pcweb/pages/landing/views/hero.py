@@ -139,6 +139,7 @@ def integration_text(text: str, integration: str) -> rx.Component:
     return rx.el.span(
         rx.image(
             src=f"/landing/integrations/light/{integration}.svg",
+            alt=f"{integration} integration light icon",
             class_name="size-7 pointer-events-none shrink-0 inline-block align-text-bottom",
         ),
         rx.el.span(
@@ -153,10 +154,12 @@ def integration_text_light_dark(text: str, integration: str) -> rx.Component:
     return rx.el.span(
         rx.image(
             src=f"/landing/integrations/light/{integration}.svg",
+            alt=f"{integration} integration light icon",
             class_name="size-7 pointer-events-none shrink-0 inline-block align-text-bottom dark:hidden",
         ),
         rx.image(
             src=f"/landing/integrations/dark/{integration}.svg",
+            alt=f"{integration} integration dark icon",
             class_name="size-7 pointer-events-none shrink-0 align-text-bottom hidden dark:inline-block",
         ),
         rx.el.span(
@@ -239,7 +242,7 @@ def prompt_box() -> rx.Component:
                         ),
                         class_name="animate-[prompt-box-line] animate-duration-[200ms] animate-ease-out origin-left absolute top-23 left-5 h-10 animate-delay-400 animate-fill-both pointer-events-none",
                     ),
-                    class_name="text-slate-11 dark:text-slate-9 text-xl leading-[2.5rem] font-medium cursor-text max-lg:hidden",
+                    class_name="text-slate-11 dark:text-secondary-11 text-xl leading-[2.5rem] font-medium cursor-text max-lg:hidden",
                 ),
                 rx.el.div(
                     rx.el.textarea(
@@ -256,7 +259,7 @@ def prompt_box() -> rx.Component:
                         min_length=5,
                         auto_height=True,
                         enter_key_submit=True,
-                        class_name="text-slate-12 text-xl font-medium size-full placeholder:text-slate-9 border-none focus:border-none focus:outline-none outline-none resize-none caret-slate-12 mt-2 resize-none w-full [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-grayA-3 [&::-webkit-scrollbar-thumb]:bg-slate-7 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full bg-transparent min-h-[2.5rem] max-h-[10.5rem]",
+                        class_name="text-slate-12 text-xl font-medium size-full placeholder:text-secondary-11 border-none focus:border-none focus:outline-none outline-none resize-none caret-slate-12 mt-2 resize-none w-full [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-grayA-3 [&::-webkit-scrollbar-thumb]:bg-slate-7 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full bg-transparent min-h-[2.5rem] max-h-[10.5rem]",
                     ),
                     rx.el.div(
                         uploaded_file_display(),
@@ -288,7 +291,7 @@ def prompt_box() -> rx.Component:
                     type="button",
                     variant="ghost",
                     on_click=show_default_prompt.set_value(False),
-                    class_name="rounded-[10px] font-semibold text-slate-10 dark:text-slate-9",
+                    class_name="rounded-[10px] font-semibold text-slate-10 dark:text-secondary-11",
                 ),
                 on_drop=SubmitPromptState.handle_upload(
                     rx.upload_files(
@@ -307,6 +310,7 @@ def prompt_box() -> rx.Component:
                 max_size=MAX_FILE_SIZE_BYTES,
                 multiple=True,
                 id="upload-image-button",
+                aria_label="Upload images",
             ),
             ui.button(
                 "Build Your App",
@@ -347,7 +351,7 @@ def hero() -> rx.Component:
             ),
             rx.el.h2(
                 "A unified platform to build and deploy all in Python.",
-                class_name="text-secondary-10 lg:text-lg text-md font-medium text-center max-lg:text-pretty",
+                class_name="text-secondary-11 lg:text-lg text-md font-medium text-center max-lg:text-pretty",
             ),
             class_name="flex flex-col items-center justify-center gap-3",
         ),

@@ -25,7 +25,7 @@ def header() -> rx.Component:
         ),
         rx.el.p(
             "A complete infrastructure for your apps.",
-            class_name="text-slate-9 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
+            class_name="text-secondary-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
         class_name="flex flex-col gap-4 items-center mx-auto w-full relative overflow-hidden",
     )
@@ -66,6 +66,8 @@ def deploy_card() -> rx.Component:
             ),
             rx.image(
                 f"/landing/deploy/{rx.color_mode_cond('light', 'dark')}/deploy_visual.webp",
+                loading="lazy",
+                alt="Deploy visual",
                 class_name="h-[8.5rem] w-auto ml-[6rem] z-[1] block",
             ),
             class_name="relative flex flex-col max-lg:hidden",
@@ -77,11 +79,13 @@ def deploy_card() -> rx.Component:
             ),
             rx.el.span(
                 "Performant, secure, and scalable.",
-                class_name="text-slate-9 lg:text-3xl text-2xl font-semibold",
+                class_name="text-secondary-11 lg:text-3xl text-2xl font-semibold",
             ),
             rx.el.div(
                 rx.image(
                     src="/hosting_graphing.svg",
+                    loading="lazy",
+                    alt="Hosting graphing",
                     class_name="w-auto h-[1.95rem]",
                 ),
                 ui.link(
@@ -105,11 +109,13 @@ def deploy_card() -> rx.Component:
 def feature_card(icon: str, title: str, description: str) -> rx.Component:
     return rx.box(
         rx.box(
-            get_icon(icon, class_name="!text-slate-9 !size-5"),
+            get_icon(icon, class_name="!text-secondary-11 !size-5"),
             rx.text(title, class_name="text-slate-12 text-base font-semibold"),
             class_name="flex flex-row gap-2 items-center",
         ),
-        rx.text(description, class_name="text-slate-9 font-medium text-sm text-start"),
+        rx.text(
+            description, class_name="text-secondary-11 font-medium text-sm text-start"
+        ),
         class_name="flex flex-col gap-2 w-full lg:w-[22.05rem] h-[8rem] px-8 py-5",
     )
 
@@ -135,7 +141,9 @@ def security_badges() -> rx.Component:
                         "AICPA",
                         class_name="text-violet-9 text-base font-semibold",
                     ),
-                    rx.el.span("SOC 2", class_name="text-slate-9 text-sm font-medium"),
+                    rx.el.span(
+                        "SOC 2", class_name="text-secondary-11 text-sm font-medium"
+                    ),
                     class_name="flex flex-col items-center justify-center",
                 ),
                 security_page.path,
@@ -144,10 +152,12 @@ def security_badges() -> rx.Component:
                 rx.el.div(
                     rx.image(
                         src="/landing/integrations/light/databricks.svg",
+                        loading="lazy",
+                        alt="Databricks logo",
                         class_name="h-[24px] w-auto pb-0.5",
                     ),
                     rx.el.span(
-                        "Partner", class_name="text-slate-9 text-sm font-medium"
+                        "Partner", class_name="text-secondary-11 text-sm font-medium"
                     ),
                     class_name="flex flex-col items-center justify-center",
                 ),
@@ -169,7 +179,7 @@ def security() -> rx.Component:
                 ),
                 rx.el.h3(
                     "SOC 2 compliant with enterprise-grade security and flexible deployment options.",
-                    class_name="text-slate-9 text-lg lg:text-2xl font-semibold lg:text-start text-center text-balance",
+                    class_name="text-secondary-11 text-lg lg:text-2xl font-semibold lg:text-start text-center text-balance",
                 ),
                 class_name="flex flex-col lg:col-span-2 p-10 max-lg:border-b border-slate-3",
             ),
@@ -213,10 +223,14 @@ def deploy_content() -> rx.Component:
         rx.box(
             rx.image(
                 src="/landing/hosting_features/light/card.webp",
+                loading="lazy",
+                alt="Hosting features card",
                 class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:hidden",
             ),
             rx.image(
                 src="/landing/hosting_features/dark/card.webp",
+                loading="lazy",
+                alt="Hosting features card",
                 class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:block hidden",
             ),
             class_name="justify-center items-center relative overflow-hidden w-full lg:flex hidden",

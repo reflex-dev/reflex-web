@@ -90,6 +90,10 @@ SOCIALS_2 = [
 
 
 def social_card(social: Social) -> rx.Component:
+    aria_label = f"Read {social.name}'s testimonial"
+    if social.url and "ycombinator.com" in social.url:
+        aria_label = f"Read {social.name}'s full post on Hacker News"
+
     return rx.el.div(
         social.text,
         rx.el.div(
@@ -100,6 +104,8 @@ def social_card(social: Social) -> rx.Component:
             if not social.avatar
             else rx.image(
                 src=social.avatar,
+                loading="lazy",
+                alt="Social avatar",
                 class_name="size-9 rounded-full",
             ),
             rx.el.div(
@@ -118,6 +124,7 @@ def social_card(social: Social) -> rx.Component:
                 to=social.url,
                 target="_blank",
                 class_name="absolute inset-0",
+                custom_attrs={"aria-label": aria_label},
             ),
             ui.icon(
                 "ArrowUpRight01Icon",

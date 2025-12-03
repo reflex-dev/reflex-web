@@ -154,6 +154,7 @@ def navbar_sidebar_button() -> rx.Component:
                     },
                     class_name="!text-slate-9 shrink-0",
                 ),
+                custom_attrs={"aria-label": "Open sidebar"},
             ),
         ),
         class_name="flex justify-center items-center size-8",

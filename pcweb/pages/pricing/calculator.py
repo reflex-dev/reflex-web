@@ -2,8 +2,6 @@ import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
 
-from pcweb.components.tabs import tabs
-
 collapsed_calculator_cs = ClientStateVar.create("collapsed_calculator", default=True)
 
 CREDITS_PER_HOUR_CPU = 0.2
@@ -136,27 +134,27 @@ def month_table(cost_text: str) -> rx.Component:
 
 def compute_table() -> rx.Component:
     return rx.box(
-        tabs.root(
+        ui.tabs.root(
             rx.box(
                 learn_more(),
-                tabs.list(
-                    tabs.tab(
+                ui.tabs.list(
+                    ui.tabs.tab(
                         "Per min",
                         value="min",
                     ),
-                    tabs.tab(
+                    ui.tabs.tab(
                         "Per hour",
                         value="hour",
                     ),
-                    tabs.indicator(),
+                    ui.tabs.indicator(),
                 ),
                 class_name="flex flex-col lg:flex-row gap-4 items-center justify-center lg:justify-between p-6 border-b border-slate-4",
             ),
-            tabs.panel(
+            ui.tabs.panel(
                 min_table("Credits / min", description=True),
                 value="min",
             ),
-            tabs.panel(
+            ui.tabs.panel(
                 hour_table("Credits / hour", description=True),
                 value="hour",
             ),
@@ -169,7 +167,7 @@ def compute_table() -> rx.Component:
 
 def compute_table_base() -> rx.Component:
     return rx.box(
-        tabs.root(
+        ui.tabs.root(
             rx.box(
                 rx.vstack(
                     rx.el.h3(
@@ -180,24 +178,24 @@ def compute_table_base() -> rx.Component:
                     justify_content="center`",
                 ),
                 rx.spacer(),
-                tabs.list(
-                    tabs.tab(
+                ui.tabs.list(
+                    ui.tabs.tab(
                         "Per min",
                         value="min",
                     ),
-                    tabs.tab(
+                    ui.tabs.tab(
                         "Per hour",
                         value="hour",
                     ),
-                    tabs.indicator(),
+                    ui.tabs.indicator(),
                 ),
                 class_name="flex flex-row gap-2 items-center justify-end pb-6 border-b border-slate-4",
             ),
-            tabs.panel(
+            ui.tabs.panel(
                 min_table("Credits / min"),
                 value="min",
             ),
-            tabs.panel(
+            ui.tabs.panel(
                 hour_table("Credits / hour"),
                 value="hour",
             ),

@@ -41,7 +41,7 @@ def numbers_pattern(
     position_class = "left-0" if side == "left" else "right-0"
     light_dark_path = rx.color_mode_cond("light", "dark")
 
-    src = f"/landing/patterns/{light_dark_path}/numbers-pattern.webp"
+    src = f"/landing/patterns/{light_dark_path}/numbers-pattern.avif"
 
     # Determine if we need to flip: right side XOR reverse
     # - right side normally flips
@@ -89,11 +89,14 @@ def numbers_pattern(
             src=src,
             class_name="pointer-events-none w-full h-full absolute inset-0 object-cover",
             style=image_style,
+            alt="Numbers pattern",
+            loading="eager",
+            custom_attrs={"fetchPriority": "high"},
         ),
         # Layer 2: Masked animated ellipses
         rx.el.div(
             _ellipses(side=side, reverse_animation=reverse),
-            class_name="absolute inset-0 w-full h-full",
+            class_name="absolute inset-0 w-full h-full max-lg:hidden",
             style=ellipses_mask_style,
         ),
         class_name=ui.cn(
