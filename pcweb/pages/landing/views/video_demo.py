@@ -31,7 +31,7 @@ def video_demo() -> rx.Component:
                 ),
                 rx.el.span(
                     "The first AI agent to build internal Python enterprise apps.",
-                    class_name="inline text-slate-9 font-medium text-xl",
+                    class_name="inline text-secondary-11 font-medium text-xl",
                 ),
                 class_name="flex flex-col gap-1.5",
             ),
@@ -49,10 +49,12 @@ def video_demo() -> rx.Component:
                 ),
                 rx.image(
                     "/landing/video/dark/video_demo_dark.webp",
+                    loading="lazy",
                     class_name="object-cover size-full dark:block hidden scale-110",
                 ),
                 rx.image(
                     "/landing/video/light/video_demo_light.webp",
+                    loading="lazy",
                     class_name="object-cover size-full dark:hidden block scale-110",
                 ),
                 rx.el.span(
@@ -63,6 +65,7 @@ def video_demo() -> rx.Component:
             content=rx.box(
                 rx.image(
                     "/logo.jpg",
+                    loading="lazy",
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 z-[-1] rounded-md",
                 ),
                 rx.video(

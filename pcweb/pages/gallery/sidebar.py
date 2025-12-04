@@ -186,7 +186,7 @@ def sidebar() -> rx.Component:
                 class_name="flex flex-row items-center gap-2 justify-between",
             ),
             input(
-                icon="search-01",
+                icon="Search01Icon",
                 placeholder="Search...",
                 class_name="w-full",
                 on_change=TemplatesState.set_query.debounce(300),

@@ -333,6 +333,8 @@ def search_trigger() -> rx.Component:
         variant="outline",
         size="sm",
         class_name="md:w-full text-secondary-11",
+        id="search-trigger",
+        custom_attrs={"aria-label": "Search documentation"},
     )
 
 

@@ -100,6 +100,8 @@ def social_card(social: Social) -> rx.Component:
             if not social.avatar
             else rx.image(
                 src=social.avatar,
+                loading="lazy",
+                alt="Social avatar",
                 class_name="size-9 rounded-full",
             ),
             rx.el.div(
@@ -118,6 +120,7 @@ def social_card(social: Social) -> rx.Component:
                 to=social.url,
                 target="_blank",
                 class_name="absolute inset-0",
+                custom_attrs={"aria-label": f"Read {social.name}'s testimonial"},
             ),
             ui.icon(
                 "ArrowUpRight01Icon",

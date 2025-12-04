@@ -17,7 +17,7 @@ def header() -> rx.Component:
         ),
         rx.el.p(
             "Build entire app flow using powerful integrations.",
-            class_name="text-slate-9 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
+            class_name="text-secondary-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
         class_name="flex flex-col gap-4 items-center mx-auto w-full relative overflow-hidden",
     )
@@ -40,6 +40,8 @@ def intregation_card(
         rx.el.div(
             rx.image(
                 src=first_light_dark_path,
+                loading="lazy",
+                alt=f"{first_integration} integration icon",
                 class_name="size-7 pointer-events-none shrink-0",
             ),
             class_name=ui.cn(
@@ -51,6 +53,8 @@ def intregation_card(
         rx.el.div(
             rx.image(
                 src=second_light_dark_path,
+                loading="lazy",
+                alt=f"{second_integration} integration icon",
                 class_name="size-7 pointer-events-none shrink-0",
             ),
             class_name=ui.cn(
@@ -103,6 +107,8 @@ def r_logo_card() -> rx.Component:
         rx.el.div(
             rx.image(
                 src="/landing/integrations/light/r_logo.svg",
+                loading="lazy",
+                alt="R logo integration icon",
                 class_name="h-8 w-autopointer-events-none shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
             ),
             class_name="size-15 rounded-lg border border-slate-5 dark:border-[#1C2024] shadow-large bg-white-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]",

@@ -35,6 +35,8 @@ def integration_card(icon: str, class_name: str = ""):
     return rx.el.div(
         rx.image(
             src=f"/landing/integrations/light/{icon}.svg",
+            loading="lazy",
+            alt=f"{icon} integration icon",
             class_name="size-7 pointer-events-none shrink-0",
         ),
         class_name=ui.cn(
@@ -48,10 +50,14 @@ def integration_card_light_dark(icon: str, class_name: str = ""):
     return rx.el.div(
         rx.image(
             src=f"/landing/integrations/light/{icon}.svg",
+            loading="lazy",
+            alt=f"{icon} integration icon",
             class_name="size-7 pointer-events-none shrink-0 dark:hidden",
         ),
         rx.image(
             src=f"/landing/integrations/dark/{icon}.svg",
+            loading="lazy",
+            alt=f"{icon} integration icon",
             class_name="size-7 pointer-events-none shrink-0 hidden dark:block",
         ),
         class_name=ui.cn(
@@ -80,6 +86,8 @@ def user_profile():
         rx.el.div(
             rx.image(
                 src="/landing/app_build/user.webp",
+                loading="lazy",
+                alt="User profile image",
                 class_name="object-cover pointer-events-none",
             ),
             class_name="size-10 bg-violet-5 dark:bg-[#E1D9FF] rounded-full border border-violet-7 overflow-hidden",
@@ -88,7 +96,7 @@ def user_profile():
             "Amelia Wong",
             class_name="text-slate-12 text-sm font-semibold",
         ),
-        get_icon("arrow-fill-down", class_name="size-4 text-slate-9 -ml-2"),
+        get_icon("arrow-fill-down", class_name="size-4 text-secondary-11 -ml-2"),
         class_name=f"flex flex-row items-center gap-4 animate-slide-in-left animate-duration-{DURATION_USER_PROFILE} animate-ease-out animate-delay-{DELAY_USER_PROFILE}",
     )
 
@@ -98,6 +106,8 @@ def slack_alert():
         rx.el.div(
             rx.image(
                 src="/landing/integrations/light/slack.svg",
+                loading="lazy",
+                alt="Slack integration icon",
                 class_name="size-full pointer-events-none shrink-0 object-cover",
             ),
             class_name="size-9 bg-white-1 dark:bg-white rounded-[8px] border-[0.5px] border-slate-6 dark:border-[#1C2024] overflow-hidden flex justify-center items-center p-1 shadow-small shrink-0",
@@ -117,7 +127,7 @@ def slack_alert():
         ),
         rx.el.span(
             "now",
-            class_name="absolute top-3 right-2 text-xs text-slate-7 dark:text-slate-9 font-medium",
+            class_name="absolute top-3 right-2 text-xs text-slate-7 dark:text-secondary-11 font-medium",
         ),
         style={
             "box-shadow": "0 25px 7px 0 rgba(0, 0, 0, 0.00), 0 16px 6px 0 rgba(0, 0, 0, 0.01), 0 9px 5px 0 rgba(0, 0, 0, 0.03), 0 4px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.05)"
@@ -196,10 +206,15 @@ def metrics_header():
 def metrics_content():
     def metrics_row(name: str, value: str, time: str):
         return rx.el.div(
-            rx.el.span(name, class_name="text-slate-9 text-sm font-medium w-[72px]"),
-            rx.el.span(value, class_name="text-slate-9 text-sm font-medium w-[46px]"),
             rx.el.span(
-                time, class_name="text-slate-9 text-sm font-medium text-end ml-auto"
+                name, class_name="text-secondary-11 text-sm font-medium w-[72px]"
+            ),
+            rx.el.span(
+                value, class_name="text-secondary-11 text-sm font-medium w-[46px]"
+            ),
+            rx.el.span(
+                time,
+                class_name="text-secondary-11 text-sm font-medium text-end ml-auto",
             ),
             class_name="flex flex-row items-center h-[48px] px-6 py-4 gap-4",
         )
@@ -239,7 +254,7 @@ def graph_y_axis():
             rx.el.div(
                 rx.el.span(
                     f"{i}",
-                    class_name="text-slate-9 text-xs font-medium",
+                    class_name="text-secondary-11 text-xs font-medium",
                 ),
                 rx.el.div(
                     class_name="h-[0.5px] bg-slate-3 w-[524px] absolute left-10 top-1/2 -translate-y-1/2",
@@ -318,7 +333,7 @@ def graph_overview():
                 "24 June ",
                 rx.el.span(" - ", class_name="text-slate-8 ml-0.5"),
                 " Today",
-                class_name="text-slate-10 dark:text-slate-9 text-sm font-medium rounded-lg px-3.5 h-8 border border-slate-4 dark:border-[#1C2024] bg-white-1 flex items-center",
+                class_name="text-slate-10 dark:text-secondary-11 text-sm font-medium rounded-lg px-3.5 h-8 border border-slate-4 dark:border-[#1C2024] bg-white-1 flex items-center",
             ),
             class_name="flex flex-row justify-between items-baseline w-full",
         ),

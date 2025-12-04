@@ -17,7 +17,7 @@ def header() -> rx.Component:
         ),
         rx.el.p(
             "Build production-ready web apps in seconds with AI-powered code generation.",
-            class_name="text-slate-9 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
+            class_name="text-secondary-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
         class_name="flex flex-col gap-4 items-center mx-auto w-full relative overflow-hidden",
     )
@@ -38,7 +38,7 @@ def frontend_card(
                 ),
                 rx.el.p(
                     description,
-                    class_name="text-base font-medium text-slate-9 z-[1] text-pretty",
+                    class_name="text-base font-medium text-secondary-11 z-[1] text-pretty",
                 ),
                 class_name="flex flex-col gap-2 px-10 pt-10",
             ),
@@ -70,23 +70,23 @@ def bento_cards() -> rx.Component:
                 "Generate and refine UI and backend in 100% Python.\n"
                 "No JavaScript or frontend frameworks required"
             ),
-            image="bento1.webp",
+            image="bento1.avif",
             cols="2",
         ),
         frontend_card(
             title="Integrate With Tools",
             description="Over 100+ integrations are available.",
-            image="bento2.webp",
+            image="bento2.avif",
         ),
         frontend_card(
             title="Research Web",
             description="Reflex AI finds the best way to implement new features and fix your code.",
-            image="bento3.webp",
+            image="bento3.avif",
         ),
         frontend_card(
             title="Build with Visual References",
             description="Pass it screenshots, and even video, Figma design",
-            image="bento4.webp",
+            image="bento4.avif",
             cols="2",
         ),
         frontend_card(
@@ -94,7 +94,7 @@ def bento_cards() -> rx.Component:
             description=(
                 "Reflex simulates real users interaction and debugs the app for you."
             ),
-            image="bento5.webp",
+            image="bento5.avif",
             cols="2",
         ),
         class_name="grid grid-cols-1 lg:grid-cols-4 gap-4 grid-rows-2 max-w-[84.5rem]",

@@ -15,7 +15,9 @@ def frontend_card(
     return rx.box(
         rx.box(
             rx.el.h2(title, class_name="font-large text-slate-12 z-[1]"),
-            rx.el.p(description, class_name="font-base text-slate-9 z-[1] text-pretty"),
+            rx.el.p(
+                description, class_name="font-base text-secondary-11 z-[1] text-pretty"
+            ),
             class_name="flex flex-col gap-2 px-10 pt-10",
         ),
         rx.image(

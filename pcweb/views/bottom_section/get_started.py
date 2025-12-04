@@ -49,7 +49,7 @@ def code_block() -> rx.Component:
         rx.box(
             rx.text(
                 "Need help? Learn how to use Reflex.",
-                class_name="font-small text-slate-9",
+                class_name="font-small text-secondary-11",
             ),
             ui.link(
                 render_=ui.button(

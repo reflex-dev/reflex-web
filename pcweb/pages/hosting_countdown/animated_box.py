@@ -153,7 +153,7 @@ def status_badge(icon: str, text: str, class_name: str = ""):
                 class_name="h-4 w-4 shrink-0",
             )
         ),
-        rx.text(text, class_name="text-xs font-medium text-slate-9"),
+        rx.text(text, class_name="text-xs font-medium text-secondary-11"),
         class_name=f"flex h-5 p-[0rem_0.375rem_0rem_0.125rem] items-center gap-0.5 rounded-[0.375rem] border border-slate-5 bg-slate-1 {class_name}",
     )
 
@@ -201,7 +201,7 @@ def terminal_box():
             # Terminal text
             rx.text(
                 "terminal",
-                class_name="text-slate-9 text-xs font-medium text-center leading-4",
+                class_name="text-secondary-11 text-xs font-medium text-center leading-4",
             ),
             class_name="flex p-[0.25rem_8.5rem_0.25rem_0.5rem] items-center gap-[6.0625rem] self-stretch",
         ),

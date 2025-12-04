@@ -18,7 +18,7 @@ def header() -> rx.Component:
         ),
         rx.el.p(
             "Build powerful data-driven apps with seamless integrations to APIs, databases, Python libraries, and file formats.",
-            class_name="text-slate-9 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
+            class_name="text-secondary-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
         class_name="flex flex-col gap-4 items-center mx-auto w-full relative overflow-hidden",
     )
@@ -27,8 +27,8 @@ def header() -> rx.Component:
 def connect_card(icon: str, title: str, description: str) -> rx.Component:
     return rx.el.div(
         rx.el.div(
-            get_icon(icon, class_name="shrink-0 !text-slate-9 size-5"),
-            rx.el.span(title, class_name="text-sm font-medium text-slate-10"),
+            get_icon(icon, class_name="shrink-0 !text-secondary-11 size-5"),
+            rx.el.span(title, class_name="text-sm font-medium text-secondary-11"),
             class_name="flex flex-row gap-2 items-center",
         ),
         rx.el.p(

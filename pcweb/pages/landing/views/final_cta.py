@@ -13,7 +13,7 @@ def content() -> rx.Component:
         ),
         rx.el.h3(
             "All in one platform in Python",
-            class_name="text-slate-9 lg:text-4xl text-3xl font-semibold text-center",
+            class_name="text-secondary-11 lg:text-4xl text-3xl font-semibold text-center",
         ),
         ui.link(
             render_=ui.button(

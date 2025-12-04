@@ -17,7 +17,7 @@ def header() -> rx.Component:
         ),
         rx.el.p(
             "Companies of all sizes trust Reflex to build internal tools and customer-facing apps.",
-            class_name="text-slate-9 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
+            class_name="text-secondary-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
         ),
         class_name="flex flex-col gap-4 items-center mx-auto w-full relative overflow-hidden",
     )
@@ -31,6 +31,8 @@ def enterprise_card(image: str, name: str, stat: str, text: str) -> rx.Component
             rx.image(
                 src=f"/customers/{rx.color_mode_cond('light', 'dark')}{image}",
                 class_name="w-auto h-[1.875rem]",
+                loading="lazy",
+                alt=f"{name} logo",
             ),
             rx.el.span(
                 name,
@@ -49,7 +51,7 @@ def enterprise_card(image: str, name: str, stat: str, text: str) -> rx.Component
                 ),
                 rx.el.span(
                     f" {rest_of_text}",
-                    class_name="text-slate-10 text-base font-medium",
+                    class_name="text-secondary-11 text-base font-medium",
                 ),
                 class_name="inline-block",
             ),

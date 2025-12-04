@@ -17,16 +17,20 @@ def product_card(
     return rx.el.div(
         rx.el.div(
             rx.el.span(title, class_name="text-slate-12 text-xl font-semibold"),
-            rx.el.span(description, class_name="text-slate-9 text-sm font-medium"),
+            rx.el.span(description, class_name="text-secondary-11 text-sm font-medium"),
             class_name="flex flex-col gap-2 px-10 pt-10",
         ),
         rx.el.div(
             rx.image(
-                src=f"/landing/products/light/product_{graphic}.webp",
+                src=f"/landing/products/light/product_{graphic}.avif",
+                loading="lazy",
+                alt=f"{name} product image light",
                 class_name="w-auto pointer-events-none block dark:hidden",
             ),
             rx.image(
-                src=f"/landing/products/dark/product_{graphic}.webp",
+                src=f"/landing/products/dark/product_{graphic}.avif",
+                loading="lazy",
+                alt=f"{name} product image dark",
                 class_name="w-auto pointer-events-none hidden dark:block",
             ),
             class_name="w-full max-h-[17.25rem] h-full overflow-hidden",
@@ -38,7 +42,7 @@ def product_card(
             ),
             get_icon(
                 "chevron_right",
-                class_name="size-4 text-slate-9 group-hover:text-slate-12 group-hover:translate-x-1 transition-all duration-300",
+                class_name="size-4 text-secondary-11 group-hover:text-slate-12 group-hover:translate-x-1 transition-all duration-300",
             ),
             to=url,
             class_name="flex flex-row items-center gap-2 justify-between group h-[4rem] px-10 hover:bg-slate-2 transition-colors border-t max-lg:border-b border-slate-3",

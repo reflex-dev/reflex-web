@@ -6,7 +6,6 @@ config = rx.Config(
     app_name="pcweb",
     deploy_url="https://reflex.dev",
     frontend_packages=[
-        "chakra-react-select",
         "tailwindcss-animated",
     ],
     show_build_with_reflex=True,

@@ -85,7 +85,7 @@ def stat(stat: str, text: str) -> rx.Component:
                 stat,
                 class_name="text-3xl inline-block text-slate-12 font-semibold w-full text-balance text-center",
             ),
-            rx.text(text, class_name="text-sm text-slate-9 font-medium"),
+            rx.text(text, class_name="text-sm text-secondary-11 font-medium"),
             class_name="flex flex-col justify-center items-center text-center text-nowrap",
         ),
         get_icon("feather_unstyled", class_name="scale-x-[-1] text-primary-9"),
@@ -112,7 +112,7 @@ def quote_box(company: str) -> rx.Component:
                 ),
                 rx.text(
                     case_study["role"],
-                    class_name="text-xs text-slate-9 font-medium",
+                    class_name="text-xs text-secondary-11 font-medium",
                 ),
             ),
             class_name="flex flex-row items-center gap-2 w-full animate-fade animate-duration-[550ms] animate-ease-out animate-fill-both",

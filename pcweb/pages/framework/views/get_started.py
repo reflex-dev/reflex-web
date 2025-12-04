@@ -50,7 +50,7 @@ def code_block() -> rx.Component:
             rx.el.a(
                 "Need help? Learn how to use Reflex.",
                 to=getting_started.introduction.path,
-                class_name="font-small text-slate-9 hover:!text-slate-11 transition-color",
+                class_name="font-small text-secondary-11 hover:!text-slate-12 transition-color",
             ),
             ui.link(
                 render_=ui.button(
