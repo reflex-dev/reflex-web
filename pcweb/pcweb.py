@@ -44,7 +44,7 @@ app = rxe.App(
             cross_origin="",
         ),
         rx.el.link(
-            href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Source+Code+Pro:wght@400;500&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
+            href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap",
             rel="stylesheet",
         ),
     ],
