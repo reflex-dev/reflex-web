@@ -138,12 +138,15 @@ Large enterprises can run Reflex Build inside their own AWS and Azure environmen
 If you're interested in deploying Reflex on-premises, book a demo to discuss your specific requirements. Our team will work with you to design a deployment that meets your security, compliance, and infrastructure needs.
 
 ```python eval
-demo_form_dialog(
-    ui.button(
-        "Book a Demo",
-        variant="primary",
-        class_name="font-semibold",
+rx.el.div(
+    demo_form_dialog(
+        ui.button(
+            "Book a Demo",
+            variant="primary",
+            class_name="font-semibold",
+        ),
     ),
+    class_name="flex justify-center items-center my-8",
 )
 ```
 
