@@ -30,8 +30,10 @@ meta: [
 
 ```python exec
 import reflex as rx
+import reflex_ui as ui
 from pcweb import pages, constants
 from reflex_image_zoom import image_zoom
+from reflex_ui.blocks.demo_form import demo_form_dialog
 ```
 
 For organizations with strict security, compliance, or data sovereignty requirements, building applications on your own infrastructure isn't just a preference—it's a necessity. With Reflex Enterprise, you can now run **Reflex Build**—our AI-powered app builder—on-premises or in your own private cloud, giving you complete control over your development environment while maintaining all the productivity benefits of building apps with AI.
@@ -133,7 +135,17 @@ Large enterprises can run Reflex Build inside their own AWS and Azure environmen
 
 ## What's Next
 
-If you're interested in deploying Reflex on-premises, [book a demo]({constants.REFLEX_CLOUD_URL}) to discuss your specific requirements. Our team will work with you to design a deployment that meets your security, compliance, and infrastructure needs.
+If you're interested in deploying Reflex on-premises, book a demo to discuss your specific requirements. Our team will work with you to design a deployment that meets your security, compliance, and infrastructure needs.
+
+```python eval
+demo_form_dialog(
+    ui.button(
+        "Book a Demo",
+        variant="primary",
+        class_name="font-semibold",
+    ),
+)
+```
 
 With Reflex Build on-premises, you get the best of both worlds: the power and productivity of AI-powered app building, with the control and security of your own infrastructure. Build full-stack Python web apps faster than ever, all while keeping your code, data, and development process completely within your controlled environment.
 
