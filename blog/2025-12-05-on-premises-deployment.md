@@ -36,7 +36,7 @@ from reflex_image_zoom import image_zoom
 from reflex_ui.blocks.demo_form import demo_form_dialog
 ```
 
-For organizations with strict security, compliance, or data sovereignty requirements, building applications on your own infrastructure isn't just a preference — it's a necessity. With Reflex Enterprise, you can now run **Reflex Build**—our AI-powered app builder—on-premises or in your own private cloud, giving you complete control over your development environment while maintaining all the productivity benefits of building apps with AI.
+For organizations with strict security, compliance, or data sovereignty requirements, building applications on your own infrastructure isn't just a preference — it's a necessity. With Reflex Enterprise, you can now run **Reflex Build**—our AI-powered app builder—on-premises or in your own private cloud, giving you complete control over your development environment while maintaining all the productivity benefits of building apps with AI. You can securely hook up with all your company data sources, internal services, documentation, databases, and APIs—all within your own infrastructure.
 
 ## Why On-Premises Deployment?
 
@@ -86,6 +86,7 @@ One of the biggest unlocks with Reflex Build on-premises is the ability to secur
 - **Company Data Sources**: Easily integrate with your internal databases, APIs, documentation, and data warehouses
 - **Authentication Providers**: Connect with your existing identity providers (SSO/SAML) and authentication systems
 - **Internal Services**: Seamlessly connect with all your company's internal services and APIs
+- **Your Own AI Models**: Hook up with your own AI models so no prompt information leaves your infrastructure—complete data privacy and control
 - **Zero External Dependencies**: All data access and processing happens within your infrastructure
 
 ### Infrastructure & Deployment
@@ -109,7 +110,7 @@ One of the biggest unlocks with Reflex Build on-premises is the ability to secur
 - **Private Projects**: Keep all projects private within your infrastructure
 - **Team Collaboration**: Manage team members and access controls
 - **Enterprise Integrations**: Connect with all your company's internal services, documentation, databases, and APIs through secure, AI-powered integration
-- **Download App Code**: Export generated app code for full control
+- **Download App Code**: Export generated app code for full control—all code is based on open source software, so you own all the code that is generated
 
 ## Use Cases
 
@@ -141,7 +142,7 @@ Healthcare organizations can run Reflex Build on-premises to meet HIPAA requirem
 
 ### Multi-Cloud Enterprises
 
-Large enterprises can run Reflex Build inside their own AWS and Azure environments, integrating with their existing SSO, logging, and infrastructure management systems while maintaining complete control over the development process.
+Large enterprises can run Reflex Build inside their own AWS, Azure, and GCP environments, integrating with their existing SSO, logging, and infrastructure management systems while maintaining complete control over the development process. Connect seamlessly with data platforms like Databricks and Snowflake to build AI-powered apps that leverage your existing data infrastructure.
 
 ## What's Next
 

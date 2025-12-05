@@ -2,6 +2,8 @@ import reflex as rx
 
 from pcweb.constants import REFLEX_DOMAIN, REFLEX_DOMAIN_URL, TWITTER_CREATOR
 
+ONE_LINE_DESCRIPTION = "The complete platform to build and scale enterprise apps - all in Python."
+
 meta_tags = [
     # HTML Meta Tags
     {"name": "application-name", "content": "Reflex"},
@@ -11,7 +13,7 @@ meta_tags = [
     },
     {
         "name": "description",
-        "content": "The open-source framework to build and deploy web apps using Python.",
+        "content": ONE_LINE_DESCRIPTION,
     },
     # Facebook Meta Tags
     {"property": "og:url", "content": REFLEX_DOMAIN_URL},
@@ -19,7 +21,7 @@ meta_tags = [
     {"property": "og:title", "content": "Reflex · Web apps in Pure Python"},
     {
         "property": "og:description",
-        "content": "The open-source framework to build and deploy web apps using Python.",
+        "content": ONE_LINE_DESCRIPTION,
     },
     {"property": "og:image", "content": "/previews/index_preview.webp"},
     # Twitter Meta Tags
@@ -29,7 +31,7 @@ meta_tags = [
     {"name": "twitter:title", "content": "Reflex · Web apps in Pure Python"},
     {
         "name": "twitter:description",
-        "content": "The open-source framework to build and deploy web apps using Python.",
+        "content": ONE_LINE_DESCRIPTION,
     },
     {"name": "twitter:image", "content": "/previews/index_preview.webp"},
     {"name": "twitter:creator", "content": TWITTER_CREATOR},
@@ -44,7 +46,7 @@ hosting_meta_tags = [
     },
     {
         "name": "description",
-        "content": "The open-source framework to build and deploy web apps using Python.",
+        "content": ONE_LINE_DESCRIPTION,
     },
     # Facebook Meta Tags
     {"property": "og:url", "content": REFLEX_DOMAIN_URL},
@@ -52,7 +54,7 @@ hosting_meta_tags = [
     {"property": "og:title", "content": "Reflex · Web apps in Pure Python"},
     {
         "property": "og:description",
-        "content": "The open-source framework to build and deploy web apps using Python.",
+        "content": ONE_LINE_DESCRIPTION,
     },
     {"property": "og:image", "content": "/previews/hosting_preview.webp"},
     # Twitter Meta Tags
@@ -62,7 +64,7 @@ hosting_meta_tags = [
     {"name": "twitter:title", "content": "Reflex · Web apps in Pure Python"},
     {
         "name": "twitter:description",
-        "content": "The open-source framework to build and deploy web apps using Python.",
+        "content": ONE_LINE_DESCRIPTION,
     },
     {"name": "twitter:image", "content": "/previews/hosting_preview.webp"},
     {"name": "twitter:creator", "content": TWITTER_CREATOR},
