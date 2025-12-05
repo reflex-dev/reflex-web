@@ -13,6 +13,7 @@ from pcweb.pages.faq import faq
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
 from pcweb.pages.use_cases.use_cases import use_cases_page
+from pcweb.pages.use_cases.finance_use_case import finance_use_case_page
 
 from ...link_button import resources_button
 from ..sidebar import SidebarState
@@ -64,6 +65,14 @@ def link_item(name: str, url: str, active_str: str = ""):
 
     elif active_str == "hosting" or active_str == "cloud":
         active = router_path.contains("cloud") | router_path.contains("hosting")
+
+    elif active_str == "products":
+        is_docs = router_path.contains("docs")
+        is_open_source_page = router_path.contains("open-source")
+        not_cloud = ~(router_path.contains("cloud") | router_path.contains("hosting"))
+        not_ai_builder = ~router_path.contains("ai-builder")
+        is_framework = (is_docs & not_cloud & not_ai_builder) | is_open_source_page
+        active = router_path.contains("ai-builder") | router_path.contains("cloud") | router_path.contains("hosting") | is_framework
 
     elif active_str == "pricing":
         active = router_path.contains("pricing")
@@ -345,20 +354,126 @@ def new_resource_section():
     )
 
 
+def solutions_section():
+    _app_types_items = [
+        {
+            "label": "Internal Tools",
+            "url": use_cases_page.path,
+            "icon": "Settings01Icon",
+        },
+        {
+            "label": "Data & AI Apps",
+            "url": use_cases_page.path,
+            "icon": "Database02Icon",
+        },
+        {
+            "label": "Customer Facing Apps",
+            "url": use_cases_page.path,
+            "icon": "UserGroupIcon",
+        },
+    ]
+
+    _industries_items = [
+        {
+            "label": "Finance",
+            "url": finance_use_case_page.path,
+            "icon": "CreditCardPosIcon",
+        },
+        {
+            "label": "Healthcare",
+            "url": use_cases_page.path,
+            "icon": "HealthIcon",
+        },
+        {
+            "label": "Energy",
+            "url": use_cases_page.path,
+            "icon": "ZapIcon",
+        },
+        {
+            "label": "Enterprise",
+            "url": use_cases_page.path,
+            "icon": "Building01Icon",
+        },
+    ]
+
+    def _link_button(label: str, url: str, icon: str) -> rx.Component:
+        return rx.el.a(
+            resources_button(
+                ui.icon(icon, size=16, class_name="flex-shrink-0"),
+                label,
+                size="md",
+                variant="transparent",
+                class_name="justify-start w-full items-center gap-3",
+            ),
+            to=url,
+            class_name="w-full",
+        )
+
+    def _solutions_section_column(
+        section_title: str, solution_item: list[dict[str, str]]
+    ):
+        return rx.box(
+            rx.box(
+                rx.text(
+                    section_title,
+                    class_name="text-sm text-slate-12 font-semibold px-2.5 py-1 pb-2",
+                ),
+                *[
+                    _link_button(item["label"], item["url"], item["icon"])
+                    for item in solution_item
+                ],
+                class_name="flex flex-col w-full p-2",
+            ),
+            class_name="flex flex-col w-full",
+        )
+
+    return ui.navigation_menu.content(
+        _solutions_section_column("App Types", _app_types_items),
+        _solutions_section_column("Industries", _industries_items),
+        unstyled=True,
+        class_name=ui.cn(
+            ui.navigation_menu.class_names.CONTENT,
+            "flex flex-row gap-4 rounded-xl w-[28rem] font-sans overflow-hidden p-1.5",
+        ),
+    )
+
+
 def new_menu_trigger(
     title: str, url: str | None = None, active_str: str = ""
 ) -> rx.Component:
     if url:
         return ui.navigation_menu.trigger(link_item(title, url, active_str))
+    
+    router_path = rx.State.router.page.path
+    active = False
+    
+    if active_str == "products":
+        is_docs = router_path.contains("docs")
+        is_open_source_page = router_path.contains("open-source")
+        not_cloud = ~(router_path.contains("cloud") | router_path.contains("hosting"))
+        not_ai_builder = ~router_path.contains("ai-builder")
+        is_framework = (is_docs & not_cloud & not_ai_builder) | is_open_source_page
+        active = router_path.contains("ai-builder") | router_path.contains("cloud") | router_path.contains("hosting") | is_framework
+    elif active_str:
+        active = router_path.contains(active_str)
+    
+    common_cn = "p-[1.406rem_0px] font-medium text-sm transition-colors"
+    active_cn = "shadow-[inset_0_-0.5px_0_0_var(--c-violet-9)] text-violet-9 group-hover:text-violet-9"
+    unactive_cn = "shadow-none text-secondary-11 group-hover:text-secondary-12"
+    
     return ui.navigation_menu.trigger(
         rx.box(
             rx.text(
                 title,
-                class_name="p-[1.406rem_0px] font-medium text-sm text-secondary-11 group-hover:text-secondary-12 transition-colors",
+                class_name=common_cn + " " + rx.cond(active, active_cn, unactive_cn),
             ),
             rx.icon(
                 "chevron-down",
-                class_name="chevron size-5 !text-secondary-11 group-hover:!text-secondary-12 py-1 mr-0 transition-all ease-out",
+                class_name=rx.cond(
+                    active,
+                    "chevron size-5 !text-violet-9 group-hover:!text-violet-9 py-1 mr-0 transition-all ease-out",
+                    "chevron size-5 !text-secondary-11 group-hover:!text-secondary-12 py-1 mr-0 transition-all ease-out",
+                ),
                 aria_hidden="true",
             ),
             class_name="flex-row items-center gap-x-1 group user-select-none cursor-pointer xl:flex hidden",
@@ -420,6 +535,80 @@ def doc_section():
     )
 
 
+def products_section():
+    from pcweb.pages.docs import ai_builder as ai_builder_pages
+    from pcweb.pages.docs import hosting as hosting_page
+
+    return rx.cond(
+        rx.State.router.page.path.contains("docs")
+        | rx.State.router.page.path.contains("ai-builder")
+        | rx.State.router.page.path.contains("cloud"),
+        ui.navigation_menu.content(
+            resource_item(
+                "AI Builder",
+                ai_builder_pages.overview.best_practices.path,
+                "MagicWand01Icon",
+                0,
+            ),
+            resource_item(
+                "Open Source",
+                getting_started.introduction.path,
+                "SourceCodeCircleIcon",
+                0,
+            ),
+            resource_item(
+                "Cloud",
+                hosting_page.deploy_quick_start.path,
+                "CloudServerIcon",
+                0,
+            ),
+            unstyled=True,
+            class_name=ui.cn(
+                ui.navigation_menu.class_names.CONTENT,
+                "flex flex-col gap-1.5 m-0 p-1.5 w-[280px] min-w-max h-auto",
+            ),
+        ),
+        ui.navigation_menu.content(
+            rx.el.a(
+                rx.box(
+                    ui.icon("MagicWand01Icon", size=16, class_name="flex-shrink-0 text-secondary-11"),
+                    rx.text(
+                        "AI Builder",
+                        class_name="font-small text-secondary-11 truncate text-start w-[150px]",
+                    ),
+                    rx.icon(
+                        tag="chevron_right",
+                        size=14,
+                        stroke_width=2,
+                        class_name="flex-shrink-0 text-slate-8 ml-auto",
+                    ),
+                    class_name="flex flex-row flex-nowrap items-center gap-4 hover:bg-secondary-3 px-[1.125rem] py-2 rounded-md w-full transition-colors",
+                ),
+                class_name="w-full text-secondary-11 hover:text-secondary-11",
+                href=REFLEX_BUILD_URL,
+                is_external=True,
+            ),
+            resource_item(
+                "Open Source",
+                framework.path,
+                "SourceCodeCircleIcon",
+                0,
+            ),
+            resource_item(
+                "Cloud",
+                hosting_landing.path,
+                "CloudServerIcon",
+                0,
+            ),
+            unstyled=True,
+            class_name=ui.cn(
+                ui.navigation_menu.class_names.CONTENT,
+                "flex flex-col gap-1.5 m-0 p-1.5 w-[280px] min-w-max h-auto",
+            ),
+        ),
+    )
+
+
 def new_component_section() -> rx.Component:
     from pcweb.pages.docs import ai_builder as ai_builder_pages
     from pcweb.pages.docs import hosting as hosting_page
@@ -447,56 +636,14 @@ def new_component_section() -> rx.Component:
                     unstyled=True,
                 ),
             ),
-            rx.cond(
-                rx.State.router.page.path.contains("docs")
-                | rx.State.router.page.path.contains("ai-builder")
-                | rx.State.router.page.path.contains("cloud"),
-                ui.navigation_menu.list(
-                    ui.navigation_menu.item(
-                        render_=link_item(
-                            "AI Builder",
-                            ai_builder_pages.overview.best_practices.path,
-                            "builder",
-                        ),
-                        unstyled=True,
-                    ),
-                    ui.navigation_menu.item(
-                        render_=link_item(
-                            "Open Source",
-                            getting_started.introduction.path,
-                            "framework",
-                        ),
-                        unstyled=True,
-                        class_name="whitespace-nowrap",
-                    ),
-                    ui.navigation_menu.item(
-                        render_=link_item(
-                            "Cloud", hosting_page.deploy_quick_start.path, "hosting"
-                        ),
-                        unstyled=True,
-                    ),
-                    class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
+            ui.navigation_menu.list(
+                ui.navigation_menu.item(
+                    new_menu_trigger("Product", active_str="products"),
+                    products_section(),
+                    class_name="cursor-pointer",
+                    unstyled=True,
                 ),
-                ui.navigation_menu.list(
-                    ui.navigation_menu.item(
-                        render_=link_item(
-                            "AI Builder",
-                            REFLEX_BUILD_URL,
-                            "builder",
-                        ),
-                        unstyled=True,
-                    ),
-                    ui.navigation_menu.item(
-                        render_=link_item("Open Source", framework.path, "framework"),
-                        class_name="whitespace-nowrap",
-                        unstyled=True,
-                    ),
-                    ui.navigation_menu.item(
-                        render_=link_item("Cloud", hosting_landing.path, "hosting"),
-                        unstyled=True,
-                    ),
-                    class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
-                ),
+                class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
             ),
             ui.navigation_menu.item(
                 new_menu_trigger("Docs"),
@@ -514,6 +661,12 @@ def new_component_section() -> rx.Component:
             ui.navigation_menu.item(
                 new_menu_trigger("Resources"),
                 new_resource_section(),
+                class_name="cursor-pointer",
+                unstyled=True,
+            ),
+            ui.navigation_menu.item(
+                new_menu_trigger("Solutions", active_str="use-cases"),
+                solutions_section(),
                 class_name="cursor-pointer",
                 unstyled=True,
             ),
