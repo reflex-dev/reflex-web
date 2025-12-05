@@ -1,223 +1,235 @@
+from dataclasses import dataclass
+
 import reflex as rx
 import reflex_ui as ui
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.hosting_banner import HostingBannerState
-from pcweb.constants import REFLEX_BUILD_URL  # , REFLEX_CLOUD_URL
+from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
+from pcweb.pages.pricing.enable_tiers_state import EnableTiersState
+
+
+@dataclass(frozen=True)
+class Feature:
+    name: str
+    free: str | bool
+    pro: str | bool = ""
+    enterprise: str | bool = ""
+
 
 CLOUD_HOSTING_FEATURES = [
-    (
-        "Max # Apps",
-        "1",
-        # "5",
-        "10",
+    Feature(
+        name="Max # Apps",
+        free="1",
+        pro="5",
+        enterprise="10",
     ),
-    (
-        "Max Machine Size",
-        "1cpu, 1gb",
-        # "2cpu, 4gb shared",
-        "Beyond 2cpu, 4gb",
+    Feature(
+        name="Max Machine Size",
+        free="1cpu, 1gb",
+        pro="2cpu, 4gb shared",
+        enterprise="Beyond 2cpu, 4gb",
     ),
-    (
-        "Dedicated Machines",
-        False,
-        # False,
-        True,
+    Feature(
+        name="Dedicated Machines",
+        free=False,
+        pro=False,
+        enterprise=True,
     ),
-    (
-        "Custom Domains",
-        "0",
-        # "5",
-        "Unlimited",
+    Feature(
+        name="Custom Domains",
+        free="0",
+        pro="5",
+        enterprise="Unlimited",
     ),
-    (
-        "App Metrics",
-        True,
-        # True,
-        True,
+    Feature(
+        name="App Metrics",
+        free=True,
+        pro=True,
+        enterprise=True,
     ),
-    (
-        "Log Retention",
-        "1 hour",
-        # "7 day",
-        "90-Day Log History",
+    Feature(
+        name="Log Retention",
+        free="1 hour",
+        pro="7 day",
+        enterprise="90-Day Log History",
     ),
-    (
-        "Multiple Regions",
-        False,
-        # True,
-        True,
+    Feature(
+        name="Multiple Regions",
+        free=False,
+        pro=True,
+        enterprise=True,
     ),
-    (
-        '"Built with Reflex" Attribution',
-        True,
-        # False,
-        False,
+    Feature(
+        name='"Built with Reflex" Attribution',
+        free=True,
+        pro=False,
+        enterprise=False,
     ),
-    (
-        "One-click rollbacks",
-        True,
-        # True,
-        True,
+    Feature(
+        name="One-click rollbacks",
+        free=True,
+        pro=True,
+        enterprise=True,
     ),
 ]
 
 SECURITY_FEATURES = [
-    (
-        "SSO/SAML",
-        False,
-        # True,
-        True,
+    Feature(
+        name="SSO/SAML",
+        free=False,
+        pro=True,
+        enterprise=True,
     ),
-    (
-        "Role-based access control",
-        False,
-        # False,
-        True,
+    Feature(
+        name="Role-based access control",
+        free=False,
+        pro=False,
+        enterprise=True,
     ),
-    (
-        "On Premise Deployments",
-        False,
-        # False,
-        True,
+    Feature(
+        name="On Premise Deployments",
+        free=False,
+        pro=False,
+        enterprise=True,
     ),
-    (
-        "Audit Logs",
-        False,
-        # False,
-        True,
+    Feature(
+        name="Audit Logs",
+        free=False,
+        pro=False,
+        enterprise=True,
     ),
-    (
-        "HTTP/SSL",
-        True,
-        # True,
-        True,
+    Feature(
+        name="HTTP/SSL",
+        free=True,
+        pro=True,
+        enterprise=True,
     ),
-    (
-        "Web App Firewall",
-        True,
-        # True,
-        True,
+    Feature(
+        name="Web App Firewall",
+        free=True,
+        pro=True,
+        enterprise=True,
     ),
-    (
-        "SOC 2 compliance",
-        False,
-        # False,
-        "On prem, custom",
+    Feature(
+        name="SOC 2 compliance",
+        free=False,
+        pro=False,
+        enterprise="On prem, custom",
     ),
-    (
-        "HIPAA BAA",
-        False,
-        # False,
-        "On prem, custom",
+    Feature(
+        name="HIPAA BAA",
+        free=False,
+        pro=False,
+        enterprise="On prem, custom",
     ),
 ]
 
 SUPPORT_FEATURES = [
-    (
-        "Customer Success",
-        "Discord/Github Community",
-        # "Discord/Github Community",
-        "Dedicated Support Channel",
+    Feature(
+        name="Customer Success",
+        free="Discord/Github Community",
+        pro="Discord/Github Community",
+        enterprise="Dedicated Support Channel",
     ),
-    (
-        "Onboarding",
-        "Documentation",
-        # "Documentation",
-        "Get a forward deployed engineer to help you get started",
+    Feature(
+        name="Onboarding",
+        free="Documentation",
+        pro="Documentation",
+        enterprise="Get a forward deployed engineer to help you get started",
     ),
 ]
 
 REFLEX_BUILD_BASIC_FEATURES = [
-    (
-        "Credits",
-        "50 daily credits (up to 150/month)",
-        # "1000 monthly credits",
-        "Custom",
+    Feature(
+        name="Credits",
+        free="50 daily credits (up to 150/month)",
+        pro="1000 monthly credits",
+        enterprise="Custom",
     ),
-    (
-        "Agent (10 Credits per msg)",
-        True,
-        # True,
-        True,
+    Feature(
+        name="Agent (10 Credits per msg)",
+        free=True,
+        pro=True,
+        enterprise=True,
     ),
-    (
-        "Chat (1 Credit)",
-        True,
-        # True,
-        True,
+    Feature(
+        name="Chat (1 Credit)",
+        free=True,
+        pro=True,
+        enterprise=True,
     ),
 ]
 
 REFLEX_BUILD_FUNCTIONALITY = [
-    (
-        "Privacy",
-        "Public Projects",
-        # "Private Projects",
-        "Private Projects /Group based controls",
+    Feature(
+        name="Privacy",
+        free="Public Projects",
+        pro="Private Projects",
+        enterprise="Private Projects /Group based controls",
     ),
-    (
-        "Design",
-        "Custom Designs/Theming",
-        # "Custom Designs/Theming",
-        "Custom Designs/Theming",
+    Feature(
+        name="Design",
+        free="Custom Designs/Theming",
+        pro="Custom Designs/Theming",
+        enterprise="Custom Designs/Theming",
     ),
-    (
-        "Data",
-        False,
-        # False,
-        "Opt out of data training",
+    Feature(
+        name="Data",
+        free=False,
+        pro=False,
+        enterprise="Opt out of data training",
     ),
-    (
-        "Collaborators",
-        "Single",
-        # "Single",
-        "Multiple Collaborators/Editors",
+    Feature(
+        name="Collaborators",
+        free="Single",
+        pro="Single",
+        enterprise="Multiple Collaborators/Editors",
     ),
-    (
-        "Integration",
-        "Basic 5",
-        # "Pro 100+",
-        "Enterprise Integrations",
+    Feature(
+        name="Integration",
+        free="Basic 5",
+        pro="Pro 100+",
+        enterprise="Enterprise Integrations",
     ),
-    (
-        "Download App Code",
-        False,
-        # True,
-        True,
+    Feature(
+        name="Download App Code",
+        free=False,
+        pro=True,
+        enterprise=True,
     ),
 ]
 
 REFLEX_BUILD_DEPLOYMENT = [
-    (
-        "Github",
-        "Public Repo Sync",
-        # "Private Repo Sync",
-        "Enterprise Repo Sync Github, Gitlab, and Bitbucket.",
+    Feature(
+        name="Github",
+        free="Public Repo Sync",
+        pro="Private Repo Sync",
+        enterprise="Enterprise Repo Sync Github, Gitlab, and Bitbucket.",
     ),
-    (
-        "One Click Deploy",
-        "Reflex Cloud",
-        # "Reflex Cloud",
-        "Databricks, AWS, Azure, GCP, Other",
+    Feature(
+        name="One Click Deploy",
+        free="Reflex Cloud",
+        pro="Reflex Cloud",
+        enterprise="Databricks, AWS, Azure, GCP, Other",
     ),
-    (
-        "SSH access",
-        False,
-        # True,
-        True,
+    Feature(
+        name="SSH access",
+        free=False,
+        pro=True,
+        enterprise=True,
     ),
 ]
 
 
-def table_cell(content: str | rx.Component) -> rx.Component:
-    if isinstance(content, bool):
+def table_cell(content: str | rx.Component | rx.vars.BooleanVar | bool) -> rx.Component:
+    if isinstance(content, bool | rx.vars.BooleanVar):
         return rx.el.td(
             rx.el.div(
-                (
-                    rx.icon("check", class_name="text-secondary-12", size=16)
-                    if content
-                    else ""
+                rx.cond(
+                    rx.Var.create(content).to(bool),
+                    rx.icon("check", class_name="text-secondary-12", size=16),
+                    None,
                 ),
                 class_name="flex justify-center items-center",
             ),
@@ -251,7 +263,12 @@ def table_row(*cells, is_header: bool = False) -> rx.Component:
 
 
 def pricing_table(
-    title: str, icon: str, columns: list[str], features: list[tuple], **kwargs
+    title: str,
+    icon: str,
+    columns: list[str],
+    features: list[Feature],
+    show_free_tier: bool = True,
+    **kwargs,
 ) -> rx.Component:
     header_content = rx.el.div(
         ui.icon(icon, class_name="text-secondary-11", size=20),
@@ -270,8 +287,33 @@ def pricing_table(
             id=kwargs.get("anchor"),
         )
 
-    # Create feature rows
-    feature_rows = [table_row(*feature_data) for feature_data in features]
+    is_simple_table = all(
+        not feature.pro and not feature.enterprise for feature in features
+    )
+
+    if is_simple_table:
+        feature_rows = [table_row(feature.name, feature.free) for feature in features]
+    else:
+        feature_rows = [
+            rx.cond(
+                EnableTiersState.enable_pro_tier,
+                table_row(feature.name, feature.free, feature.pro, feature.enterprise),
+                rx.cond(
+                    show_free_tier,
+                    table_row(
+                        feature.name,
+                        feature.free,
+                        feature.enterprise,
+                    ),
+                    table_row(
+                        feature.name,
+                        False,
+                        feature.enterprise,
+                    ),
+                ),
+            )
+            for feature in features
+        ]
 
     return rx.el.table(
         rx.el.thead(
@@ -335,18 +377,21 @@ def sticky_pricing_header() -> rx.Component:
                 ),
             ),
             # Pro column with button
-            # header_item(
-            #     "Pro",
-            #     ui.link(
-            #         render_=ui.button(
-            #             "Upgrade now",
-            #             variant="secondary",
-            #             class_name="font-semibold w-full",
-            #         ),
-            #         to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
-            #         target="_blank",
-            #     ),
-            # ),
+            rx.cond(
+                EnableTiersState.enable_pro_tier,
+                header_item(
+                    "Pro",
+                    ui.link(
+                        render_=ui.button(
+                            "Upgrade now",
+                            variant="secondary",
+                            class_name="font-semibold w-full",
+                        ),
+                        to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
+                        target="_blank",
+                    ),
+                ),
+            ),
             # Enterprise column with button
             header_item(
                 "Enterprise",
@@ -358,7 +403,10 @@ def sticky_pricing_header() -> rx.Component:
                     )
                 ),
             ),
-            class_name="grid grid-cols-3 gap-6 p-4",
+            class_name=ui.cn(
+                "grid gap-6 p-4",
+                rx.cond(EnableTiersState.enable_pro_tier, "grid-cols-4", "grid-cols-3"),
+            ),
         ),
         class_name=(
             "sticky z-10 bg-slate-1 border-x border-slate-4 border-y",
@@ -379,6 +427,7 @@ def reflex_build_table() -> rx.Component:
         icon="MagicWand01Icon",
         columns=[],
         features=all_features,
+        show_free_tier=EnableTiersState.enable_free_tier,
     )
 
 
