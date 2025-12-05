@@ -1,8 +1,8 @@
 ---
 author: Alek Petuskey
 date: 2025-12-05
-title: Reflex Build On-Prem - A Secure AI App Builder Running in Your Environment
-description: Run Reflex Build on your own infrastructure with full control, security, and compliance.
+title: "Reflex Build On-Prem: The Secure AI App Builder That Runs Inside Your Company Infrastructure"
+description: An enterprise, on-premises AI app builder for developing secure internal tools and dashboards using Python.
 image: /blog/on-prem.png
 meta: [
     {
