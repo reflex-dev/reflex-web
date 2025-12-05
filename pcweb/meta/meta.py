@@ -2,7 +2,9 @@ import reflex as rx
 
 from pcweb.constants import REFLEX_DOMAIN, REFLEX_DOMAIN_URL, TWITTER_CREATOR
 
-ONE_LINE_DESCRIPTION = "The complete platform to build and scale enterprise apps - all in Python."
+ONE_LINE_DESCRIPTION = (
+    "The complete platform to build and scale enterprise apps - all in Python."
+)
 
 meta_tags = [
     # HTML Meta Tags
