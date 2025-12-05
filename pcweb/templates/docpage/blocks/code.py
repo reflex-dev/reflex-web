@@ -70,7 +70,7 @@ def doccmdoutput(
                 }
             },
             style=fonts.code,
-            font_family="Source Code Pro",
+            font_family="JetBrains Mono",
             width="100%",
         ),
         rx._x.code_block(
@@ -86,7 +86,7 @@ def doccmdoutput(
                 }
             },
             style=fonts.code,
-            font_family="Source Code Pro",
+            font_family="JetBrains Mono",
             width="100%",
         ),
         padding_y="1em",

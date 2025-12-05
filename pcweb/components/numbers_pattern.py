@@ -39,9 +39,8 @@ def numbers_pattern(
         class_name: Additional CSS classes
     """
     position_class = "left-0" if side == "left" else "right-0"
-    light_dark_path = rx.color_mode_cond("light", "dark")
-
-    src = f"/landing/patterns/{light_dark_path}/numbers-pattern.avif"
+    light_src = "/landing/patterns/light/numbers-pattern.avif"
+    dark_src = "/landing/patterns/dark/numbers-pattern.avif"
 
     # Determine if we need to flip: right side XOR reverse
     # - right side normally flips
@@ -49,9 +48,11 @@ def numbers_pattern(
     is_flipped = (side == "right") != reverse
 
     # Background image style
-    image_style = {"opacity": rx.color_mode_cond("1", "0.3")}
+    light_image_style = {"opacity": "1"}
+    dark_image_style = {"opacity": "0.3"}
     if is_flipped:
-        image_style |= {"transform": "scaleX(-1)"}
+        light_image_style |= {"transform": "scaleX(-1)"}
+        dark_image_style |= {"transform": "scaleX(-1)"}
 
     # Gradient masks
     vertical_gradient = "linear-gradient(360deg, rgba(0, 0, 0, 0) 0%, #000000 12%, #000000 88%, rgba(0, 0, 0, 0) 100%)"
@@ -70,25 +71,44 @@ def numbers_pattern(
         container_mask_style["transform"] = "scaleX(-1)"
 
     # Image mask style for the ellipses layer
-    ellipses_mask_style = {
-        "mask_image": f"url({src})",
+    ellipses_mask_light_style = {
+        "mask_image": f"url({light_src})",
         "mask_size": "cover",
         "mask_repeat": "no-repeat",
         "mask_position": "center",
-        "webkit_mask_image": f"url({src})",
+        "webkit_mask_image": f"url({light_src})",
+        "webkit_mask_size": "cover",
+        "webkit_mask_repeat": "no-repeat",
+        "webkit_mask_position": "center",
+    }
+    ellipses_mask_dark_style = {
+        "mask_image": f"url({dark_src})",
+        "mask_size": "cover",
+        "mask_repeat": "no-repeat",
+        "mask_position": "center",
+        "webkit_mask_image": f"url({dark_src})",
         "webkit_mask_size": "cover",
         "webkit_mask_repeat": "no-repeat",
         "webkit_mask_position": "center",
     }
     if is_flipped:
-        ellipses_mask_style["transform"] = "scaleX(-1)"
+        ellipses_mask_light_style["transform"] = "scaleX(-1)"
+        ellipses_mask_dark_style["transform"] = "scaleX(-1)"
 
     return rx.el.div(
         # Layer 1: Background pattern image
         rx.image(
-            src=src,
-            class_name="pointer-events-none w-full h-full absolute inset-0 object-cover",
-            style=image_style,
+            src=light_src,
+            class_name="pointer-events-none w-full h-full absolute inset-0 object-cover dark:hidden",
+            style=light_image_style,
+            alt="Numbers pattern",
+            loading="eager",
+            custom_attrs={"fetchPriority": "high"},
+        ),
+        rx.image(
+            src=dark_src,
+            class_name="pointer-events-none w-full h-full absolute inset-0 object-cover hidden dark:block",
+            style=dark_image_style,
             alt="Numbers pattern",
             loading="eager",
             custom_attrs={"fetchPriority": "high"},
@@ -96,8 +116,13 @@ def numbers_pattern(
         # Layer 2: Masked animated ellipses
         rx.el.div(
             _ellipses(side=side, reverse_animation=reverse),
-            class_name="absolute inset-0 w-full h-full max-lg:hidden",
-            style=ellipses_mask_style,
+            class_name="absolute inset-0 w-full h-full max-lg:hidden dark:hidden",
+            style=ellipses_mask_light_style,
+        ),
+        rx.el.div(
+            _ellipses(side=side, reverse_animation=reverse),
+            class_name="absolute inset-0 w-full h-full max-lg:hidden hidden dark:block",
+            style=ellipses_mask_dark_style,
         ),
         class_name=ui.cn(
             f"absolute {position_class} pointer-events-none z-[-1] lg:w-[234px] w-[180px] h-full bottom-0",

@@ -85,7 +85,7 @@ xx_large = {
 }
 
 code = {
-    "font-family": "Source Code Pro",
+    "font-family": "JetBrains Mono",
     "font-size": "14px",
     "font-style": "normal",
     "font-weight": "400",

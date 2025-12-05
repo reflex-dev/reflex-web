@@ -141,11 +141,13 @@ def ph_1() -> rx.Component:
             src="/logos/dark/ph_1.svg",
             class_name="hidden dark:block h-[40px] w-fit",
             alt="1st product of the day logo",
+            loading="lazy",
         ),
         rx.image(
             src="/logos/light/ph_1.svg",
             class_name="dark:hidden block h-[40px] w-fit",
             alt="1st product of the day logo",
+            loading="lazy",
         ),
     )
 
