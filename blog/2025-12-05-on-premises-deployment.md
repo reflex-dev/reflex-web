@@ -1,7 +1,7 @@
 ---
 author: Alek Petuskey
 date: 2025-12-05
-title: Reflex Build On-Prem - A Secure Builder Running in Your Environment
+title: Reflex Build On-Prem - A Secure AI App Builder Running in Your Environment
 description: Run Reflex Build on your own infrastructure with full control, security, and compliance.
 image: /blog/on-prem.png
 meta: [
@@ -36,7 +36,7 @@ from reflex_image_zoom import image_zoom
 from reflex_ui.blocks.demo_form import demo_form_dialog
 ```
 
-For organizations with strict security, compliance, or data sovereignty requirements, building applications on your own infrastructure isn't just a preference—it's a necessity. With Reflex Enterprise, you can now run **Reflex Build**—our AI-powered app builder—on-premises or in your own private cloud, giving you complete control over your development environment while maintaining all the productivity benefits of building apps with AI.
+For organizations with strict security, compliance, or data sovereignty requirements, building applications on your own infrastructure isn't just a preference — it's a necessity. With Reflex Enterprise, you can now run **Reflex Build**—our AI-powered app builder—on-premises or in your own private cloud, giving you complete control over your development environment while maintaining all the productivity benefits of building apps with AI.
 
 ## Why On-Premises Deployment?
 
@@ -64,6 +64,7 @@ Organizations in regulated industries—finance, healthcare, government, and def
 - **Compliance**: Meet HIPAA, SOC 2, GDPR, and other regulatory requirements
 - **Air-Gapped Environments**: Deploy in completely isolated networks
 - **Custom Security Policies**: Implement your own security controls and monitoring
+- **Secure Data Source Integration**: Easily and securely connect with your company's data sources using our AI-powered integration capabilities
 
 ### Infrastructure Control
 
@@ -76,7 +77,16 @@ Some organizations need full control over their infrastructure:
 
 ## What's Included
 
-Reflex Enterprise on-premises deployment includes Reflex Build running securely in your environment:
+Reflex Enterprise on-premises deployment includes **Reflex Build** running securely in your environment. You can also deploy **Reflex Cloud** on-premises to manage all your Reflex apps in a unified place, providing a complete on-premises solution for both building and deploying applications.
+
+### Secure Company Data Integration
+
+One of the biggest unlocks with Reflex Build on-premises is the ability to securely connect with your company's data sources and systems:
+
+- **Company Data Sources**: Easily integrate with your internal databases, APIs, documentation, and data warehouses
+- **Authentication Providers**: Connect with your existing identity providers (SSO/SAML) and authentication systems
+- **Internal Services**: Seamlessly connect with all your company's internal services and APIs
+- **Zero External Dependencies**: All data access and processing happens within your infrastructure
 
 ### Infrastructure & Deployment
 
@@ -98,7 +108,7 @@ Reflex Enterprise on-premises deployment includes Reflex Build running securely 
 - **AI-Powered App Building**: Build full-stack Python web apps using natural language prompts
 - **Private Projects**: Keep all projects private within your infrastructure
 - **Team Collaboration**: Manage team members and access controls
-- **Enterprise Integrations**: Connect with all your company's internal services, documentation, databases, and APIs
+- **Enterprise Integrations**: Connect with all your company's internal services, documentation, databases, and APIs through secure, AI-powered integration
 - **Download App Code**: Export generated app code for full control
 
 ## Use Cases
