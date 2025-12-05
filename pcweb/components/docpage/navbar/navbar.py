@@ -362,12 +362,13 @@ def solutions_section():
             "icon": "Settings01Icon",
         },
         {
-            "label": "Data & AI Apps",
+            "label": "Data & AI",
             "url": use_cases_page.path,
             "icon": "Database02Icon",
         },
+        
         {
-            "label": "Customer Facing Apps",
+            "label": "External Apps",
             "url": use_cases_page.path,
             "icon": "UserGroupIcon",
         },
@@ -384,8 +385,9 @@ def solutions_section():
             "url": use_cases_page.path,
             "icon": "HealthIcon",
         },
+
         {
-            "label": "Energy",
+            "label": "Consulting",
             "url": use_cases_page.path,
             "icon": "ZapIcon",
         },
@@ -424,16 +426,39 @@ def solutions_section():
                 ],
                 class_name="flex flex-col w-full p-2",
             ),
-            class_name="flex flex-col w-full",
+            class_name="flex flex-col w-full max-w-[9.1875rem]",
         )
 
     return ui.navigation_menu.content(
         _solutions_section_column("App Types", _app_types_items),
         _solutions_section_column("Industries", _industries_items),
+        # Grid card
+        rx.box(
+            rx.el.a(
+                rx.box(
+                    rx.text(
+                        "Get a personalized demo for your company",
+                        class_name="text-slate-12 text-base font-semibold break-words leading-tight flex-1 min-w-0",
+                    ),
+                    rx.el.button(
+                        rx.icon("chevron-right", class_name="text-secondary-11 size-4"),
+                        class_name="size-6 group-hover:bg-secondary-3 transition-colors rounded-md flex items-center justify-center flex-shrink-0 mt-0.5",
+                    ),
+                    class_name="flex flex-row items-start gap-2 justify-between mb-1 w-full",
+                ),
+                rx.text(
+                    "See how Reflex can help your team build apps.",
+                    class_name="text-secondary-11 text-sm font-medium break-words leading-relaxed w-full",
+                ),
+                to="/pricing",
+                class_name="w-[16.5rem] h-full rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-2.5 pt-6 pb-4 pl-5 pr-6 relative border-solid group overflow-hidden",
+            ),
+            class_name="flex flex-col pt-4 pb-2 pl-3 pr-6 bg-slate-1 flex-shrink-0 overflow-hidden h-full",
+        ),
         unstyled=True,
         class_name=ui.cn(
             ui.navigation_menu.class_names.CONTENT,
-            "flex flex-row gap-4 rounded-xl w-[28rem] font-sans overflow-hidden p-1.5",
+            "flex flex-row gap-4 rounded-xl w-[37rem] font-sans overflow-hidden pt-1.5 pb-1.5 pl-1.5 pr-3",
         ),
     )
 
