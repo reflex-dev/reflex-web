@@ -584,7 +584,10 @@ def new_component_section() -> rx.Component:
 
 @rx.memo
 def navbar() -> rx.Component:
+    from pcweb.components.hosting_banner import hosting_banner
+
     return rx.box(
+        hosting_banner(),
         rx.el.header(
             new_component_section(),
             class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-0.5px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
