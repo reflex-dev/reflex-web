@@ -17,7 +17,7 @@ DEADLINE = datetime.datetime(2025, 10, 25, 7, 1, tzinfo=datetime.UTC)
 
 
 class HostingBannerState(rx.State):
-    show_banner: rx.Field[bool] = rx.field(False)
+    show_banner: rx.Field[bool] = rx.field(True)
     force_hide_banner: rx.Field[bool] = rx.field(False)
 
     @rx.event
