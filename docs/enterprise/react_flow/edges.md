@@ -2,7 +2,7 @@
 
 Edges connect nodes together in a flow. This page explains how to define, customize, and interact with edges in Reflex Flow.
 
-## The **Edge** Type
+## The Edge Type
 
 An edge is represented as a Python dictionary with the following fields:
 
