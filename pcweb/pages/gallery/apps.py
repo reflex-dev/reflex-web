@@ -4,7 +4,7 @@ import re
 import flexdown
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.demo_form import demo_form_dialog
+from reflex_ui.blocks.calcom import get_cal_attrs
 
 from pcweb.components.button import button, button_with_icon
 from pcweb.components.code_card import gallery_app_card
@@ -202,12 +202,11 @@ def page(document, is_reflex_template: bool) -> rx.Component:
                     *(
                         [
                             rx.box(
-                                demo_form_dialog(
-                                    button_with_icon(
-                                        "Book a Demo",
-                                        icon="new_tab",
-                                        class_name="flex-row-reverse gap-2 !w-full",
-                                    ),
+                                button_with_icon(
+                                    "Book a Demo",
+                                    icon="new_tab",
+                                    custom_attrs=get_cal_attrs(),
+                                    class_name="flex-row-reverse gap-2 !w-full",
                                 ),
                                 class_name="flex justify-center items-center h-full !w-full [&_button]:!w-full",
                             )

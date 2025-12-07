@@ -4,10 +4,13 @@ from urllib.parse import quote_plus
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
-from reflex_ui.blocks.demo_form import demo_form_dialog
+from reflex_ui.blocks.calcom import get_cal_attrs
 
 from pcweb.components.hosting_banner import HostingBannerState
+from pcweb.components.number_flow import number_flow
 from pcweb.constants import PRO_TIERS_TABLE, REFLEX_BUILD_URL, REFLEX_CLOUD_URL
+from pcweb.pages.pricing.enable_tiers_state import EnableTiersState
+from pcweb.pages.pricing.enterprise_demo_form import book_a_demo_form
 
 YEARLY_MONTHS_FREE = 2  # 2 months free
 YEARLY_DISCOUNT_MULTIPLIER = (12 - YEARLY_MONTHS_FREE) / 12
@@ -198,43 +201,46 @@ def pricing_cards() -> rx.Component:
                 target="_blank",
             ),
         ),
-        # card(
-        #     "Pro",
-        #     number_flow(
-        #         value=rx.cond(
-        #             monthly_yearly_toggle_cs.value == "monthly",
-        #             ProTierState.selected_tier["price"],
-        #             round(
-        #                 ProTierState.selected_tier["price"]
-        #                 * YEARLY_DISCOUNT_MULTIPLIER,
-        #                 1,
-        #             ),
-        #         ),
-        #         trend="0",
-        #         prefix="$",
-        #         suffix=" /monthly",
-        #         class_name="text-3xl text-secondary-12 font-semibold py-4",
-        #     ),
-        #     "Build, deploy and scale your apps.",
-        #     [
-        #         Feature("TokenCircleIcon", "", pro_tiers_select()),
-        #         Feature("SquareLock02Icon", "Private Projects"),
-        #         Feature("CursorInWindowIcon", "Full-Fledged Browser IDE"),
-        #         Feature("PlugSocketIcon", "Integrations"),
-        #         Feature("GithubIcon", "Connect to Github"),
-        #         Feature("Globe02Icon", "Custom Domains"),
-        #         Feature("CpuIcon", "Up to 8 GB RAM / 4 vCPU per deployed app"),
-        #     ],
-        #     ui.button(
-        #         "Start with Pro plan",
-        #         variant="secondary",
-        #         size="lg",
-        #         class_name="w-full font-semibold",
-        #         on_click=ProTierState.redirect_to_billing(
-        #             monthly_yearly_toggle_cs.value == "yearly"
-        #         ),
-        #     ),
-        # ),
+        rx.cond(
+            EnableTiersState.enable_pro_tier,
+            card(
+                "Pro",
+                number_flow(
+                    value=rx.cond(
+                        monthly_yearly_toggle_cs.value == "monthly",
+                        ProTierState.selected_tier["price"],
+                        round(
+                            ProTierState.selected_tier["price"]
+                            * YEARLY_DISCOUNT_MULTIPLIER,
+                            1,
+                        ),
+                    ),
+                    trend="0",
+                    prefix="$",
+                    suffix=" /monthly",
+                    class_name="text-3xl text-secondary-12 font-semibold py-4",
+                ),
+                "Build, deploy and scale your apps.",
+                [
+                    Feature("TokenCircleIcon", "", pro_tiers_select()),
+                    Feature("SquareLock02Icon", "Private Projects"),
+                    Feature("CursorInWindowIcon", "Full-Fledged Browser IDE"),
+                    Feature("PlugSocketIcon", "Integrations"),
+                    Feature("GithubIcon", "Connect to Github"),
+                    Feature("Globe02Icon", "Custom Domains"),
+                    Feature("CpuIcon", "Up to 8 GB RAM / 4 vCPU per deployed app"),
+                ],
+                ui.button(
+                    "Start with Pro plan",
+                    variant="secondary",
+                    size="lg",
+                    class_name="w-full font-semibold",
+                    on_click=ProTierState.redirect_to_billing(
+                        monthly_yearly_toggle_cs.value == "yearly"
+                    ),
+                ),
+            ),
+        ),
         popular_card(
             "Enterprise",
             "Custom",
@@ -253,16 +259,20 @@ def pricing_cards() -> rx.Component:
                 Feature("QuestionIcon", "Dedicated Support Channel"),
                 Feature("CustomerSupportIcon", "Onboarding support"),
             ],
-            demo_form_dialog(
-                ui.button(
-                    "Contact sales",
-                    variant="primary",
-                    size="lg",
-                    class_name="w-full font-semibold",
-                ),
+            ui.button(
+                "Contact sales",
+                variant="primary",
+                size="lg",
+                custom_attrs=get_cal_attrs(),
+                class_name="w-full font-semibold",
             ),
         ),
-        class_name="grid grid-cols-1 xl:grid-cols-2 gap-4 w-full xl:w-auto mx-auto justify-items-center",
+        class_name=ui.cn(
+            "grid grid-cols-1 xl:grid-cols-2 gap-4 w-full xl:w-auto mx-auto justify-items-center",
+            rx.cond(
+                EnableTiersState.enable_pro_tier, "xl:grid-cols-3", "xl:grid-cols-2"
+            ),
+        ),
     )
 
 
@@ -305,7 +315,10 @@ def monthly_yearly_toggle():
 
 def plan_cards():
     return rx.box(
-        header(),
+        rx.cond(
+            EnableTiersState.enable_free_tier,
+            header(),
+        ),
         # monthly_yearly_toggle(),
         rx.el.style(
             """
@@ -317,7 +330,11 @@ def plan_cards():
             }
             """
         ),
-        pricing_cards(),
+        rx.cond(
+            EnableTiersState.enable_free_tier,
+            pricing_cards(),
+            book_a_demo_form(),
+        ),
         class_name=(
             "flex flex-col w-full justify-center items-center max-w-[85rem] mx-auto",
             rx.cond(

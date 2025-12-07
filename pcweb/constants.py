@@ -101,6 +101,12 @@ POSTHOG_API_KEY = os.getenv("POSTHOG_API_KEY")
 
 SLACK_DEMO_WEBHOOK_URL: str = os.environ.get("SLACK_DEMO_WEBHOOK_URL")
 
+# Enable free tier flag
+ENABLE_FREE_TIER = os.getenv("ENABLE_FREE_TIER", "false").lower() == "true"
+
+# Enable Pro tiers flag
+ENABLE_PRO_TIER = os.getenv("ENABLE_PRO_TIER", "false").lower() == "true"
+
 # Pricing
 PRO_TIERS_TABLE = {
     "Pro 25": {"price": 25, "credits": 500},

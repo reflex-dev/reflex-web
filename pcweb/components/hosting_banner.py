@@ -10,13 +10,14 @@ def glow() -> rx.Component:
 
 
 POST_LINK = "https://www.producthunt.com/products/reflex-5?launch=reflex-7"
+BLOG_LINK = "/blog/2025-12-05-on-premises-deployment/"
 
 # October 25, 2025 12:01 AM PDT (UTC-7) = October 25, 2025 07:01 AM UTC
 DEADLINE = datetime.datetime(2025, 10, 25, 7, 1, tzinfo=datetime.UTC)
 
 
 class HostingBannerState(rx.State):
-    show_banner: rx.Field[bool] = rx.field(False)
+    show_banner: rx.Field[bool] = rx.field(True)
     force_hide_banner: rx.Field[bool] = rx.field(False)
 
     @rx.event
@@ -27,6 +28,11 @@ class HostingBannerState(rx.State):
     def check_deadline(self):
         if datetime.datetime.now(datetime.UTC) < DEADLINE:
             self.show_banner = True
+
+    @rx.event
+    def show_blog_banner(self):
+        """Show the on-premises blog banner."""
+        self.show_banner = True
 
     @rx.var
     def is_banner_visible(self) -> bool:
@@ -64,46 +70,35 @@ def hosting_banner() -> rx.Component:
                         rx.box(
                             # Header text with responsive spans
                             rx.el.span(
-                                "Launch",
+                                "New",
                                 class_name="items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1] inline-flex",
                             ),
                             rx.text(
                                 rx.el.span(
-                                    "We're live on Product Hunt - ",
+                                    "Reflex Build On-Prem - A secure builder running in your environment.",
                                     class_name="inline-block text-slate-12 font-semibold text-sm",
-                                ),
-                                # Mobile CTA: inline on small, hidden on md+
-                                rx.el.span(
-                                    " 50% ",
-                                    class_name="text-slate-12 font-semibold text-sm underline decoration-slate-11",
-                                ),
-                                rx.el.span(
-                                    " launch",
-                                    class_name="text-slate-12 font-semibold text-sm underline decoration-slate-11 hidden md:inline-block",
-                                ),
-                                rx.el.span(
-                                    " discount!",
-                                    class_name="text-slate-12 font-semibold text-sm underline decoration-slate-11",
                                 ),
                                 class_name="text-slate-12 font-semibold text-sm z-[1]",
                             ),
-                            # Standalone CTA button: hidden on small, inline on md+
-                            timer(),
+                            rx.el.span(
+                                "Learn more",
+                                class_name="text-slate-12 font-semibold text-sm underline decoration-slate-11",
+                            ),
                             class_name="flex items-center md:gap-3.5 gap-2",
                         )
                     ),
                     glow(),
-                    to=POST_LINK,
-                    target="_blank",
+                    to=BLOG_LINK,
+                    is_external=False,
                 ),
                 rx.icon(
                     "x",
                     on_click=HostingBannerState.hide_banner,
                     size=16,
-                    class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-4 z-10",
+                    class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-6 lg:right-4 z-10",
                 ),
-                class_name="px-4 lg:px-6 w-screen h-[2rem] lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-between md:justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full group",
+                class_name="px-6 lg:px-6 w-screen min-h-[3rem] lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-between md:justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-3 max-w-full group",
             ),
         ),
-        on_mount=HostingBannerState.check_deadline,
+        on_mount=HostingBannerState.show_blog_banner,
     )

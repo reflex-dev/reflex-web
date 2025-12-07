@@ -1,26 +1,63 @@
 """Security page data configuration."""
 
-# Feature data organized by category
+from pcweb.pages.pricing.table import Feature
+
 SECURITY_FEATURES = {
     "Data Protection": [
-        ("Data Encryption", "AES-256 encryption at rest, TLS 1.2+ in transit."),
-        ("Database Backups", "Daily encrypted backups with 30-day retention."),
-        ("Data Segregation", "Customer data is logically isolated per tenant."),
+        Feature(
+            name="Data Encryption",
+            free="AES-256 encryption at rest, TLS 1.2+ in transit.",
+        ),
+        Feature(
+            name="Database Backups",
+            free="Daily encrypted backups with 30-day retention.",
+        ),
+        Feature(
+            name="Data Segregation",
+            free="Customer data is logically isolated per tenant.",
+        ),
     ],
     "Product Security": [
-        ("Penetration Testing", "External tests conducted annually."),
-        ("Secure Development Lifecycle", "Code reviews, linting, and security scans."),
-        ("Dependency Management", "Automated scanning for vulnerabilities."),
+        Feature(
+            name="Penetration Testing",
+            free="External tests conducted annually.",
+        ),
+        Feature(
+            name="Secure Development Lifecycle",
+            free="Code reviews, linting, and security scans.",
+        ),
+        Feature(
+            name="Dependency Management",
+            free="Automated scanning for vulnerabilities.",
+        ),
     ],
     "Enterprise Security": [
-        ("SSO/SAML", "Supports major identity providers for centralized auth."),
-        ("Granular Permissions", "Role-based access control across teams."),
-        ("Audit Logs", "Track every access and change in the system."),
+        Feature(
+            name="SSO/SAML",
+            free="Supports major identity providers for centralized auth.",
+        ),
+        Feature(
+            name="Granular Permissions",
+            free="Role-based access control across teams.",
+        ),
+        Feature(
+            name="Audit Logs",
+            free="Track every access and change in the system.",
+        ),
     ],
     "Data Privacy": [
-        ("GDPR & CCPA Ready", "Compliant data handling and user rights."),
-        ("Data Deletion Requests", "Users can request full data erasure."),
-        ("Privacy by Design", "Privacy baked into product architecture."),
+        Feature(
+            name="GDPR & CCPA Ready",
+            free="Compliant data handling and user rights.",
+        ),
+        Feature(
+            name="Data Deletion Requests",
+            free="Users can request full data erasure.",
+        ),
+        Feature(
+            name="Privacy by Design",
+            free="Privacy baked into product architecture.",
+        ),
     ],
 }
 
