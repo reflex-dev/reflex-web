@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.demo_form import demo_form_dialog
+from reflex_ui.blocks.calcom import get_cal_attrs
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
@@ -395,12 +395,11 @@ def sticky_pricing_header() -> rx.Component:
             # Enterprise column with button
             header_item(
                 "Enterprise",
-                demo_form_dialog(
-                    ui.button(
-                        "Get a demo",
-                        variant="primary",
-                        class_name="font-semibold w-full",
-                    )
+                ui.button(
+                    "Get a demo",
+                    variant="primary",
+                    class_name="font-semibold w-full",
+                    custom_attrs=get_cal_attrs(),
                 ),
             ),
             class_name=ui.cn(

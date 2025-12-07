@@ -4,7 +4,7 @@ from urllib.parse import quote_plus
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
-from reflex_ui.blocks.demo_form import demo_form_dialog
+from reflex_ui.blocks.calcom import get_cal_attrs
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.number_flow import number_flow
@@ -259,13 +259,12 @@ def pricing_cards() -> rx.Component:
                 Feature("QuestionIcon", "Dedicated Support Channel"),
                 Feature("CustomerSupportIcon", "Onboarding support"),
             ],
-            demo_form_dialog(
-                ui.button(
-                    "Contact sales",
-                    variant="primary",
-                    size="lg",
-                    class_name="w-full font-semibold",
-                ),
+            ui.button(
+                "Contact sales",
+                variant="primary",
+                size="lg",
+                custom_attrs=get_cal_attrs(),
+                class_name="w-full font-semibold",
             ),
         ),
         class_name=ui.cn(
