@@ -2,9 +2,7 @@ import reflex as rx
 
 from pcweb.constants import REFLEX_DOMAIN, REFLEX_DOMAIN_URL, TWITTER_CREATOR
 
-ONE_LINE_DESCRIPTION = (
-    "The complete platform to build and scale enterprise apps - all in Python."
-)
+ONE_LINE_DESCRIPTION = "Build with AI, iterate in Python, deploy to any cloud. The unified platform to build and scale enterprise apps."
 
 meta_tags = [
     # HTML Meta Tags
@@ -20,7 +18,7 @@ meta_tags = [
     # Facebook Meta Tags
     {"property": "og:url", "content": REFLEX_DOMAIN_URL},
     {"property": "og:type", "content": "website"},
-    {"property": "og:title", "content": "Reflex · Web apps in Pure Python"},
+    {"property": "og:title", "content": "Reflex · Build with AI, Deploy with Python"},
     {
         "property": "og:description",
         "content": ONE_LINE_DESCRIPTION,
@@ -30,7 +28,7 @@ meta_tags = [
     {"name": "twitter:card", "content": "summary_large_image"},
     {"property": "twitter:domain", "content": REFLEX_DOMAIN},
     {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
-    {"name": "twitter:title", "content": "Reflex · Web apps in Pure Python"},
+    {"name": "twitter:title", "content": "Reflex · Build with AI, Deploy with Python"},
     {
         "name": "twitter:description",
         "content": ONE_LINE_DESCRIPTION,
@@ -53,7 +51,7 @@ hosting_meta_tags = [
     # Facebook Meta Tags
     {"property": "og:url", "content": REFLEX_DOMAIN_URL},
     {"property": "og:type", "content": "website"},
-    {"property": "og:title", "content": "Reflex · Web apps in Pure Python"},
+    {"property": "og:title", "content": "Reflex · Build with AI, Deploy with Python"},
     {
         "property": "og:description",
         "content": ONE_LINE_DESCRIPTION,
@@ -63,7 +61,7 @@ hosting_meta_tags = [
     {"name": "twitter:card", "content": "summary_large_image"},
     {"property": "twitter:domain", "content": REFLEX_DOMAIN},
     {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
-    {"name": "twitter:title", "content": "Reflex · Web apps in Pure Python"},
+    {"name": "twitter:title", "content": "Reflex · Build with AI, Deploy with Python"},
     {
         "name": "twitter:description",
         "content": ONE_LINE_DESCRIPTION,
