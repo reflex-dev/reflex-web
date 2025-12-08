@@ -2,73 +2,68 @@ import reflex as rx
 
 from pcweb.constants import REFLEX_DOMAIN, REFLEX_DOMAIN_URL, TWITTER_CREATOR
 
+TITLE = "The unified platform to build and scale enterprise apps."
 ONE_LINE_DESCRIPTION = "Build with AI, iterate in Python, deploy to any cloud. The unified platform to build and scale enterprise apps."
 
-meta_tags = [
-    # HTML Meta Tags
-    {"name": "application-name", "content": "Reflex"},
-    {
-        "name": "keywords",
-        "content": "reflex, python, web apps, framework, open source, frontend, backend, full stack",
-    },
-    {
-        "name": "description",
-        "content": ONE_LINE_DESCRIPTION,
-    },
-    # Facebook Meta Tags
-    {"property": "og:url", "content": REFLEX_DOMAIN_URL},
-    {"property": "og:type", "content": "website"},
-    {"property": "og:title", "content": "Reflex · Build with AI, Deploy with Python"},
-    {
-        "property": "og:description",
-        "content": ONE_LINE_DESCRIPTION,
-    },
-    {"property": "og:image", "content": "/previews/index_preview.webp"},
-    # Twitter Meta Tags
-    {"name": "twitter:card", "content": "summary_large_image"},
-    {"property": "twitter:domain", "content": REFLEX_DOMAIN},
-    {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
-    {"name": "twitter:title", "content": "Reflex · Build with AI, Deploy with Python"},
-    {
-        "name": "twitter:description",
-        "content": ONE_LINE_DESCRIPTION,
-    },
-    {"name": "twitter:image", "content": "/previews/index_preview.webp"},
-    {"name": "twitter:creator", "content": TWITTER_CREATOR},
-]
+# Common constants
+APPLICATION_NAME = "Reflex"
+KEYWORDS = (
+    "reflex, python, web apps, framework, open source, frontend, backend, full stack"
+)
+TWITTER_CARD_TYPE = "summary_large_image"
+OG_TYPE = "website"
 
-hosting_meta_tags = [
-    # HTML Meta Tags
-    {"name": "application-name", "content": "Reflex"},
-    {
-        "name": "keywords",
-        "content": "reflex, python, web apps, framework, open source, frontend, backend, full stack",
-    },
-    {
-        "name": "description",
-        "content": ONE_LINE_DESCRIPTION,
-    },
-    # Facebook Meta Tags
-    {"property": "og:url", "content": REFLEX_DOMAIN_URL},
-    {"property": "og:type", "content": "website"},
-    {"property": "og:title", "content": "Reflex · Build with AI, Deploy with Python"},
-    {
-        "property": "og:description",
-        "content": ONE_LINE_DESCRIPTION,
-    },
-    {"property": "og:image", "content": "/previews/hosting_preview.webp"},
-    # Twitter Meta Tags
-    {"name": "twitter:card", "content": "summary_large_image"},
-    {"property": "twitter:domain", "content": REFLEX_DOMAIN},
-    {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
-    {"name": "twitter:title", "content": "Reflex · Build with AI, Deploy with Python"},
-    {
-        "name": "twitter:description",
-        "content": ONE_LINE_DESCRIPTION,
-    },
-    {"name": "twitter:image", "content": "/previews/hosting_preview.webp"},
-    {"name": "twitter:creator", "content": TWITTER_CREATOR},
-]
+
+def _build_meta_tags(
+    title: str,
+    description: str,
+    image: str,
+    url: str = REFLEX_DOMAIN_URL,
+) -> list[dict[str, str]]:
+    """Build a list of meta tags with the given parameters.
+
+    Args:
+        title: The page title.
+        description: The page description.
+        image: The image path for social media previews.
+        url: The page URL (defaults to REFLEX_DOMAIN_URL).
+
+    Returns:
+        A list of meta tag dictionaries.
+    """
+    return [
+        # HTML Meta Tags
+        {"name": "application-name", "content": APPLICATION_NAME},
+        {"name": "keywords", "content": KEYWORDS},
+        {"name": "description", "content": description},
+        # Facebook Meta Tags
+        {"property": "og:url", "content": url},
+        {"property": "og:type", "content": OG_TYPE},
+        {"property": "og:title", "content": title},
+        {"property": "og:description", "content": description},
+        {"property": "og:image", "content": image},
+        # Twitter Meta Tags
+        {"name": "twitter:card", "content": TWITTER_CARD_TYPE},
+        {"property": "twitter:domain", "content": REFLEX_DOMAIN},
+        {"property": "twitter:url", "content": url},
+        {"name": "twitter:title", "content": title},
+        {"name": "twitter:description", "content": description},
+        {"name": "twitter:image", "content": image},
+        {"name": "twitter:creator", "content": TWITTER_CREATOR},
+    ]
+
+
+meta_tags = _build_meta_tags(
+    title=TITLE,
+    description=ONE_LINE_DESCRIPTION,
+    image="/previews/index_preview.webp",
+)
+
+hosting_meta_tags = _build_meta_tags(
+    title=TITLE,
+    description=ONE_LINE_DESCRIPTION,
+    image="/previews/hosting_preview.webp",
+)
 
 
 def favicons_links() -> list[rx.Component]:
@@ -90,6 +85,17 @@ def favicons_links() -> list[rx.Component]:
 def create_meta_tags(
     title: str, description: str, image: str, url: str | None = None
 ) -> list[rx.Component]:
+    """Create meta tags for a page.
+
+    Args:
+        title: The page title.
+        description: The page description.
+        image: The image path for social media previews.
+        url: The page URL (optional, defaults to REFLEX_DOMAIN_URL).
+
+    Returns:
+        A list of meta tag dictionaries.
+    """
     page_url = url if url else REFLEX_DOMAIN_URL
 
     if image and not image.startswith(("http://", "https://")):
@@ -97,35 +103,9 @@ def create_meta_tags(
     else:
         image_url = image
 
-    return [
-        # HTML Meta Tags
-        {"name": "application-name", "content": "Reflex"},
-        {
-            "name": "keywords",
-            "content": "reflex, python, web apps, framework, open source, frontend, backend, full stack",
-        },
-        {
-            "name": "description",
-            "content": description,
-        },
-        # Facebook Meta Tags
-        {"property": "og:url", "content": page_url},
-        {"property": "og:type", "content": "website"},
-        {"property": "og:title", "content": title},
-        {
-            "property": "og:description",
-            "content": description,
-        },
-        {"property": "og:image", "content": image_url},
-        # Twitter Meta Tags
-        {"name": "twitter:card", "content": "summary_large_image"},
-        {"property": "twitter:domain", "content": REFLEX_DOMAIN},
-        {"property": "twitter:url", "content": page_url},
-        {"name": "twitter:title", "content": title},
-        {
-            "name": "twitter:description",
-            "content": description,
-        },
-        {"name": "twitter:image", "content": image_url},
-        {"name": "twitter:creator", "content": TWITTER_CREATOR},
-    ]
+    return _build_meta_tags(
+        title=title,
+        description=description,
+        image=image_url,
+        url=page_url,
+    )
