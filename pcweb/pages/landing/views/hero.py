@@ -313,7 +313,11 @@ def prompt_box() -> rx.Component:
                 aria_label="Upload images",
             ),
             ui.button(
-                "Build Your App",
+                "Build with AI",
+                rx.icon(
+                    tag="send",
+                    size=18,
+                ),
                 size="lg",
                 variant="primary",
                 loading=SubmitPromptState.is_processing,
@@ -330,7 +334,7 @@ def prompt_box() -> rx.Component:
         """
         ),
         on_submit=SubmitPromptState.redirect_to_ai_builder,
-        class_name="flex flex-col gap-4 mt-6 max-w-[29rem] w-full",
+        class_name="flex flex-col gap-4 mt-2 max-w-[29rem] w-full",
     )
 
 
@@ -346,15 +350,22 @@ def hero() -> rx.Component:
         ),
         rx.el.div(
             rx.el.h1(
-                "Prompt to Production App",
+                rx.el.span(
+                    "The unified platform to build",
+                    class_name="block",
+                ),
+                rx.el.span(
+                    "and scale enterprise apps.",
+                    class_name="block",
+                ),
                 class_name="text-secondary-12 lg:text-4xl text-3xl font-semibold text-center max-lg:text-balance",
             ),
             rx.el.h2(
-                "A unified platform to build and deploy all in Python.",
+                "Build with AI, iterate in Python, deploy to any cloud.",
                 class_name="text-secondary-11 lg:text-lg text-md font-medium text-center max-lg:text-pretty",
             ),
             class_name="flex flex-col items-center justify-center gap-3",
         ),
         prompt_box(),
-        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[3rem] pt-28 lg:pt-[8rem] relative lg:overflow-hidden overflow-hidden z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
+        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-8 pt-32 lg:pt-[10rem] relative lg:overflow-hidden overflow-hidden z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
     )
