@@ -7,9 +7,6 @@ ONE_LINE_DESCRIPTION = "Build with AI, iterate in Python, deploy to any cloud. T
 
 # Common constants
 APPLICATION_NAME = "Reflex"
-KEYWORDS = (
-    "reflex, python, web apps, framework, open source, frontend, backend, full stack"
-)
 TWITTER_CARD_TYPE = "summary_large_image"
 OG_TYPE = "website"
 
@@ -34,7 +31,6 @@ def _build_meta_tags(
     return [
         # HTML Meta Tags
         {"name": "application-name", "content": APPLICATION_NAME},
-        {"name": "keywords", "content": KEYWORDS},
         {"name": "description", "content": description},
         # Facebook Meta Tags
         {"property": "og:url", "content": url},
