@@ -1,0 +1,3 @@
+[submodule "integrations-docs"]
+	path = integrations-docs
+	url = https://github.com/reflex-dev/integrations-docs

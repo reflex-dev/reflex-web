@@ -16,6 +16,7 @@ from pcweb.templates.docpage import (
     h2_comp_xd,
     h3_comp_xd,
     h4_comp_xd,
+    img_comp_xd,
     list_comp,
     ordered_list_comp,
     text_comp,
@@ -602,6 +603,7 @@ component_map = {
     "a": doclink2,
     "code": lambda text: code_comp(text=text),
     "codeblock": code_block_markdown,
+    "img": lambda src: img_comp_xd(src=src),
 }
 comp2 = component_map.copy()
 comp2["codeblock"] = code_block_markdown_dark

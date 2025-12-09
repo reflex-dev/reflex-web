@@ -6,6 +6,7 @@ import reflex_ui as ui
 
 from pcweb.components.button import button
 from pcweb.components.r_svg_loader import r_svg_loader
+from pcweb.constants import INTEGRATIONS_IMAGES_URL
 from pcweb.templates.webpage import webpage
 
 REFLEX_BUILD_TEMPLATES_PATH = "reflex_build_templates/"
@@ -82,8 +83,8 @@ def integration_image(integration: str, class_name: str = ""):
     return ui.avatar.root(
         ui.avatar.image(
             src=rx.color_mode_cond(
-                f"/integrations/light/{integration_logo}.svg",
-                f"/integrations/dark/{integration_logo}.svg",
+                f"{INTEGRATIONS_IMAGES_URL}light/{integration_logo}.svg",
+                f"{INTEGRATIONS_IMAGES_URL}dark/{integration_logo}.svg",
             ),
             unstyled=True,
             class_name="size-full",
@@ -101,9 +102,14 @@ def integrations_stack(integrations: list[str]) -> rx.Component:
         rx.foreach(
             integrations,
             lambda integration: rx.el.div(
-                integration_image(integration, class_name="size-4"),
-                title=integration,
-                class_name="size-8 shrink-0 flex justify-center items-center rounded-full shadow-small border border-secondary-a5 bg-white-1 dark:bg-secondary-1",
+                ui.tooltip(
+                    trigger=rx.el.div(
+                        integration_image(integration, class_name="size-4"),
+                        class_name="size-8 shrink-0 flex justify-center items-center rounded-full shadow-small border border-secondary-a5 bg-white-1 dark:bg-secondary-1 cursor-default",
+                    ),
+                    side="bottom",
+                    content=integration,
+                ),
             ),
         ),
         class_name="flex flex-row -space-x-2 flex-wrap gap-y-2",

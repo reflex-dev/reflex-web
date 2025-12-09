@@ -9,7 +9,7 @@ meta: [
     {"name": "keywords", "content": "factor risk model, portfolio analytics, equity factors, GPU analytics, risk management, Reflex app, finance dashboard"},
 ]
 tags: ["Dashboard", "Finance", "Risk", "Analytics"]
-integrations: ["Databricks", "AG Grid", "Slack"]
+integrations: ["Databricks", "AGGrid", "Slack"]
 ---
 
 

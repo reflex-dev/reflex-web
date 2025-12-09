@@ -118,3 +118,11 @@ def h4_comp_xd(text: list[str]) -> rx.Component:
         mt="2",
         class_name="font-md-smbold",
     )
+
+
+@rx.memo
+def img_comp_xd(src: str) -> rx.Component:
+    return rx.image(
+        src=src,
+        class_name="rounded-lg border border-secondary-a4 mb-2",
+    )
