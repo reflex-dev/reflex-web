@@ -95,6 +95,21 @@ flexdown_docs = [
     str(doc).replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
 ]
 
+# Add integration docs from the submodule
+# Create a mapping from virtual path to actual path
+doc_path_mapping = {}
+integration_docs_path = Path("integrations-docs/docs")
+if integration_docs_path.exists():
+    for integration_doc in integration_docs_path.glob("*.md"):
+        # Map submodule docs to the ai_builder/integrations path structure
+        virtual_path = f"docs/ai_builder/integrations/{integration_doc.name}"
+        actual_path = str(integration_doc).replace("\\", "/")
+        if virtual_path.replace("\\", "/") not in flexdown_docs:
+            # Store the mapping
+            doc_path_mapping[virtual_path.replace("\\", "/")] = actual_path
+            # Add to flexdown_docs for processing
+            flexdown_docs.append(virtual_path.replace("\\", "/"))
+
 graphing_components = defaultdict(list)
 component_list = defaultdict(list)
 recipes_list = defaultdict(list)
@@ -155,10 +170,12 @@ def get_component(doc: str, title: str):
     if not _check_whitelisted_path(route):
         return
 
-    d = Document.from_file(doc)
+    # Use the actual file path if this is from the submodule
+    actual_doc_path = doc_path_mapping.get(doc, doc)
+    d = Document.from_file(actual_doc_path)
 
     if doc.startswith("docs/library/graphing"):
-        if should_skip_compile(doc):
+        if should_skip_compile(actual_doc_path):
             outblocks.append((d, route))
             return
         clist = [title, *get_components_from_metadata(d)]
@@ -167,17 +184,17 @@ def get_component(doc: str, title: str):
     if doc.startswith("docs/library"):
         clist = [title, *get_components_from_metadata(d)]
         component_list[category].append(clist)
-        if should_skip_compile(doc):
+        if should_skip_compile(actual_doc_path):
             outblocks.append((d, route))
             return
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
 
-    if should_skip_compile(doc):
+    if should_skip_compile(actual_doc_path):
         outblocks.append((d, route))
         return
 
     def comp():
-        return (get_toc(d, doc), xd.render(d, doc))
+        return (get_toc(d, actual_doc_path), xd.render(d, actual_doc_path))
 
     doc_path = Path(doc)
     doc_module = ".".join(doc_path.parts[:-1])

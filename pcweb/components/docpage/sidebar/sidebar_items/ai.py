@@ -66,8 +66,8 @@ def get_ai_builder_integrations():
             "First Class Integrations",
             children=[
                 ai_builder.integrations.overview,
-                # ai_builder.integrations.airtable,
                 ai_builder.integrations.anthropic,
+                ai_builder.integrations.aws,
                 ai_builder.integrations.azure_auth,
                 ai_builder.integrations.cartesia,
                 ai_builder.integrations.cohere,

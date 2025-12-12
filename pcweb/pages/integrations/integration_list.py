@@ -5,7 +5,7 @@ import frontmatter
 
 # Get the paths for our integrations from the source docs/
 def get_integration_path() -> list:
-    base_dir = "docs/ai_builder/integrations"
+    base_dir = "integrations-docs/docs"
     web_path_prefix = "/docs/ai-builder/integrations"
     result = []
 
