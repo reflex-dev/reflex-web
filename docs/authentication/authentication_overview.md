@@ -15,6 +15,8 @@ We have solutions that currently exist outside of the core framework:
 5. Clerk Auth: A community member wrapped this component and hooked it up in this app: https://github.com/TimChild/reflex-clerk-api
 6. Descope Auth: Enables authentication with Descope, supporting passwordless, social login, SSO, and MFA: https://github.com/descope-sample-apps/reflex-descope-auth
 
+If you're using the AI Builder, you can also use the built-in [Authentication Integrations](/docs/ai-builder/integrations/overview) which include Azure Auth, Google Auth, Okta Auth, and Descope.
+
 ## Guidance for Implementing Authentication
 
 - Store sensitive user tokens and information in [backend-only vars]({vars.base_vars.path}#backend-only-vars).
