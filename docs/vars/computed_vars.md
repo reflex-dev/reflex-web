@@ -9,8 +9,7 @@ import reflex as rx
 # Computed Vars
 
 Computed vars have values derived from other properties on the backend. They are
-defined as methods in your State class with the `@rx.var` decorator. A computed
-var is recomputed every time an event is processed in your app.
+defined as methods in your State class with the `@rx.var` decorator.
 
 Try typing in the input box and clicking out.
 
@@ -40,19 +39,22 @@ We recommend always using type annotations for computed vars.
 
 ## Cached Vars
 
-A cached var, decorated as `@rx.var(cache=True)` is a special type of computed var
-that is only recomputed when the other state vars it depends on change. This is
-useful for expensive computations, but in some cases it may not update when you
-expect it to.
+By default, all computed vars are cached (`cache=True`). A cached var is only 
+recomputed when the other state vars it depends on change. This is useful for 
+expensive computations, but in some cases it may not update when you expect it to.
+
+To create a computed var that recomputes on every state update regardless of 
+dependencies, use `@rx.var(cache=False)`.
+
 Previous versions of Reflex had a `@rx.cached_var` decorator, which is now replaced
-by the new `cache` argument of `@rx.var`.
+by the `cache` argument of `@rx.var` (which defaults to `True`).
 
 ```python demo exec
 class CachedVarState(rx.State):
     counter_a: int = 0
     counter_b: int = 0
 
-    @rx.var
+    @rx.var(cache=False)
     def last_touch_time(self) -> str:
         # This is updated anytime the state is updated.
         return time.strftime("%H:%M:%S")
@@ -88,11 +90,11 @@ def cached_var_example():
     )
 ```
 
-In this example `last_touch_time` is a normal computed var, which updates any
-time the state is modified. `last_counter_a_update` is a computed var that only
-depends on `counter_a`, so it only gets recomputed when `counter_a` has changes.
-Similarly `last_counter_b_update` only depends on `counter_b`, and thus is
-updated only when `counter_b` changes.
+In this example `last_touch_time` uses `cache=False` to ensure it updates any
+time the state is modified. `last_counter_a_update` is a cached computed var (using
+the default `cache=True`) that only depends on `counter_a`, so it only gets recomputed 
+when `counter_a` changes. Similarly `last_counter_b_update` only depends on `counter_b`, 
+and thus is updated only when `counter_b` changes.
 
 ## Async Computed Vars
 
