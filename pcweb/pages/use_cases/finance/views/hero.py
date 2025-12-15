@@ -1,78 +1,7 @@
 import reflex as rx
-import reflex_ui as ui
-from reflex_ui.blocks.calcom import get_cal_attrs
 
 from pcweb.components.numbers_pattern import numbers_pattern
-
-
-def left_content() -> rx.Component:
-    return rx.el.div(
-        rx.el.h1(
-            "The Future Of Finance Is",
-            rx.el.span(
-                " Python, Data, and AI",
-                class_name="text-m-violet-11",
-            ),
-            class_name="text-slate-12 lg:text-5xl text-3xl font-semibold",
-        ),
-        rx.el.h2(
-            "Give quants, risk teams, and operations the power to build production-grade dashboards and AI tools in pure Python—without waiting on front-end teams.",
-            class_name="text-m-slate-11 dark:text-slate-9 text-base font-medium",
-        ),
-        rx.el.div(
-            ui.button(
-                "Talk to a solutions engineer",
-                size="lg",
-                class_name="font-semibold",
-                custom_attrs=get_cal_attrs(),
-            ),
-            ui.button(
-                "Book a financial services demo",
-                size="lg",
-                variant="outline",
-                class_name="font-semibold text-m-slate-11 dark:text-slate-9 border-m-slate-5 dark:border-m-slate-12",
-                custom_attrs=get_cal_attrs(),
-            ),
-            class_name="flex lg:flex-row flex-col items-center max-lg:justify-center gap-4 mt-2",
-        ),
-        class_name="flex flex-col gap-6 max-lg:items-center max-lg:justify-center max-lg:text-center",
-    )
-
-
-def feature_row(icon: str, title: str) -> rx.Component:
-    return rx.el.div(
-        ui.icon(
-            icon,
-            class_name="size-5 text-m-violet-11 dark:text-m-violet-10 shrink-0",
-            stroke_width=1.5,
-        ),
-        rx.el.span(title, class_name="font-medium text-slate-12 text-sm"),
-        class_name="flex flex-row items-start gap-2.5",
-    )
-
-
-def right_content() -> rx.Component:
-    return rx.el.div(
-        rx.el.span(
-            "Why Reflex?",
-            class_name="font-semibold text-slate-12 text-base",
-        ),
-        rx.el.div(
-            feature_row(
-                "ShieldEnergyIcon", "Build secure internal tools and data apps"
-            ),
-            feature_row(
-                "DashboardSpeed01Icon", "Develop up to 10x faster in pure Python"
-            ),
-            feature_row("PythonIcon", "Go in Python from prototype to production"),
-            feature_row(
-                "BrowserIcon",
-                "From risk dashboards and model validation portals to AI-powered RAG chatbots",
-            ),
-            class_name="flex flex-col gap-4",
-        ),
-        class_name="shadow-large rounded-xl border-m-slate-4 border p-8 bg-white-1 dark:bg-m-slate-14 dark:border-m-slate-12 flex flex-col gap-6 max-w-[24.25rem] w-full shrink-0",
-    )
+from pcweb.pages.use_cases.common.hero import left_content, right_content
 
 
 def hero() -> rx.Component:
@@ -82,8 +11,24 @@ def hero() -> rx.Component:
             class_name="lg:top-[65px] top-[45px] lg:h-[calc(100%-65px)] h-[calc(100%-45px)] max-lg:hidden",
         ),
         rx.el.div(
-            left_content(),
-            right_content(),
+            left_content(
+                "The Future Of Finance Is",
+                " Python, Data, and AI",
+                "Give quants, risk teams, and operations the power to build production-grade dashboards and AI tools in pure Python—without waiting on front-end teams.",
+                "Talk to a solutions engineer",
+                "Book a financial services demo",
+            ),
+            right_content(
+                [
+                    ("ShieldEnergyIcon", "Build secure internal tools and data apps"),
+                    ("DashboardSpeed01Icon", "Develop up to 10x faster in pure Python"),
+                    ("PythonIcon", "Go in Python from prototype to production"),
+                    (
+                        "BrowserIcon",
+                        "From risk dashboards and model validation portals to AI-powered RAG chatbots",
+                    ),
+                ],
+            ),
             class_name="flex lg:flex-row flex-col lg:gap-20 gap-10 max-lg:items-center max-lg:justify-center max-lg:text-center",
         ),
         class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[3rem] pt-32 lg:pt-[11.5rem] lg:pb-[7.5rem] relative lg:overflow-hidden overflow-hidden z-[1] lg:px-10",
