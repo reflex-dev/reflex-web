@@ -26,7 +26,7 @@ def right_content(h1: str, description: str) -> rx.Component:
             to=REFLEX_BUILD_URL,
             target="_blank",
         ),
-        class_name="flex flex-col lg:p-20 p-8 h-full",
+        class_name="flex flex-col lg:p-20 p-8 h-full shrink-0",
     )
 
 
@@ -48,5 +48,5 @@ def left_content(h1: str, description: str) -> rx.Component:
             custom_attrs=get_cal_attrs(),
             class_name="w-fit font-semibold mt-4",
         ),
-        class_name="flex flex-col gap-4 items-start justify-center lg:py-20 py-8 lg:pl-20 pl-8 lg:pr-[7.5rem] pr-8 relative overflow-hidden min-h-fit",
+        class_name="flex flex-col gap-4 items-start justify-center lg:py-20 py-8 lg:pl-20 pl-8 lg:pr-[7.5rem] pr-8 relative overflow-hidden min-h-fit shrink-0",
     )
