@@ -53,11 +53,12 @@ class Feature(NamedTuple):
     component: rx.Component | None = None
 
 
-def radial_circle(violet: bool = False) -> rx.Component:
+def radial_circle(violet: bool = False, class_name: str = "") -> rx.Component:
     """Create a radial circle background image component.
 
     Args:
         violet: Whether to use the violet variant. Defaults to False.
+        class_name: Additional class names to add to the component.
 
     Returns:
         A Reflex image component configured as a radial circle background.
@@ -71,7 +72,9 @@ def radial_circle(violet: bool = False) -> rx.Component:
         ),
         alt="Radial circle",
         loading="lazy",
-        class_name="top-0 right-0 absolute pointer-events-none z-[-1]",
+        class_name=ui.cn(
+            "top-0 right-0 absolute pointer-events-none z-[-1]", class_name
+        ),
     )
 
 
