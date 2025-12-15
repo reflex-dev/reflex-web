@@ -1,4 +1,5 @@
 import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.numbers_pattern import numbers_pattern
 
@@ -19,10 +20,13 @@ def content(header: str, description: str | None = None) -> rx.Component:
     )
 
 
-def text_section(header: str, description: str) -> rx.Component:
+def text_section(header: str, description: str, class_name: str = "") -> rx.Component:
     return rx.el.section(
         numbers_pattern(side="left", reverse=True, class_name="left-0 top-0"),
         numbers_pattern(side="right", reverse=True, class_name="right-0 top-0"),
         content(header, description),
-        class_name="flex flex-col items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden py-20 border-t",
+        class_name=ui.cn(
+            "flex flex-col items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden py-20 border-t",
+            class_name,
+        ),
     )
