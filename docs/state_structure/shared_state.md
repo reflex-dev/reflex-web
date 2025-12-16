@@ -138,7 +138,9 @@ An `rx.SharedState` subclass has two attributes for determining link status and 
 
 Provides the token that the state is currently linked to, or empty string if not linked.
 
-This attribute is only set on the linked state instance returned by `_link_to`. It will be an empty string on any unlinked shared state instances. However, if another state links to a client's private token, then the `_linked_to` attribute will be set to the client's token rather than empty string. This is yet another reason to avoid linking to client tokens directly.
+This attribute is only set on the linked state instance returned by `_link_to`. It will be an empty string on any unlinked shared state instances. However, if another state links to a client's private token, then the `_linked_to` attribute will be set to the client's token rather than an empty string.
+
+When `_linked_to` equals `self.router.session.client_token`, it is assumed that the current client is unlinked, but another client has linked to this client's private state. Although this is possible, it is generally discouraged to link shared states to private client tokens.
 
 **`_linked_from: set[str]`**
 
@@ -159,6 +161,8 @@ Linked states are always loaded into the tree for each event on each linked clie
 A shared state should primarily use backend-only vars (prefixed with an underscore) to store shared data. Often, not all users of the shared state need visibility into all of the data in the shared state. Use computed vars to provide sanitized access to shared data as needed.
 
 ```python
+from typing import Literal
+
 class SharedGameState(rx.SharedState):
     # Sensitive user metadata stored in backend-only variable.
     _players: dict[str, Literal["X", "O"]] = {}
@@ -197,11 +201,15 @@ It is often convenient to define dynamic routes that include the linked token as
 ```python
 class SharedRoom(rx.SharedState):
     async def on_load(self):
+        # `self.room_id` is the automatically defined dynamic route var.
         await self._link_to(self.room_id.replace("_", "-") or "default-room")
 
 
+def room_page(): ...
+
+
 app.add_route(
-    room,
+    room_page,
     path="/room/[room_id]",
     on_load=SharedRoom.on_load,
 )
