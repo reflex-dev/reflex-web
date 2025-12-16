@@ -15,7 +15,7 @@ def features_2() -> rx.Component:
             "PythonIcon",
             "Python-first Flexibility",
             "Let Experts Build, Not Just Consume",
-            "At Man Group, 50+ researchers write Python, not JavaScript. Reflex gives them a full-Python framework to create dashboards and model views without touching javascript front-end code, while the platform team wraps their internal design system.",
+            "Quants and researchers write Python, not JavaScript. Reflex gives them a full-Python framework to create dashboards and model views without touching javascript front-end code.",
         ),
         feature_card(
             "ShieldKeyIcon",
