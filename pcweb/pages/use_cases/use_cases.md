@@ -7,7 +7,7 @@ Organizations across industries use **Reflex** to build internal tools, dashboar
 ```python exec
 import reflex as rx
 from reflex_image_zoom import image_zoom
-from pcweb.pages.use_cases.finance_use_case import finance_use_case_page
+from pcweb.pages.use_cases.finance import finance_use_case_page
 ```
 
 ```python eval

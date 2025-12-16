@@ -1071,6 +1071,34 @@
     --color-bronze-a10: var(--bronze-a10);
     --color-bronze-a11: var(--bronze-a11);
     --color-bronze-a12: var(--bronze-a12);
+    /* Marketing Colors */
+    --color-m-slate-1: var(--m-slate-1);
+    --color-m-slate-2: var(--m-slate-2);
+    --color-m-slate-3: var(--m-slate-3);
+    --color-m-slate-4: var(--m-slate-4);
+    --color-m-slate-5: var(--m-slate-5);
+    --color-m-slate-6: var(--m-slate-6);
+    --color-m-slate-7: var(--m-slate-7);
+    --color-m-slate-8: var(--m-slate-8);
+    --color-m-slate-9: var(--m-slate-9);
+    --color-m-slate-10: var(--m-slate-10);
+    --color-m-slate-11: var(--m-slate-11);
+    --color-m-slate-12: var(--m-slate-12);
+    --color-m-slate-13: var(--m-slate-13);
+    --color-m-slate-14: var(--m-slate-14);
+    --color-m-slate-15: var(--m-slate-15);
+    --color-m-violet-1: var(--m-violet-1);
+    --color-m-violet-2: var(--m-violet-2);
+    --color-m-violet-3: var(--m-violet-3);
+    --color-m-violet-4: var(--m-violet-4);
+    --color-m-violet-5: var(--m-violet-5);
+    --color-m-violet-6: var(--m-violet-6);
+    --color-m-violet-7: var(--m-violet-7);
+    --color-m-violet-8: var(--m-violet-8);
+    --color-m-violet-9: var(--m-violet-9);
+    --color-m-violet-10: var(--m-violet-10);
+    --color-m-violet-11: var(--m-violet-11);
+    --color-m-violet-12: var(--m-violet-12);
 
     /* Font */
     --font-sans: var(--font-instrument-sans);

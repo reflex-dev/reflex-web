@@ -169,7 +169,7 @@ def extended_gallery_grid_item(
                 rx.el.div(
                     rx.el.span(
                         app_name,
-                        class_name="text-sm font-semibold text-m-slate-13 dark:text-m-slate-3 truncate min-w-0 max-w-[90%]",
+                        class_name="text-sm font-semibold text-slate-12 dark:text-m-slate-3 truncate min-w-0 max-w-[90%]",
                     ),
                     rx.el.div(
                         rx.el.span(

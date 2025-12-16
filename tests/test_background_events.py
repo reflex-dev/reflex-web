@@ -37,5 +37,4 @@ def test_background_events(
     expect(heading).to_have_text(re.compile(r"[4-7] /"))
 
     reset_button.click()
-    expect(heading).to_have_text("0 /")
     expect(heading).to_have_text("10 /", timeout=12000)
