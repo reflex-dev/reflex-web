@@ -20,7 +20,7 @@ def features_2() -> rx.Component:
         feature_card(
             "ZapIcon",
             "10x Faster Than Traditional Development",
-            "Move from idea to deployed app in hours, not months",
+            "Move from idea to deployed app in days, not months",
             "Reflex handles frontend, backend, state management, and deployment so your team can focus on patient outcomes and operational efficiency. Build production-grade healthcare apps without leaving Python or waiting on front-end teams.",
         ),
         feature_card(

@@ -8,11 +8,11 @@ def faq() -> rx.Component:
         faq_items=[
             (
                 "Is Reflex HIPAA-compliant?",
-                "Yes, Reflex apps can be deployed in fully self-hosted, HIPAA-compliant environments with PHI remaining entirely under your control.",
+                "Yes, both the Reflex Builder and the Reflex apps can be deployed in fully self-hosted, HIPAA-compliant environments with PHI remaining entirely under your control.",
             ),
             (
                 "Do I need frontend experience?",
-                "No. Reflex handles frontend automatically. You type Prompts or write Python; Reflex generates the UI.",
+                "No. Reflex handles frontend automatically. You type Prompts or write Python; Reflex generates the UI and the backend together.",
             ),
             (
                 "Can non-developers use the AI builder?",

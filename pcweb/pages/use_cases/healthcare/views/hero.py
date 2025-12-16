@@ -24,7 +24,10 @@ def hero() -> rx.Component:
                         "ShieldEnergyIcon",
                         "Build HIPAA-compliant internal tools and patient data apps",
                     ),
-                    ("DashboardSpeed01Icon", "Develop up to 10x faster in pure Python"),
+                    (
+                        "DashboardSpeed01Icon",
+                        "Deliver production-ready tools in days, not months",
+                    ),
                     ("PythonIcon", "Go in Python from prototype to production"),
                     (
                         "BrowserIcon",
