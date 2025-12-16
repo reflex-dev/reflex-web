@@ -34,7 +34,7 @@ def faq_section(faq_items: list[tuple[str, str]], class_name: str = "") -> rx.Co
             class_name="max-w-[35rem] flex justify-center items-center flex-col mx-auto w-full gap-2 mt-[2rem]",
         ),
         class_name=ui.cn(
-            "flex flex-col items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden py-20",
+            "flex flex-col items-center mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden py-20 max-lg:px-4",
             class_name,
         ),
     )
