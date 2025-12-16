@@ -61,7 +61,7 @@ def accordion(title: str, content: rx.Component) -> rx.Component:
                     size=16,
                     class_name="!text-slate-9 group-data-[state=open]:rotate-45 transition-transform",
                 ),
-                class_name="hover:!bg-transparent !p-[0.5rem_0rem] !justify-between gap-4 group",
+                class_name="hover:!bg-transparent !bg-transparent !p-[0.5rem_0rem] !justify-between gap-4 group",
             ),
             rx.accordion.content(
                 content,

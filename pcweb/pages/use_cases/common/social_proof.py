@@ -10,9 +10,9 @@ def first_card(title: str) -> rx.Component:
         ),
         rx.el.span(
             title,
-            class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium text-nowrap",
+            class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium text-wrap",
         ),
-        class_name="flex flex-row gap-2.5 items-center max-lg:justify-center lg:col-span-2 px-10 h-full max-lg:h-[10.75rem] max-lg:w-full",
+        class_name="flex flex-row gap-2.5 items-center max-lg:justify-center lg:col-span-2 px-10 h-full max-lg:h-[10.75rem] max-lg:w-full lg:border-r border-b w-full",
     )
 
 
@@ -25,7 +25,7 @@ def social_proof_card(image: str) -> rx.Component:
             loading="lazy",
             alt=f"{image} logo",
         ),
-        class_name="flex justify-center items-center lg:size-[10.75rem] max-lg:h-[10.75rem] max-lg:w-full",
+        class_name="flex justify-center items-center lg:size-[10.75rem] max-lg:h-[10.75rem] max-lg:w-full lg:border-r border-b",
     )
 
 

@@ -6,22 +6,22 @@ from pcweb.pages.use_cases.common.features_1 import feature_card
 def features_1() -> rx.Component:
     return rx.el.section(
         feature_card(
-            "ai-04",
+            "ArtificialIntelligence04Icon",
             "Ship AI-Powered Tools Securely",
             "Build chat-based assistants and RAG apps in Python, deployed inside your own cloud or on-prem, with full control over where data lives.",
         ),
         feature_card(
-            "refresh-dot",
+            "RepeatIcon",
             "Modernize Legacy Internal Apps",
             "Replace fragile in-house dashboards with maintainable Python apps that plug into your existing data stack.",
         ),
         feature_card(
-            "flow-connection",
+            "FlowConnectionIcon",
             "Automate Workflows, Not Just Reports",
             "Turn manual compliance checks, KYC workflows, and operations processes into interactive apps—tied to your systems, not screenshots.",
         ),
         feature_card(
-            "layers-01",
+            "Layers01Icon",
             "Orchestrate End-to-End Lifecycles",
             "Let researchers, analysts, and quants move from 'run a script in a Jupyter notebook' to 'share a full app' using the same language they already know.",
         ),

@@ -1,11 +1,12 @@
 import reflex as rx
-
-from pcweb.components.icons import get_icon
+import reflex_ui as ui
 
 
 def feature_card(icon: str, stat: str, title: str, description: str) -> rx.Component:
     return rx.el.div(
-        get_icon(icon, class_name="text-m-violet-9 dark:text-m-violet-10 shrink-0"),
+        ui.icon(
+            icon, class_name="text-m-violet-9 dark:text-m-violet-10 shrink-0 size-5"
+        ),
         rx.el.span(
             stat,
             class_name="font-semibold text-m-violet-9 dark:text-m-violet-10 text-sm mt-4",
