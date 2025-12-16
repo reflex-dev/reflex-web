@@ -22,7 +22,7 @@ A token can be any string that uniquely identifies a group of clients that shoul
 ```md alert warning
 # Linked token cannot contain underscore (_) characters.
 
-Underscore characters are currently used as an internal delimeter for tokens and will raise an exception if used for linked states.
+Underscore characters are currently used as an internal delimiter for tokens and will raise an exception if used for linked states.
 
 This is a temporary restriction and will be removed in a future release.
 ```
@@ -71,7 +71,7 @@ Whenever the shared state is updated, any computed vars depending on it will be 
 
 ### Identifying Clients
 
-Each client linked to a shared state can be uniquely identified by their `self.router.session.client_token`. Shared state events should _never_ relying on identifiers passed in as parameters, as these can be spoofed from the client. Instead, always use the `client_token` to identify the client triggering the event.
+Each client linked to a shared state can be uniquely identified by their `self.router.session.client_token`. Shared state events should _never_ rely on identifiers passed in as parameters, as these can be spoofed from the client. Instead, always use the `client_token` to identify the client triggering the event.
 
 ```python demo exec
 import uuid
@@ -185,7 +185,7 @@ Use async computed vars with `get_state` to access shared state data from privat
 ```python
 class UserGameState(rx.State):
     @rx.var
-    def player_piece(self) -> str | None:
+    async def player_piece(self) -> str | None:
         shared_state = await self.get_state(SharedGameState)
         return shared_state._players.get(self.router.session.client_token)
 ```
