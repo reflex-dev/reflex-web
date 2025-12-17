@@ -2,7 +2,10 @@
 
 Organizations across industries use **Reflex** to build internal tools, dashboards, and AI-driven applications—all in pure Python. From finance to healthcare, Reflex helps teams move faster by simplifying full-stack development.
 
-
+```python exec
+import reflex as rx
+from reflex_image_zoom import image_zoom
+```
 
 ### 1. Database Admin & CRUD
 
