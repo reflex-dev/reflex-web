@@ -50,9 +50,7 @@ def load_all_gallery_apps():
         paths = flexdown.utils.get_flexdown_files(folder)
         for path in sorted(paths, reverse=True):
             document = flexdown.Document.from_file(path)  # This has metadata
-            document.metadata["title"] = (
-                document.metadata.get("title", "Untitled").replace("_", " ").title()
-            )
+            document.metadata["title"] = document.metadata.get("title", "Untitled")
             clean_path = str(path).replace(".md", "/")
             gallery_apps[(clean_path, folder)] = document
     return gallery_apps
