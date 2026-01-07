@@ -1,3 +1,5 @@
+import re
+
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
@@ -107,6 +109,7 @@ def code_card(app: dict) -> rx.Component:
 
 
 def gallery_app_card(app: dict[str, str]) -> rx.Component:
+    slug = re.sub(r"[\s_]+", "-", app["title"]).lower()
     return rx.flex(
         rx.box(
             rx.link(
@@ -116,7 +119,7 @@ def gallery_app_card(app: dict[str, str]) -> rx.Component:
                     alt="Image preview for app: " + app["title"],
                     class_name="size-full duration-150 object-cover hover:scale-105 transition-transform ease-out",
                 ),
-                href=f"/docs/getting-started/open-source-templates/{app['title'].replace(' ', '-').lower()}",
+                href=f"/docs/getting-started/open-source-templates/{slug}",
             ),
             class_name="relative border-slate-5 border-b border-solid w-full overflow-hidden h-[180px]",
         ),
