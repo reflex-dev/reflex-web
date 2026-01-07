@@ -73,7 +73,7 @@ Each key in the `component_map` prop is a markdown element, and the value is
 a function that takes the text of the element as input and returns a Reflex component.
 
 ```md alert
-The `codeblock` and `a` tags are special cases. In addition to the `text`, they also receive a `props` argument containing additional props for the component.
+The `pre` and `a` tags are special cases. In addition to the `text`, they also receive a `props` argument containing additional props for the component.
 ```
 
 ```python demo exec
@@ -83,7 +83,7 @@ component_map = {
     "h3": lambda text: rx.heading(text, size="1", margin_y="1em"),
     "p": lambda text: rx.text(text, color="green", margin_y="1em"),
     "code": lambda text: rx.code(text, color="purple"),
-    "codeblock": lambda text, **props: rx.code_block(text, **props, theme=rx.code_block.themes.dark, margin_y="1em"),
+    "pre": lambda text, **props: rx.code_block(text, **props, theme=rx.code_block.themes.dark, margin_y="1em"),
     "a": lambda text, **props: rx.link(text, **props, color="blue", _hover={"color": "red"}),
 }
 

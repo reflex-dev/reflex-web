@@ -602,11 +602,11 @@ component_map = {
     "li": lambda text: list_comp(text=text),
     "a": doclink2,
     "code": lambda text: code_comp(text=text),
-    "codeblock": code_block_markdown,
+    "pre": code_block_markdown,
     "img": lambda src: img_comp_xd(src=src),
 }
 comp2 = component_map.copy()
-comp2["codeblock"] = code_block_markdown_dark
+comp2["pre"] = code_block_markdown_dark
 comp2["ul"] = lambda items: unordered_list_comp(items=items)
 comp2["ol"] = lambda items: ordered_list_comp(items=items)
 
@@ -659,6 +659,6 @@ def markdown_with_shiki(*args, **kwargs):
     """
     return rx.markdown(
         *args,
-        component_map={"codeblock": markdown_codeblock},
+        component_map={"pre": markdown_codeblock},
         **kwargs,
     )

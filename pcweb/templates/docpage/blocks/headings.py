@@ -52,9 +52,9 @@ def h1_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h1_comp_xd(text: list[str]) -> rx.Component:
+def h1_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
-        text=text[0],
+        text=text,
         heading="h1",
         class_name="font-x-large lg:font-xx-large",
     )
@@ -71,9 +71,9 @@ def h2_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h2_comp_xd(text: list[str]) -> rx.Component:
+def h2_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
-        text=text[0],
+        text=text,
         heading="h2",
         mt="8",
         class_name="font-large lg:font-x-large",
@@ -91,9 +91,9 @@ def h3_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h3_comp_xd(text: list[str]) -> rx.Component:
+def h3_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
-        text=text[0],
+        text=text,
         heading="h3",
         mt="4",
         class_name="font-large",
@@ -111,9 +111,9 @@ def h4_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h4_comp_xd(text: list[str]) -> rx.Component:
+def h4_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
-        text=text[0],
+        text=text,
         heading="h4",
         mt="2",
         class_name="font-md-smbold",
