@@ -5,13 +5,14 @@ import reflex as rx
 
 from pcweb.route import Route
 
-DEFAULT_TITLE = "Web Apps in Pure Python"
+DEFAULT_TITLE = "The platform to build and scale enterprise apps"
+DEFAULT_DESCRIPTION = "Connect to all your company data and systems to build secure internal apps with AI. Deployed on prem with built-in governance and production-grade reliability, so technical and nontechnical teams can ship together."
 
 
 def webpage(
     path: str,
     title: str = DEFAULT_TITLE,
-    description: str | None = None,
+    description: str | None = DEFAULT_DESCRIPTION,
     image: str | None = None,
     meta: list[dict[str, str]] | None = None,
     props=None,
