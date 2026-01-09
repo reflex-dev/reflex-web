@@ -3,7 +3,7 @@ author: Reflex Team
 date: 2026-01-09
 title: Top Python Web Frameworks in 2026
 description: Reflex vs Django vs Flask vs FastAPI vs Streamlit vs Gradio vs Plotly Dash
-image: /blog/top_python_web_frameworks.webp
+image: /blog/top_python_web_frameworks_2026.png
 meta: [
     {"name": "keywords", "content": "python web frameworks, reflex, django, flask, fastapi, streamlit, gradio, dash, python web development 2026"},
 ]
