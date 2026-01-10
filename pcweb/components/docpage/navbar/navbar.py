@@ -3,6 +3,7 @@
 import reflex as rx
 import reflex_ui as ui
 from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form
 
 from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
 from pcweb.pages.blog import blogs
@@ -741,12 +742,18 @@ def new_component_section() -> rx.Component:
                 class_name="desktop-only",
             ),
             ui.navigation_menu.item(
-                render_=ui.button(
-                    "Book a Demo",
-                    size="sm",
-                    variant="primary",
-                    custom_attrs=get_cal_attrs(),
-                    class_name="font-semibold whitespace-nowrap max-xl:hidden",
+                ui.dialog.root(
+                    ui.dialog.trigger(
+                        ui.button(
+                            "Book a Demo",
+                            size="sm",
+                            variant="primary",
+                            class_name="font-semibold whitespace-nowrap max-xl:hidden",
+                        ),
+                    ),
+                    ui.dialog.content(
+                        demo_form(),
+                    ),
                 ),
                 unstyled=True,
                 class_name="xl:flex hidden",
