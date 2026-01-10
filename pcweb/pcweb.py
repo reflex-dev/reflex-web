@@ -3,12 +3,6 @@
 import os
 import sys
 
-# Set Cal.com redirect URLs to /thank-you
-os.environ["JH_CAL_URL"] = "/thank-you"
-os.environ["INTRO_CAL_URL"] = "/thank-you"
-os.environ["CAL_REQUEST_DEMO_URL"] = "/thank-you"
-os.environ["CAL_ENTERPRISE_FOLLOW_UP_URL"] = "/thank-you"
-
 import reflex as rx
 import reflex_enterprise as rxe
 from reflex_ui.blocks.calcom import calcom_popup_embed
