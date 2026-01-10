@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.numbers_pattern import numbers_pattern
 
@@ -22,18 +22,20 @@ def left_content(
             class_name="text-m-slate-11 dark:text-slate-9 text-base font-medium",
         ),
         rx.el.div(
-            ui.button(
-                button_1,
-                size="lg",
-                class_name="font-semibold",
-                custom_attrs=get_cal_attrs(),
+            demo_form_dialog(
+                trigger=ui.button(
+                    button_1,
+                    size="lg",
+                    class_name="font-semibold",
+                ),
             ),
-            ui.button(
-                button_2,
-                size="lg",
-                variant="outline",
-                class_name="font-semibold text-m-slate-11 dark:text-slate-9 border-m-slate-5 dark:border-m-slate-12",
-                custom_attrs=get_cal_attrs(),
+            demo_form_dialog(
+                trigger=ui.button(
+                    button_2,
+                    size="lg",
+                    variant="outline",
+                    class_name="font-semibold text-m-slate-11 dark:text-slate-9 border-m-slate-5 dark:border-m-slate-12",
+                ),
             ),
             class_name="flex lg:flex-row flex-col items-center max-lg:justify-center gap-4 mt-2",
         ),
