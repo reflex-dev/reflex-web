@@ -1,5 +1,5 @@
 import reflex as rx
-from pcweb.components.demo_form import demo_form_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.new_button import button
 

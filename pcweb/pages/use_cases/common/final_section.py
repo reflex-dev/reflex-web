@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from pcweb.components.demo_form import demo_form_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.constants import REFLEX_BUILD_URL
 from pcweb.pages.pricing.plan_cards import radial_circle

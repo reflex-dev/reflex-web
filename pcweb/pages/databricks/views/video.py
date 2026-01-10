@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from pcweb.components.demo_form import demo_form_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 VIDEO_URL = "https://youtu.be/Hy3uhBVRdtk?si=Z5szIyInkBfeG2lk&t=92s"
 

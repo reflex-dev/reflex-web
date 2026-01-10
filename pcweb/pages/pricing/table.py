@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 import reflex as rx
 import reflex_ui as ui
-from pcweb.components.demo_form import demo_form_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL

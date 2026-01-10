@@ -4,7 +4,7 @@ import re
 import flexdown
 import reflex as rx
 import reflex_ui as ui
-from pcweb.components.demo_form import demo_form_dialog
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.button import button, button_with_icon
 from pcweb.components.code_card import gallery_app_card
