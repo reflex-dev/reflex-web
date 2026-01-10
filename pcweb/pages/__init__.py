@@ -3,6 +3,7 @@ from pcweb.route import Route
 from .affiliates import affiliates as affiliates
 from .blog import blog_routes
 from .booked import booked as booked
+from .check_your_email_demo import page_thank_you as page_thank_you
 from .customers.data.customers import customers_routes
 from .customers.landing import customers as customers
 from .databricks.databricks import databricks_page as databricks_page
@@ -15,6 +16,9 @@ from .gallery import gallery as gallery
 from .gallery.apps import gallery_apps_routes
 from .hosting.hosting import hosting_landing as hosting_landing
 from .landing.landing import landing as landing
+from .meeting_successfully_booked import (
+    page_meeting_successfully_booked as page_meeting_successfully_booked,
+)
 from .page404 import page404 as page404
 from .pricing.pricing import pricing as pricing
 from .sales import sales as sales
