@@ -27,7 +27,7 @@ def features_2() -> rx.Component:
             "PlugSocketIcon",
             "Designed for Data-Intensive Healthcare Workflows",
             "Native Python environment for all your integrations",
-            "Integrate EMR/EHR data, HL7 & FHIR APIs, claims & billing systems, research databases, Snowflake, Postgres, Databricks, BigQuery, and clinical analytics & ML models — all in pure Python without switching contexts or languages.",
+            "Integrate EMR data, HL7 & FHIR APIs, claims & billing systems, research databases, Snowflake, Postgres, Databricks, BigQuery, and clinical analytics & ML models — all in pure Python without switching contexts or languages.",
         ),
         class_name="grid lg:grid-cols-4 grid-cols-1 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 relative overflow-hidden border-t lg:divide-x divide-slate-3 max-lg:divide-y",
     )
