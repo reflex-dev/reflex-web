@@ -1,5 +1,5 @@
 import reflex as rx
-from reflex_ui.blocks.demo_form import demo_form
+from pcweb.components.demo_form import demo_form
 
 from pcweb.pages.framework.views.companies import pricing_page_companies
 

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
-from reflex_ui.blocks.demo_form import demo_form_dialog
+from pcweb.components.demo_form import demo_form_dialog
 
 from pcweb.constants import PRO_TIERS_TABLE, REFLEX_CLOUD_URL
 from pcweb.pages.pricing.calculator import (

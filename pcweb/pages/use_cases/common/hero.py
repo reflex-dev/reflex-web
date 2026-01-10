@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.demo_form import demo_form_dialog
+from pcweb.components.demo_form import demo_form_dialog
 
 from pcweb.components.numbers_pattern import numbers_pattern
 
