@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 VIDEO_URL = "https://youtu.be/Hy3uhBVRdtk?si=Z5szIyInkBfeG2lk&t=92s"
 
@@ -37,11 +37,12 @@ def text() -> rx.Component:
             ),
             class_name="text-slate-12 lg:text-3xl text-2xl font-semibold max-w-[57rem]",
         ),
-        ui.button(
-            "Get Personalized Walkthrough",
-            size="lg",
-            class_name="w-fit font-semibold mr-auto rounded-[0.625rem]",
-            custom_attrs=get_cal_attrs(),
+        demo_form_dialog(
+            trigger=ui.button(
+                "Get Personalized Walkthrough",
+                size="lg",
+                class_name="w-fit font-semibold mr-auto rounded-[0.625rem]",
+            ),
         ),
         class_name="flex flex-col gap-6 items-start justify-center lg:py-20 py-8 px-10",
     )

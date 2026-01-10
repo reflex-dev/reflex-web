@@ -51,6 +51,9 @@ app = rxe.App(
             href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap",
             rel="stylesheet",
         ),
+        rx.el.script(
+            """!function(e,t){var _=0;e.__default__=e.__default__||{},e.__default__.form_id=268792,e.__default__.team_id=654,e.__default__.listenToIds=[],function e(){var o=t.createElement("script");o.async=!0,o.src="https://import-cdn.default.com",o.onload=function(){!0,console.info("[Default.com] Powered by Default.com")},o.onerror=function(){++_<=3&&setTimeout(e,1e3*_)},t.head.appendChild(o)}()}(window,document);"""
+        ),
     ],
 )
 

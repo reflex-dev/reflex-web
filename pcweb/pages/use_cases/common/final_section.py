@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.constants import REFLEX_BUILD_URL
 from pcweb.pages.pricing.plan_cards import radial_circle
@@ -41,12 +41,13 @@ def left_content(h1: str, description: str) -> rx.Component:
             description,
             class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium",
         ),
-        ui.button(
-            ui.icon("Calendar04Icon"),
-            "Schedule a demo",
-            size="lg",
-            custom_attrs=get_cal_attrs(),
-            class_name="w-fit font-semibold mt-4",
+        demo_form_dialog(
+            trigger=ui.button(
+                ui.icon("Calendar04Icon"),
+                "Schedule a demo",
+                size="lg",
+                class_name="w-fit font-semibold mt-4",
+            ),
         ),
         class_name="flex flex-col gap-4 items-start justify-center lg:py-20 py-8 lg:pl-20 pl-8 lg:pr-[7.5rem] pr-8 relative overflow-hidden min-h-fit",
     )

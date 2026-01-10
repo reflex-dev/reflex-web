@@ -99,9 +99,6 @@ REFLEX_DOMAIN_URL = "https://reflex.dev/"
 REFLEX_DOMAIN = "reflex.dev"
 TWITTER_CREATOR = "@getreflex"
 
-# Posthog
-POSTHOG_API_KEY = os.getenv("POSTHOG_API_KEY")
-
 SLACK_DEMO_WEBHOOK_URL: str = os.environ.get("SLACK_DEMO_WEBHOOK_URL")
 
 # Enable free tier flag

@@ -33,7 +33,7 @@ import reflex as rx
 import reflex_ui as ui
 from pcweb import pages, constants
 from reflex_image_zoom import image_zoom
-from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form_dialog
 ```
 
 For organizations with strict security, compliance, or data sovereignty requirements, building applications on your own infrastructure isn't just a preference — it's a necessity. With Reflex Enterprise, you can now run **Reflex Build**—our AI-powered app builder—on-premises or in your own private cloud, giving you complete control over your development environment while maintaining all the productivity benefits of building apps with AI. You can securely hook up with all your company data sources, internal services, documentation, databases, and APIs—all within your own infrastructure.
@@ -150,11 +150,12 @@ If you're interested in deploying Reflex on-premises, book a demo to discuss you
 
 ```python eval
 rx.el.div(
-    ui.button(
-        "Book a Demo",
-        variant="primary",
-        class_name="font-semibold",
-        custom_attrs=get_cal_attrs(),
+    demo_form_dialog(
+        trigger=ui.button(
+            "Book a Demo",
+            variant="primary",
+            class_name="font-semibold",
+        ),
     ),
     class_name="flex justify-center items-center my-8",
 )

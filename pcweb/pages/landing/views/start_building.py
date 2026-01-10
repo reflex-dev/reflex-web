@@ -1,5 +1,5 @@
 import reflex as rx
-from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.new_button import button
 
@@ -22,11 +22,12 @@ def start_building() -> rx.Component:
             "Start building with Reflex",
             class_name="text-secondary-11 text-2xl lg:text-4xl font-semibold text-center",
         ),
-        button(
-            "Contact sales",
-            size="xl",
-            class_name="mt-6",
-            custom_attrs=get_cal_attrs(),
+        demo_form_dialog(
+            trigger=button(
+                "Contact sales",
+                size="xl",
+                class_name="mt-6",
+            ),
         ),
         class_name="flex flex-col justify-center items-center lg:mx-auto md:w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[6.31rem] border-t border-slate-3 py-[6rem] relative z-[1] overflow-hidden isolate w-screen -mx-4",
     )

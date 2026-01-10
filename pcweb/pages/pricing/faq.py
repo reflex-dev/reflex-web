@@ -1,5 +1,5 @@
 import reflex as rx
-from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.button import button
 
@@ -28,12 +28,13 @@ def sales_button() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             glow(),
-            button(
-                "Need more help? Contact sales",
-                variant="secondary",
-                class_name="!text-slate-11 !font-semibold !text-sm w-fit",
+            demo_form_dialog(
+                trigger=button(
+                    "Need more help? Contact sales",
+                    variant="secondary",
+                    class_name="!text-slate-11 !font-semibold !text-sm w-fit",
+                ),
             ),
-            custom_attrs=get_cal_attrs(),
         ),
         class_name="self-center relative",
     )

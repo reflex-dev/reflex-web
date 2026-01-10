@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
-from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.constants import PRO_TIERS_TABLE, REFLEX_CLOUD_URL
 from pcweb.pages.pricing.calculator import (
@@ -269,11 +269,12 @@ def total_credits_card() -> rx.Component:
             ),
             rx.cond(
                 get_is_enterprise_tier(MachineState.messages_tier_index),
-                ui.button(
-                    "Contact Sales",
-                    size="sm",
-                    custom_attrs=get_cal_attrs(),
-                    class_name="font-semibold w-full",
+                demo_form_dialog(
+                    trigger=ui.button(
+                        "Contact Sales",
+                        size="sm",
+                        class_name="font-semibold w-full",
+                    ),
                 ),
                 ui.link(
                     render_=ui.button(

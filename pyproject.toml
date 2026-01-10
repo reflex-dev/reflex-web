@@ -16,7 +16,6 @@ dependencies = [
     "openai",
     "pandas",
     "plotly-express",
-    "posthog",
     "psycopg[binary]",
     "python-frontmatter",
     "reflex @ git+https://github.com/reflex-dev/reflex@main",
