@@ -1,5 +1,5 @@
 import reflex as rx
-from reflex_ui.blocks.calcom import cal_embed
+from reflex_ui.blocks.demo_form import demo_form
 
 from pcweb.pages.framework.views.companies import pricing_page_companies
 
@@ -25,8 +25,9 @@ def book_a_demo_form() -> rx.Component:
                     class_name="mb-8 lg:mb-0 text-center sm:text-left",
                 ),
                 # Right column - Form
-                cal_embed(
-                    class_name="relative bg-slate-1 rounded-2xl border-2 border-violet-9 shadow-lg w-full max-w-md mx-auto lg:max-w-none lg:mx-0 overflow-hidden"
+                rx.box(
+                    demo_form(),
+                    class_name="relative bg-slate-1 rounded-2xl border-2 border-violet-9 shadow-lg w-full max-w-md mx-auto lg:max-w-none lg:mx-0 overflow-hidden",
                 ),
                 class_name="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-2 max-w-7xl mx-auto items-start",
             ),
