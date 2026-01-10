@@ -27,7 +27,7 @@ def book_a_demo_form() -> rx.Component:
                 # Right column - Form
                 rx.box(
                     demo_form(),
-                    class_name="relative bg-slate-1 rounded-2xl shadow-lg w-full max-w-md mx-auto lg:max-w-none lg:mx-0 overflow-hidden",
+                    class_name="relative bg-slate-1 rounded-2xl border border-slate-3 shadow-lg w-full max-w-md mx-auto lg:max-w-none lg:mx-0 overflow-hidden",
                 ),
                 class_name="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-2 max-w-7xl mx-auto items-start",
             ),
