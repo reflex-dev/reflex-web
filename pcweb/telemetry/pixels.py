@@ -2,6 +2,7 @@
 
 import reflex as rx
 from reflex_ui.blocks.telemetry import (
+    get_default_telemetry_script,
     get_google_analytics_trackers,
     get_unify_trackers,
     gtag_report_conversion,
@@ -16,4 +17,5 @@ def get_pixel_website_trackers() -> list[rx.Component]:
             conversion_id_and_label="AW-11360851250/ASB4COvpisIbELKqo6kq"
         ),
         get_unify_trackers(),
+        get_default_telemetry_script(),
     ]

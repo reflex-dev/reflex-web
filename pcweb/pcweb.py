@@ -5,7 +5,6 @@ import sys
 
 import reflex as rx
 import reflex_enterprise as rxe
-from reflex_ui.blocks.calcom import calcom_popup_embed
 
 from pcweb import styles
 from pcweb.meta.meta import favicons_links
@@ -32,9 +31,6 @@ app = rxe.App(
         radius="large",
         accent_color="violet",
     ),
-    extra_app_wraps={
-        (55, "Calcom Popup Embed"): lambda _: calcom_popup_embed(),
-    },
     head_components=get_pixel_website_trackers()
     + favicons_links()
     + [
@@ -50,9 +46,6 @@ app = rxe.App(
         rx.el.link(
             href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap",
             rel="stylesheet",
-        ),
-        rx.el.script(
-            """!function(e,t){var _=0;e.__default__=e.__default__||{},e.__default__.form_id=268792,e.__default__.team_id=654,e.__default__.listenToIds=[],function e(){var o=t.createElement("script");o.async=!0,o.src="https://import-cdn.default.com",o.onload=function(){!0,console.info("[Default.com] Powered by Default.com")},o.onerror=function(){++_<=3&&setTimeout(e,1e3*_)},t.head.appendChild(o)}()}(window,document);"""
         ),
     ],
 )
