@@ -197,7 +197,6 @@ def footer() -> rx.Component:
                     footer_link("Common Errors", errors.path),
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
-                    footer_link("Affiliates", "/affiliates"),
                     footer_link("Use Cases", use_cases_page.path),
                 ],
             ),
