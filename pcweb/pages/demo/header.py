@@ -1,6 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
-from reflex_ui.blocks.calcom import get_cal_attrs
+from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.pages.framework.views.companies import pricing_page_companies
@@ -19,11 +19,12 @@ def custom_quote_form() -> rx.Component:
                 class_name="text-slate-11 text-md leading-relaxed font-medium text-center max-w-xl mx-auto",
             ),
             rx.el.div(
-                ui.button(
-                    "Contact Sales",
-                    class_name="font-semibold",
-                    size="lg",
-                    custom_attrs=get_cal_attrs(),
+                demo_form_dialog(
+                    trigger=ui.button(
+                        "Contact Sales",
+                        class_name="font-semibold",
+                        size="lg",
+                    ),
                 ),
                 class_name="p-3 border border-slate-3 rounded-[1.375rem] border-solid mt-2",
             ),

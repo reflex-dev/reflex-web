@@ -5,7 +5,6 @@ import sys
 
 import reflex as rx
 import reflex_enterprise as rxe
-from reflex_ui.blocks.calcom import calcom_popup_embed
 
 from pcweb import styles
 from pcweb.meta.meta import favicons_links
@@ -32,9 +31,6 @@ app = rxe.App(
         radius="large",
         accent_color="violet",
     ),
-    extra_app_wraps={
-        (55, "Calcom Popup Embed"): lambda _: calcom_popup_embed(),
-    },
     head_components=get_pixel_website_trackers()
     + favicons_links()
     + [
