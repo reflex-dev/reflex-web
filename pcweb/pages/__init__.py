@@ -1,6 +1,5 @@
 from pcweb.route import Route
 
-from .affiliates import affiliates as affiliates
 from .blog import blog_routes
 from .booked import booked as booked
 from .check_your_email_demo import page_thank_you as page_thank_you

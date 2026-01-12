@@ -275,7 +275,6 @@ def new_resource_section():
             "icon": "MailAtSign01Icon",
         },
         {"label": "Blog", "url": "/blog", "icon": "RightToLeftListDashIcon"},
-        {"label": "Affiliates", "url": "/affiliates", "icon": "AddTeamIcon"},
         {"label": "Use Cases", "url": use_cases_page.path, "icon": "CheckListIcon"},
     ]
 
