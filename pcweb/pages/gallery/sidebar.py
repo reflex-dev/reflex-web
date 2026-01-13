@@ -62,7 +62,7 @@ class TemplatesState(rx.State):
         self.checked_tags = set()
         self.page = 1
 
-    @rx.var
+    @rx.var(auto_deps=False)
     def filtered_templates(self) -> list[str]:
         all_filtered = self._get_all_filtered_templates()
         self.total_pages = (
