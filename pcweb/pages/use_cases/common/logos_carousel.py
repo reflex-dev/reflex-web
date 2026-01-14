@@ -22,4 +22,5 @@ def logos_carousel(logos: list[str]) -> rx.Component:
         class_name="h-[10.75rem] w-full overflow-hidden",
         gradient_width=0,
         speed=50,
+        pause_on_hover=False,
     )
