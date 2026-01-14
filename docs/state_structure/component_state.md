@@ -231,3 +231,14 @@ def extended_counter():
         ),
     )
 ```
+
+## Saving Vars and Event Handlers
+
+Creating a new instance of a `ComponentState` creates a new subclass of the
+`ComponentState`, so `ClassVar` annotated attributes should be used to store
+event handlers or other references to other state vars that are common for all
+users.
+
+For example, when a `ComponentState` needs to accept an event handler as a
+callback or accept another state var as a prop, these can be stored on the `cls`
+from within `get_component`.
