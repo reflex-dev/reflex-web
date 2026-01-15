@@ -18,7 +18,7 @@ dependencies = [
     "plotly-express",
     "psycopg[binary]",
     "python-frontmatter",
-    "reflex @ git+https://github.com/reflex-dev/reflex@main",
+    "reflex @ git+https://github.com/reflex-dev/reflex@masenf/markdown-tlc",
     "reflex-enterprise",
     "reflex-hosting-cli",
     "reflex-image-zoom",

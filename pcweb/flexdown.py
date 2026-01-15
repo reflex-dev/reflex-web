@@ -408,6 +408,17 @@ class DemoBlockDark(DemoBlock):
     theme = "dark"
 
 
+class DemoBlockNestedMarkdown(DemoBlock):
+    """Used when the block contains literal markdown with triple backticks."""
+
+    starting_indicator = "````python demo"
+    ending_indicator = "````"
+
+
+class DemoBlockNestedMarkdownDark(DemoBlockNestedMarkdown):
+    theme = "dark"
+
+
 class VideoBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a video."""
 
@@ -615,6 +626,7 @@ xd = flexdown.Flexdown(
     block_types=[
         DemoOnly,
         DemoBlock,
+        DemoBlockNestedMarkdown,
         AlertBlock,
         DefinitionBlock,
         SectionBlock,
@@ -628,6 +640,7 @@ xd.clear_modules()
 xd2 = flexdown.Flexdown(
     block_types=[
         DemoBlockDark,
+        DemoBlockNestedMarkdownDark,
         AlertBlock,
         DefinitionBlock,
         SectionBlock,
