@@ -15,7 +15,7 @@ from pcweb.templates.mainpage import mainpage
     meta=create_meta_tags(
         "Databricks - Reflex",
         "Databricks - Reflex",
-        "/previews/databricks_preview.webp",
+        "/previews/databricks_preview.png",
     ),
 )
 def databricks_page():
