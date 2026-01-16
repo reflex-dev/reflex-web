@@ -5,7 +5,7 @@ import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
-from pcweb.constants import PRO_TIERS_TABLE, REFLEX_CLOUD_URL
+from pcweb.constants import PRO_TIERS_TABLE
 from pcweb.pages.pricing.calculator import (
     COMPUTE_TABLE,
     CREDITS_PER_HOUR_CPU,
@@ -240,50 +240,19 @@ def total_credits_card() -> rx.Component:
             ),
             rx.el.div(
                 rx.el.span(
-                    rx.cond(
-                        get_is_enterprise_tier(MachineState.messages_tier_index),
-                        rx.el.span(
-                            "Get a custom quote for your needs",
-                            class_name="text-secondary-12 text-sm font-medium",
-                        ),
-                        rx.el.div(
-                            rx.el.span(
-                                f"Pro Plan ({MachineState.recommended_tier_info['price']})",
-                                class_name="text-secondary-12 text-sm font-semibold",
-                            ),
-                            ui.tooltip(
-                                trigger=rx.el.span(
-                                    ui.icon(
-                                        "InformationCircleIcon",
-                                        class_name="text-secondary-11 size-4",
-                                    ),
-                                ),
-                                content=f"{format_number(MachineState.recommended_tier_info['credits'])} credits included",
-                            ),
-                            class_name="flex flex-row gap-2 items-center justify-center",
-                        ),
+                    rx.el.span(
+                        "Get a custom quote for your needs",
+                        class_name="text-secondary-12 text-sm font-medium",
                     ),
                     class_name="text-center",
                 ),
                 class_name="flex flex-col gap-2 mt-4 pt-2 justify-center",
             ),
-            rx.cond(
-                get_is_enterprise_tier(MachineState.messages_tier_index),
-                demo_form_dialog(
-                    trigger=ui.button(
-                        "Contact Sales",
-                        size="sm",
-                        class_name="font-semibold w-full",
-                    ),
-                ),
-                ui.link(
-                    render_=ui.button(
-                        "Upgrade Now",
-                        size="sm",
-                        class_name="font-semibold w-full",
-                    ),
-                    to=f"{REFLEX_CLOUD_URL.rstrip('/')}/?redirect_url={REFLEX_CLOUD_URL.rstrip('/')}/billing/",
-                    target="_blank",
+            demo_form_dialog(
+                trigger=ui.button(
+                    "Book a Call",
+                    size="sm",
+                    class_name="font-semibold w-full",
                 ),
             ),
             class_name="flex flex-col gap-2",
