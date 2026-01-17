@@ -408,6 +408,17 @@ class DemoBlockDark(DemoBlock):
     theme = "dark"
 
 
+class DemoBlockNestedMarkdown(DemoBlock):
+    """Used when the block contains literal markdown with triple backticks."""
+
+    starting_indicator = "````python demo"
+    ending_indicator = "````"
+
+
+class DemoBlockNestedMarkdownDark(DemoBlockNestedMarkdown):
+    theme = "dark"
+
+
 class VideoBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a video."""
 
@@ -602,11 +613,11 @@ component_map = {
     "li": lambda text: list_comp(text=text),
     "a": doclink2,
     "code": lambda text: code_comp(text=text),
-    "codeblock": code_block_markdown,
+    "pre": code_block_markdown,
     "img": lambda src: img_comp_xd(src=src),
 }
 comp2 = component_map.copy()
-comp2["codeblock"] = code_block_markdown_dark
+comp2["pre"] = code_block_markdown_dark
 comp2["ul"] = lambda items: unordered_list_comp(items=items)
 comp2["ol"] = lambda items: ordered_list_comp(items=items)
 
@@ -615,6 +626,7 @@ xd = flexdown.Flexdown(
     block_types=[
         DemoOnly,
         DemoBlock,
+        DemoBlockNestedMarkdown,
         AlertBlock,
         DefinitionBlock,
         SectionBlock,
@@ -628,6 +640,7 @@ xd.clear_modules()
 xd2 = flexdown.Flexdown(
     block_types=[
         DemoBlockDark,
+        DemoBlockNestedMarkdownDark,
         AlertBlock,
         DefinitionBlock,
         SectionBlock,
@@ -659,6 +672,6 @@ def markdown_with_shiki(*args, **kwargs):
     """
     return rx.markdown(
         *args,
-        component_map={"codeblock": markdown_codeblock},
+        component_map={"pre": markdown_codeblock},
         **kwargs,
     )

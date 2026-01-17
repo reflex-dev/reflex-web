@@ -1,6 +1,10 @@
 """Template for documentation pages."""
 
+from typing import ClassVar
+
 import reflex as rx
+
+from pcweb.components.hosting_banner import HostingBannerState
 
 icon_margins = {
     "h1": "10px",
@@ -10,36 +14,110 @@ icon_margins = {
 }
 
 
-def h_comp_common(
-    text: str,
-    heading: str,
-    style: dict | None = None,
-    mt: str = "4",
-    class_name: str = "",
-) -> rx.Component:
-    id_ = text.lower().split(" ").join("-")
-    href = rx.State.router.page.full_path + "#" + id_
-
-    return rx.link(
-        rx.heading(
-            text,
-            id=id_,
-            as_=heading,
-            style=style if style is not None else {},
-            class_name=class_name + " scroll-m-[5rem] mt-" + mt,
-        ),
-        rx.icon(
-            tag="link",
-            size=18,
-            class_name="!text-violet-11 invisible transition-[visibility_0.075s_ease-out] group-hover:visible mt-"
-            + mt,
-        ),
-        underline="none",
-        href=href,
-        on_click=lambda: rx.set_clipboard(href),
-        # as_child=True,
-        class_name="flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-2 transition-colors group",
+class HeadingLink(rx.link.__self__):
+    # This function is imported from 'hast-util-to-string' package.
+    HAST_NODE_TO_STRING: ClassVar = rx.vars.FunctionStringVar(
+        _js_expr="hastNodeToString",
     )
+
+    # This function is defined by add_custom_code.
+    SLUGIFY_MIXED_TEXT_HAST_NODE: ClassVar = rx.vars.FunctionStringVar(
+        _js_expr="slugifyMixedTextHastNode",
+    )
+
+    def add_custom_code(self) -> list[rx.Var]:
+        def node_to_string(node: rx.Var) -> rx.vars.StringVar:
+            return rx.cond(
+                node.js_type() == "string",
+                node,
+                rx.cond(
+                    (node.js_type() == "object")
+                    & node.to(dict)["props"].to(dict)["node"],
+                    self.HAST_NODE_TO_STRING(node.to(dict)["props"].to(dict)["node"]),
+                    "object",
+                ),
+            ).to(str)
+
+        def slugify(node: rx.Var) -> rx.vars.StringVar:
+            return (
+                rx.cond(
+                    rx.vars.function.ARRAY_ISARRAY(node),
+                    rx.vars.sequence.map_array_operation(
+                        node,
+                        rx.vars.function.ArgsFunctionOperation.create(
+                            args_names=["childNode"],
+                            return_expr=node_to_string(rx.vars.Var("childNode")),
+                        ),
+                    ).join("-"),
+                    node_to_string(node),
+                )
+                .to(str)
+                .lower()
+                .split(" ")
+                .join("-")
+            )
+
+        return [
+            f"const {self.SLUGIFY_MIXED_TEXT_HAST_NODE!s} = "
+            + str(
+                rx.vars.function.ArgsFunctionOperation.create(
+                    args_names=["givenNode"],
+                    return_expr=slugify(rx.vars.Var("givenNode")),
+                )
+            )
+        ]
+
+    def add_imports(self) -> dict[str, list[rx.ImportVar]]:
+        return {
+            "hast-util-to-string@3.0.1": [
+                rx.ImportVar(tag="toString", alias="hastNodeToString", is_default=False)
+            ],
+        }
+
+    @classmethod
+    def slugify(cls, node: rx.Var) -> rx.vars.StringVar:
+        return cls.SLUGIFY_MIXED_TEXT_HAST_NODE(node).to(str)
+
+    @classmethod
+    def create(
+        cls,
+        text: str,
+        heading: str,
+        style: dict | None = None,
+        mt: str = "4",
+        class_name: str = "",
+    ) -> rx.Component:
+        id_ = cls.slugify(text)
+        href = rx.State.router.page.full_path + "#" + id_
+        scroll_margin = rx.cond(
+            HostingBannerState.is_banner_visible,
+            "scroll-m-[8.5rem]",
+            "scroll-m-[5rem]",
+        )
+
+        return super().create(
+            rx.heading(
+                text,
+                id=id_,
+                as_=heading,
+                style=style if style is not None else {},
+                class_name=class_name + " " + scroll_margin + " mt-" + mt,
+            ),
+            rx.icon(
+                tag="link",
+                size=18,
+                class_name="!text-violet-11 invisible transition-[visibility_0.075s_ease-out] group-hover:visible mt-"
+                + mt,
+            ),
+            underline="none",
+            href=href,
+            on_click=lambda: rx.set_clipboard(href),
+            # as_child=True,
+            class_name="flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-2 transition-colors group",
+        )
+
+
+h_comp_common = HeadingLink.create
 
 
 @rx.memo
@@ -52,9 +130,9 @@ def h1_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h1_comp_xd(text: list[str]) -> rx.Component:
+def h1_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
-        text=text[0],
+        text=text,
         heading="h1",
         class_name="font-x-large lg:font-xx-large",
     )
@@ -71,9 +149,9 @@ def h2_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h2_comp_xd(text: list[str]) -> rx.Component:
+def h2_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
-        text=text[0],
+        text=text,
         heading="h2",
         mt="8",
         class_name="font-large lg:font-x-large",
@@ -91,9 +169,9 @@ def h3_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h3_comp_xd(text: list[str]) -> rx.Component:
+def h3_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
-        text=text[0],
+        text=text,
         heading="h3",
         mt="4",
         class_name="font-large",
@@ -111,9 +189,9 @@ def h4_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h4_comp_xd(text: list[str]) -> rx.Component:
+def h4_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
-        text=text[0],
+        text=text,
         heading="h4",
         mt="2",
         class_name="font-md-smbold",
