@@ -11,6 +11,7 @@ from pcweb.pages.docs import ai_builder, getting_started
 from pcweb.pages.faq import faq
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
+from pcweb.pages.use_cases.consulting import consulting_use_case_page
 from pcweb.pages.use_cases.finance import finance_use_case_page
 from pcweb.pages.use_cases.healthcare import healthcare_use_case_page
 from pcweb.pages.use_cases.use_cases import use_cases_page
@@ -390,7 +391,7 @@ def solutions_section():
         },
         {
             "label": "Consulting",
-            "url": use_cases_page.path,
+            "url": consulting_use_case_page.path,
             "icon": "MentoringIcon",
         },
         {

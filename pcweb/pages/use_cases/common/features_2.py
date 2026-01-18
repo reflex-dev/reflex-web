@@ -2,7 +2,14 @@ import reflex as rx
 import reflex_ui as ui
 
 
-def feature_card(icon: str, stat: str, title: str, description: str) -> rx.Component:
+def feature_card(
+    icon: str,
+    stat: str,
+    title: str,
+    description: str,
+    items: list[str] | None = None,
+    class_name: str = "",
+) -> rx.Component:
     return rx.el.div(
         ui.icon(
             icon, class_name="text-m-violet-9 dark:text-m-violet-10 shrink-0 size-5"
@@ -16,5 +23,17 @@ def feature_card(icon: str, stat: str, title: str, description: str) -> rx.Compo
             description,
             class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium mt-2",
         ),
-        class_name="flex flex-col items-start p-10",
+        rx.el.ul(
+            *[
+                rx.el.li(
+                    item,
+                    class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium mt-1",
+                )
+                for item in items
+            ],
+            class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium list-disc list-inside mt-2",
+        )
+        if items
+        else None,
+        class_name=ui.cn("flex flex-col items-start p-10", class_name),
     )
