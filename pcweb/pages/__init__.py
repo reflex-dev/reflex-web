@@ -25,6 +25,7 @@ from .security.security import security_page as security_page
 from .to_be_booked import to_be_booked as to_be_booked
 from .use_cases.consulting import consulting_use_case_page as consulting_use_case_page
 from .use_cases.finance import finance_use_case_page as finance_use_case_page
+from .use_cases.government import government_use_case_page as government_use_case_page
 from .use_cases.healthcare import healthcare_use_case_page as healthcare_use_case_page
 from .use_cases.use_cases import use_cases_page as use_cases_page
 

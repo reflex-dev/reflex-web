@@ -13,6 +13,7 @@ from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
 from pcweb.pages.use_cases.consulting import consulting_use_case_page
 from pcweb.pages.use_cases.finance import finance_use_case_page
+from pcweb.pages.use_cases.government import government_use_case_page
 from pcweb.pages.use_cases.healthcare import healthcare_use_case_page
 from pcweb.pages.use_cases.use_cases import use_cases_page
 
@@ -388,6 +389,11 @@ def solutions_section():
             "label": "Healthcare",
             "url": healthcare_use_case_page.path,
             "icon": "HealthIcon",
+        },
+        {
+            "label": "Government",
+            "url": government_use_case_page.path,
+            "icon": "City01Icon",
         },
         {
             "label": "Consulting",

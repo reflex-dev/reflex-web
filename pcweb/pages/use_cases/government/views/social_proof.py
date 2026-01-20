@@ -4,12 +4,12 @@ import reflex_ui as ui
 from pcweb.pages.use_cases.common.logos_carousel import logos_carousel
 
 LOGOS = [
-    "man_group",
-    "world_bank",
-    "credit_agricole",
-    "bayesline",
-    "antgroup",
-    "spglobal",
+    "scc",
+    "forem",
+    "saccounty",
+    "unglobalcompact",
+    "llnl",
+    "norfolk",
 ]
 
 
@@ -29,7 +29,9 @@ def first_card(title: str) -> rx.Component:
 
 def social_proof() -> rx.Component:
     return rx.el.div(
-        first_card("Trusted by innovative finance teams"),
+        first_card(
+            "Government agencies use Reflex to modernize mission-critical systems faster—without compromising security or control."
+        ),
         logos_carousel(LOGOS),
         class_name="flex lg:flex-row flex-col justify-center items-center mx-auto w-full max-w-[64.19rem] lg:border border-slate-3 h-[10.75rem] z-1",
     )
