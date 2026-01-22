@@ -7,8 +7,11 @@ from pcweb.pages.docs.library import library
 from pcweb.pages.docs import pages
 from pcweb.pages.docs import vars
 from pcweb.styles.colors import c_color
+from pcweb.pages.docs import styling
 from pcweb.styles.fonts import base
+from pcweb.pages.docs import hosting
 from pcweb.flexdown import markdown_with_shiki
+from pcweb.pages.docs import advanced_onboarding
 ```
 
 <!-- TODO how do we consistently rename page title? -->
@@ -47,19 +50,22 @@ Here, we go over a simple counter app that lets the user count up or down.
 class CounterExampleState(rx.State):
     count: int = 0
 
+    @rx.event
     def increment(self):
         self.count += 1
 
+    @rx.event
     def decrement(self):
         self.count -= 1
 
 class IntroTabsState(rx.State):
     """The app state."""
 
-    value = "tab1"
-    tab_selected = ""
+    value: str = "tab1"
+    tab_selected: str = ""
 
-    def change_value(self, val):
+    @rx.event
+    def change_value(self, val: str):
         self.tab_selected = f"{val} clicked!"
         self.value = val
 
@@ -151,9 +157,11 @@ rx.box(
         """class State(rx.State):
     count: int = 0
 
+    @rx.event
     def increment(self):
         self.count += 1
 
+    @rx.event
     def decrement(self):
         self.count -= 1""",
         background=rx.cond(
@@ -241,9 +249,11 @@ Here our state has a single var, `count`, which holds the current value of the c
 ### Event Handlers
 
 ```python
+@rx.event
 def increment(self):
     self.count += 1
 
+@rx.event
 def decrement(self):
     self.count -= 1
 ```
@@ -278,7 +288,7 @@ def index():
 
 This function defines the app's user interface.
 
-We use different components such as `rx.hstack`, `rx.button`, and `rx.heading` to build the frontend. Components can be nested to create complex layouts, and can be styled using the full power of CSS.
+We use different components such as `rx.hstack`, `rx.button`, and `rx.heading` to build the frontend. Components can be nested to create complex layouts, and can be styled using the full power of CSS or [Tailwind CSS]({styling.tailwind.path}).
 
 Reflex comes with [50+ built-in components]({library.path}) to help you get started.
 We are actively adding more components. Also, it's easy to [wrap your own React components]({wrapping_react.overview.path}).
@@ -327,9 +337,17 @@ app.add_page(index)
 
 We've created a simple, yet fully interactive web app in pure Python.
 
-By continuing with our documentation, you will learn how to build awesome apps with Reflex.
+By continuing with our documentation, you will learn how to build awesome apps with Reflex. Use the sidebar to navigate through the sections, or search (`Ctrl+K` or `Cmd+K`) to quickly find a page.
 
 For a glimpse of the possibilities, check out these resources:
 
 * For a more real-world example, check out either the [dashboard tutorial]({getting_started.dashboard_tutorial.path}) or the [chatapp tutorial]({getting_started.chatapp_tutorial.path}).
-* We have bots that can answer questions and generate Reflex code for you. Check them out in #ask-ai in our [Discord]({constants.DISCORD_URL})!
+* Check out our open-source [templates]({getting_started.open_source_templates.path})!
+* We have an AI Builder that can generate full Reflex apps or help with your existing app! Check it out at [Reflex Build]({constants.REFLEX_BUILD_URL})!
+* Deploy your app with a single command using [Reflex Cloud]({hosting.deploy_quick_start.path})!
+
+If you want to learn more about how Reflex works, check out the [How Reflex Works]({advanced_onboarding.how_reflex_works.path}) section.
+
+## Join our Community
+
+If you have questions about anything related to Reflex, you're always welcome to ask our community on [GitHub Discussions]({constants.GITHUB_DISCUSSIONS_URL}), [Discord]({constants.DISCORD_URL}), [Forum]({constants.FORUM_URL}), and [X]({constants.TWITTER_URL}).

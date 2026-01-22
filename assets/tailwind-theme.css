@@ -1696,7 +1696,7 @@
         /* max-height: 350px !important; */
         border-radius: 0.75rem !important;
         border: 1px solid var(--c-slate-4);
-        background: var(--c-slate-2) !important;
+        background: var(--c-slate-2);
         color: var(--c-slate-12) !important;
         resize: none !important;
         outline: none !important;
