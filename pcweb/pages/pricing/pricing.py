@@ -6,7 +6,6 @@ from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.pages.pricing.calculator import calculator_section
 from pcweb.pages.pricing.faq import faq
 from pcweb.pages.pricing.plan_cards import plan_cards
-from pcweb.pages.pricing.slider_calculator import MachineState
 from pcweb.pages.pricing.table import tiers_tables
 
 pricing_path = "/pricing"
@@ -16,7 +15,6 @@ pricing_path = "/pricing"
     route=pricing_path,
     title="Reflex · Pricing",
     meta=hosting_meta_tags,
-    on_load=MachineState.reset_machines,
 )
 def pricing() -> rx.Component:
     """Get the Pricing landing page."""
