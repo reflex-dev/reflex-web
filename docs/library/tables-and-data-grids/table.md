@@ -961,7 +961,7 @@ def loading_data_table_example3():
 ```
 ## More advanced examples
 
-The real power of the `rx.table` comes where you are able to visualise, add and edit data live in your app. Check out these apps and code to see how this is done: app: https://customer-data-app.reflex.run code: https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app and code: https://github.com/reflex-dev/data-viewer.
+The real power of the `rx.table` comes where you are able to visualise, add and edit data live in your app. Check out these apps and code to see how this is done: app: https://customer-data-app.reflex.run code: https://github.com/reflex-dev/templates/tree/main/customer_data_app and code: https://github.com/reflex-dev/templates/tree/main/sales.
 
 # Download
 
