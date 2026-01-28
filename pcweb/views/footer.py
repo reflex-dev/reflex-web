@@ -48,6 +48,7 @@ def social_menu_item(icon: str, url: str = "/", class_name: str = "") -> rx.Comp
         + class_name,
         href=url,
         is_external=True,
+        aria_label=f"Social link for {icon}",
     )
 
 

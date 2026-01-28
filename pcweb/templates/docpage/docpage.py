@@ -242,6 +242,7 @@ def feedback_button() -> rx.Component:
                     class_name="w-full gap-2 border-r-0 px-3 py-0.5 rounded-[20px_0_0_20px]"
                     + thumb_cn,
                 ),
+                aria_label="Yes",
                 on_click=FeedbackState.set_score(1),
             ),
             rx.popover.trigger(
@@ -253,6 +254,7 @@ def feedback_button() -> rx.Component:
                     class_name="w-full gap-2 px-3 py-0.5 rounded-[0_20px_20px_0]"
                     + thumb_cn,
                 ),
+                aria_label="No",
                 on_click=FeedbackState.set_score(0),
             ),
             class_name="w-full lg:w-auto items-center flex flex-row",

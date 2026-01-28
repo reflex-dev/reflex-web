@@ -332,6 +332,7 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                 to=url,
                 on_click=rx.prevent_default,
                 class_name="inset-0 absolute z-[-1]",
+                aria_label=f"Navigate to {name}",
             ),
             class_name="w-full text-slate-9 hover:!text-slate-9 relative",
             on_click=[SidebarState.set_sidebar_index(index), rx.redirect(url)],
@@ -353,7 +354,7 @@ def create_sidebar_section(
     index = index.to(list)
     return rx.el.li(
         rx.link(
-            rx.el.h5(
+            rx.el.h2(
                 section_title,
                 class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
             ),
