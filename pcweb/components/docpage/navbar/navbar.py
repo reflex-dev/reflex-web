@@ -723,6 +723,7 @@ def new_component_section() -> rx.Component:
                 ),
                 class_name="cursor-pointer",
                 custom_attrs={"role": "menuitem"},
+                aria_label="Pricing",
                 unstyled=True,
             ),
             class_name="flex flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
