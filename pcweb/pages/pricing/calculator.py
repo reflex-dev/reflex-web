@@ -2,7 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 from reflex.experimental.client_state import ClientStateVar
 
-collapsed_calculator_cs = ClientStateVar.create("collapsed_calculator", default=True)
+collapsed_calculator_cs = ClientStateVar.create("collapsed_calculator", default=False)
 
 CREDITS_PER_HOUR_CPU = 0.2
 CREDITS_PER_HOUR_GB = 0.5
@@ -207,6 +207,17 @@ def compute_table_base() -> rx.Component:
 
 def calculator_section() -> rx.Component:
     return rx.el.section(
+        rx.el.div(
+            rx.el.h1(
+                "Hosting Calculator",
+                class_name="text-slate-12 lg:text-3xl text-2xl font-semibold text-center",
+            ),
+            rx.el.h2(
+                "Only pay for what you use, nothing more.",
+                class_name="text-slate-9 text-2xl font-semibold text-center",
+            ),
+            class_name="flex flex-col gap-1 justify-center border-b border-slate-4 w-full mx-auto px-6 pb-[4.5rem]",
+        ),
         compute_table(),
         rx.el.div(
             rx.cond(
@@ -238,5 +249,5 @@ def calculator_section() -> rx.Component:
             ),
             class_name="w-full p-2 relative",
         ),
-        class_name="flex flex-col w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] justify-center items-center",
+        class_name="flex flex-col w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] pt-[4.5rem] justify-center items-center",
     )
