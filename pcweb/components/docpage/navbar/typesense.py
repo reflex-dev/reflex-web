@@ -470,16 +470,15 @@ def search_input():
             ),
             rx.box(
                 filter_component(),
-                rx.link(
-                    ui.button(
-                        ui.icon(icon="SparklesIcon", class_name="shrink-0 size-2"),
+                ui.link(
+                    render_=ui.button(
+                        ui.icon(icon="SparklesIcon", class_name="shrink-0 size-3.5"),
                         "Ask AI",
                         type="button",
                         variant="secondary",
                         size="xs",
-                        class_name="text-sm flex flex-row gap-x-2 items-center",
                     ),
-                    href="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/",
+                    to="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/",
                 ),
                 ui.button(
                     "Esc",
@@ -718,7 +717,7 @@ def typesense_search() -> rx.Component:
                 search_content(),
                 on_interact_outside=SimpleSearch.reset_search,
                 on_escape_key_down=SimpleSearch.reset_search,
-                class_name="w-full max-w-[650px] mx-auto bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0 "
+                class_name="w-full max-w-[650px] mx-auto bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0 font-sans "
                 + rx.cond(SimpleSearch.query.length() < 3, "min-h[57vh]", "h-[57vh]"),
             ),
         ),
