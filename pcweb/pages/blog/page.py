@@ -62,7 +62,7 @@ def page(document, route) -> rx.Component:
                 rx.box(
                     get_icon("arrow_right", class_name="rotate-180"),
                     "Back to Blog",
-                    class_name="box-border flex justify-center items-center gap-2 border-slate-5 bg-slate-1 hover:bg-slate-3 -mb-4 px-3 py-0.5 border rounded-full font-small text-slate-9 transition-bg cursor-pointer",
+                    class_name="box-border flex justify-center items-center gap-2 border-slate-5 bg-slate-1 hover:bg-slate-3 -mb-4 px-3 py-0.5 border rounded-full font-small text-secondary-11 transition-bg cursor-pointer",
                 ),
                 underline="none",
                 href="/blog",
@@ -84,14 +84,15 @@ def page(document, route) -> rx.Component:
                         str(meta["date"]),
                         format="MMM DD, YYYY",
                     ),
-                    class_name="flex items-center gap-2 !font-normal font-small text-nowrap text-slate-9",
+                    class_name="flex items-center gap-2 !font-normal font-small text-nowrap text-secondary-11",
                 ),
                 class_name="section-header",
             ),
             rx.image(
                 src=f"{meta['image']}",
                 alt=f"Image for blog post: {meta['title']}",
-                loading="lazy",
+                loading="eager",
+                custom_attrs={"fetchPriority": "high"},
                 class_name="rounded-[1.125rem] w-auto object-contain max-w-full max-h-[40rem]",
             ),
             rx.box(

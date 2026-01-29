@@ -14,7 +14,8 @@ def first_post_card(meta: dict, path: str) -> rx.Component:
         rx.box(
             rx.image(
                 src=meta["image"],
-                loading="lazy",
+                loading="eager",
+                custom_attrs={"fetchPriority": "high"},
                 alt="Image preview for blog post: " + str(meta["title"]),
                 class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-left object-cover",
             ),
@@ -29,27 +30,27 @@ def first_post_card(meta: dict, path: str) -> rx.Component:
                 rx.moment(
                     str(meta["date"]),
                     format="MMM DD, YYYY",
-                    class_name="font-normal text-slate-9 text-sm",
+                    class_name="font-normal text-secondary-11 text-sm",
                 ),
                 class_name="flex flex-col gap-1 p-[0.625rem_0.75rem_0rem_0.75rem] w-full",
             ),
             rx.box(
                 rx.text(
                     meta["description"],
-                    class_name="line-clamp-2 font-base text-slate-11",
+                    class_name="line-clamp-2 font-base text-secondary-11",
                 ),
                 rx.box(
                     rx.text(
                         meta["author"],
-                        class_name="font-small text-slate-9 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
+                        class_name="font-small text-secondary-11 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
                     ),
                     rx.el.button(
                         rx.text(
                             "Read more",
-                            class_name="font-small text-slate-9",
+                            class_name="font-small text-secondary-11",
                         ),
                         get_icon(icon="new_tab", class_name="p-[5px]"),
-                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden flex-shrink-0",
+                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-secondary-11 transition-bg cursor-pointer overflow-hidden flex-shrink-0",
                     ),
                     class_name="flex flex-row justify-between items-center gap-1 min-w-0 w-full h-auto",
                 ),
@@ -69,7 +70,8 @@ def card_content(meta: dict, path: str) -> rx.Component:
         rx.box(
             rx.image(
                 src=meta["image"],
-                loading="lazy",
+                loading="eager",
+                custom_attrs={"fetchPriority": "high"},
                 alt="Image preview for blog post: " + str(meta["title"]),
                 class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-left object-cover",
             ),
@@ -77,34 +79,34 @@ def card_content(meta: dict, path: str) -> rx.Component:
         ),
         rx.box(
             rx.box(
-                rx.el.h4(
+                rx.el.span(
                     meta["title"],
                     class_name="font-smbold text-slate-12",
                 ),
                 rx.moment(
                     str(meta["date"]),
                     format="MMM DD, YYYY",
-                    class_name="font-normal text-slate-9 text-xs",
+                    class_name="font-normal text-secondary-11 text-xs",
                 ),
                 class_name="flex flex-col gap-1 p-[0.625rem_0.75rem_0rem_0.75rem] w-full",
             ),
             rx.box(
                 rx.text(
                     meta["description"],
-                    class_name="line-clamp-2 font-small text-slate-11",
+                    class_name="line-clamp-2 font-small text-secondary-11",
                 ),
                 rx.box(
                     rx.text(
                         meta["author"],
-                        class_name="font-small text-slate-9 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
+                        class_name="font-small text-secondary-11 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
                     ),
                     rx.el.button(
                         rx.text(
                             "Read more",
-                            class_name="font-small text-slate-9",
+                            class_name="font-small text-secondary-11",
                         ),
                         get_icon(icon="new_tab", class_name="p-[5px]"),
-                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden",
+                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-secondary-11 transition-bg cursor-pointer overflow-hidden",
                     ),
                     class_name="flex flex-row justify-between items-center gap-1 w-full h-auto",
                 ),

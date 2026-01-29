@@ -25,7 +25,7 @@ def footer_link(text: str, href: str) -> rx.Component:
     return rx.link(
         text,
         href=href,
-        class_name="font-small text-slate-9 hover:!text-slate-11 no-underline transition-color",
+        class_name="font-small text-secondary-11 hover:!text-secondary-12 no-underline transition-color",
     )
 
 
@@ -48,6 +48,7 @@ def social_menu_item(icon: str, url: str = "/", class_name: str = "") -> rx.Comp
         + class_name,
         href=url,
         is_external=True,
+        aria_label=f"Social link for {icon}",
     )
 
 

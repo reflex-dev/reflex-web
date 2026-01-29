@@ -291,7 +291,7 @@ def prompt_box() -> rx.Component:
                     type="button",
                     variant="ghost",
                     on_click=show_default_prompt.set_value(False),
-                    class_name="rounded-[10px] font-semibold text-slate-10 dark:text-secondary-11",
+                    class_name="rounded-[10px] font-semibold text-secondary-11",
                 ),
                 on_drop=SubmitPromptState.handle_upload(
                     rx.upload_files(
@@ -310,7 +310,6 @@ def prompt_box() -> rx.Component:
                 max_size=MAX_FILE_SIZE_BYTES,
                 multiple=True,
                 id="upload-image-button",
-                aria_label="Upload images",
             ),
             ui.button(
                 "Build with AI",
@@ -330,6 +329,14 @@ def prompt_box() -> rx.Component:
             f"""
             if (window.innerWidth < 1024) {{
                 {show_default_prompt.set}(false);
+            }}
+            const uploadContainer = document.getElementById('upload-image-button');
+            if (uploadContainer) {{
+                const fileInput = uploadContainer.querySelector('input[type="file"]');
+                if (fileInput) {{
+                    fileInput.setAttribute('aria-label', 'Upload images for AI builder');
+                    fileInput.setAttribute('title', 'Upload images');
+                }}
             }}
         """
         ),

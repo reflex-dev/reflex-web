@@ -85,7 +85,7 @@ def user_profile():
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src="/landing/app_build/user.webp",
+                src="/landing/app_build/user.avif",
                 loading="lazy",
                 alt="User profile image",
                 class_name="object-cover pointer-events-none",
@@ -316,14 +316,14 @@ def graph_overview():
                     rx.el.div(
                         rx.el.span(class_name="size-4 rounded-sm bg-violet-8"),
                         "Peak Performance",
-                        class_name="flex flex-row items-center gap-2 text-xs font-medium text-slate-10",
+                        class_name="flex flex-row items-center gap-2 text-xs font-medium text-secondary-11",
                     ),
                     rx.el.div(
                         rx.el.span(
                             class_name="size-4 rounded-sm bg-violet-4 dark:bg-[#151618]"
                         ),
                         "Capacity Per Day",
-                        class_name="flex flex-row items-center gap-2 text-xs font-medium text-slate-10",
+                        class_name="flex flex-row items-center gap-2 text-xs font-medium text-secondary-11",
                     ),
                     class_name="flex flex-row items-center gap-4",
                 ),
@@ -333,7 +333,7 @@ def graph_overview():
                 "24 June ",
                 rx.el.span(" - ", class_name="text-slate-8 ml-0.5"),
                 " Today",
-                class_name="text-slate-10 dark:text-secondary-11 text-sm font-medium rounded-lg px-3.5 h-8 border border-slate-4 dark:border-[#1C2024] bg-white-1 flex items-center",
+                class_name="text-secondary-11 text-sm font-medium rounded-lg px-3.5 h-8 border border-slate-4 dark:border-[#1C2024] bg-white-1 flex items-center",
             ),
             class_name="flex flex-row justify-between items-baseline w-full",
         ),

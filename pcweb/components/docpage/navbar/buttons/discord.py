@@ -9,10 +9,11 @@ def discord() -> rx.Component:
     return ui.link(
         render_=ui.button(
             get_icon(icon="discord_navbar", class_name="shrink-0 text-secondary-11"),
-            custom_attrs={"aria-label": "Discord link"},
+            custom_attrs={"aria-label": "Join Reflex Discord community"},
             size="icon-sm",
             variant="outline",
             class_name="text-secondary-11",
         ),
         to=DISCORD_URL,
+        custom_attrs={"aria-label": "Join Reflex Discord community"},
     )

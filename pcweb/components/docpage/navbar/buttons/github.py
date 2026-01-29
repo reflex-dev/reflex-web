@@ -10,10 +10,15 @@ def github() -> rx.Component:
         render_=ui.button(
             get_icon(icon="github_navbar", class_name="shrink-0 text-secondary-11"),
             f"{GITHUB_STARS // 1000}K",
-            custom_attrs={"aria-label": "Github link"},
+            custom_attrs={
+                "aria-label": f"View Reflex on GitHub - {GITHUB_STARS // 1000}K stars"
+            },
             size="sm",
             variant="outline",
             class_name="text-secondary-11",
         ),
         to=GITHUB_URL,
+        custom_attrs={
+            "aria-label": f"View Reflex on GitHub - {GITHUB_STARS // 1000}K stars"
+        },
     )
