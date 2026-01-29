@@ -81,7 +81,7 @@ def menu_socials() -> rx.Component:
 def newsletter_form() -> rx.Component:
     return (
         rx.box(
-            rx.el.h4(
+            rx.el.span(
                 "Join Newsletter",
                 class_name="font-instrument-sans font-semibold text-slate-12 text-sm leading-tight",
             ),

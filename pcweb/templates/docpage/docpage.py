@@ -242,6 +242,7 @@ def feedback_button() -> rx.Component:
                     class_name="w-full gap-2 border-r-0 px-3 py-0.5 rounded-[20px_0_0_20px]"
                     + thumb_cn,
                 ),
+                custom_attrs={"role": "button"},
                 aria_label="Yes",
                 on_click=FeedbackState.set_score(1),
             ),
@@ -254,6 +255,7 @@ def feedback_button() -> rx.Component:
                     class_name="w-full gap-2 px-3 py-0.5 rounded-[0_20px_20px_0]"
                     + thumb_cn,
                 ),
+                custom_attrs={"role": "button"},
                 aria_label="No",
                 on_click=FeedbackState.set_score(0),
             ),
