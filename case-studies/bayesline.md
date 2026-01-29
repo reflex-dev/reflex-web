@@ -44,7 +44,7 @@ meta: [
 ```python exec
 import reflex as rx
 from reflex_image_zoom import image_zoom
-from pcweb.pages.docs import library
+from pcweb.pages.docs import enterprise
 ```
 
 ```python eval
@@ -120,7 +120,7 @@ When we started looking at the (Dash) code, it just got to this point where youâ
 
 In addition, Reflex improves the developer experience with 60+ UI components out of the box, while still offering the flexibility of integrating your own custom React components.
 
-Bayesline wrapped [AG Grid]({library.tables_and_data_grids.ag_grid.path})--a high-performance React grid--the industry standard data table for fintech.
+Bayesline wrapped [AG Grid]({enterprise.ag_grid.index.path})--a high-performance React grid--the industry standard data table for fintech.
 This powerful combination of out-of-the-box functionality and flexibility made Reflex an attractive choice for Bayesline.
 
 Sebastian and the team originally started building with Reflex to create a minimum viable product that would get them through Y Combinator and their initial funding round.

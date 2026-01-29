@@ -148,6 +148,7 @@ redirects = [
     ("/docs/components/conditional-props", "/docs/components/conditional-rendering"),
     ("/docs/enterprise", "/docs/enterprise/overview"),
     ("/docs/pages/routes", "/docs/pages/overview"),
+    ("/docs/overview", "/docs/getting-started/introduction"),
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
     ("/changelog", "https://github.com/reflex-dev/reflex/releases"),
     (
