@@ -4,7 +4,7 @@ import reflex as rx
 import reflex_ui as ui
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
-from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
+from pcweb.constants import REFLEX_BUILD_URL
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
 from pcweb.pages.docs import ai_builder, getting_started
@@ -742,7 +742,7 @@ def new_component_section() -> rx.Component:
                     ),
                     underline="none",
                     is_external=True,
-                    href=f"{REFLEX_CLOUD_URL.strip('/')}/?redirect_url={REFLEX_BUILD_URL}",
+                    href=f"{REFLEX_BUILD_URL.strip('/')}/cloud-login?redirect_to={REFLEX_BUILD_URL.strip('/')}/callback/",
                 ),
                 class_name="desktop-only",
             ),
