@@ -7,6 +7,7 @@ from typing import Callable
 import flexdown
 import mistletoe
 import reflex as rx
+import reflex_ui as ui
 from reflex.components.radix.themes.base import LiteralAccentColor
 from reflex.utils.format import to_snake_case, to_title_case
 
@@ -242,6 +243,8 @@ def feedback_button() -> rx.Component:
                     class_name="w-full gap-2 border-r-0 px-3 py-0.5 rounded-[20px_0_0_20px]"
                     + thumb_cn,
                 ),
+                custom_attrs={"role": "button"},
+                aria_label="Yes",
                 on_click=FeedbackState.set_score(1),
             ),
             rx.popover.trigger(
@@ -253,6 +256,8 @@ def feedback_button() -> rx.Component:
                     class_name="w-full gap-2 px-3 py-0.5 rounded-[0_20px_20px_0]"
                     + thumb_cn,
                 ),
+                custom_attrs={"role": "button"},
+                aria_label="No",
                 on_click=FeedbackState.set_score(0),
             ),
             class_name="w-full lg:w-auto items-center flex flex-row",
@@ -426,11 +431,13 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
             rx.icon(tag="chevron-down", size=14, class_name="!text-slate-9"),
             class_name="p-[0.563rem] lg:hidden flex",
         ),
-        class_name="relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-12 mb-6 lg:mb-8 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full"
-        + rx.cond(
-            HostingBannerState.show_banner,
-            " lg:mt-[175px]",
-            " lg:mt-[119px]",
+        class_name=ui.cn(
+            "relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-[110px] mb-6 lg:mb-8 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full",
+            rx.cond(
+                HostingBannerState.is_banner_visible,
+                "lg:mt-[175px]",
+                "lg:mt-[119px] mt-[51px]",
+            ),
         ),
     )
 
@@ -626,7 +633,7 @@ def docpage(
                         class_name=(
                             "w-full max-w-[300px] h-screen shrink-0 hidden lg:block z-10 "
                             + rx.cond(
-                                HostingBannerState.show_banner,
+                                HostingBannerState.is_banner_visible,
                                 " mt-[146px]",
                                 " mt-[90px]",
                             )
@@ -638,7 +645,7 @@ def docpage(
                             class_name=(
                                 "px-0 xl:px-14 pt-0"
                                 + rx.cond(
-                                    HostingBannerState.show_banner,
+                                    HostingBannerState.is_banner_visible,
                                     " mt-[90px]",
                                     "",
                                 )
@@ -715,7 +722,7 @@ def docpage(
                             class_name=(
                                 "w-full h-full"
                                 + rx.cond(
-                                    HostingBannerState.show_banner,
+                                    HostingBannerState.is_banner_visible,
                                     " mt-[146px]",
                                     " mt-[90px]",
                                 )

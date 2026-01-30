@@ -1069,8 +1069,17 @@ def component_docs(component_tuple, comp):
     triggers = generate_event_triggers(component, src)
     children = generate_valid_children(component)
 
+    # Map for component display name overrides (e.g., for Python reserved keywords)
+    component_display_name_map = {
+        "rx.el.Del": "rx.el.del",
+    }
+
+    comp_display_name = component_display_name_map.get(
+        component_tuple[1], component_tuple[1]
+    )
+
     return rx.box(
-        h2_comp(text=component_tuple[1]),
+        h2_comp(text=comp_display_name),
         rx.box(markdown(textwrap.dedent(src.get_docs())), class_name="pb-2"),
         props,
         children,

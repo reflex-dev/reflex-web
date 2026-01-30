@@ -10,6 +10,8 @@ LOGOS = [
     "mercy",
     "drager",
     "wvu_medicine",
+    "roche",
+    "thermofisher",
 ]
 
 

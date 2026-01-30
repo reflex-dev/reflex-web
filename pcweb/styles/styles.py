@@ -66,6 +66,7 @@ BASE_STYLE = {
 
 # Fonts to include.
 STYLESHEETS = [
+    "fonts.css",
     "custom-colors.css",
     "tailwind-theme.css",
 ]

@@ -206,7 +206,10 @@ def sidebar_item_comp(
                     type="multiple",
                     collapsible=True,
                     default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)_!important] !bg-transparent !rounded-none",
+                    style={
+                        "box-shadow": "inset 1.25px 0 0 0 var(--c-slate-4) !important"
+                    },
+                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none !bg-transparent !rounded-none",
                 ),
                 class_name="!p-0 w-full !bg-transparent before:!h-0 after:!h-0",
             ),
@@ -329,6 +332,7 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                 to=url,
                 on_click=rx.prevent_default,
                 class_name="inset-0 absolute z-[-1]",
+                aria_label=f"Navigate to {name}",
             ),
             class_name="w-full text-slate-9 hover:!text-slate-9 relative",
             on_click=[SidebarState.set_sidebar_index(index), rx.redirect(url)],
@@ -350,7 +354,7 @@ def create_sidebar_section(
     index = index.to(list)
     return rx.el.li(
         rx.link(
-            rx.el.h5(
+            rx.el.h2(
                 section_title,
                 class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
             ),

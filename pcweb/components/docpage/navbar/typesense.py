@@ -470,14 +470,13 @@ def search_input():
             ),
             rx.box(
                 filter_component(),
-                rx.el.a(
-                    ui.button(
-                        ui.icon(icon="SparklesIcon", class_name="shrink-0 size-3"),
+                ui.link(
+                    render_=ui.button(
+                        ui.icon(icon="SparklesIcon", class_name="shrink-0 size-3.5"),
                         "Ask AI",
                         type="button",
                         variant="secondary",
                         size="xs",
-                        class_name="text-sm flex flex-row gap-x-2 items-center",
                     ),
                     to="https://reflex.dev/docs/ai-builder/integrations/mcp-overview/",
                 ),

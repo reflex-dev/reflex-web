@@ -53,6 +53,7 @@ NODEJS_URL = "https://nodejs.org/en/"
 POETRY_URL = "https://python-poetry.org/"
 PIPENV_URL = "https://pipenv.pypa.io/en/latest/"
 PIP_URL = "https://pypi.org/project/pip/"
+UV_URL = "https://docs.astral.sh/uv/"
 VENV_URL = "https://docs.python.org/3/library/venv.html"
 VIRTUALENV_URL = "https://virtualenv.pypa.io/en/latest/"
 CONDA_URL = "https://conda.io/"
@@ -75,7 +76,7 @@ RX_CLOUD_BACKEND = os.getenv("RX_CLOUD_BACKEND", "https://cloud-backend.reflex.d
 RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://build-backend.reflex.dev/")
 
 # Stats
-GITHUB_STARS = 27000
+GITHUB_STARS = 28000
 DISCORD_USERS = 7500
 CONTRIBUTORS = 200
 

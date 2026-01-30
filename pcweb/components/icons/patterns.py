@@ -82,7 +82,7 @@ def hosting_patterns() -> rx.Component:
             alt="Reflex Hosting Patterns",
             class_name="dark:hidden lg:flex hidden absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             + rx.cond(
-                HostingBannerState.show_banner,
+                HostingBannerState.is_banner_visible,
                 " lg:mt-[24rem] mt-[3.5rem]",
                 " lg:mt-[19rem] mt-[8.5rem]",
             ),
@@ -92,7 +92,7 @@ def hosting_patterns() -> rx.Component:
             alt="Reflex Hosting Patterns",
             class_name="hidden dark:flex lg:dark:flex absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             + rx.cond(
-                HostingBannerState.show_banner,
+                HostingBannerState.is_banner_visible,
                 " lg:mt-[24rem] mt-[3.5rem]",
                 " lg:mt-[19rem] mt-[8.5rem]",
             ),

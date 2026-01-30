@@ -35,17 +35,18 @@ app = rxe.App(
     + favicons_links()
     + [
         rx.el.link(
-            rel="preconnect",
-            href="https://fonts.googleapis.com",
+            rel="preload",
+            href="/fonts/instrument-sans.woff2",
+            custom_attrs={"as": "font"},
+            type="font/woff2",
+            cross_origin="anonymous",
         ),
         rx.el.link(
-            rel="preconnect",
-            href="https://fonts.gstatic.com",
-            cross_origin="",
-        ),
-        rx.el.link(
-            href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap",
-            rel="stylesheet",
+            rel="preload",
+            href="/fonts/jetbrains-mono.woff2",
+            custom_attrs={"as": "font"},
+            type="font/woff2",
+            cross_origin="anonymous",
         ),
     ],
 )
@@ -148,6 +149,7 @@ redirects = [
     ("/docs/components/conditional-props", "/docs/components/conditional-rendering"),
     ("/docs/enterprise", "/docs/enterprise/overview"),
     ("/docs/pages/routes", "/docs/pages/overview"),
+    ("/docs/overview", "/docs/getting-started/introduction"),
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
     ("/changelog", "https://github.com/reflex-dev/reflex/releases"),
     (
