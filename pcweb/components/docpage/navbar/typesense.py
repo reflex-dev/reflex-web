@@ -717,7 +717,7 @@ def typesense_search() -> rx.Component:
                 search_content(),
                 on_interact_outside=SimpleSearch.reset_search,
                 on_escape_key_down=SimpleSearch.reset_search,
-                class_name="w-full max-w-[650px] mx-auto bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0 font-sans "
+                class_name="!font-sans w-full max-w-[650px] mx-auto bg-secondary-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0 "
                 + rx.cond(SimpleSearch.query.length() < 3, "min-h[57vh]", "h-[57vh]"),
             ),
         ),

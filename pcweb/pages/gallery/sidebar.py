@@ -2,6 +2,7 @@ import reflex as rx
 
 from pcweb.components.new_button import button
 from pcweb.components.user_input import input
+from pcweb.pages.gallery.apps import gallery_apps_data
 
 TAGS = {
     "Category": [
@@ -17,45 +18,24 @@ TAGS = {
 }
 
 ITEMS_PER_PAGE = 12
+TEMPLATES_FOLDER = "templates/"
+
+
+TEMPLATE_SUMMARIES = [
+    {
+        "title": (m := doc.metadata or {}).get("title", ""),
+        "description": m.get("description", ""),
+        "tags": m.get("tags", []),
+    }
+    for (_, folder), doc in gallery_apps_data.items()
+    if folder == TEMPLATES_FOLDER
+]
 
 
 class TemplatesState(rx.State):
-    query: rx.Field[str] = rx.field("")
+    query: rx.Field[str] = rx.field(default="")
     checked_tags: rx.Field[set[str]] = rx.field(default_factory=set)
-    page: rx.Field[int] = rx.field(1)
-    total_pages: rx.Field[int] = rx.field(1)
-
-    def _get_all_filtered_templates(self) -> list[str]:
-        from pcweb.pages.gallery.apps import gallery_apps_data
-
-        filtered = []
-        for (_path, folder), document in gallery_apps_data.items():
-            if folder != "templates/":
-                continue
-
-            app_metadata = document.metadata
-            app_title = app_metadata.get("title", "")
-            app_description = app_metadata.get("description", "")
-            app_tags = app_metadata.get("tags", [])
-
-            # print(app_metadata, app_title, app_tags)
-
-            # Text search filtering
-            if self.query.strip():
-                query_lower = self.query.lower()
-                if not (
-                    query_lower in app_title.lower()
-                    or query_lower in app_description.lower()
-                ):
-                    continue
-
-            # Tag filtering
-            if self.checked_tags and not (set(app_tags) & self.checked_tags):
-                continue
-
-            filtered.append(app_title)
-
-        return filtered
+    page: rx.Field[int] = rx.field(default=1)
 
     @rx.event
     def clear_filters(self):
@@ -63,16 +43,27 @@ class TemplatesState(rx.State):
         self.page = 1
 
     @rx.var
+    def all_filtered_templates(self) -> list[str]:
+        query = self.query.strip().lower()
+        return [
+            t["title"]
+            for t in TEMPLATE_SUMMARIES
+            if (
+                not query
+                or query in t["title"].lower()
+                or query in t["description"].lower()
+            )
+            and (not self.checked_tags or set(t["tags"]) & self.checked_tags)
+        ]
+
+    @rx.var
+    def total_pages(self) -> int:
+        return max(1, -(-len(self.all_filtered_templates) // ITEMS_PER_PAGE))
+
+    @rx.var
     def filtered_templates(self) -> list[str]:
-        all_filtered = self._get_all_filtered_templates()
-        self.total_pages = (
-            (len(all_filtered) + ITEMS_PER_PAGE - 1) // ITEMS_PER_PAGE
-            if all_filtered
-            else 1
-        )
         start = (self.page - 1) * ITEMS_PER_PAGE
-        end = start + ITEMS_PER_PAGE
-        return all_filtered[start:end]
+        return self.all_filtered_templates[start : start + ITEMS_PER_PAGE]
 
     @rx.event
     def set_query(self, value: str):
@@ -129,9 +120,9 @@ def checkbox_item(text: str, value: str):
     return rx.box(
         rx.checkbox(
             checked=TemplatesState.checked_tags.contains(value),
-            on_change=TemplatesState.toggle_template(value),
             color_scheme="violet",
             key=value,
+            class_name="cursor-pointer",
         ),
         rx.text(
             text,
