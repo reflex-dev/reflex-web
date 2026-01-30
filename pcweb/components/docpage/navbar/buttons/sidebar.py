@@ -16,12 +16,18 @@ def social_menu_item(
     url="/",
     border: bool = False,
 ) -> rx.Component:
+    aria_labels = {
+        "github": "Visit Reflex on GitHub",
+        "twitter": "Follow Reflex on X",
+        "discord": "Join Reflex Discord community",
+    }
     return rx.link(
         get_icon(icon=icon, class_name="!text-slate-9"),
         class_name="flex justify-center items-center gap-2 hover:bg-slate-3 px-4 py-[0.875rem] w-full h-[47px] transition-bg overflow-hidden"
         + (" border-slate-4 border-x border-solid border-y-0" if border else ""),
         href=url,
         is_external=True,
+        custom_attrs={"aria-label": aria_labels.get(icon, f"Visit {icon}")},
     )
 
 
@@ -90,6 +96,7 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
                         ),
                         on_click=toggle_color_mode,
                         class_name="flex flex-row justify-center items-center px-3 py-0.5 w-full h-[47px]",
+                        custom_attrs={"aria-label": "Toggle color mode"},
                     ),
                     class_name="flex flex-col items-center bg-slate-1 w-full h-full",
                 ),

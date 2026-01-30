@@ -678,15 +678,14 @@ def new_component_section() -> rx.Component:
                     class_name="flex flex-row gap-x-0 items-center",
                     unstyled=True,
                 ),
+                custom_attrs={"role": "menuitem"},
             ),
-            ui.navigation_menu.list(
-                ui.navigation_menu.item(
-                    new_menu_trigger("Product", active_str="products"),
-                    products_section(),
-                    class_name="cursor-pointer",
-                    unstyled=True,
-                ),
-                class_name="xl:flex hidden flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
+            ui.navigation_menu.item(
+                new_menu_trigger("Product", active_str="products"),
+                products_section(),
+                class_name="cursor-pointer",
+                unstyled=True,
+                custom_attrs={"role": "menuitem"},
             ),
             ui.navigation_menu.item(
                 new_menu_trigger("Docs"),
@@ -700,38 +699,44 @@ def new_component_section() -> rx.Component:
                 ),
                 class_name="cursor-pointer",
                 unstyled=True,
+                custom_attrs={"role": "menuitem"},
             ),
             ui.navigation_menu.item(
                 new_menu_trigger("Resources"),
                 new_resource_section(),
                 class_name="cursor-pointer",
                 unstyled=True,
+                custom_attrs={"role": "menuitem"},
             ),
             ui.navigation_menu.item(
                 new_menu_trigger("Solutions", active_str="use-cases"),
                 solutions_section(),
                 class_name="cursor-pointer",
                 unstyled=True,
+                custom_attrs={"role": "menuitem"},
             ),
             ui.navigation_menu.item(
-                ui.navigation_menu.item(
-                    render_=link_item(
-                        "Pricing",
-                        "/pricing",
-                        "pricing",
-                    ),
-                    unstyled=True,
+                link_item(
+                    "Pricing",
+                    "/pricing",
+                    "pricing",
                 ),
-                class_name="xl:flex hidden",
+                class_name="cursor-pointer",
+                custom_attrs={"role": "menuitem"},
+                aria_label="Pricing",
                 unstyled=True,
             ),
             class_name="flex flex-row items-center gap-0 lg:gap-5 2xl:gap-7 m-0 h-full list-none",
             custom_attrs={"role": "menubar"},
         ),
         ui.navigation_menu.list(
-            ui.navigation_menu.item(search_bar()),
-            ui.navigation_menu.item(github()),
-            ui.navigation_menu.item(discord(), class_name="xl:flex hidden"),
+            ui.navigation_menu.item(search_bar(), custom_attrs={"role": "menuitem"}),
+            ui.navigation_menu.item(github(), custom_attrs={"role": "menuitem"}),
+            ui.navigation_menu.item(
+                discord(),
+                class_name="xl:flex hidden",
+                custom_attrs={"role": "menuitem"},
+            ),
             ui.navigation_menu.item(
                 rx.link(
                     ui.button(
@@ -745,6 +750,7 @@ def new_component_section() -> rx.Component:
                     href=f"{REFLEX_BUILD_URL.strip('/')}/cloud-login?redirect_to={REFLEX_BUILD_URL.strip('/')}/callback/",
                 ),
                 class_name="desktop-only",
+                custom_attrs={"role": "menuitem"},
             ),
             ui.navigation_menu.item(
                 demo_form_dialog(
@@ -757,11 +763,13 @@ def new_component_section() -> rx.Component:
                 ),
                 unstyled=True,
                 class_name="xl:flex hidden",
+                custom_attrs={"role": "menuitem"},
             ),
             ui.navigation_menu.item(
                 navbar_sidebar_button(),
                 class_name="xl:hidden flex",
                 unstyled=True,
+                custom_attrs={"role": "menuitem"},
             ),
             class_name="flex flex-row gap-2 m-0 h-full list-none items-center",
             custom_attrs={"role": "menubar"},
