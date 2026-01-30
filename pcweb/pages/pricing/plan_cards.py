@@ -342,7 +342,7 @@ def plan_cards():
         class_name=(
             "flex flex-col w-full justify-center items-center max-w-[85rem] mx-auto",
             rx.cond(
-                HostingBannerState.show_banner,
+                HostingBannerState.is_banner_visible,
                 "pt-[8rem] lg:pt-[7rem]",
                 "pt-[8rem] lg:pt-[4rem]",
             ),

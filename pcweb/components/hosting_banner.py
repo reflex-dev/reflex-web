@@ -64,25 +64,25 @@ def hosting_banner() -> rx.Component:
     return rx.el.div(
         rx.cond(
             HostingBannerState.is_banner_visible,
-            rx.hstack(
+            rx.el.div(
                 rx.el.a(
                     rx.box(
                         rx.box(
                             # Header text with responsive spans
                             rx.el.span(
                                 "New",
-                                class_name="items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1] inline-flex",
+                                class_name="items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1] max-lg:hidden lg:inline-flex",
                             ),
                             rx.text(
                                 rx.el.span(
-                                    "Reflex Build On-Prem - A secure builder running in your environment.",
+                                    "Reflex Build On-Prem - A secure builder running in your environment. ",
+                                    rx.el.span(
+                                        "Learn more",
+                                        class_name="text-slate-11 font-semibold text-sm underline decoration-slate-11 lg:pl-2",
+                                    ),
                                     class_name="inline-block text-slate-12 font-semibold text-sm",
                                 ),
                                 class_name="text-slate-12 font-semibold text-sm z-[1]",
-                            ),
-                            rx.el.span(
-                                "Learn more",
-                                class_name="text-slate-12 font-semibold text-sm underline decoration-slate-11",
                             ),
                             class_name="flex items-center md:gap-3.5 gap-2",
                         )
@@ -90,14 +90,17 @@ def hosting_banner() -> rx.Component:
                     glow(),
                     to=BLOG_LINK,
                     is_external=False,
+                    class_name="flex justify-start md:justify-center md:col-start-2",
                 ),
-                rx.icon(
-                    "x",
+                rx.el.button(
+                    rx.icon(
+                        "x",
+                        size=16,
+                    ),
+                    class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 z-10 size-8 flex items-center justify-center shrink-0 md:col-start-3 justify-self-end ml-auto",
                     on_click=HostingBannerState.hide_banner,
-                    size=16,
-                    class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-6 lg:right-4 z-10",
                 ),
-                class_name="px-6 lg:px-6 w-screen min-h-[3rem] lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-between md:justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-3 max-w-full group",
+                class_name="px-6 lg:px-6 w-screen min-h-[3rem] lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex md:grid md:grid-cols-[1fr_auto_1fr] items-center bg-slate-1 gap-4 overflow-hidden relative lg:py-0 py-3 max-w-full group",
             ),
         ),
         on_mount=HostingBannerState.show_blog_banner,
