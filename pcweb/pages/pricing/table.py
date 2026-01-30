@@ -320,7 +320,9 @@ def pricing_table(
             header_row,
             class_name=(
                 "sticky bg-slate-1 z-10",
-                rx.cond(HostingBannerState.show_banner, "top-[161px]", "top-[105px]"),
+                rx.cond(
+                    HostingBannerState.is_banner_visible, "top-[161px]", "top-[105px]"
+                ),
             ),
         ),
         rx.el.tbody(
@@ -410,7 +412,7 @@ def sticky_pricing_header() -> rx.Component:
         ),
         class_name=(
             "sticky z-10 bg-slate-1 border-x border-slate-4 border-y",
-            rx.cond(HostingBannerState.show_banner, "top-[121px]", "top-[65px]"),
+            rx.cond(HostingBannerState.is_banner_visible, "top-[121px]", "top-[65px]"),
         ),
     )
 

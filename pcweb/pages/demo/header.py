@@ -48,7 +48,7 @@ def header() -> rx.Component:
         custom_quote_form(),
         class_name="flex flex-col gap-2 justify-center items-center max-w-[64.19rem] xl:border-x border-slate-4 w-full -mb-10 pb-16 "
         + rx.cond(
-            HostingBannerState.show_banner,
+            HostingBannerState.is_banner_visible,
             "pt-[8rem] lg:pt-[11rem]",
             "pt-[8rem] lg:pt-[12rem]",
         ),

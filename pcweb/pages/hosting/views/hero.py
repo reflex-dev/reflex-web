@@ -45,7 +45,7 @@ def hero() -> rx.Component:
         ),
         class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-4 lg:pb-[7.875rem]"
         + rx.cond(
-            HostingBannerState.show_banner,
+            HostingBannerState.is_banner_visible,
             " lg:pt-[18.2rem] pt-[11rem]",
             " lg:pt-[13.2rem] pt-[6rem]",
         ),
