@@ -18,9 +18,9 @@ Before jumping into the AI Builder, take time to plan your approach. Good prepar
 
 ### Auto-Generate Prompts from App Specs
 
-To save time and get higher-quality prompts, you can feed your full app spec into **Chat Mode** and ask it to break the spec into structured, build-ready prompts.
+To save time and get higher-quality prompts, you can feed your full app spec into the AI Builder and ask it to break the spec into structured, build-ready prompts.
 
-Chat Mode can translate your vision into:
+The AI Builder can translate your vision into:
 
 - Layout instructions
 - UI component definitions
@@ -28,27 +28,25 @@ Chat Mode can translate your vision into:
 - Styling preferences
 - Follow-up test plans
 
-Once generated, copy each prompt into the AI Builder to execute them in sequence.
-
 **Example workflow:**
 
-1. Switch to Chat Mode and paste your full app specification
-2. Ask **"Break this into a series of buildable prompts I can feed into the Agent Mode."**
-3. Copy each generated prompt into Agent Mode one by one
+1. Paste your full app specification into the AI Builder
+2. Ask **"Break this into a series of buildable prompts."**
+3. Execute each generated prompt in sequence
 4. Build iteratively using the structured prompts
 
 ### Working with Text Specifications
 
 If you have a structured app specification, don't paste the entire document into the builder at once. Break it down into logical sections and feed them in sequence.
 
-**Pro tip:** Use **Chat Mode** to help prepare prompts:
+**Pro tip:** Let the AI Builder help prepare prompts:
 
 Paste your full app spec and ask:
 
-  - **"Break this into buildable prompts I can feed into the builder."**
+  - **"Break this into buildable prompts."**
   - **"Write one prompt per feature/page to build this app."**
 
-This hybrid approach — planning in **Chat Mode**, then building in **Agent Mode** — lets you move faster and build smarter.
+This approach — planning first, then building iteratively — lets you move faster and build smarter.
 
 ### Writing Clear, Task-Oriented Prompts
 
@@ -86,12 +84,11 @@ You can drop in screenshots of websites, dashboards, apps, or even hand-drawn wi
 - Include any elements you want: forms, tables, nav, charts
 - You can annotate them with arrows, notes, or labels
 
-**Get UI/UX feedback using Chat Mode:**
+**Get UI/UX feedback:**
 
 Upload a screenshot and ask: **"What are 5 things I could do to improve the UI/UX of this?"**
 
-
-Follow up with: **Implement items 1, 2, and 4 in the builder.**
+Follow up with: **Implement items 1, 2, and 4.**
 
 Or request specific improvements: **Make this more minimal and mobile-first.**
 
@@ -136,10 +133,10 @@ To improve your design, ask the builder for more polished layouts, better struct
 
 **Suggested workflow:**
 
-1. In Chat Mode, upload an image or describe the layout.
+1. Upload an image or describe the layout.
 2. Ask: **"Tell me 5 things that would improve the UI/UX of this page."**
 3. Review the suggestions and decide which ones you want to apply.
-4. Switch to Agent Mode and implement: **"Improve visual hierarchy by increasing heading sizes and adding more spacing between sections."**
+4. Implement: **"Improve visual hierarchy by increasing heading sizes and adding more spacing between sections."**
 
 ### Using Knowledge to Guide the Build
 
@@ -147,7 +144,7 @@ The **Knowledge** panel lets you provide long-form references that influence how
 
 Once added, the builder will try to honor these rules throughout the session, ensuring consistency without repeating instructions.
 
-Try combining Knowledge with Chat Mode:
+Try combining Knowledge with your prompts:
 
   - **Use the style guide in Knowledge to improve this page.**
 
