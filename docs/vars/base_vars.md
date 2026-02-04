@@ -1,3 +1,4 @@
+<img width="773" height="434" alt="2026-02-04_09-14-07" src="https://github.com/user-attachments/assets/40614945-af51-4e73-b5b6-01a190ad1a84" />
 ```python exec
 import random
 import time
