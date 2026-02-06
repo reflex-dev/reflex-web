@@ -14,10 +14,14 @@ The Github integration is important to make sure that you don't lose your progre
 
 
 ```python eval
-rx.image(
-    src="/ai_builder/connecting_to_github.gif",
-    height="auto",
-    padding_bottom="2rem",
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/connecting_to_github.avif",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+    ),
 )
 ```
 
@@ -32,5 +36,14 @@ The GitHub integration allows you to:
 The commit history is a great way to see the changes that you have made to your app. You can also revert to previous versions of your app from here.
 
 ```python eval
-image_zoom(rx.image(src="/ai_builder/github_commit_history.png"))
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/github_commit_history.avif",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+    ),
+)
 ```
+

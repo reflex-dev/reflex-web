@@ -1,8 +1,11 @@
+```python exec
+from pcweb.pages.docs import ai_builder
+```
 # Files
 
 To upload a file to the AI Builder click the `📎 Attach` button and select the file you want to upload from your computer. You can also drag and drop files directly into the chat window.
 
-This section does not cover uploading images. Check out ..... to learn more about uploading images.
+This section does not cover uploading images. Check out [Images]({ai_builder.images.path}) to learn more about uploading images.
 
 ```md alert
 ## Supported File Types

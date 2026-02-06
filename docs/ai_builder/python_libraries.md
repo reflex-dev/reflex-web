@@ -27,7 +27,7 @@ If you are working with a specialized / less well-known library, you can add cus
 ```md alert warning
 # Where to find the Knowledge Section
 
-![Where to find the Knowledge Section](/ai_builder/find_knowledge_tab.webp)
+![Where to find the Knowledge Section](/ai_builder/features/knowledge_light.avif)
 ```
 
 

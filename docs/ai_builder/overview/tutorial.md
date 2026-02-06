@@ -34,10 +34,7 @@ from reflex_image_zoom import image_zoom
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/overview/tutorial_1_light.webp",
-                "/ai_builder/overview/tutorial_1_dark.webp",
-            ),
+            src="/ai_builder/overview/tutorial_1_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -62,10 +59,7 @@ Your dashboard now becomes much more useful with real-time filtering. Users can 
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/overview/tutorial_2_light.webp",
-                "/ai_builder/overview/tutorial_2_dark.webp",
-            ),
+            src="/ai_builder/overview/tutorial_2_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -92,10 +86,7 @@ Your app now has full CRUD capability for employee records. The modal form provi
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/overview/tutorial_3_light.webp",
-                "/ai_builder/overview/tutorial_3_dark.webp",
-            ),
+            src="/ai_builder/overview/tutorial_3_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -122,10 +113,7 @@ Your app now has proper navigation between the dashboard and chat functionality.
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/overview/tutorial_4_light.webp",
-                "/ai_builder/overview/tutorial_4_dark.webp",
-            ),
+            src="/ai_builder/overview/tutorial_4_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),

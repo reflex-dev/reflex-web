@@ -12,10 +12,7 @@ def render_image():
     return rx.el.div(
         image_zoom(
             rx.image(
-                src=rx.color_mode_cond(
-                    "/ai_builder/app_lifecycle/copy_light.webp",
-                    "/ai_builder/app_lifecycle/copy_dark.webp",
-                ),
+                src="/ai_builder/app_lifecycle/copy_light.avif",
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),
@@ -33,7 +30,7 @@ rx.el.div(render_image())
 
 ## How to Copy an App
 
-1. In the Reflex Build workspace, click the **Copy** button (bottom-right corner).
+1. In the Reflex Build workspace, click on the arrow down icon next to the deploy button and click on the **Copy** button. You can also do this in the Settings tab.
 2. Reflex Build will create a new app in your workspace with the same:
    - Code files and components
    - State and configuration
