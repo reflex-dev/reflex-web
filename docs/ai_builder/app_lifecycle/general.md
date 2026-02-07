@@ -11,10 +11,7 @@ def render_image():
     return rx.el.div(
         image_zoom(
             rx.image(
-                src=rx.color_mode_cond(
-                    "/ai_builder/app_lifecycle/general_light.webp",
-                    "/ai_builder/app_lifecycle/general_dark.webp",
-                ),
+                src="/ai_builder/app_lifecycle/general_light.avif",
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),
@@ -33,16 +30,25 @@ rx.el.div(render_image())
 
 ## How to Access Settings
 
-1. In the AI Builder workspace, click the **Settings** icon located at the bottom-left of the screen, inside the chat box area.
-2. This will open the **General** tab to see your app’s main settings.
+1. In the AI Builder workspace, on the top bar click the more 3 dots icon and then click the **Settings** tab.
+2. This will open the **Settings** tab to see your app’s main settings.
 
 ## What You Can Do
 
 - **Change App Name**
   Update the name of your app to reflect its purpose or version.
 
+- **Change App Visibility**
+  Update the visibility of your app to public or private.
+
 - **View App ID**
   Find the unique identifier for your app, which can be used for integrations or support.
+
+- **Fork App**
+  Fork your app to create a copy of it.
+
+-- **Download App**
+  Download your app to your local machine.
 
 - **Delete App**
   Permanently remove an app you no longer need. **Warning:** This action cannot be undone.

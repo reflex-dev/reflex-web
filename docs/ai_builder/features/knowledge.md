@@ -10,10 +10,7 @@ def render_image():
     return rx.el.div(
         image_zoom(
             rx.image(
-                src=rx.color_mode_cond(
-                    "/ai_builder/features/knowledge_light.webp",
-                    "/ai_builder/features/knowledge_dark.webp",
-                ),
+                src="/ai_builder/features/knowledge_light.avif",
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),
@@ -31,7 +28,7 @@ rx.el.div(render_image())
 
 ## How to Add Knowledge
 
-1. In the AI Builder workspace, go to the **Knowledge** section by clicking the **`Context`** button in the bottom bar, and then on the top bar click the **`Knowledge`** tab.
+1. In the AI Builder top bar, click the more 3 dots icon and then click the **`Knowledge`** tab.
 2. Enter your rule, guideline, or context description.
 3. Save the entry. The AI Builder will automatically use it when generating apps.
 

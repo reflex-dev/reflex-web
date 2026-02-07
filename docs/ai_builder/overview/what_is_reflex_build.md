@@ -1,196 +1,97 @@
 # What Is Reflex Build
 
-Reflex Build is an AI-powered platform that lets anyone create full-stack web apps just by describing ideas in plain English—no coding needed. It includes a full-fledged built-in IDE, real-time collaboration (beta), and project sharing—all in your browser, no installation required.
+Reflex Build is an AI-powered platform that lets anyone create full-stack web apps just by describing ideas in plain English—no coding needed. It includes a full-fledged built-in IDE, real-time collaboration, and project sharing—all in your browser, no installation required.
 
 ```python exec
-from typing import List, TypedDict
-
 import reflex as rx
 from reflex_image_zoom import image_zoom
 
 
-class Feature(TypedDict):
-    title: str
-    description: str
-    icon: str
+landing_features = [
+    {
+        "title": "Database Integration",
+        "description": "Automatically integrate your database\ninto your application with ease",
+        "icon": "database",
+    },
+    {
+        "title": "Secure Secrets",
+        "description": "Safely manage your API keys and tokens\nwith a built in secrets manager",
+        "icon": "shield",
+    },
+    {
+        "title": "Live Preview",
+        "description": "See all application changes in real-time\nwith our interactive preview tab",
+        "icon": "eye",
+    },
+    {
+        "title": "Quick Download",
+        "description": "Download your complete project files\nwith just a single click operation",
+        "icon": "download",
+    },
+    {
+        "title": "Easy Deployment",
+        "description": "Deploy your application to production\nwith just a single click process",
+        "icon": "rocket",
+    },
+    {
+        "title": "Manual File Editing",
+        "description": "Edit your project files directly\nwith our intuitive code editor",
+        "icon": "code",
+    },
+    {
+        "title": "AI Package Manager",
+        "description": "Let AI handle your package installations\nvia natural prompting",
+        "icon": "sparkles",
+    },
+    {
+        "title": "Smart Prompting",
+        "description": "Get better development results\nwith AI-optimized prompt templates",
+        "icon": "message-circle",
+    },
+]
 
 
-class LandingState(rx.State):
-    features: List[Feature] = [
-        {
-            "title": "Database Integration",
-            "description": "Automatically integrate your database\ninto your application with ease",
-            "icon": "database",
-        },
-        {
-            "title": "Secure Secrets",
-            "description": "Safely manage your API keys and tokens\nwith a built in secrets manager",
-            "icon": "shield",
-        },
-        {
-            "title": "Live Preview",
-            "description": "See all application changes in real-time\nwith our interactive preview tab",
-            "icon": "eye",
-        },
-        {
-            "title": "Quick Download",
-            "description": "Download your complete project files\nwith just a single click operation",
-            "icon": "download",
-        },
-        {
-            "title": "Easy Deployment",
-            "description": "Deploy your application to production\nwith just a single click process",
-            "icon": "rocket",
-        },
-        {
-            "title": "Manual File Editing",
-            "description": "Edit your project files directly\nwith our intuitive code editor",
-            "icon": "code",
-        },
-        {
-            "title": "AI Package Manager",
-            "description": "Let AI handle your package installations\nvia natural prompting",
-            "icon": "sparkles",
-        },
-        {
-            "title": "Smart Prompting",
-            "description": "Get better development results\nwith AI-optimized prompt templates",
-            "icon": "message-circle",
-        },
-    ]
-
-
-class BuildDocState(rx.State):
-    current_feature: dict[str, str] = {
-        "light": "/ai_builder/what_is_reflex_build/project_bar_light.webp",
-        "dark": "/ai_builder/what_is_reflex_build/project_bar_dark.webp",
-    }
-
-    image_opacity: float = 1.0  # Use float instead of string for opacity
-    transition_in_progress: bool = False
-
-    features: list[dict[str, str | dict[str, str]]] = [
-        {
-            "title": "Project Menu Bar",
-            "subtitle": "Browse previously built applications, create new sessions, store database variables, and much more!",
-            "img": {
-                "light": "/ai_builder/what_is_reflex_build/project_bar_light.webp",
-                "dark": "/ai_builder/what_is_reflex_build/project_bar_dark.webp",
-            },
-            "selected": True,
-        },
-        {
-            "title": "Chat Area",
-            "subtitle": "See your prompts in action with visual cues, editing notifications, and file generations every step of the way.",
-            "img": {
-                "light": "/ai_builder/what_is_reflex_build/chat_light.webp",
-                "dark": "/ai_builder/what_is_reflex_build/chat_dark.webp",
-            },
-            "selected": False,
-        },
-        {
-            "title": "Application Workspace",
-            "subtitle": "Your workspace contains all the folders and files of your application. You can add new files and folders as well!",
-            "img": {
-                "light": "/ai_builder/what_is_reflex_build/file_tree_light.webp",
-                "dark": "/ai_builder/what_is_reflex_build/file_tree_dark.webp",
-            },
-            "selected": False,
-        },
-        {
-            "title": "Code Editor",
-            "subtitle": "The code editor displays the current selected file. You can edit the code directly and save it instantly.",
-            "img": {
-                "light": "/ai_builder/what_is_reflex_build/code_light.webp",
-                "dark": "/ai_builder/what_is_reflex_build/code_dark.webp",
-            },
-            "selected": False,
-        },
-        {
-            "title": "Bottom Menu Bar",
-            "subtitle": "This menu contains important actions such as deploying, downloading, and sharing your application.",
-            "img": {
-                "light": "/ai_builder/what_is_reflex_build/bottom_light.webp",
-                "dark": "/ai_builder/what_is_reflex_build/bottom_dark.webp",
-            },
-            "selected": False,
-        },
-        {
-            "title": "Preview Tab",
-            "subtitle": "The preview tab showcases a live application. You can navigate to other applications directly from this tab, refresh the app, and even view it in full screen.",
-            "img": {
-                "light": "/ai_builder/what_is_reflex_build/preview_light.webp",
-                "dark": "/ai_builder/what_is_reflex_build/preview_dark.webp",
-            },
-            "selected": False,
-        },
-    ]
-
-    @rx.event(background=True)
-    async def select_feature(self, index: int):
-        import asyncio
-
-        # Prevent multiple transitions at once
-        if self.transition_in_progress:
-            return
-
-        # Update the selected feature and image
-        async with self:
-            for i, feature in enumerate(self.features):
-                feature["selected"] = i == index
-
-            self.transition_in_progress = True
-
-            # Fade out
-            self.image_opacity = 0.0
-            yield
-            await asyncio.sleep(0.1)
-
-            self.current_feature = self.features[index]["img"]
-            await asyncio.sleep(0.2)
-
-            # # Fade in
-            self.image_opacity = 1.0
-            self.transition_in_progress = False
-
-
-feature_images = [
-    [
-        "/ai_builder/what_is_reflex_build/project_bar_light.webp",
-        "/ai_builder/what_is_reflex_build/project_bar_dark.webp",
-        "Project Menu Bar",
-        "Browse previously built applications, create new sessions, store database variables, and much more!",
-    ],
-    [
-        "/ai_builder/what_is_reflex_build/chat_light.webp",
-        "/ai_builder/what_is_reflex_build/chat_dark.webp",
-        "Chat Area",
-        "See your prompts in action with visual cues, editing notifications, and file generations every step of the way.",
-    ],
-    [
-        "/ai_builder/what_is_reflex_build/file_tree_light.webp",
-        "/ai_builder/what_is_reflex_build/file_tree_dark.webp",
-        "Application Workspace",
-        "Your workspace contains all the folders and files of your application. You can add new files and folders as well!",
-    ],
-    [
-        "/ai_builder/what_is_reflex_build/code_light.webp",
-        "/ai_builder/what_is_reflex_build/code_dark.webp",
-        "Code Editor",
-        "The code editor displays the current selected file. You can edit the code directly and save it instantly.",
-    ],
-    [
-        "/ai_builder/what_is_reflex_build/bottom_light.webp",
-        "/ai_builder/what_is_reflex_build/bottom_dark.webp",
-        "Bottom Menu Bar",
-        "This menu contains important actions such as deploying, downloading, and sharing your application.",
-    ],
-    [
-        "/ai_builder/what_is_reflex_build/preview_light.webp",
-        "/ai_builder/what_is_reflex_build/preview_dark.webp",
-        "Preview Tab",
-        "The preview tab showcases a live application. You can navigate to other applications directly from this tab, refresh the app, and even view it in full screen.",
-    ],
+features_data = [
+    {
+        "title": "Project Menu Bar",
+        "subtitle": "Browse previously built applications, create new sessions, store database variables, and much more!",
+        "img": "/ai_builder/what_is_reflex_build/project_bar_light.avif",
+    },
+    {
+        "title": "Chat Area",
+        "subtitle": "See your prompts in action with visual cues, editing notifications, and file generations every step of the way.",
+        "img": "/ai_builder/what_is_reflex_build/chat_light.avif",
+    },
+    {
+        "title": "Application Workspace",
+        "subtitle": "Your workspace contains all the folders and files of your application. You can add new files and folders as well!",
+        "img": "/ai_builder/what_is_reflex_build/file_tree_light.avif",
+    },
+    {
+        "title": "Code Editor",
+        "subtitle": "The code editor displays the current selected file. You can edit the code directly and save it instantly.",
+        "img": "/ai_builder/what_is_reflex_build/code_light.avif",
+    },
+    {
+        "title": "Integrations",
+        "subtitle": "Easily connect with the tools your team already uses or extend your app with any Python SDK, library, or API.",
+        "img": "/ai_builder/what_is_reflex_build/integrations_light.avif",
+    },
+    {
+        "title": "Plan",
+        "subtitle": "Plan your application's development with the AI Builder. You can add or remove phases and tasks as you go.",
+        "img": "/ai_builder/what_is_reflex_build/plan_light.avif",
+    },
+    {
+        "title": "Top Menu Bar",
+        "subtitle": "This menu contains the main views of the application. Preview, Code, Plan, Integrations, Knowledge, Secrets and Settings. You can also see the current workspace RAM and CPU usage. Deploy, copy or share your application with the buttons in the top right corner.",
+        "img": "/ai_builder/what_is_reflex_build/top_light.avif",
+    },
+    {
+        "title": "Preview Tab",
+        "subtitle": "The preview tab showcases a live application. You can navigate to other applications directly from this tab, refresh the app, and even view it in full screen.",
+        "img": "/ai_builder/what_is_reflex_build/preview_light.avif",
+    },
 ]
 
 
@@ -201,20 +102,16 @@ def feature_card(feature: dict) -> rx.Component:
                 rx.icon(
                     tag=feature["icon"],
                     size=15,
-                    class_name="inline-block mr-2 "
-                    + rx.color_mode_cond(
-                        "stroke-violet-8",
-                        "stroke-violet-9",
-                    ),
+                    class_name="inline-block mr-2 text-primary-11"
                 ),
-                rx.el.span(f"{feature['title']} ", class_name="text-sm font-bold"),
-                class_name="text-sm font-medium block align-center pt-5 px-2",
+                rx.el.span(f"{feature['title']}"),
+                class_name="text-sm font-semibold flex flex-row items-center pt-5 px-2 text-secondary-12",
             ),
             rx.el.span(
                 feature["description"],
-                class_name="text-sm font-regular block align-center px-2",
+                class_name="text-sm font-medium block align-center px-2 text-secondary-11",
             ),
-            class_name="flex flex-col",
+            class_name="flex flex-col gap-2",
         ),
         class_name="w-full rounded-md",
     )
@@ -223,58 +120,39 @@ def feature_card(feature: dict) -> rx.Component:
 def _docs_features() -> rx.Component:
     return rx.el.div(
         rx.el.div(
-            rx.foreach(LandingState.features, feature_card),
+            rx.foreach(landing_features, feature_card),
             class_name="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4",
         ),
         class_name="flex flex-col w-full h-full justify-start align-start items-start py-4 gap-x-4 z-[99]",
     )
 
 
-def _docs_app_section_features_small_screen(feature: list[str]):
+def _docs_app_section_features_small_screen(feature: dict):
     return rx.el.div(
         image_zoom(
             rx.image(
-                src=rx.color_mode_cond(feature[0], feature[1]),
+                src=feature["img"],
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),
             class_name="rounded-md overflow-hidden",
         ),
         rx.el.div(
-            rx.el.label(feature[2], class_name="text-sm font-bold cursor-pointer"),
-            rx.el.label(feature[3], class_name="text-sm font-light cursor-pointer"),
+            rx.el.label(feature["title"], class_name="text-sm font-bold cursor-pointer"),
+            rx.el.label(feature["subtitle"], class_name="text-sm font-light cursor-pointer"),
             class_name="flex flex-col px-1 py-2",
         ),
         class_name="w-full flex flex-col rounded-md cursor-pointer",
     )
 
 
-def _docs_app_section_toggles(feature: dict, index: int):
+def _docs_app_section_toggles(feature: dict):
     return rx.el.div(
-        rx.el.label(feature["title"], class_name="text-sm font-bold cursor-pointer"),
+        rx.el.label(feature["title"], class_name="text-sm font-bold"),
         rx.el.label(
-            feature["subtitle"], class_name="text-sm font-light cursor-pointer"
+            feature["subtitle"], class_name="text-sm font-light"
         ),
-        on_click=BuildDocState.select_feature(index),
-        class_name="w-full flex flex-col max-w-md rounded-md p-4 cursor-pointer "
-        + rx.cond(
-            feature["selected"],
-            "",
-            rx.color_mode_cond("hover:bg-slate-5", "hover:bg-slate-3"),
-        ),
-        border=rx.cond(
-            feature["selected"],
-            f"0.81px solid {rx.color('purple', 7)}",
-            "",
-        ),
-        box_shadow=rx.cond(
-            feature["selected"],
-            rx.color_mode_cond(
-                "5px 5px oklch(0.946 0.033 307.174 / 0.5)",
-                "",
-            ),
-            "",
-        ),
+        class_name="w-full flex flex-col max-w-md rounded-md p-4",
     )
 
 
@@ -295,27 +173,20 @@ def _docs_app_sections():
                 class_name="flex flex-col w-full max-w-lg gap-y-1",
             ),
             rx.foreach(
-                BuildDocState.features[:5],
-                lambda feature, index: _docs_app_section_toggles(feature, index),
+                features_data[:5],
+                lambda feature: _docs_app_section_toggles(feature),
             ),
             class_name="flex flex-col gap-y-4 justify-start max-w-sm",
         ),
         rx.el.div(
             image_zoom(
                 rx.image(
-                    src=rx.color_mode_cond(
-                        BuildDocState.current_feature["light"],
-                        BuildDocState.current_feature["dark"],
-                    ),
+                    src=features_data[0]["img"],
                     class_name="p-2 rounded-md h-auto",
                     border=f"0.81px solid {rx.color('slate', 5)}",
                 ),
                 class_name="rounded-md overflow-hidden",
             ),
-            style={
-                "opacity": f"{BuildDocState.image_opacity}",
-                "transition": "opacity 300ms ease-in-out",
-            },
             class_name="w-full max-w-4xl",
         ),
         class_name="flex flex-row w-full h-full justify-between align-center items-center py-4 gap-x-4 z-[99]",
@@ -328,7 +199,7 @@ def _docs_app_sections_small_screen():
         rx.el.div(
             rx.grid(
                 rx.foreach(
-                    feature_images,
+                    features_data,
                     lambda feature: _docs_app_section_features_small_screen(feature),
                 ),
                 class_name="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 w-full",

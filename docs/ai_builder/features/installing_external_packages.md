@@ -2,6 +2,7 @@
 
 ```python exec
 import reflex as rx
+from reflex_image_zoom import image_zoom
 ```
 
 Reflex Build allows you to install external python packages to use in your app. This is useful if you want to use a package that is not included in the default Reflex Build environment. Examples might include `openai`, `langsmith`, `requests`, etc.
@@ -15,23 +16,35 @@ There are two ways to install external packages:
 
 Enter the name of the package you want to install in the chat interface. The AI will then install the package for you.
 
+
 ```python eval
-rx.image(
-    src="/ai_builder/external_packages_input.gif",
-    height="auto",
-    padding_bottom="2rem",
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/external_packages_input.avif",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
 )
 ```
-
 
 ## Installing through the requirements.txt file
 
 Add the package to the `requirements.txt` file and then save the app. This will install the package in your app's environment and recompile your app.
 
 ```python eval
-rx.image(
-    src="/ai_builder/external_packages_requirements.gif",
-    height="auto",
-    padding_bottom="2rem",
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/external_packages_requirements.avif",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
 )
 ```

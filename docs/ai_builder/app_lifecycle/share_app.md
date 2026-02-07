@@ -11,10 +11,7 @@ def render_image():
     return rx.el.div(
         image_zoom(
             rx.image(
-                src=rx.color_mode_cond(
-                    "/ai_builder/app_lifecycle/share_light.webp",
-                    "/ai_builder/app_lifecycle/share_dark.webp",
-                ),
+                src="/ai_builder/app_lifecycle/share_light.avif",
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),
@@ -32,7 +29,7 @@ rx.el.div(render_image())
 
 ## How to Share
 
-1. In the AI Builder workspace, click the **Share** button (bottom-right corner).
+1. In the AI Builder workspace, click on the arrow down icon next to the deploy button and click on the **Share** button.
 2. A popup will appear with a **shareable link**.
 3. Copy the link and send it to teammates, collaborators, or stakeholders.
 

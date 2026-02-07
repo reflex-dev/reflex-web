@@ -6,7 +6,7 @@ import reflex as rx
 
 It is easy to deploy your app into production from Reflex Build to Reflex Cloud.
 
-Simply click the `Deploy` button in the bottom right corner of Reflex Build, as shown below:
+Simply click the `Deploy` button in the top right corner of Reflex Build, as shown below:
 
 
 
@@ -18,10 +18,7 @@ def render_image():
     return rx.el.div(
         image_zoom(
             rx.image(
-                src=rx.color_mode_cond(
-                    "/ai_builder/app_lifecycle/deploy_light.webp",
-                    "/ai_builder/app_lifecycle/deploy_dark.webp",
-                ),
+                src="/ai_builder/app_lifecycle/deploy_light.avif",
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),

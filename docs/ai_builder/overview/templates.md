@@ -11,10 +11,7 @@ from reflex_image_zoom import image_zoom
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/overview/templates_light.webp",
-                "/ai_builder/overview/templates_dark.webp",
-            ),
+            src="/ai_builder/overview/templates_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -32,10 +29,7 @@ To use a template, simply click the template and then in the bottom right corner
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/overview/fork_template_light.webp",
-                "/ai_builder/overview/fork_template_dark.webp",
-            ),
+            src="/ai_builder/overview/fork_template_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),

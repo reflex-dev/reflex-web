@@ -11,10 +11,7 @@ def render_image():
     return rx.el.div(
         image_zoom(
             rx.image(
-                src=rx.color_mode_cond(
-                    "/ai_builder/features/secrets_light.webp",
-                    "/ai_builder/features/secrets_dark.webp",
-                ),
+                src="/ai_builder/features/secrets_light.avif",
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),
@@ -58,10 +55,7 @@ from reflex_image_zoom import image_zoom
 rx.el.div(
     image_zoom(
         rx.image(
-            src=rx.color_mode_cond(
-                "/ai_builder/features/secret_bulk_light.webp",
-                "/ai_builder/features/secret_bulk_dark.webp",
-            ),
+            src="/ai_builder/features/secret_bulk_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),

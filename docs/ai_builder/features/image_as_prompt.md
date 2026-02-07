@@ -2,6 +2,7 @@
 
 ```python exec
 import reflex as rx
+from reflex_image_zoom import image_zoom
 ```
 
 Uploading an image (screenshot) of a website (web) app of what you are looking to build gives the AI really good context. 
@@ -9,13 +10,19 @@ Uploading an image (screenshot) of a website (web) app of what you are looking t
 *This is the recommended way to start an app generation.*
 
 
-Below is a GIF showing how to upload an image to the AI Builder:
+Below is an image showing how to upload an image to the AI Builder, you can click on the "Attach" button to upload an image, drag and drop an image, or paste an image from the clipboard:
 
 ```python eval
-rx.image(
-    src="/ai_builder/image_upload.gif",
-    height="auto",
-    padding_bottom="2rem",
+rx.el.div(
+    image_zoom(
+        rx.image(
+            src="/ai_builder/image_upload.avif",
+            class_name="p-2 rounded-md h-auto",
+            border=f"0.81px solid {rx.color('slate', 5)}",
+        ),
+        class_name="rounded-md overflow-hidden",
+    ),
+    class_name="w-full flex flex-col rounded-md cursor-pointer",
 )
 ```
 
