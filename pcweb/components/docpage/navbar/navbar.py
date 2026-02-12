@@ -18,7 +18,7 @@ from pcweb.pages.use_cases.healthcare import healthcare_use_case_page
 from pcweb.pages.use_cases.use_cases import use_cases_page
 
 from ...link_button import resources_button
-from ..sidebar import SidebarState
+from ..sidebar.state import SidebarState
 from .buttons.discord import discord
 from .buttons.github import github
 from .buttons.sidebar import navbar_sidebar_button
@@ -757,6 +757,7 @@ def new_component_section() -> rx.Component:
                     trigger=ui.button(
                         "Book a Demo",
                         size="sm",
+                        aria_label="Book a Demo",
                         variant="primary",
                         class_name="font-semibold whitespace-nowrap max-xl:hidden",
                     ),

@@ -362,6 +362,7 @@ example-big-app/
 │  │  ├─ footer.py
 │  │  ├─ menu.py
 │  │  ├─ navbar.py
+│  │  ├─ settings.py
 │  ├─ pages/
 │  │  ├─ __init__.py
 │  │  ├─ index.py

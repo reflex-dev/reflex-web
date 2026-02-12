@@ -316,23 +316,20 @@ def keyboard_shortcut_script() -> rx.Component:
 
 def search_trigger() -> rx.Component:
     """Render the search trigger button."""
-    return ui.button(
-        rx.html(
-            """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-  <path d="M11.6681 11.6671L14.6681 14.6671M13.3347 7.33374C13.3347 4.02003 10.6485 1.33374 7.33472 1.33374C4.02101 1.33374 1.33472 4.02003 1.33472 7.33374C1.33472 10.6475 4.02101 13.3337 7.33472 13.3337C10.6485 13.3337 13.3347 10.6475 13.3347 7.33374Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>"""
-        ),
+    return rx.el.button(
+        ui.icon(icon="Search01Icon", class_name="shrink-0"),
         rx.el.span(
             "Search",
             class_name="hidden md:block text-sm font-medium",
         ),
-        rx.el.span(
-            "⌘ K",
-            class_name="px-2 bg-slate-4 rounded-sm ml-0.5 hidden md:block h-5 font-medium",
+        rx.html(
+            """<svg width="38" height="20" viewBox="0 0 38 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="38" height="20" rx="4" fill="#f0f0f3"/><path d="M6.448 14q-.84 0-1.344-.492-.492-.492-.492-1.32 0-.876.516-1.356.528-.492 1.548-.492h.708V9.02h-.708q-1.02 0-1.548-.48-.516-.492-.516-1.368 0-.828.492-1.32.504-.492 1.344-.492.672 0 1.056.252.396.252.552.672.168.42.168.924v.996h1.32v-.996q0-.504.156-.924.168-.42.552-.672.396-.252 1.068-.252.84 0 1.332.492.504.492.504 1.32 0 .876-.516 1.368-.516.48-1.548.48h-.708v1.32h.708q1.032 0 1.548.492.516.48.516 1.356 0 .828-.504 1.32Q12.16 14 11.32 14q-.672 0-1.068-.252a1.4 1.4 0 0 1-.552-.672 2.6 2.6 0 0 1-.156-.924v-.996h-1.32v.996q0 .504-.168.924a1.33 1.33 0 0 1-.552.672Q7.12 14 6.448 14m3.936-6.816v1.02h.708q.636 0 .924-.252.288-.264.288-.78 0-.528-.288-.756-.276-.228-.696-.228-.468 0-.708.276-.228.264-.228.72m-3.708 1.02h.708v-1.02q0-.456-.24-.72-.228-.276-.696-.276-.42 0-.708.228-.276.228-.276.756 0 .516.288.78.288.252.924.252m1.548 2.136h1.32V9.02h-1.32zm-1.776 2.832q.468 0 .696-.264.24-.276.24-.732v-1.02h-.708q-.636 0-.924.264-.288.252-.288.768 0 .528.276.756.288.228.708.228m3.936-.996q0 .456.228.732.24.264.708.264.42 0 .696-.228.288-.228.288-.756 0-.516-.288-.768-.288-.264-.924-.264h-.708zm8.504.048V6.86h.972v5.364zm-2.04-2.208V9.08H21.9v.936zM25.888 14V5.36h1.2V14zm.973-4.488 4.344-4.152h1.644l-4.464 4.152zM31.397 14l-4.56-4.488h1.548L33.089 14z" fill="#60646c"/></svg>""",
+            class_name="ml-auto hidden md:block",
         ),
-        variant="outline",
-        size="sm",
-        class_name="md:w-full text-secondary-11",
+        class_name="text-secondary-11 h-8 px-2 py-1.5 rounded-lg bg-secondary-1 flex flex-row items-center justify-start gap-2 lg:w-[10rem] w-full hover:bg-secondary-2",
+        style={
+            "box-shadow": "0 -1px 0 0 rgba(0, 0, 0, 0.08) inset, 0 0 0 1px rgba(0, 0, 0, 0.08) inset, 0 1px 2px 0 rgba(0, 0, 0, 0.02), 0 1px 4px 0 rgba(0, 0, 0, 0.02);",
+        },
         id="search-trigger",
         custom_attrs={"aria-label": "Search documentation"},
     )

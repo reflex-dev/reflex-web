@@ -57,22 +57,22 @@ def mainpage(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.docpage.navbar import navbar
             from pcweb.components.hosting_banner import HostingBannerState
             from pcweb.pages.framework.index_colors import index_colors
             from pcweb.pages.framework.views.footer_index import footer_index
             from pcweb.pages.framework.views.get_started import get_started
+            from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
             return rx.box(
                 index_colors(),
-                navbar(),
+                marketing_navbar(),
                 rx.el.main(
                     contents(*children, **props),
                     get_started(),
                 ),
                 footer_index(),
-                class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative overflow-hidden",
+                class_name="flex flex-col w-full max-w-[94.5rem] justify-center mx-auto px-4 lg:px-5 relative overflow-hidden",
                 padding_top=rx.cond(
                     HostingBannerState.is_banner_visible,
                     "56px",

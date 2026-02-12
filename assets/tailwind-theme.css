@@ -1118,31 +1118,26 @@
 
     --text-xs: 0.75rem;
     --text-xs--line-height: 1rem;
-    --text-xs--letter-spacing: -0.00375rem;
     --text-sm: 0.875rem;
-    --text-sm--line-height: 1.25rem;
-    --text-sm--letter-spacing: -0.01rem;
+    --text-sm--line-height: 1.5rem;
     --text-base: 1rem;
-    --text-base--line-height: 1.5rem;
-    --text-base--letter-spacing: -0.015rem;
+    --text-base--line-height: 1.625rem;
+    --text-base--letter-spacing: -0.0025rem;
     --text-lg: 1.125rem;
     --text-lg--line-height: 1.625rem;
-    --text-lg--letter-spacing: -0.01625rem;
     --text-xl: 1.25rem;
     --text-xl--line-height: 1.75rem;
-    --text-xl--letter-spacing: -0.028125rem;
     --text-2xl: 1.5rem;
-    --text-2xl--line-height: 2rem;
-    --text-2xl--letter-spacing: -0.0375rem;
+    --text-2xl--line-height: 2.25rem;
+    --text-2xl--letter-spacing: -0.0225rem;
     --text-3xl: 2rem;
     --text-3xl--line-height: 2.5rem;
-    --text-3xl--letter-spacing: -0.07rem;
     --text-4xl: 2.5rem;
     --text-4xl--line-height: 3rem;
-    --text-4xl--letter-spacing: -0.125rem;
+    --text-4xl--letter-spacing: -0.075rem;
     --text-5xl: 3rem;
     --text-5xl--line-height: 3.5rem;
-    --text-5xl--letter-spacing: -0.1575rem;
+    --text-5xl--letter-spacing: -0.0975rem;
     --text-6xl: 3.5rem;
     --text-6xl--line-height: 4rem;
     --text-6xl--letter-spacing: -0.1925rem;
@@ -1175,8 +1170,14 @@
     --radius-ui-lg: calc(var(--radius) + 0.25rem);
     --radius-ui-xl: calc(var(--radius) + 0.375rem);
     --radius-ui-2xl: calc(var(--radius) + 0.5rem);
+    /* Width */
+    --layout-max-width: 81rem;
+    --docs-layout-max-width: 69rem;
 
-    @keyframes accordion-down {
+    --s: 0 3px 6px 0 rgba(0, 0, 0, 0.03),
+    0 1px 0 0 #FFF inset,
+    0 1px 0 0 rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.08) @keyframes accordion-down {
         from {
             height: 0;
         }
@@ -1734,6 +1735,7 @@
         color: var(--c-slate-12) !important;
         background-color: transparent !important;
     }
+
     @media (max-width: 768px) {
         .code-block {
             padding: 1rem !important;
@@ -1753,6 +1755,14 @@
 
     .tab-style:hover {
         color: var(--c-slate-11);
+    }
+
+    .hover-card-shadow:hover {
+        background: var(0 3px 6px 0 rgba(0, 0, 0, 0.03),
+                0 1px 0 0 #FFF inset,
+                0 1px 0 0 rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(0, 0, 0, 0.08), linear-gradient(180deg, var(--secondary-1, #FCFCFD) 0%, var(--white-1, #FFF) 100%));
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.03), 0 1px 0 0 #FFF inset, 0 1px 0 0 rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.08);
     }
 
     .tab-style[data-state='active'] {

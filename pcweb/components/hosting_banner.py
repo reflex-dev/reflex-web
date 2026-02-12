@@ -97,6 +97,7 @@ def hosting_banner() -> rx.Component:
                         "x",
                         size=16,
                     ),
+                    aria_label="Close banner",
                     class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 z-10 size-8 flex items-center justify-center shrink-0 md:col-start-3 justify-self-end ml-auto",
                     on_click=HostingBannerState.hide_banner,
                 ),
