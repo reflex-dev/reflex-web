@@ -85,21 +85,22 @@ export function GradientButton({
       {variant === 'primary' ? (
         <>
           <span
-            className="pointer-events-none absolute block rounded-full"
+            className="block absolute rounded-full pointer-events-none"
             style={{
               width: '3.5rem',
               height: '3.5rem',
               left: x,
               top: y,
-              transform: 'translate(-50%, -50%)',
+              transform: 'translate(-50%, -50%) translateZ(0)',
               background: '#EB8E90',
               mixBlendMode: 'plus-lighter',
               filter: 'blur(32px)',
               opacity: isMouseOver ? 1 : 0,
               transition: 'opacity 0.3s ease',
+              willChange: 'transform, opacity',
             }}
           />
-          <span className="relative z-10 inline-flex items-center gap-[inherit]">{children}</span>
+          <span className="inline-flex z-10 relative items-center gap-[inherit]">{children}</span>
         </>
       ) : (
         children
