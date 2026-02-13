@@ -124,5 +124,5 @@ def ai_builder_section() -> rx.Component:
             ),
             class_name="flex flex-col gap-10 max-lg:text-center relative max-w-(--docs-layout-max-width) mx-auto",
         ),
-        class_name="bg-gradient-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 w-full lg:pt-24 lg:pb-24 pb-10 max-lg:px-6 max-lg:pt-10",
+        class_name="bg-gradient-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 w-full lg:pt-24 lg:pb-24 pb-10 max-xl:px-6 max-lg:pt-10",
     )

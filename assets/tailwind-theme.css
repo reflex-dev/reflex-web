@@ -1178,10 +1178,7 @@
     --layout-max-width: 81rem;
     --docs-layout-max-width: 69rem;
 
-    --s: 0 3px 6px 0 rgba(0, 0, 0, 0.03),
-    0 1px 0 0 #FFF inset,
-    0 1px 0 0 rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(0, 0, 0, 0.08) @keyframes accordion-down {
+    @keyframes accordion-down {
         from {
             height: 0;
         }

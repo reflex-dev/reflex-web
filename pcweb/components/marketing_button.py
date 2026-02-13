@@ -11,7 +11,7 @@ LiteralButtonSize = Literal[
 ]
 
 
-class Button(rx.NoSSRComponent):
+class Button(rx.Component):
     """A custom button component."""
 
     library = "$/public/components/GradientButton"

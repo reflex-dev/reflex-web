@@ -87,14 +87,14 @@ export function GradientButton({
           <span
             className="block absolute rounded-full pointer-events-none"
             style={{
-              width: '2.5rem',
-              height: '2.5rem',
+              width: '2.75rem',
+              height: '2.75rem',
               left: x,
               top: y,
               transform: 'translate(-50%, -50%) translateZ(0)',
               background: '#EB8E90',
               mixBlendMode: 'plus-lighter',
-              filter: 'blur(26px)',
+              filter: 'blur(28px)',
               opacity: isMouseOver ? 1 : 0,
               transition: 'opacity 0.3s ease',
               willChange: 'transform, opacity',

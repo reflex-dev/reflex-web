@@ -60,6 +60,6 @@ def hero() -> rx.Component:
             ),
         ),
         class_name=ui.cn(
-            "flex lg:flex-row flex-col max-w-(--docs-layout-max-width) mx-auto w-full max-lg:pb-10 max-lg:px-6",
+            "flex lg:flex-row flex-col max-w-(--docs-layout-max-width) mx-auto w-full max-lg:pb-10 max-xl:px-6",
         ),
     )

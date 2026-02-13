@@ -39,7 +39,7 @@ def docs_landing() -> rx.Component:
                 other_section(),
                 divider(),
                 footer_index(),
-                class_name="flex flex-col relative justify-center items-center w-full",
+                class_name="flex flex-col relative justify-center items-center w-full overflow-hidden",
             ),
             class_name="flex flex-col w-full relative h-full justify-center items-center",
         ),

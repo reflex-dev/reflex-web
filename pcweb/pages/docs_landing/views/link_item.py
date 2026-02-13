@@ -45,7 +45,7 @@ def link_item(
         ),
         rx.el.a(to=href, class_name="absolute inset-0"),
         class_name=ui.cn(
-            "flex flex-col gap-2 pr-8 py-8 group border-r border-b border-m-slate-4 dark:border-m-slate-10 relative max-lg:p-6 hover:bg-[linear-gradient(243deg,var(--m-slate-2,#F6F7F9)_0%,var(--m-slate-1, #FCFCFD)_100%)] dark:hover:bg-[linear-gradient(243deg,var(--m-slate-11,#1D2025)_0%,var(--m-slate-12,#151618)_63.63%)]",
+            "flex flex-col gap-2 pr-8 py-8 group border-r border-b border-m-slate-4 dark:border-m-slate-10 relative max-lg:p-6 hover:bg-[linear-gradient(243deg,var(--m-slate-2,#F6F7F9)_0%,var(--m-slate-1,#FCFCFD)_100%)] dark:hover:bg-[linear-gradient(243deg,var(--m-slate-11,#1D2025)_0%,var(--m-slate-12,#151618)_63.63%)]",
             "lg:pl-8 pl-6" if has_padding_left else "",
         ),
     )

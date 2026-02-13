@@ -38,7 +38,7 @@ def docs_item(
             class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475]",
         ),
         rx.el.a(to=href, class_name="absolute inset-0"),
-        class_name="flex flex-col gap-2 py-8 pr-8 relative group lg:max-w-[21rem] w-full max-lg:text-start hover:bg-[linear-gradient(243deg,var(--m-slate-2,#F6F7F9)_0%,var(--m-slate-1, #FCFCFD)_100%)] dark:hover:bg-[linear-gradient(243deg,var(--m-slate-11,#1D2025)_0%,var(--m-slate-12,#151618)_63.63%)]",
+        class_name="flex flex-col gap-2 py-8 pr-8 relative group lg:max-w-[21rem] w-full max-lg:text-start hover:bg-[linear-gradient(243deg,var(--m-slate-2,#F6F7F9)_0%,var(--m-slate-1,#FCFCFD)_100%)] dark:hover:bg-[linear-gradient(243deg,var(--m-slate-11,#1D2025)_0%,var(--m-slate-12,#151618)_63.63%)]",
     )
 
 
@@ -186,5 +186,5 @@ def framework() -> rx.Component:
             components_section(),
             class_name="flex flex-col lg:flex-row relative",
         ),
-        class_name="flex flex-col gap-10 max-lg:text-center relative max-w-(--docs-layout-max-width) mx-auto w-full justify-start lg:mb-24 mb-10 max-lg:px-6 overflow-hidden",
+        class_name="flex flex-col gap-10 max-lg:text-center relative max-w-(--docs-layout-max-width) mx-auto w-full justify-start lg:mb-24 mb-10 max-xl:px-6 overflow-hidden",
     )
