@@ -1,29 +1,30 @@
 import reflex as rx
 
+color_mode = rx.color_mode_cond("light", "dark")
 COMPANIES = [
     {
-        "src": "/about/companies/y_combinator.svg",
+        "src": f"/about/companies/{color_mode}/y_combinator.svg",
         "alt": "Y Combinator",
     },
     {
-        "src": "/about/companies/abstract.svg",
+        "src": f"/about/companies/{color_mode}/abstract.svg",
         "alt": "Abstract",
     },
     {
-        "src": "/about/companies/outset.svg",
+        "src": f"/about/companies/{color_mode}/outset.svg",
         "alt": "Outset",
     },
     {
-        "src": "/about/companies/picus.svg",
-        "alt": "Picus Capital",
+        "src": f"/about/companies/{color_mode}/lux.svg",
+        "alt": "Lux Capital",
     },
     {
-        "src": "/about/companies/box_group.svg",
+        "src": f"/about/companies/{color_mode}/box_group.svg",
         "alt": "Box Group",
     },
     {
-        "src": "/about/companies/lux.svg",
-        "alt": "Lux Capital",
+        "src": f"/about/companies/{color_mode}/picus.svg",
+        "alt": "Picus Capital",
     },
 ]
 
@@ -49,19 +50,34 @@ def companies() -> rx.Component:
         rx.el.p(
             "Reflex is backed by YC, venture capital firms, and angel investors, including ",
             rx.el.br(class_name="max-lg:hidden"),
-            rx.el.b(" Qasar Younis", class_name="text-secondary-12 font-semibold"),
+            rx.el.b(
+                " Qasar Younis",
+                class_name="text-m-slate-12 font-semibold dark:text-m-slate-3",
+            ),
             " (Applied Intuition), ",
-            rx.el.b(" Jack Altman ", class_name="text-secondary-12 font-semibold"),
+            rx.el.b(
+                " Jack Altman ",
+                class_name="text-m-slate-12 font-semibold dark:text-m-slate-3",
+            ),
             " (Lattice), ",
-            rx.el.b(" Paul Copplestone ", class_name="text-secondary-12 font-semibold"),
+            rx.el.b(
+                " Paul Copplestone ",
+                class_name="text-m-slate-12 font-semibold dark:text-m-slate-3",
+            ),
             " (Supabase), ",
-            rx.el.b(" Matt Kraning", class_name="text-secondary-12 font-semibold"),
+            rx.el.b(
+                " Matt Kraning",
+                class_name="text-m-slate-12 font-semibold dark:text-m-slate-3",
+            ),
             " (Palo ",
             rx.el.br(class_name="max-lg:hidden"),
             " Alto Networks, ",
-            rx.el.b(" Alfredo Andere ", class_name="text-secondary-12 font-semibold"),
+            rx.el.b(
+                " Alfredo Andere ",
+                class_name="text-m-slate-12 font-semibold dark:text-m-slate-3",
+            ),
             " (Latch Bio), and others.",
-            class_name="text-secondary-11 font-medium text-sm max-w-[45.125rem] text-balance text-center leading-6",
+            class_name="text-m-slate-8 dark:text-m-slate-6 font-medium text-sm max-w-[45.125rem] text-balance text-center leading-6",
         ),
         class_name="flex flex-col gap-8 max-w-[69rem] mx-auto pt-24 justify-center items-center max-lg:px-6",
     )

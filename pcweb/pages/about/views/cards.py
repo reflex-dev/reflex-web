@@ -16,10 +16,17 @@ def card(title: str, description: rx.Component, icon: str) -> rx.Component:
             squares_rectangle_small(),
             class_name="absolute top-1 left-4.5",
         ),
-        ui.icon(icon, class_name="text-secondary-12 size-10 mb-8", stroke_width=1),
-        rx.el.h2(title, class_name="text-secondary-12 text-2xl font-semibold mb-4"),
+        ui.icon(
+            icon,
+            class_name="text-m-slate-12 dark:text-m-slate-3 size-10 mb-8",
+            stroke_width=1,
+        ),
+        rx.el.h2(
+            title,
+            class_name="text-m-slate-12 dark:text-m-slate-3 text-2xl font-semibold mb-4",
+        ),
         description,
-        class_name="flex flex-col rounded-xl shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_12px_24px_0_rgba(0,0,0,0.08),0_1px_1px_0_rgba(0,0,0,0.01),0_4px_8px_0_rgba(0,0,0,0.03),0_0_0_1px_#FFF_inset] lg:px-12 lg:pt-16 lg:pb-12 px-10 pt-14 pb-10 relative isolate backdrop-blur-[6px] bg-white/96",
+        class_name="flex flex-col rounded-xl shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_12px_24px_0_rgba(0,0,0,0.08),0_1px_1px_0_rgba(0,0,0,0.01),0_4px_8px_0_rgba(0,0,0,0.03),0_0_0_1px_#FFF_inset] lg:px-12 lg:pt-16 lg:pb-12 px-10 pt-14 pb-10 relative isolate backdrop-blur-[6px] bg-white/96 dark:bg-m-slate-11 dark:shadow-none dark:border-t dark:border-m-slate-9",
     )
 
 
@@ -31,10 +38,10 @@ def cards() -> rx.Component:
                 "Reflex began as a simple idea: ",
                 rx.el.b(
                     " building web apps in Python should feel effortless. ",
-                    class_name="font-semibold text-secondary-12",
+                    class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
                 ),
                 " What started as an internal experiment quickly grew into a community-driven framework used to ship real products fast.",
-                class_name="text-secondary-11 text-base font-medium",
+                class_name="text-m-slate-7 dark:text-m-slate-6 text-base font-medium",
             ),
             icon="Plant04Icon",
         ),
@@ -43,15 +50,15 @@ def cards() -> rx.Component:
             description=rx.el.p(
                 rx.el.b(
                     "Open source is at the core of Reflex. ",
-                    class_name="font-semibold text-secondary-12",
+                    class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
                 ),
                 " We build in the open, listen to our community, and believe the best developer tools are shaped by the people who use them. ",
                 rx.el.b(
                     "Transparency, collaboration, and craft ",
-                    class_name="font-semibold text-secondary-12",
+                    class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
                 ),
                 " come first.",
-                class_name="text-secondary-11 text-base font-medium",
+                class_name="text-m-slate-11 dark:text-m-slate-6 text-base font-medium",
             ),
             icon="OpenSourceIcon",
         ),

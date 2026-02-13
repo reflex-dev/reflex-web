@@ -11,6 +11,7 @@ from pcweb.pages.docs_landing.views import (
     other_section,
     self_hosting_section,
 )
+from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.views.docs_navbar import docs_navbar
 
 
@@ -36,9 +37,11 @@ def docs_landing() -> rx.Component:
                 hosting_section(),
                 self_hosting_section(),
                 other_section(),
+                divider(),
+                footer_index(),
                 class_name="flex flex-col relative justify-center items-center w-full",
             ),
             class_name="flex flex-col w-full relative h-full justify-center items-center",
         ),
-        class_name="flex flex-col w-full justify-center items-center relative",
+        class_name="flex flex-col w-full justify-center items-center relative dark:bg-m-slate-12 bg-m-slate-1",
     )

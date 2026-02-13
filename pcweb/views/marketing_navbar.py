@@ -51,7 +51,7 @@ def logos_carousel() -> rx.Component:
     return marquee(
         *[social_proof_card(logo) for logo in logos],
         direction="left",
-        gradient_color="var(--secondary-1)",
+        gradient_color="light-dark(var(--m-slate-1), var(--m-slate-12))",
         class_name="h-[1.625rem] w-full overflow-hidden mt-auto",
         gradient_width=65,
         speed=25,
@@ -157,25 +157,29 @@ def platform_content() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 rx.el.div(
-                    rx.el.span(
-                        "AI Builder",
-                        class_name="text-secondary-12 text-lg font-semibold mb-2",
+                    rx.el.div(
+                        rx.el.span(
+                            "AI Builder",
+                            class_name="text-secondary-12 text-lg font-semibold mb-2",
+                        ),
+                        rx.el.span(
+                            "Build production-ready web apps for your team in seconds with AI-powered code generation.",
+                            class_name="text-secondary-11 text-sm font-medium",
+                        ),
+                        class_name="p-4 flex flex-col relative hover-card-shadow rounded-md",
                     ),
-                    rx.el.span(
-                        "Build production-ready web apps for your team in seconds with AI-powered code generation.",
-                        class_name="text-secondary-11 text-sm font-medium",
+                    rx.image(
+                        src=f"/common/{rx.color_mode_cond('light', 'dark')}/ai_builder_pattern.svg",
+                        alt="AI Builder Navbar Pattern",
                     ),
                     rx.el.a(
                         class_name="absolute inset-0",
                         to=REFLEX_BUILD_URL,
                         target="_blank",
                     ),
-                    class_name="p-4 flex flex-col relative hover-card-shadow rounded-md",
+                    class_name="relative flex flex-col hover-card-shadow rounded-md",
                 ),
-                style={
-                    "box-shadow": "0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px 0 rgba(0, 0, 0, 0.07), 0 1px 1px 0 rgba(0, 0, 0, 0.01), 0 0 0 1px #FFF inset",
-                },
-                class_name="p-4 flex flex-col rounded-xl bg-white-1 h-full",
+                class_name="p-4 flex flex-col rounded-xl bg-white-1 dark:bg-m-slate-11 h-full shadow-card dark:shadow-card-dark dark:border-r dark:border-m-slate-9 ",
             ),
             rx.el.div(
                 platform_item(
@@ -215,11 +219,11 @@ def solutions_item(title: str, icon: str, href: str) -> rx.Component:
     return rx.el.a(
         ui.icon(
             icon,
-            class_name="shrink-0 text-secondary-11 size-4.5",
+            class_name="shrink-0 text-m-slate-7 dark:text-m-slate-6 size-4.5",
         ),
         title,
         to=href,
-        class_name="flex flex-row px-4 py-2 rounded-sm text-sm font-[525] text-secondary-12 gap-3 items-center justify-start cursor-pointer hover-card-shadow",
+        class_name="flex flex-row px-4 py-2 rounded-sm text-sm font-[525] text-m-slate-12 dark:text-m-slate-3 gap-3 items-center justify-start cursor-pointer hover-card-shadow",
     )
 
 
@@ -228,7 +232,7 @@ def solutions_column(title: str, items: list[tuple[str, str, str]]) -> rx.Compon
         rx.el.div(
             rx.el.span(
                 title,
-                class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed border-secondary-8",
+                class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed border-m-slate-8 dark:text-m-slate-6",
             ),
             class_name="px-4 pt-4 flex flex-col",
         ),
@@ -246,24 +250,24 @@ def customers_column() -> rx.Component:
             rx.el.div(
                 rx.el.span(
                     "Customers",
-                    class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed border-secondary-8",
+                    class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed border-m-slate-8 dark:text-m-slate-6",
                 ),
                 class_name="px-4 pt-4 flex flex-col",
             ),
             rx.el.div(
                 rx.el.span(
                     "Read Stories How Teams Use Reflex",
-                    class_name="text-secondary-12 text-lg font-[575]",
+                    class_name="text-m-slate-12 dark:text-m-slate-3 text-lg font-[575]",
                 ),
                 rx.el.span(
                     "Discover how companies build internal tools, AI apps, and production dashboards in pure Python.",
-                    class_name="text-secondary-11 text-sm font-[475]",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475]",
                 ),
                 logos_carousel(),
                 class_name="flex flex-col gap-2 px-4 pb-4 h-full",
             ),
             rx.el.a(class_name="absolute inset-0", to=customers.path),
-            class_name="flex flex-col gap-6 hover-card-shadow rounded-lg relative h-full",
+            class_name="flex flex-col gap-6 hover-card-shadow rounded-lg relative h-full hover:[--m-slate-12:var(--m-slate-11)]",
         ),
         class_name="p-4 block",
     )
@@ -307,10 +311,7 @@ def solutions_content() -> rx.Component:
                     ),
                     class_name="grid grid-cols-2",
                 ),
-                class_name="p-4 flex flex-col rounded-xl bg-white-1 h-full w-[28rem]",
-                style={
-                    "box-shadow": "0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px 0 rgba(0, 0, 0, 0.07), 0 1px 1px 0 rgba(0, 0, 0, 0.01), 0 0 0 1px #FFF inset",
-                },
+                class_name="p-4 flex flex-col rounded-xl bg-white-1 dark:bg-m-slate-11 h-full w-[28rem] shadow-card dark:shadow-card-dark dark:border-r dark:border-m-slate-9",
             ),
             rx.el.div(
                 solutions_column(
@@ -355,10 +356,7 @@ def resources_content() -> rx.Component:
                         ("FAQ", "HelpSquareIcon", faq.path),
                     ],
                 ),
-                class_name="p-4 flex flex-col rounded-xl bg-white-1 h-full",
-                style={
-                    "box-shadow": "0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px 0 rgba(0, 0, 0, 0.07), 0 1px 1px 0 rgba(0, 0, 0, 0.01), 0 0 0 1px #FFF inset",
-                },
+                class_name="p-4 flex flex-col rounded-xl bg-white-1 dark:bg-m-slate-11 h-full shadow-card dark:shadow-card-dark dark:border-r dark:border-m-slate-9",
             ),
             customers_column(),
             class_name="w-[35rem] grid grid-cols-2",
@@ -372,10 +370,7 @@ def about_content() -> rx.Component:
             rx.el.div(
                 solutions_item("Company", "Profile02Icon", "/about"),
                 solutions_item("Careers", "WorkIcon", JOBS_BOARD_URL),
-                class_name="p-4 flex flex-col rounded-xl bg-white-1 h-full",
-                style={
-                    "box-shadow": "0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px 0 rgba(0, 0, 0, 0.07), 0 1px 1px 0 rgba(0, 0, 0, 0.01), 0 0 0 1px #FFF inset",
-                },
+                class_name="p-4 flex flex-col rounded-xl bg-white-1 h-full dark:shadow-none dark:border dark:border-m-slate-9 dark:bg-m-slate-11 shadow-card",
             ),
             class_name="w-[12.5rem]",
         ),
@@ -464,10 +459,7 @@ def navigation_menu() -> rx.Component:
                 ui.navigation_menu.popup(
                     ui.navigation_menu.viewport(),
                     unstyled=True,
-                    class_name="relative h-[var(--popup-height)] w-max origin-[var(--transform-origin)] transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 min-[500px]:w-[var(--popup-width)] xs:w-[var(--popup-width)] rounded-xl bg-secondary-1 overflow-hidden",
-                    style={
-                        "box-shadow": "0 0 0 1px rgba(0, 0, 0, 0.03), 0 -1px 1px 0 rgba(0, 0, 0, 0.04), 0 16px 32px 0 rgba(0, 0, 0, 0.08), 0 1px 1px 0 rgba(0, 0, 0, 0.08), 0 4px 8px 0 rgba(0, 0, 0, 0.03);",
-                    },
+                    class_name="relative h-[var(--popup-height)] w-max origin-[var(--transform-origin)] transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 min-[500px]:w-[var(--popup-width)] xs:w-[var(--popup-width)] rounded-xl bg-m-slate-1 dark:bg-m-slate-12 overflow-hidden navbar-shadow",
                 ),
                 side_offset=30,
                 align="start",
@@ -488,7 +480,7 @@ def marketing_navbar() -> rx.Component:
         rx.el.header(
             logo(),
             navigation_menu(),
-            class_name="w-full max-w-[71.5rem] h-[4.5rem] mx-auto flex flex-row items-center p-5 rounded-b-xl backdrop-blur-[16px] shadow-[0_-2px_2px_1px_rgba(0,0,0,0.02),0_1px_1px_0_rgba(0,0,0,0.08),0_4px_8px_0_rgba(0,0,0,0.03),0_0_0_1px_#FFF_inset] bg-gradient-to-b from-white-1 to-secondary-1",
+            class_name="w-full max-w-[71.5rem] h-[4.5rem] mx-auto flex flex-row items-center p-5 rounded-b-xl backdrop-blur-[16px] shadow-[0_-2px_2px_1px_rgba(0,0,0,0.02),0_1px_1px_0_rgba(0,0,0,0.08),0_4px_8px_0_rgba(0,0,0,0.03),0_0_0_1px_#FFF_inset] dark:shadow-none dark:border-x dark:border-b dark:border-m-slate-10 bg-gradient-to-b from-[light-dark(#FFF,var(--m-slate-11))] to-[light-dark(var(--m-slate-1),var(--m-slate-12))]",
         ),
         class_name="flex flex-col w-full top-0 z-[9999] fixed self-center",
     )

@@ -71,7 +71,7 @@ def hosting_banner() -> rx.Component:
                             # Header text with responsive spans
                             rx.el.span(
                                 "New",
-                                class_name="items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1] max-lg:hidden lg:inline-flex",
+                                class_name="items-center font-medium px-1.5 h-5 rounded-md text-xs bg-primary-9 text-primary-contrast z-[1] max-lg:hidden lg:inline-flex",
                             ),
                             rx.text(
                                 rx.el.span(
@@ -101,7 +101,7 @@ def hosting_banner() -> rx.Component:
                     class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 z-10 size-8 flex items-center justify-center shrink-0 md:col-start-3 justify-self-end ml-auto",
                     on_click=HostingBannerState.hide_banner,
                 ),
-                class_name="px-6 lg:px-6 w-screen min-h-[3rem] lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex md:grid md:grid-cols-[1fr_auto_1fr] items-center bg-slate-1 gap-4 overflow-hidden relative lg:py-0 py-3 max-w-full group",
+                class_name="px-6 lg:px-6 w-screen min-h-[3rem] lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex md:grid md:grid-cols-[1fr_auto_1fr] items-center bg-m-slate-1 dark:bg-m-slate-12 gap-4 overflow-hidden relative lg:py-0 py-3 max-w-full group",
             ),
         ),
         on_mount=HostingBannerState.show_blog_banner,

@@ -7,7 +7,10 @@ from pcweb.components.hosting_banner import HostingBannerState
 def hero() -> rx.Component:
     return rx.el.section(
         rx.el.div(
-            rx.el.p("About Reflex", class_name="text-sm font-[525] text-primary-10"),
+            rx.el.p(
+                "About Reflex",
+                class_name="text-sm font-[525] text-primary-10 dark:text-m-slate-6",
+            ),
             rx.el.h1(
                 "The Operating System ",
                 rx.el.br(class_name="max-lg:hidden"),
@@ -29,19 +32,19 @@ def hero() -> rx.Component:
                     "Right now, the ",
                     rx.el.b(
                         "enterprise stack is fragmented and requires multiple tools and roles to ship an app. ",
-                        class_name="font-semibold text-secondary-12",
+                        class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
                     ),
                     "Teams face organizational bottlenecks at every turn—waiting on infrastructure, coordinating between specialists, juggling disconnected platforms. ",
                     rx.el.b(
                         " This slows everything down ",
-                        class_name="font-semibold text-secondary-12",
+                        class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
                     ),
                     " and makes building production apps unnecessarily complex.",
                 ),
                 rx.el.p(
                     rx.el.b(
                         "Reflex is the operating system on which enterprises build mission-critical applications. ",
-                        class_name="font-semibold text-secondary-12",
+                        class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
                     ),
                     "We're the only platform that owns the underlying framework and handles the full lifecycle of your app. Our platform lets teams connect securely with company data, use AI to build standardized apps powered by our open source framework, and deploy with a single click to share with their company.",
                 ),
@@ -67,28 +70,28 @@ def hero() -> rx.Component:
                     rx.el.div(
                         rx.el.p(
                             "Alek Petuskey & Nikhil Rao",
-                            class_name="text-sm font-semibold text-secondary-12",
+                            class_name="text-sm font-semibold text-m-slate-12 dark:text-m-slate-3",
                         ),
                         rx.el.span(
                             "Founders",
-                            class_name="text-sm font-[475] text-secondary-11",
+                            class_name="text-sm font-[475] text-m-slate-7 dark:text-m-slate-6",
                         ),
                         class_name="flex flex-col",
                     ),
                     class_name="flex flex-row gap-4",
                 ),
-                class_name="flex flex-col gap-4 text-base text-secondary-11 font-[475]",
+                class_name="flex flex-col gap-4 text-base text-m-slate-7 font-[475] dark:text-m-slate-6",
             ),
             rx.el.div(
-                class_name="absolute -top-24 -right-px w-px h-24 bg-gradient-to-b from-transparent to-current text-secondary-4"
+                class_name="absolute -top-24 -right-px w-px h-24 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10"
             ),
             rx.el.div(
-                class_name="absolute -top-24 -left-px w-px h-24 bg-gradient-to-b from-transparent to-current text-secondary-4"
+                class_name="absolute -top-24 -left-px w-px h-24 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10"
             ),
             rx.el.div(
-                class_name="absolute -bottom-px -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-secondary-4"
+                class_name="absolute -bottom-px -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10"
             ),
-            class_name="flex flex-col gap-8 lg:p-12 p-6 border border-secondary-4 shadow-[0_6px_16px_0_rgba(0,0,0,0.04)_inset] lg:max-w-[34.5rem] w-full relative",
+            class_name="flex flex-col gap-8 lg:p-12 p-6 border border-m-slate-4 dark:border-m-slate-10 shadow-[0_6px_16px_0_rgba(0,0,0,0.04)_inset] dark:shadow-none dark:bg-[linear-gradient(212deg,var(--m-slate-12)_0%,var(--m-slate-11)_100%)] lg:max-w-[34.5rem] w-full relative",
         ),
         class_name=ui.cn(
             "flex lg:flex-row flex-col max-w-(--layout-max-width) mx-auto lg:px-24 px-6 overflow-hidden",

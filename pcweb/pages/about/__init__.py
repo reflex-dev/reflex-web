@@ -11,6 +11,7 @@ from pcweb.pages.about.views import (
     square_logo,
     team,
 )
+from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.views.marketing_navbar import marketing_navbar
 
 
@@ -36,9 +37,11 @@ def about() -> rx.Component:
                 hiring(),
                 team(),
                 news(),
+                divider(),
+                footer_index(),
                 class_name="flex flex-col relative justify-center items-center w-full",
             ),
             class_name="flex flex-col w-full relative h-full justify-center items-center",
         ),
-        class_name="flex flex-col w-full justify-center items-center relative",
+        class_name="flex flex-col w-full justify-center items-center relative dark:bg-m-slate-12 bg-m-slate-1",
     )

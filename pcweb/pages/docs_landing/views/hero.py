@@ -9,16 +9,19 @@ from pcweb.pages.docs import getting_started
 def hero() -> rx.Component:
     return rx.el.section(
         rx.el.div(
-            rx.el.p("About Reflex", class_name="text-sm font-[525] text-primary-10"),
+            rx.el.p(
+                "About Reflex",
+                class_name="text-sm font-[525] text-m-slate-10 dark:text-m-slate-6",
+            ),
             rx.el.h1(
                 "Reflex Documentation",
-                class_name="text-secondary-12 lg:text-5xl text-3xl font-[575] lg:text-nowrap",
+                class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-5xl text-3xl font-[575] lg:text-nowrap",
             ),
             rx.el.p(
                 "Get up and running with Reflex in minutes. A complete set ",
                 rx.el.br(class_name="max-lg:hidden"),
                 " of resources to build, deploy, and scale your application. ",
-                class_name="text-base text-secondary-11 font-[475]",
+                class_name="text-base text-m-slate-7 dark:text-m-slate-6 font-[475]",
             ),
             rx.el.a(
                 button(
