@@ -151,8 +151,14 @@ def platform_item(image: str, title: str, description: str, href: str) -> rx.Com
             class_name="size-18",
         ),
         rx.el.div(
-            rx.el.span(title, class_name="text-secondary-12 text-sm font-[525]"),
-            rx.el.span(description, class_name="text-secondary-11 text-sm font-[475]"),
+            rx.el.span(
+                title,
+                class_name="dark:text-m-slate-3 text-m-slate-12 text-sm font-[525]",
+            ),
+            rx.el.span(
+                description,
+                class_name="dark:text-m-slate-6 text-m-slate-7 text-sm font-[475]",
+            ),
             class_name="flex flex-col",
         ),
         rx.el.a(class_name="absolute inset-0", to=href),
@@ -168,11 +174,11 @@ def platform_content() -> rx.Component:
                     rx.el.div(
                         rx.el.span(
                             "AI Builder",
-                            class_name="text-secondary-12 text-lg font-semibold mb-2",
+                            class_name="dark:text-m-slate-3 text-m-slate-12 text-lg font-semibold mb-2",
                         ),
                         rx.el.span(
                             "Build production-ready web apps for your team in seconds with AI-powered code generation.",
-                            class_name="text-secondary-11 text-sm font-medium",
+                            class_name="dark:text-m-slate-6 text-m-slate-7 text-sm font-medium",
                         ),
                         class_name="p-4 flex flex-col relative hover-card-shadow rounded-md",
                     ),
@@ -208,7 +214,7 @@ def platform_content() -> rx.Component:
                         "Reflex Is The Operating System ",
                         rx.el.br(),
                         " for Enterprise Apps",
-                        class_name="text-secondary-11 font-mono font-[415] text-[0.75rem] leading-4.5 uppercase",
+                        class_name="dark:text-m-slate-6 text-m-slate-7 font-mono font-[415] text-[0.75rem] leading-4.5 uppercase",
                     ),
                     rx.image(
                         src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_navbar.svg",
@@ -241,7 +247,7 @@ def solutions_column(title: str, items: list[tuple[str, str, str]]) -> rx.Compon
         rx.el.div(
             rx.el.span(
                 title,
-                class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed border-m-slate-8 dark:text-m-slate-6",
+                class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed dark:border-m-slate-8 border-m-slate-6 dark:text-m-slate-6 text-m-slate-7",
             ),
             class_name="px-4 pt-4 flex flex-col",
         ),
@@ -258,7 +264,7 @@ def blog_column() -> rx.Component:
         rx.el.div(
             rx.el.span(
                 "Blog",
-                class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed border-m-slate-8 dark:text-m-slate-6",
+                class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed dark:border-m-slate-8 border-m-slate-6 dark:text-m-slate-6 text-m-slate-7",
             ),
             class_name="flex flex-col",
         ),
@@ -288,7 +294,7 @@ def customers_column() -> rx.Component:
             rx.el.div(
                 rx.el.span(
                     "Customers",
-                    class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed border-m-slate-8 dark:text-m-slate-6",
+                    class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed dark:border-m-slate-8 border-m-slate-6 dark:text-m-slate-6 text-m-slate-7",
                 ),
                 class_name="px-4 pt-4 flex flex-col",
             ),
