@@ -179,6 +179,7 @@ def platform_content() -> rx.Component:
                     rx.image(
                         src=f"/common/{rx.color_mode_cond('light', 'dark')}/ai_builder_pattern.svg",
                         alt="AI Builder Navbar Pattern",
+                        class_name="pointer-events-none",
                     ),
                     rx.el.a(
                         class_name="absolute inset-0",
