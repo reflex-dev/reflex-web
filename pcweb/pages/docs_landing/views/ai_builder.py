@@ -62,7 +62,7 @@ def integrations_marquee() -> rx.Component:
     ]
     return rx.el.div(
         marquee(
-            *[integration_icon_marquee(name) for name in integration_names],
+            *[integration_icon_marquee(name) for name in reversed(integration_names)],
             direction="left",
             gradient_color="light-dark(rgba(255, 255, 255, 0.96), var(--m-slate-11))",
             class_name="h-auto w-full overflow-hidden",

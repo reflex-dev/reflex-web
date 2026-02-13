@@ -1119,8 +1119,8 @@
         0 4px 8px 0 rgba(0, 0, 0, 0.07),
         0 1px 1px 0 rgba(0, 0, 0, 0.01),
         0 0 0 1px #FFF inset;
-    --shadow-card-dark: 0 0 0 1px var(--m-slate-9, #2A3037),
-        --text-xs: 0.75rem;
+    --shadow-card-dark: 0 0 0 1px var(--m-slate-9, #2A3037);
+    --text-xs: 0.75rem;
     --text-xs--line-height: 1rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: 1.5rem;
@@ -1770,8 +1770,8 @@
     }
 
     :where(.dark, .dark *) .hover-card-shadow:hover {
-        background: var(--m-slate-11, #1D2025);
-        box-shadow: 0 0 0 1px var(--m-slate-10, #21252B);
+        background: var(--m-slate-10, #21252B);
+        box-shadow: 0 0 0 1px var(--m-slate-9, #2A3037);
     }
 
     .navbar-shadow {

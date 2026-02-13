@@ -15,6 +15,8 @@ from pcweb.constants import (
     JOBS_BOARD_URL,
     REFLEX_BUILD_URL,
 )
+from pcweb.pages.blog import blogs
+from pcweb.pages.blog.paths import blog_data
 from pcweb.pages.customers.landing import customers
 from pcweb.pages.docs import ai_builder
 from pcweb.pages.faq import faq
@@ -42,16 +44,22 @@ def social_proof_card(image: str) -> rx.Component:
 
 def logos_carousel() -> rx.Component:
     logos = [
-        "apple",
+        "agricole",
+        "man",
+        "shell",
+        "red_hat",
         "accenture",
         "dell",
         "microsoft",
+        "world",
+        "ford",
+        "unicef",
         "nike",
     ]
     return marquee(
         *[social_proof_card(logo) for logo in logos],
         direction="left",
-        gradient_color="light-dark(var(--m-slate-1), var(--m-slate-12))",
+        gradient_color="light-dark(var(--m-slate-1), var(--m-slate-11))",
         class_name="h-[1.625rem] w-full overflow-hidden mt-auto",
         gradient_width=65,
         speed=25,
@@ -179,7 +187,7 @@ def platform_content() -> rx.Component:
                     ),
                     class_name="relative flex flex-col hover-card-shadow rounded-md",
                 ),
-                class_name="p-4 flex flex-col rounded-xl bg-white-1 dark:bg-m-slate-11 h-full shadow-card dark:shadow-card-dark dark:border-r dark:border-m-slate-9 ",
+                class_name="p-4 flex flex-col rounded-xl bg-white-1 dark:bg-m-slate-11 h-full shadow-card dark:shadow-card-dark dark:border-r dark:border-m-slate-9",
             ),
             rx.el.div(
                 platform_item(
@@ -244,6 +252,35 @@ def solutions_column(title: str, items: list[tuple[str, str, str]]) -> rx.Compon
     )
 
 
+def blog_column() -> rx.Component:
+    return rx.el.div(
+        rx.el.div(
+            rx.el.span(
+                "Blog",
+                class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed border-m-slate-8 dark:text-m-slate-6",
+            ),
+            class_name="flex flex-col",
+        ),
+        rx.el.a(
+            next(iter(blog_data.values())).metadata["title"],
+            to=f"/blog/{next(iter(blog_data.keys()))}",
+            class_name="dark:text-m-slate-3 text-m-slate-12 text-sm font-[525] flex items-center justify-start gap-2 hover:text-primary-10 dark:hover:text-primary-9 line-clamp-3",
+        ),
+        rx.el.a(
+            list(blog_data.values())[1].metadata["title"],
+            to=f"/blog/{list(blog_data.keys())[1]}",
+            class_name="dark:text-m-slate-3 text-m-slate-12 text-sm font-[525] flex items-center justify-start gap-2 hover:text-primary-10 dark:hover:text-primary-9 line-clamp-3",
+        ),
+        rx.el.a(
+            "All Posts",
+            ui.icon("ArrowRight01Icon", class_name="ml-auto"),
+            to=blogs.path,
+            class_name="dark:text-m-slate-3 text-m-slate-12 text-sm font-[525] h-10 flex items-center justify-start gap-2 hover:text-primary-10 dark:hover:text-primary-9 mt-auto",
+        ),
+        class_name="flex flex-col gap-6 p-4 h-full",
+    )
+
+
 def customers_column() -> rx.Component:
     return rx.el.div(
         rx.el.div(
@@ -267,9 +304,9 @@ def customers_column() -> rx.Component:
                 class_name="flex flex-col gap-2 px-4 pb-4 h-full",
             ),
             rx.el.a(class_name="absolute inset-0", to=customers.path),
-            class_name="flex flex-col gap-6 hover-card-shadow rounded-lg relative h-full hover:[--m-slate-12:var(--m-slate-11)]",
+            class_name="flex flex-col gap-6 hover-card-shadow rounded-lg relative h-full hover:[--m-slate-11:var(--m-slate-10)] hover:shadow-card dark:hover:shadow-card-dark",
         ),
-        class_name="p-4 block",
+        class_name="p-4 block rounded-lg shadow-card dark:shadow-card-dark z-[1] bg-white-1 dark:bg-m-slate-11 dark:border-x dark:border-m-slate-9",
     )
 
 
@@ -356,10 +393,14 @@ def resources_content() -> rx.Component:
                         ("FAQ", "HelpSquareIcon", faq.path),
                     ],
                 ),
-                class_name="p-4 flex flex-col rounded-xl bg-white-1 dark:bg-m-slate-11 h-full shadow-card dark:shadow-card-dark dark:border-r dark:border-m-slate-9",
+                class_name="p-4 flex flex-col rounded-xl bg-m-slate-1 dark:bg-m-slate-12 h-full",
             ),
             customers_column(),
-            class_name="w-[35rem] grid grid-cols-2",
+            rx.el.div(
+                blog_column(),
+                class_name="p-4 flex flex-col h-full bg-m-slate-1 dark:bg-m-slate-12",
+            ),
+            class_name="w-[52.5rem] grid grid-cols-3",
         ),
     )
 
@@ -480,7 +521,7 @@ def marketing_navbar() -> rx.Component:
         rx.el.header(
             logo(),
             navigation_menu(),
-            class_name="w-full max-w-[71.5rem] h-[4.5rem] mx-auto flex flex-row items-center p-5 rounded-b-xl backdrop-blur-[16px] shadow-[0_-2px_2px_1px_rgba(0,0,0,0.02),0_1px_1px_0_rgba(0,0,0,0.08),0_4px_8px_0_rgba(0,0,0,0.03),0_0_0_1px_#FFF_inset] dark:shadow-none dark:border-x dark:border-b dark:border-m-slate-10 bg-gradient-to-b from-[light-dark(#FFF,var(--m-slate-11))] to-[light-dark(var(--m-slate-1),var(--m-slate-12))]",
+            class_name="w-full max-w-[71.5rem] h-[4.5rem] mx-auto flex flex-row items-center p-5 rounded-b-xl backdrop-blur-[16px] shadow-[0_-2px_2px_1px_rgba(0,0,0,0.02),0_1px_1px_0_rgba(0,0,0,0.08),0_4px_8px_0_rgba(0,0,0,0.03),0_0_0_1px_#FFF_inset] dark:shadow-none dark:border-x dark:border-b dark:border-m-slate-10 bg-gradient-to-b from-white to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12",
         ),
         class_name="flex flex-col w-full top-0 z-[9999] fixed self-center",
     )
