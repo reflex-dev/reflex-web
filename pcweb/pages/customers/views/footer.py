@@ -177,5 +177,5 @@ def footer_customer() -> rx.Component:
             news_letter(),
             class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 w-full lg:divide-y divide-slate-3 lg:divide-x border-t border-slate-3",
         ),
-        class_name="flex max-w-[64.19rem] justify-center items-center w-full",
+        class_name="flex max-w-[64.19rem] justify-center items-center w-full mx-auto",
     )

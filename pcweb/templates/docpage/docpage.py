@@ -432,11 +432,11 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
             class_name="p-[0.563rem] lg:hidden flex",
         ),
         class_name=ui.cn(
-            "relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-[110px] mb-6 lg:mb-8 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full",
+            "relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-[135px] mb-6 lg:mb-8 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full",
             rx.cond(
                 HostingBannerState.is_banner_visible,
                 "lg:mt-[175px]",
-                "lg:mt-[119px] mt-[51px]",
+                "lg:mt-[145px] mt-[77px]",
             ),
         ),
     )
@@ -549,10 +549,10 @@ def docpage(
             Returns:
                 The page with the template applied.
             """
-            from pcweb.components.docpage.navbar import navbar
             from pcweb.components.docpage.sidebar import get_prev_next
             from pcweb.components.docpage.sidebar import sidebar as sb
             from pcweb.components.hosting_banner import HostingBannerState
+            from pcweb.views.docs_navbar import docs_navbar
 
             sidebar = sb(url=path, width="300px")
 
@@ -624,9 +624,8 @@ def docpage(
                 toc, comp = comp
 
             show_right_sidebar = right_sidebar and len(toc) >= 2
-
             return rx.box(
-                navbar(),
+                docs_navbar(),
                 rx.el.main(
                     rx.box(
                         sidebar,

@@ -99,7 +99,6 @@ redirects = [
     ("/docs/ai-builder", "/docs/ai-builder/overview/best-practices"),
     ("/docs/ai-builder/overview", "/docs/ai-builder/overview/best-practices"),
     ("/framework", "/open-source"),
-    ("/docs", "/docs/getting-started/introduction"),
     ("/docs/getting-started", "/docs/getting-started/introduction"),
     ("/docs/state", "/docs/state/overview"),
     ("/docs/styling", "/docs/styling/overview"),

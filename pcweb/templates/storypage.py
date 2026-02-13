@@ -252,15 +252,15 @@ def storypage(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.docpage.navbar import navbar
             from pcweb.pages.customers.views.footer import footer_customer
             from pcweb.views.bottom_section.bottom_section import bottom_section
+            from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
             return rx.box(
                 rx.box(
                     index_colors(),
-                    navbar(),
+                    marketing_navbar(),
                     company_card(company, founded, investors, domain),
                     rx.el.main(
                         hero(company, description, stats),

@@ -1,11 +1,11 @@
 import reflex as rx
 import reflex_ui as ui
 
-from pcweb.components.docpage.navbar import navbar
 from pcweb.meta.meta import create_meta_tags
 from pcweb.pages.docs import getting_started
 from pcweb.pages.framework.index_colors import index_colors
 from pcweb.pages.framework.views.footer_index import footer_index
+from pcweb.views.marketing_navbar import marketing_navbar
 
 
 def booked_title():
@@ -34,7 +34,7 @@ def booked_title():
 def booked() -> rx.Component:
     return rx.box(
         index_colors(),
-        navbar(),
+        marketing_navbar(),
         rx.el.section(
             booked_title(),
             rx.box(

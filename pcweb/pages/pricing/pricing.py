@@ -18,11 +18,11 @@ pricing_path = "/pricing"
 )
 def pricing() -> rx.Component:
     """Get the Pricing landing page."""
-    from pcweb.components.docpage.navbar import navbar
+    from pcweb.views.marketing_navbar import marketing_navbar
 
     return rx.box(
         index_colors(),
-        navbar(),
+        marketing_navbar(),
         rx.el.main(
             rx.box(
                 plan_cards(),

@@ -143,5 +143,5 @@ def social_marquee() -> rx.Component:
             *[social_card(social) for social in SOCIALS_2],
             direction="right",
         ),
-        class_name="flex flex-col mx-auto w-full max-w-[64.19rem] lg:border-x justify-center items-center relative overflow-hidden border-slate-3 border-b",
+        class_name="flex flex-col mx-auto w-full max-w-[64.19rem] lg:border-x justify-center items-center relative overflow-hidden border-slate-3 border-b [&>div]:overflow-y-hidden",
     )
