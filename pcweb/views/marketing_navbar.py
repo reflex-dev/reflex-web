@@ -259,27 +259,40 @@ def solutions_column(title: str, items: list[tuple[str, str, str]]) -> rx.Compon
     )
 
 
-def blog_column() -> rx.Component:
+def blog_item(blog: dict, path: str) -> rx.Component:
     return rx.el.div(
         rx.el.div(
-            rx.el.span(
-                "Blog",
-                class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed dark:border-m-slate-8 border-m-slate-6 dark:text-m-slate-6 text-m-slate-7",
+            rx.moment(
+                rx.Var.create(blog.metadata["date"]).to(str),
+                format="MMM DD YYYY",
+                class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
             ),
-            class_name="flex flex-col",
+            rx.image(
+                src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_blog.svg",
+                class_name="pointer-events-none",
+                alt="Squares Blog",
+            ),
+            class_name="flex flex-row items-center justify-start gap-6",
+        ),
+        rx.el.span(
+            blog.metadata["title"],
+            class_name="dark:text-m-slate-3 text-m-slate-12 text-sm font-[525] group-hover:text-primary-10 dark:group-hover:text-primary-9 line-clamp-3",
         ),
         rx.el.a(
-            next(iter(blog_data.values())).metadata["title"],
-            to=f"/blog/{next(iter(blog_data.keys()))}",
-            class_name="dark:text-m-slate-3 text-m-slate-12 text-sm font-[525] flex items-center justify-start gap-2 hover:text-primary-10 dark:hover:text-primary-9 line-clamp-3",
+            to=f"/blog/{path}",
+            class_name="absolute inset-0",
         ),
+        class_name="relative group flex flex-col gap-2 mb-2",
+    )
+
+
+def blog_column() -> rx.Component:
+    first_blog = next(iter(blog_data.values()))
+    return rx.el.div(
+        blog_item(first_blog, next(iter(blog_data.keys()))),
+        blog_item(list(blog_data.values())[1], list(blog_data.keys())[1]),
         rx.el.a(
-            list(blog_data.values())[1].metadata["title"],
-            to=f"/blog/{list(blog_data.keys())[1]}",
-            class_name="dark:text-m-slate-3 text-m-slate-12 text-sm font-[525] flex items-center justify-start gap-2 hover:text-primary-10 dark:hover:text-primary-9 line-clamp-3",
-        ),
-        rx.el.a(
-            "All Posts",
+            "Read All in Blog",
             ui.icon("ArrowRight01Icon", class_name="ml-auto"),
             to=blogs.path,
             class_name="dark:text-m-slate-3 text-m-slate-12 text-sm font-[525] h-10 flex items-center justify-start gap-2 hover:text-primary-10 dark:hover:text-primary-9 mt-auto",
