@@ -20,6 +20,10 @@ REFLEX_DOCS_URL = "https://reflex.dev/docs/getting-started/introduction/"
 PYNECONE_URL = "https://pynecone.io"
 REFLEX_CLOUD_URL = os.getenv("REFLEX_CLOUD_URL", "https://cloud.reflex.dev/")
 REFLEX_BUILD_URL = os.getenv("REFLEX_BUILD_URL", "https://build.reflex.dev/")
+JOBS_BOARD_URL = "https://www.ycombinator.com/companies/reflex/jobs"
+CHANGELOG_URL = "https://github.com/reflex-dev/reflex/releases"
+CONTRIBUTING_URL = "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md"
+DISCUSSIONS_URL = "https://github.com/orgs/reflex-dev/discussions"
 
 PIP_URL = "https://pypi.org/project/reflex"
 GITHUB_URL = "https://github.com/reflex-dev/reflex"

@@ -1,5 +1,6 @@
 from pcweb.route import Route
 
+from .about import about  # noqa: F401
 from .blog import blog_routes
 from .booked import booked as booked
 from .check_your_email_demo import page_thank_you as page_thank_you
@@ -8,6 +9,7 @@ from .customers.landing import customers as customers
 from .databricks.databricks import databricks_page as databricks_page
 from .demo.book_demo import book_demo as book_demo
 from .docs import doc_routes
+from .docs_landing import docs_landing as docs_landing
 from .errors import errors as errors
 from .faq import faq as faq
 from .framework.framework import framework as framework

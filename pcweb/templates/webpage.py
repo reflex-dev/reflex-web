@@ -58,15 +58,15 @@ def webpage(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.docpage.navbar import navbar
             from pcweb.components.icons.patterns import default_patterns
             from pcweb.views.bottom_section.bottom_section import bottom_section
             from pcweb.views.footer import footer
+            from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
             return rx.box(
                 *default_patterns(),
-                navbar(),
+                marketing_navbar(),
                 rx.el.main(
                     contents(*children, **props),
                     rx.box(class_name="flex-grow"),

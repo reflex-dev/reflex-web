@@ -58,15 +58,15 @@ def gallery_app_page(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.docpage.navbar import navbar
             from pcweb.pages.framework.views.footer_index import footer_index
             from pcweb.views.bottom_section.bottom_section import bottom_section
+            from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
             return rx.box(
                 rx.box(
                     index_colors(),
-                    navbar(),
+                    marketing_navbar(),
                     rx.el.main(
                         contents(*children, **props),
                         class_name="w-full z-[1] relative flex flex-col mx-auto lg:border-x border-slate-3 pt-24 lg:pt-48",

@@ -1,6 +1,9 @@
 import datetime
 
 import reflex as rx
+import reflex_ui as ui
+
+from pcweb.components.marketing_button import button
 
 
 def glow() -> rx.Component:
@@ -67,40 +70,59 @@ def hosting_banner() -> rx.Component:
             rx.el.div(
                 rx.el.a(
                     rx.box(
+                        rx.image(
+                            src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_banner.svg",
+                            alt="Square Banner",
+                            class_name="pointer-events-none absolute -left-[16rem] max-lg:hidden",
+                        ),
                         rx.box(
                             # Header text with responsive spans
                             rx.el.span(
                                 "New",
-                                class_name="items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1] max-lg:hidden lg:inline-flex",
+                                class_name="items-center font-[525] px-2.5 h-7 rounded-lg text-sm text-m-slate-3 z-[1] max-lg:hidden lg:inline-flex border border-white/16",
                             ),
-                            rx.text(
+                            rx.el.span(
+                                "Reflex Build On-Prem: A Secure Builder Running in Your Environment",
                                 rx.el.span(
-                                    "Reflex Build On-Prem - A secure builder running in your environment. ",
-                                    rx.el.span(
-                                        "Learn more",
-                                        class_name="text-slate-11 font-semibold text-sm underline decoration-slate-11 lg:pl-2",
-                                    ),
-                                    class_name="inline-block text-slate-12 font-semibold text-sm",
+                                    ". Learn more",
+                                    class_name="lg:hidden text-m-slate-6 dark:text-m-slate-2",
                                 ),
-                                class_name="text-slate-12 font-semibold text-sm z-[1]",
+                                class_name="text-m-slate-3 font-[525] text-sm lg:text-nowrap inline-block",
                             ),
-                            class_name="flex items-center md:gap-3.5 gap-2",
-                        )
+                            rx.el.span(
+                                class_name="w-px h-7 bg-gradient-to-b from-transparent via-white/24 to-transparent max-lg:hidden",
+                            ),
+                            button(
+                                "Learn more",
+                                ui.icon("ArrowRight01Icon"),
+                                variant="ghost",
+                                size="xs",
+                                aria_label="Learn more",
+                                class_name="text-m-slate-3 dark:hover:text-m-slate-5 max-lg:hidden",
+                            ),
+                            class_name="flex flex-row items-center md:gap-4 gap-2",
+                        ),
+                        rx.image(
+                            src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_banner.svg",
+                            alt="Square Banner",
+                            class_name="pointer-events-none absolute -right-[16rem] max-lg:hidden",
+                        ),
+                        class_name="flex flex-row items-center relative",
                     ),
-                    glow(),
                     to=BLOG_LINK,
                     is_external=False,
-                    class_name="flex justify-start md:justify-center md:col-start-2",
+                    class_name="flex justify-start md:justify-center md:col-start-2 max-w-[73rem]",
                 ),
                 rx.el.button(
-                    rx.icon(
-                        "x",
-                        size=16,
+                    ui.icon(
+                        "MultiplicationSignIcon",
                     ),
-                    class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 z-10 size-8 flex items-center justify-center shrink-0 md:col-start-3 justify-self-end ml-auto",
+                    aria_label="Close banner",
+                    type="button",
+                    class_name="cursor-pointer hover:text-m-slate-5 transition-colors text-m-slate-3 z-10 size-10 flex items-center justify-center shrink-0 md:col-start-3 justify-self-end ml-auto",
                     on_click=HostingBannerState.hide_banner,
                 ),
-                class_name="px-6 lg:px-6 w-screen min-h-[3rem] lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex md:grid md:grid-cols-[1fr_auto_1fr] items-center bg-slate-1 gap-4 overflow-hidden relative lg:py-0 py-3 max-w-full group",
+                class_name="px-5 lg:px-0 w-screen min-h-[2rem] lg:h-10 flex md:grid md:grid-cols-[1fr_auto_1fr] items-center bg-m-slate-12 dark:bg-[#6550B9] gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full group",
             ),
         ),
         on_mount=HostingBannerState.show_blog_banner,

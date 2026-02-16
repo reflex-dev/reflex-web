@@ -1,10 +1,12 @@
 import reflex as rx
+import reflex_ui as ui
 from reflex.style import toggle_color_mode
 
+from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.icons.icons import get_icon
+from pcweb.components.marketing_button import button
 from pcweb.constants import DISCORD_URL, GITHUB_URL, TWITTER_URL
 from pcweb.pages.blog import blogs
-from pcweb.pages.docs import getting_started
 from pcweb.pages.docs.library import library
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.gallery import gallery
@@ -76,7 +78,7 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
         rx.drawer.portal(
             rx.drawer.content(
                 rx.box(
-                    drawer_item("Docs", getting_started.introduction.path, "docs"),
+                    drawer_item("Docs", "/docs", "docs"),
                     drawer_item("Templates", gallery.path, "gallery"),
                     drawer_item("Blog", blogs.path, "blog"),
                     drawer_item("Case Studies", "/customers", "customers"),
@@ -98,9 +100,16 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
                         class_name="flex flex-row justify-center items-center px-3 py-0.5 w-full h-[47px]",
                         custom_attrs={"aria-label": "Toggle color mode"},
                     ),
-                    class_name="flex flex-col items-center bg-slate-1 w-full h-full",
+                    class_name="flex flex-col items-center dark:bg-m-slate-12 bg-m-slate-1 w-full h-full",
                 ),
-                class_name="!bg-transparent w-full h-full !outline-none !top-[47px]",
+                class_name=ui.cn(
+                    "dark:!bg-m-slate-12 !bg-m-slate-1 w-full h-full !outline-none",
+                    rx.cond(
+                        HostingBannerState.is_banner_visible,
+                        "!top-[137px]",
+                        "!top-[74px]",
+                    ),
+                ),
             )
         ),
         direction="bottom",
@@ -134,23 +143,9 @@ def docs_sidebar_drawer(sidebar: rx.Component, trigger) -> rx.Component:
 def navbar_sidebar_button() -> rx.Component:
     return rx.box(
         navbar_sidebar_drawer(
-            rx.el.button(
-                rx.icon(
-                    "x",
-                    size=24,
-                    style={
-                        "[data-state=open] &": {
-                            "display": "flex",
-                        },
-                        "[data-state=closed] &": {
-                            "display": "none",
-                        },
-                    },
-                    class_name="!text-slate-9 shrink-0",
-                ),
-                rx.icon(
-                    "menu",
-                    size=24,
+            button(
+                ui.icon(
+                    "Menu01Icon",
                     style={
                         "[data-state=open] &": {
                             "display": "none",
@@ -159,9 +154,22 @@ def navbar_sidebar_button() -> rx.Component:
                             "display": "flex",
                         },
                     },
-                    class_name="!text-slate-9 shrink-0",
                 ),
+                ui.icon(
+                    "Cancel01Icon",
+                    style={
+                        "[data-state=open] &": {
+                            "display": "flex",
+                        },
+                        "[data-state=closed] &": {
+                            "display": "none",
+                        },
+                    },
+                ),
+                size="icon-sm",
+                variant="outline",
                 custom_attrs={"aria-label": "Open sidebar"},
+                native_button=False,
             ),
         ),
         class_name="flex justify-center items-center size-8",
