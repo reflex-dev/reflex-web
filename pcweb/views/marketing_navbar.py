@@ -59,7 +59,7 @@ def logos_carousel() -> rx.Component:
     return marquee(
         *[social_proof_card(logo) for logo in logos],
         direction="left",
-        gradient_color="light-dark(var(--m-slate-1), var(--m-slate-11))",
+        gradient_color="light-dark(var(--c-white-1), var(--c-m-slate-11))",
         class_name="h-[1.625rem] w-full overflow-hidden mt-auto",
         gradient_width=65,
         speed=25,

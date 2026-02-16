@@ -1956,7 +1956,7 @@
         /* Firefox */
     }
 
-    @supports ((-webkit-touch-callout: none) or (font: -apple-system-body)) {
+    @supports ((-webkit-touch-callout: none) or (font: -apple-system-body) or (-moz-appearance: none)) {
 
         .safari-nav-positioner,
         .safari-nav-positioner[data-slot='navigation-menu-positioner'] {
