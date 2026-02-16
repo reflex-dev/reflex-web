@@ -98,7 +98,7 @@ def logo() -> rx.Component:
             class_name="shrink-0 hidden dark:block",
         ),
         to="/",
-        class_name="block shrink-0 mr-10",
+        class_name="block shrink-0 mr-9",
     )
 
 
@@ -120,6 +120,7 @@ def menu_trigger(title: str, content: rx.Component) -> rx.Component:
                     "transform": "rotate(180deg)",
                 },
             },
+            class_name="px-1",
             aria_label=f"{title} menu",
             unstyled=True,
         ),
@@ -136,10 +137,11 @@ def menu_content(content: rx.Component, class_name: str = "") -> rx.Component:
         content,
         unstyled=True,
         class_name=ui.cn(
-            "w-max transition-[opacity,transform,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 data-[starting-style]:data-[activation-direction=left]:translate-x-[-50%] data-[starting-style]:data-[activation-direction=right]:translate-x-[50%] data-[ending-style]:data-[activation-direction=left]:translate-x-[50%] data-[ending-style]:data-[activation-direction=right]:translate-x-[-50%]",
+            "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:duration-300 data-[ending-style]:data-[activation-direction=left]:translate-x-[50%] data-[ending-style]:data-[activation-direction=right]:translate-x-[-50%] data-[starting-style]:data-[activation-direction=left]:translate-x-[-50%] data-[starting-style]:data-[activation-direction=right]:translate-x-[50%] w-max transition-[opacity,transform,translate] duration-[0.35s] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
             "flex flex-row rounded-xl font-sans p-0",
             class_name,
         ),
+        keep_mounted=True,
     )
 
 
@@ -454,7 +456,7 @@ def navigation_menu() -> rx.Component:
                     ),
                     to="/pricing",
                 ),
-                class_name="xl:flex hidden",
+                class_name="xl:flex hidden px-1",
                 custom_attrs={"role": "menuitem"},
             ),
             ui.navigation_menu.item(
@@ -466,11 +468,11 @@ def navigation_menu() -> rx.Component:
                     ),
                     to="/docs",
                 ),
-                class_name="xl:flex hidden",
+                class_name="xl:flex hidden px-1",
                 custom_attrs={"role": "menuitem"},
             ),
             menu_trigger("About", about_content()),
-            class_name="flex flex-row items-center gap-2 m-0 h-full list-none",
+            class_name="flex flex-row items-center m-0 h-full list-none",
             custom_attrs={"role": "menubar"},
         ),
         ui.navigation_menu.list(
@@ -518,17 +520,23 @@ def navigation_menu() -> rx.Component:
         ui.navigation_menu.portal(
             ui.navigation_menu.positioner(
                 ui.navigation_menu.popup(
-                    ui.navigation_menu.viewport(),
+                    ui.navigation_menu.viewport(
+                        unstyled=True,
+                        class_name="relative h-full w-full overflow-hidden rounded-[inherit]",
+                    ),
                     unstyled=True,
-                    class_name="relative h-[var(--popup-height)] w-max origin-[var(--transform-origin)] transition-[opacity,transform,width,height,scale,translate] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 min-[500px]:w-[var(--popup-width)] xs:w-[var(--popup-width)] rounded-xl bg-m-slate-1 dark:bg-m-slate-12 overflow-hidden navbar-shadow",
+                    class_name="relative h-[var(--popup-height)] w-[var(--popup-width)] origin-[var(--transform-origin)] rounded-xl bg-m-slate-1 dark:bg-m-slate-12 navbar-shadow transition-[opacity,transform,width,height,scale,translate] duration-[0.25s] ease-[cubic-bezier(0.22,1,0.36,1)] data-[ending-style]:ease-[ease] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0",
                 ),
+                unstyled=True,
+                class_name="safari-nav-positioner box-border h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)] transition-[top,left,right,bottom] duration-[0.25s] ease-[cubic-bezier(0.22,1,0.36,1)] data-[instant]:transition-none",
                 side_offset=30,
                 align="start",
                 align_offset=-20,
+                position_method="fixed",
             ),
         ),
         unstyled=True,
-        class_name="relative flex w-full items-center h-full justify-between gap-6 mx-auto flex-row",
+        class_name="group/navigation-menu relative flex w-full items-center h-full justify-between gap-6 mx-auto flex-row",
     )
 
 

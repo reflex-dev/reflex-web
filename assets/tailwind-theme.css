@@ -1955,6 +1955,16 @@
         scrollbar-width: none;
         /* Firefox */
     }
+
+    @supports ((-webkit-touch-callout: none) or (font: -apple-system-body)) {
+
+        .safari-nav-positioner,
+        .safari-nav-positioner[data-slot='navigation-menu-positioner'] {
+            transition: none !important;
+            transition-property: none !important;
+            transition-duration: 0ms !important;
+        }
+    }
 }
 
 @property --border-angle {
