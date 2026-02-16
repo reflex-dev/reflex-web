@@ -48,7 +48,7 @@ def companies() -> rx.Component:
             class_name="flex flex-row lg:gap-18 max-lg:gap-x-6 max-lg:gap-y-4 flex-wrap justify-center items-center",
         ),
         rx.el.p(
-            "Reflex is backed by YC, venture capital firms, and angel investors, including ",
+            "Reflex is backed by leading venture capital firms and angel investors including ",
             rx.el.br(class_name="max-lg:hidden"),
             rx.el.b(
                 " Qasar Younis",
