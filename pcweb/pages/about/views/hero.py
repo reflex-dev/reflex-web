@@ -14,9 +14,7 @@ def hero() -> rx.Component:
             rx.el.h1(
                 "The Operating System ",
                 rx.el.br(class_name="max-lg:hidden"),
-                " for Most Critical ",
-                rx.el.br(class_name="max-lg:hidden"),
-                " Enterprise ",
+                " for Critical Enterprise ",
                 rx.el.br(class_name="max-lg:hidden"),
                 " Applications ",
                 class_name="text-secondary-12 lg:text-5xl text-3xl font-[575]",

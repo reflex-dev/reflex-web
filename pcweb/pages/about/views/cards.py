@@ -40,7 +40,7 @@ def cards() -> rx.Component:
                     " building web apps in Python should feel effortless. ",
                     class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
                 ),
-                " What started as an internal experiment quickly grew into a community-driven framework used to ship real products fast.",
+                " What started as an internal experiment quickly grew into a community-driven framework powering over a million applications.",
                 class_name="text-m-slate-7 dark:text-m-slate-6 text-base font-medium",
             ),
             icon="Plant04Icon",

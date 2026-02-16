@@ -19,7 +19,7 @@ def hiring() -> rx.Component:
                     ),
                     rx.el.div(
                         rx.el.p(
-                            "Reflex is growing and we're looking for people who care deeply about developer experience, clean abstractions, and shipping things that matter.",
+                            "Our founding team consists of open source maintainers, top-ranked competitive programmers/IOI medalists, and founding team members from dev tool unicorns.",
                             class_name="text-base text-m-slate-7 dark:text-m-slate-6 font-[475]",
                         ),
                         rx.el.a(
