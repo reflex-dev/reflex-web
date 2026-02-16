@@ -106,7 +106,7 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
                     "dark:!bg-m-slate-12 !bg-m-slate-1 w-full h-full !outline-none",
                     rx.cond(
                         HostingBannerState.is_banner_visible,
-                        "!top-[136px]",
+                        "!top-[137px]",
                         "!top-[74px]",
                     ),
                 ),
