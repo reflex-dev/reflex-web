@@ -2,6 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 from reflex.style import toggle_color_mode
 
+from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.marketing_button import button
 from pcweb.constants import DISCORD_URL, GITHUB_URL, TWITTER_URL
@@ -99,9 +100,16 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
                         class_name="flex flex-row justify-center items-center px-3 py-0.5 w-full h-[47px]",
                         custom_attrs={"aria-label": "Toggle color mode"},
                     ),
-                    class_name="flex flex-col items-center bg-slate-1 w-full h-full",
+                    class_name="flex flex-col items-center dark:bg-m-slate-12 bg-m-slate-1 w-full h-full",
                 ),
-                class_name="!bg-transparent w-full h-full !outline-none !top-[74px]",
+                class_name=ui.cn(
+                    "dark:!bg-m-slate-12 !bg-m-slate-1 w-full h-full !outline-none",
+                    rx.cond(
+                        HostingBannerState.is_banner_visible,
+                        "!top-[136px]",
+                        "!top-[74px]",
+                    ),
+                ),
             )
         ),
         direction="bottom",
