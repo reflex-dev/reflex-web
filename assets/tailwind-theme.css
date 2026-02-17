@@ -1145,6 +1145,7 @@
     --text-6xl: 3.5rem;
     --text-6xl--line-height: 4rem;
     --text-6xl--letter-spacing: -0.1925rem;
+    --breakpoint-3xl: 110rem;
 
     /* Animation */
     --animate-accordion-down: accordion-down 0.2s ease-out;

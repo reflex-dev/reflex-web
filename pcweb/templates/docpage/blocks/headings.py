@@ -154,7 +154,7 @@ def h2_comp_xd(text: str) -> rx.Component:
         text=text,
         heading="h2",
         mt="8",
-        class_name="lg:text-3xl text-xl font-[525]",
+        class_name="lg:text-3xl text-2xl font-[525]",
     )
 
 
