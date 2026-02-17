@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.styles.colors import c_color
@@ -25,14 +26,26 @@ from .state import SideBarBase, SideBarItem, SidebarState
 
 Scrollable_SideBar = """
 function scrollToActiveSidebarLink() {
+  const sidebarContainer = document.getElementById('sidebar-container');
+  if (!sidebarContainer) return;
+
   const currentPath = window.location.pathname.replace(/\\/+$|\\/$/g, "") + "/";
 
-  const activeLink = document.querySelector(`#sidebar-container a[href="${currentPath}"]`) ||
-                    document.querySelector(`#sidebar-container a[href="${currentPath.slice(0, -1)}"]`);
+  const activeLink = sidebarContainer.querySelector(`a[href="${currentPath}"]`) ||
+                    sidebarContainer.querySelector(`a[href="${currentPath.slice(0, -1)}"]`);
 
   if (activeLink) {
-    activeLink.scrollIntoView({
-      block: "center",
+    // Get the scrollable parent within the sidebar
+    const scrollableParent = activeLink.closest('[class*="overflow-y-scroll"]') || sidebarContainer;
+    const linkRect = activeLink.getBoundingClientRect();
+    const containerRect = scrollableParent.getBoundingClientRect();
+
+    // Calculate the scroll position to center the link
+    const scrollTop = scrollableParent.scrollTop + (linkRect.top - containerRect.top) - (containerRect.height / 2) + (linkRect.height / 2);
+
+    scrollableParent.scrollTo({
+      top: scrollTop,
+      behavior: 'instant'
     });
   }
 }
@@ -44,7 +57,7 @@ window.addEventListener("popstate", () => {
 });
 
 document.addEventListener('click', (e) => {
-  const link = e.target.closest('a[href^="/docs"]');
+  const link = e.target.closest('#sidebar-container a[href^="/docs"]');
   if (link) {
     setTimeout(scrollToActiveSidebarLink, 200);
   }
@@ -103,26 +116,29 @@ def sidebar_leaf(
                 rx.cond(
                     item.link == url,
                     sidebar_link(
+                        rx.el.div(
+                            class_name="absolute left-0 top-1/2 -translate-y-1/2 w-full h-8 rounded-lg bg-m-slate-2 dark:bg-m-slate-10 z-[-1]",
+                        ),
                         rx.flex(
                             rx.text(
                                 item.names,
-                                class_name="font-small text-violet-9 transition-color",
+                                class_name="text-sm text-primary-10 font-[525] transition-color pl-4",
                             ),
-                            padding="0px 8px 0px 28px",
-                            class_name="border-l-[1.5px] border-violet-9",
+                            class_name="border-l-[1.5px] border-primary-10 relative ml-[2.5rem] max-w-[14rem] h-8 flex items-center",
                         ),
                         href=item.link,
+                        class_name="w-full relative",
                     ),
                     sidebar_link(
                         rx.flex(
                             rx.text(
                                 item.names,
-                                class_name="font-small text-slate-9 transition-color hover:text-slate-11 w-full",
+                                class_name="text-sm text-m-slate-7 hover:text-m-slate-11 dark:hover:text-m-slate-5 transition-color w-full font-[525]",
                             ),
-                            padding="0px 8px 0px 28px",
-                            class_name="border-l-[1.5px] border-slate-4 hover:border-slate-8",
+                            class_name="border-l-[1.5px] border-m-slate-4 dark:border-m-slate-9 hover:border-m-slate-8 dark:hover:border-m-slate-5 pl-4 h-8 flex items-center",
                         ),
                         href=item.link,
+                        class_name="w-full ml-[2.5rem]",
                     ),
                 ),
             ),
@@ -161,7 +177,7 @@ def sidebar_icon(name):
     }
 
     return (
-        rx.icon(tag=icon_map.get(name), size=16, class_name="mr-5")
+        rx.icon(tag=icon_map.get(name), size=16, class_name="mr-4")
         if name in icon_map
         else rx.fragment()
     )
@@ -183,17 +199,22 @@ def sidebar_item_comp(
                     sidebar_icon(item.names),
                     rx.text(
                         item.names,
-                        class_name="font-small",
+                        class_name="text-sm font-[525]",
                     ),
                     rx.box(class_name="flex-grow"),
-                    rx.accordion.icon(
-                        class_name="size-4 !text-slate-9 group-hover:!text-violet-9"
+                    ui.icon(
+                        "ArrowDown01Icon",
+                        class_name="size-4 group-data-[state=open]:rotate-180 transition-transform",
                     ),
-                    class_name="!px-0 flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 w-full !text-slate-9 aria-expanded:text-slate-11 hover:!text-slate-11 transition-color group",
+                    class_name="!px-0 flex items-center !bg-transparent !hover:bg-transparent !py-1 !pr-0 w-full !text-m-slate-7 hover:!text-m-slate-11 dark:hover:!text-m-slate-5 dark:!text-m-slate-6 transition-color group xl:max-w-[14rem]",
                 ),
+                class_name="justify-start !ml-[2.5rem]",
             ),
             rx.accordion.content(
                 rx.accordion.root(
+                    rx.accordion.item(
+                        class_name="absolute left-[2.5rem] size-full !shadow-[1.5px_0_0_0_var(--m-slate-4)_inset] dark:!shadow-[1.5px_0_0_0_var(--m-slate-9)_inset] z-[-1] pointer-events-none !rounded-none",
+                    ),
                     *[
                         sidebar_item_comp(
                             item_index="index" + str(child_index),
@@ -206,10 +227,7 @@ def sidebar_item_comp(
                     type="multiple",
                     collapsible=True,
                     default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-                    style={
-                        "box-shadow": "inset 1.25px 0 0 0 var(--c-slate-4) !important"
-                    },
-                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none !bg-transparent !rounded-none",
+                    class_name="!my-1 flex flex-col items-start gap-1 list-none !bg-transparent !rounded-none !shadow-none relative",
                 ),
                 class_name="!p-0 w-full !bg-transparent before:!h-0 after:!h-0",
             ),
@@ -296,36 +314,31 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
         rx.el.div(
             rx.box(
                 rx.box(
-                    rx.box(
-                        rx.icon(
-                            tag=icon,
-                            size=16,
-                            class_name="!text-slate-9",
-                        ),
-                        class_name="flex justify-center items-center border-slate-4 bg-white-1 shadow-medium border rounded-md size-8",
+                    rx.icon(
+                        tag=icon,
+                        size=16,
                     ),
                     rx.el.h3(
                         name,
-                        class_name="font-small"
-                        + rx.cond(
-                            SidebarState.sidebar_index == index,
-                            " text-slate-11",
-                            " text-slate-9",
+                        class_name=ui.cn(
+                            "w-full font-[525]",
                         ),
                     ),
-                    class_name="flex flex-row justify-start items-center gap-3 w-full",
-                ),
-                rx.box(
-                    class_name="bg-violet-9 rounded-full shrink-0 size-[7px]"
-                    + rx.cond(
-                        SidebarState.sidebar_index == index, " visible", " hidden"
+                    class_name=ui.cn(
+                        "flex flex-row justify-start items-center gap-2.5 w-full text-sm text-m-slate-7 hover:text-primary-10 dark:hover:text-primary-9 h-8",
+                        rx.cond(
+                            SidebarState.sidebar_index == index,
+                            "text-primary-10 dark:text-primary-9",
+                            "",
+                        ),
                     ),
                 ),
-                class_name="cursor-pointer flex flex-row justify-between items-center hover:bg-slate-3 p-[0.5rem_1rem_0.5rem_0.5rem] rounded-2xl w-full transition-bg self-stretch"
-                + rx.cond(
-                    SidebarState.sidebar_index == index,
-                    " bg-slate-3",
-                    " bg-transparent",
+                class_name="cursor-pointer flex flex-row items-center gap-2.5",
+            ),
+            rx.cond(
+                SidebarState.sidebar_index == index,
+                rx.el.div(
+                    class_name="absolute left-0 top-0 w-full h-full bg-m-slate-2 dark:bg-m-slate-10 rounded-lg z-[-1]",
                 ),
             ),
             rx.el.a(
@@ -334,10 +347,10 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                 class_name="inset-0 absolute z-[-1]",
                 aria_label=f"Navigate to {name}",
             ),
-            class_name="w-full text-slate-9 hover:!text-slate-9 relative",
+            class_name="w-full",
             on_click=[SidebarState.set_sidebar_index(index), rx.redirect(url)],
         ),
-        class_name="w-full",
+        class_name="w-full pl-[2.5rem] relative",
     )
 
 
@@ -356,11 +369,11 @@ def create_sidebar_section(
         rx.link(
             rx.el.h2(
                 section_title,
-                class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
+                class_name="font-mono text-m-slate-12 dark:text-m-slate-3 hover:text-primary-10 dark:hover:text-primary-9 uppercase text-[0.8125rem] leading-6 font-medium",
             ),
             underline="none",
             href=section_url,
-            class_name="py-3",
+            class_name="h-8 mb-2 flex items-center justify-start ml-[2.5rem]",
         ),
         rx.accordion.root(
             *[
@@ -375,7 +388,7 @@ def create_sidebar_section(
             type="multiple",
             collapsible=True,
             default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-            class_name="ml-0 pl-0 w-full !bg-transparent !shadow-none rounded-[0px]",
+            class_name="ml-0 pl-0 w-full !bg-transparent !shadow-none rounded-[0px] flex flex-col gap-1",
         ),
         class_name="flex flex-col items-start ml-0 w-full",
     )
@@ -421,7 +434,7 @@ def sidebar_comp(
                 # sidebar_category(
                 #     "CLI Reference", cloud_pages[0].path, "book-marked", 1
                 # ),
-                class_name="flex flex-col items-start gap-1 w-full list-none",
+                class_name="flex flex-col items-start gap-2 w-full list-none",
             ),
             rx.cond(  # pyright: ignore [reportCallIssue]
                 rx.State.router.page.path.startswith("/docs/ai-builder/"),
@@ -444,7 +457,7 @@ def sidebar_comp(
                     #     "codesandbox",
                     #     2,
                     # ),
-                    class_name="flex flex-col items-start gap-1 w-full list-none",
+                    class_name="flex flex-col items-start gap-2 w-full list-none",
                 ),
                 # If the path doesn't start with /docs/cloud, check for general docs
                 rx.cond(  # pyright: ignore [reportCallIssue]
@@ -474,7 +487,7 @@ def sidebar_comp(
                             "building-2",
                             3,
                         ),
-                        class_name="flex flex-col items-start gap-1 w-full list-none",
+                        class_name="flex flex-col items-start gap-2 w-full list-none",
                     ),
                 ),
             ),
@@ -494,7 +507,7 @@ def sidebar_comp(
                             hosting_index,
                             url,
                         ),
-                        class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                        class_name="flex flex-col items-start gap-8  w-full list-none list-style-none",
                     ),
                 ),
                 # (
@@ -507,7 +520,7 @@ def sidebar_comp(
                 #             cli_ref_index,
                 #             url,
                 #         ),
-                #         class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                #         class_name="flex flex-col items-start gap-8  w-full list-none list-style-none",
                 #     ),
                 # ),
             ),
@@ -532,7 +545,7 @@ def sidebar_comp(
                                 ai_builder_integrations_index,
                                 url,
                             ),
-                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                            class_name="flex flex-col items-start gap-8  w-full list-none list-style-none",
                         ),
                     ),
                     (
@@ -545,7 +558,7 @@ def sidebar_comp(
                                 mcp_index,
                                 url,
                             ),
-                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                            class_name="flex flex-col items-start gap-8  w-full list-none list-style-none",
                         ),
                     ),
                     # (
@@ -558,7 +571,7 @@ def sidebar_comp(
                     #             ai_builder_integrations_index,
                     #             url,
                     #         ),
-                    #         class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                    #         class_name="flex flex-col items-start gap-6  w-full list-none list-style-none",
                     #     ),
                     # ),
                 ),
@@ -597,7 +610,7 @@ def sidebar_comp(
                                     recipes_index,
                                     url,
                                 ),
-                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                                class_name="flex flex-col items-start gap-8  w-full list-none list-style-none",
                             ),
                         ),
                         (
@@ -635,8 +648,9 @@ def sidebar_comp(
                                     ),
                                     underline="none",
                                     href=custom_components.path,
+                                    class_name="w-fit lg:ml-[2.5rem]",
                                 ),
-                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                                class_name="flex flex-col items-start gap-8  w-full list-none list-style-none",
                             ),
                         ),
                         (
@@ -649,7 +663,7 @@ def sidebar_comp(
                                     api_reference_index,
                                     url,
                                 ),
-                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                                class_name="flex flex-col items-start gap-8  w-full list-none list-style-none",
                             ),
                         ),
                         (
@@ -669,7 +683,7 @@ def sidebar_comp(
                                     enterprise_component_index,
                                     url,
                                 ),
-                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                                class_name="flex flex-col items-start gap-8  w-full list-none list-style-none",
                             ),
                         ),
                     ),
@@ -685,7 +699,7 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
-        class_name="flex flex-col !pb-24 gap-6 items-start max-h-[90%] p-[1rem_0rem_1rem_1rem] lg-p2 scroll-p-4 fixed w-full overflow-y-scroll hidden-scrollbar lg:max-w-[300px]",
+        class_name="flex flex-col !pb-24 gap-8 items-start h-full py-8 pr-4 scroll-p-4 overflow-y-scroll hidden-scrollbar w-full max-2xl:pl-6",
     )
 
 

@@ -35,17 +35,24 @@ def definition(title: str, *children) -> rx.Component:
 
 @rx.memo
 def text_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, class_name="font-normal text-slate-12 mb-4 leading-7")
+    return rx.text(
+        text, class_name="font-[475] text-m-slate-8 dark:text-m-slate-6 mb-4 leading-7"
+    )
 
 
 @rx.memo
 def text_comp_2(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, class_name="font-normal text-slate-12 max-w-[80%] mb-10")
+    return rx.text(
+        text,
+        class_name="font-[475] text-m-slate-8 dark:text-m-slate-6 max-w-[80%] mb-10",
+    )
 
 
 @rx.memo
 def list_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.list_item(text, class_name="font-normal text-slate-12 mb-4")
+    return rx.list_item(
+        text, class_name="font-[475] text-m-slate-8 dark:text-m-slate-6 mb-4"
+    )
 
 
 @rx.memo

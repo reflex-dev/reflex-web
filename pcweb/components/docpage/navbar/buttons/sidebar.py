@@ -107,7 +107,7 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
                     rx.cond(
                         HostingBannerState.is_banner_visible,
                         "!top-[137px]",
-                        "!top-[74px]",
+                        "!top-[77px]",
                     ),
                 ),
             )
