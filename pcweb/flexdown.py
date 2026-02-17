@@ -672,6 +672,16 @@ def markdown_with_shiki(*args, **kwargs):
     """
     return rx.markdown(
         *args,
-        component_map={"pre": markdown_codeblock},
+        component_map={
+            "h1": lambda text: h1_comp_xd(text=text),
+            "h2": lambda text: h2_comp_xd(text=text),
+            "h3": lambda text: h3_comp_xd(text=text),
+            "h4": lambda text: h4_comp_xd(text=text),
+            "p": lambda text: text_comp(text=text),
+            "li": lambda text: list_comp(text=text),
+            "a": doclink2,
+            "pre": markdown_codeblock,
+            "img": lambda src: img_comp_xd(src=src),
+        },
         **kwargs,
     )

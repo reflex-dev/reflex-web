@@ -91,8 +91,8 @@ class HeadingLink(rx.link.__self__):
         href = rx.State.router.page.full_path + "#" + id_
         scroll_margin = rx.cond(
             HostingBannerState.is_banner_visible,
-            "scroll-m-[8.5rem]",
-            "scroll-m-[5rem]",
+            "scroll-mt-[113px]",
+            "scroll-mt-[77px]",
         )
 
         return super().create(
@@ -113,7 +113,7 @@ class HeadingLink(rx.link.__self__):
             href=href,
             on_click=lambda: rx.set_clipboard(href),
             # as_child=True,
-            class_name="flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-2 transition-colors group",
+            class_name="flex flex-row items-center gap-6 hover:!text-violet-11 cursor-pointer mb-6 transition-colors group text-m-slate-12 dark:text-m-slate-3 ",
         )
 
 
@@ -125,7 +125,7 @@ def h1_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h1",
-        class_name="font-x-large lg:font-xx-large",
+        class_name="lg:text-5xl text-3xl font-[525]",
     )
 
 
@@ -134,7 +134,7 @@ def h1_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h1",
-        class_name="font-x-large lg:font-xx-large",
+        class_name="lg:text-5xl text-3xl font-[525]",
     )
 
 
@@ -144,7 +144,7 @@ def h2_comp(text: str) -> rx.Component:
         text=text,
         heading="h2",
         mt="8",
-        class_name="font-large lg:font-x-large",
+        class_name="lg:text-4xl text-2xl font-[525]",
     )
 
 
@@ -154,7 +154,7 @@ def h2_comp_xd(text: str) -> rx.Component:
         text=text,
         heading="h2",
         mt="8",
-        class_name="font-large lg:font-x-large",
+        class_name="lg:text-3xl text-2xl font-[525]",
     )
 
 
@@ -164,7 +164,7 @@ def h3_comp(text: str) -> rx.Component:
         text=text,
         heading="h3",
         mt="4",
-        class_name="font-large",
+        class_name="lg:text-2xl text-xl font-[525]",
     )
 
 
@@ -174,7 +174,7 @@ def h3_comp_xd(text: str) -> rx.Component:
         text=text,
         heading="h3",
         mt="4",
-        class_name="font-large",
+        class_name="lg:text-2xl text-lg font-[525]",
     )
 
 
@@ -184,7 +184,7 @@ def h4_comp(text: str) -> rx.Component:
         text=text,
         heading="h4",
         mt="2",
-        class_name="font-md-smbold",
+        class_name="lg:text-xl text-lg font-[525]",
     )
 
 
@@ -194,7 +194,7 @@ def h4_comp_xd(text: str) -> rx.Component:
         text=text,
         heading="h4",
         mt="2",
-        class_name="font-md-smbold",
+        class_name="lg:text-xl text-lg font-[525]",
     )
 
 
