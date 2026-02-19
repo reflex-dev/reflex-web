@@ -9,10 +9,11 @@ import mistletoe
 import reflex as rx
 import reflex_ui as ui
 from reflex.components.radix.themes.base import LiteralAccentColor
+from reflex.experimental.client_state import ClientStateVar
 from reflex.utils.format import to_snake_case, to_title_case
 
-from pcweb.components.button import button
 from pcweb.components.icons.icons import get_icon
+from pcweb.components.marketing_button import button as marketing_button
 from pcweb.route import Route, get_path
 from pcweb.styles.colors import c_color
 
@@ -156,8 +157,8 @@ def footer_link_flex(heading: str, links):
 
 def thumb_card(score: int, icon: str) -> rx.Component:
     return rx.el.button(
-        rx.icon(
-            tag=icon,
+        ui.icon(
+            icon,
             color=rx.cond(
                 FeedbackState.score == score, c_color("slate", 11), c_color("slate", 9)
             ),
@@ -173,22 +174,18 @@ def thumb_card(score: int, icon: str) -> rx.Component:
 
 def thumbs_cards() -> rx.Component:
     return rx.hstack(
-        thumb_card(1, "thumbs-up"),
-        thumb_card(0, "thumbs-down"),
+        thumb_card(1, "ThumbsUpIcon"),
+        thumb_card(0, "ThumbsDownIcon"),
         gap="8px",
     )
 
 
 def feedback_content() -> rx.Component:
-    return rx.box(
-        rx.box(
-            rx.text(
-                "Send feedback",
-                class_name="font-md text-slate-11",
-            ),
+    return rx.el.div(
+        rx.el.div(
             rx.form(
-                rx.box(
-                    rx.el.textarea(
+                rx.el.div(
+                    ui.textarea(
                         name="feedback",
                         placeholder="Write a comment…",
                         type="text",
@@ -196,30 +193,20 @@ def feedback_content() -> rx.Component:
                         enter_key_submit=True,
                         resize="vertical",
                         required=True,
-                        class_name="w-full h-full p-2 text-slate-11 font-small bg-white-1 border border-slate-4 rounded-[10px] max-h-[300px] min-h-[72px] outline-none overflow-y-auto placeholder-slate-9 focus:border-violet-9 focus:border-1",
                     ),
                     thumbs_cards(),
-                    rx.el.input(
+                    ui.input(
                         name="email",
                         type="email",
                         placeholder="Contact email (optional)",
                         max_length=100,
-                        class_name="w-full h-full p-2 text-slate-11 font-small bg-white-1 border border-slate-4 rounded-[10px] box-border outline-none placeholder-slate-9 focus:border-violet-9 focus:border-1",
                     ),
-                    rx.box(
-                        rx.popover.close(
-                            button(
-                                "Send",
-                                type="submit",
-                            )
-                        ),
-                        rx.popover.close(
-                            button(
-                                "Cancel",
-                                variant="secondary",
-                            )
-                        ),
-                        class_name="flex flex-row gap-4 justify-between items-center",
+                    ui.popover.close(
+                        ui.button(
+                            "Send feedback",
+                            type="submit",
+                            class_name="w-full",
+                        )
                     ),
                     class_name="w-full gap-4 flex flex-col",
                 ),
@@ -229,48 +216,102 @@ def feedback_content() -> rx.Component:
             ),
             class_name="flex flex-col gap-4 w-full",
         ),
-        class_name="rounded-[26px] bg-white-1 w-[341px] max-h-[564px] shadow-large h-auto p-4",
+        class_name="p-2",
     )
 
 
 def feedback_button() -> rx.Component:
     thumb_cn = " flex flex-row items-center justify-center gap-2 text-slate-9 whitespace-nowrap border border-slate-5 bg-slate-1 shadow-large cursor-pointer transition-bg hover:bg-slate-3 font-small"
-    return rx.popover.root(
-        rx.box(
-            rx.popover.trigger(
-                rx.box(
-                    rx.icon(tag="thumbs-up", size=15, class_name="!text-slate-9"),
-                    rx.text(
-                        "Yes",
+    return ui.popover.root(
+        ui.popover.trigger(
+            render_=rx.el.div(
+                rx.el.button(
+                    ui.icon("ThumbsUpIcon"),
+                    "Yes",
+                    type="button",
+                    class_name=ui.cn(
+                        "w-full gap-2 border-r-0 px-3 py-0.5 rounded-[20px_0_0_20px]",
+                        thumb_cn,
                     ),
-                    class_name="w-full gap-2 border-r-0 px-3 py-0.5 rounded-[20px_0_0_20px]"
-                    + thumb_cn,
+                    aria_label="Yes",
+                    on_click=FeedbackState.set_score(1),
                 ),
-                custom_attrs={"role": "button"},
-                aria_label="Yes",
-                on_click=FeedbackState.set_score(1),
-            ),
-            rx.popover.trigger(
-                rx.box(
-                    rx.icon(tag="thumbs-down", size=15, class_name="!text-slate-9"),
-                    rx.text(
-                        "No",
+                rx.el.button(
+                    ui.icon("ThumbsDownIcon"),
+                    "No",
+                    type="button",
+                    class_name=ui.cn(
+                        "w-full gap-2 border-r-0 px-3 py-0.5 rounded-[0_20px_20px_0]",
+                        thumb_cn,
                     ),
-                    class_name="w-full gap-2 px-3 py-0.5 rounded-[0_20px_20px_0]"
-                    + thumb_cn,
+                    aria_label="No",
+                    on_click=FeedbackState.set_score(0),
                 ),
-                custom_attrs={"role": "button"},
-                aria_label="No",
-                on_click=FeedbackState.set_score(0),
+                class_name="w-full lg:w-auto items-center flex flex-row",
             ),
-            class_name="w-full lg:w-auto items-center flex flex-row",
         ),
-        rx.popover.content(
-            feedback_content(),
-            align="start",
-            class_name="border-none left-0 lg:left-[-255px] origin-bottom lg:origin-bottom-right !p-0 overflow-visible !bg-transparent shadow-none",
-            avoid_collisions=True,
+        ui.popover.portal(
+            ui.popover.positioner(
+                ui.popover.popup(
+                    render_=feedback_content(),
+                ),
+            ),
         ),
+    )
+
+
+def feedback_button_toc() -> rx.Component:
+    return ui.popover(
+        trigger=marketing_button(
+            ui.icon("ThumbsUpIcon"),
+            "Send feedback",
+            variant="ghost",
+            size="sm",
+            type="button",
+            on_click=FeedbackState.set_score(1),
+            class_name="justify-start",
+        ),
+        content=feedback_content(),
+    )
+
+
+@rx.memo
+def copy_to_markdown(text: str) -> rx.Component:
+    copied = ClientStateVar.create("is_copied", default=False, global_ref=False)
+    return marketing_button(
+        rx.cond(
+            copied.value,
+            ui.icon(
+                "CheckmarkCircle02Icon",
+            ),
+            get_icon("markdown", class_name="[&_svg]:h-4 [&_svg]:w-auto"),
+        ),
+        "Copy to markdown",
+        type="button",
+        size="sm",
+        variant="ghost",
+        class_name="justify-start",
+        on_click=[
+            rx.call_function(copied.set_value(True)),
+            rx.set_clipboard(text),
+        ],
+        on_mouse_down=rx.call_function(copied.set_value(False)).debounce(1500),
+    )
+
+
+def ask_ai_chat() -> rx.Component:
+    from pcweb.pages.docs import ai_builder as ai_builder_pages
+
+    return rx.el.a(
+        marketing_button(
+            ui.icon("AiChat02Icon"),
+            "Ask AI about this page",
+            size="sm",
+            variant="ghost",
+            class_name="justify-start",
+            native_button=False,
+        ),
+        to=ai_builder_pages.integrations.mcp_overview.path,
     )
 
 
@@ -474,11 +515,11 @@ def get_toc(source, href, component_list=None):
     env["__xd"] = xd
 
     # Get the content of the document.
-    source = source.content
+    doc_content = source.content
 
     # Get the blocks in the source code.
     # Note: we must use reflex-web's special flexdown instance xd here - it knows about all custom block types (like DemoBlock)
-    blocks = xd.get_blocks(source, href)
+    blocks = xd.get_blocks(doc_content, href)
 
     content_pieces = []
     for block in blocks:
@@ -502,7 +543,7 @@ def get_toc(source, href, component_list=None):
         headings.append((1, "API Reference"))
     for component_tuple in component_list:
         headings.append((2, component_tuple[1]))
-    return headings
+    return headings, doc_content
 
 
 def docpage(
@@ -617,13 +658,21 @@ def docpage(
                 links.append(rx.fragment())
 
             toc = []
+            doc_content = None
             if not isinstance(contents, rx.Component):
                 comp = contents(*args, **kwargs)
             else:
                 comp = contents
 
-            if isinstance(comp, tuple):
-                toc, comp = comp
+            if isinstance(comp, tuple) and len(comp) == 2:
+                first, second = comp
+                # Check if first is (toc, doc_content) from get_toc
+                if isinstance(first, tuple) and len(first) == 2:
+                    toc, doc_content = first
+                    comp = second
+                else:
+                    # Legacy format: (toc, comp)
+                    toc, comp = first, second
 
             show_right_sidebar = right_sidebar and len(toc) >= 2
             return rx.box(
@@ -720,9 +769,18 @@ def docpage(
                                         )
                                         for level, text in toc
                                     ],
-                                    class_name="flex flex-col gap-y-1 list-none shadow-[1.5px_0_0_0_var(--m-slate-4)_inset] dark:shadow-[1.5px_0_0_0_var(--m-slate-9)_inset]",
+                                    id="toc-navigation",
+                                    class_name="flex flex-col gap-y-1 list-none shadow-[1.5px_0_0_0_var(--m-slate-4)_inset] dark:shadow-[1.5px_0_0_0_var(--m-slate-9)_inset] max-h-[80vh]",
                                 ),
-                                class_name="flex flex-col justify-start gap-y-4 max-h-[80vh] overflow-y-auto sticky top-4",
+                                rx.el.div(
+                                    feedback_button_toc(),
+                                    copy_to_markdown(text=doc_content)
+                                    if doc_content
+                                    else None,
+                                    ask_ai_chat(),
+                                    class_name="flex flex-col mt-1.5 justify-start",
+                                ),
+                                class_name="flex flex-col justify-start gap-y-4 overflow-y-auto sticky top-4",
                             ),
                             class_name=(
                                 "w-full h-full"
@@ -732,7 +790,6 @@ def docpage(
                                     " mt-[90px]",
                                 )
                             ),
-                            id="toc-navigation",
                         ),
                         class_name=(
                             "w-[240px] h-screen sticky top-0 shrink-0 hidden xl:block"
