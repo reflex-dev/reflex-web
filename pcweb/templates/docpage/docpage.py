@@ -680,41 +680,36 @@ def docpage(
                                             rx.el.li(
                                                 rx.el.a(
                                                     text,
-                                                    class_name="text-sm font-[525] text-m-slate-7 dark:text-m-slate-6 break-words pl-4 min-h-7 flex items-center",
+                                                    class_name="text-sm font-[525] text-m-slate-7 dark:text-m-slate-6 pl-4 py-1 block hover:text-m-slate-9 dark:hover:text-m-slate-5 transition-colors truncate",
                                                     href=path
                                                     + "#"
                                                     + text.lower().replace(" ", "-"),
                                                 ),
-                                                class_name="min-h-8 flex items-center",
                                             )
                                             if level == 1
                                             else (
                                                 rx.el.li(
                                                     rx.el.a(
                                                         text,
-                                                        class_name="text-sm font-[525] text-m-slate-7 dark:text-m-slate-6 break-words min-h-7 pl-4 flex items-center",
-                                                        underline="none",
+                                                        class_name="text-sm font-[525] text-m-slate-7 dark:text-m-slate-6 pl-4 py-1 block hover:text-m-slate-9 dark:hover:text-m-slate-5 transition-colors truncate",
                                                         href=path
                                                         + "#"
                                                         + text.lower().replace(
                                                             " ", "-"
                                                         ),
                                                     ),
-                                                    class_name="min-h-8 flex items-center",
                                                 )
                                                 if level == 2
                                                 else rx.el.li(
                                                     rx.el.a(
                                                         text,
-                                                        underline="none",
-                                                        class_name="text-sm font-[525] text-m-slate-7 dark:text-m-slate-6 break-words min-h-7 pl-8 flex items-center",
+                                                        class_name="text-sm font-[525] text-m-slate-7 dark:text-m-slate-6 pl-8 py-1 block hover:text-m-slate-9 dark:hover:text-m-slate-5 transition-colors truncate",
                                                         href=path
                                                         + "#"
                                                         + text.lower().replace(
                                                             " ", "-"
                                                         ),
                                                     ),
-                                                    class_name="min-h-8 flex items-center",
                                                 )
                                             )
                                         )
