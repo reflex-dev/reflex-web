@@ -66,7 +66,7 @@ const escalationParams = {
 };
 const searchBarProps = {
   baseSettings: {
-    apiKey: '6299820854cd95d0a6e55a502d5bae06549e62360e7805a6',
+    apiKey: '5805add2b45961017ac79c9d388aa34f5db49eb652e228e0',
     customIcons: {search: {custom: "/icons/search.svg"}},
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#6E56CF',
@@ -321,10 +321,43 @@ const searchBarProps = {
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
     aiAssistantAvatar: '/logos/small_logo.svg',
+    chatSubjectName: 'Reflex',
     exampleQuestions: [
       'How does Reflex work?',
       'What types of apps can I build with Reflex?',
       'Where can I deploy my apps?',
+    ],
+    getHelpOptions: [
+      {
+        action: {
+          type: "open_link",
+          url: "https://reflex.dev/pricing"
+        },
+        icon: {
+          builtIn: "LuCalendar"
+        },
+        name: "Get a custom demo"
+      },
+      {
+        action: {
+          type: "open_link",
+          url: "https://github.com/reflex-dev/reflex/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
+        },
+        icon: {
+          builtIn: "FaGithub"
+        },
+        name: "File an issue on Reflex's GitHub."
+      },
+      {
+        action: {
+          type: "open_link",
+          url: "https://discord.gg/T5WSbC2YtQ"
+        },
+        icon: {
+          builtIn: "FaDiscord"
+        },
+        name: "Ask on Reflex's Discord."
+      }
     ],
     getTools: () => [
       {
