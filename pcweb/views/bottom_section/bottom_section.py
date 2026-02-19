@@ -9,5 +9,5 @@ def bottom_section() -> rx.Component:
     return rx.box(
         newsletter(),
         get_started(),
-        class_name="flex flex-col items-center gap-20 lg:gap-32 pt-8 lg:pt-[6.5rem] w-[22rem] lg:w-[25rem]",
+        class_name="flex flex-col items-center gap-20 lg:gap-32 pt-8 lg:pt-[6.5rem] max-lg:max-w-[22rem] w-full lg:w-[25rem] overflow-hidden",
     )
