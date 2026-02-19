@@ -2,9 +2,9 @@
 
 import reflex as rx
 
-from .typesense import typesense_search
+from .inkeep import inkeep
 
 
 @rx.memo
 def search_bar() -> rx.Component:
-    return typesense_search()
+    return inkeep()

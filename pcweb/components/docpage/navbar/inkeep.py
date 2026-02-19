@@ -7,7 +7,7 @@ from reflex.vars import Var
 
 class InkeepSearchBar(rx.NoSSRComponent):
     tag = "InkeepSearchBar"
-    library = "@inkeep/cxkit-react@0.5.55"
+    library = "@inkeep/cxkit-react@0.5.115"
 
 
 class Search(rx.el.Div):
@@ -141,30 +141,71 @@ const searchBarProps = {
           key: "custom-theme",
           type: "style",
           value: `
-            [data-theme='light'] .ikp-search-bar__button,
-            [data-theme='dark'] .ikp-search-bar__button {
+            [data-theme='light'] .ikp-search-bar__button {
+              color: var(--m-slate-7);
+              padding: 0.375rem 0.5rem;
+              border-radius: 0.5rem;
+              background: var(--m-slate-1);
               display: flex;
-              max-height: 32px;
-              min-height: 32px;
-              padding: 6px;
-              min-width: 256px;
-              justify-content: space-between;
+              flex-direction: row;
               align-items: center;
-              border-radius: 10px;
-              border: 1px solid var(--c-slate-5, #E0E1E6);
-              background: var(--c-slate-1);
-              /* Small */
-              font-family: "Instrument Sans";
-              font-size: 14px;
-              font-style: normal;
+              justify-content: flex-start;
+              gap: 0.5rem;
+              width: 100%;
+              height: 2rem !important;
+              min-height: 2rem !important;
+              max-width: 10rem;
+              min-width: 0;
+              box-shadow:
+                0 -1px 0 0 rgba(0, 0, 0, 0.08) inset,
+                0 0 0 1px rgba(0, 0, 0, 0.08) inset,
+                0 1px 2px 0 rgba(0, 0, 0, 0.02),
+                0 1px 4px 0 rgba(0, 0, 0, 0.02);
+              font-size: 0.875rem;
+              font-family: "Instrument Sans", sans-serif;
               font-weight: 500;
-              line-height: 20px;
-              /* 142.857% */
-              letter-spacing: -0.0125em;
-              color: var(--c-slate-9, #8B8D98);
-              /* Shadow/Large */
-              box-shadow: 0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02);
-              transition: background-color 0.1s linear, width 0s;
+              font-style: normal;
+              line-height: 1.5rem;
+              border: none;
+              transition: none;
+            }
+            [data-theme='dark'] .ikp-search-bar__button {
+              color: var(--m-slate-6);
+              transition: none;
+              height: 2rem !important;
+              min-height: 2rem !important;
+              padding: 0.375rem 0.5rem;
+              border-radius: 0.5rem;
+              background: var(--m-slate-11);
+              display: flex;
+              max-width: 10rem;
+              flex-direction: row;
+              align-items: center;
+              justify-content: flex-start;
+              gap: 0.5rem;
+              width: 100%;
+              max-width: none;
+              min-width: 0;
+              box-shadow:
+                0 -1px 0 0 rgba(255, 255, 255, 0.06) inset,
+                0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+              font-size: 0.875rem;
+              font-family: "Instrument Sans", sans-serif;
+              font-weight: 500;
+              font-style: normal;
+              line-height: 1.5rem;
+              border: none;
+            }
+            [data-theme='light'] .ikp-search-bar__button:hover {
+              background: var(--m-slate-2);
+            }
+            [data-theme='dark'] .ikp-search-bar__button:hover {
+              background: var(--m-slate-10);
+            }
+            @media (min-width: 1024px) {
+              .ikp-search-bar__button {
+                width: 10rem;
+              }
             }
 
             [data-theme='light'] .ikp-search-bar__container,
@@ -172,11 +213,17 @@ const searchBarProps = {
               display: flex;
               justify-content: center;
               align-items: center;
+              min-height: 2rem;
+              max-height: 2rem;
+              width: 10rem;
+              max-width: 10rem;
             }
 
-            [data-theme='light'] .ikp-search-bar__button:hover,
+            [data-theme='light'] .ikp-search-bar__button:hover {
+              background-color: var(--m-slate-2);
+            }
             [data-theme='dark'] .ikp-search-bar__button:hover {
-              background-color: var(--c-slate-3, #F0F0F3);
+              background-color: var(--m-slate-10);
             }
 
             [data-theme='dark'] .ikp-modal__overlay {
@@ -184,7 +231,16 @@ const searchBarProps = {
               backdrop-filter: blur(20px);
             }
 
+            [data-part="modal__content"] {
+              font-family: "Instrument Sans", sans-serif;
+            }
+
             @media (max-width: 80em) {
+              [data-theme='light'] .ikp-search-bar__container,
+              [data-theme='dark'] .ikp-search-bar__container {
+                width: auto !important;
+              }
+
               [data-theme='light'] .ikp-search-bar__button,
               [data-theme='dark'] .ikp-search-bar__button {
                 padding: 2px 12px;
@@ -225,34 +281,33 @@ const searchBarProps = {
             }
 
             .ikp-search-bar__kbd-wrapper {
-              padding: 0px 8px;
+              padding: 0px 0.25rem;
               justify-content: center;
               align-items: center;
-              border-radius: 4px;
+              border-radius: 0.25rem;
               box-shadow: none;
-              color: var(--c-slate-9, #8B8D98);
+              color: var(--m-slate-7, #67707E);
               font-family: "Instrument Sans";
               --ikp-colors-transparent: var(--c-slate-3, #FCFCFD);
               background: var(--c-slate-3, #F0F0F3) !important;
-              font-size: 12px;
+              font-size: 0.8125rem;
+              font-weight: 475;
+              line-height: 1.25rem;
+              height: 1.25rem;
               font-style: normal;
-              font-weight: 500;
-              line-height: 20px;
-              /* 166.667% */
-              letter-spacing: -0.09px;
+              margin-left: auto;
+              width: fit-content;
             }
 
             .ikp-search-bar__text,
             .ikp-search-bar__icon {
-              color: var(--c-slate-9, #8B8D98);
+              color: var(--m-slate-7, #67707E);
               font-weight: 500;
+              font-style: normal;
+              line-height: 1.5rem;
+              font-size: 0.875rem;
             }
           `,
-        },
-        {
-          key: "google-fonts-instrument",
-          type: "link",
-          value: "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&display=swap",
         },
       ],
     }
@@ -265,6 +320,7 @@ const searchBarProps = {
     placeholder: 'Search',
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
+    aiAssistantAvatar: '/logos/small_logo.svg',
     exampleQuestions: [
       'How does Reflex work?',
       'What types of apps can I build with Reflex?',
