@@ -11,7 +11,7 @@ def hero() -> rx.Component:
         rx.el.div(
             rx.el.p(
                 "About Reflex",
-                class_name="text-sm font-[525] text-m-slate-10 dark:text-m-slate-6",
+                class_name="text-sm font-[525] text-primary-10 dark:text-m-slate-6",
             ),
             rx.el.h1(
                 "Reflex Documentation",
