@@ -17,6 +17,7 @@ class CompanyInfo(TypedDict):
     name: str
     title: str
     quote: str
+    image: str
 
 
 COMPANIES_INFO: dict[Companies, CompanyInfo] = {
