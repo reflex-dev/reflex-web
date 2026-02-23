@@ -180,7 +180,7 @@ def more_posts(current_post: dict) -> rx.Component:
 def page(document, route) -> rx.Component:
     """Create a page."""
     meta = document.metadata
-    toc = get_toc(document, route)
+    toc, _ = get_toc(document, route)
     page_url = f"{REFLEX_URL.strip('/')}{route}"
     return rx.el.section(
         rx.el.article(
