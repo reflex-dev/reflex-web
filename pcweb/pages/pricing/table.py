@@ -267,7 +267,6 @@ def pricing_table(
     icon: str,
     columns: list[str],
     features: list[Feature],
-    show_free_tier: bool = True,
     **kwargs,
 ) -> rx.Component:
     header_content = rx.el.div(
@@ -296,19 +295,15 @@ def pricing_table(
     else:
         feature_rows = [
             rx.cond(
-                EnableTiersState.enable_pro_tier,
+                EnableTiersState.enable_pro_tier & EnableTiersState.enable_free_tier,
                 table_row(feature.name, feature.free, feature.pro, feature.enterprise),
                 rx.cond(
-                    show_free_tier,
-                    table_row(
-                        feature.name,
-                        feature.free,
-                        feature.enterprise,
-                    ),
-                    table_row(
-                        feature.name,
-                        False,
-                        feature.enterprise,
+                    EnableTiersState.enable_pro_tier,
+                    table_row(feature.name, feature.pro, feature.enterprise),
+                    rx.cond(
+                        EnableTiersState.enable_free_tier,
+                        table_row(feature.name, feature.free, feature.enterprise),
+                        table_row(feature.name, feature.enterprise),
                     ),
                 ),
             )
@@ -365,17 +360,20 @@ def sticky_pricing_header() -> rx.Component:
                 "",
                 class_name="text-secondary-11 font-semibold text-base text-left flex items-baseline justify-start z-0",
             ),
-            # Free column
-            header_item(
-                "Hobby",
-                ui.link(
-                    render_=ui.button(
-                        "Get started",
-                        variant="secondary",
-                        class_name="font-semibold w-full",
+            # Free/Hobby column
+            rx.cond(
+                EnableTiersState.enable_free_tier,
+                header_item(
+                    "Hobby",
+                    ui.link(
+                        render_=ui.button(
+                            "Get started",
+                            variant="secondary",
+                            class_name="font-semibold w-full",
+                        ),
+                        to=REFLEX_BUILD_URL,
+                        target="_blank",
                     ),
-                    to=REFLEX_BUILD_URL,
-                    target="_blank",
                 ),
             ),
             # Pro column with button
@@ -407,12 +405,22 @@ def sticky_pricing_header() -> rx.Component:
             ),
             class_name=ui.cn(
                 "grid gap-6 p-4",
-                rx.cond(EnableTiersState.enable_pro_tier, "grid-cols-4", "grid-cols-3"),
+                rx.cond(
+                    EnableTiersState.enable_pro_tier
+                    & EnableTiersState.enable_free_tier,
+                    "grid-cols-4",
+                    rx.cond(
+                        EnableTiersState.enable_pro_tier
+                        | EnableTiersState.enable_free_tier,
+                        "grid-cols-3",
+                        "grid-cols-2",
+                    ),
+                ),
             ),
         ),
         class_name=(
             "sticky z-10 bg-slate-1 border-x border-slate-4 border-y",
-            rx.cond(HostingBannerState.is_banner_visible, "top-[121px]", "top-[65px]"),
+            rx.cond(HostingBannerState.is_banner_visible, "top-[111px]", "top-[65px]"),
         ),
     )
 
@@ -429,7 +437,6 @@ def reflex_build_table() -> rx.Component:
         icon="MagicWand01Icon",
         columns=[],
         features=all_features,
-        show_free_tier=EnableTiersState.enable_free_tier,
     )
 
 
