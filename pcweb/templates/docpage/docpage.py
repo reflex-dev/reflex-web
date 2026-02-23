@@ -269,7 +269,7 @@ def feedback_button_toc() -> rx.Component:
             size="sm",
             type="button",
             on_click=FeedbackState.set_score(1),
-            class_name="justify-start",
+            class_name="justify-start text-m-slate-7 dark:text-m-slate-6",
         ),
         content=feedback_content(),
     )
@@ -290,7 +290,7 @@ def copy_to_markdown(text: str) -> rx.Component:
         type="button",
         size="sm",
         variant="ghost",
-        class_name="justify-start",
+        class_name="justify-start text-m-slate-7 dark:text-m-slate-6",
         on_click=[
             rx.call_function(copied.set_value(True)),
             rx.set_clipboard(text),
@@ -308,7 +308,7 @@ def ask_ai_chat() -> rx.Component:
             "Ask AI about this page",
             size="sm",
             variant="ghost",
-            class_name="justify-start",
+            class_name="justify-start text-m-slate-7 dark:text-m-slate-6",
             native_button=False,
         ),
         to=ai_builder_pages.integrations.mcp_overview.path,
