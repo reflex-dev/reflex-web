@@ -20,6 +20,7 @@ from .landing.landing import landing as landing
 from .meeting_successfully_booked import (
     page_meeting_successfully_booked as page_meeting_successfully_booked,
 )
+from .migration.low_code import low_code_migration_page as low_code_migration_page
 from .page404 import page404 as page404
 from .pricing.pricing import pricing as pricing
 from .sales import sales as sales

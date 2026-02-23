@@ -379,7 +379,11 @@ def solutions_content() -> rx.Component:
                 solutions_column(
                     "Migration",
                     [
-                        ("Switch from No Code", "WebDesign01Icon", use_cases_page.path),
+                        (
+                            "Switch from No Code",
+                            "WebDesign01Icon",
+                            "/migration/low-code",
+                        ),
                         (
                             "Switch from Other Frameworks",
                             "CodeIcon",
