@@ -24,7 +24,7 @@ class Search(rx.el.Div):
         """Add the hooks for the component."""
         return [
             "const { resolvedColorMode } = useContext(ColorModeContext)",
-            rx.Var(
+            (
                 f"""const escalationParams = {{
   type: "object",
   properties: {{
