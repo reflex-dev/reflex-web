@@ -6,5 +6,5 @@ from .inkeep import inkeep
 
 
 @rx.memo
-def search_bar() -> rx.Component:
-    return inkeep()
+def search_bar(custom_style: str = "") -> rx.Component:
+    return inkeep(custom_style=custom_style)

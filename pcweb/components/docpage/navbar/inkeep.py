@@ -11,6 +11,8 @@ class InkeepSearchBar(rx.NoSSRComponent):
 
 
 class Search(rx.el.Div):
+    custom_style: rx.Var[str] = rx.Var.create("")
+
     def add_imports(self):
         """Add the imports for the component."""
         return {
@@ -18,130 +20,126 @@ class Search(rx.el.Div):
             "$/utils/context": {ImportVar(tag="ColorModeContext")},
         }
 
-    def add_hooks(self):
+    def add_hooks(self) -> list[str | rx.Var]:
         """Add the hooks for the component."""
         return [
             "const { resolvedColorMode } = useContext(ColorModeContext)",
-            """
-const escalationParams = {
+            rx.Var(
+                f"""const escalationParams = {{
   type: "object",
-  properties: {
-    explanation: {
+  properties: {{
+    explanation: {{
       type: "string",
       description: "A brief few word justification of why a specific confidence level was chosen.",
-    },
-    answerConfidence: {
+    }},
+    answerConfidence: {{
       anyOf: [
-        {
+        {{
           type: "string",
           const: "very_confident",
-          description: `\n    The AI Assistant provided a complete and direct answer to all parts of the User Question.\n    The answer fully resolved the issue without requiring any further action from the User.\n    Every part of the answer was cited from the information sources.\n    The assistant did not ask for more information or provide options requiring User action.\n    This is the highest Answer Confidence level and should be used sparingly.\n  `,
-        },
-        {
+          description: `\\n    The AI Assistant provided a complete and direct answer to all parts of the User Question.\\n    The answer fully resolved the issue without requiring any further action from the User.\\n    Every part of the answer was cited from the information sources.\\n    The assistant did not ask for more information or provide options requiring User action.\\n    This is the highest Answer Confidence level and should be used sparingly.\\n  `,
+        }},
+        {{
           type: "string",
           const: "somewhat_confident",
-          description: `\n    The AI Assistant provided a complete and direct answer to the User Question, but the answer contained minor caveats or uncertainties. \n \n    Examples:\n    • The AI Assistant asked follow-up questions to the User\n    • The AI Assistant requested additional information from the User\n    • The AI Assistant suggested uncertainty in the answer\n    • The AI Assistant answered the question but mentioned potential exceptions\n  `,
-        },
-        {
+          description: `\\n    The AI Assistant provided a complete and direct answer to the User Question, but the answer contained minor caveats or uncertainties. \\n \\n    Examples:\\n    • The AI Assistant asked follow-up questions to the User\\n    • The AI Assistant requested additional information from the User\\n    • The AI Assistant suggested uncertainty in the answer\\n    • The AI Assistant answered the question but mentioned potential exceptions\\n  `,
+        }},
+        {{
           type: "string",
           const: "not_confident",
-          description: `\n    The AI Assistant tried to answer the User Question but did not fully resolve it.\n    The assistant provided options requiring further action from the User, asked for more information, showed uncertainty,\n    suggested the user contact support or provided contact information, or provided an indirect or incomplete answer.\n    This is the most common Answer Confidence level.\n \n    Examples:\n    • The AI Assistant provided a general answer not directly related to the User Question\n    • The AI Assistant said to reach out to support or provided an email address or contact information\n    • The AI Assistant provided options that require further action from the User to resolve the issue\n  `,
-        },
-        {
+          description: `\\n    The AI Assistant tried to answer the User Question but did not fully resolve it.\\n    The assistant provided options requiring further action from the User, asked for more information, showed uncertainty,\\n    suggested the user contact support or provided contact information, or provided an indirect or incomplete answer.\\n    This is the most common Answer Confidence level.\\n \\n    Examples:\\n    • The AI Assistant provided a general answer not directly related to the User Question\\n    • The AI Assistant said to reach out to support or provided an email address or contact information\\n    • The AI Assistant provided options that require further action from the User to resolve the issue\\n  `,
+        }},
+        {{
           type: "string",
           const: "no_sources",
-          description: `\n    The AI Assistant did not use or cite any sources from the information sources to answer the User Question.\n  `,
-        },
-        {
+          description: `\\n    The AI Assistant did not use or cite any sources from the information sources to answer the User Question.\\n  `,
+        }},
+        {{
           type: "string",
           const: "other",
-          description: `\n    The User Question is unclear or unrelated to the subject matter.\n  `,
-        },
+          description: `\\n    The User Question is unclear or unrelated to the subject matter.\\n  `,
+        }},
       ],
       description: "A measure of how confidently the AI Assistant completely and directly answered the User Question.",
-    },
-  },
+    }},
+  }},
   required: ["explanation", "answerConfidence"],
   additionalProperties: false,
-};
-const searchBarProps = {
-  baseSettings: {
+}};
+const searchBarProps = {{
+  baseSettings: {{
     apiKey: '5805add2b45961017ac79c9d388aa34f5db49eb652e228e0',
-    customIcons: {search: {custom: "/icons/search.svg"}},
+    customIcons: {{search: {{custom: "/icons/search.svg"}}}},
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#6E56CF',
-    transformSource: (source) => {
-      const urlPatterns = {
+    transformSource: (source) => {{
+      const urlPatterns = {{
         blog: 'reflex.dev/blog',
         library: 'reflex.dev/docs/library',
         apiRef: 'reflex.dev/docs/api-reference',
         docs: 'reflex.dev/docs',
-      }
+      }}
 
-      function matchUrl(pattern) {
+      function matchUrl(pattern) {{
         return source.url.includes(pattern)
-      }
+      }}
 
-      function getBreadcrumbs() {
-        if (matchUrl(urlPatterns.blog)) {
+      function getBreadcrumbs() {{
+        if (matchUrl(urlPatterns.blog)) {{
           return ['Blogs', ...source.breadcrumbs.slice(1)]
-        }
-        if (matchUrl(urlPatterns.library)) {
+        }}
+        if (matchUrl(urlPatterns.library)) {{
           return ['Components', ...source.breadcrumbs.slice(1)]
-        }
-        if (matchUrl(urlPatterns.apiRef)) {
+        }}
+        if (matchUrl(urlPatterns.apiRef)) {{
           return ['API Reference']
-        }
-        if (matchUrl(urlPatterns.docs)) {
+        }}
+        if (matchUrl(urlPatterns.docs)) {{
           return ['Docs', ...source.breadcrumbs.slice(1)]
-        }
+        }}
         return source.breadcrumbs
-      }
+      }}
 
       const breadcrumbs = getBreadcrumbs()
 
-      function getTabs() {
-        const tabMap = {
+      function getTabs() {{
+        const tabMap = {{
           [urlPatterns.blog]: 'Blogs',
           [urlPatterns.library]: 'Components',
           [urlPatterns.apiRef]: 'API Reference',
           [urlPatterns.docs]: 'Docs',
-        }
+        }}
 
-        for (const [pattern, tab] of Object.entries(tabMap)) {
-          if (matchUrl(pattern)) {
+        for (const [pattern, tab] of Object.entries(tabMap)) {{
+          if (matchUrl(pattern)) {{
             return [
               ...(source.tabs ?? []),
-              // If the first breadcrumb is the same as the tab, use the remaining breadcrumbs
-              // This is only if you don't want breadcrumbs to include current tab, e.g. just "Blog Post" instead of "Blogs > Blog Post" in the Blogs tab
-              // The tab type accepts a string or an object with a breadcrumbs property i.e. breadcrumbs shown for this source in that tab
               [
                 tab,
-                { breadcrumbs: breadcrumbs[0] === tab ? breadcrumbs.slice(1) : breadcrumbs },
+                {{ breadcrumbs: breadcrumbs[0] === tab ? breadcrumbs.slice(1) : breadcrumbs }},
               ],
             ]
-          }
-        }
+          }}
+        }}
         return source.tabs
-      }
+      }}
 
-      return {
+      return {{
         ...source,
         tabs: getTabs(),
         breadcrumbs,
-      }
-    },
-    colorMode: {
-      forcedColorMode: resolvedColorMode, // options: 'light' or dark'
-    },
-    theme: {
-      // Add inline styles using the recommended approach from the docs
+      }}
+    }},
+    colorMode: {{
+      forcedColorMode: resolvedColorMode,
+    }},
+    theme: {{
       styles: [
-        {
+        {{
           key: "custom-theme",
           type: "style",
           value: `
-            [data-theme='light'] .ikp-search-bar__button {
+            [data-theme='light'] .ikp-search-bar__button {{
               color: var(--m-slate-7);
               padding: 0.375rem 0.5rem;
               border-radius: 0.5rem;
@@ -168,8 +166,8 @@ const searchBarProps = {
               line-height: 1.5rem;
               border: none;
               transition: none;
-            }
-            [data-theme='dark'] .ikp-search-bar__button {
+            }}
+            [data-theme='dark'] .ikp-search-bar__button {{
               color: var(--m-slate-6);
               transition: none;
               height: 2rem !important;
@@ -195,21 +193,21 @@ const searchBarProps = {
               font-style: normal;
               line-height: 1.5rem;
               border: none;
-            }
-            [data-theme='light'] .ikp-search-bar__button:hover {
+            }}
+            [data-theme='light'] .ikp-search-bar__button:hover {{
               background: var(--m-slate-2);
-            }
-            [data-theme='dark'] .ikp-search-bar__button:hover {
+            }}
+            [data-theme='dark'] .ikp-search-bar__button:hover {{
               background: var(--m-slate-10);
-            }
-            @media (min-width: 1024px) {
-              .ikp-search-bar__button {
+            }}
+            @media (min-width: 1024px) {{
+              .ikp-search-bar__button {{
                 width: 10rem;
-              }
-            }
+              }}
+            }}
 
             [data-theme='light'] .ikp-search-bar__container,
-            [data-theme='dark'] .ikp-search-bar__container {
+            [data-theme='dark'] .ikp-search-bar__container {{
               display: flex;
               justify-content: center;
               align-items: center;
@@ -217,32 +215,32 @@ const searchBarProps = {
               max-height: 2rem;
               width: 10rem;
               max-width: 10rem;
-            }
+            }}
 
-            [data-theme='light'] .ikp-search-bar__button:hover {
+            [data-theme='light'] .ikp-search-bar__button:hover {{
               background-color: var(--m-slate-2);
-            }
-            [data-theme='dark'] .ikp-search-bar__button:hover {
+            }}
+            [data-theme='dark'] .ikp-search-bar__button:hover {{
               background-color: var(--m-slate-10);
-            }
+            }}
 
-            [data-theme='dark'] .ikp-modal__overlay {
+            [data-theme='dark'] .ikp-modal__overlay {{
               background: rgba(18, 17, 19, 0.50);
               backdrop-filter: blur(20px);
-            }
+            }}
 
-            [data-part="modal__content"] {
+            [data-part="modal__content"] {{
               font-family: "Instrument Sans", sans-serif;
-            }
+            }}
 
-            @media (max-width: 80em) {
+            @media (max-width: 80em) {{
               [data-theme='light'] .ikp-search-bar__container,
-              [data-theme='dark'] .ikp-search-bar__container {
+              [data-theme='dark'] .ikp-search-bar__container {{
                 width: auto !important;
-              }
+              }}
 
               [data-theme='light'] .ikp-search-bar__button,
-              [data-theme='dark'] .ikp-search-bar__button {
+              [data-theme='dark'] .ikp-search-bar__button {{
                 padding: 2px 12px;
                 display: block;
                 height: 32px;
@@ -250,37 +248,37 @@ const searchBarProps = {
                 width: 32px;
                 max-width: 6em;
                 min-width: 0px;
-              }
+              }}
 
-              .ikp-search-bar__button {
+              .ikp-search-bar__button {{
                 align-items: center;
                 justify-content: center;
-              }
+              }}
 
               .ikp-search-bar__kbd-wrapper,
-              .ikp-search-bar__text {
+              .ikp-search-bar__text {{
                 display: none;
-              }
+              }}
 
-              .ikp-search-bar__icon {
+              .ikp-search-bar__icon {{
                 padding: 0;
                 margin-right: 2px;
-              }
+              }}
 
-              .ikp-search-bar__content-wrapper {
+              .ikp-search-bar__content-wrapper {{
                 justify-content: center;
-              }
-            }
+              }}
+            }}
 
-            .ikp-search-bar__icon {
+            .ikp-search-bar__icon {{
               display: flex;
-            }
+            }}
 
-            .ikp-search-bar__icon svg {
+            .ikp-search-bar__icon svg {{
               width: auto;
-            }
+            }}
 
-            .ikp-search-bar__kbd-wrapper {
+            .ikp-search-bar__kbd-wrapper {{
               padding: 0px 0.25rem;
               justify-content: center;
               align-items: center;
@@ -297,29 +295,30 @@ const searchBarProps = {
               font-style: normal;
               margin-left: auto;
               width: fit-content;
-            }
+            }}
 
             .ikp-search-bar__text,
-            .ikp-search-bar__icon {
+            .ikp-search-bar__icon {{
               color: var(--m-slate-7, #67707E);
               font-weight: 500;
               font-style: normal;
               line-height: 1.5rem;
               font-size: 0.875rem;
-            }
+            }}
+            ${{{self.custom_style!s}}}
           `,
-        },
+        }},
       ],
-    }
-  },
-  searchSettings: { // optional InkeepSearchSettings
+    }}
+  }},
+  searchSettings: {{
     tabs: ['All', 'Docs', 'Components', 'API Reference', 'Blogs', 'GitHub', 'Forums'].map((t) => [
       t,
-      { isAlwaysVisible: true },
+      {{ isAlwaysVisible: true }},
     ]),
     placeholder: 'Search',
-  },
-  aiChatSettings: { // optional typeof InkeepAIChatSettings
+  }},
+  aiChatSettings: {{
     aiAssistantAvatar: '/logos/small_logo.svg',
     chatSubjectName: 'Reflex',
     exampleQuestions: [
@@ -328,73 +327,75 @@ const searchBarProps = {
       'Where can I deploy my apps?',
     ],
     getHelpOptions: [
-      {
-        action: {
+      {{
+        action: {{
           type: "open_link",
           url: "https://reflex.dev/pricing"
-        },
-        icon: {
+        }},
+        icon: {{
           builtIn: "LuCalendar"
-        },
+        }},
         name: "Get a custom demo"
-      },
-      {
-        action: {
+      }},
+      {{
+        action: {{
           type: "open_link",
           url: "https://github.com/reflex-dev/reflex/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
-        },
-        icon: {
+        }},
+        icon: {{
           builtIn: "FaGithub"
-        },
+        }},
         name: "File an issue on Reflex's GitHub."
-      },
-      {
-        action: {
+      }},
+      {{
+        action: {{
           type: "open_link",
           url: "https://discord.gg/T5WSbC2YtQ"
-        },
-        icon: {
+        }},
+        icon: {{
           builtIn: "FaDiscord"
-        },
+        }},
         name: "Ask on Reflex's Discord."
-      }
+      }}
     ],
     getTools: () => [
-      {
+      {{
         type: "function",
-        function: {
+        function: {{
           name: "provideAnswerConfidence",
           description: "Determine how confident the AI assistant was and whether or not to escalate to humans.",
           parameters: escalationParams,
-        },
-        renderMessageButtons: ({ args }) => {
+        }},
+        renderMessageButtons: ({{ args }}) => {{
           const confidence = args.answerConfidence;
-          if (["not_confident", "no_sources", "other"].includes(confidence)) {
+          if (["not_confident", "no_sources", "other"].includes(confidence)) {{
             return [
-              {
+              {{
                 label: "Contact Support",
-                action: {
+                action: {{
                   'type': 'open_form',
-                },
-              }
+                }},
+              }}
             ];
-          }
+          }}
           return [];
-        },
-      },
+        }},
+      }},
     ],
 
-  },
-};""",
+  }},
+}};"""
+            ),
         ]
 
     @classmethod
-    def create(cls):
+    def create(cls, custom_style: str = ""):
         """Create the search component."""
         return super().create(
             InkeepSearchBar.create(
                 special_props=[Var("{...searchBarProps}")],
-            )
+            ),
+            custom_style=custom_style,
         )
 
 

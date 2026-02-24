@@ -3,6 +3,7 @@ import reflex_ui as ui
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.docpage.navbar.buttons.sidebar import navbar_sidebar_button
+from pcweb.components.docpage.navbar.search import search_bar
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.marketing_button import button
 from pcweb.components.marquee import marquee
@@ -98,7 +99,7 @@ def logo() -> rx.Component:
             class_name="shrink-0 hidden dark:block",
         ),
         to="/",
-        class_name="block shrink-0 mr-9",
+        class_name="block shrink-0 lg:mr-9",
     )
 
 
@@ -484,10 +485,20 @@ def navigation_menu() -> rx.Component:
                 custom_attrs={"role": "menuitem"},
             ),
             ui.navigation_menu.item(
+                search_bar(
+                    custom_style=".ikp-search-bar__text { display: none !important; } "
+                    "[data-theme='light'] .ikp-search-bar__container, "
+                    "[data-theme='dark'] .ikp-search-bar__container { "
+                    "width: auto !important; max-width: fit-content !important; min-width: fit-content !important; }"
+                ),
+                unstyled=True,
+                custom_attrs={"role": "menuitem"},
+            ),
+            ui.navigation_menu.item(
                 rx.el.a(
                     button(
                         "Sign In",
-                        ui.icon("Login01Icon", class_name="scale-x-[-1]"),
+                        ui.icon("Login01Icon", class_name="scale-x-[-1] max-lg:hidden"),
                         size="sm",
                         variant="outline",
                         native_button=False,
