@@ -114,6 +114,9 @@ const searchBarProps = {{
           if (matchUrl(pattern)) {{
             return [
               ...(source.tabs ?? []),
+              // If the first breadcrumb is the same as the tab, use the remaining breadcrumbs
+              // This is only if you don't want breadcrumbs to include current tab, e.g. just "Blog Post" instead of "Blogs > Blog Post" in the Blogs tab
+              // The tab type accepts a string or an object with a breadcrumbs property i.e. breadcrumbs shown for this source in that tab
               [
                 tab,
                 {{ breadcrumbs: breadcrumbs[0] === tab ? breadcrumbs.slice(1) : breadcrumbs }},
