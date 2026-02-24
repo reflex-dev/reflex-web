@@ -19,13 +19,13 @@ def pros_card(pros: list[str]) -> rx.Component:
             rx.el.li(
                 ui.icon(
                     "Tick02Icon",
-                    class_name="shrink-0 text-primary-9 dark:text-primary-10",
+                    class_name="shrink-0 text-primary-9 dark:text-primary-10 h-[1.5rem]",
                 ),
                 rx.el.span(
                     pro,
                     class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525]",
                 ),
-                class_name="flex flex-row items-center gap-2.5",
+                class_name="flex flex-row items-start gap-2.5",
             )
             for pro in pros
         ],
@@ -40,13 +40,13 @@ def cons_card(cons: list[str]) -> rx.Component:
                 ui.icon(
                     "MultiplicationSignIcon",
                     stroke_width=1.5,
-                    class_name="shrink-0 text-m-slate-7 dark:text-m-slate-6",
+                    class_name="shrink-0 text-m-slate-7 dark:text-m-slate-6 h-[1.5rem]",
                 ),
                 rx.el.span(
                     con,
                     class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[525]",
                 ),
-                class_name="flex flex-row items-center gap-2.5",
+                class_name="flex flex-row items-start gap-2.5",
             )
             for con in cons
         ],
@@ -65,7 +65,7 @@ def pros_cons_cards(pros: list[str], cons: list[str]) -> rx.Component:
 def top_title(title: str) -> rx.Component:
     return rx.el.span(
         title,
-        class_name="text-m-slate-12 dark:text-m-slate-3 text-xs leading-[1.5rem] font-medium font-mono border-r border-m-slate-4 dark:border-m-slate-10 lg:px-12 lg:py-3 p-6 bg-secondary-1 dark:bg-m-slate-10 border-t",
+        class_name="text-m-slate-12 dark:text-m-slate-3 text-xs leading-[1.5rem] font-medium font-mono border-r border-m-slate-4 dark:border-m-slate-10 lg:px-8 lg:py-3 p-6 bg-secondary-1 dark:bg-m-slate-10 border-t",
     )
 
 
@@ -73,59 +73,59 @@ def comparison_cards() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             top_title("Reflex"),
-            top_title("Bubble, Retool, Webflow, etc."),
+            top_title("Retool, Streamlit, Plotly Dash, Power BI"),
             class_name="grid grid-cols-2",
         ),
         comparison_title("Full Control Without the Ceiling", "CodesandboxIcon"),
         pros_cons_cards(
             [
-                "Full control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Write real Python — no ceiling on what you can build",
+                "Handle custom logic, complex data flows, and performance optimization natively",
+                "Build anything a full-stack app can do",
             ],
             [
-                "Limited control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Get you to v1 fast, then you hit walls",
+                "Custom logic and complex data flows require ugly workarounds",
+                "Platform limitations dictate what's possible, not your requirements",
             ],
         ),
-        comparison_title("Your own code", "SourceCodeSquareIcon"),
+        comparison_title("You Own Your Code", "SourceCodeSquareIcon"),
         pros_cons_cards(
             [
-                "Full control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "It's your Python code — deploy it anywhere",
+                "Full version control with Git",
+                "Never hostage to a platform's pricing or shutdown",
             ],
             [
-                "Limited control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Your app lives on their infrastructure in their proprietary format",
+                "Vendor lock-in makes migration painful or impossible",
+                "Pricing changes or platform shutdowns put your app at risk",
             ],
         ),
         comparison_title("Python Ecosystem Access", "PythonIcon"),
         pros_cons_cards(
             [
-                "Full control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Use libraries you already know — pandas, scikit-learn, whatever",
+                "Build internal tools or customer-facing apps in one language",
+                "Leverage the entire Python ecosystem with no restrictions",
             ],
             [
-                "Limited control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Limited to the platform's pre-built integrations",
+                "Can't tap into Python's ML, data science, or backend libraries",
+                "Forces non-JS developers to learn new tools or work around limitations",
             ],
         ),
         comparison_title("Scales With Complexity", "SquareArrowExpand02Icon"),
         pros_cons_cards(
             [
-                "Full control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Auth flows, real-time features, complex state management — all native",
+                "Handles growing complexity because it's just code",
+                "No artificial boundaries on what you can build",
             ],
             [
-                "Limited control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Great for simple CRUD apps and dashboards, then it breaks down",
+                "Once you need real complexity, you're fighting the tool instead of building",
+                "Workarounds pile up and become unmaintainable",
             ],
         ),
         comparison_title(
@@ -133,14 +133,14 @@ def comparison_cards() -> rx.Component:
         ),
         pros_cons_cards(
             [
-                "Full control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Fits into normal engineering workflows — Git, PRs, CI/CD",
+                "Code review and automated testing work out of the box",
+                "Your whole team can collaborate using standard dev practices",
             ],
             [
-                "Limited control over your code",
-                "No limits on complexity",
-                "Customizable templates",
+                "Version control is difficult or impossible",
+                "Code review and testing are afterthoughts at best",
+                "Engineering best practices don't apply to proprietary drag-and-drop formats",
             ],
         ),
         rx.el.div(
@@ -170,13 +170,13 @@ def compare() -> rx.Component:
                 rx.el.h1(
                     "How You Benefit ",
                     rx.el.br(class_name="max-lg:hidden"),
-                    " With Reflex to ",
+                    "With Reflex vs. ",
                     rx.el.br(class_name="max-lg:hidden"),
-                    " Other Approaches",
+                    "Other Approaches",
                     class_name="text-m-slate-12 dark:text-m-slate-3 text-3xl font-[575]",
                 ),
                 rx.el.h2(
-                    "Reflex is growing-and we're looking for people who care deeply about developer experience, clean abstractions, and shipping things that matter.",
+                    "No-code tools get you started fast, but Reflex lets you finish. Here's how Reflex compares to platforms like Retool, Streamlit, Plotly Dash, and Power BI.",
                     class_name="text-m-slate-7 dark:text-m-slate-6 text-base font-[475]",
                 ),
                 class_name="flex flex-col gap-6 lg:max-w-[18rem] lg:sticky lg:top-[11rem] lg:self-start max-lg:self-center max-lg:items-center max-lg:text-center",
