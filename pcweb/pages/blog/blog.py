@@ -1,158 +1,200 @@
 import reflex as rx
+import reflex_ui as ui
+from reflex.experimental.client_state import ClientStateVar
 
-from pcweb.components.icons.icons import get_icon
-from pcweb.components.webpage.comps import h1_title
+from pcweb.components.hosting_banner import HostingBannerState
+from pcweb.components.marketing_button import button as marketing_button
 from pcweb.meta.meta import create_meta_tags
+from pcweb.signup import IndexState
 from pcweb.templates.marketing_page import marketing_page
-from pcweb.templates.webpage import webpage
 
 from .page import page
 from .paths import blog_data
 
+blog_filter_cs = ClientStateVar.create("blog_filter", default="All")
 
-def first_post_card(meta: dict, path: str) -> rx.Component:
-    return rx.link(
-        rx.box(
-            rx.image(
-                src=meta["image"],
-                loading="eager",
-                custom_attrs={"fetchPriority": "high"},
-                alt="Image preview for blog post: " + str(meta["title"]),
-                class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-left object-cover",
-            ),
-            class_name="relative flex-shrink-0 w-2/5 h-[18rem] overflow-hidden border-r border-solid border-slate-5",
+FILTERS = ["All", "Announcements", "Open Source", "Builder", "Cloud"]
+
+
+def filter_button(filter: str) -> rx.Component:
+    active_cn = "shadow-[inset_0_-1px_0_0_var(--primary-10)] text-primary-10 dark:text-primary-9"
+    return marketing_button(
+        filter,
+        variant="ghost",
+        size="sm",
+        on_click=blog_filter_cs.set_value(filter),
+        class_name=ui.cn(
+            "h-full rounded-none",
+            rx.cond(blog_filter_cs.value == filter, active_cn, ""),
         ),
-        rx.box(
-            rx.box(
-                rx.el.h4(
-                    meta["title"],
-                    class_name="font-x-large text-slate-12",
-                ),
-                rx.moment(
-                    str(meta["date"]),
-                    format="MMM DD, YYYY",
-                    class_name="font-normal text-secondary-11 text-sm",
-                ),
-                class_name="flex flex-col gap-1 p-[0.625rem_0.75rem_0rem_0.75rem] w-full",
+    )
+
+
+def blog_filters_row() -> rx.Component:
+    return rx.el.div(
+        rx.el.div(
+            *[filter_button(filter) for filter in FILTERS],
+            class_name="flex flex-row gap-2 items center px-4 h-full",
+        ),
+        newletter_input(),
+        class_name=ui.cn(
+            "flex flex-row gap-4 items-center justify-between h-[3.25rem] border-x border-m-slate-4 dark:border-m-slate-10 bg-m-slate-1 dark:bg-m-slate-11 [box-shadow:0_-1px_0_0_rgba(0,_0,_0,_0.05),_0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03),_0_1px_0_0_#FFF_inset] w-full z-10 lg:sticky dark:shadow-none max-lg:overflow-x-auto max-lg:-mx-4 max-lg:w-[calc(100%+2rem)]",
+            rx.cond(
+                HostingBannerState.is_banner_visible,
+                "lg:top-[7rem]",
+                "lg:top-[4.5rem]",
             ),
-            rx.box(
-                rx.text(
-                    meta["description"],
-                    class_name="line-clamp-2 font-base text-secondary-11",
-                ),
-                rx.box(
+        ),
+    )
+
+
+def newletter_input() -> rx.Component:
+    return rx.el.div(
+        rx.cond(
+            IndexState.signed_up,
+            rx.el.div(
+                rx.el.div(
+                    rx.icon(
+                        tag="circle-check",
+                        size=16,
+                        class_name="!text-violet-9",
+                    ),
                     rx.text(
-                        meta["author"],
-                        class_name="font-small text-secondary-11 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
+                        "Thanks for subscribing!",
+                        class_name="text-sm text-m-slate-7 dark:text-m-slate-6 font-medium",
                     ),
-                    rx.el.button(
-                        rx.text(
-                            "Read more",
-                            class_name="font-small text-secondary-11",
-                        ),
-                        get_icon(icon="new_tab", class_name="p-[5px]"),
-                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-secondary-11 transition-bg cursor-pointer overflow-hidden flex-shrink-0",
-                    ),
-                    class_name="flex flex-row justify-between items-center gap-1 min-w-0 w-full h-auto",
+                    class_name="flex flex-row items-center gap-2",
                 ),
-                class_name="flex flex-col justify-between p-[0rem_0.75rem_0.75rem_0.75rem] w-full h-full",
+                marketing_button(
+                    "Sign up for another email",
+                    variant="outline",
+                    size="md",
+                    on_click=IndexState.signup_for_another_user,
+                ),
+                class_name="flex flex-row items-center gap-2",
             ),
-            class_name="flex flex-col gap-[10px] w-full h-auto",
+            rx.form(
+                rx.el.input(
+                    placeholder="Email",
+                    name="input_email",
+                    type="email",
+                    required=True,
+                    class_name="relative [box-shadow:0_-1px_0_0_rgba(0,_0,_0,_0.08)_inset,_0_0_0_1px_rgba(0,_0,_0,_0.08)_inset,_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] rounded-lg h-9 px-2.5 py-1.5 w-[12rem] text-sm placeholder:text-m-slate-7 dark:placeholder:text-m-slate-6 font-[525] focus:outline-none outline-none dark:border dark:border-m-slate-10 bg-white dark:bg-m-slate-12",
+                ),
+                marketing_button(
+                    "Get Updates",
+                    type="submit",
+                    variant="outline",
+                    size="md",
+                    class_name="w-fit max-w-full",
+                ),
+                class_name="w-full flex flex-col lg:flex-row gap-2 lg:items-center items-start max-lg:hidden",
+                on_submit=IndexState.signup,
+            ),
         ),
-        href=path,
-        is_external=False,
-        underline="none",
-        class_name="box-border lg:flex flex-row flex-shrink-0 gap-3 border-slate-5 hidden bg-slate-1 shadow-large border border-solid rounded-xl w-full overflow-hidden group",
+        class_name="ml-auto mr-2",
     )
 
 
 def card_content(meta: dict, path: str) -> rx.Component:
-    return rx.link(
-        rx.box(
-            rx.image(
-                src=meta["image"],
-                loading="eager",
-                custom_attrs={"fetchPriority": "high"},
-                alt="Image preview for blog post: " + str(meta["title"]),
-                class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-left object-cover",
+    return rx.el.div(
+        rx.el.a(
+            rx.el.div(
+                rx.image(
+                    src=meta["image"],
+                    loading="eager",
+                    custom_attrs={"fetchPriority": "high"},
+                    alt="Image preview for blog post: " + str(meta["title"]),
+                    class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-top object-cover",
+                ),
+                class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[19.5rem] overflow-hidden",
             ),
-            class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[13.5rem] overflow-hidden",
-        ),
-        rx.box(
-            rx.box(
+            rx.el.div(
                 rx.el.span(
                     meta["title"],
-                    class_name="font-smbold text-slate-12",
+                    class_name="text-2xl font-[575] text-m-slate-12 dark:text-m-slate-3 mb-4",
                 ),
-                rx.moment(
-                    str(meta["date"]),
-                    format="MMM DD, YYYY",
-                    class_name="font-normal text-secondary-11 text-xs",
-                ),
-                class_name="flex flex-col gap-1 p-[0.625rem_0.75rem_0rem_0.75rem] w-full",
-            ),
-            rx.box(
-                rx.text(
+                rx.el.p(
                     meta["description"],
-                    class_name="line-clamp-2 font-small text-secondary-11",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475] mb-6",
                 ),
-                rx.box(
-                    rx.text(
-                        meta["author"],
-                        class_name="font-small text-secondary-11 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
-                    ),
-                    rx.el.button(
-                        rx.text(
-                            "Read more",
-                            class_name="font-small text-secondary-11",
-                        ),
-                        get_icon(icon="new_tab", class_name="p-[5px]"),
-                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-secondary-11 transition-bg cursor-pointer overflow-hidden",
-                    ),
-                    class_name="flex flex-row justify-between items-center gap-1 w-full h-auto",
+                rx.el.span(
+                    meta["author"],
+                    class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525] mt-auto",
                 ),
-                class_name="flex flex-col justify-between p-[0rem_0.75rem_0.75rem_0.75rem] w-full h-full",
+                class_name="flex flex-col w-full h-full pb-12 px-12",
             ),
-            class_name="flex flex-col gap-[10px] w-full h-full",
+            to=path,
+            class_name="flex flex-col gap-10 rounded-xl bakdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
         ),
-        href=path,
-        is_external=False,
-        underline="none",
-        class_name="box-border flex flex-col flex-shrink-0 border-slate-5 bg-slate-1 shadow-large border border-solid rounded-xl w-full h-[390px] overflow-hidden group",
+        display=rx.cond(
+            (blog_filter_cs.value == "All") | (blog_filter_cs.value == meta["tag"]),
+            "block",
+            "none",
+        ),
+        class_name="relative border-y border-m-slate-4 dark:border-m-slate-10 lg:odd:border-r lg:even:border-l lg:even:before:content-[''] lg:even:before:absolute lg:even:before:w-12 lg:even:before:-left-12 lg:even:before:top-0 lg:even:before:bottom-0 lg:even:before:border-y lg:even:before:border-m-slate-4 lg:dark:even:before:border-m-slate-10",
     )
-
-
-def first_post() -> rx.Component:
-    for path, document in blog_data.items():
-        if path == next(iter(blog_data.keys())):
-            return first_post_card(meta=document.metadata, path=f"/blog/{path}")
 
 
 def component_grid() -> rx.Component:
     posts = []
     for path, document in list(blog_data.items()):
         posts.append(card_content(meta=document.metadata, path=f"/blog/{path}"))
-    return rx.box(
+    return rx.el.div(
         *posts,
-        class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-4 lg:[&>*:first-child]:hidden",
+        rx.el.div(
+            class_name="absolute -top-px -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+        ),
+        rx.el.div(
+            class_name="absolute -top-px -left-24 w-24 h-px bg-gradient-to-r from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+        ),
+        rx.el.div(
+            class_name="absolute -bottom-px -left-24 w-24 h-px bg-gradient-to-r from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+        ),
+        rx.el.div(
+            class_name="absolute -bottom-px -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+        ),
+        rx.el.div(
+            class_name="absolute -bottom-24 -left-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+        ),
+        rx.el.div(
+            class_name="absolute -bottom-24 -right-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+        ),
+        class_name="grid lg:grid-cols-2 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-12 gap-y-12 lg:gap-y-24 relative py-24",
     )
 
 
-@webpage(path="/blog", title="Reflex Blog")
+@marketing_page(
+    path="/blog",
+    title="Reflex Blog",
+    description="Reflex Blog",
+    image="/previews/index_preview.webp",
+    meta=create_meta_tags(
+        title="Reflex Blog",
+        description="Reflex Blog",
+        image="/previews/index_preview.webp",
+        url="https://reflex.dev/blog",
+    ),
+)
 def blogs():
     return rx.el.section(
         rx.el.header(
-            h1_title(title="Blog"),
-            rx.el.h2(
-                "Reflex is the open-source framework empowering Python developers to build web apps faster.",
-                class_name="font-md text-balance text-slate-10",
+            rx.el.h1(
+                "Blog",
+                class_name="text-4xl font-[575] text-m-slate-12 dark:text-m-slate-3 text-center",
             ),
-            class_name="pb-4 section-header",
+            rx.el.h2(
+                "Reflex is the open-source framework empowering Python ",
+                rx.el.br(class_name=""),
+                " developers to build web apps faster.",
+                class_name="font-medium text-center text-m-slate-7 dark:text-m-slate-6 text-base",
+            ),
+            class_name="pb-12 pt-24 lg:border-x border-m-slate-4 dark:border-m-slate-10 flex flex-col justify-center items-center gap-6 w-full",
         ),
-        first_post(),
+        blog_filters_row(),
         component_grid(),
         id="blog",
-        class_name="section-content",
+        class_name="flex flex-col justify-center items-center max-w-(--docs-layout-max-width) mx-auto w-full max-lg:px-4",
     )
 
 

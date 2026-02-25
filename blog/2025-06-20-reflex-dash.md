@@ -4,6 +4,7 @@ date: 2025-06-20
 title: Reflex vs Plotly Dash
 description: A Comparison of Python Frameworks for Building Interactive Financial Dashboards
 image: /blog/reflex-dash.webp
+tag: Builder
 meta: [
   {
     "name": "keywords",

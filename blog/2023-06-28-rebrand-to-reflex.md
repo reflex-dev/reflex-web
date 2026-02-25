@@ -4,6 +4,7 @@ date: 2023-06-28
 title: Pynecone is now Reflex
 description: We have some exciting news to share about the next stage of our company!
 image: /reflex_banner.png
+tag: Announcements
 meta: [
     {"name": "keywords", "content": ""},
 ]

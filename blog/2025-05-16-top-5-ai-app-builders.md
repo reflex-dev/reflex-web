@@ -4,6 +4,7 @@ date: 2025-05-16
 title: Top AI App Builders in 2025
 description: Reflex.build vs Replit Agent vs v0.dev vs Bolt.new vs Lovable.dev
 image: /blog/ai_app_builders.webp
+tag: Builder
 meta: [
   {"name": "keywords", "content": "Reflex vs Replit, v0.dev alternatives, build AI apps, no-code AI tools, Replit agent, AI developer tools, app builders for developers, AI UI generators, v0.dev review, Replit AI tools, Lovable.dev, Bolt.new, AI in software development, full-stack AI apps"}
 ]

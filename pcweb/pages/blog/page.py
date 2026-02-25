@@ -192,6 +192,11 @@ def page(document, route) -> rx.Component:
                         class_name="text-m-slate-12 dark:text-m-slate-3 font-[575] hover:text-primary-10 dark:hover:text-primary-9 text-xs",
                     ),
                     rx.el.div(class_name="w-4 h-px bg-m-slate-5 dark:bg-m-slate-10"),
+                    rx.el.span(
+                        meta["tag"],
+                        class_name="text-m-slate-12 dark:text-m-slate-3 font-[575] text-xs",
+                    ),
+                    rx.el.div(class_name="w-4 h-px bg-m-slate-5 dark:bg-m-slate-10"),
                     rx.moment(
                         str(meta["date"]),
                         format="MMM DD, YYYY",
@@ -259,10 +264,5 @@ def page(document, route) -> rx.Component:
         ),
         class_name=ui.cn(
             "flex flex-col mx-auto max-lg:px-6 w-full relative",
-            rx.cond(
-                HostingBannerState.is_banner_visible,
-                "lg:pt-[7rem] pt-[11rem]",
-                "lg:pt-[4rem] pt-[8rem]",
-            ),
         ),
     )
