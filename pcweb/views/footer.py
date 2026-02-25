@@ -114,7 +114,7 @@ def newsletter_form() -> rx.Component:
                 rx.form(
                     rx.box(
                         rx.el.input(
-                            placeholder="Your email",
+                            placeholder="Email",
                             name="input_email",
                             type="email",
                             class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-white-1 p-[0.5rem_0.75rem] border rounded-[10px] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",

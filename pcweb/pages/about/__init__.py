@@ -37,7 +37,6 @@ def about() -> rx.Component:
                 hiring(),
                 team(),
                 news(),
-                divider(),
                 footer_index(),
                 class_name="flex flex-col relative justify-center items-center w-full",
             ),
