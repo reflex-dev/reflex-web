@@ -1,101 +1,48 @@
-from typing import TypedDict
-
-import reflex as rx
-import reflex_ui as ui
-
-
-class Feature(TypedDict):
-    title: str
-    description: str
-    icon: str
-
+from pcweb.pages.migration.common.explore import Feature
+from pcweb.pages.migration.common.explore import explore as common_explore
 
 FEATURES: list[Feature] = [
     {
-        "title": "AI-Powered Development",
-        "description": "Build your app with the speed of AI and precision of Python",
+        "title": "AI-Assisted App Development",
+        "description": "Generate UI and app logic faster with AI while keeping full code control.",
         "icon": "ArtificialIntelligence04Icon",
     },
     {
-        "title": "Python-Powered Development",
-        "description": "Build your app with the speed of AI and precision of Python",
-        "icon": "RepeatIcon",
+        "title": "Real Python, Not Drag-and-Drop",
+        "description": "Write maintainable Python code that fits your existing engineering standards.",
+        "icon": "SourceCodeSquareIcon",
     },
     {
-        "title": "Python-Powered Development",
-        "description": "Build your app with the speed of AI and precision of Python",
-        "icon": "FlowConnectionIcon",
+        "title": "Data Stack Integrations",
+        "description": "Connect databases, APIs, and internal services without low-code workarounds.",
+        "icon": "DatabaseIcon",
     },
     {
-        "title": "Python-Powered Development",
-        "description": "Build your app with the speed of AI and precision of Python",
-        "icon": "Layers01Icon",
+        "title": "Security-First by Design",
+        "description": "Deploy with full control over infrastructure, access, and compliance boundaries.",
+        "icon": "ShieldEnergyIcon",
     },
     {
-        "title": "Python-Powered Development",
-        "description": "Build your app with the speed of AI and precision of Python",
-        "icon": "Layers01Icon",
+        "title": "Production-Grade Performance",
+        "description": "Scale from internal tools to enterprise apps with robust backend capabilities.",
+        "icon": "DashboardSpeed01Icon",
     },
     {
-        "title": "Python-Powered Development",
-        "description": "Build your app with the speed of AI and precision of Python",
-        "icon": "Layers01Icon",
+        "title": "Team-Friendly Workflows",
+        "description": "Use Git, PR reviews, and CI/CD workflows your team already trusts.",
+        "icon": "UserSwitchIcon",
     },
 ]
 
 
-def feature_card(feature: Feature) -> rx.Component:
-    return rx.el.div(
-        rx.el.div(
-            ui.icon(
-                feature["icon"], class_name="text-primary-10 dark:text-primary-9 size-5"
-            ),
-            rx.el.span(
-                feature["title"],
-                class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525]",
-            ),
-            class_name="flex flex-row gap-2.5 items-center",
-        ),
-        rx.el.p(
-            feature["description"],
-            class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475] text-start",
-        ),
-        class_name="flex flex-col gap-2 justify-start",
+def explore():
+    return common_explore(
+        kicker="Explore",
+        title_prefix="Build Your App With the Speed of ",
+        title_suffix="AI and Precision of Python",
+        description="Reflex is growing—and we're looking for people who care deeply about developer experience, clean abstractions.",
+        features=FEATURES,
     )
 
 
-def feature_grid() -> rx.Component:
-    return rx.el.div(
-        *[feature_card(feature) for feature in FEATURES],
-        class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16",
-    )
-
-
-def explore() -> rx.Component:
-    return rx.el.section(
-        rx.el.div(
-            rx.el.div(
-                rx.el.p(
-                    "Explore",
-                    class_name="text-sm font-[525] text-primary-10 max-lg:text-center dark:text-m-slate-6",
-                ),
-                rx.el.div(
-                    rx.el.h1(
-                        "Build Your App With the Speed of ",
-                        rx.el.br(),
-                        "AI and Precision of Python",
-                        class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-4xl text-3xl font-[575] shrink-0",
-                    ),
-                    rx.el.p(
-                        "Reflex is growing—and we’re looking for people who care deeply about developer experience, clean abstractions.",
-                        class_name="text-base text-m-slate-7 dark:text-m-slate-6 font-[475]",
-                    ),
-                    class_name="flex lg:flex-row flex-col gap-8 lg:gap-36",
-                ),
-                class_name="relative flex flex-col gap-6 lg:py-24 py-16",
-            ),
-            feature_grid(),
-            class_name="flex flex-col gap-16 max-w-(--layout-max-width) mx-auto lg:px-24 px-6 max-lg:text-center relative lg:pb-24 pb-16",
-        ),
-        class_name="bg-gradient-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 w-full",
-    )
+__all__ = ["explore"]

@@ -1,141 +1,52 @@
-from enum import StrEnum
-from typing import TypedDict
+from pcweb.pages.migration.common.quotes import CompanyInfo
+from pcweb.pages.migration.common.quotes import quotes as common_quotes
 
-import reflex as rx
-import reflex_ui as ui
-from reflex.experimental import ClientStateVar
-
-
-class Companies(StrEnum):
-    OPEN_SEA = "open_sea"
-    FASTLY = "fastly"
-    AUTODESK = "autodesk"
-    ACCENTURE = "accenture"
-
-
-class CompanyInfo(TypedDict):
-    name: str
-    title: str
-    quote: str
-    image: str
-
-
-COMPANIES_INFO: dict[Companies, CompanyInfo] = {
-    Companies.OPEN_SEA: {
+COMPANIES: list[CompanyInfo] = [
+    {
+        "key": "open_sea",
+        "logo_image_name": "open_sea.svg",
+        "logo_alt": "OpenSea logo",
         "name": "Alex Atallah",
         "title": "Co-founder & CEO, OpenSea",
-        "image": "/landing/social/alex_opensea.webp",
         "quote": "Have been playing with Reflex since January and realized I should just say, from a fellow YC member: love the architecture decisions you guys are making!",
+        "profile_image": "/landing/social/alex_opensea.webp",
     },
-    Companies.FASTLY: {
+    {
+        "key": "fastly",
+        "logo_image_name": "fastly.svg",
+        "logo_alt": "Fastly logo",
         "name": "Emanuele Bonura",
         "title": "Senior SOC Engineer",
-        "image": "",
         "quote": "Migrating our cybersecurity app from Streamlit to Reflex has been excellent. We quickly built a unified interface connecting BigQuery, Salesforce, and PagerDuty for our 15+ team members. The ease of use and rapid development, supported by your responsive team, made it a great experience.",
+        "profile_image": "",
     },
-    Companies.AUTODESK: {
+    {
+        "key": "autodesk",
+        "logo_image_name": "autodesk.svg",
+        "logo_alt": "Autodesk logo",
         "name": "Paolo",
         "title": "Principal Consultant",
-        "image": "",
         "quote": "One person can do the job of two with Reflex, so it cut our cost in half. I am able to wear all the caps at once: Solution Architecture, UI/UX, front-end and back-end.",
+        "profile_image": "",
     },
-    Companies.ACCENTURE: {
+    {
+        "key": "accenture",
+        "logo_image_name": "accenture.svg",
+        "logo_alt": "Accenture logo",
         "name": "Jordan Lee",
         "title": "Senior Automation Developer",
-        "image": "",
         "quote": "Reflex let us automate workflows that were impossible with previous low-code platforms. We went from prototype to rollout in days, and our team loves writing real Python instead of fighting drag-and-drop UI pain.",
+        "profile_image": "",
     },
-}
+]
 
 
-active_company_cs = ClientStateVar.create(
-    "active_company_cs", default=Companies.OPEN_SEA
-)
-
-
-def company_card(company: Companies) -> rx.Component:
-    return rx.el.button(
-        rx.image(
-            src=f"/migration/{rx.color_mode_cond('light', 'dark')}/{company}.svg",
-            alt=f"{company} logo",
-            loading="lazy",
-            class_name=ui.cn(
-                "transition-[filter] group-hover:brightness-0 dark:group-hover:brightness-[10]",
-                rx.cond(
-                    active_company_cs.value == company,
-                    "brightness-0 dark:brightness-[10]",
-                    "",
-                ),
-            ),
-        ),
-        aria_label=f"Company: {company}",
-        on_click=active_company_cs.set_value(company),
-        class_name=ui.cn(
-            "flex justify-end items-center h-12 py-3.5 lg:pr-12 pr-3.5 group",
-            rx.cond(
-                active_company_cs.value == company,
-                "lg:shadow-[1px_0_0_0_var(--m-slate-12)] lg:dark:shadow-[1px_0_0_0_var(--m-slate-3)]",
-                "",
-            ),
-        ),
+def quotes():
+    return common_quotes(
+        companies=COMPANIES,
+        default_active_key="open_sea",
+        logo_base_path="/migration",
     )
 
 
-def quote_card(company: Companies) -> rx.Component:
-    return rx.el.div(
-        rx.el.p(
-            COMPANIES_INFO[company]["quote"],
-            class_name="text-m-slate-12 dark:text-m-slate-3 text-lg font-[575] text-pretty",
-        ),
-        rx.el.div(
-            ui.gradient_profile(
-                seed=COMPANIES_INFO[company]["name"],
-                class_name="size-6 rounded-full",
-            )
-            if not COMPANIES_INFO[company]["image"]
-            else rx.image(
-                src=COMPANIES_INFO[company]["image"],
-                loading="lazy",
-                alt=f"{company} logo",
-                class_name="size-6 rounded-full",
-            ),
-            rx.el.span(
-                COMPANIES_INFO[company]["name"],
-                class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525]",
-            ),
-            rx.el.span(
-                COMPANIES_INFO[company]["title"],
-                class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[525]",
-            ),
-            class_name="flex flex-row items-center gap-3",
-        ),
-        class_name="flex flex-col gap-8 lg:px-12 lg:pt-16 p-6 lg:w-[33rem] w-full",
-    )
-
-
-def companies_column() -> rx.Component:
-    return rx.el.div(
-        company_card(Companies.OPEN_SEA),
-        company_card(Companies.FASTLY),
-        company_card(Companies.AUTODESK),
-        company_card(Companies.ACCENTURE),
-        rx.el.div(
-            class_name="absolute -bottom-24 -right-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
-        ),
-        class_name="flex max-lg:px-6 max-lg:overflow-x-auto lg:flex-col flex-row gap-2 pt-13 lg:max-w-[12rem] w-full lg:border-r border-m-slate-4 dark:border-m-slate-10 relative max-lg:justify-center",
-    )
-
-
-def quotes() -> rx.Component:
-    return rx.el.section(
-        companies_column(),
-        rx.match(
-            active_company_cs.value,
-            (Companies.OPEN_SEA, quote_card(Companies.OPEN_SEA)),
-            (Companies.FASTLY, quote_card(Companies.FASTLY)),
-            (Companies.AUTODESK, quote_card(Companies.AUTODESK)),
-            (Companies.ACCENTURE, quote_card(Companies.ACCENTURE)),
-            quote_card(Companies.OPEN_SEA),
-        ),
-        class_name="flex lg:flex-row flex-col pb-24",
-    )
+__all__ = ["quotes"]
