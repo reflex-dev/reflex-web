@@ -208,5 +208,5 @@ def footer() -> rx.Component:
             ),
             class_name="flex flex-row flex-wrap justify-between gap-[4.5rem] p-[3rem_1rem_3rem_1.5rem] w-full max-w-[94.5rem]",
         ),
-        class_name="flex justify-center border-slate-3 border-t w-full",
+        class_name="flex justify-center border-slate-3 border-t w-full overflow-hidden",
     )

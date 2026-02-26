@@ -12,6 +12,7 @@ from pcweb.pages.docs_landing.views import (
 )
 from pcweb.pages.framework.views.divider import divider
 from pcweb.pages.framework.views.footer_index import footer_index
+from pcweb.views.cta_card import cta_card
 from pcweb.views.docs_navbar import docs_navbar
 
 
@@ -30,13 +31,14 @@ def docs_landing() -> rx.Component:
         rx.el.main(
             rx.el.div(
                 hero(),
-                divider(),
+                divider(class_name="max-w-full"),
                 ai_builder_section(),
                 framework(),
                 enterprise_section(),
                 hosting_section(),
                 self_hosting_section(),
                 other_section(),
+                cta_card(),
                 footer_index(),
                 class_name="flex flex-col relative justify-center items-center w-full overflow-hidden",
             ),

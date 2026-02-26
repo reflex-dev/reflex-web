@@ -12,6 +12,7 @@ from pcweb.pages.about.views import (
     team,
 )
 from pcweb.pages.framework.views.footer_index import footer_index
+from pcweb.views.cta_card import cta_card
 from pcweb.views.marketing_navbar import marketing_navbar
 
 
@@ -37,6 +38,7 @@ def about() -> rx.Component:
                 hiring(),
                 team(),
                 news(),
+                cta_card(),
                 footer_index(),
                 class_name="flex flex-col relative justify-center items-center w-full",
             ),

@@ -258,5 +258,5 @@ def footer_index() -> rx.Component:
             ),
             class_name="flex flex-row items-center justify-between py-6 gap-4 w-full border-t border-m-slate-4 dark:border-m-slate-10 relative",
         ),
-        class_name="flex flex-col max-w-(--docs-layout-max-width) justify-center items-center w-full mx-auto mt-24",
+        class_name="flex flex-col max-w-(--docs-layout-max-width) justify-center items-center w-full mx-auto mt-24 max-lg:px-4 overflow-hidden",
     )

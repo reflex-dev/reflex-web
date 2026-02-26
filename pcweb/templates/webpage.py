@@ -60,6 +60,7 @@ def webpage(
             # Import here to avoid circular imports.
             from pcweb.components.icons.patterns import default_patterns
             from pcweb.pages.framework.views.footer_index import footer_index
+            from pcweb.views.cta_card import cta_card
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -71,6 +72,7 @@ def webpage(
                     rx.box(class_name="flex-grow"),
                     class_name="w-full z-[1]",
                 ),
+                cta_card(),
                 footer_index(),
                 class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans overflow-hidden",
                 **props,

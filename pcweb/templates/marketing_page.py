@@ -59,6 +59,7 @@ def marketing_page(
             """
             # Import here to avoid circular imports.
             from pcweb.pages.framework.views.footer_index import footer_index
+            from pcweb.views.cta_card import cta_card
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -67,6 +68,7 @@ def marketing_page(
                 rx.el.main(
                     rx.el.div(
                         contents(*children, **props),
+                        cta_card(),
                         footer_index(),
                         class_name="flex flex-col relative justify-center items-center w-full",
                     ),
