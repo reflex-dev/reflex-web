@@ -486,14 +486,23 @@ def navigation_menu() -> rx.Component:
             ),
             ui.navigation_menu.item(
                 search_bar(
-                    custom_style=".ikp-search-bar__text { display: none !important; } "
-                    "[data-theme='light'] .ikp-search-bar__container, "
-                    "[data-theme='dark'] .ikp-search-bar__container { "
-                    "width: auto !important; max-width: fit-content !important; min-width: fit-content !important; }"
+                    trigger=button(
+                        ui.icon("Search01Icon", class_name="size-4"),
+                        "⌘+K",
+                        size="sm",
+                        variant="ghost",
+                        class_name="group-hover:text-primary-10 dark:group-hover:text-primary-9",
+                        native_button=False,
+                    ),
                 ),
+                class_name="group",
                 unstyled=True,
                 custom_attrs={"role": "menuitem"},
             ),
+            class_name="flex flex-row gap-2 m-0 h-full list-none items-center",
+            custom_attrs={"role": "menubar"},
+        ),
+        ui.navigation_menu.list(
             ui.navigation_menu.item(
                 rx.el.a(
                     button(
