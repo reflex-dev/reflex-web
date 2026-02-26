@@ -5,7 +5,7 @@ from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.meta.meta import create_meta_tags
 from pcweb.pages.about.views.divider import divider
 from pcweb.pages.framework.views.footer_index import footer_index
-from pcweb.pages.migration.low_code.views import compare, hero, quotes
+from pcweb.pages.migration.low_code.views import compare, explore, hero, quotes
 from pcweb.views.marketing_navbar import marketing_navbar
 
 
@@ -27,6 +27,8 @@ def low_code_migration_page() -> rx.Component:
                 quotes(),
                 divider(),
                 compare(),
+                divider(),
+                explore(),
                 divider(),
                 footer_index(),
                 class_name="flex flex-col relative justify-center items-center w-full",
