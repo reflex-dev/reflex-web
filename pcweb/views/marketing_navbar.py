@@ -387,12 +387,12 @@ def solutions_content() -> rx.Component:
                         (
                             "Switch from Other Frameworks",
                             "CodeIcon",
-                            use_cases_page.path,
+                            "/migration/other-frameworks",
                         ),
                         (
                             "Switch from Other AI tools",
                             "ArtificialIntelligence04Icon",
-                            use_cases_page.path,
+                            "/migration/other-ai-tools",
                         ),
                     ],
                 ),
