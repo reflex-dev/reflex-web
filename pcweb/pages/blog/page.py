@@ -181,6 +181,7 @@ def page(document, route) -> rx.Component:
     """Create a page."""
     meta = document.metadata
     toc, _ = get_toc(document, route)
+    toc = [(level, text) for level, text in toc if level <= 3]
     page_url = f"{REFLEX_URL.strip('/')}{route}"
     return rx.el.section(
         rx.el.article(
@@ -254,7 +255,7 @@ def page(document, route) -> rx.Component:
                     more_posts(meta),
                     class_name="max-w-[69rem] mx-auto w-full",
                 ),
-                class_name="bg-gradient-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 w-full flex flex-col gap-12",
+                class_name="bg-gradient-to-b lg:from-white-1 from-m-slate-1 to-m-slate-1 lg:dark:from-m-slate-11 dark:from-m-slate-12 dark:to-m-slate-12 w-full flex flex-col gap-12",
             ),
         ),
         class_name=ui.cn(
