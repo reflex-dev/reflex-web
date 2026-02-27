@@ -132,7 +132,7 @@ def table_of_contents(toc: list, path: str, page_url: str) -> rx.Component:
 
 
 def more_posts(current_post: dict) -> rx.Component:
-    from .blog import card_content
+    from pcweb.pages.blog.blog import card_inner
 
     posts = []
     blog_items = list(blog_data.items())
@@ -163,17 +163,17 @@ def more_posts(current_post: dict) -> rx.Component:
 
     for path, document in selected_posts:
         meta = document.metadata
-        posts.append(card_content(meta=meta, path=f"/blog/{path}"))
+        posts.append(card_inner(meta=meta, path=f"/blog/{path}"))
     return rx.el.section(
         rx.el.h2(
             "More Posts",
-            class_name="font-x-large gradient-heading",
+            class_name="text-4xl font-[575] text-m-slate-12 dark:text-m-slate-3 text-center",
         ),
         rx.box(
             *posts,
             class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 [&>*]:min-w-[320px] w-full mb-4 blog-grid",
         ),
-        class_name="flex flex-col gap-10 mt-20",
+        class_name="flex flex-col gap-10 mt-20 mb-24",
     )
 
 

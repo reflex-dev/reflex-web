@@ -96,44 +96,51 @@ def newsletter_input() -> rx.Component:
     )
 
 
-def card_content(meta: dict, path: str) -> rx.Component:
-    return rx.el.div(
-        rx.el.a(
-            rx.el.div(
-                rx.image(
-                    src=meta["image"],
-                    loading="eager",
-                    custom_attrs={"fetchPriority": "high"},
-                    alt="Image preview for blog post: " + str(meta["title"]),
-                    class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-top object-cover",
-                ),
-                class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[19.5rem] overflow-hidden",
+def card_inner(meta: dict, path: str) -> rx.Component:
+    return rx.el.a(
+        rx.el.div(
+            rx.image(
+                src=meta["image"],
+                loading="eager",
+                custom_attrs={"fetchPriority": "high"},
+                alt="Image preview for blog post: " + str(meta["title"]),
+                class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-top object-cover",
             ),
-            rx.el.div(
-                rx.el.span(
-                    meta["title"],
-                    class_name="text-2xl font-[575] text-m-slate-12 dark:text-m-slate-3 mb-4",
-                ),
-                rx.el.p(
-                    meta["description"],
-                    class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475] mb-6",
-                ),
-                rx.el.span(
-                    meta["author"],
-                    class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525] mt-auto",
-                ),
-                class_name="flex flex-col w-full h-full pb-12 px-12",
-            ),
-            to=path,
-            class_name="flex flex-col gap-10 rounded-xl backdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
+            class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[19.5rem] overflow-hidden",
         ),
+        rx.el.div(
+            rx.el.span(
+                meta["title"],
+                class_name="text-2xl font-[575] text-m-slate-12 dark:text-m-slate-3 mb-4",
+            ),
+            rx.el.p(
+                meta["description"],
+                class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475] mb-6",
+            ),
+            rx.el.span(
+                meta["author"],
+                class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525] mt-auto",
+            ),
+            class_name="flex flex-col w-full h-full pb-12 px-12",
+        ),
+        to=path,
+        class_name="flex flex-col gap-10 rounded-xl backdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
+    )
+
+
+def card_content(meta: dict, path: str, class_name: str = "") -> rx.Component:
+    return rx.el.div(
+        card_inner(meta, path),
         display=rx.cond(
             (blog_filter_cs.value == "All")
             | (blog_filter_cs.value == meta.get("tag", "")),
             "block",
             "none",
         ),
-        class_name="relative border-y border-m-slate-4 dark:border-m-slate-10 lg:odd:border-r lg:even:border-l lg:even:before:content-[''] lg:even:before:absolute lg:even:before:w-12 lg:even:before:-left-12 lg:even:before:top-0 lg:even:before:bottom-0 lg:even:before:border-y lg:even:before:border-m-slate-4 lg:dark:even:before:border-m-slate-10",
+        class_name=ui.cn(
+            "relative border-y border-m-slate-4 dark:border-m-slate-10 lg:odd:border-r lg:even:border-l lg:even:before:content-[''] lg:even:before:absolute lg:even:before:w-12 lg:even:before:-left-12 lg:even:before:top-0 lg:even:before:bottom-0 lg:even:before:border-y lg:even:before:border-m-slate-4 lg:dark:even:before:border-m-slate-10",
+            class_name,
+        ),
     )
 
 
@@ -161,7 +168,7 @@ def component_grid() -> rx.Component:
         rx.el.div(
             class_name="absolute -bottom-24 -right-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
         ),
-        class_name="grid lg:grid-cols-2 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-12 gap-y-12 lg:gap-y-24 relative py-24",
+        class_name="grid lg:grid-cols-2 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-12 gap-y-12 lg:gap-y-24 relative py-24 lg:mb-48 mb-24",
     )
 
 

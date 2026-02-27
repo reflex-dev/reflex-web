@@ -11,8 +11,6 @@ from pcweb.pages.about.views import (
     square_logo,
     team,
 )
-from pcweb.pages.framework.views.footer_index import footer_index
-from pcweb.views.cta_card import cta_card
 from pcweb.templates.marketing_page import marketing_page
 
 
@@ -36,8 +34,6 @@ def about_page() -> rx.Component:
             hiring(),
             team(),
             news(),
-            divider(),
-            cta_card(),
             class_name="flex flex-col relative justify-center items-center w-full",
         ),
         class_name="flex flex-col w-full relative h-full justify-center items-center",

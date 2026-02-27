@@ -270,7 +270,7 @@ def blog_item(blog: dict, path: str) -> rx.Component:
             rx.moment(
                 rx.Var.create(blog.metadata["date"]).to(str),
                 format="MMM DD YYYY",
-                class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
+                class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase text-nowrap",
             ),
             rx.image(
                 src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_blog.svg",
