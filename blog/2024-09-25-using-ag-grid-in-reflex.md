@@ -4,6 +4,7 @@ date: 2024-10-03
 title: AG Grid in Reflex
 description: Getting started with powerful data tables in your Python web apps
 image: /blog/ag-grid.webp
+tag: Open Source
 meta: [
     {
       "name": "keywords",

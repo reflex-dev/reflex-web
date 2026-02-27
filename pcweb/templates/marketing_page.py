@@ -2,7 +2,9 @@ import functools
 from typing import Callable
 
 import reflex as rx
+import reflex_ui as ui
 
+from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.route import Route
 
 DEFAULT_TITLE = "The platform to build and scale enterprise apps"
@@ -72,7 +74,14 @@ def marketing_page(
                         footer_index(),
                         class_name="flex flex-col relative justify-center items-center w-full",
                     ),
-                    class_name="flex flex-col w-full relative h-full justify-center items-center",
+                    class_name=ui.cn(
+                        "flex flex-col w-full relative h-full justify-center items-center",
+                        rx.cond(
+                            HostingBannerState.is_banner_visible,
+                            "mt-28",
+                            "mt-16",
+                        ),
+                    ),
                 ),
                 class_name="flex flex-col w-full justify-center items-center relative dark:bg-m-slate-12 bg-m-slate-1",
             )

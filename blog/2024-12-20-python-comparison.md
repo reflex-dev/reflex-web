@@ -4,6 +4,7 @@ date: 2024-12-20
 title: Top Python Web Development Frameworks in 2025
 description: Reflex vs Django vs Flask vs Gradio vs Streamlit vs Dash vs FastAPI
 image: /blog/top_python_web_frameworks.webp
+tag: Builder
 meta: [
     {"name": "keywords", "content": "streamlit python, streamlit, streamlit alternatives, plotly, dash app, plotly python, fastapi"},
 ]

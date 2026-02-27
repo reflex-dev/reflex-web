@@ -1,8 +1,6 @@
 import reflex as rx
 import reflex_ui as ui
 
-from pcweb.components.hosting_banner import HostingBannerState
-
 
 def hero() -> rx.Component:
     return rx.el.section(
@@ -92,11 +90,6 @@ def hero() -> rx.Component:
             class_name="flex flex-col gap-8 lg:p-12 p-6 border border-m-slate-4 dark:border-m-slate-10 shadow-[0_6px_16px_0_rgba(0,0,0,0.04)_inset] dark:shadow-none dark:bg-[linear-gradient(212deg,var(--m-slate-12)_0%,var(--m-slate-11)_100%)] lg:max-w-[34.5rem] w-full relative",
         ),
         class_name=ui.cn(
-            "flex lg:flex-row flex-col max-w-(--layout-max-width) mx-auto lg:px-24 px-6 overflow-hidden",
-            rx.cond(
-                HostingBannerState.is_banner_visible,
-                "lg:pt-[14.5rem] pt-[12.5rem]",
-                "lg:pt-[10.5rem] pt-[7.5rem]",
-            ),
+            "flex lg:flex-row flex-col max-w-(--layout-max-width) mx-auto lg:px-24 px-6 overflow-hidden pt-24",
         ),
     )

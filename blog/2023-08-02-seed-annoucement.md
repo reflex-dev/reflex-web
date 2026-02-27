@@ -4,6 +4,7 @@ date: 2023-08-02
 title: Announcing our Seed Round
 description: Reflex has raised a $5M seed led by Lux Capital.
 image: /blog/fundraise_dark.webp
+tag: Announcements
 meta: [
     {"name": "keywords", "content": ""},
 ]

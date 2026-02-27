@@ -1,6 +1,6 @@
 from pcweb.route import Route
 
-from .about import about  # noqa: F401
+from .about import about_page as about_page
 from .blog import blog_routes
 from .booked import booked as booked
 from .check_your_email_demo import page_thank_you as page_thank_you

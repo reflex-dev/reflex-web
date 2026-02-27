@@ -4,6 +4,7 @@ date: 2025-12-17
 title: "Top 7 Enterprise AI App Builders in 2026: A Practical Comparison"
 description: Reflex.build vs Microsoft Power Apps vs Superblocks vs Blaze.tech vs Knack vs Lovable.dev vs Replit Agent
 image: /blog/top7.webp
+tag: Builder
 meta: [
   {
     "name": "keywords",

@@ -4,6 +4,7 @@ date: 2024-10-08
 title: Self Hosting Reflex with Docker
 description: Hosting Reflex on your own infra using Docker for efficient containerization.
 image: /blog/self-hosting-with-docker.webp
+tag: Open Source
 meta: [
     {
       "name": "keywords",

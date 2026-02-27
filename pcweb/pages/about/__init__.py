@@ -13,11 +13,11 @@ from pcweb.pages.about.views import (
 )
 from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.views.cta_card import cta_card
-from pcweb.views.marketing_navbar import marketing_navbar
+from pcweb.templates.marketing_page import marketing_page
 
 
-@rx.page(
-    route="/about",
+@marketing_page(
+    path="/about",
     title="Reflex · About",
     meta=create_meta_tags(
         title="Reflex · About",
@@ -25,24 +25,20 @@ from pcweb.views.marketing_navbar import marketing_navbar
         image="/previews/index_preview.webp",
     ),
 )
-def about() -> rx.Component:
+def about_page() -> rx.Component:
     return rx.el.div(
-        marketing_navbar(),
-        rx.el.main(
-            rx.el.div(
-                hero(),
-                companies(),
-                square_logo(),
-                cards(),
-                divider(),
-                hiring(),
-                team(),
-                news(),
-                cta_card(),
-                footer_index(),
-                class_name="flex flex-col relative justify-center items-center w-full",
-            ),
-            class_name="flex flex-col w-full relative h-full justify-center items-center",
+        rx.el.div(
+            hero(),
+            companies(),
+            square_logo(),
+            cards(),
+            divider(),
+            hiring(),
+            team(),
+            news(),
+            divider(),
+            cta_card(),
+            class_name="flex flex-col relative justify-center items-center w-full",
         ),
-        class_name="flex flex-col w-full justify-center items-center relative dark:bg-m-slate-12 bg-m-slate-1",
+        class_name="flex flex-col w-full relative h-full justify-center items-center",
     )
