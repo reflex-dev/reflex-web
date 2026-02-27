@@ -34,9 +34,9 @@ def blog_filters_row() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             *[filter_button(filter) for filter in FILTERS],
-            class_name="flex flex-row gap-2 items center px-4 h-full",
+            class_name="flex flex-row gap-2 items-center px-4 h-full",
         ),
-        newletter_input(),
+        newsletter_input(),
         class_name=ui.cn(
             "flex flex-row gap-4 items-center justify-between h-[3.25rem] border-x border-m-slate-4 dark:border-m-slate-10 bg-m-slate-1 dark:bg-m-slate-11 [box-shadow:0_-1px_0_0_rgba(0,_0,_0,_0.05),_0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03),_0_1px_0_0_#FFF_inset] w-full z-10 lg:sticky dark:shadow-none max-lg:overflow-x-auto max-lg:-mx-4 max-lg:w-[calc(100%+2rem)]",
             rx.cond(
@@ -48,7 +48,7 @@ def blog_filters_row() -> rx.Component:
     )
 
 
-def newletter_input() -> rx.Component:
+def newsletter_input() -> rx.Component:
     return rx.el.div(
         rx.cond(
             IndexState.signed_up,
@@ -125,10 +125,11 @@ def card_content(meta: dict, path: str) -> rx.Component:
                 class_name="flex flex-col w-full h-full pb-12 px-12",
             ),
             to=path,
-            class_name="flex flex-col gap-10 rounded-xl bakdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
+            class_name="flex flex-col gap-10 rounded-xl backdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
         ),
         display=rx.cond(
-            (blog_filter_cs.value == "All") | (blog_filter_cs.value == meta["tag"]),
+            (blog_filter_cs.value == "All")
+            | (blog_filter_cs.value == meta.get("tag", "")),
             "block",
             "none",
         ),

@@ -4,7 +4,7 @@ from pcweb.components.button import button
 from pcweb.signup import IndexState
 
 
-def newletter_input() -> rx.Component:
+def newsletter_input() -> rx.Component:
     return rx.box(
         rx.cond(
             IndexState.signed_up,
@@ -91,7 +91,7 @@ def newsletter_card() -> rx.Component:
             ),
             class_name="flex flex-col items-center text-center gap-2",
         ),
-        newletter_input(),
+        newsletter_input(),
         class_name="flex flex-col gap-4 w-full items-center",
     )
 
