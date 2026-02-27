@@ -4,6 +4,7 @@ date: 2025-08-20
 title: Reflex vs Streamlit
 description: "A head‑to‑head comparison of two Python frameworks for building fast, interactive web apps"
 image: /blog/reflex-streamlit.webp
+tag: Builder
 meta: [
   {
     "name": "keywords",
