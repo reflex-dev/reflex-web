@@ -22,10 +22,6 @@ COMPANIES = [
         "src": f"/about/companies/{color_mode}/box_group.svg",
         "alt": "Box Group",
     },
-    {
-        "src": f"/about/companies/{color_mode}/picus.svg",
-        "alt": "Picus Capital",
-    },
 ]
 
 
