@@ -81,7 +81,7 @@ def dark_mode_toggle() -> rx.Component:
         tab_item("system", "computer_footer"),
         tab_item("light", "sun_footer"),
         tab_item("dark", "moon_footer"),
-        class_name="flex flex-row gap-0.5 items-center p-0.5 [box-shadow:0_1px_0_0_rgba(0,_0,_0,_0.08),_0_0_0_1px_rgba(0,_0,_0,_0.08),_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] w-fit mt-auto bg-m-slate-1 dark:bg-m-slate-12 rounded-[0.625rem] dark:border dark:border-m-slate-10 border border-transparent lg:ml-auto",
+        class_name="flex flex-row gap-0.5 items-center p-0.5 [box-shadow:0_1px_0_0_rgba(0,_0,_0,_0.08),_0_0_0_1px_rgba(0,_0,_0,_0.08),_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] w-fit mt-auto bg-m-slate-1 dark:bg-m-slate-12 rounded-[0.625rem] dark:border dark:border-m-slate-9 border border-transparent lg:ml-auto",
     )
 
 
@@ -169,7 +169,7 @@ def newletter_input() -> rx.Component:
                     name="input_email",
                     type="email",
                     required=True,
-                    class_name="relative [box-shadow:0_-1px_0_0_rgba(0,_0,_0,_0.08)_inset,_0_0_0_1px_rgba(0,_0,_0,_0.08)_inset,_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] rounded-lg h-8 px-2 py-1.5 w-[12rem] text-sm placeholder:text-m-slate-7 dark:placeholder:text-m-slate-6 font-[525] focus:outline-none outline-none dark:border dark:border-m-slate-10",
+                    class_name="relative [box-shadow:0_-1px_0_0_rgba(0,_0,_0,_0.08)_inset,_0_0_0_1px_rgba(0,_0,_0,_0.08)_inset,_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] rounded-lg h-8 px-2 py-1.5 w-[12rem] text-sm placeholder:text-m-slate-7 dark:placeholder:text-m-slate-6 font-[525] focus:outline-none outline-none dark:border dark:border-m-slate-9 dark:bg-m-slate-11",
                 ),
                 marketing_button(
                     "Subscribe",
