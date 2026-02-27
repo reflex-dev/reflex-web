@@ -3,6 +3,7 @@ import reflex as rx
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.webpage.comps import h1_title
 from pcweb.meta.meta import create_meta_tags
+from pcweb.templates.marketing_page import marketing_page
 from pcweb.templates.webpage import webpage
 
 from .page import page
@@ -160,7 +161,7 @@ for path, document in blog_data.items():
     # Get the docpage component.
     route = f"/blog/{path}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
-    comp = webpage(
+    comp = marketing_page(
         path=route,
         title=document.metadata["title"] + " · Reflex Blog",
         description=document.metadata["description"],
