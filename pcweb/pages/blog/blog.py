@@ -106,25 +106,25 @@ def card_inner(meta: dict, path: str) -> rx.Component:
                 alt="Image preview for blog post: " + str(meta["title"]),
                 class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-top object-cover",
             ),
-            class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[19.5rem] overflow-hidden",
+            class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[17.5rem] overflow-hidden",
         ),
         rx.el.div(
             rx.el.span(
                 meta["title"],
-                class_name="text-2xl font-[575] text-m-slate-12 dark:text-m-slate-3 mb-4",
+                class_name="text-2xl font-[575] text-m-slate-12 dark:text-m-slate-3 mb-4 line-clamp-3",
             ),
             rx.el.p(
                 meta["description"],
-                class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475] mb-6",
+                class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475] mb-6 line-clamp-3",
             ),
             rx.el.span(
                 meta["author"],
                 class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525] mt-auto",
             ),
-            class_name="flex flex-col w-full h-full pb-12 px-12",
+            class_name="flex flex-col w-full h-full pb-8 px-8",
         ),
         to=path,
-        class_name="flex flex-col gap-10 rounded-xl backdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
+        class_name="flex flex-col gap-8 rounded-xl backdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
     )
 
 
@@ -138,7 +138,7 @@ def card_content(meta: dict, path: str, class_name: str = "") -> rx.Component:
             "none",
         ),
         class_name=ui.cn(
-            "relative border-y border-m-slate-4 dark:border-m-slate-10 lg:odd:border-r lg:even:border-l lg:even:before:content-[''] lg:even:before:absolute lg:even:before:w-12 lg:even:before:-left-12 lg:even:before:top-0 lg:even:before:bottom-0 lg:even:before:border-y lg:even:before:border-m-slate-4 lg:dark:even:before:border-m-slate-10",
+            "relative border-y border-m-slate-4 dark:border-m-slate-10 lg:before:absolute lg:before:w-[calc(2rem+2px)] lg:before:-left-[calc(2rem+1px)] lg:before:-top-[0.5px] lg:before:-bottom-[0.5px] lg:before:border-y lg:before:border-m-slate-4 lg:dark:before:border-m-slate-10 lg:max-xl:odd:border-r lg:max-xl:even:border-l lg:max-xl:even:before:content-[''] xl:[&:nth-child(3n+1)]:border-r xl:[&:nth-child(3n+2)]:border-l xl:[&:nth-child(3n+2)]:border-r xl:[&:nth-child(3n+2)]:before:content-[''] xl:[&:nth-child(3n)]:border-l xl:[&:nth-child(3n)]:before:content-['']",
             class_name,
         ),
     )
@@ -168,7 +168,7 @@ def component_grid() -> rx.Component:
         rx.el.div(
             class_name="absolute -bottom-24 -right-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
         ),
-        class_name="grid lg:grid-cols-2 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-12 gap-y-12 lg:gap-y-24 relative py-24 lg:mb-48 mb-24",
+        class_name="grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-8 gap-y-8 lg:gap-y-24 relative py-24 lg:mb-48 mb-24",
     )
 
 
