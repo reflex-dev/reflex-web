@@ -92,7 +92,7 @@ def menu_socials() -> rx.Component:
     )
 
 
-def newletter_input() -> rx.Component:
+def newsletter_input() -> rx.Component:
     return rx.box(
         rx.cond(
             IndexState.signed_up,
@@ -144,7 +144,7 @@ def newsletter() -> rx.Component:
                 "Get updates",
                 class_name="font-small text-secondary-11",
             ),
-            newletter_input(),
+            newsletter_input(),
             class_name="flex flex-col items-center lg:items-start gap-4 self-stretch p-10 lg:border-r border-slate-3",
         ),
     )

@@ -34,7 +34,7 @@ contribute, self-host, and more""",
     )
 
 
-def newletter_input() -> rx.Component:
+def newsletter_input() -> rx.Component:
     return rx.box(
         rx.cond(
             IndexState.signed_up,
@@ -123,7 +123,7 @@ and updates""",
             ),
             class_name="flex flex-col gap-2",
         ),
-        newletter_input(),
+        newsletter_input(),
         id="newsletter",
         class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-r !border-slate-3 items-center lg:items-start text-center lg:text-start scroll-mt-72",
     )

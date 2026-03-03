@@ -4,6 +4,7 @@ date: 2024-11-19
 title: Microsoft Azure Auth
 description: Implementing Microsoft Azure Single Sign-On (SSO) Auth in Reflex app.
 image: /blog/azure_auth.webp
+tag: Open Source
 meta: [
     {
       "name": "keywords",

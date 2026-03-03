@@ -4,6 +4,7 @@ date: 2024-06-28
 title: Creating Tables in Reflex
 description: Describing main uses of the Table component with a Database
 image: /blog/table.webp
+tag: Open Source
 meta: [
     {"name": "keywords", "content": "data table, table data, data tables, data table example, python data table, python table"},
 ]

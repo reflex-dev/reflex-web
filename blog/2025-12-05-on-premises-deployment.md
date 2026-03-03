@@ -4,6 +4,7 @@ date: 2025-12-05
 title: "Reflex Build On-Prem: The Secure AI App Builder That Runs Inside Your Company Infrastructure"
 description: An enterprise, on-premises AI app builder for developing secure internal tools and dashboards using Python.
 image: /blog/on-prem.png
+tag: Cloud
 meta: [
     {
       "name": "keywords",

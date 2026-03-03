@@ -4,6 +4,7 @@ date: 2025-01-27
 title: Top 10 Python Data Visualization Libraries in 2025 
 description: Matplotlib vs Seaborn vs Plotly vs Bokeh vs Altair vs GeoPandas vs HoloViews vs Pygal vs Geoplotlib vs GGPlot
 image: /blog/data_visualization_blog.webp
+tag: Builder
 meta: [  
     {"name": "keywords", "content": "matplotlib, seaborn, plotly, bokeh, altair, geopandas, holoviews, pygal, Geoplotlib, ggplot"},  
 ]

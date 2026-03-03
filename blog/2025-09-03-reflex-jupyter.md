@@ -4,6 +4,7 @@ date: 2025-09-03
 title: Turn Jupyter Notebooks into Production Dashboards in Python
 description: "Convert Jupyter notebooks into interactive, production-ready dashboards with Python and Reflex. Keep your pandas logic, add UI, and deploy in minutes."
 image: /blog/jupyter_reflex.png
+tag: Open Source
 meta: [
   {
     "name": "keywords",

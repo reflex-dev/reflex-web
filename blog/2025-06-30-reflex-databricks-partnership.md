@@ -4,6 +4,7 @@ date: 2025-06-30
 title: "Reflex x Databricks: Python-Powered Vibe Coding for Enterprises"
 description: "We're excited to announce our official partnership with Databricks and the launch of our Reflex AI Builder integration with Databricks Apps."
 image: /blog/databricks-partnership.webp
+tag: Announcements
 meta: [
   {"name": "keywords", "content": "Reflex Databricks, Python apps, enterprise development, AI Builder, Unity Catalog, data apps, Python framework, Databricks Apps"}
 ]

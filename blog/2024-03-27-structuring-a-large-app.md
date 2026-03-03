@@ -4,6 +4,7 @@ date: 2024-03-27
 title: "Structuring a Large App"
 description: "So your Reflex app is getting large? Here's some advice on how to lay it out."
 image: /blog/project_structure.webp
+tag: Open Source
 meta: [
     {"name": "keywords", "content": ""},
 ]
