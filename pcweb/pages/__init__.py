@@ -21,6 +21,7 @@ from .meeting_successfully_booked import (
     page_meeting_successfully_booked as page_meeting_successfully_booked,
 )
 from .migration.low_code import low_code_migration_page as low_code_migration_page
+from .migration.no_code import no_code_migration_page as no_code_migration_page
 from .migration.other_ai_tools import (
     other_ai_tools_migration_page as other_ai_tools_migration_page,
 )

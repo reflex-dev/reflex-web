@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import NotRequired, TypedDict
 
 import reflex as rx
 import reflex_ui as ui
@@ -9,6 +9,14 @@ class ComparisonItem(TypedDict):
     icon: str
     pros: list[str]
     cons: list[str]
+    description: NotRequired[str]
+
+
+def comparison_description(description: str) -> rx.Component:
+    return rx.el.p(
+        description,
+        class_name="text-m-slate-11 dark:text-m-slate-4 lg:text-sm text-xs font-[475] leading-relaxed lg:px-12 lg:py-6 px-6 py-4 border-r border-m-slate-4 dark:border-m-slate-10 bg-m-slate-1 dark:bg-m-slate-10 border-b",
+    )
 
 
 def comparison_title(title: str, icon: str) -> rx.Component:
@@ -74,7 +82,7 @@ def pros_cons_cards(pros: list[str], cons: list[str]) -> rx.Component:
 def top_title(title: str) -> rx.Component:
     return rx.el.span(
         title,
-        class_name="text-m-slate-12 dark:text-m-slate-3 text-xs leading-[1.5rem] font-medium font-mono border-r border-m-slate-4 dark:border-m-slate-10 lg:px-8 lg:py-3 p-6 bg-secondary-1 dark:bg-m-slate-10 border-t",
+        class_name="text-m-slate-12 dark:text-m-slate-3 text-xs leading-[1.5rem] font-medium font-mono border-r border-m-slate-4 dark:border-m-slate-10 lg:px-12 lg:py-3 p-6 bg-secondary-1 dark:bg-m-slate-10 border-t uppercase",
     )
 
 
@@ -101,6 +109,9 @@ def comparison_cards(
         *[
             rx.fragment(
                 comparison_title(item["title"], item["icon"]),
+                comparison_description(item["description"])
+                if item.get("description")
+                else rx.fragment(),
                 pros_cons_cards(item["pros"], item["cons"]),
             )
             for item in comparison_items

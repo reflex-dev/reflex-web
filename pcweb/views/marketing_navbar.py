@@ -382,6 +382,11 @@ def solutions_content() -> rx.Component:
                         (
                             "Switch from No Code",
                             "WebDesign01Icon",
+                            "/migration/no-code",
+                        ),
+                        (
+                            "Switch from Low Code",
+                            "SourceCodeSquareIcon",
                             "/migration/low-code",
                         ),
                         (
