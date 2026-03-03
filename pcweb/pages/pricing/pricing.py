@@ -2,6 +2,7 @@ import reflex as rx
 
 from pcweb.meta.meta import hosting_meta_tags
 from pcweb.pages.framework.index_colors import index_colors
+from pcweb.pages.framework.views.divider import divider
 from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.pages.pricing.calculator import calculator_section
 from pcweb.pages.pricing.faq import faq
@@ -33,6 +34,7 @@ def pricing() -> rx.Component:
             ),
             class_name="flex flex-col w-full relative h-full justify-center items-center",
         ),
+        divider(),
         footer_index(),
         class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative",
     )
