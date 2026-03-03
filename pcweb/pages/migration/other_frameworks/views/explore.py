@@ -3,33 +3,33 @@ from pcweb.pages.migration.common.explore import explore as common_explore
 
 FEATURES: list[Feature] = [
     {
-        "title": "AI-Assisted App Development",
-        "description": "Generate UI and app logic faster with AI while keeping full code control.",
-        "icon": "ArtificialIntelligence04Icon",
+        "title": "One Language End to End",
+        "description": "Python for frontend and backend. No JavaScript required. Data scientists and backend devs build UIs without learning React.",
+        "icon": "PythonIcon",
     },
     {
-        "title": "Real Python, Not Drag-and-Drop",
-        "description": "Write maintainable Python code that fits your existing engineering standards.",
+        "title": "Architecture That Scales",
+        "description": "Declarative state, event-driven updates, and reactive re-renders. Only affected components update — no callback spaghetti.",
+        "icon": "SquareArrowExpand02Icon",
+    },
+    {
+        "title": "Real-Time Out of the Box",
+        "description": "WebSocket sync means server changes show up instantly in the browser. Live dashboards and collaborative features work natively.",
+        "icon": "ZapIcon",
+    },
+    {
+        "title": "Clean, Maintainable Code",
+        "description": "Python class-based state keeps logic organized. Single codebase for frontend and backend.",
         "icon": "SourceCodeSquareIcon",
     },
     {
-        "title": "Data Stack Integrations",
-        "description": "Connect databases, APIs, and internal services without low-code workarounds.",
-        "icon": "DatabaseIcon",
+        "title": "Production-Ready Built-Ins",
+        "description": "Auth, ORM, database migrations, background jobs, and file uploads — everything you need to ship without stitching together libraries.",
+        "icon": "Settings01Icon",
     },
     {
-        "title": "Security-First by Design",
-        "description": "Deploy with full control over infrastructure, access, and compliance boundaries.",
-        "icon": "ShieldEnergyIcon",
-    },
-    {
-        "title": "Production-Grade Performance",
-        "description": "Scale from internal tools to enterprise apps with robust backend capabilities.",
-        "icon": "DashboardSpeed01Icon",
-    },
-    {
-        "title": "Team-Friendly Workflows",
-        "description": "Use Git, PR reviews, and CI/CD workflows your team already trusts.",
+        "title": "What You Build Is What You Ship",
+        "description": "Compiles to FastAPI + React. Fits Git, CI/CD, and container deployment from day one. One build, one deploy.",
         "icon": "UserSwitchIcon",
     },
 ]
@@ -38,9 +38,9 @@ FEATURES: list[Feature] = [
 def explore():
     return common_explore(
         kicker="Explore",
-        title_prefix="Build Your App With the Speed of ",
-        title_suffix="AI and Precision of Python",
-        description="Reflex is growing—and we're looking for people who care deeply about developer experience, clean abstractions.",
+        title_prefix="Why Reflex Over ",
+        title_suffix="React, Django, FastAPI",
+        description="React, Django, and FastAPI each solve part of the stack. Reflex lets you finish. One language, full-stack, production-ready from day one.",
         features=FEATURES,
     )
 

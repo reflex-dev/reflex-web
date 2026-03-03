@@ -3,34 +3,34 @@ from pcweb.pages.migration.common.explore import explore as common_explore
 
 FEATURES: list[Feature] = [
     {
-        "title": "AI-Assisted App Development",
-        "description": "Generate UI and app logic faster with AI while keeping full code control.",
-        "icon": "ArtificialIntelligence04Icon",
+        "title": "Full Control Without the Ceiling",
+        "description": "Pure Python with no ceiling — custom logic, complex data flows, and performance optimization are all possible out of the box. You own every line of code.",
+        "icon": "CodesandboxIcon",
     },
     {
-        "title": "Real Python, Not Drag-and-Drop",
-        "description": "Write maintainable Python code that fits your existing engineering standards.",
+        "title": "You Own Your Code",
+        "description": "Deploy anywhere, on any infrastructure. Full version control. Never hostage to a platform's pricing changes or shutdown.",
         "icon": "SourceCodeSquareIcon",
     },
     {
-        "title": "Data Stack Integrations",
-        "description": "Connect databases, APIs, and internal services without low-code workarounds.",
-        "icon": "DatabaseIcon",
+        "title": "Python Ecosystem Access",
+        "description": "Build with pandas, scikit-learn, or any pip package. No JavaScript. Data scientists and ML engineers can ship directly.",
+        "icon": "PythonIcon",
     },
     {
-        "title": "Security-First by Design",
-        "description": "Deploy with full control over infrastructure, access, and compliance boundaries.",
-        "icon": "ShieldEnergyIcon",
+        "title": "Scales With Complexity",
+        "description": "CRUD, auth flows, real-time features, complex state management, and custom APIs — all native. Real-time by default.",
+        "icon": "SquareArrowExpand02Icon",
     },
     {
-        "title": "Production-Grade Performance",
-        "description": "Scale from internal tools to enterprise apps with robust backend capabilities.",
-        "icon": "DashboardSpeed01Icon",
-    },
-    {
-        "title": "Team-Friendly Workflows",
-        "description": "Use Git, PR reviews, and CI/CD workflows your team already trusts.",
+        "title": "Production-Ready From Day One",
+        "description": "Git, PRs, automated testing, staging environments from the start. What you demo is what you ship.",
         "icon": "UserSwitchIcon",
+    },
+    {
+        "title": "Data Stack Integrations",
+        "description": "Connect databases, APIs, and internal services without platform workarounds. No lock-in to what the AI knows.",
+        "icon": "DatabaseIcon",
     },
 ]
 
@@ -38,9 +38,9 @@ FEATURES: list[Feature] = [
 def explore():
     return common_explore(
         kicker="Explore",
-        title_prefix="Build Your App With the Speed of ",
-        title_suffix="AI and Precision of Python",
-        description="Reflex is growing—and we're looking for people who care deeply about developer experience, clean abstractions.",
+        title_prefix="Why Reflex Over ",
+        title_suffix="ChatGPT, Claude, Replit, Lovable",
+        description="AI app builders get you prototyping fast, but Reflex lets you finish. Pure Python, no ceiling, you own your code.",
         features=FEATURES,
     )
 
