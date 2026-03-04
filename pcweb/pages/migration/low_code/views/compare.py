@@ -5,7 +5,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Architecture and state management.",
         "icon": "SquareArrowExpand02Icon",
-        "description": 'Streamlit uses a "script rerun" model where every widget change re-executes the entire Python script from top to bottom. Dash uses a callback-based architecture that becomes "callback spaghetti" as apps grow. Gradio is designed specifically for ML model demos. Reflex takes a declarative, state-driven approach where you define state classes and UI components in Python, and changes propagate reactively via WebSockets. Only affected components re-render.',
         "pros": [
             "Your app only updates the parts that changed — no unnecessary reruns, so it stays fast even with large data",
             "User sessions remember where they are — multi-step workflows, background tasks, and real-time updates all work without extra effort",
@@ -20,7 +19,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Real-time and interactivity.",
         "icon": "ZapIcon",
-        "description": "Streamlit has no server push — real-time or background updates need client polling or workarounds. Dash has no native server-push feature. Gradio's interactivity is limited to input-output pairs for ML model inference. Reflex uses automatic WebSocket sync where state changes on the server instantly propagate to the browser.",
         "pros": [
             "Changes on the server show up instantly in the browser — no refresh needed, no extra setup",
             "Live dashboards, real-time data feeds, and collaborative features just work out of the box",
@@ -35,7 +33,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Code structure and maintainability.",
         "icon": "SourceCodeSquareIcon",
-        "description": "Real Reflex projects cut approximately 50% of the code compared to equivalent Dash apps. Reflex's Python class-based state model keeps code organized. In Dash, the callback model fragments logic across scattered decorator functions. In Streamlit, the linear script model breaks down when you need complex page flows or shared state across views.",
         "pros": [
             "Clean Python class structure keeps your code organized and easy to follow, even as apps grow to multiple pages and features",
             "Real projects with complexity use roughly half the code compared to the same app built in Dash",
@@ -50,7 +47,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Customization and UI components.",
         "icon": "WebDesign01Icon",
-        "description": "Streamlit has a customization ceiling — deep CSS or HTML tweaks are difficult, and building truly bespoke widgets requires writing a Streamlit Component in React and TypeScript. Dash has a robust set of components but custom ones still require React. Gradio's customization is similarly limited. Reflex lets you wrap any React component directly from Python with fine-grained CSS control.",
         "pros": [
             "No limits on what you can build — use any React component in pure Python with full control over styling and layout",
             "Complete design flexibility without ever leaving the Python ecosystem",
@@ -63,7 +59,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Built-in functionality.",
         "icon": "Settings01Icon",
-        "description": "Streamlit and Dash both lack built-in essentials for production apps — no auth, background tasks, or ORM. Gradio is focused narrowly on ML model demos. Reflex ships with ORM, database migrations, background jobs, file uploads, and role-based auth out of the box.",
         "pros": [
             "Authentication, database management, background jobs, file uploads, and role-based access all come built in",
             "Everything you need to go from prototype to production without stitching together a patchwork of separate tools",
@@ -78,7 +73,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Deployment and the prototype-to-production gap.",
         "icon": "UserSwitchIcon",
-        "description": "Low-code Python frameworks are good for getting a first version up quickly, but not designed to take apps to production. Streamlit apps hit out-of-memory errors under load. Open-source Dash runs on Flask and requires manual infrastructure setup. Gradio struggles to scale for production. Reflex compiles to a FastAPI backend with a React frontend — production-ready and container-friendly from day one.",
         "pros": [
             "Compiles to a FastAPI backend with a React frontend on an async web server — production-ready and container-friendly from the start",
             "Fits into Git, pull requests, automated testing, and CI/CD from day one — no separate production rewrite needed",

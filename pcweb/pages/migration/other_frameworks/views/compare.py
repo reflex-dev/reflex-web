@@ -3,93 +3,77 @@ from pcweb.pages.migration.common.compare import compare as common_compare
 
 COMPARISON_ITEMS: list[ComparisonItem] = [
     {
-        "title": "One language for frontend and backend.",
+        "title": "One language, one codebase",
         "icon": "PythonIcon",
-        "description": "React and JavaScript require a split stack — you maintain frontend in JS/TypeScript and backend in Python, Go, or Node. Django is full-stack Python but server-rendered, with a different paradigm for modern SPAs. FastAPI is backend only — you still need React or Vue for the UI. Reflex gives you both in Python: declarative UI components and backend logic in one codebase.",
         "pros": [
-            "One language end to end — no context switching between JavaScript and Python",
-            "Data scientists, ML engineers, and backend devs build UIs without learning React",
-            "Single codebase for frontend and backend — simpler architecture, easier to maintain",
+            "Build your entire app — frontend and backend — in pure Python with no context switching between languages",
+            "One codebase to maintain, version control, test, and deploy instead of two separate projects",
+            "No need to hire or rely on separate JavaScript and Python developers",
         ],
         "cons": [
-            "React requires JavaScript or TypeScript for the frontend — a separate stack to learn and maintain",
-            "Django is server-rendered — building modern SPAs with real-time updates requires additional tooling",
-            "FastAPI is backend only — you still need a separate frontend framework and two deployments",
+            "Traditional stacks require maintaining two codebases in two languages — Python for the backend and JavaScript/TypeScript for the frontend where every new feature touches both codebases",
+            "Connecting the two halves requires writing and maintaining REST or GraphQL API glue code, data serialization, and state synchronization",
+            "The full stack quickly expands to include React, TypeScript, Node, a bundler, a package manager, a CSS framework, and separate deployment orchestration",
         ],
     },
     {
-        "title": "Architecture and state management.",
-        "icon": "SquareArrowExpand02Icon",
-        "description": "React uses a component-based model with hooks and external state libraries. Django uses server-side request/response. FastAPI has no built-in frontend. Reflex takes a declarative, state-driven approach where you define state classes and UI components in Python, and changes propagate reactively via WebSockets. Only affected components re-render.",
-        "pros": [
-            "Declarative state and event-driven updates — only affected components re-render",
-            "User sessions remember where they are — multi-step workflows and real-time updates work without extra effort",
-            "The event-driven model keeps your code clean and organized as your app grows",
-        ],
-        "cons": [
-            "React's ecosystem of state libraries (Redux, Zustand, etc.) adds complexity — you choose and maintain the stack",
-            "Django's request/response model doesn't natively support real-time or reactive updates",
-            "FastAPI has no frontend — real-time state sync requires building it yourself",
-        ],
-    },
-    {
-        "title": "Real-time and interactivity.",
-        "icon": "ZapIcon",
-        "description": "React can do real-time but requires manual WebSocket setup or third-party services. Django has no native server-push. FastAPI supports WebSockets but you build the frontend integration yourself. Reflex uses automatic WebSocket sync where state changes on the server instantly propagate to the browser.",
-        "pros": [
-            "Changes on the server show up instantly in the browser — no refresh needed, no extra setup",
-            "Live dashboards, real-time data feeds, and collaborative features just work out of the box",
-            "Fully event-based — your app reacts to user actions as they happen",
-        ],
-        "cons": [
-            "React has no built-in server push — real-time needs manual WebSocket setup or services like Pusher",
-            "Django has no native real-time — you add Channels and more infrastructure",
-            "FastAPI has WebSockets but no integrated frontend — you wire it up yourself",
-        ],
-    },
-    {
-        "title": "Code structure and maintainability.",
-        "icon": "SourceCodeSquareIcon",
-        "description": "React apps split logic across components, hooks, and often a separate API layer. Django keeps things in one place but with a different mental model for SPAs. FastAPI + React means two codebases, two test suites. Reflex's Python class-based state model keeps frontend and backend logic organized in one place.",
-        "pros": [
-            "Clean Python class structure keeps your code organized, even as apps grow to multiple pages and features",
-            "Frontend and backend logic live together — no API contract drift, no separate deployments to coordinate",
-            "One test suite, one deployment — simpler CI/CD and developer experience",
-        ],
-        "cons": [
-            "React + backend means two codebases, two languages, API contracts to maintain",
-            "Django's templates and views are a different paradigm from modern component-based UIs",
-            "FastAPI + React requires coordinating two deployments and keeping frontend and backend in sync",
-        ],
-    },
-    {
-        "title": "Built-in functionality.",
+        "title": "Built-in features vs. assembly required",
         "icon": "Settings01Icon",
-        "description": "React is a UI library — no auth, database, or background jobs. Django has these but with a server-rendered focus. FastAPI is minimal by design. Reflex ships with ORM, database migrations, background jobs, file uploads, and role-based auth out of the box — all integrated with your Python UI code.",
         "pros": [
-            "Authentication, database management, background jobs, file uploads, and role-based access all come built in",
-            "Everything you need to go from prototype to production without stitching together a patchwork of libraries",
-            "SSO and user management are included — no third-party auth services required",
+            "Authentication, ORM, database migrations, real-time sync, background jobs, and file uploads all come out of the box",
+            "No need to evaluate, install, configure, and maintain a dozen separate libraries just to get production essentials",
         ],
         "cons": [
-            "React is UI only — auth, database, and backend logic each need separate libraries and services",
-            "Django has built-ins but they're built for server-rendered apps — adapting for SPAs takes work",
-            "FastAPI is minimal — you add each piece (auth, ORM, etc.) yourself",
+            "FastAPI and Flask give you almost nothing out of the box — no auth, no admin panel, no ORM, no templating",
+            "Django includes more built-in features but its HTML templating is not suited for modern interactive interfaces",
         ],
     },
     {
-        "title": "Deployment and production readiness.",
-        "icon": "UserSwitchIcon",
-        "description": "React apps need a separate backend deployment. Django and FastAPI need proper WSGI/ASGI setup and often separate static hosting. Reflex compiles to a FastAPI backend with a React frontend — production-ready and container-friendly from day one. One build, one deploy.",
+        "title": "Development speed",
+        "icon": "ZapIcon",
         "pros": [
-            "Compiles to a FastAPI backend with a React frontend on an async web server — production-ready from the start",
-            "Fits into Git, pull requests, automated testing, and CI/CD from day one",
-            "What you build is what you ship — one deployment, no separate frontend and backend to orchestrate",
+            "Building with Reflex is roughly 5x faster than assembling the same app from a traditional Python + React stack",
+            "No time spent wiring API endpoints, configuring CORS, setting up build pipelines, or debugging mismatches between frontend and backend",
         ],
         "cons": [
-            "React requires a separate backend and often a CDN for static assets — two deployments to manage",
-            "Django and FastAPI need manual configuration for production — WSGI, ASGI, static files, CORS",
-            "Split stack means more moving parts when it's time to deploy and scale",
+            "Traditional stacks require significant boilerplate just to get a frontend talking to a backend before any real feature work begins",
+            "Every new feature touches both codebases — a backend endpoint, a frontend component, and the API contract between them",
+        ],
+    },
+    {
+        "title": "Modern frontend without JavaScript",
+        "icon": "WebDesign01Icon",
+        "pros": [
+            "Reflex compiles your Python code into a React frontend automatically — you get a modern, interactive UI without writing any JavaScript",
+            "Wrap any existing React component directly from Python when you need something custom",
+        ],
+        "cons": [
+            "Django's built-in templating and Flask's Jinja templating produce static HTML that looks poor out of the box and building anything interactive means bringing in the full JavaScript toolchain",
+            "FastAPI has no frontend or templating at all so you're starting from zero on the UI side",
+        ],
+    },
+    {
+        "title": "Performance and real-time capabilities",
+        "icon": "SquareArrowExpand02Icon",
+        "pros": [
+            "Reflex runs on an async web server with WebSocket sync — real-time updates, live data feeds, and high-concurrency traffic are handled natively",
+            "Compiles down under the hood to a FastAPI backend with a React frontend — the same production architecture, without the assembly cost",
+        ],
+        "cons": [
+            "Flask is synchronous by default and Django's monolithic architecture makes scaling more challenging — neither is natively built for high-concurrency or real-time use cases",
+            "None of the traditional frameworks include built-in real-time capabilities — adding WebSocket support requires additional libraries and infrastructure",
+        ],
+    },
+    {
+        "title": "Scaling and maintainability",
+        "icon": "SourceCodeSquareIcon",
+        "pros": [
+            "Python class-based state model keeps code organized as apps grow in complexity — no scattered API endpoints and disconnected frontend components",
+            "Adding new features means working in one place, not coordinating changes across two separate projects",
+        ],
+        "cons": [
+            "Traditional stacks become harder to maintain as they grow — every change requires coordinating updates across backend endpoints, frontend components, and the API layer between them",
+            "FastAPI's lack of built-in structure means teams must design their own patterns for organizing large applications",
         ],
     },
 ]

@@ -15,6 +15,7 @@ from pcweb.constants import (
     JOBS_BOARD_URL,
     REFLEX_BUILD_URL,
 )
+from pcweb.pages.about import about_page
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
 from pcweb.pages.customers.landing import customers
@@ -23,6 +24,10 @@ from pcweb.pages.faq import faq
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.gallery.gallery import gallery
 from pcweb.pages.hosting.hosting import hosting_landing
+from pcweb.pages.migration.low_code import low_code_migration_page
+from pcweb.pages.migration.no_code import no_code_migration_page
+from pcweb.pages.migration.other_ai_tools import other_ai_tools_migration_page
+from pcweb.pages.migration.other_frameworks import other_frameworks_migration_page
 from pcweb.pages.use_cases.consulting import consulting_use_case_page
 from pcweb.pages.use_cases.finance import finance_use_case_page
 from pcweb.pages.use_cases.government import government_use_case_page
@@ -382,22 +387,22 @@ def solutions_content() -> rx.Component:
                         (
                             "Switch from No Code",
                             "WebDesign01Icon",
-                            "/migration/no-code",
+                            no_code_migration_page.path,
                         ),
                         (
                             "Switch from Low Code",
                             "SourceCodeSquareIcon",
-                            "/migration/low-code",
+                            low_code_migration_page.path,
                         ),
                         (
                             "Switch from Other Frameworks",
                             "CodeIcon",
-                            "/migration/other-frameworks",
+                            other_frameworks_migration_page.path,
                         ),
                         (
                             "Switch from Other AI tools",
                             "ArtificialIntelligence04Icon",
-                            "/migration/other-ai-tools",
+                            other_ai_tools_migration_page.path,
                         ),
                     ],
                 ),
@@ -443,7 +448,7 @@ def about_content() -> rx.Component:
     return menu_content(
         rx.el.div(
             rx.el.div(
-                solutions_item("Company", "Profile02Icon", "/about"),
+                solutions_item("Company", "Profile02Icon", about_page.path),
                 solutions_item("Careers", "WorkIcon", JOBS_BOARD_URL),
                 class_name="p-4 flex flex-col rounded-xl bg-white-1 h-full dark:shadow-none dark:border dark:border-m-slate-9 dark:bg-m-slate-11 shadow-card",
             ),

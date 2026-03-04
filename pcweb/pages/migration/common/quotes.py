@@ -109,5 +109,5 @@ def quotes(
             quote_card(companies[0]),
         ),
         on_mount=active_company_cs.set_value(default_active_key),
-        class_name="flex lg:flex-row flex-col pb-24",
+        class_name="flex lg:flex-row flex-col pb-24 max-w-[45rem] mx-auto w-full dark:bg-[radial-gradient(50%_100%_at_50%_0%,var(--m-slate-11,#1D2025)_50.33%,var(--m-slate-12,#151618)_100%)] bg-[radial-gradient(50%_100%_at_50%_0%,var(white,#fff)_50.33%,var(--m-slate-1,#FCFCFD)_100%)]",
     )

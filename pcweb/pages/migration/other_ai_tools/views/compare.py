@@ -5,7 +5,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Full control without the ceiling.",
         "icon": "CodesandboxIcon",
-        "description": "AI app builders (ChatGPT, Claude, Replit, Lovable) get you to v1 fast, but you hit walls — custom logic, integrations beyond what the AI knows, or anything the platform didn't anticipate. What you get is what they generate. With Reflex, you're writing Python, so there's no ceiling. You can do anything a full-stack app can do.",
         "pros": [
             "Pure Python with no ceiling — if Python can do it, Reflex can do it",
             "Custom logic, complex data flows, and performance optimization are all possible out of the box",
@@ -20,7 +19,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "You own your code.",
         "icon": "SourceCodeSquareIcon",
-        "description": "AI app builders create output that lives on their infrastructure, in their proprietary format. Your app is tied to their platform — you can't export it, version it properly, or deploy it yourself. With Reflex, it's your Python code — you can deploy it anywhere, version control it, and you're never hostage to a platform's pricing changes or shutdown.",
         "pros": [
             "It's your Python code — deploy it anywhere, on any infrastructure",
             "Full version control so your codebase is portable and auditable",
@@ -35,7 +33,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Python ecosystem access.",
         "icon": "PythonIcon",
-        "description": "Data scientists, ML engineers, and backend devs already live in Python. Reflex lets them build internal tools or customer-facing apps using libraries they already know (pandas, scikit-learn, whatever) without being constrained by an AI's pre-built integrations or learning JavaScript. AI tools are limited to what the model knows how to integrate.",
         "pros": [
             "Build with Python libraries your team already knows — pandas, scikit-learn, or any pip package",
             "No need to learn JavaScript or be constrained by pre-built integrations",
@@ -50,7 +47,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Scales with complexity.",
         "icon": "SquareArrowExpand02Icon",
-        "description": "AI app builders work great for simple demos, but once you need auth flows, real-time features, complex state management, custom APIs, or production-grade performance, you hit a wall. The generated output isn't designed for that. Reflex handles that complexity natively because it's just code.",
         "pros": [
             "CRUD, auth flows, real-time features, complex state management, and custom APIs are all native",
             "Handles complexity natively because it's just code",
@@ -65,7 +61,6 @@ COMPARISON_ITEMS: list[ComparisonItem] = [
     {
         "title": "Production-ready from day one.",
         "icon": "UserSwitchIcon",
-        "description": "AI app builders get you a prototype, but when it's time to hand it to IT or take it to production, you hit a wall. None of these tools support native version control, git integration, code review, or CI/CD pipelines. With Reflex, your app is built on real code from the start. It fits into the workflows your engineering team already uses — Git, PRs, automated testing, staging environments — so there's no painful \"rewrite it properly\" phase. What you demo is what you ship.",
         "pros": [
             "Fits into Git, PRs, automated testing, staging environments from the start",
             'What you demo is what you ship — no "rewrite it properly" phase',

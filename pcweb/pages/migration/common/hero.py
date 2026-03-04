@@ -36,7 +36,7 @@ def gradient_logo() -> rx.Component:
             loading="eager",
             custom_attrs={"fetchPriority": "high"},
         ),
-        class_name="size-24 rounded-[1rem] bg-gradient-to-b from-m-slate-2 to-white-1 dark:from-m-slate-11 dark:to-m-slate-12 [box-shadow:0_1px_0_0_#FFF_inset,_0_0_0_1px_rgba(0,_0,_0,_0.12),_0_8px_16px_0_rgba(0,_0,_0,_0.06),_0_1px_1px_0_rgba(0,_0,_0,_0.01),_0_4px_8px_0_rgba(0,_0,_0,_0.02)] dark:shadow-none dark:border dark:border-m-slate-9 flex items-center justify-center absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1] pointer-events-none top-[13.5rem]",
+        class_name="size-24 flex items-center justify-center absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1] pointer-events-none top-[13.5rem]",
     )
 
 

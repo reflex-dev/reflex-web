@@ -1,4 +1,4 @@
-from typing import NotRequired, TypedDict
+from typing import TypedDict
 
 import reflex as rx
 import reflex_ui as ui
@@ -9,14 +9,6 @@ class ComparisonItem(TypedDict):
     icon: str
     pros: list[str]
     cons: list[str]
-    description: NotRequired[str]
-
-
-def comparison_description(description: str) -> rx.Component:
-    return rx.el.p(
-        description,
-        class_name="text-m-slate-11 dark:text-m-slate-4 lg:text-sm text-xs font-[475] leading-relaxed lg:px-12 lg:py-6 px-6 py-4 border-r border-m-slate-4 dark:border-m-slate-10 bg-m-slate-1 dark:bg-m-slate-10 border-b",
-    )
 
 
 def comparison_title(title: str, icon: str) -> rx.Component:
@@ -46,7 +38,7 @@ def pros_card(pros: list[str]) -> rx.Component:
             )
             for pro in pros
         ],
-        class_name="list-inside flex flex-col gap-2 lg:p-12 p-6 [box-shadow:0_0_0_1px_rgba(0,_0,_0,_0.12)_inset,_0_6px_12px_0_rgba(0,_0,_0,_0.06),_0_1px_1px_0_rgba(0,_0,_0,_0.01),_0_4px_6px_0_rgba(0,_0,_0,_0.02)] dark:shadow-none rounded-xl bg-white-1 dark:bg-m-slate-11 w-full",
+        class_name="list-inside flex flex-col gap-2 lg:p-12 p-6 [box-shadow:0_0_0_1px_rgba(0,_0,_0,_0.12)_inset,_0_6px_12px_0_rgba(0,_0,_0,_0.06),_0_1px_1px_0_rgba(0,_0,_0,_0.01),_0_4px_6px_0_rgba(0,_0,_0,_0.02)] dark:shadow-none dark:border dark:border-m-slate-9 rounded-xl bg-white-1 dark:bg-m-slate-11 w-full",
     )
 
 
@@ -82,7 +74,7 @@ def pros_cons_cards(pros: list[str], cons: list[str]) -> rx.Component:
 def top_title(title: str) -> rx.Component:
     return rx.el.span(
         title,
-        class_name="text-m-slate-12 dark:text-m-slate-3 text-xs leading-[1.5rem] font-medium font-mono border-r border-m-slate-4 dark:border-m-slate-10 lg:px-12 lg:py-3 p-6 bg-secondary-1 dark:bg-m-slate-10 border-t uppercase",
+        class_name="text-m-slate-12 dark:text-m-slate-3 text-xs leading-[1.5rem] font-[415] font-mono border-r border-m-slate-4 dark:border-m-slate-10 lg:px-12 lg:py-3 p-6 bg-m-slate-1 dark:bg-m-slate-12 border-t uppercase",
     )
 
 
@@ -109,9 +101,6 @@ def comparison_cards(
         *[
             rx.fragment(
                 comparison_title(item["title"], item["icon"]),
-                comparison_description(item["description"])
-                if item.get("description")
-                else rx.fragment(),
                 pros_cons_cards(item["pros"], item["cons"]),
             )
             for item in comparison_items
@@ -128,7 +117,7 @@ def comparison_cards(
         rx.el.div(
             class_name="absolute -bottom-24 -left-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
         ),
-        class_name="flex flex-col w-full max-w-[45rem] ml-auto border-l border-m-slate-4 dark:border-m-slate-10 mt-18 border-b mb-24 relative",
+        class_name="flex flex-col w-full max-w-[45rem] ml-auto border-l border-m-slate-4 dark:border-m-slate-9 mt-18 border-b mb-24 relative",
     )
 
 
@@ -146,7 +135,7 @@ def compare(
             rx.el.div(
                 rx.el.p(
                     kicker,
-                    class_name="text-sm font-[525] text-primary-10 max-lg:text-center dark:text-m-slate-6",
+                    class_name="text-sm font-[525] text-primary-10 max-lg:text-center dark:text-primary-9",
                 ),
                 rx.el.h1(
                     *heading_with_breaks(heading_lines),
@@ -156,10 +145,10 @@ def compare(
                     description,
                     class_name="text-m-slate-7 dark:text-m-slate-6 text-base font-[475]",
                 ),
-                class_name="flex flex-col gap-6 lg:max-w-[18rem] lg:sticky lg:top-[11rem] lg:self-start max-lg:self-center max-lg:items-center max-lg:text-center",
+                class_name="flex flex-col gap-6 lg:max-w-[18rem] lg:sticky lg:mt-[5rem] lg:top-[9rem] lg:self-start max-lg:self-center max-lg:items-center max-lg:text-center",
             ),
             comparison_cards(top_left_title, top_right_title, comparison_items),
-            class_name="flex lg:flex-row flex-col max-lg:gap-6 max-w-(--docs-layout-max-width) mx-auto relative py-24 max-lg:px-6",
+            class_name="flex lg:flex-row flex-col max-lg:gap-6 max-w-(--docs-layout-max-width) mx-auto relative pb-24 pt-6 max-lg:px-6",
         ),
-        class_name="bg-gradient-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 w-full relative",
+        class_name="bg-linear-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 to-20% w-full relative",
     )

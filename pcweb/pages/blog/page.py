@@ -173,7 +173,7 @@ def more_posts(current_post: dict) -> rx.Component:
             *posts,
             class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-4 blog-grid",
         ),
-        class_name="flex flex-col gap-10 mt-20 mb-24",
+        class_name="flex flex-col gap-10 mt-20",
     )
 
 

@@ -14,7 +14,9 @@ def feature_card(feature: Feature) -> rx.Component:
     return rx.el.div(
         rx.el.div(
             ui.icon(
-                feature["icon"], class_name="text-primary-10 dark:text-primary-9 size-5"
+                feature["icon"],
+                stroke_width=1.5,
+                class_name="text-primary-10 dark:text-primary-9 size-5 shrink-0",
             ),
             rx.el.span(
                 feature["title"],
@@ -50,7 +52,7 @@ def explore(
             rx.el.div(
                 rx.el.p(
                     kicker,
-                    class_name="text-sm font-[525] text-primary-10 max-lg:text-center dark:text-m-slate-6",
+                    class_name="text-sm font-[525] text-primary-10 max-lg:text-center dark:text-primary-9",
                 ),
                 rx.el.div(
                     rx.el.h1(
@@ -65,7 +67,7 @@ def explore(
                     ),
                     class_name="flex lg:flex-row flex-col gap-8 lg:gap-36",
                 ),
-                class_name="relative flex flex-col gap-6 lg:py-24 py-16",
+                class_name="relative flex flex-col gap-6 lg:pt-24 pt-16",
             ),
             feature_grid(features),
             class_name="flex flex-col gap-16 max-w-(--layout-max-width) mx-auto lg:px-24 px-6 max-lg:text-center relative lg:pb-24 pb-16",
