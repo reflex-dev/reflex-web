@@ -1,6 +1,7 @@
 ```python exec
 import reflex as rx
 from reflex_image_zoom import image_zoom
+from pcweb import constants
 from pcweb.pages.docs import hosting
 from pcweb.pages import docs
 from pcweb.styles.styles import get_code_style, cell_style
@@ -99,7 +100,7 @@ You can also specify a project uuid instead of name:
 project: 12345678-1234-1234-1234-1234567890ab
 ```
 
-You can go to the homepage of the project in the reflex cloud dashboard to find your project uuid in the url `https://cloud.reflex.dev/project/uuid`
+You can go to the homepage of the project in the reflex cloud dashboard to find your project uuid in the url `{constants.REFLEX_CLOUD_URL.rstrip("/")}/project/uuid`
 
 ### Apt Packages
 
