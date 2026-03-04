@@ -1120,8 +1120,8 @@
         0 1px 1px 0 rgba(0, 0, 0, 0.01),
         0 0 0 1px #FFF inset;
     --shadow-card-dark: 0 0 0 1px var(--m-slate-9, #2A3037);
-    --text-xs: 0.75rem;
-    --text-xs--line-height: 1rem;
+    --text-xs: 0.8125rem;
+    --text-xs--line-height: 1.25rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: 1.5rem;
     --text-base: 1rem;

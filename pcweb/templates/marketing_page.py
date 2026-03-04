@@ -60,8 +60,8 @@ def marketing_page(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.views.bottom_section.bottom_section import bottom_section
-            from pcweb.views.footer import footer
+            from pcweb.pages.framework.views.footer_index import footer_index
+            from pcweb.views.cta_card import cta_card
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -70,8 +70,8 @@ def marketing_page(
                 rx.el.main(
                     rx.el.div(
                         contents(*children, **props),
-                        bottom_section(),
-                        footer(),
+                        cta_card(),
+                        footer_index(),
                         class_name="flex flex-col relative justify-center items-center w-full",
                     ),
                     class_name=ui.cn(

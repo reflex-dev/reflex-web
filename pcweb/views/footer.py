@@ -114,7 +114,7 @@ def newsletter_form() -> rx.Component:
                 rx.form(
                     rx.box(
                         rx.el.input(
-                            placeholder="Your email",
+                            placeholder="Email",
                             name="input_email",
                             type="email",
                             class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-white-1 p-[0.5rem_0.75rem] border rounded-[10px] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
@@ -208,5 +208,5 @@ def footer() -> rx.Component:
             ),
             class_name="flex flex-row flex-wrap justify-between gap-[4.5rem] p-[3rem_1rem_3rem_1.5rem] w-full max-w-[94.5rem]",
         ),
-        class_name="flex justify-center border-slate-3 border-t w-full",
+        class_name="flex justify-center border-slate-3 border-t w-full overflow-hidden",
     )

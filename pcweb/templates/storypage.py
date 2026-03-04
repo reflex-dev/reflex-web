@@ -252,8 +252,8 @@ def storypage(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.pages.customers.views.footer import footer_customer
-            from pcweb.views.bottom_section.bottom_section import bottom_section
+            from pcweb.pages.framework.views.divider import divider
+            from pcweb.pages.framework.views.footer_index import footer_index
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -270,11 +270,11 @@ def storypage(
                         class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
                     ),
                     rx.box(class_name="h-[1px] bg-slate-3 w-full"),
-                    bottom_section(),
-                    footer_customer(),
                     class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pt-24 lg:pt-48",
                 ),
-                class_name="relative overflow-hidden",
+                divider(),
+                footer_index(),
+                class_name="relative overflow-hidden flex flex-col justify-center items-center w-full",
                 **props,
             )
 

@@ -45,7 +45,7 @@ def newsletter_input() -> rx.Component:
                         class_name="shrink-0 absolute -translate-y-1/2 left-[-3rem] top-1/2 h-[5.5625rem] w-[35.1875rem] z-[-1]",
                     ),
                     rx.el.input(
-                        placeholder="Your email",
+                        placeholder="Email",
                         name="input_email",
                         type="email",
                         class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-xl font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
