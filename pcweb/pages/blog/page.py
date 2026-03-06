@@ -7,6 +7,7 @@ from pcweb.components.icons.icons import get_icon
 from pcweb.components.marketing_button import button
 from pcweb.constants import REFLEX_URL
 from pcweb.flexdown import xd2 as xd
+from pcweb.meta.meta import blog_jsonld
 from pcweb.templates.docpage import get_toc, right_sidebar_item_highlight
 
 from .paths import blog_data
@@ -183,7 +184,21 @@ def page(document, route) -> rx.Component:
     toc, _ = get_toc(document, route)
     toc = [(level, text) for level, text in toc if level <= 3]
     page_url = f"{REFLEX_URL.strip('/')}{route}"
+
+    jsonld_script = blog_jsonld(
+        title=meta["title"],
+        description=meta["description"],
+        author=meta["author"],
+        date=str(meta["date"]),
+        image=meta["image"],
+        url=page_url,
+        faq=meta.get("faq"),
+        author_bio=meta.get("author_bio"),
+        updated_at=str(meta["updated_at"]) if meta.get("updated_at") else None,
+    )
+
     return rx.el.section(
+        jsonld_script,
         rx.el.article(
             rx.el.div(
                 rx.el.div(

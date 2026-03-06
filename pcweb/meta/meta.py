@@ -1,3 +1,5 @@
+import json
+
 import reflex as rx
 
 from pcweb.constants import REFLEX_DOMAIN, REFLEX_DOMAIN_URL, TWITTER_CREATOR
@@ -105,3 +107,79 @@ def create_meta_tags(
         image=image_url,
         url=page_url,
     )
+
+
+def _normalize_image_url(image: str) -> str:
+    """Ensure image path is a full URL."""
+    if image and not image.startswith(("http://", "https://")):
+        return f"https://reflex.dev{'' if image.startswith('/') else '/'}{image}"
+    return image
+
+
+def blog_jsonld(
+    title: str,
+    description: str,
+    author: str,
+    date: str,
+    image: str,
+    url: str,
+    faq: list[dict[str, str]] | None = None,
+    author_bio: str | None = None,
+    updated_at: str | None = None,
+) -> rx.Component:
+    """Create a single JSON-LD script tag with @graph for a blog post.
+
+    Always includes a BlogPosting entry. If faq items are provided,
+    a FAQPage entry is also added to the graph.
+    """
+    author_node: dict = {"@type": "Person", "name": author}
+    if author_bio:
+        author_node["description"] = author_bio
+
+    posting: dict = {
+        "@type": "BlogPosting",
+        "headline": title,
+        "description": description,
+        "image": _normalize_image_url(image),
+        "datePublished": str(date),
+        "author": author_node,
+    }
+    if updated_at:
+        posting["dateModified"] = str(updated_at)
+
+    graph: list[dict] = [
+        {
+            **posting,
+            "publisher": {
+                "@type": "Organization",
+                "name": "Reflex",
+                "url": REFLEX_DOMAIN_URL,
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": url,
+            },
+        },
+    ]
+    if faq:
+        graph.append(
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": item["question"],
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": item["answer"],
+                        },
+                    }
+                    for item in faq
+                ],
+            }
+        )
+    data = {
+        "@context": "https://schema.org",
+        "@graph": graph,
+    }
+    return rx.el.script(json.dumps(data), type="application/ld+json")
