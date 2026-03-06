@@ -1,7 +1,10 @@
 ---
 author: Tom Gotsman
+author_bio: Tom Gotsman is a Software Engineer at Reflex.
 date: 2026-01-09
+updated_at: 2026-01-09
 title: Top Python Web Development Frameworks in 2026
+title_tag: Best Python Web Frameworks 2026 - Reflex, Django, Flask & More
 description: Reflex vs Django vs Flask vs Gradio vs Streamlit vs Dash vs FastAPI
 image: /blog/top_python_web_frameworks_2026.png
 tag: Builder

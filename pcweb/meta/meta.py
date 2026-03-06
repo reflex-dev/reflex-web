@@ -124,23 +124,32 @@ def blog_jsonld(
     image: str,
     url: str,
     faq: list[dict[str, str]] | None = None,
+    author_bio: str | None = None,
+    updated_at: str | None = None,
 ) -> rx.Component:
     """Create a single JSON-LD script tag with @graph for a blog post.
 
     Always includes a BlogPosting entry. If faq items are provided,
     a FAQPage entry is also added to the graph.
     """
+    author_node: dict = {"@type": "Person", "name": author}
+    if author_bio:
+        author_node["description"] = author_bio
+
+    posting: dict = {
+        "@type": "BlogPosting",
+        "headline": title,
+        "description": description,
+        "image": _normalize_image_url(image),
+        "datePublished": str(date),
+        "author": author_node,
+    }
+    if updated_at:
+        posting["dateModified"] = str(updated_at)
+
     graph: list[dict] = [
         {
-            "@type": "BlogPosting",
-            "headline": title,
-            "description": description,
-            "image": _normalize_image_url(image),
-            "datePublished": str(date),
-            "author": {
-                "@type": "Person",
-                "name": author,
-            },
+            **posting,
             "publisher": {
                 "@type": "Organization",
                 "name": "Reflex",

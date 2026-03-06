@@ -193,6 +193,8 @@ def page(document, route) -> rx.Component:
         image=meta["image"],
         url=page_url,
         faq=meta.get("faq"),
+        author_bio=meta.get("author_bio"),
+        updated_at=str(meta["updated_at"]) if meta.get("updated_at") else None,
     )
 
     return rx.el.section(

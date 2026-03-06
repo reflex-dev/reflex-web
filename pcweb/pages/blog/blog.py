@@ -211,13 +211,15 @@ for path, document in blog_data.items():
     # Get the docpage component.
     route = f"/blog/{path}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
+    # Use title_tag for <title> and og/twitter if provided, otherwise fall back to title.
+    seo_title = document.metadata.get("title_tag") or document.metadata["title"]
     comp = marketing_page(
         path=route,
-        title=document.metadata["title"],
+        title=seo_title,
         description=document.metadata["description"],
         image=document.metadata["image"],
         meta=create_meta_tags(
-            title=document.metadata["title"],
+            title=seo_title,
             description=document.metadata["description"],
             image=document.metadata["image"],
             url=f"https://reflex.dev{route}",
