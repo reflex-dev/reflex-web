@@ -213,7 +213,7 @@ for path, document in blog_data.items():
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = marketing_page(
         path=route,
-        title=document.metadata["title"] + " · Reflex Blog",
+        title=document.metadata["title"],
         description=document.metadata["description"],
         image=document.metadata["image"],
         meta=create_meta_tags(
