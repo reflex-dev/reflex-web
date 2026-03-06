@@ -8,29 +8,29 @@ FEATURES: list[Feature] = [
         "icon": "CodesandboxIcon",
     },
     {
-        "title": "You Own Your Code",
-        "description": "Deploy anywhere, on any infrastructure. Full version control. Never hostage to a platform's pricing changes or shutdown.",
-        "icon": "SourceCodeSquareIcon",
+        "title": "Accessible to Your Whole Team",
+        "description": "Non-technical users build with natural language, developers refine the same codebase. No handoff gap, no throwaway prototype, no one left out.",
+        "icon": "UserGroupIcon",
+    },
+    {
+        "title": "A Complete Platform, Not Just a Tool",
+        "description": "The AI builder, open-source framework, and hosting in one place. No assembling a stack, no starting from scratch on every project.",
+        "icon": "Layers01Icon",
+    },
+    {
+        "title": "Works With Your Existing Infrastructure",
+        "description": "Deploy on-prem, in your private cloud, or air-gapped. Connect any database, API, or Python library your organization already uses.",
+        "icon": "CloudServerIcon",
+    },
+    {
+        "title": "Enterprise Guardrails and Governance",
+        "description": "SSO, RBAC, audit logging to your SIEM, and sandboxed code generation. A unified governance layer across every app your organization builds.",
+        "icon": "DatabaseIcon",
     },
     {
         "title": "Python Ecosystem Access",
-        "description": "Build with pandas, scikit-learn, or any pip package. No JavaScript. Data scientists and ML engineers can ship directly.",
+        "description": "Build with pandas, scikit-learn, or any pip package. Data scientists and ML engineers can ship directly without learning a new stack.",
         "icon": "PythonIcon",
-    },
-    {
-        "title": "Scales With Complexity",
-        "description": "CRUD, auth flows, real-time features, complex state management, and custom APIs — all native. Real-time by default.",
-        "icon": "SquareArrowExpand02Icon",
-    },
-    {
-        "title": "Production-Ready From Day One",
-        "description": "Git, PRs, automated testing, staging environments from the start. What you demo is what you ship.",
-        "icon": "UserSwitchIcon",
-    },
-    {
-        "title": "Data Stack Integrations",
-        "description": "Connect databases, APIs, and internal services without platform workarounds. No lock-in to what the AI knows.",
-        "icon": "DatabaseIcon",
     },
 ]
 
@@ -39,8 +39,8 @@ def explore():
     return common_explore(
         kicker="Explore",
         title_prefix="Why Reflex Over ",
-        title_suffix="ChatGPT, Claude, Replit, Lovable",
-        description="AI app builders get you prototyping fast, but Reflex lets you finish. Pure Python, no ceiling, you own your code.",
+        title_suffix="Replit, Lovable, Claude Code & Cursor",
+        description="Whether you're escaping fragile AI-generated code or looking beyond a developer-only tool, Reflex gives your whole organization a production-grade platform.",
         features=FEATURES,
     )
 

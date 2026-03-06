@@ -3,8 +3,8 @@ from pcweb.pages.migration.common.hero import hero as common_hero
 
 HERO_LOGOS: list[HeroLogo] = [
     {
-        "image_name": "chatgpt.svg",
-        "alt": "ChatGPT Logo",
+        "image_name": "cursor.svg",
+        "alt": "Cursor Logo",
         "class_name": "top-[9.5rem] -ml-[10.5rem]",
     },
     {
