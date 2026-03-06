@@ -8,7 +8,6 @@ from .views.deploy_animation import deploy_animation
 from .views.features import features
 from .views.hero import hero
 from .views.preview import preview
-from .views.pricing_cards import pricing_cards
 from .views.templates import templates
 
 
@@ -21,7 +20,6 @@ def hosting_landing() -> rx.Component:
         preview(),
         deploy_animation(),
         features(),
-        pricing_cards(),
         templates(),
         class_name="flex flex-col size-full justify-center items-center",
     )

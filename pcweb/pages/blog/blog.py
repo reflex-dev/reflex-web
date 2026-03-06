@@ -168,7 +168,7 @@ def component_grid() -> rx.Component:
         rx.el.div(
             class_name="absolute -bottom-24 -right-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
         ),
-        class_name="grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-8 gap-y-8 lg:gap-y-24 relative py-24 lg:mb-48 mb-24",
+        class_name="grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-8 gap-y-8 lg:gap-y-24 relative py-24",
     )
 
 
