@@ -16,7 +16,7 @@ from pcweb.constants import (
     REFLEX_BUILD_URL,
 )
 from pcweb.pages.blog import blogs
-from pcweb.pages.blog.paths import blog_data
+from pcweb.pages.blog.paths import blog_data_visible
 from pcweb.pages.customers.landing import customers
 from pcweb.pages.docs import ai_builder
 from pcweb.pages.faq import faq
@@ -292,10 +292,12 @@ def blog_item(blog: dict, path: str) -> rx.Component:
 
 
 def blog_column() -> rx.Component:
-    first_blog = next(iter(blog_data.values()))
+    visible = blog_data_visible()
+    if not visible:
+        return rx.fragment()
+    items = [blog_item(doc, path) for path, doc in visible[:2]]
     return rx.el.div(
-        blog_item(first_blog, next(iter(blog_data.keys()))),
-        blog_item(list(blog_data.values())[1], list(blog_data.keys())[1]),
+        *items,
         rx.el.a(
             "Read All in Blog",
             ui.icon("ArrowRight01Icon", class_name="ml-auto"),

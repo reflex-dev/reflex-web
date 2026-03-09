@@ -3,7 +3,7 @@ import reflex_ui as ui
 
 from pcweb.components.marketing_button import button
 from pcweb.pages.blog import blogs
-from pcweb.pages.blog.paths import blog_data
+from pcweb.pages.blog.paths import blog_data_visible
 
 
 def news_item(title: str, date: str, description: str, url: str) -> rx.Component:
@@ -80,7 +80,7 @@ def news() -> rx.Component:
                     blog.metadata["description"],
                     path,
                 )
-                for path, blog in list(blog_data.items())[:3]
+                for path, blog in blog_data_visible()[:3]
             ],
             class_name="grid lg:grid-cols-3 grid-cols-1 gap-12",
         ),

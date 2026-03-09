@@ -10,7 +10,7 @@ from pcweb.flexdown import xd2 as xd
 from pcweb.meta.meta import blog_jsonld
 from pcweb.templates.docpage import get_toc, right_sidebar_item_highlight
 
-from .paths import blog_data
+from .paths import blog_data_visible
 
 
 def share_post_button(icon: str, href: str, aria_label: str) -> rx.Component:
@@ -136,7 +136,7 @@ def more_posts(current_post: dict) -> rx.Component:
     from pcweb.pages.blog.blog import card_inner
 
     posts = []
-    blog_items = list(blog_data.items())
+    blog_items = blog_data_visible()
     current_index = next(
         (
             i
