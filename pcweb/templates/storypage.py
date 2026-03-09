@@ -8,7 +8,12 @@ from pcweb.pages.framework.index_colors import index_colors
 from pcweb.route import Route
 
 
-def hero(company: str, description: str, stats: list[dict[str, str]]) -> rx.Component:
+def hero(
+    company: str,
+    description: str,
+    stats: list[dict[str, str]],
+    h1: str | None = None,
+) -> rx.Component:
     return rx.box(
         rx.link(
             rx.icon(
@@ -22,7 +27,7 @@ def hero(company: str, description: str, stats: list[dict[str, str]]) -> rx.Comp
             class_name="flex items-center gap-2 text-slate-9 hover:!text-slate-11 transition-color w-fit",
         ),
         rx.el.h1(
-            company,
+            h1 if h1 else company,
             class_name="gradient-heading font-x-large lg:font-xx-large text-start text-transparent",
         ),
         rx.el.h2(description, class_name="text-slate-9 font-md-smbold"),
@@ -201,6 +206,7 @@ def storypage(
     path: str,
     description: str,
     company: str,
+    h1: str | None = None,
     domain: str | None = None,
     founded: str | None = None,
     investors: str | None = None,
@@ -217,6 +223,7 @@ def storypage(
         path: The path of the page.
         description: The description of the page.
         company: The company name.
+        h1: Optional H1 for the hero. Used when company name alone is too short for SEO.
         domain: The company domain.
         founded: The company founded date.
         investors: The company investors.
@@ -252,8 +259,8 @@ def storypage(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.pages.customers.views.footer import footer_customer
-            from pcweb.views.bottom_section.bottom_section import bottom_section
+            from pcweb.pages.framework.views.divider import divider
+            from pcweb.pages.framework.views.footer_index import footer_index
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -263,24 +270,24 @@ def storypage(
                     marketing_navbar(),
                     company_card(company, founded, investors, domain),
                     rx.el.main(
-                        hero(company, description, stats),
+                        hero(company, description, stats, h1),
                         contents(*children, **props),
                         more_customers(company),
                         rx.box(class_name="flex-grow"),
                         class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
                     ),
                     rx.box(class_name="h-[1px] bg-slate-3 w-full"),
-                    bottom_section(),
-                    footer_customer(),
                     class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pt-24 lg:pt-48",
                 ),
-                class_name="relative overflow-hidden",
+                divider(),
+                footer_index(),
+                class_name="relative overflow-hidden flex flex-col justify-center items-center w-full",
                 **props,
             )
 
         return Route(
             path=path,
-            title=company + " · Reflex Customer Story",
+            title=company + " Case Study - Reflex Customer Stories",
             description=description,
             meta=meta,
             component=wrapper,

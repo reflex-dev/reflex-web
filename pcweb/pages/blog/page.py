@@ -7,9 +7,10 @@ from pcweb.components.icons.icons import get_icon
 from pcweb.components.marketing_button import button
 from pcweb.constants import REFLEX_URL
 from pcweb.flexdown import xd2 as xd
+from pcweb.meta.meta import blog_jsonld
 from pcweb.templates.docpage import get_toc, right_sidebar_item_highlight
 
-from .paths import blog_data
+from .paths import blog_data_visible
 
 
 def share_post_button(icon: str, href: str, aria_label: str) -> rx.Component:
@@ -132,10 +133,10 @@ def table_of_contents(toc: list, path: str, page_url: str) -> rx.Component:
 
 
 def more_posts(current_post: dict) -> rx.Component:
-    from .blog import card_content
+    from pcweb.pages.blog.blog import card_inner
 
     posts = []
-    blog_items = list(blog_data.items())
+    blog_items = blog_data_visible()
     current_index = next(
         (
             i
@@ -146,32 +147,32 @@ def more_posts(current_post: dict) -> rx.Component:
     )
 
     if current_index is None:
-        # If current post is not found, default to first 2 posts
-        selected_posts = blog_items[:2]
+        # If current post is not found, default to first 3 posts
+        selected_posts = blog_items[:3]
     elif current_index == 0:
-        # If it's the first post, get the next 2
-        selected_posts = blog_items[1:3]
+        # If it's the first post, get the next 3
+        selected_posts = blog_items[1:4]
     elif current_index == len(blog_items) - 1:
-        # If it's the last post, get the previous 2
-        selected_posts = blog_items[-3:-1]
+        # If it's the last post, get the previous 3
+        selected_posts = blog_items[-4:-1]
     else:
-        # Get previous 1 and next 1, excluding current post
+        # Get previous 1 and next 2, excluding current post
         selected_posts = (
             blog_items[max(0, current_index - 1) : current_index]
-            + blog_items[current_index + 1 : current_index + 2]
+            + blog_items[current_index + 1 : current_index + 3]
         )
 
     for path, document in selected_posts:
         meta = document.metadata
-        posts.append(card_content(meta=meta, path=f"/blog/{path}"))
+        posts.append(card_inner(meta=meta, path=f"/blog/{path}"))
     return rx.el.section(
         rx.el.h2(
             "More Posts",
-            class_name="font-x-large gradient-heading",
+            class_name="text-4xl font-[575] text-m-slate-12 dark:text-m-slate-3 text-center",
         ),
         rx.box(
             *posts,
-            class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 [&>*]:min-w-[320px] w-full mb-4 blog-grid",
+            class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-4 blog-grid",
         ),
         class_name="flex flex-col gap-10 mt-20",
     )
@@ -183,7 +184,21 @@ def page(document, route) -> rx.Component:
     toc, _ = get_toc(document, route)
     toc = [(level, text) for level, text in toc if level <= 3]
     page_url = f"{REFLEX_URL.strip('/')}{route}"
+
+    jsonld_script = blog_jsonld(
+        title=meta["title"],
+        description=meta["description"],
+        author=meta["author"],
+        date=str(meta["date"]),
+        image=meta["image"],
+        url=page_url,
+        faq=meta.get("faq"),
+        author_bio=meta.get("author_bio"),
+        updated_at=str(meta["updated_at"]) if meta.get("updated_at") else None,
+    )
+
     return rx.el.section(
+        jsonld_script,
         rx.el.article(
             rx.el.div(
                 rx.el.div(
@@ -219,7 +234,7 @@ def page(document, route) -> rx.Component:
                 ),
                 rx.el.header(
                     rx.el.h1(
-                        meta["title"],
+                        meta.get("title_tag") or meta["title"],
                         class_name="lg:text-5xl text-3xl text-m-slate-12 dark:text-m-slate-3 font-[575] mb-6 text-center text-balance",
                     ),
                     rx.el.h2(

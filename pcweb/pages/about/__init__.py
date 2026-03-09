@@ -11,16 +11,16 @@ from pcweb.pages.about.views import (
     square_logo,
     team,
 )
-from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.templates.marketing_page import marketing_page
 
 
 @marketing_page(
     path="/about",
-    title="Reflex · About",
+    title="About Reflex - Team, Mission & Python Web Apps",
+    description="Learn about Reflex, the team behind it, and our mission to make Python the best language for building full-stack web applications and internal tools.",
     meta=create_meta_tags(
-        title="Reflex · About",
-        description="About Reflex - The platform to build and scale enterprise apps",
+        title="About Reflex - Team, Mission & Python Web Apps",
+        description="Learn about Reflex, the team behind it, and our mission to make Python the best language for building full-stack web applications and internal tools.",
         image="/previews/index_preview.webp",
     ),
 )
@@ -35,8 +35,6 @@ def about_page() -> rx.Component:
             hiring(),
             team(),
             news(),
-            divider(),
-            footer_index(),
             class_name="flex flex-col relative justify-center items-center w-full",
         ),
         class_name="flex flex-col w-full relative h-full justify-center items-center",

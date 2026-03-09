@@ -58,8 +58,8 @@ def gallery_app_page(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
+            from pcweb.pages.framework.views.divider import divider
             from pcweb.pages.framework.views.footer_index import footer_index
-            from pcweb.views.bottom_section.bottom_section import bottom_section
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -71,20 +71,17 @@ def gallery_app_page(
                         contents(*children, **props),
                         class_name="w-full z-[1] relative flex flex-col mx-auto lg:border-x border-slate-3 pt-24 lg:pt-48",
                     ),
-                    rx.box(
-                        bottom_section(),
-                        class_name="border-t border-slate-3 border-x flex flex-col items-center w-full border-b",
-                    ),
-                    footer_index(),
                     class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans mx-auto max-w-[64.19rem]",
                 ),
-                class_name="relative overflow-hidden",
+                divider(),
+                footer_index(),
+                class_name="relative overflow-hidden flex flex-col justify-center items-center w-full",
                 **props,
             )
 
         return Route(
             path=path,
-            title=title + " · Reflex App",
+            title=title.replace("_", " ").title() + " - Reflex App Template",
             description=description,
             meta=meta,
             image=image,

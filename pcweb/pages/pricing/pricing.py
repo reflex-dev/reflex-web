@@ -1,7 +1,8 @@
 import reflex as rx
 
-from pcweb.meta.meta import hosting_meta_tags
+from pcweb.meta.meta import hosting_meta_tags, pricing_jsonld
 from pcweb.pages.framework.index_colors import index_colors
+from pcweb.pages.framework.views.divider import divider
 from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.pages.pricing.calculator import calculator_section
 from pcweb.pages.pricing.faq import faq
@@ -13,7 +14,8 @@ pricing_path = "/pricing"
 
 @rx.page(
     route=pricing_path,
-    title="Reflex · Pricing",
+    title="Reflex Pricing Plans - Cloud & Self-Hosted",
+    description="Compare Reflex pricing plans: free tier, Pro, Team, and Enterprise. Cloud hosting or self-hosted deployment.",
     meta=hosting_meta_tags,
 )
 def pricing() -> rx.Component:
@@ -21,6 +23,7 @@ def pricing() -> rx.Component:
     from pcweb.views.marketing_navbar import marketing_navbar
 
     return rx.box(
+        pricing_jsonld(url="https://reflex.dev/pricing"),
         index_colors(),
         marketing_navbar(),
         rx.el.main(
@@ -33,6 +36,7 @@ def pricing() -> rx.Component:
             ),
             class_name="flex flex-col w-full relative h-full justify-center items-center",
         ),
+        divider(),
         footer_index(),
         class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative",
     )

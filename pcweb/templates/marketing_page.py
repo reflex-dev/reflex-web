@@ -8,7 +8,7 @@ from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.route import Route
 
 DEFAULT_TITLE = "The platform to build and scale enterprise apps"
-DEFAULT_DESCRIPTION = "Connect to all your company data and systems to build secure internal apps with AI. Deployed on prem with built-in governance and production-grade reliability, so technical and nontechnical teams can ship together."
+DEFAULT_DESCRIPTION = "Build secure internal apps with AI. Deploy on prem or cloud with governance. Technical and nontechnical teams ship together."
 
 
 def marketing_page(
@@ -60,8 +60,8 @@ def marketing_page(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.views.bottom_section.bottom_section import bottom_section
-            from pcweb.views.footer import footer
+            from pcweb.pages.framework.views.footer_index import footer_index
+            from pcweb.views.cta_card import cta_card
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -70,8 +70,8 @@ def marketing_page(
                 rx.el.main(
                     rx.el.div(
                         contents(*children, **props),
-                        bottom_section(),
-                        footer(),
+                        cta_card(),
+                        footer_index(),
                         class_name="flex flex-col relative justify-center items-center w-full",
                     ),
                     class_name=ui.cn(

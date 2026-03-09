@@ -4,91 +4,137 @@ import reflex as rx
 import reflex_ui as ui
 from reflex.style import color_mode, set_color_mode
 
-from pcweb.components.button import button
 from pcweb.components.icons import get_icon
+from pcweb.components.marketing_button import button as marketing_button
 from pcweb.constants import (
+    CHANGELOG_URL,
     DISCORD_URL,
     FORUM_URL,
     GITHUB_URL,
     LINKEDIN_URL,
+    REFLEX_BUILD_URL,
     ROADMAP_URL,
     TWITTER_URL,
 )
-from pcweb.pages.blog import blogs
-from pcweb.pages.docs import getting_started, hosting
-from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
 from pcweb.pages.faq import faq
-from pcweb.pages.gallery import gallery
+from pcweb.pages.framework.framework import framework
+from pcweb.pages.hosting.hosting import hosting_landing
+from pcweb.pages.use_cases.consulting import consulting_use_case_page
+from pcweb.pages.use_cases.finance import finance_use_case_page
+from pcweb.pages.use_cases.government import government_use_case_page
+from pcweb.pages.use_cases.healthcare import healthcare_use_case_page
+from pcweb.pages.use_cases.use_cases import use_cases_page
 from pcweb.signup import IndexState
-from pcweb.views.footer import ph_1
+
+
+def ph_1() -> rx.Component:
+    return rx.fragment(
+        rx.image(
+            src="/logos/dark/ph_1.svg",
+            class_name="hidden dark:block h-[36px] w-fit",
+            alt="1st product of the day logo",
+            loading="lazy",
+        ),
+        rx.image(
+            src="/logos/light/ph_1.svg",
+            class_name="dark:hidden block h-[36px] w-fit",
+            alt="1st product of the day logo",
+            loading="lazy",
+        ),
+    )
+
+
+def logo() -> rx.Component:
+    return rx.el.a(
+        rx.image(
+            src="/logos/light/reflex.svg",
+            alt="Reflex Logo",
+            class_name="shrink-0 block dark:hidden",
+        ),
+        rx.image(
+            src="/logos/dark/reflex.svg",
+            alt="Reflex Logo",
+            class_name="shrink-0 hidden dark:block",
+        ),
+        to="/",
+        class_name="block shrink-0 mr-[7rem]",
+    )
 
 
 def tab_item(mode: str, icon: str) -> rx.Component:
-    active_cn = " text-secondary-11 shadow-small bg-slate-1"
-    unactive_cn = " hover:text-slate-12 text-secondary-11"
+    active_cn = " shadow-[0_-1px_0_0_rgba(0,0,0,0.08)_inset,0_0_0_1px_rgba(0,0,0,0.08)_inset,0_1px_2px_0_rgba(0,0,0,0.02),0_1px_4px_0_rgba(0,0,0,0.02)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.16)_inset] bg-white dark:bg-m-slate-10 hover:bg-m-slate-2 dark:hover:bg-m-slate-9 text-m-slate-12 dark:text-m-slate-3"
+    unactive_cn = " hover:text-m-slate-12 dark:hover:text-m-slate-3 text-m-slate-7 dark:text-m-slate-6"
     return rx.el.button(
-        ui.icon(icon, class_name="shrink-0"),
+        get_icon(icon, class_name="shrink-0"),
         on_click=set_color_mode(mode),
-        class_name="flex items-center cursor-pointer justify-center rounded-md transition-color size-7 outline-none focus:outline-none "
-        + rx.cond(mode == color_mode, active_cn, unactive_cn),
+        class_name=ui.cn(
+            "flex items-center cursor-pointer justify-center rounded-lg transition-colors size-7 outline-none focus:outline-none ",
+            rx.cond(mode == color_mode, active_cn, unactive_cn),
+        ),
         custom_attrs={"aria-label": f"Toggle {mode} color mode"},
     )
 
 
 def dark_mode_toggle() -> rx.Component:
     return rx.box(
-        tab_item("system", "ComputerIcon"),
-        tab_item("light", "Sun01Icon"),
-        tab_item("dark", "Moon02Icon"),
-        class_name="flex flex-row items-center bg-slate-3 p-1 rounded-[0.625rem] w-fit",
+        tab_item("system", "computer_footer"),
+        tab_item("light", "sun_footer"),
+        tab_item("dark", "moon_footer"),
+        class_name="flex flex-row gap-0.5 items-center p-0.5 [box-shadow:0_1px_0_0_rgba(0,_0,_0,_0.08),_0_0_0_1px_rgba(0,_0,_0,_0.08),_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] w-fit mt-auto bg-m-slate-1 dark:bg-m-slate-12 rounded-[0.625rem] dark:border dark:border-m-slate-9 border border-transparent lg:ml-auto mr-px",
     )
 
 
 def footer_link(text: str, href: str) -> rx.Component:
-    return rx.link(
+    return rx.el.a(
         text,
         rx.icon(
             tag="chevron-right",
             size=16,
             class_name="shrink-0 lg:hidden flex",
         ),
-        href=href,
-        class_name="font-small text-secondary-11 hover:!text-slate-12 no-underline transition-color w-full lg:w-fit flex flex-row justify-between items-center",
+        to=href,
+        target="_blank",
+        class_name="font-[525] text-m-slate-7 hover:text-m-slate-8 dark:hover:text-m-slate-5 dark:text-m-slate-6 text-sm transition-color w-full lg:w-fit flex flex-row justify-between items-center",
     )
 
 
 def footer_link_flex(
     heading: str, links: list[rx.Component], class_name: str = ""
 ) -> rx.Component:
-    return rx.box(
+    return rx.el.div(
         rx.el.h3(
             heading,
-            class_name="font-smbold text-slate-12 w-fit",
+            class_name="text-xs text-m-slate-12 dark:text-m-slate-3 font-semibold w-fit mb-3",
         ),
         *links,
-        class_name="flex flex-col gap-4 px-8 py-10 lg:p-10" + " " + class_name,
+        class_name=ui.cn("flex flex-col gap-2", class_name),
     )
 
 
 def social_menu_item(icon: str, url: str, name: str) -> rx.Component:
-    return rx.link(
-        get_icon(icon, class_name="!text-secondary-11 shrink-0"),
-        class_name="flex w-full h-8 lg:size-8 border border-slate-5 rounded-lg hover:bg-slate-3 transition-bg bg-slate-1 px-3 py-1.5 justify-center items-center border-solid",
-        href=url,
+    return rx.el.a(
+        marketing_button(
+            get_icon(icon, class_name="shrink-0"),
+            variant="ghost",
+            size="icon-sm",
+            class_name="text-m-slate-7 dark:text-m-slate-6",
+            native_button=False,
+        ),
+        to=url,
         custom_attrs={"aria-label": "Social link for " + name},
-        is_external=True,
+        target="_blank",
     )
 
 
 def menu_socials() -> rx.Component:
     return rx.box(
-        social_menu_item("discord_navbar", DISCORD_URL, "Discord"),
-        social_menu_item("forum", FORUM_URL, "Forum"),
-        social_menu_item("twitter", TWITTER_URL, "Twitter"),
+        social_menu_item("twitter_footer", TWITTER_URL, "Twitter"),
         social_menu_item("github_navbar", GITHUB_URL, "Github"),
-        social_menu_item("linkedin", LINKEDIN_URL, "LinkedIn"),
-        class_name="flex flex-row h-full align-center gap-2 w-full lg:w-fit max-w-[24rem]",
+        social_menu_item("discord_navbar", DISCORD_URL, "Discord"),
+        social_menu_item("linkedin_footer", LINKEDIN_URL, "LinkedIn"),
+        social_menu_item("forum_footer", FORUM_URL, "Forum"),
+        class_name="flex flex-row items-center gap-2",
     )
 
 
@@ -105,31 +151,34 @@ def newsletter_input() -> rx.Component:
                     ),
                     rx.text(
                         "Thanks for subscribing!",
-                        class_name="font-base text-slate-11",
+                        class_name="text-xs text-m-slate-7 dark:text-m-slate-6 font-semibold",
                     ),
                     class_name="flex flex-row items-center gap-2",
                 ),
-                button(
+                marketing_button(
                     "Sign up for another email",
-                    variant="muted",
+                    variant="outline",
+                    size="sm",
                     on_click=IndexState.signup_for_another_user,
                 ),
                 class_name="flex flex-col flex-wrap gap-2",
             ),
             rx.form(
                 rx.el.input(
-                    placeholder="Your email",
+                    placeholder="Email",
                     name="input_email",
                     type="email",
-                    class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-lg font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full h-8 max-w-[24rem]",
+                    required=True,
+                    class_name="relative [box-shadow:0_-1px_0_0_rgba(0,_0,_0,_0.08)_inset,_0_0_0_1px_rgba(0,_0,_0,_0.08)_inset,_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] rounded-lg h-8 px-2 py-1.5 w-[12rem] text-sm placeholder:text-m-slate-7 dark:placeholder:text-m-slate-6 font-[525] focus:outline-none outline-none dark:border dark:border-m-slate-9 dark:bg-m-slate-11",
                 ),
-                button(
+                marketing_button(
                     "Subscribe",
                     type="submit",
-                    variant="muted",
-                    class_name="!h-8 !rounded-lg !py-2 !px-3.5 !font-small-smbold w-full lg:w-auto lg:max-w-full max-w-[24rem] !text-secondary-11",
+                    variant="outline",
+                    size="sm",
+                    class_name="w-fit max-w-full",
                 ),
-                class_name="w-full flex flex-col lg:flex-row gap-2 items-center",
+                class_name="w-full flex flex-col lg:flex-row gap-2 lg:items-center items-start",
                 on_submit=IndexState.signup,
             ),
         ),
@@ -138,72 +187,76 @@ def newsletter_input() -> rx.Component:
 
 
 def newsletter() -> rx.Component:
-    return (
-        rx.box(
-            rx.text(
-                "Get updates",
-                class_name="font-small text-secondary-11",
-            ),
-            newsletter_input(),
-            class_name="flex flex-col items-center lg:items-start gap-4 self-stretch p-10 lg:border-r border-slate-3",
+    return rx.el.div(
+        rx.text(
+            "Get updates",
+            class_name="text-xs text-m-slate-7 dark:text-m-slate-6 font-semibold",
         ),
+        newsletter_input(),
+        class_name="flex flex-col items-start gap-4 self-stretch",
     )
 
 
 @rx.memo
 def footer_index() -> rx.Component:
     return rx.el.footer(
-        rx.box(
-            footer_link_flex(
-                "Reflex",
-                [
-                    footer_link("Home", "/"),
-                    footer_link("Templates", gallery.path),
-                    footer_link("Blog", blogs.path),
-                    footer_link(
-                        "Changelog", "https://github.com/reflex-dev/reflex/releases"
-                    ),
-                ],
-                class_name="lg:!border-l !border-slate-3 !row-span-2",
-            ),
-            footer_link_flex(
-                "Documentation",
-                [
-                    footer_link("Introduction", getting_started.introduction.path),
-                    footer_link("Installation", getting_started.installation.path),
-                    footer_link("Components", library.path),
-                    footer_link("Hosting", hosting.deploy_quick_start.path),
-                ],
-                class_name="lg:!border-t-0 !row-span-2",
-            ),
-            footer_link_flex(
-                "Resources",
-                [
-                    footer_link("FAQ", faq.path),
-                    footer_link("Common Errors", errors.path),
-                    footer_link("Roadmap", ROADMAP_URL),
-                    footer_link("Forum", FORUM_URL),
-                    footer_link("Use Cases", "/use-cases"),
-                    rx.box(class_name="grow"),
-                    rx.el.div(
-                        ph_1(),
-                        dark_mode_toggle(),
-                        class_name="flex flex-row items-center gap-6",
-                    ),
-                ],
-                class_name="!row-span-3 lg:!border-t-0 lg:!border-r !border-slate-3",
-            ),
-            # Socials
-            rx.box(
-                rx.text(
-                    f"Copyright © {datetime.now().year} Pynecone, Inc.",
-                    class_name="font-small text-secondary-11",
+        rx.el.div(
+            logo(),
+            rx.el.div(
+                footer_link_flex(
+                    "Product",
+                    [
+                        footer_link("AI Builder", REFLEX_BUILD_URL),
+                        footer_link("Framework", framework.path),
+                        footer_link("Cloud", hosting_landing.path),
+                    ],
                 ),
-                menu_socials(),
-                class_name="flex flex-col items-center lg:items-start gap-4 self-stretch p-10 lg:border-l border-slate-3",
+                footer_link_flex(
+                    "Solutions",
+                    [
+                        footer_link("Enterprise", use_cases_page.path),
+                        footer_link("Finance", finance_use_case_page.path),
+                        footer_link("Healthcare", healthcare_use_case_page.path),
+                        footer_link("Consulting", consulting_use_case_page.path),
+                        footer_link("Government", government_use_case_page.path),
+                    ],
+                ),
+                footer_link_flex(
+                    "Resources",
+                    [
+                        footer_link("Documentation", "/docs"),
+                        footer_link("FAQ", faq.path),
+                        footer_link("Common Errors", errors.path),
+                        footer_link("Roadmap", ROADMAP_URL),
+                        footer_link("Changelog", CHANGELOG_URL),
+                    ],
+                ),
+                rx.el.div(
+                    class_name="absolute -top-24 -right-px w-px h-24 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+                ),
+                class_name="grid grid-cols-1 lg:grid-cols-3 gap-12 w-full lg:pr-12 pb-8 lg:border-r border-m-slate-4 dark:border-m-slate-10 ml-auto relative",
             ),
-            newsletter(),
-            class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 w-full divide-y divide-slate-3 lg:divide-x border-t border-slate-3 lg:border-t-0",
+            rx.el.div(
+                newsletter(),
+                ph_1(),
+                dark_mode_toggle(),
+                class_name="flex flex-col gap-6 lg:pl-12 pb-8 max-lg:justify-start",
+            ),
+            class_name="flex flex-col max-lg:gap-6 lg:flex-row w-full",
         ),
-        class_name="flex max-w-[64.19rem] justify-center items-center w-full mx-auto",
+        rx.el.div(
+            rx.el.span(
+                f"Copyright © {datetime.now().year} Pynecone, Inc.",
+                class_name="text-xs text-m-slate-7 dark:text-m-slate-6 font-medium",
+            ),
+            menu_socials(),
+            rx.el.div(
+                class_name="absolute -top-px -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+            ),
+            rx.el.div(
+                class_name="absolute -top-px -left-24 w-24 h-px bg-gradient-to-r from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+            ),
+            class_name="flex flex-row items-center justify-between py-6 gap-4 w-full border-t border-m-slate-4 dark:border-m-slate-10 relative",
+        ),
+        class_name="flex flex-col max-w-(--docs-layout-max-width) justify-center items-center w-full mx-auto mt-24 max-lg:px-4 overflow-hidden",
     )

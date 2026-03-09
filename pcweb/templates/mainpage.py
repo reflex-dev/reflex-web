@@ -6,7 +6,7 @@ from pcweb.meta.meta import meta_tags
 from pcweb.route import Route
 
 DEFAULT_TITLE = "The platform to build and scale enterprise apps"
-DEFAULT_DESCRIPTION = "Connect to all your company data and systems to build secure internal apps with AI. Deployed on prem with built-in governance and production-grade reliability, so technical and nontechnical teams can ship together."
+DEFAULT_DESCRIPTION = "Build secure internal apps with AI. Deploy on prem or cloud with governance. Technical and nontechnical teams ship together."
 
 
 def mainpage(
@@ -59,8 +59,8 @@ def mainpage(
             # Import here to avoid circular imports.
             from pcweb.components.hosting_banner import HostingBannerState
             from pcweb.pages.framework.index_colors import index_colors
+            from pcweb.pages.framework.views.divider import divider
             from pcweb.pages.framework.views.footer_index import footer_index
-            from pcweb.pages.framework.views.get_started import get_started
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -69,7 +69,7 @@ def mainpage(
                 marketing_navbar(),
                 rx.el.main(
                     contents(*children, **props),
-                    get_started(),
+                    divider(),
                 ),
                 footer_index(),
                 class_name="flex flex-col w-full max-w-[94.5rem] justify-center mx-auto px-4 lg:px-5 relative overflow-hidden",

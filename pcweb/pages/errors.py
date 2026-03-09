@@ -234,7 +234,11 @@ rx.center(
     )
 
 
-@webpage(path="/errors", title="Common Errors · Reflex")
+@webpage(
+    path="/errors",
+    title="Common Reflex Errors & Troubleshooting Guide",
+    description="Solutions for common Reflex errors: hydration, state, and build issues. Get your Python web app back on track.",
+)
 def errors() -> rx.Component:
     return rx.el.section(
         rx.box(

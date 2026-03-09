@@ -6,7 +6,7 @@ import reflex as rx
 from pcweb.route import Route
 
 DEFAULT_TITLE = "The platform to build and scale enterprise apps"
-DEFAULT_DESCRIPTION = "Connect to all your company data and systems to build secure internal apps with AI. Deployed on prem with built-in governance and production-grade reliability, so technical and nontechnical teams can ship together."
+DEFAULT_DESCRIPTION = "Build secure internal apps with AI. Deploy on prem or cloud with governance. Technical and nontechnical teams ship together."
 
 
 def webpage(
@@ -59,8 +59,8 @@ def webpage(
             """
             # Import here to avoid circular imports.
             from pcweb.components.icons.patterns import default_patterns
-            from pcweb.views.bottom_section.bottom_section import bottom_section
-            from pcweb.views.footer import footer
+            from pcweb.pages.framework.views.footer_index import footer_index
+            from pcweb.views.cta_card import cta_card
             from pcweb.views.marketing_navbar import marketing_navbar
 
             # Wrap the component in the template.
@@ -72,8 +72,8 @@ def webpage(
                     rx.box(class_name="flex-grow"),
                     class_name="w-full z-[1]",
                 ),
-                bottom_section(),
-                footer(),
+                cta_card(),
+                footer_index(),
                 class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans overflow-hidden",
                 **props,
             )

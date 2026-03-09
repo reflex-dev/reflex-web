@@ -7,7 +7,11 @@ from pcweb.pages.customers.views.stats import stats
 from pcweb.templates.mainpage import mainpage
 
 
-@mainpage(path="/customers", title="Reflex · Customers")
+@mainpage(
+    path="/customers",
+    title="Reflex Customer Stories - Case Studies",
+    description="Case studies: Bayesline, SellerX, and Ansa use Reflex to build production Python web apps. Real success stories.",
+)
 def customers() -> rx.Component:
     """Get the Customers landing page."""
     return rx.box(

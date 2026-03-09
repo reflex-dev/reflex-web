@@ -14,7 +14,12 @@ from .views.os_newsletter import os_newsletter
 from .views.stats import stats
 
 
-@mainpage(path="/open-source", title="Reflex · Web apps in Pure Python", meta=meta_tags)
+@mainpage(
+    path="/open-source",
+    title="Reflex · Web apps in Pure Python",
+    description="Reflex is the open-source Python framework for full-stack web apps. No JavaScript required—frontend and backend in pure Python.",
+    meta=meta_tags,
+)
 def framework() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.box(

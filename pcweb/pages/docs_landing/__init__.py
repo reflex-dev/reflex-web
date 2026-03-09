@@ -3,7 +3,6 @@ import reflex as rx
 from pcweb.meta.meta import create_meta_tags
 from pcweb.pages.docs_landing.views import (
     ai_builder_section,
-    divider,
     enterprise_section,
     framework,
     hero,
@@ -11,17 +10,20 @@ from pcweb.pages.docs_landing.views import (
     other_section,
     self_hosting_section,
 )
+from pcweb.pages.framework.views.divider import divider
 from pcweb.pages.framework.views.footer_index import footer_index
+from pcweb.views.cta_card import cta_card
 from pcweb.views.docs_navbar import docs_navbar
 
 
 @rx.page(
     route="/docs",
-    title="Reflex · Docs",
+    title="Reflex Documentation - Build Web Apps in Pure Python",
     meta=create_meta_tags(
-        title="Reflex · Docs",
-        description="Docs for Reflex - The platform to build and scale enterprise apps",
+        title="Reflex Documentation - Build Web Apps in Pure Python",
+        description="Reflex documentation: tutorials, API reference, and guides for building full-stack Python web apps. Get started in minutes.",
         image="/previews/index_preview.webp",
+        url="https://reflex.dev/docs",
     ),
 )
 def docs_landing() -> rx.Component:
@@ -30,14 +32,14 @@ def docs_landing() -> rx.Component:
         rx.el.main(
             rx.el.div(
                 hero(),
-                divider(),
+                divider(class_name="max-w-full"),
                 ai_builder_section(),
                 framework(),
                 enterprise_section(),
                 hosting_section(),
                 self_hosting_section(),
                 other_section(),
-                divider(),
+                cta_card(),
                 footer_index(),
                 class_name="flex flex-col relative justify-center items-center w-full overflow-hidden",
             ),

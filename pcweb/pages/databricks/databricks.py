@@ -11,10 +11,11 @@ from pcweb.templates.mainpage import mainpage
 
 @mainpage(
     path="/databricks",
-    title="Databricks - Reflex",
+    title="Reflex on Databricks - Deploy Python Apps",
+    description="Deploy Reflex apps on Databricks and Snowflake. Build Python web apps in your data platform.",
     meta=create_meta_tags(
-        "Databricks - Reflex",
-        "Databricks - Reflex",
+        "Reflex on Databricks - Deploy Python Apps",
+        "Deploy Reflex apps on Databricks and Snowflake. Build Python web apps in your data platform.",
         "/previews/databricks_preview.png",
     ),
 )

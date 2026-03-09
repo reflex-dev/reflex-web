@@ -4,12 +4,12 @@ from reflex.experimental.client_state import ClientStateVar
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.marketing_button import button as marketing_button
-from pcweb.meta.meta import create_meta_tags
+from pcweb.meta.meta import blog_index_jsonld, create_meta_tags
 from pcweb.signup import IndexState
 from pcweb.templates.marketing_page import marketing_page
 
 from .page import page
-from .paths import blog_data
+from .paths import blog_data, blog_data_visible
 
 blog_filter_cs = ClientStateVar.create("blog_filter", default="All")
 
@@ -96,51 +96,59 @@ def newsletter_input() -> rx.Component:
     )
 
 
-def card_content(meta: dict, path: str) -> rx.Component:
-    return rx.el.div(
-        rx.el.a(
-            rx.el.div(
-                rx.image(
-                    src=meta["image"],
-                    loading="eager",
-                    custom_attrs={"fetchPriority": "high"},
-                    alt="Image preview for blog post: " + str(meta["title"]),
-                    class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-top object-cover",
-                ),
-                class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[19.5rem] overflow-hidden",
+def card_inner(meta: dict, path: str) -> rx.Component:
+    return rx.el.a(
+        rx.el.div(
+            rx.image(
+                src=meta["image"],
+                loading="eager",
+                custom_attrs={"fetchPriority": "high"},
+                alt="Image preview for blog post: " + str(meta["title"]),
+                class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-top object-cover",
             ),
-            rx.el.div(
-                rx.el.span(
-                    meta["title"],
-                    class_name="text-2xl font-[575] text-m-slate-12 dark:text-m-slate-3 mb-4",
-                ),
-                rx.el.p(
-                    meta["description"],
-                    class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475] mb-6",
-                ),
-                rx.el.span(
-                    meta["author"],
-                    class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525] mt-auto",
-                ),
-                class_name="flex flex-col w-full h-full pb-12 px-12",
-            ),
-            to=path,
-            class_name="flex flex-col gap-10 rounded-xl backdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
+            class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[17.5rem] overflow-hidden",
         ),
+        rx.el.div(
+            rx.el.span(
+                meta["title"],
+                class_name="text-2xl font-[575] text-m-slate-12 dark:text-m-slate-3 mb-4 line-clamp-3",
+            ),
+            rx.el.p(
+                meta["description"],
+                class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475] mb-6 line-clamp-3",
+            ),
+            rx.el.span(
+                meta["author"],
+                class_name="text-m-slate-12 dark:text-m-slate-3 text-sm font-[525] mt-auto",
+            ),
+            class_name="flex flex-col w-full h-full pb-8 px-8",
+        ),
+        to=path,
+        class_name="flex flex-col gap-8 rounded-xl backdrop-blur-[16px] [box-shadow:0_-2px_2px_1px_rgba(0,_0,_0,_0.02),_0_1px_1px_0_rgba(0,_0,_0,_0.08),_0_4px_8px_0_rgba(0,_0,_0,_0.03)] bg-white-1 dark:bg-m-slate-11 overflow-hidden group h-full",
+    )
+
+
+def card_content(meta: dict, path: str, class_name: str = "") -> rx.Component:
+    return rx.el.div(
+        card_inner(meta, path),
         display=rx.cond(
             (blog_filter_cs.value == "All")
             | (blog_filter_cs.value == meta.get("tag", "")),
             "block",
             "none",
         ),
-        class_name="relative border-y border-m-slate-4 dark:border-m-slate-10 lg:odd:border-r lg:even:border-l lg:even:before:content-[''] lg:even:before:absolute lg:even:before:w-12 lg:even:before:-left-12 lg:even:before:top-0 lg:even:before:bottom-0 lg:even:before:border-y lg:even:before:border-m-slate-4 lg:dark:even:before:border-m-slate-10",
+        class_name=ui.cn(
+            "relative border-y border-m-slate-4 dark:border-m-slate-10 lg:before:absolute lg:before:w-[calc(2rem+2px)] lg:before:-left-[calc(2rem+1px)] lg:before:-top-[0.5px] lg:before:-bottom-[0.5px] lg:before:border-y lg:before:border-m-slate-4 lg:dark:before:border-m-slate-10 lg:max-xl:odd:border-r lg:max-xl:even:border-l lg:max-xl:even:before:content-[''] xl:[&:nth-child(3n+1)]:border-r xl:[&:nth-child(3n+2)]:border-l xl:[&:nth-child(3n+2)]:border-r xl:[&:nth-child(3n+2)]:before:content-[''] xl:[&:nth-child(3n)]:border-l xl:[&:nth-child(3n)]:before:content-['']",
+            class_name,
+        ),
     )
 
 
 def component_grid() -> rx.Component:
-    posts = []
-    for path, document in list(blog_data.items()):
-        posts.append(card_content(meta=document.metadata, path=f"/blog/{path}"))
+    posts = [
+        card_content(meta=doc.metadata, path=f"/blog/{path}")
+        for path, doc in blog_data_visible()
+    ]
     return rx.el.div(
         *posts,
         rx.el.div(
@@ -161,27 +169,29 @@ def component_grid() -> rx.Component:
         rx.el.div(
             class_name="absolute -bottom-24 -right-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
         ),
-        class_name="grid lg:grid-cols-2 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-12 gap-y-12 lg:gap-y-24 relative py-24",
+        class_name="grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-8 gap-y-8 lg:gap-y-24 relative py-24",
     )
 
 
 @marketing_page(
     path="/blog",
-    title="Reflex Blog",
-    description="Reflex Blog",
+    title="Reflex Blog - Python Web App Development",
+    description="Reflex blog: tutorials, framework comparisons, release notes, and tips for building Python web apps, dashboards, and internal tools.",
     image="/previews/index_preview.webp",
     meta=create_meta_tags(
-        title="Reflex Blog",
-        description="Reflex Blog",
+        title="Reflex Blog - Python Web App Development",
+        description="Reflex blog: tutorials, framework comparisons, release notes, and tips for building Python web apps, dashboards, and internal tools.",
         image="/previews/index_preview.webp",
         url="https://reflex.dev/blog",
     ),
 )
 def blogs():
+    posts = [(path, doc.metadata) for path, doc in list(blog_data.items())[:20]]
     return rx.el.section(
+        blog_index_jsonld(posts, url="https://reflex.dev/blog"),
         rx.el.header(
             rx.el.h1(
-                "Blog",
+                "Reflex Blog - Python Web App Development",
                 class_name="text-4xl font-[575] text-m-slate-12 dark:text-m-slate-3 text-center",
             ),
             rx.el.h2(
@@ -204,13 +214,15 @@ for path, document in blog_data.items():
     # Get the docpage component.
     route = f"/blog/{path}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
+    # Use title_tag for <title> and og/twitter if provided, otherwise fall back to title.
+    seo_title = document.metadata.get("title_tag") or document.metadata["title"]
     comp = marketing_page(
         path=route,
-        title=document.metadata["title"] + " · Reflex Blog",
+        title=seo_title,
         description=document.metadata["description"],
         image=document.metadata["image"],
         meta=create_meta_tags(
-            title=document.metadata["title"],
+            title=seo_title,
             description=document.metadata["description"],
             image=document.metadata["image"],
             url=f"https://reflex.dev{route}",

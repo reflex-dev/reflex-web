@@ -15,7 +15,12 @@ from pcweb.pages.use_cases.finance.views.text_section_4 import text_section_4
 from pcweb.templates.mainpage import mainpage
 
 
-@mainpage(path="/use-cases/finance", title="Finance Use Case - Reflex", meta=meta_tags)
+@mainpage(
+    path="/use-cases/finance",
+    title="Finance Use Case - Build Fintech Apps with Reflex",
+    description="Finance use of Reflex: dashboards, risk models, and internal tools. Python web apps for fintech.",
+    meta=meta_tags,
+)
 def finance_use_case_page() -> rx.Component:
     return rx.el.div(
         hero(),
