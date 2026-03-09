@@ -216,7 +216,7 @@ def blog_index_jsonld(posts: list[tuple[str, dict]], url: str) -> rx.Component:
         {
             "@type": "ListItem",
             "position": i + 1,
-            "url": f"https://reflex.dev/blog/{path}",
+            "url": f"{REFLEX_DOMAIN_URL.rstrip('/')}/blog/{path}",
             "name": meta.get("title_tag") or meta.get("title", ""),
             "datePublished": str(meta.get("date", "")),
         }
@@ -226,7 +226,7 @@ def blog_index_jsonld(posts: list[tuple[str, dict]], url: str) -> rx.Component:
         {
             "@type": "BlogPosting",
             "headline": meta.get("title_tag") or meta.get("title", ""),
-            "url": f"https://reflex.dev/blog/{path}",
+            "url": f"{REFLEX_DOMAIN_URL.rstrip('/')}/blog/{path}",
             "datePublished": str(meta.get("date", "")),
         }
         for path, meta in posts[:20]
