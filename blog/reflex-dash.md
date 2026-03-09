@@ -2,7 +2,8 @@
 author: Tom Gotsman
 date: 2025-06-20
 title: Reflex vs Plotly Dash
-description: A Comparison of Python Frameworks for Building Interactive Financial Dashboards
+title_tag: "Reflex vs Plotly Dash - Framework Comparison"
+description: A detailed comparison of Reflex and Plotly Dash for building interactive financial dashboards. Compare performance, flexibility, and deployment options.
 image: /blog/reflex-dash.webp
 tag: Builder
 meta: [

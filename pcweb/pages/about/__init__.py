@@ -16,10 +16,11 @@ from pcweb.templates.marketing_page import marketing_page
 
 @marketing_page(
     path="/about",
-    title="Reflex · About",
+    title="About Reflex - Team, Mission & Python Web Apps",
+    description="Learn about Reflex, the team behind it, and our mission to make Python the best language for building full-stack web applications and internal tools.",
     meta=create_meta_tags(
-        title="Reflex · About",
-        description="About Reflex - The platform to build and scale enterprise apps",
+        title="About Reflex - Team, Mission & Python Web Apps",
+        description="Learn about Reflex, the team behind it, and our mission to make Python the best language for building full-stack web applications and internal tools.",
         image="/previews/index_preview.webp",
     ),
 )

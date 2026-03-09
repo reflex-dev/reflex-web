@@ -2,7 +2,7 @@
 author: Reflex Team
 date: 2025-07-01
 title: Reflex v0.8.0 - Refactoring for Performance
-description: Major improvements in Reflex v0.8.0 developer experience and performance.
+description: Major improvements in Reflex v0.8.0—2-3x faster builds with Vite and Rolldown, 18% faster components with our Pydantic replacement, and reduced memory usage.
 image: /blog/080.webp
 tag: Open Source
 meta: [

@@ -2,11 +2,16 @@
 author: Masen Furer
 date: 2023-10-25
 title: "Implementing Sign In with Google"
-description: "How to wrap a third-party auth component and integrate it into a Reflex app."
+description: "Learn how to wrap a third-party auth component and integrate Google Sign-In into your Reflex app. Step-by-step guide with code examples."
 image: /blog/google_auth.webp
 tag: Open Source
 meta: [
     {"name": "keywords", "content": ""},
+]
+faq: [
+    {"question": "How do I add Google Sign-In to my Reflex app?", "answer": "Create an OAuth client ID in Google Cloud Console, then wrap the @react-oauth/google React component for use in Reflex. The post includes step-by-step setup and code examples."},
+    {"question": "Does Reflex have built-in Google Auth?", "answer": "Reflex offers multiple auth options. For Google Sign-In specifically, you can use the built-in Google Auth provider or integrate a third-party component like @react-oauth/google via a Reflex wrapper."},
+    {"question": "What scopes do I need for Google Sign-In?", "answer": "For basic profile and email, select Email, Profile, and OpenID Connect scopes in the Google Cloud Console consent screen. Add your production domain (HTTPS) to Authorized JavaScript origins."},
 ]
 ---
 

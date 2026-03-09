@@ -2,7 +2,8 @@
 author: Reflex Team
 date: 2023-08-02
 title: Announcing our Seed Round
-description: Reflex has raised a $5M seed led by Lux Capital.
+title_tag: "Reflex Raises $5M Seed Round - Lux Capital"
+description: Reflex has raised a $5M seed round led by Lux Capital. Learn how we're building the future of Python web development and accelerating our platform.
 image: /blog/fundraise_dark.webp
 tag: Announcements
 meta: [

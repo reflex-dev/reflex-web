@@ -2,7 +2,8 @@
 author: Tom Gotsman
 date: 2024-06-28
 title: Creating Tables in Reflex
-description: Describing main uses of the Table component with a Database
+title_tag: "Creating Tables in Reflex - Python Data Tables"
+description: Explore the main uses of Reflex's Table component with a database. Build CRUD apps, data dashboards, and admin panels with Python-native tables.
 image: /blog/table.webp
 tag: Open Source
 meta: [

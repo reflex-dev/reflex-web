@@ -234,7 +234,7 @@ def page(document, route) -> rx.Component:
                 ),
                 rx.el.header(
                     rx.el.h1(
-                        meta["title"],
+                        meta.get("title_tag") or meta["title"],
                         class_name="lg:text-5xl text-3xl text-m-slate-12 dark:text-m-slate-3 font-[575] mb-6 text-center text-balance",
                     ),
                     rx.el.h2(

@@ -43,6 +43,7 @@ for path, document in customer_data.items():
         path=route,
         company=document.metadata["company"],
         description=document.metadata["description"],
+        h1=document.metadata.get("h1"),
         domain=document.metadata["domain"],
         founded=document.metadata["founded"],
         investors=document.metadata["investors"],

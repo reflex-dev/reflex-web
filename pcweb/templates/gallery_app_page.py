@@ -81,7 +81,7 @@ def gallery_app_page(
 
         return Route(
             path=path,
-            title=title + " · Reflex App",
+            title=title.replace("_", " ").title() + " - Reflex App Template",
             description=description,
             meta=meta,
             image=image,

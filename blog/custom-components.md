@@ -2,7 +2,8 @@
 author: Nikhil Rao
 date: 2024-04-16
 title: Custom Components
-description: Announcing our custom component ecosystem.
+title_tag: "Reflex Custom Components - Build & Share"
+description: Announcing the Reflex custom component ecosystem. Build and share reusable components, wrap React libraries, and extend Reflex with your own Python components.
 image: /blog/custom_components.webp
 tag: Open Source
 meta: [

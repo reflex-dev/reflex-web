@@ -154,7 +154,11 @@ def faq_item(question: str, answer: str, index: int):
     )
 
 
-@webpage(path="/faq", title="Frequently Asked Questions · Reflex")
+@webpage(
+    path="/faq",
+    title="Frequently Asked Questions · Reflex",
+    description="FAQ: Reflex installation, deployment, pricing, and how it compares to Streamlit and Django. Get your Python web app questions answered.",
+)
 def faq():
     return rx.el.section(
         rx.box(

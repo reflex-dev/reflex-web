@@ -2,7 +2,7 @@
 author: Tom Gotsman
 date: 2024-10-08
 title: Self Hosting Reflex with Docker
-description: Hosting Reflex on your own infra using Docker for efficient containerization.
+description: Step-by-step guide to hosting Reflex apps on your own infrastructure using Docker. Learn containerization, orchestration, and deployment best practices.
 image: /blog/self-hosting-with-docker.webp
 tag: Open Source
 meta: [
@@ -28,6 +28,11 @@ meta: [
         reflex web development,
       "
     },
+]
+faq: [
+    {"question": "How do I deploy a Reflex app with Docker?", "answer": "Create compose.yml, Dockerfile, web.Dockerfile, and nginx.conf at your app root. Use docker compose to build and run. The Reflex docs include complete examples for containerizing your app."},
+    {"question": "What files do I need to Dockerize a Reflex app?", "answer": "You need four files: compose.yml for orchestration, Dockerfile for the backend, web.Dockerfile for the frontend, and nginx.conf for serving. All go at the same level as rxconfig.py."},
+    {"question": "Can I self-host Reflex instead of using Reflex Cloud?", "answer": "Yes. Reflex is open source and supports self-hosting via Docker. You can run it on your own infrastructure with full control over deployment and resources."},
 ]
 ---
 

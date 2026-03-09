@@ -230,7 +230,7 @@ def create_grid_with_items():
 def create_header():
     return rx.box(
         rx.box(
-            rx.el.h2(
+            rx.el.h1(
                 "Reflex Build Templates",
                 class_name="text-slate-12 text-4xl font-bold mb-6",
             ),
@@ -244,7 +244,11 @@ def create_header():
     )
 
 
-@webpage(path="/templates", title="Templates · Reflex")
+@webpage(
+    path="/templates",
+    title="Reflex App Templates - Python Dashboards & Tools",
+    description="Reflex app templates: dashboards, chatbots, data tools, and AI apps. Start from a template and customize in Python.",
+)
 def gallery() -> rx.Component:
     return rx.el.section(
         rx.box(

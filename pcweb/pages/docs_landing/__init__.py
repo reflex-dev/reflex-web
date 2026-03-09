@@ -18,11 +18,12 @@ from pcweb.views.docs_navbar import docs_navbar
 
 @rx.page(
     route="/docs",
-    title="Reflex · Docs",
+    title="Reflex Documentation - Build Web Apps in Pure Python",
     meta=create_meta_tags(
-        title="Reflex · Docs",
-        description="Docs for Reflex - The platform to build and scale enterprise apps",
+        title="Reflex Documentation - Build Web Apps in Pure Python",
+        description="Reflex documentation: tutorials, API reference, and guides for building full-stack Python web apps. Get started in minutes.",
         image="/previews/index_preview.webp",
+        url="https://reflex.dev/docs",
     ),
 )
 def docs_landing() -> rx.Component:

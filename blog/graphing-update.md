@@ -2,7 +2,8 @@
 author: Alek Petuskey
 date: 2023-10-11
 title: "New Core Graphing Components"
-description: "Using Reflex's new core graphing feature to build a live streaming graphing app."
+title_tag: "New Core Graphing Components in Reflex"
+description: "Use Reflex's new core graphing feature to build a live streaming graphing app. Real-time charts, custom visualizations, and Python-native APIs."
 image: /blog/graphing.webp
 tag: Open Source
 meta: [
@@ -23,7 +24,7 @@ class self(object):
 
 With the release of [Reflex v0.2.9](https://github.com/reflex-dev/reflex/releases/tag/v0.2.9) we've reworked the core graphing components from the ground up. The new components are more flexible and easier to use. 
 
-In this post we'll walk through the new components and show how to build a live streaming graphing app. This will also build on the [Unlocking New Workflows with Background Tasks](https://reflex.dev/blog/2023-09-28-unlocking-new-workflows-with-background-tasks/)  post, so if you haven't read that yet, check it out first.
+In this post we'll walk through the new components and show how to build a live streaming graphing app. This will also build on the [Unlocking New Workflows with Background Tasks](https://reflex.dev/blog/unlocking-new-workflows-with-background-tasks)  post, so if you haven't read that yet, check it out first.
 
 ## Striking a Balance
 

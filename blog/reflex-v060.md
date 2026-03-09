@@ -2,7 +2,8 @@
 author: Alek Petuskey
 date: 2024-09-21
 title: Reflex v0.6.0
-description: New features and improvements in Reflex v0.6.0
+title_tag: "Reflex v0.6.0 Release - New Features & Improvements"
+description: Explore new features and improvements in Reflex v0.6.0, including enhanced performance, better component APIs, and improved developer experience.
 image: /blog/reflex-060.webp
 tag: Open Source
 meta: [
