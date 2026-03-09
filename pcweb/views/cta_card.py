@@ -46,5 +46,5 @@ def cta_card():
             loading="lazy",
             alt="CTA Card",
         ),
-        class_name="flex flex-row justify-between max-w-(--docs-layout-max-width) mx-auto w-full bg-white/96 dark:bg-m-slate-11 backdrop-blur-[16px] rounded-xl relative overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_12px_24px_0_rgba(0,0,0,0.08),0_1px_1px_0_rgba(0,0,0,0.01),0_4px_8px_0_rgba(0,0,0,0.03)] dark:shadow-none dark:border dark:border-m-slate-9 pl-16 max-lg:hidden mb-12",
+        class_name="flex flex-row justify-between max-w-(--docs-layout-max-width) mx-auto w-full bg-white/96 dark:bg-m-slate-11 backdrop-blur-[16px] rounded-xl relative overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_12px_24px_0_rgba(0,0,0,0.08),0_1px_1px_0_rgba(0,0,0,0.01),0_4px_8px_0_rgba(0,0,0,0.03)] dark:shadow-none dark:border dark:border-m-slate-9 pl-16 max-lg:hidden mb-12 mt-24",
     )
