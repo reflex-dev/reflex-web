@@ -2,7 +2,7 @@
 author: Masen Furer
 date: 2023-09-28
 title: Unlocking New Workflows with Background Tasks
-description: What is a background task and how can it help you build better apps?
+description: Learn what background tasks are and how they help you build better Reflex apps. Run long-running jobs, send emails, and process data without blocking the UI.
 image: /blog/background_tasks.webp
 tag: Open Source
 meta: [

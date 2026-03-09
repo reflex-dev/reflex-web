@@ -1,6 +1,6 @@
 import reflex as rx
 
-from pcweb.meta.meta import meta_tags
+from pcweb.meta.meta import meta_tags, website_organization_jsonld
 from pcweb.pages.landing.views.ai_bento import ai_bento
 from pcweb.pages.landing.views.app_build import app_build
 from pcweb.pages.landing.views.companies import companies
@@ -23,10 +23,12 @@ from pcweb.templates.mainpage import mainpage
 @mainpage(
     path="/",
     title="Reflex · The platform to build and scale enterprise apps",
+    description="Build with AI, iterate in Python, deploy to any cloud. Reflex is the unified platform for full-stack web apps and internal tools.",
     meta=meta_tags,
 )
 def landing() -> rx.Component:
     return rx.el.div(
+        website_organization_jsonld(url="https://reflex.dev"),
         hero(),
         app_build(),
         social_stats(),

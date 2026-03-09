@@ -2,7 +2,8 @@
 author: Ahmad Al Hakim
 date: 2025-09-03
 title: Turn Jupyter Notebooks into Production Dashboards in Python
-description: "Convert Jupyter notebooks into interactive, production-ready dashboards with Python and Reflex. Keep your pandas logic, add UI, and deploy in minutes."
+title_tag: "Jupyter to Reflex Dashboards in Python"
+description: "Convert Jupyter notebooks into production-ready dashboards with Reflex. Keep your pandas logic, add UI components, and deploy."
 image: /blog/jupyter_reflex.png
 tag: Open Source
 meta: [
@@ -10,6 +11,11 @@ meta: [
     "name": "keywords",
     "content": "Jupyter Notebook, Python dashboards, data science workflows, interactive dashboards, productionizing notebooks, Python web apps, data visualization, machine learning apps, data scientist guide, dashboard deployment"
   }
+]
+faq: [
+    {"question": "Can I convert my Jupyter notebook to a production dashboard?", "answer": "Yes. Reflex lets you keep your pandas, NumPy, and sklearn logic from your notebook and wrap it in production-ready UI components. Deploy in minutes without leaving Python."},
+    {"question": "Do I need to learn JavaScript to deploy a Jupyter-based dashboard?", "answer": "No. Reflex is pure Python—both frontend and backend are written in Python. You build UIs with Reflex components and deploy with a single command."},
+    {"question": "How does Reflex differ from Streamlit for notebook-to-dashboard workflows?", "answer": "Reflex offers true multi-page routing, production-grade state management, and customizable components. It scales from prototype to production without switching platforms."},
 ]
 ---
 

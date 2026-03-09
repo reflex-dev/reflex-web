@@ -2,7 +2,8 @@
 author: Alek Petuskey
 date: 2025-12-05
 title: "Reflex Build On-Prem: The Secure AI App Builder That Runs Inside Your Company Infrastructure"
-description: An enterprise, on-premises AI app builder for developing secure internal tools and dashboards using Python.
+title_tag: "Reflex Build On-Prem - Enterprise AI App Builder"
+description: Reflex Build on-premises—an enterprise AI app builder for developing secure internal tools and dashboards using Python. Deploy inside your infrastructure.
 image: /blog/on-prem.png
 tag: Cloud
 meta: [
@@ -26,6 +27,12 @@ meta: [
         secure web app deployment,
       "
     },
+]
+faq: [
+    {"question": "What is Reflex Build on-premises?", "answer": "Reflex Build on-premises is our AI-powered app builder running inside your company infrastructure. It lets you build full-stack Python web apps using natural language while keeping all code, data, and development within your controlled environment."},
+    {"question": "Can Reflex run in air-gapped environments?", "answer": "Yes. Reflex Enterprise supports deployment in completely isolated networks, meeting the highest security standards for government, defense, and regulated industries."},
+    {"question": "Does Reflex on-premises support my existing data sources?", "answer": "Yes. Reflex Build on-premises securely connects with your internal databases, APIs, documentation, data warehouses, and identity providers (SSO/SAML) all within your infrastructure."},
+    {"question": "What compliance standards does Reflex on-premises support?", "answer": "Reflex on-premises deployment helps meet HIPAA, SOC 2, GDPR, and other regulatory requirements. All data remains within your infrastructure with zero PII collection and complete audit trails."},
 ]
 ---
 
@@ -163,4 +170,3 @@ rx.el.div(
 ```
 
 With Reflex Build on-premises, you get the best of both worlds: the power and productivity of AI-powered app building, with the control and security of your own infrastructure. Build full-stack Python web apps faster than ever, all while keeping your code, data, and development process completely within your controlled environment.
-

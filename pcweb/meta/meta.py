@@ -5,7 +5,7 @@ import reflex as rx
 from pcweb.constants import REFLEX_DOMAIN, REFLEX_DOMAIN_URL, TWITTER_CREATOR
 
 TITLE = "The unified platform to build and scale enterprise apps."
-ONE_LINE_DESCRIPTION = "Build with AI, iterate in Python, deploy to any cloud. The unified platform to build and scale enterprise apps."
+ONE_LINE_DESCRIPTION = "Build with AI, iterate in Python, deploy to any cloud. Reflex is the platform for full-stack web apps and internal tools."
 
 # Common constants
 APPLICATION_NAME = "Reflex"
@@ -181,5 +181,89 @@ def blog_jsonld(
     data = {
         "@context": "https://schema.org",
         "@graph": graph,
+    }
+    return rx.el.script(json.dumps(data), type="application/ld+json")
+
+
+def website_organization_jsonld(url: str = REFLEX_DOMAIN_URL) -> rx.Component:
+    """Create Organization + WebSite JSON-LD for the homepage."""
+    org_url = REFLEX_DOMAIN_URL.rstrip("/")
+    data = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": f"{org_url}/#organization",
+                "name": "Reflex",
+                "url": REFLEX_DOMAIN_URL,
+                "logo": f"{org_url}/meta/apple-touch-icon.png",
+            },
+            {
+                "@type": "WebSite",
+                "name": "Reflex",
+                "url": url,
+                "description": ONE_LINE_DESCRIPTION,
+                "publisher": {"@id": f"{org_url}/#organization"},
+            },
+        ],
+    }
+    return rx.el.script(json.dumps(data), type="application/ld+json")
+
+
+def blog_index_jsonld(posts: list[tuple[str, dict]], url: str) -> rx.Component:
+    """Create Blog JSON-LD with ItemList of posts for the blog index page."""
+    items = [
+        {
+            "@type": "ListItem",
+            "position": i + 1,
+            "url": f"https://reflex.dev/blog/{path}",
+            "name": meta.get("title_tag") or meta.get("title", ""),
+            "datePublished": str(meta.get("date", "")),
+        }
+        for i, (path, meta) in enumerate(posts[:20])
+    ]
+    blog_posts = [
+        {
+            "@type": "BlogPosting",
+            "headline": meta.get("title_tag") or meta.get("title", ""),
+            "url": f"https://reflex.dev/blog/{path}",
+            "datePublished": str(meta.get("date", "")),
+        }
+        for path, meta in posts[:20]
+    ]
+    data = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Blog",
+                "name": "Reflex Blog",
+                "description": "Python web app tutorials, framework comparisons, and tips for building with Reflex.",
+                "url": url,
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Reflex",
+                    "url": REFLEX_DOMAIN_URL,
+                },
+                "blogPost": blog_posts,
+            },
+            {
+                "@type": "ItemList",
+                "itemListElement": items,
+                "numberOfItems": len(items),
+            },
+        ],
+    }
+    return rx.el.script(json.dumps(data), type="application/ld+json")
+
+
+def pricing_jsonld(url: str) -> rx.Component:
+    """Create SoftwareApplication JSON-LD for the pricing page."""
+    data = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Reflex",
+        "applicationCategory": "DeveloperApplication",
+        "description": "The platform to build and scale enterprise apps. Python full-stack framework for web apps and internal tools.",
+        "url": url,
     }
     return rx.el.script(json.dumps(data), type="application/ld+json")

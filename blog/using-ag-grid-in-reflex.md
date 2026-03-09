@@ -2,7 +2,8 @@
 author: Tom Gotsman
 date: 2024-10-03
 title: AG Grid in Reflex
-description: Getting started with powerful data tables in your Python web apps
+title_tag: "How to Use AG Grid in Reflex Python Apps"
+description: Get started with AG Grid in Reflex for powerful, enterprise-grade data tables in your Python web apps. Sort, filter, and edit data with ease.
 image: /blog/ag-grid.webp
 tag: Open Source
 meta: [

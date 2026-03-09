@@ -8,7 +8,12 @@ from pcweb.pages.framework.index_colors import index_colors
 from pcweb.route import Route
 
 
-def hero(company: str, description: str, stats: list[dict[str, str]]) -> rx.Component:
+def hero(
+    company: str,
+    description: str,
+    stats: list[dict[str, str]],
+    h1: str | None = None,
+) -> rx.Component:
     return rx.box(
         rx.link(
             rx.icon(
@@ -22,7 +27,7 @@ def hero(company: str, description: str, stats: list[dict[str, str]]) -> rx.Comp
             class_name="flex items-center gap-2 text-slate-9 hover:!text-slate-11 transition-color w-fit",
         ),
         rx.el.h1(
-            company,
+            h1 if h1 else company,
             class_name="gradient-heading font-x-large lg:font-xx-large text-start text-transparent",
         ),
         rx.el.h2(description, class_name="text-slate-9 font-md-smbold"),
@@ -201,6 +206,7 @@ def storypage(
     path: str,
     description: str,
     company: str,
+    h1: str | None = None,
     domain: str | None = None,
     founded: str | None = None,
     investors: str | None = None,
@@ -217,6 +223,7 @@ def storypage(
         path: The path of the page.
         description: The description of the page.
         company: The company name.
+        h1: Optional H1 for the hero. Used when company name alone is too short for SEO.
         domain: The company domain.
         founded: The company founded date.
         investors: The company investors.
@@ -263,7 +270,7 @@ def storypage(
                     marketing_navbar(),
                     company_card(company, founded, investors, domain),
                     rx.el.main(
-                        hero(company, description, stats),
+                        hero(company, description, stats, h1),
                         contents(*children, **props),
                         more_customers(company),
                         rx.box(class_name="flex-grow"),
@@ -280,7 +287,7 @@ def storypage(
 
         return Route(
             path=path,
-            title=company + " · Reflex Customer Story",
+            title=company + " Case Study - Reflex Customer Stories",
             description=description,
             meta=meta,
             component=wrapper,

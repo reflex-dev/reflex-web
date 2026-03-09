@@ -5,12 +5,13 @@ PAGES_PATH = "blog/"
 
 
 def get_blog_data(paths):
-    blogs = {}
-    for path in sorted(paths, reverse=True):
+    items = []
+    for path in paths:
         document = Document.from_file(path)
         path_str = str(path).replace(PAGES_PATH, "").replace(".md", "/")
-        blogs[path_str] = document
-    return blogs
+        items.append((path_str, document))
+    items.sort(key=lambda x: str(x[1].metadata.get("date", "")), reverse=True)
+    return dict(items)
 
 
 def get_route(path: str):

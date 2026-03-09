@@ -12,7 +12,12 @@ from .views.pricing_cards import pricing_cards
 from .views.templates import templates
 
 
-@mainpage(path="/hosting", title="Reflex · Hosting", meta=hosting_meta_tags)
+@mainpage(
+    path="/hosting",
+    title="Reflex Hosting - Deploy Python Apps to Cloud",
+    description="Deploy Reflex apps to the cloud or self-host. Zero-config deployment, auto-scaling, and enterprise reliability.",
+    meta=hosting_meta_tags,
+)
 def hosting_landing() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.box(

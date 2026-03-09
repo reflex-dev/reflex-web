@@ -8,7 +8,7 @@ from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.route import Route
 
 DEFAULT_TITLE = "The platform to build and scale enterprise apps"
-DEFAULT_DESCRIPTION = "Connect to all your company data and systems to build secure internal apps with AI. Deployed on prem with built-in governance and production-grade reliability, so technical and nontechnical teams can ship together."
+DEFAULT_DESCRIPTION = "Build secure internal apps with AI. Deploy on prem or cloud with governance. Technical and nontechnical teams ship together."
 
 
 def marketing_page(

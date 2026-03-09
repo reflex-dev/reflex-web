@@ -13,7 +13,7 @@ def glow() -> rx.Component:
 
 
 POST_LINK = "https://www.producthunt.com/products/reflex-5?launch=reflex-7"
-BLOG_LINK = "/blog/2025-12-05-on-premises-deployment/"
+BLOG_LINK = "/blog/on-premises-deployment"
 
 # October 25, 2025 12:01 AM PDT (UTC-7) = October 25, 2025 07:01 AM UTC
 DEADLINE = datetime.datetime(2025, 10, 25, 7, 1, tzinfo=datetime.UTC)

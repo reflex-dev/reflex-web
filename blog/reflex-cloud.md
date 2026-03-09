@@ -2,11 +2,17 @@
 author: Nikhil Rao
 date: 2024-12-05
 title: Reflex Cloud
-description: Deploy your Reflex apps with a single command
+title_tag: "Reflex Cloud - Deploy Python Apps in One Command"
+description: Deploy your Reflex apps to the cloud with a single command. Reflex Cloud offers zero-config deployment, automatic scaling, and built-in observability.
 image: /blog/reflex-cloud.webp
 tag: Cloud
 meta: [
     {"name": "keywords", "content": ""},
+]
+faq: [
+    {"question": "How do I deploy a Reflex app to the cloud?", "answer": "Run reflex deploy from your app directory. The command handles environment variables, machine sizes, and regions. Your app will be live in minutes."},
+    {"question": "What is included in Reflex Cloud?", "answer": "Reflex Cloud offers one-command deployment, a unified dashboard for all your apps, automatic scaling, built-in observability, and optional Enterprise features like custom domains and on-prem hosting."},
+    {"question": "Is there a free tier for Reflex Cloud?", "answer": "Yes. Reflex Cloud has a free tier that lets you deploy your first app at no cost. Enterprise tier adds one-click auth, custom domains, and on-premise hosting options."},
 ]
 ---
 

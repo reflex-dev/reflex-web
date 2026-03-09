@@ -2,11 +2,17 @@
 author: Reflex Team
 date: 2025-06-30
 title: "Reflex x Databricks: Python-Powered Vibe Coding for Enterprises"
-description: "We're excited to announce our official partnership with Databricks and the launch of our Reflex AI Builder integration with Databricks Apps."
+title_tag: "Reflex x Databricks Partnership"
+description: "Announcing the Reflex and Databricks partnership. Build and deploy Python apps directly in Databricks with the AI Builder."
 image: /blog/databricks-partnership.webp
 tag: Announcements
 meta: [
   {"name": "keywords", "content": "Reflex Databricks, Python apps, enterprise development, AI Builder, Unity Catalog, data apps, Python framework, Databricks Apps"}
+]
+faq: [
+    {"question": "What is the Reflex and Databricks partnership?", "answer": "Reflex and Databricks partnered to let Python teams build and deploy full internal apps directly on Databricks data. The Reflex AI Builder integrates with Databricks Apps for prompt-to-production workflows."},
+    {"question": "Does Reflex work with Unity Catalog?", "answer": "Yes. Reflex supports Databricks Unity Catalog, so your apps have secure, governed access to your data while respecting existing catalog permissions."},
+    {"question": "Can I deploy Reflex apps on Databricks?", "answer": "Yes. Reflex apps deploy to Databricks Apps, so your data never leaves your stack. Build dashboards, workflow tools, and LLM-powered interfaces using Python and natural language prompts."},
 ]
 ---
 

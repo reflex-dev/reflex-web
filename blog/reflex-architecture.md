@@ -2,7 +2,7 @@
 author: Nikhil Rao
 date: 2024-03-21
 title: Designing a Pure Python Web Framework
-description: A look at how Reflex works under the hood.
+description: A deep dive into how Reflex works under the hood—from reactive state management to compilation of Python components into React.
 image: /blog/web_framework.webp
 tag: Open Source
 meta: [

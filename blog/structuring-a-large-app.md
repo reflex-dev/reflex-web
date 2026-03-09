@@ -2,7 +2,8 @@
 author: Masen Furer
 date: 2024-03-27
 title: "Structuring a Large App"
-description: "So your Reflex app is getting large? Here's some advice on how to lay it out."
+title_tag: "How to Structure a Large Reflex App"
+description: "So your Reflex app is getting large? Here's practical advice on project structure, organization, and layout patterns for scaling Python web apps."
 image: /blog/project_structure.webp
 tag: Open Source
 meta: [

@@ -4,7 +4,7 @@ from reflex.experimental.client_state import ClientStateVar
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.marketing_button import button as marketing_button
-from pcweb.meta.meta import create_meta_tags
+from pcweb.meta.meta import blog_index_jsonld, create_meta_tags
 from pcweb.signup import IndexState
 from pcweb.templates.marketing_page import marketing_page
 
@@ -174,21 +174,23 @@ def component_grid() -> rx.Component:
 
 @marketing_page(
     path="/blog",
-    title="Reflex Blog",
-    description="Reflex Blog",
+    title="Reflex Blog - Python Web App Development",
+    description="Reflex blog: tutorials, framework comparisons, release notes, and tips for building Python web apps, dashboards, and internal tools.",
     image="/previews/index_preview.webp",
     meta=create_meta_tags(
-        title="Reflex Blog",
-        description="Reflex Blog",
+        title="Reflex Blog - Python Web App Development",
+        description="Reflex blog: tutorials, framework comparisons, release notes, and tips for building Python web apps, dashboards, and internal tools.",
         image="/previews/index_preview.webp",
         url="https://reflex.dev/blog",
     ),
 )
 def blogs():
+    posts = [(path, doc.metadata) for path, doc in list(blog_data.items())[:20]]
     return rx.el.section(
+        blog_index_jsonld(posts, url="https://reflex.dev/blog"),
         rx.el.header(
             rx.el.h1(
-                "Blog",
+                "Reflex Blog - Python Web App Development",
                 class_name="text-4xl font-[575] text-m-slate-12 dark:text-m-slate-3 text-center",
             ),
             rx.el.h2(

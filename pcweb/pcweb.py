@@ -151,14 +151,83 @@ redirects = [
     ("/docs/overview", "/docs/getting-started/introduction"),
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
     ("/changelog", "https://github.com/reflex-dev/reflex/releases"),
+    # Blog: redirect old date-prefixed URLs to new slug-only URLs
+    ("/blog/2023-06-28-rebrand-to-reflex", "/blog/rebrand-to-reflex"),
+    ("/blog/2023-08-02-seed-annoucement", "/blog/seed-annoucement"),
+    (
+        "/blog/2023-09-28-unlocking-new-workflows-with-background-tasks",
+        "/blog/unlocking-new-workflows-with-background-tasks",
+    ),
+    ("/blog/2023-10-11-graphing-update", "/blog/graphing-update"),
+    (
+        "/blog/2023-10-25-implementing-sign-in-with-google",
+        "/blog/implementing-sign-in-with-google",
+    ),
+    ("/blog/2024-02-16-reflex-v0-4-0", "/blog/reflex-v0-4-0"),
+    ("/blog/2024-03-21-reflex-architecture", "/blog/reflex-architecture"),
+    ("/blog/2024-03-27-structuring-a-large-app", "/blog/structuring-a-large-app"),
+    ("/blog/2024-04-16-custom-components", "/blog/custom-components"),
+    ("/blog/2024-06-28-using-table-component", "/blog/using-table-component"),
+    ("/blog/2024-09-21-reflex-v060", "/blog/reflex-v060"),
+    ("/blog/2024-09-25-using-ag-grid-in-reflex", "/blog/using-ag-grid-in-reflex"),
+    (
+        "/blog/2024-10-8-self-hosting-reflex-with-docker",
+        "/blog/self-hosting-reflex-with-docker",
+    ),
+    (
+        "/blog/2024-11-19-microsoft-azure-authentication",
+        "/blog/microsoft-azure-authentication",
+    ),
+    ("/blog/2024-12-05-reflex-cloud", "/blog/reflex-cloud"),
+    ("/blog/2024-12-20-python-comparison", "/blog/python-comparison"),
+    (
+        "/blog/2025-01-27-top-10-data-visualization-libraries",
+        "/blog/top-10-data-visualization-libraries",
+    ),
+    ("/blog/2025-05-16-top-5-ai-app-builders", "/blog/top-5-ai-app-builders"),
+    (
+        "/blog/2025-06-03-internal-tool-builders-2025",
+        "/blog/internal-tool-builders-2025",
+    ),
+    ("/blog/2025-06-20-reflex-dash", "/blog/reflex-dash"),
+    (
+        "/blog/2025-06-30-reflex-databricks-partnership",
+        "/blog/reflex-databricks-partnership",
+    ),
+    ("/blog/2025-07-01-reflex-080", "/blog/reflex-080"),
+    ("/blog/2025-08-20-reflex-streamlit", "/blog/reflex-streamlit"),
+    ("/blog/2025-09-03-reflex-jupyter", "/blog/reflex-jupyter"),
+    ("/blog/2025-12-05-on-premises-deployment", "/blog/on-premises-deployment"),
+    (
+        "/blog/2025-12-17-top-7-enterprise-ai-app-builders-2026",
+        "/blog/top-7-enterprise-ai-app-builders-2026",
+    ),
     (
         "/blog/2025-10-27-top-10-data-visualization-libraries",
-        "/blog/2025-01-27-top-10-data-visualization-libraries",
+        "/blog/top-10-data-visualization-libraries",
+    ),
+    (
+        "/blog/2026-01-09-top-python-web-frameworks-2026",
+        "/blog/top-python-web-frameworks-2026",
     ),
 ]
 
+
+def _redirect_page():
+    return rx.fragment(
+        rx.el.h1("Redirecting", class_name="sr-only"),
+    )
+
+
 for source, target in redirects:
     if _check_whitelisted_path(target):
-        app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
+        app.add_page(
+            _redirect_page,
+            route=source,
+            title="Redirecting - Reflex Web Framework",
+            description="You are being redirected to the requested page.",
+            on_load=rx.redirect(target),
+            context={"sitemap": None},
+        )
 
 app.add_page(page404.component, route=page404.path)

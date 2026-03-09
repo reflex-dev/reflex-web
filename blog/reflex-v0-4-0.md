@@ -2,7 +2,8 @@
 author: Nikhil Rao
 date: 2024-02-16
 title: "Reflex v0.4.0"
-description: "New features coming in the 0.4.0 release."
+title_tag: "Reflex v0.4.0 Release - New Features & Improvements"
+description: "New features coming in Reflex v0.4.0—improved styling, better components, and enhanced developer experience. See what's new in this release."
 image: /blog/reflex-040.webp
 tag: Open Source
 meta: [

@@ -15,7 +15,10 @@ from pcweb.templates.mainpage import mainpage
 
 
 @mainpage(
-    path="/use-cases/healthcare", title="Healthcare Use Case - Reflex", meta=meta_tags
+    path="/use-cases/healthcare",
+    title="Healthcare Use Case - Build Medical Apps with Reflex",
+    description="Healthcare use of Reflex: HIPAA-compliant apps, patient dashboards, and clinical tools in Python.",
+    meta=meta_tags,
 )
 def healthcare_use_case_page() -> rx.Component:
     return rx.el.div(

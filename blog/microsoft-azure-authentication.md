@@ -2,7 +2,8 @@
 author: Tom Gotsman
 date: 2024-11-19
 title: Microsoft Azure Auth
-description: Implementing Microsoft Azure Single Sign-On (SSO) Auth in Reflex app.
+title_tag: "Microsoft Azure SSO Auth in Reflex Apps"
+description: Step-by-step guide to implementing Microsoft Azure Single Sign-On (SSO) authentication in your Reflex app. Integrate with Entra ID and enterprise auth.
 image: /blog/azure_auth.webp
 tag: Open Source
 meta: [
@@ -16,6 +17,11 @@ meta: [
         python web development,
       "
     },
+]
+faq: [
+    {"question": "How do I add Microsoft Azure SSO to my Reflex app?", "answer": "Use the MSAL (Microsoft Authentication Library) for Python with client_id, client_secret, and tenant_id from your Azure portal. Configure the auth provider in your Reflex app and handle the redirect flow."},
+    {"question": "What credentials do I need from Azure for Reflex auth?", "answer": "You need client_id, client_secret, and tenant_id from your Azure Entra ID (formerly Azure AD) app registration. Your SSO team or Azure portal can provide these values."},
+    {"question": "Does Reflex support enterprise SSO besides Azure?", "answer": "Yes. Reflex supports multiple auth options including Google Auth, Magic Link, Descope, and Clerk. For custom SSO like Azure, you can integrate via OAuth providers or MSAL."},
 ]
 ---
 
