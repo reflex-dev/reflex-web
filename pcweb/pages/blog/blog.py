@@ -9,7 +9,7 @@ from pcweb.signup import IndexState
 from pcweb.templates.marketing_page import marketing_page
 
 from .page import page
-from .paths import blog_data
+from .paths import blog_data, blog_data_visible
 
 blog_filter_cs = ClientStateVar.create("blog_filter", default="All")
 
@@ -145,9 +145,10 @@ def card_content(meta: dict, path: str, class_name: str = "") -> rx.Component:
 
 
 def component_grid() -> rx.Component:
-    posts = []
-    for path, document in list(blog_data.items()):
-        posts.append(card_content(meta=document.metadata, path=f"/blog/{path}"))
+    posts = [
+        card_content(meta=doc.metadata, path=f"/blog/{path}")
+        for path, doc in blog_data_visible()
+    ]
     return rx.el.div(
         *posts,
         rx.el.div(

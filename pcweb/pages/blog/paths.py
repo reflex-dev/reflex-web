@@ -20,3 +20,12 @@ def get_route(path: str):
 
 paths = flexdown.utils.get_flexdown_files(PAGES_PATH)
 blog_data = get_blog_data(paths)
+
+
+def blog_data_visible() -> list[tuple[str, Document]]:
+    """Blog posts with show_in_cards not explicitly False (default True)."""
+    return [
+        (path, doc)
+        for path, doc in blog_data.items()
+        if doc.metadata.get("show_in_cards", True)
+    ]
