@@ -10,7 +10,7 @@ def custom_quote_form() -> rx.Component:
     """Custom quote form component with clean, maintainable structure."""
     return rx.box(
         rx.box(
-            rx.el.h2(
+            rx.el.h1(
                 "Book a Demo",
                 class_name="text-slate-12 text-4xl font-bold",
             ),

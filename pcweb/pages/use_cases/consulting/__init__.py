@@ -15,7 +15,10 @@ from pcweb.templates.mainpage import mainpage
 
 
 @mainpage(
-    path="/use-cases/consulting", title="Consulting Use Case - Reflex", meta=meta_tags
+    path="/use-cases/consulting",
+    title="Consulting Use Case - Build Client Tools with Reflex",
+    description="How consulting firms use Reflex for client dashboards and internal tools. Python web apps for professional services.",
+    meta=meta_tags,
 )
 def consulting_use_case_page() -> rx.Component:
     return rx.el.div(

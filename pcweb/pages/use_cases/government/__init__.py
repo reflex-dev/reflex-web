@@ -15,7 +15,10 @@ from pcweb.templates.mainpage import mainpage
 
 
 @mainpage(
-    path="/use-cases/government", title="Government Use Case - Reflex", meta=meta_tags
+    path="/use-cases/government",
+    title="Government Use Case - Build Civic Apps with Reflex",
+    description="Government use of Reflex: civic apps, data portals, and secure internal tools for the public sector.",
+    meta=meta_tags,
 )
 def government_use_case_page() -> rx.Component:
     return rx.el.div(

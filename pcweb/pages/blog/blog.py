@@ -4,12 +4,12 @@ from reflex.experimental.client_state import ClientStateVar
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.marketing_button import button as marketing_button
-from pcweb.meta.meta import create_meta_tags
+from pcweb.meta.meta import blog_index_jsonld, create_meta_tags
 from pcweb.signup import IndexState
 from pcweb.templates.marketing_page import marketing_page
 
 from .page import page
-from .paths import blog_data
+from .paths import blog_data, blog_data_visible
 
 blog_filter_cs = ClientStateVar.create("blog_filter", default="All")
 
@@ -145,9 +145,10 @@ def card_content(meta: dict, path: str, class_name: str = "") -> rx.Component:
 
 
 def component_grid() -> rx.Component:
-    posts = []
-    for path, document in list(blog_data.items()):
-        posts.append(card_content(meta=document.metadata, path=f"/blog/{path}"))
+    posts = [
+        card_content(meta=doc.metadata, path=f"/blog/{path}")
+        for path, doc in blog_data_visible()
+    ]
     return rx.el.div(
         *posts,
         rx.el.div(
@@ -168,27 +169,29 @@ def component_grid() -> rx.Component:
         rx.el.div(
             class_name="absolute -bottom-24 -right-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
         ),
-        class_name="grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-8 gap-y-8 lg:gap-y-24 relative py-24 lg:mb-48 mb-24",
+        class_name="grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 lg:border border-m-slate-4 dark:border-m-slate-10 w-full gap-x-8 gap-y-8 lg:gap-y-24 relative py-24",
     )
 
 
 @marketing_page(
     path="/blog",
-    title="Reflex Blog",
-    description="Reflex Blog",
+    title="Reflex Blog - Python Web App Development",
+    description="Reflex blog: tutorials, framework comparisons, release notes, and tips for building Python web apps, dashboards, and internal tools.",
     image="/previews/index_preview.webp",
     meta=create_meta_tags(
-        title="Reflex Blog",
-        description="Reflex Blog",
+        title="Reflex Blog - Python Web App Development",
+        description="Reflex blog: tutorials, framework comparisons, release notes, and tips for building Python web apps, dashboards, and internal tools.",
         image="/previews/index_preview.webp",
         url="https://reflex.dev/blog",
     ),
 )
 def blogs():
+    posts = [(path, doc.metadata) for path, doc in list(blog_data.items())[:20]]
     return rx.el.section(
+        blog_index_jsonld(posts, url="https://reflex.dev/blog"),
         rx.el.header(
             rx.el.h1(
-                "Blog",
+                "Reflex Blog - Python Web App Development",
                 class_name="text-4xl font-[575] text-m-slate-12 dark:text-m-slate-3 text-center",
             ),
             rx.el.h2(
@@ -211,13 +214,15 @@ for path, document in blog_data.items():
     # Get the docpage component.
     route = f"/blog/{path}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
+    # Use title_tag for <title> and og/twitter if provided, otherwise fall back to title.
+    seo_title = document.metadata.get("title_tag") or document.metadata["title"]
     comp = marketing_page(
         path=route,
-        title=document.metadata["title"] + " · Reflex Blog",
+        title=seo_title,
         description=document.metadata["description"],
         image=document.metadata["image"],
         meta=create_meta_tags(
-            title=document.metadata["title"],
+            title=seo_title,
             description=document.metadata["description"],
             image=document.metadata["image"],
             url=f"https://reflex.dev{route}",

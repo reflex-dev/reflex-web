@@ -1,6 +1,6 @@
 ---
 company: SellerX
-description: "Why SellerX chose Reflex over Streamlit for their data processing pipeline"
+description: "Why SellerX chose Reflex over Streamlit for their data processing pipeline. Building scalable e-commerce analytics and internal tools with Python."
 domain: "https://sellerx.com"
 founded: "Berlin, 2020"
 investors: "L Catterton, Sofina, BlackRock and more"

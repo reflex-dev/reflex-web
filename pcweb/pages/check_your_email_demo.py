@@ -7,6 +7,7 @@ from pcweb.templates.webpage import webpage
 @webpage(
     path="/thank-you",
     title="Thanks for Submitting a Demo Request · Reflex.dev",
+    description="Thanks for your demo request. Check your email for next steps to schedule a call with Reflex.",
     add_as_page=True,
 )
 def page_thank_you():

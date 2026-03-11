@@ -7,9 +7,10 @@ from pcweb.components.icons.icons import get_icon
 from pcweb.components.marketing_button import button
 from pcweb.constants import REFLEX_URL
 from pcweb.flexdown import xd2 as xd
+from pcweb.meta.meta import blog_jsonld
 from pcweb.templates.docpage import get_toc, right_sidebar_item_highlight
 
-from .paths import blog_data
+from .paths import blog_data_visible
 
 
 def share_post_button(icon: str, href: str, aria_label: str) -> rx.Component:
@@ -135,7 +136,7 @@ def more_posts(current_post: dict) -> rx.Component:
     from pcweb.pages.blog.blog import card_inner
 
     posts = []
-    blog_items = list(blog_data.items())
+    blog_items = blog_data_visible()
     current_index = next(
         (
             i
@@ -173,7 +174,7 @@ def more_posts(current_post: dict) -> rx.Component:
             *posts,
             class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-4 blog-grid",
         ),
-        class_name="flex flex-col gap-10 mt-20 mb-24",
+        class_name="flex flex-col gap-10 mt-20",
     )
 
 
@@ -183,7 +184,21 @@ def page(document, route) -> rx.Component:
     toc, _ = get_toc(document, route)
     toc = [(level, text) for level, text in toc if level <= 3]
     page_url = f"{REFLEX_URL.strip('/')}{route}"
+
+    jsonld_script = blog_jsonld(
+        title=meta["title"],
+        description=meta["description"],
+        author=meta["author"],
+        date=str(meta["date"]),
+        image=meta["image"],
+        url=page_url,
+        faq=meta.get("faq"),
+        author_bio=meta.get("author_bio"),
+        updated_at=str(meta["updated_at"]) if meta.get("updated_at") else None,
+    )
+
     return rx.el.section(
+        jsonld_script,
         rx.el.article(
             rx.el.div(
                 rx.el.div(
@@ -219,7 +234,7 @@ def page(document, route) -> rx.Component:
                 ),
                 rx.el.header(
                     rx.el.h1(
-                        meta["title"],
+                        meta.get("title_tag") or meta["title"],
                         class_name="lg:text-5xl text-3xl text-m-slate-12 dark:text-m-slate-3 font-[575] mb-6 text-center text-balance",
                     ),
                     rx.el.h2(

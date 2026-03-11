@@ -81,7 +81,7 @@ def dark_mode_toggle() -> rx.Component:
         tab_item("system", "computer_footer"),
         tab_item("light", "sun_footer"),
         tab_item("dark", "moon_footer"),
-        class_name="flex flex-row gap-0.5 items-center p-0.5 [box-shadow:0_1px_0_0_rgba(0,_0,_0,_0.08),_0_0_0_1px_rgba(0,_0,_0,_0.08),_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] w-fit mt-auto bg-m-slate-1 dark:bg-m-slate-12 rounded-[0.625rem] dark:border dark:border-m-slate-9 border border-transparent lg:ml-auto",
+        class_name="flex flex-row gap-0.5 items-center p-0.5 [box-shadow:0_1px_0_0_rgba(0,_0,_0,_0.08),_0_0_0_1px_rgba(0,_0,_0,_0.08),_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] w-fit mt-auto bg-m-slate-1 dark:bg-m-slate-12 rounded-[0.625rem] dark:border dark:border-m-slate-9 border border-transparent lg:ml-auto mr-px",
     )
 
 

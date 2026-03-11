@@ -9,7 +9,7 @@ The official Reflex website (reflex.dev) — built with Reflex itself. Includes 
 - **Framework:** Reflex (Python full-stack)
 - **Styling:** Tailwind CSS v4 with Radix UI color system
 - **Package manager:** UV (`uv sync` to install deps)
-- **Linting:** Ruff — enforced via pre-commit
+- **Linting:** Ruff, Codespell — enforced via pre-commit
 
 ## Project layout
 

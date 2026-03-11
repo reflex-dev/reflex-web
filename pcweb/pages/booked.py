@@ -27,7 +27,7 @@ def booked_title():
     title="Call Successfully Booked | Reflex",
     meta=create_meta_tags(
         title="Call Successfully Booked | Reflex",
-        description="Your call has been successfully scheduled. A confirmation email has been sent with all the details.",
+        description="Your call has been successfully scheduled with Reflex. A confirmation email has been sent with all the details and calendar invites for your meeting.",
         image="/previews/index_preview.webp",
     ),
 )

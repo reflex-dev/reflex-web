@@ -6,7 +6,12 @@ from pcweb.pages.demo.header import header
 from pcweb.templates.mainpage import mainpage
 
 
-@mainpage(path="/demo", title="Reflex · Book Demo", meta=meta_tags)
+@mainpage(
+    path="/demo",
+    title="Book a Demo - Reflex Enterprise",
+    description="Schedule a demo of Reflex Enterprise. See how AI helps your team build and deploy Python web apps.",
+    meta=meta_tags,
+)
 def book_demo() -> rx.Component:
     """Get the Book Demo landing page."""
     return rx.el.main(
