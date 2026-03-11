@@ -256,6 +256,11 @@ def blog_index_jsonld(posts: list[tuple[str, dict]], url: str) -> rx.Component:
     return rx.el.script(json.dumps(data), type="application/ld+json")
 
 
+def faq_jsonld(faq_schema: dict) -> rx.Component:
+    """Create a FAQPage JSON-LD script tag from a pre-built schema dict."""
+    return rx.el.script(json.dumps(faq_schema), type="application/ld+json")
+
+
 def pricing_jsonld(url: str) -> rx.Component:
     """Create SoftwareApplication JSON-LD for the pricing page."""
     data = {
