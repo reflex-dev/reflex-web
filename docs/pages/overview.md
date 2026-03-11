@@ -239,3 +239,5 @@ app.add_page(index, route='/posts/[id]')
 ```
 
 In this example, running on `localhost` should display `http://localhost:3000/posts/123/`
+I think this example is confusing. if people simply follow the example, they don't get the  `http://localhost:3000/posts/123/`
+a complete and reproducible example would be good to new/beginner level reflex users like me
