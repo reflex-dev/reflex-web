@@ -1,20 +1,22 @@
 """Manage routing for the application."""
 
+import dataclasses
 import inspect
-from typing import Callable
+from collections.abc import Callable
 
 import reflex as rx
-from reflex.base import Base
+from reflex.event import EventType
 
 
-class Route(Base):
+@dataclasses.dataclass(kw_only=True)
+class Route:
     """A page route."""
 
     # The path of the route.
     path: str
 
     # The page title.
-    title: str | None = None
+    title: str | rx.Var | None = None
 
     # The page description.
     description: str | None = None
@@ -36,9 +38,8 @@ class Route(Base):
     # https://github.com/reflex-dev/reflex-web/pull/659#pullrequestreview-2021171902
     add_as_page: bool = True
 
-    def __hash__(self):
-        """Hash the route based on the path and title."""
-        return hash(f"{self.path}-{self.title}")
+    # The on_load function to call when the page is loaded.
+    on_load: EventType[()] | None = None
 
 
 def get_path(component_fn: Callable):

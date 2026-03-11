@@ -198,7 +198,7 @@ def newsletter() -> rx.Component:
 
 
 @rx.memo
-def footer_index() -> rx.Component:
+def footer_index(class_name: str = "", grid_class_name: str = "") -> rx.Component:
     return rx.el.footer(
         rx.el.div(
             logo(),
@@ -234,7 +234,10 @@ def footer_index() -> rx.Component:
                 rx.el.div(
                     class_name="absolute -top-24 -right-px w-px h-24 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
                 ),
-                class_name="grid grid-cols-1 lg:grid-cols-3 gap-12 w-full lg:pr-12 pb-8 lg:border-r border-m-slate-4 dark:border-m-slate-10 ml-auto relative",
+                class_name=ui.cn(
+                    "grid grid-cols-1 lg:grid-cols-3 gap-12 w-full lg:pr-12 pb-8 lg:border-r border-m-slate-4 dark:border-m-slate-10 ml-auto relative",
+                    grid_class_name,
+                ),
             ),
             rx.el.div(
                 newsletter(),
@@ -258,5 +261,8 @@ def footer_index() -> rx.Component:
             ),
             class_name="flex flex-row items-center justify-between py-6 gap-4 w-full border-t border-m-slate-4 dark:border-m-slate-10 relative",
         ),
-        class_name="flex flex-col max-w-(--docs-layout-max-width) justify-center items-center w-full mx-auto mt-24 max-lg:px-4 overflow-hidden",
+        class_name=ui.cn(
+            "flex flex-col max-w-(--docs-layout-max-width) justify-center items-center w-full mx-auto mt-24 max-lg:px-4 overflow-hidden",
+            class_name,
+        ),
     )

@@ -74,6 +74,7 @@ for route in routes:
             "meta": [
                 {"name": "theme-color", "content": route.background_color},
             ],
+            "on_load": route.on_load,
         }
 
         # Add the description only if it is not None
