@@ -1,6 +1,7 @@
 ```python exec
 import reflex as rx
 from reflex_image_zoom import image_zoom
+from pcweb.constants import REFLEX_CLOUD_URL
 from pcweb.pages.docs import hosting 
 from pcweb.pages import docs
 from pcweb.styles.styles import get_code_style, cell_style
@@ -95,7 +96,7 @@ rx.el.table(
                 rx.el.td(
                     rx.el.div(
                         rx.image(
-                            src=f"https://cloud.reflex.dev/flags/{COUNTRIES_CODES[region]}.svg",
+                            src=f"{REFLEX_CLOUD_URL.rstrip('/')}/flags/{COUNTRIES_CODES[region]}.svg",
                             class_name="rounded-[2px] mr-2 w-5 h-4",
                         ),
                         REGIONS_DICT[region],
