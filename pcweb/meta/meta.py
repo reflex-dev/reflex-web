@@ -2,7 +2,16 @@ import json
 
 import reflex as rx
 
-from pcweb.constants import REFLEX_DOMAIN, REFLEX_DOMAIN_URL, TWITTER_CREATOR
+from pcweb.constants import (
+    DISCORD_URL,
+    FORUM_URL,
+    GITHUB_URL,
+    LINKEDIN_URL,
+    REFLEX_DOMAIN,
+    REFLEX_DOMAIN_URL,
+    TWITTER_CREATOR,
+    TWITTER_URL,
+)
 
 TITLE = "The unified platform to build and scale enterprise apps."
 ONE_LINE_DESCRIPTION = "Build with AI, iterate in Python, deploy to any cloud. Reflex is the platform for full-stack web apps and internal tools."
@@ -197,6 +206,14 @@ def website_organization_jsonld(url: str = REFLEX_DOMAIN_URL) -> rx.Component:
                 "name": "Reflex",
                 "url": REFLEX_DOMAIN_URL,
                 "logo": f"{org_url}/meta/apple-touch-icon.png",
+                "description": "Open-source Python framework for building full-stack web applications. Deploy to any cloud with AI-powered code generation.",
+                "sameAs": [
+                    GITHUB_URL,
+                    TWITTER_URL,
+                    DISCORD_URL,
+                    LINKEDIN_URL,
+                    FORUM_URL,
+                ],
             },
             {
                 "@type": "WebSite",
@@ -262,13 +279,39 @@ def faq_jsonld(faq_schema: dict) -> rx.Component:
 
 
 def pricing_jsonld(url: str) -> rx.Component:
-    """Create SoftwareApplication JSON-LD for the pricing page."""
+    """Create SoftwareApplication + Product JSON-LD for the pricing page."""
     data = {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Reflex",
-        "applicationCategory": "DeveloperApplication",
-        "description": "The platform to build and scale enterprise apps. Python full-stack framework for web apps and internal tools.",
-        "url": url,
+        "@graph": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "Reflex",
+                "applicationCategory": "DeveloperApplication",
+                "description": "The platform to build and scale enterprise apps. Python full-stack framework for web apps and internal tools.",
+                "url": url,
+            },
+            {
+                "@type": "Product",
+                "name": "Reflex Enterprise Platform",
+                "brand": {"@type": "Brand", "name": "Reflex"},
+                "description": "Enterprise-grade fullstack app building platform with AI-powered code generation in pure Python. Includes dedicated support, SSO, on-prem deployment, and custom SLAs.",
+                "offers": [
+                    {
+                        "@type": "Offer",
+                        "price": "0",
+                        "priceCurrency": "USD",
+                        "name": "Free",
+                        "availability": "https://schema.org/InStock",
+                    },
+                    {
+                        "@type": "Offer",
+                        "price": "Custom",
+                        "priceCurrency": "USD",
+                        "name": "Enterprise",
+                        "availability": "https://schema.org/PreOrder",
+                    },
+                ],
+            },
+        ],
     }
     return rx.el.script(json.dumps(data), type="application/ld+json")
