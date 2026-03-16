@@ -187,7 +187,11 @@ redirects = [
     ("/blog/2025-05-16-top-5-ai-app-builders", "/blog/top-5-ai-app-builders"),
     (
         "/blog/2025-06-03-internal-tool-builders-2025",
+        "/blog/internal-tool-builders",
+    ),
+    (
         "/blog/internal-tool-builders-2025",
+        "/blog/internal-tool-builders",
     ),
     ("/blog/2025-06-20-reflex-dash", "/blog/reflex-dash"),
     (
@@ -200,7 +204,11 @@ redirects = [
     ("/blog/2025-12-05-on-premises-deployment", "/blog/on-premises-deployment"),
     (
         "/blog/2025-12-17-top-7-enterprise-ai-app-builders-2026",
+        "/blog/top-7-enterprise-ai-app-builders",
+    ),
+    (
         "/blog/top-7-enterprise-ai-app-builders-2026",
+        "/blog/top-7-enterprise-ai-app-builders",
     ),
     (
         "/blog/2025-10-27-top-10-data-visualization-libraries",
@@ -208,7 +216,11 @@ redirects = [
     ),
     (
         "/blog/2026-01-09-top-python-web-frameworks-2026",
+        "/blog/top-python-web-frameworks",
+    ),
+    (
         "/blog/top-python-web-frameworks-2026",
+        "/blog/top-python-web-frameworks",
     ),
 ]
 
