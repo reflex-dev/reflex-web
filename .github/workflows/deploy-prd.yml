@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 env:
-  NODE_OPTIONS: "--max-old-space-size=8192"
+  NODE_OPTIONS: "--max-old-space-size=16384"
   FLY_API_TOKEN: ${{ secrets.PRD_FLY_API_TOKEN }}
 
 jobs:

@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 env:
-  NODE_OPTIONS: "--max-old-space-size=8192"
+  NODE_OPTIONS: "--max-old-space-size=16384"
   CP_WEB_URL: https://flexgen-dev.reflex.dev/
   CP_BACKEND_URL: https://flexgen-dev.reflex.dev/
 
