@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb import constants
 from pcweb.styles.styles import get_code_style, cell_style
 
 ```
@@ -56,7 +57,7 @@ env:
 ### Obtain Required Tokens
 
 1. **Reflex Access Token**
-   - Visit [Reflex Cloud Tokens](https://cloud.reflex.dev/tokens/)
+   - Visit [Reflex Cloud Tokens]({constants.REFLEX_CLOUD_URL.rstrip("/")}/tokens/)
    - Navigate to Account Settings → Tokens
    - Create a new token and copy the value
    - Replace `your-token-here` in the configuration
