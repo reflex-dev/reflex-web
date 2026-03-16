@@ -9,7 +9,7 @@ from pcweb.templates.mainpage import mainpage
 @mainpage(
     path="/demo",
     title="Book a Demo - Reflex Enterprise",
-    description="Schedule a demo of Reflex Enterprise. See how AI helps your team build and deploy Python web apps.",
+    description="Book a demo to see how Reflex helps teams build production-ready web apps in pure Python. Enterprise solutions for scale, compliance, and support.",
     meta=meta_tags,
 )
 def book_demo() -> rx.Component:

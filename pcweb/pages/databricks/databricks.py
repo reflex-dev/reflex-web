@@ -12,10 +12,10 @@ from pcweb.templates.mainpage import mainpage
 @mainpage(
     path="/databricks",
     title="Reflex on Databricks - Deploy Python Apps",
-    description="Deploy Reflex apps on Databricks and Snowflake. Build Python web apps in your data platform.",
+    description="Build and deploy production-ready Databricks apps in pure Python. Integrate with SQL Warehouse, Unity Catalog, and Genie AI.",
     meta=create_meta_tags(
         "Reflex on Databricks - Deploy Python Apps",
-        "Deploy Reflex apps on Databricks and Snowflake. Build Python web apps in your data platform.",
+        "Build and deploy production-ready Databricks apps in pure Python. Integrate with SQL Warehouse, Unity Catalog, and Genie AI.",
         "/previews/databricks_preview.png",
     ),
 )
