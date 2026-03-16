@@ -15,8 +15,8 @@ permissions:
 
 env:
   NODE_OPTIONS: "--max-old-space-size=8192"
-  CP_WEB_URL: https://cloud.rxc.app/
-  CP_BACKEND_URL: https://f188e2cd-51fb-4b29-b546-2ce4b9efc5d5.fly.dev/
+  CP_WEB_URL: https://flexgen-dev.reflex.dev/
+  CP_BACKEND_URL: https://flexgen-dev.reflex.dev/
 
 jobs:
   deploy:
