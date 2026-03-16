@@ -25,7 +25,7 @@ def templates_landing() -> rx.Component:
             rx.el.div(
                 templates_grid(),
                 footer_index(
-                    class_name="max-w-[109rem]",
+                    class_name="max-w-[109rem] px-4 xl:px-14",
                     grid_class_name="w-fit [&>div]:min-w-[9rem]",
                 ),
                 class_name="flex flex-col flex-1 min-w-0",

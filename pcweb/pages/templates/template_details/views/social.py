@@ -28,8 +28,8 @@ def social():
             class_name="text-2xl font-[575] text-secondary-12",
         ),
         rx.el.div(
-            rx.foreach(TemplatesState.active_template.social, social_card),
-            class_name="flex flex-row gap-4",
+            rx.foreach(TemplatesState.active_template.quotes, social_card),
+            class_name="flex lg:flex-row flex-col gap-4",
         ),
-        class_name="pr-16 py-16 flex flex-col gap-6 w-full",
+        class_name="xl:pr-16 xl:py-16 py-6 flex flex-col gap-6 w-full",
     )

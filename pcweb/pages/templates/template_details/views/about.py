@@ -13,5 +13,5 @@ def about():
             TemplatesState.active_template.about,
             class_name="text-sm text-secondary-11 font-[475]",
         ),
-        class_name="pr-16 py-16 flex flex-col gap-6 w-full",
+        class_name="xl:pr-16 xl:py-16 py-6 flex flex-col gap-6 w-full",
     )

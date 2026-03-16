@@ -47,7 +47,7 @@ def quick_start() -> rx.Component:
         ),
         rx.el.div(
             rx.el.div(
-                rx.el.span("# Intall reflex", class_name="text-[#ACB2BE]"),
+                rx.el.span("# Install reflex", class_name="text-[#ACB2BE]"),
                 rx.el.span(
                     "pip install reflex",
                     class_name="text-primary-6 dark:text-primary-11",
@@ -93,7 +93,7 @@ def tech_stack() -> rx.Component:
 def requirements() -> rx.Component:
     return rx.el.div(
         rx.el.span(
-            "Related Templates",
+            "Requirements",
             class_name="font-mono font-[415] text-[0.75rem] leading-4 uppercase pb-4 border-b border-dashed dark:border-m-slate-8 border-m-slate-6 dark:text-m-slate-6 text-m-slate-7",
         ),
         rx.el.div(
@@ -138,22 +138,35 @@ def key_features() -> rx.Component:
     )
 
 
+def sidebar_content() -> rx.Component:
+    return rx.fragment(
+        links_section(),
+        quick_start(),
+        rx.cond(TemplatesState.active_template.tech_stack, tech_stack()),
+        rx.cond(TemplatesState.active_template.key_features, key_features()),
+        rx.cond(TemplatesState.active_template.requirements, requirements()),
+    )
+
+
+def sidebar_mobile() -> rx.Component:
+    return rx.el.div(
+        sidebar_content(),
+        class_name="flex flex-col gap-12 lg:px-6 px-0 py-6 lg:py-12 lg:hidden",
+    )
+
+
 def sidebar():
     return rx.el.div(
         rx.el.div(
-            links_section(),
-            quick_start(),
-            rx.cond(TemplatesState.active_template.tech_stack, tech_stack()),
-            rx.cond(TemplatesState.active_template.key_features, key_features()),
-            rx.cond(TemplatesState.active_template.requirements, requirements()),
-            class_name=ui.cn(
-                "flex flex-col gap-12 p-16 sticky",
-                rx.cond(
-                    HostingBannerState.is_banner_visible,
-                    "top-[103px] h-[calc(100vh-103px)]",
-                    "top-[67px] h-[calc(100vh-67px)]",
-                ),
+            sidebar_content(),
+            class_name="flex flex-col gap-12 p-16",
+        ),
+        class_name=ui.cn(
+            "w-full max-w-[23.5rem] self-stretch overflow-y-auto sticky hidden lg:flex",
+            rx.cond(
+                HostingBannerState.is_banner_visible,
+                "top-[103px] h-[calc(100vh-103px)]",
+                "top-[67px] h-[calc(100vh-67px)]",
             ),
         ),
-        class_name="w-full max-w-[23.5rem] self-stretch",
     )

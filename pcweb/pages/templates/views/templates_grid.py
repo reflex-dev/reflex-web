@@ -19,7 +19,7 @@ def search_bar() -> rx.Component:
             on_change=TemplatesState.set_query,
             class_name="outline-none focus:outline-none w-full",
         ),
-        class_name="flex flex-row items-center gap-2 bg-white-1 px-2.5 border rounded-[0.625rem] relative [box-shadow:0_-1px_0_0_rgba(0,_0,_0,_0.08)_inset,_0_0_0_1px_rgba(0,_0,_0,_0.08)_inset,_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] text-sm placeholder:text-m-slate-7 dark:placeholder:text-m-slate-6 font-[475] focus:outline-none outline-none dark:border dark:border-m-slate-8 dark:bg-m-slate-9 h-9",
+        class_name="flex flex-row items-center gap-2 bg-white-1 px-2.5 rounded-[0.625rem] relative [box-shadow:0_-1px_0_0_rgba(0,_0,_0,_0.08)_inset,_0_0_0_1px_rgba(0,_0,_0,_0.08)_inset,_0_1px_2px_0_rgba(0,_0,_0,_0.02),_0_1px_4px_0_rgba(0,_0,_0,_0.02)] text-sm placeholder:text-secondary-9 font-[475] focus:outline-none outline-none dark:border border-secondary-a6 h-9",
     )
 
 
@@ -28,16 +28,16 @@ def checkbox_item(item: TagWithCount) -> rx.Component:
     count = item["count"]
     return ui.checkbox.root(
         rx.el.div(
-            ui.checkbox.indicator(class_name="text-m-slate-12 dark:text-m-slate-3"),
-            class_name="flex size-5 items-center justify-center rounded-sm bg-white dark:bg-m-slate-9 hover:bg-secondary-3 border border-m-slate-4 dark:border-m-slate-8",
+            ui.checkbox.indicator(class_name="text-secondary-12"),
+            class_name="flex size-5 items-center justify-center rounded-sm bg-white-1 dark:bg-secondary-1 hover:bg-secondary-3 border border-secondary-a4",
         ),
         rx.el.span(
             label,
-            class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[525] min-w-0 truncate group-hover:text-m-slate-12 dark:group-hover:text-m-slate-3",
+            class_name="text-secondary-11 text-sm font-[525] min-w-0 truncate group-hover:text-secondary-12 capitalize",
         ),
         rx.el.span(
             count,
-            class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-mono tabular-nums font-[415] ml-auto",
+            class_name="text-secondary-11 text-xs font-mono tabular-nums font-[415] ml-auto",
         ),
         key=label,
         unstyled=True,
@@ -51,7 +51,7 @@ def categories_checkboxes() -> rx.Component:
     return rx.el.div(
         rx.el.span(
             "CATEGORY",
-            class_name="text-m-slate-12 dark:text-m-slate-3 text-xs font-[525] font-mono py-1",
+            class_name="text-secondary-12 text-xs font-[525] font-mono py-1",
         ),
         rx.el.div(
             rx.foreach(TemplatesState.tags, checkbox_item),
@@ -61,46 +61,69 @@ def categories_checkboxes() -> rx.Component:
     )
 
 
+def image_text_placeholder() -> rx.Component:
+    return rx.el.div(
+        rx.el.div(
+            rx.image(
+                src=f"/logos/{rx.color_mode_cond(light='light', dark='dark')}/reflex.svg",
+                class_name="h-3.5 lg:h-5 w-auto opacity-70 dark:opacity-85 group-hover:scale-105 duration-200 ease-out",
+                alt="Logo",
+            ),
+            class_name="flex flex-row items-center justify-center h-full w-full rounded-[12px] relative overflow-hidden p-4",
+        ),
+        class_name="absolute inset-0 h-full w-full bg-white-1",
+    )
+
+
 @rx.memo
 def template_card(template: Template) -> rx.Component:
     return rx.el.div(
         rx.el.div(
-            rx.image(
-                f"{SCREENSHOT_BUCKET.strip('/')}/{template.id}",
-                alt=template.title,
-                loading="lazy",
-                class_name="size-full object-cover rounded-sm object-top",
+            rx.el.div(
+                image_text_placeholder(),
+                ui.avatar.root(
+                    ui.avatar.image(
+                        src=f"{SCREENSHOT_BUCKET.strip('/')}/{template.id}",
+                        loading="lazy",
+                    ),
+                    unstyled=True,
+                    class_name="group-hover:scale-105 duration-200 ease-out object-top object-cover absolute inset-0 size-full transition-all",
+                ),
+                class_name="relative h-[12.25rem] overflow-hidden rounded-t-xl",
             ),
-            class_name="px-2 pt-2 overflow-hidden max-h-[12.25rem] h-full",
+            class_name="flex-shrink-0",
         ),
         rx.el.div(
             rx.el.span(
-                template.title,
-                class_name="text-m-slate-12 dark:text-m-slate-3 text-base font-[525] mb-2",
+                template.name,
+                class_name="text-secondary-12 text-base font-[525] mb-2",
             ),
-            rx.el.span(
+            rx.cond(
                 template.difficulty,
-                class_name=ui.cn(
-                    "text-xs text-[0.75rem] font-[525] mb-2 capitalize",
-                    rx.match(
-                        template.difficulty.lower(),
-                        ("beginner", "text-jade-10"),
-                        ("intermediate", "text-amber-10"),
-                        ("advanced", "text-primary-11"),
-                        "text-primary-11",
+                rx.el.span(
+                    template.difficulty,
+                    class_name=ui.cn(
+                        "text-xs text-[0.75rem] font-[525] mb-2 capitalize",
+                        rx.match(
+                            template.difficulty,
+                            ("beginner", "text-jade-10"),
+                            ("intermediate", "text-amber-11"),
+                            ("advanced", "text-primary-11"),
+                            "text-primary-11",
+                        ),
                     ),
                 ),
             ),
             rx.el.span(
                 template.description,
-                class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-medium mb-4",
+                class_name="text-secondary-10 text-sm font-medium mb-4",
             ),
             rx.el.div(
                 rx.foreach(
                     template.tags,
                     lambda tag: rx.el.span(
                         f"#{tag}",
-                        class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[525] capitalize",
+                        class_name="text-secondary-10 text-xs font-[525] capitalize",
                     ),
                 ),
                 class_name="flex flex-wrap gap-4 empty:hidden mb-4",
@@ -109,17 +132,19 @@ def template_card(template: Template) -> rx.Component:
                 "Use Template",
                 variant="outline",
                 native_button=False,
-                on_click=TemplatesState.redirect_to_template(template.id),
+                on_click=TemplatesState.redirect_to_template(
+                    template.id
+                ).stop_propagation,
+                class_name="relative z-10 mt-auto dark:hover:bg-secondary-2",
             ),
-            class_name="p-6 flex flex-col",
+            class_name="p-6 flex flex-col h-full",
         ),
         rx.el.a(
             href=f"/templates/{template.id}",
-            target="_blank",
             class_name="absolute inset-0",
         ),
         key=template.id,
-        class_name="flex flex-col bg-white dark:bg-m-slate-11 dark:border-m-slate-9 dark:border shadow-[0_1px_0_0_rgba(0,_0,_0,_0.04),0_1px_1px_0_rgba(0,_0,_0,_0.01),0_4px_8px_0_rgba(0,_0,_0,_0.03)] rounded-xl border border-slate-4 overflow-hidden isolate relative cursor-pointer",
+        class_name="flex flex-col bg-white-1 dark:bg-m-slate-11 border-secondary-a6 dark:border-secondary-a4 dark:border shadow-[0_1px_0_0_rgba(0,_0,_0,_0.04),0_1px_1px_0_rgba(0,_0,_0,_0.01),0_4px_8px_0_rgba(0,_0,_0,_0.03)] rounded-xl border overflow-hidden isolate relative cursor-pointer group",
     )
 
 
@@ -138,8 +163,8 @@ def templates_sidebar() -> rx.Component:
             ),
         ),
         class_name=(
-            "w-[16.5rem] shrink-0 hidden lg:block z-10 border-r border-m-slate-4 dark:border-m-slate-10 relative "
-            "before:content-[''] before:absolute before:top-0 before:bottom-0 before:right-0 before:w-[100vw] before:bg-white-1 dark:before:bg-m-slate-11 before:-z-10"
+            "w-[16.5rem] shrink-0 hidden lg:block z-10 border-r border-secondary-a4 relative "
+            "before:content-[''] before:absolute before:top-0 before:bottom-0 before:right-0 before:w-[100vw] before:bg-white-1 dark:before:bg-secondary-1 before:-z-10 max-xl:hidden max-xl:pl-4"
         ),
     )
 
@@ -149,18 +174,18 @@ def templates_grid() -> rx.Component:
         rx.el.div(
             rx.el.h1(
                 "Templates",
-                class_name="text-4xl font-[575] text-m-slate-12 dark:text-m-slate-3",
+                class_name="text-4xl font-[575] text-secondary-12",
             ),
             rx.el.p(
                 "Start building faster with production-ready Reflex templates.",
-                class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-medium",
+                class_name="text-secondary-11 text-sm font-medium",
             ),
             class_name="flex flex-col gap-4",
         ),
         rx.el.div(
             rx.el.span(
                 "No templates found for the current filters.",
-                class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-medium only:block hidden",
+                class_name="text-secondary-11 text-sm font-medium only:block hidden",
             ),
             rx.foreach(
                 TemplatesState.filtered_templates,

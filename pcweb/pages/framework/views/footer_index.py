@@ -235,7 +235,7 @@ def footer_index(class_name: str = "", grid_class_name: str = "") -> rx.Componen
                     class_name="absolute -top-24 -right-px w-px h-24 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
                 ),
                 class_name=ui.cn(
-                    "grid grid-cols-1 lg:grid-cols-3 gap-12 w-full lg:pr-12 pb-8 lg:border-r border-m-slate-4 dark:border-m-slate-10 ml-auto relative",
+                    "grid grid-cols-1 lg:grid-cols-3 gap-12 w-full lg:pr-12 pb-8 lg:border-r border-m-slate-4 dark:border-m-slate-10 xl:ml-auto relative",
                     grid_class_name,
                 ),
             ),

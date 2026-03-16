@@ -1119,6 +1119,14 @@
         0 4px 8px 0 rgba(0, 0, 0, 0.07),
         0 1px 1px 0 rgba(0, 0, 0, 0.01),
         0 0 0 1px #FFF inset;
+    --shadow-button-bordered:
+        0 0 0 1px var(--primary-9) inset,
+        0 2px 0 0 rgba(255, 255, 255, 0.22) inset;
+    --shadow-button-outline:
+        0 -1px 0 0 light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0)) inset,
+        0 0 0 1px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0)) inset,
+        0 1px 2px 0 light-dark(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)),
+        0 1px 4px 0 light-dark(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
     --shadow-card-dark: 0 0 0 1px var(--m-slate-9, #2A3037);
     --text-xs: 0.8125rem;
     --text-xs--line-height: 1.25rem;

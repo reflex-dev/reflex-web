@@ -48,15 +48,18 @@ def app_top_bar() -> rx.Component:
             ),
             class_name="flex flex-row gap-2.5 items-center rounded-[0.625rem] px-2.5 border border-jade-7 bg-jade-2 h-9 text-jade-11",
         ),
-        class_name="flex flex-row gap-8 items-center bg-secondary-1 pr-16 h-[3.25rem] w-full border-y border-secondary-4",
+        class_name="flex flex-row gap-8 items-center bg-secondary-1 pr-16 h-[3.25rem] w-full border-y border-secondary-4 max-xl:hidden",
     )
 
 
 def app_image() -> rx.Component:
     return rx.el.div(
-        rx.image(
-            f"{SCREENSHOT_BUCKET.strip('/')}/{TemplatesState.active_template.id}",
-            alt=TemplatesState.active_template.title,
+        ui.avatar.root(
+            ui.avatar.image(
+                src=f"{SCREENSHOT_BUCKET.strip('/')}/{TemplatesState.active_template.id}",
+                loading="lazy",
+            ),
+            unstyled=True,
             class_name="size-full object-cover object-top",
         ),
         class_name="w-full h-full max-h-[47.75rem] overflow-hidden p-4 bg-white-1",
@@ -78,21 +81,36 @@ def header() -> rx.Component:
                 class_name="-mb-2",
             ),
             rx.el.h1(
-                TemplatesState.active_template.title,
+                TemplatesState.active_template.name,
                 class_name="text-3xl text-secondary-12 font-[575]",
             ),
             rx.el.div(
-                rx.el.span(
+                rx.cond(
                     TemplatesState.active_template.difficulty,
-                    class_name=ui.cn(
-                        "text-sm font-[525] capitalize",
-                        rx.match(
-                            TemplatesState.active_template.difficulty.lower(),
-                            ("beginner", "text-jade-10"),
-                            ("intermediate", "text-amber-10"),
-                            ("advanced", "text-primary-11"),
-                            "text-primary-11",
+                    rx.el.span(
+                        TemplatesState.active_template.difficulty,
+                        class_name=ui.cn(
+                            "text-sm font-[525] capitalize",
+                            rx.match(
+                                TemplatesState.active_template.difficulty,
+                                ("beginner", "text-jade-10"),
+                                ("intermediate", "text-amber-10"),
+                                ("advanced", "text-primary-11"),
+                                "text-primary-11",
+                            ),
                         ),
+                    ),
+                ),
+                rx.cond(
+                    TemplatesState.active_template.last_modified,
+                    rx.el.div(
+                        ui.icon("Clock01Icon", class_name="size-3.5"),
+                        rx.el.span("Updated "),
+                        rx.moment(
+                            TemplatesState.active_template.last_modified,
+                            from_now=True,
+                        ),
+                        class_name="flex flex-row gap-2 items-center text-secondary-12 text-sm font-[525]",
                     ),
                 ),
                 rx.foreach(
@@ -102,13 +120,13 @@ def header() -> rx.Component:
                         class_name="text-secondary-10 text-sm font-[525] capitalize",
                     ),
                 ),
-                class_name="flex flex-row gap-8 items-center",
+                class_name="flex flex-row gap-x-8 gap-y-2 items-center flex-wrap",
             ),
             rx.el.p(
                 TemplatesState.active_template.description,
                 class_name="text-sm text-secondary-11 font-[475] max-w-[48rem]",
             ),
-            class_name="flex flex-col gap-6 pr-16 pb-16",
+            class_name="flex flex-col gap-6 xl:pr-16 xl:pb-16",
         ),
         app_top_bar(),
         app_image(),
