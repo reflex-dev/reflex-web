@@ -24,6 +24,10 @@ from pcweb.templates.secondary_page import secondary_page
 def template_details():
     return rx.el.div(
         rx.cond(
+            TemplatesState.faq_jsonld,
+            rx.el.script(TemplatesState.faq_jsonld, type="application/ld+json"),
+        ),
+        rx.cond(
             TemplatesState.active_template,
             rx.el.div(
                 rx.el.div(
@@ -38,6 +42,9 @@ def template_details():
                 sidebar(),
                 class_name="flex flex-row w-full max-w-[108rem] mx-auto min-h-screen",
             ),
+        ),
+        rx.el.hr(
+            class_name="h-[1px] w-full bg-m-slate-4 dark:bg-m-slate-10",
         ),
         footer_index(
             class_name="max-w-[109rem]",

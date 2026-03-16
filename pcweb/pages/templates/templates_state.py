@@ -1,12 +1,13 @@
 import asyncio
 import dataclasses
+import json
 from typing import TypedDict
 
 import httpx
 import reflex as rx
 from reflex.utils import console
 
-from pcweb.constants import REFLEX_BUILD_URL, RX_BUILD_BACKEND
+from pcweb.constants import REFLEX_BUILD_URL, REFLEX_DOMAIN_URL, RX_BUILD_BACKEND
 
 
 @dataclasses.dataclass
@@ -89,6 +90,38 @@ class TemplatesState(rx.State):
         if not self.checked_tags:
             return False
         return bool(set(template.tags) & self.checked_tags)
+
+    @rx.var
+    def faq_jsonld(self) -> str:
+        t = self.active_template
+        if not t or not t.faq:
+            return ""
+        data = {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebPage",
+                    "name": t.name,
+                    "description": t.description or "",
+                    "url": f"{REFLEX_DOMAIN_URL.rstrip('/')}/templates/{t.id}",
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": item["question"],
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": item["answer"],
+                            },
+                        }
+                        for item in t.faq
+                    ],
+                },
+            ],
+        }
+        return json.dumps(data)
 
     @rx.var
     def filtered_templates(self) -> list[Template]:

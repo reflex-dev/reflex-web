@@ -48,7 +48,7 @@ def app_top_bar() -> rx.Component:
             ),
             class_name="flex flex-row gap-2.5 items-center rounded-[0.625rem] px-2.5 border border-jade-7 bg-jade-2 h-9 text-jade-11",
         ),
-        class_name="flex flex-row gap-8 items-center bg-secondary-1 pr-16 h-[3.25rem] w-full border-y border-secondary-4 max-xl:hidden",
+        class_name="flex flex-row gap-8 items-center bg-secondary-1 pr-16 min-h-[3.25rem] w-full border-y border-secondary-4 max-xl:hidden",
     )
 
 
@@ -94,7 +94,7 @@ def header() -> rx.Component:
                             rx.match(
                                 TemplatesState.active_template.difficulty,
                                 ("beginner", "text-jade-10"),
-                                ("intermediate", "text-amber-10"),
+                                ("intermediate", "text-amber-11"),
                                 ("advanced", "text-primary-11"),
                                 "text-primary-11",
                             ),

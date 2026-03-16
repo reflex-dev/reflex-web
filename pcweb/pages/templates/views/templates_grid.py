@@ -193,5 +193,5 @@ def templates_grid() -> rx.Component:
             ),
             class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-5",
         ),
-        class_name="flex flex-col gap-12 flex-1 min-w-0 px-14 py-16",
+        class_name="flex flex-col gap-12 flex-1 min-w-0 lg:px-14 px-4 lg:py-16 py-10",
     )

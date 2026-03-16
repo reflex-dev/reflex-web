@@ -52,9 +52,9 @@ def quick_start() -> rx.Component:
                     "pip install reflex",
                     class_name="text-primary-6 dark:text-primary-11",
                 ),
-                rx.el.span("# Create from template", class_name="text-[#ACB2BE]"),
+                rx.el.span("# Use the AI builder", class_name="text-[#ACB2BE]"),
                 rx.el.span(
-                    f"reflex template --init {TemplatesState.active_template.id}",
+                    "reflex --init ai",
                     class_name="text-primary-6 dark:text-primary-11",
                 ),
                 rx.el.span("# Run the app", class_name="text-[#ACB2BE]"),
@@ -159,10 +159,10 @@ def sidebar():
     return rx.el.div(
         rx.el.div(
             sidebar_content(),
-            class_name="flex flex-col gap-12 p-16",
+            class_name="flex flex-col gap-12 p-16 pb-24",
         ),
         class_name=ui.cn(
-            "w-full max-w-[23.5rem] self-stretch overflow-y-auto sticky hidden lg:flex",
+            "w-full max-w-[23.5rem] shrink-0 overflow-y-auto overscroll-contain sticky hidden lg:block",
             rx.cond(
                 HostingBannerState.is_banner_visible,
                 "top-[103px] h-[calc(100vh-103px)]",
