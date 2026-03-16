@@ -305,9 +305,8 @@ def pricing_jsonld(url: str) -> rx.Component:
                     },
                     {
                         "@type": "Offer",
-                        "price": "Custom",
-                        "priceCurrency": "USD",
                         "name": "Enterprise",
+                        "description": "Custom enterprise pricing",
                         "availability": "https://schema.org/PreOrder",
                     },
                 ],
