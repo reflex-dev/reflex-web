@@ -1,23 +1,25 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def team() -> rx.Component:
     return rx.el.section(
         rx.el.div(
             rx.image(
-                src="/about/team_1.avif",
+                src=f"{REFLEX_ASSETS_CDN}about/team_1.avif",
                 alt="Team 1",
                 loading="lazy",
                 class_name="col-span-1 row-span-2 pointer-events-none",
             ),
             rx.image(
-                src="/about/team_2.avif",
+                src=f"{REFLEX_ASSETS_CDN}about/team_2.avif",
                 alt="Team 2",
                 loading="lazy",
                 class_name="pointer-events-none",
             ),
             rx.image(
-                src="/about/team_3.avif",
+                src=f"{REFLEX_ASSETS_CDN}about/team_3.avif",
                 alt="Team 3",
                 loading="lazy",
                 class_name="pointer-events-none",

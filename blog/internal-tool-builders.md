@@ -16,6 +16,7 @@ faq: [
 ---
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -110,7 +111,7 @@ Here are our picks for best internal tool builders this year.
 
 
 ```python eval
-image_zoom(rx.image(src="/blog/reflex-build.webp", border_radius="10px", alt="Reflex AI builder")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/reflex-build.webp", border_radius="10px", alt="Reflex AI builder")
 )
 ```
 
@@ -156,7 +157,7 @@ Reflex is ideal for modern dev teams that want to build fast, scale easily, and 
 #### A developer-friendly platform for enterprises
 
 ```python eval
-image_zoom(rx.image(src="/blog/retool.webp", border_radius="10px", alt="Retool")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/retool.webp", border_radius="10px", alt="Retool")
 )
 ```
 
@@ -189,7 +190,7 @@ Retool is well-suited for midsize to enterprise tech companies with dedicated en
 #### An open-source alternative for SMBs
 
 ```python eval
-image_zoom(rx.image(src="/blog/budibase.webp", border_radius="10px", alt="Budibase")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/budibase.webp", border_radius="10px", alt="Budibase")
 )
 ```
 
@@ -223,7 +224,7 @@ Budibase is ideal for smaller teams that want an open-source, no-code platform t
 
 
 ```python eval
-image_zoom(rx.image(src="/blog/appsmith.webp", border_radius="10px", alt="Appsmith")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/appsmith.webp", border_radius="10px", alt="Appsmith")
 )
 ```
 
@@ -256,7 +257,7 @@ Appsmith is a solid choice for technical teams that want an open-source, develop
 #### An open-source option for small teams
 
 ```python eval
-image_zoom(rx.image(src="/blog/tooljet.webp", border_radius="10px", alt="ToolJet")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/tooljet.webp", border_radius="10px", alt="ToolJet")
 )
 ```
 
@@ -289,7 +290,7 @@ ToolJet is ideal for small teams, especially those with technical knowledge seek
 #### A simple, no-code builder for lightweight internal tools
 
 ```python eval
-image_zoom(rx.image(src="/blog/zapier.webp", border_radius="10px", alt="Zapier Interfaces")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/zapier.webp", border_radius="10px", alt="Zapier Interfaces")
 )
 ```
 
@@ -322,7 +323,7 @@ Zapier Interfaces is more of a forms-and-automation tool than a true internal ap
 #### A no-code platform for small teams using spreadsheets
 
 ```python eval
-image_zoom(rx.image(src="/blog/glide.webp", border_radius="10px", alt="Glide")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/glide.webp", border_radius="10px", alt="Glide")
 )
 ```
 
@@ -353,7 +354,7 @@ Glide is a good fit for HR and support teams that want attractive, functional ap
 #### A no-code platform for teams looking to build, fast
 
 ```python eval
-image_zoom(rx.image(src="/blog/softr.webp", border_radius="10px", alt="Softr")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/softr.webp", border_radius="10px", alt="Softr")
 )
 ```
 
@@ -387,7 +388,7 @@ Softr is best suited for small to midsize teams who want to turn Airtable or Goo
 #### A low-code platform for enterprises
 
 ```python eval
-image_zoom(rx.image(src="/blog/dronahq.webp", border_radius="10px", alt="DronaHQ")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/dronahq.webp", border_radius="10px", alt="DronaHQ")
 )
 ```
 
@@ -424,7 +425,7 @@ DronaHQ is a solid choice for midsize to enterprise businesses that want to empo
 **[Microsoft Power Apps](https://www.microsoft.com/en-us/power-platform/products/power-apps) is a low-code platform built for companies already embedded in the Microsoft ecosystem.** It allows teams to rapidly create business apps using a visual interface, with seamless integrations across Microsoft 365, Azure, and Dynamics 365. Power Apps is especially useful for automating workflows, customizing forms, and extending existing Microsoft services without starting from scratch.
 
 ```python eval
-image_zoom(rx.image(src="/blog/microsoft_power_apps.webp", border_radius="10px", alt="Microsoft Power Apps")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/microsoft_power_apps.webp", border_radius="10px", alt="Microsoft Power Apps")
 )
 ```
 

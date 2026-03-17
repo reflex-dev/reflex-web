@@ -3,6 +3,7 @@ import reflex_ui as ui
 
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.progressive_blur import progressive_blur
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 # Animation delays (in ms)
 DELAY_USER_PROFILE = 250
@@ -34,7 +35,7 @@ DURATION_SLACK = 300
 def integration_card(icon: str, class_name: str = ""):
     return rx.el.div(
         rx.image(
-            src=f"/landing/integrations/light/{icon}.svg",
+            src=f"{REFLEX_ASSETS_CDN}landing/integrations/light/{icon}.svg",
             loading="lazy",
             alt=f"{icon} integration icon",
             class_name="size-7 pointer-events-none shrink-0",
@@ -49,13 +50,13 @@ def integration_card(icon: str, class_name: str = ""):
 def integration_card_light_dark(icon: str, class_name: str = ""):
     return rx.el.div(
         rx.image(
-            src=f"/landing/integrations/light/{icon}.svg",
+            src=f"{REFLEX_ASSETS_CDN}landing/integrations/light/{icon}.svg",
             loading="lazy",
             alt=f"{icon} integration icon",
             class_name="size-7 pointer-events-none shrink-0 dark:hidden",
         ),
         rx.image(
-            src=f"/landing/integrations/dark/{icon}.svg",
+            src=f"{REFLEX_ASSETS_CDN}landing/integrations/dark/{icon}.svg",
             loading="lazy",
             alt=f"{icon} integration icon",
             class_name="size-7 pointer-events-none shrink-0 hidden dark:block",
@@ -85,7 +86,7 @@ def user_profile():
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src="/landing/app_build/user.avif",
+                src=f"{REFLEX_ASSETS_CDN}landing/app_build/user.avif",
                 loading="lazy",
                 alt="User profile image",
                 class_name="object-cover pointer-events-none",
@@ -105,7 +106,7 @@ def slack_alert():
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src="/landing/integrations/light/slack.svg",
+                src=f"{REFLEX_ASSETS_CDN}landing/integrations/light/slack.svg",
                 loading="lazy",
                 alt="Slack integration icon",
                 class_name="size-full pointer-events-none shrink-0 object-cover",

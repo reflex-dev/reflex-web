@@ -3,7 +3,7 @@ import reflex_ui as ui
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.marketing_button import button
-from pcweb.constants import REFLEX_BUILD_URL
+from pcweb.constants import REFLEX_ASSETS_CDN, REFLEX_BUILD_URL
 
 
 @rx.memo
@@ -41,7 +41,7 @@ def cta_card():
             class_name="flex flex-col gap-6 justify-center max-w-[24.5rem]",
         ),
         rx.image(
-            f"/common/{rx.color_mode_cond('light', 'dark')}/cta.svg",
+            f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/cta.svg",
             class_name="w-auto h-full pointer-events-none",
             loading="lazy",
             alt="CTA Card",

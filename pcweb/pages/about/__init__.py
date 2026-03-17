@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import create_meta_tags
 from pcweb.pages.about.views import (
     cards,
@@ -21,7 +22,7 @@ from pcweb.templates.marketing_page import marketing_page
     meta=create_meta_tags(
         title="About Reflex - Team, Mission & Python Web Apps",
         description="Learn about Reflex, the team behind it, and our mission to make Python the best language for building full-stack web applications and internal tools.",
-        image="/previews/index_preview.webp",
+        image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
     ),
 )
 def about_page() -> rx.Component:

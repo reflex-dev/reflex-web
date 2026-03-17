@@ -5,6 +5,7 @@ from reflex_ui.blocks.demo_form import demo_form_dialog
 from pcweb.components.docpage.navbar.buttons.sidebar import navbar_sidebar_button
 from pcweb.components.docpage.navbar.search import search_bar
 from pcweb.components.marketing_button import button
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import ai_builder, enterprise, getting_started, hosting
 
 
@@ -12,24 +13,24 @@ def logo() -> rx.Component:
     return rx.el.a(
         rx.el.div(
             rx.image(
-                src="/logos/light/reflex.svg",
+                src=f"{REFLEX_ASSETS_CDN}logos/light/reflex.svg",
                 alt="Reflex Logo",
                 class_name="shrink-0 block dark:hidden",
             ),
             rx.image(
-                src="/logos/dark/reflex.svg",
+                src=f"{REFLEX_ASSETS_CDN}logos/dark/reflex.svg",
                 alt="Reflex Logo",
                 class_name="shrink-0 hidden dark:block",
             ),
         ),
         rx.el.div(
             rx.image(
-                src="/logos/light/docs.svg",
+                src=f"{REFLEX_ASSETS_CDN}logos/light/docs.svg",
                 alt="Docs Logo",
                 class_name="shrink-0 block dark:hidden",
             ),
             rx.image(
-                src="/logos/dark/docs.svg",
+                src=f"{REFLEX_ASSETS_CDN}logos/dark/docs.svg",
                 alt="Docs Logo",
                 class_name="shrink-0 hidden dark:block",
             ),

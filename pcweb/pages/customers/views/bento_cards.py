@@ -1,19 +1,21 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def card(company: str, text: str, class_name: str = "") -> rx.Component:
     return rx.link(
         # Top-Left corner company logo
         # Light
         rx.image(
-            src=f"/customers/light/{company}/{company}_top.svg",
+            src=f"{REFLEX_ASSETS_CDN}customers/light/{company}/{company}_top.svg",
             alt=f"{company} logo",
             loading="lazy",
             class_name="absolute top-10 left-10 z-[2] max-h-[32px] dark:hidden",
         ),
         # Dark
         rx.image(
-            src=f"/customers/dark/{company}/{company}_top.svg",
+            src=f"{REFLEX_ASSETS_CDN}customers/dark/{company}/{company}_top.svg",
             alt=f"{company} logo",
             loading="lazy",
             class_name="absolute top-10 left-10 z-[2] max-h-[32px] dark:block hidden",
@@ -21,14 +23,14 @@ def card(company: str, text: str, class_name: str = "") -> rx.Component:
         # Center company logo
         # Light
         rx.image(
-            src=f"/customers/light/{company}/{company}_middle.svg",
+            src=f"{REFLEX_ASSETS_CDN}customers/light/{company}/{company}_middle.svg",
             alt=f"{company} small logo",
             loading="lazy",
             class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px] dark:hidden",
         ),
         # Dark
         rx.image(
-            src=f"/customers/dark/{company}/{company}_middle.svg",
+            src=f"{REFLEX_ASSETS_CDN}customers/dark/{company}/{company}_middle.svg",
             alt=f"{company} small logo",
             loading="lazy",
             class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px] dark:block hidden",
@@ -114,13 +116,13 @@ def _card(company: str, is_company: bool = True, **kwarg) -> rx.Component:
             is_company,
             rx.fragment(
                 rx.image(
-                    f"/customers/light/{company}/{company}_middle.svg",
+                    f"{REFLEX_ASSETS_CDN}customers/light/{company}/{company}_middle.svg",
                     alt=f"{company} small logo",
                     loading="lazy",
                     class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px] dark:hidden",
                 ),
                 rx.image(
-                    f"/customers/dark/{company}/{company}_middle.svg",
+                    f"{REFLEX_ASSETS_CDN}customers/dark/{company}/{company}_middle.svg",
                     alt=f"{company} small logo",
                     loading="lazy",
                     class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px] dark:block hidden",

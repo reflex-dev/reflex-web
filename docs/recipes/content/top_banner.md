@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 ```
 
 # Top Banner
@@ -88,7 +89,7 @@ class TopBannerSignup(rx.ComponentState):
             ~cls.hide,
                 rx.flex(
                     rx.image(
-                        src="/logo.jpg",
+                        src=f"{REFLEX_ASSETS_CDN}other/logo.jpg",
                         width="2em",
                         height="auto",
                         border_radius="25%",

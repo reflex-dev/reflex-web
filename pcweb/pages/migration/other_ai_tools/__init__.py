@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import create_meta_tags, faq_jsonld
 from pcweb.pages.about.views.divider import divider
 from pcweb.pages.migration.other_ai_tools.views import compare, explore, hero, quotes
@@ -59,7 +60,7 @@ OTHER_AI_TOOLS_FAQ_SCHEMA = {
     meta=create_meta_tags(
         title="Switch from Replit, Lovable & Cursor to Reflex | Enterprise AI App Builder",
         description="AI tools like Replit, Lovable, and Cursor hit production walls fast. Reflex gives your whole team — technical and non-technical — a governed, on-prem-ready Python platform to build and ship.",
-        image="/previews/index_preview.webp",
+        image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
     ),
 )
 def other_ai_tools_migration_page() -> rx.Component:

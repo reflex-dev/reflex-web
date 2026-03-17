@@ -4,6 +4,7 @@ Organizations across industries use **Reflex** to build internal tools, dashboar
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -11,7 +12,7 @@ from reflex_image_zoom import image_zoom
 
 ```python eval
     rx.el.div(
-        image_zoom(rx.image(src="/case_studies/admin_app.webp", border_radius="10px", alt="Admin App")),
+        image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/admin_app.webp", border_radius="10px", alt="Admin App")),
         class_name="py-4"
     )
 ```
@@ -63,7 +64,7 @@ When files, forms, recordings, and chat threads produce more raw information tha
 
 ```python eval
     rx.el.div(
-        image_zoom(rx.image(src="/case_studies/sellerx_app.webp", border_radius="10px", alt="Sellerx App")),
+        image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/sellerx_app.webp", border_radius="10px", alt="Sellerx App")),
         class_name="py-4"
     )
 ```
@@ -85,7 +86,7 @@ Modern merchants and growth marketers juggle stock feeds, ad platforms, and cust
 
 ```python eval
     rx.el.div(
-        image_zoom(rx.image(src="/case_studies/devops_app.webp", border_radius="10px", alt="DevOps App")),
+        image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/devops_app.webp", border_radius="10px", alt="DevOps App")),
         class_name="py-4"
     )
 ```

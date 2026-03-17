@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 from pcweb.pages.docs import hosting 
 from pcweb.pages import docs
@@ -14,7 +15,7 @@ To scale your app you can choose different VMTypes. VMTypes are different config
 To scale your VM in the Cloud UI, click on the `Settings` tab in the Cloud UI on the app page, and then click on the `Scale` tab as shown below. Clicking on the `Change VM` button will allow you to scale your app.
 
 ```python eval
-image_zoom(rx.image(src="/scaling_vms.webp", padding_bottom="20px"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/scaling_vms.webp", padding_bottom="20px"))
 ```
 
 ### VMTypes in the CLI

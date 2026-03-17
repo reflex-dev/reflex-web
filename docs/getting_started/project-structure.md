@@ -2,6 +2,7 @@
 
 ```python exec
 from pcweb.pages.docs import advanced_onboarding
+from pcweb.constants import REFLEX_ASSETS_CDN
 ```
 
 ## Directory Structure
@@ -45,7 +46,7 @@ The `assets` directory is where you can store any static assets you want to be p
 For example, if you save an image to `assets/image.png` you can display it from your app like this:
 
 ```python
-rx.image(src="/image.png")
+rx.image(src=f"{REFLEX_ASSETS_CDN}other/image.png")
 ```
 j
 ## Main Project

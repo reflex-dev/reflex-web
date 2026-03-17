@@ -99,7 +99,7 @@ from reflex_image_zoom import image_zoom
 ```
 
 ```python eval
-image_zoom(rx.image(src="/architecture.png"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/architecture.webp"))
 ```
 
 ```python eval

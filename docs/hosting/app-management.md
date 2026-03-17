@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 from pcweb.pages.docs import hosting 
 from pcweb.pages import docs
@@ -20,7 +21,7 @@ There are many actions you can take in the Cloud UI to manage your app. Below ar
 To stop an app follow the arrow in the image below and press on the `Stop app` button. Pausing an app will stop it from running and will not be accessible to users until you resume it. In addition, this will stop you being billed for your app.
 
 ```python eval
-image_zoom(rx.image(src="/stopping_app.webp", padding_bottom="20px"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/stopping_app.webp", padding_bottom="20px"))
 ```
 
 ```md alert info
@@ -33,13 +34,13 @@ image_zoom(rx.image(src="/stopping_app.webp", padding_bottom="20px"))
 To delete an app click on the `Settings` tab in the Cloud UI on the app page.
 
 ```python eval
-image_zoom(rx.image(src="/environment_variables.webp"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/environment_variables.webp"))
 ```
 
 Then click on the `Danger` tab as shown below.
 
 ```python eval
-image_zoom(rx.image(src="/deleting_app.webp"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/deleting_app.webp"))
 ```
 
 Here there is a `Delete app` button. Pressing this button will delete the app and all of its data. This action is irreversible.

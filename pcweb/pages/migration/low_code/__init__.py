@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import create_meta_tags, faq_jsonld
 from pcweb.pages.about.views.divider import divider
 from pcweb.pages.migration.low_code.views import compare, explore, hero, quotes
@@ -59,7 +60,7 @@ LOW_CODE_FAQ_SCHEMA = {
     meta=create_meta_tags(
         title="Switch from Streamlit, Dash & Gradio to Reflex | Python App Framework",
         description="Outgrown Streamlit's rerun model or Dash's callback spaghetti? Reflex gives you declarative state, real-time updates, and production-ready output — in pure Python, from day one.",
-        image="/previews/index_preview.webp",
+        image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
     ),
 )
 def low_code_migration_page() -> rx.Component:

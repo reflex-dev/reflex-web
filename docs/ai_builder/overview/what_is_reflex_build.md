@@ -6,6 +6,8 @@ Reflex Build is an AI-powered platform that lets anyone create full-stack web ap
 import reflex as rx
 from reflex_image_zoom import image_zoom
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 landing_features = [
     {
@@ -55,42 +57,42 @@ features_data = [
     {
         "title": "Project Menu Bar",
         "subtitle": "Browse previously built applications, create new sessions, store database variables, and much more!",
-        "img": "/ai_builder/what_is_reflex_build/project_bar_light.avif",
+        "img": f"{REFLEX_ASSETS_CDN}ai_builder/what_is_reflex_build/project_bar_light.avif",
     },
     {
         "title": "Chat Area",
         "subtitle": "See your prompts in action with visual cues, editing notifications, and file generations every step of the way.",
-        "img": "/ai_builder/what_is_reflex_build/chat_light.avif",
+        "img": f"{REFLEX_ASSETS_CDN}ai_builder/what_is_reflex_build/chat_light.avif",
     },
     {
         "title": "Application Workspace",
         "subtitle": "Your workspace contains all the folders and files of your application. You can add new files and folders as well!",
-        "img": "/ai_builder/what_is_reflex_build/file_tree_light.avif",
+        "img": f"{REFLEX_ASSETS_CDN}ai_builder/what_is_reflex_build/file_tree_light.avif",
     },
     {
         "title": "Code Editor",
         "subtitle": "The code editor displays the current selected file. You can edit the code directly and save it instantly.",
-        "img": "/ai_builder/what_is_reflex_build/code_light.avif",
+        "img": f"{REFLEX_ASSETS_CDN}ai_builder/what_is_reflex_build/code_light.avif",
     },
     {
         "title": "Integrations",
         "subtitle": "Easily connect with the tools your team already uses or extend your app with any Python SDK, library, or API.",
-        "img": "/ai_builder/what_is_reflex_build/integrations_light.avif",
+        "img": f"{REFLEX_ASSETS_CDN}ai_builder/what_is_reflex_build/integrations_light.avif",
     },
     {
         "title": "Plan",
         "subtitle": "Plan your application's development with the AI Builder. You can add or remove phases and tasks as you go.",
-        "img": "/ai_builder/what_is_reflex_build/plan_light.avif",
+        "img": f"{REFLEX_ASSETS_CDN}ai_builder/what_is_reflex_build/plan_light.avif",
     },
     {
         "title": "Top Menu Bar",
         "subtitle": "This menu contains the main views of the application. Preview, Code, Plan, Integrations, Knowledge, Secrets and Settings. You can also see the current workspace RAM and CPU usage. Deploy, copy or share your application with the buttons in the top right corner.",
-        "img": "/ai_builder/what_is_reflex_build/top_light.avif",
+        "img": f"{REFLEX_ASSETS_CDN}ai_builder/what_is_reflex_build/top_light.avif",
     },
     {
         "title": "Preview Tab",
         "subtitle": "The preview tab showcases a live application. You can navigate to other applications directly from this tab, refresh the app, and even view it in full screen.",
-        "img": "/ai_builder/what_is_reflex_build/preview_light.avif",
+        "img": f"{REFLEX_ASSETS_CDN}ai_builder/what_is_reflex_build/preview_light.avif",
     },
 ]
 

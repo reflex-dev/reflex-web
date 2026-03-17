@@ -2,6 +2,7 @@ import reflex as rx
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.icons.icons import get_icon
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def create_pattern(
@@ -78,7 +79,7 @@ def landing_patterns() -> rx.Component:
 def hosting_patterns() -> rx.Component:
     return [
         rx.image(
-            src="/hosting/light/hosting_patterns.svg",
+            src=f"{REFLEX_ASSETS_CDN}hosting/light/hosting_patterns.svg",
             alt="Reflex Hosting Patterns",
             class_name="dark:hidden lg:flex hidden absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             + rx.cond(
@@ -88,7 +89,7 @@ def hosting_patterns() -> rx.Component:
             ),
         ),
         rx.image(
-            src="/hosting/dark/hosting_patterns.svg",
+            src=f"{REFLEX_ASSETS_CDN}hosting/dark/hosting_patterns.svg",
             alt="Reflex Hosting Patterns",
             class_name="hidden dark:flex lg:dark:flex absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             + rx.cond(

@@ -5,7 +5,7 @@ from reflex.experimental.client_state import ClientStateVar
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.marketing_button import button
-from pcweb.constants import REFLEX_URL
+from pcweb.constants import REFLEX_ASSETS_CDN, REFLEX_URL
 from pcweb.flexdown import xd2 as xd
 from pcweb.meta.meta import blog_jsonld
 from pcweb.templates.docpage import get_toc, right_sidebar_item_highlight
@@ -221,13 +221,13 @@ def page(document, route) -> rx.Component:
                     class_name="flex flex-row items-center gap-3 mb-6",
                 ),
                 rx.image(
-                    src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_vertical_blog.svg",
+                    src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_vertical_blog.svg",
                     alt="Squares Vertical Docs",
                     loading="lazy",
                     class_name="pointer-events-none w-auto h-[calc(100%-2rem)] absolute inset-y-4 left-2 max-lg:hidden",
                 ),
                 rx.image(
-                    src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_vertical_blog.svg",
+                    src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_vertical_blog.svg",
                     alt="Squares Vertical Docs",
                     loading="lazy",
                     class_name="pointer-events-none w-auto h-[calc(100%-2rem)] absolute inset-y-4 right-2 scale-x-[-1] max-lg:hidden",
@@ -256,7 +256,11 @@ def page(document, route) -> rx.Component:
                 rx.el.div(
                     rx.el.div(
                         rx.image(
-                            src=f"{meta['image']}",
+                            src=(
+                                meta["image"]
+                                if meta["image"].startswith(("http://", "https://"))
+                                else f"{REFLEX_ASSETS_CDN}{meta['image'].lstrip('/')}"
+                            ),
                             alt=f"Image for blog post: {meta['title']}",
                             loading="eager",
                             custom_attrs={"fetchPriority": "high"},

@@ -1,12 +1,13 @@
 import reflex as rx
 
 from pcweb.components.marquee import marquee
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def social_proof_card(image: str) -> rx.Component:
     return rx.el.div(
         rx.image(
-            f"/companies/light/{image}.svg",
+            src=f"{REFLEX_ASSETS_CDN}companies/light/{image}.svg",
             loading="lazy",
             alt=f"{image} logo",
             class_name="grayscale-100 max-h-[2.5rem] opacity-90 dark:opacity-100",

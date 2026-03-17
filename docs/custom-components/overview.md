@@ -2,6 +2,7 @@
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import custom_components
 from pcweb.pages.docs.custom_components import custom_components as custom_components_gallery
 ```
@@ -14,7 +15,7 @@ Check out the custom components gallery [here]({custom_components_gallery.path})
 
 ```python eval
 rx.center(
-  rx.image(src="/custom_components/pypi_reflex_custom_components.png", width="400px", border_radius="15px", border="1px solid"),
+  rx.image(src=f"{REFLEX_ASSETS_CDN}custom_components/pypi_reflex_custom_components.webp", width="400px", border_radius="15px", border="1px solid"),
 )
 ```
 

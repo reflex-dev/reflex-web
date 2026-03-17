@@ -2,13 +2,15 @@ import copy
 
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def gallery_app_card(app: dict) -> rx.Component:
     return rx.box(
         rx.box(
             rx.link(
                 rx.image(
-                    src=f"/templates/{app['image']}",
+                    src=f"{REFLEX_ASSETS_CDN}templates/{app['image']}",
                     loading="lazy",
                     alt="Image preview for app: " + app["title"],
                     class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out",

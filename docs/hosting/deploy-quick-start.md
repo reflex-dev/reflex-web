@@ -2,6 +2,7 @@
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 from pcweb.pages import docs
 ```
@@ -36,7 +37,7 @@ You will be redirected to your browser where you can authenticate through Github
 Once you are at this URL and you have successfully authenticated, click on the one project you have in your workspace. You should get a screen like this:
 
 ```python eval
-image_zoom(rx.image(src="/cloud_project_page.png", alt="Reflex Cloud Dashboard"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/cloud_project_page.webp", alt="Reflex Cloud Dashboard"))
 ```
 
 This screen shows the login command and the deploy command. As we are already logged in, we can skip the login command.

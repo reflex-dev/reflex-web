@@ -8,6 +8,7 @@ from pcweb.constants import (
     FORUM_URL,
     GITHUB_URL,
     LINKEDIN_URL,
+    REFLEX_ASSETS_CDN,
     ROADMAP_URL,
     TWITTER_URL,
 )
@@ -139,13 +140,13 @@ def newsletter_form() -> rx.Component:
 def ph_1() -> rx.Component:
     return rx.fragment(
         rx.image(
-            src="/logos/dark/ph_1.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/dark/ph_1.svg",
             class_name="hidden dark:block h-[40px] w-fit",
             alt="1st product of the day logo",
             loading="lazy",
         ),
         rx.image(
-            src="/logos/light/ph_1.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/light/ph_1.svg",
             class_name="dark:hidden block h-[40px] w-fit",
             alt="1st product of the day logo",
             loading="lazy",

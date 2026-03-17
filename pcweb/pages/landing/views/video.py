@@ -2,7 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.dialog import dialog
-from pcweb.constants import LAUNCH_VIDEO_URL, REFLEX_BUILD_URL
+from pcweb.constants import LAUNCH_VIDEO_URL, REFLEX_ASSETS_CDN, REFLEX_BUILD_URL
 
 
 def video_demo() -> rx.Component:
@@ -14,7 +14,7 @@ def video_demo() -> rx.Component:
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 z-[2] group-hover:scale-110 transition-transform duration-300 backdrop rounded-full bg-slate-10 size-10 flex items-center justify-center",
                 ),
                 rx.image(
-                    "/landing/video/preview_video.avif",
+                    f"{REFLEX_ASSETS_CDN}landing/video/preview_video.avif",
                     loading="lazy",
                     alt="Reflex video preview",
                     class_name="object-cover size-full",
@@ -30,7 +30,7 @@ def video_demo() -> rx.Component:
             ),
             content=rx.el.div(
                 rx.image(
-                    "/logo.jpg",
+                    f"{REFLEX_ASSETS_CDN}other/logo.jpg",
                     loading="lazy",
                     alt="Reflex logo",
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 z-[-1] rounded-md",

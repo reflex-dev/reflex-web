@@ -1,6 +1,7 @@
 import reflex as rx
 from reflex.utils.format import to_snake_case, to_title_case
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 
 
@@ -8,13 +9,13 @@ def component_card(name: str, link: str, section: str) -> rx.Component:
     return rx.link(
         rx.box(
             rx.image(
-                src=f"/components_previews/{section.lower()}/light/{name.lower()}.svg",
+                src=f"{REFLEX_ASSETS_CDN}components_previews/{section.lower()}/light/{name.lower()}.svg",
                 loading="lazy",
                 alt=f"Image preview of {name}",
                 class_name="object-contain object-center h-full w-full dark:hidden",
             ),
             rx.image(
-                src=f"/components_previews/{section.lower()}/dark/{name.lower()}.svg",
+                src=f"{REFLEX_ASSETS_CDN}components_previews/{section.lower()}/dark/{name.lower()}.svg",
                 loading="lazy",
                 alt=f"Image preview of {name}",
                 class_name="object-contain object-center h-full w-full dark:block hidden",

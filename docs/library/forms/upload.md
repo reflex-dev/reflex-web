@@ -9,6 +9,7 @@ Upload: |
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 ```
 
 # File Upload
@@ -22,6 +23,7 @@ You can let users upload files and keep track of them in your app’s state. The
 
 ```python
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 class State(rx.State):
     uploaded_files: list[str] = []
 
@@ -78,6 +80,7 @@ Here is the standard pattern for handling file uploads:
 
 ```python
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 def create_unique_filename(file_name: str):
     import random
@@ -141,7 +144,7 @@ def upload_component():
 Below is an example of how to allow multiple file uploads (in this case images).
 
 ```python demo box
-rx.image(src="/upload.gif")
+rx.image(src=f"{REFLEX_ASSETS_CDN}other/upload.gif")
 ```
 
 ```python
@@ -204,7 +207,7 @@ def index():
 Below is an example of how to allow only a single file upload and render (in this case a video).
 
 ```python demo box
-rx.el.video(src="/upload_single_video.webm", auto_play=True, controls=True, loop=True)
+rx.el.video(src=f"{REFLEX_ASSETS_CDN}other/upload_single_video.webm", auto_play=True, controls=True, loop=True)
 ```
 
 ```python

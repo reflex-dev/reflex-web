@@ -511,8 +511,11 @@ def get_toc(source, href, component_list=None):
 
     # Generate the TOC
     # The environment used for execing and evaling code.
+    from pcweb.constants import REFLEX_ASSETS_CDN
+
     env = source.metadata
     env["__xd"] = xd
+    env["REFLEX_ASSETS_CDN"] = REFLEX_ASSETS_CDN
 
     # Get the content of the document.
     doc_content = source.content

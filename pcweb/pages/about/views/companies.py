@@ -1,29 +1,31 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 color_mode = rx.color_mode_cond("light", "dark")
 COMPANIES = [
     {
-        "src": f"/about/companies/{color_mode}/y_combinator.svg",
+        "src": f"{REFLEX_ASSETS_CDN}about/companies/{color_mode}/y_combinator.svg",
         "alt": "Y Combinator",
     },
     {
-        "src": f"/about/companies/{color_mode}/abstract.svg",
+        "src": f"{REFLEX_ASSETS_CDN}about/companies/{color_mode}/abstract.svg",
         "alt": "Abstract",
     },
     {
-        "src": f"/about/companies/{color_mode}/outset.svg",
+        "src": f"{REFLEX_ASSETS_CDN}about/companies/{color_mode}/outset.svg",
         "alt": "Outset",
     },
     {
-        "src": f"/about/companies/{color_mode}/lux.svg",
+        "src": f"{REFLEX_ASSETS_CDN}about/companies/{color_mode}/lux.svg",
         "alt": "Lux Capital",
     },
     {
-        "src": f"/about/companies/{color_mode}/box_group.svg",
+        "src": f"{REFLEX_ASSETS_CDN}about/companies/{color_mode}/box_group.svg",
         "alt": "Box Group",
     },
     {
-        "src": f"/about/companies/{color_mode}/picus.svg",
+        "src": f"{REFLEX_ASSETS_CDN}about/companies/{color_mode}/picus.svg",
         "alt": "Picus Capital",
     },
 ]

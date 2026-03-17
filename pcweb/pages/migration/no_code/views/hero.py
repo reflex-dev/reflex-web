@@ -1,3 +1,4 @@
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.migration.common.hero import HeroLogo
 from pcweb.pages.migration.common.hero import hero as common_hero
 
@@ -27,7 +28,7 @@ def hero():
         subtitle="No-code tools get you to v1 fast, but you hit walls — custom logic, complex data flows, performance. With Reflex, you're writing Python, so there's no ceiling. You own your code, deploy anywhere, and ship what you demo.",
         cta_text="Book a Demo",
         logos=HERO_LOGOS,
-        logo_base_path="/migration",
+        logo_base_path=f"{REFLEX_ASSETS_CDN}migration",
     )
 
 
