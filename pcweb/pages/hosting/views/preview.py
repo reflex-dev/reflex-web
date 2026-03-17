@@ -28,13 +28,13 @@ def preview() -> rx.Component:
     return rx.box(
         pattern_1(),
         rx.image(
-            src=f"{REFLEX_ASSETS_CDN}hosting/light/hosting-preview.webp",
+            src=f"{REFLEX_ASSETS_CDN}hosting/light/hosting-preview.jpg",
             alt="Reflex Hosting Preview",
             class_name="dark:hidden w-full h-full rounded-lg lg:rounded-2xl object-cover bg-center border border-slate-3",
             loading="lazy",
         ),
         rx.image(
-            src=f"{REFLEX_ASSETS_CDN}hosting/dark/hosting-preview.webp",
+            src=f"{REFLEX_ASSETS_CDN}hosting/dark/hosting-preview.jpg",
             alt="Reflex Hosting Preview",
             class_name="dark:block hidden w-full h-full rounded-lg lg:rounded-2xl object-cover bg-center border border-slate-3",
             loading="lazy",
