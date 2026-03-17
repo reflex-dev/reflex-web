@@ -18,7 +18,7 @@ def _predicate_console_message(msg):
 
 
 def _predicate_download(download):
-    return download.suggested_filename == "different_name_logo.png"
+    return download.suggested_filename == "different_name_logo.webp"
 
 
 def test_server_side_events(
