@@ -2,6 +2,7 @@
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.styles.colors import c_color
 image_style = {
   "width": "400px",
@@ -18,7 +19,7 @@ It is straightforward to create accounts and API tokens with PyPI. There is offi
 
 ```python eval
 rx.center(
-  rx.image(src="/custom_components/pypi_register.png", style=image_style, margin_bottom="16px", loading="lazy"),
+  rx.image(src=f"{REFLEX_ASSETS_CDN}custom_components/pypi_register.webp", style=image_style, margin_bottom="16px", loading="lazy"),
 )
 ```
 
@@ -26,7 +27,7 @@ A user can use username and password to authenticate with PyPI when publishing.
 
 ```python eval
 rx.center(
-  rx.image(src="/custom_components/pypi_account_settings.png", style=image_style, margin_bottom="16px", loading="lazy"),
+  rx.image(src=f"{REFLEX_ASSETS_CDN}custom_components/pypi_account_settings.webp", style=image_style, margin_bottom="16px", loading="lazy"),
 )
 ```
 
@@ -34,6 +35,6 @@ Scroll down to the API tokens section and click on the "Add API token" button. F
 
 ```python eval
 rx.center(
-  rx.image(src="/custom_components/pypi_api_tokens.png", style=image_style, width="700px", loading="lazy"),
+  rx.image(src=f"{REFLEX_ASSETS_CDN}custom_components/pypi_api_tokens.webp", style=image_style, width="700px", loading="lazy"),
 )
 ```

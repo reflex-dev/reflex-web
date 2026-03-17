@@ -4,6 +4,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.marquee import marquee
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def get_highlight(text: str) -> rx.Component:
@@ -44,7 +45,7 @@ SOCIALS_1 = [
             get_highlight("Reflex"),
             " since Jan and realized I should just say, from a fellow YC member: love the architecture decisions you guys are making! ❤️",
         ),
-        avatar="/landing/social/alex_opensea.webp",
+        avatar=f"{REFLEX_ASSETS_CDN}landing/social/alex_opensea.webp",
     ),
     Social(
         name="Andrew",

@@ -1,3 +1,4 @@
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.migration.common.hero import HeroLogo
 from pcweb.pages.migration.common.hero import hero as common_hero
 
@@ -27,7 +28,7 @@ def hero():
         subtitle="Streamlit, Dash, and Gradio get you prototyping fast, but you hit walls — rerun model, callback spaghetti, no real-time, no production path. Reflex gives you declarative state, event-driven updates, and production-ready output from day one.",
         cta_text="Book a Demo",
         logos=HERO_LOGOS,
-        logo_base_path="/migration",
+        logo_base_path=f"{REFLEX_ASSETS_CDN}migration",
     )
 
 

@@ -1,17 +1,19 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def logo(path: str, height: str) -> rx.Component:
     return rx.fragment(
         rx.image(
-            src=f"/companies/light/{path}.svg",
+            src=f"{REFLEX_ASSETS_CDN}companies/light/{path}.svg",
             alt=f"{path} logo",
             loading="lazy",
             height=height,
             class_name="shrink-0 dark:hidden",
         ),
         rx.image(
-            src=f"/companies/dark/{path}.svg",
+            src=f"{REFLEX_ASSETS_CDN}companies/dark/{path}.svg",
             alt=f"{path} logo",
             height=height,
             loading="lazy",

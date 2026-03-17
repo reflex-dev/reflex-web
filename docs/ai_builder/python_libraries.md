@@ -24,10 +24,17 @@ There is no built-in integration for Scikit-learn. But if you ask the AI Builder
 
 If you are working with a specialized / less well-known library, you can add custom knowledge to help the AI Builder understand how to use it. Simply provide a brief description of the library, its purpose, and example usage in the **Knowledge** section of your app settings. This will guide the AI Builder when it attempts to call functions from that library.
 
+```python exec
+import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
+```
+
 ```md alert warning
 # Where to find the Knowledge Section
+```
 
-![Where to find the Knowledge Section](/ai_builder/features/knowledge_light.avif)
+```python eval
+rx.image(src=f"{REFLEX_ASSETS_CDN}ai_builder/features/knowledge_light.avif", alt="Where to find the Knowledge Section", class_name="rounded-lg border border-secondary-a4 mb-2")
 ```
 
 

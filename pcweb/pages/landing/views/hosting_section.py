@@ -2,12 +2,13 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.icons import get_icon
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def header() -> rx.Component:
     return rx.box(
         rx.image(
-            src="/landing/patterns/light/pattern_hosting.webp",
+            src=f"{REFLEX_ASSETS_CDN}landing/patterns/light/pattern_hosting.webp",
             class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none",
         ),
         rx.box(
@@ -26,7 +27,7 @@ including Databricks, AWS, GCP, Azure, Snowflake and more.""",
             class_name="text-slate-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre pb-6",
         ),
         rx.image(
-            src="/hosting_graphing.svg",
+            src=f"{REFLEX_ASSETS_CDN}other/hosting_graphing.svg",
             class_name="h-auto max-w-[25rem] w-full mx-auto",
         ),
         class_name="flex flex-col gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 p-10 justify-center items-center relative overflow-hidden h-[22.75rem] border-b border-slate-3",
@@ -79,11 +80,11 @@ def content() -> rx.Component:
         ),
         rx.box(
             rx.image(
-                src="/landing/hosting_features/light/card.webp",
+                src=f"{REFLEX_ASSETS_CDN}landing/hosting_features/light/card.webp",
                 class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:hidden",
             ),
             rx.image(
-                src="/landing/hosting_features/dark/card.webp",
+                src=f"{REFLEX_ASSETS_CDN}landing/hosting_features/dark/card.webp",
                 class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:block hidden",
             ),
             class_name="justify-center items-center relative overflow-hidden w-full lg:flex hidden",
@@ -95,7 +96,7 @@ def content() -> rx.Component:
 def graph() -> rx.Component:
     return rx.box(
         rx.image(
-            src="/hosting_graphing.svg",
+            src=f"{REFLEX_ASSETS_CDN}other/hosting_graphing.svg",
             class_name="w-full h-[10rem]",
         ),
         class_name="flex flex-col lg:flex-row max-w-[64.19rem] mx-auto w-full border-x-0 lg:border-x border-slate-3 divide-x-0 lg:divide-x divide-slate-3 p-10",

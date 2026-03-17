@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.framework.components.stat import stat
 
 
@@ -21,7 +22,7 @@ def frontend_card(
             class_name="flex flex-col gap-2 px-10 pt-10",
         ),
         rx.image(
-            src=f"/landing/frontend_features/light/{image}",
+            src=f"{REFLEX_ASSETS_CDN}landing/frontend_features/light/{image}",
             class_name="dark:hidden w-full absolute shrink-0" + " " + image_cn,
             top=top,
             height=height,
@@ -29,7 +30,7 @@ def frontend_card(
             alt=title + " image",
         ),
         rx.image(
-            src=f"/landing/frontend_features/dark/{image}",
+            src=f"{REFLEX_ASSETS_CDN}landing/frontend_features/dark/{image}",
             class_name="dark:block hidden w-full absolute shrink-0" + " " + image_cn,
             top=top,
             height=height,

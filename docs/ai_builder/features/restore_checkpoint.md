@@ -4,6 +4,7 @@ The **Restore Checkpoint** feature allows you to roll back your app to any previ
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -11,7 +12,7 @@ from reflex_image_zoom import image_zoom
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/features/restore_light.avif",
+            src=f"{REFLEX_ASSETS_CDN}ai_builder/features/restore_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),

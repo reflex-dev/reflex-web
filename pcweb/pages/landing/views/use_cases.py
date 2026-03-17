@@ -4,6 +4,7 @@ from reflex.experimental.client_state import ClientStateVar
 
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.numbers_pattern import numbers_pattern
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.gallery import gallery
 
 items = [
@@ -103,13 +104,16 @@ def app_card() -> rx.Component:
         rx.image(
             src=rx.match(
                 selected_industry.value,
-                ("Analytics", "/case_studies/analytics_dashboard.webp"),
-                ("Finance", "/case_studies/bayesline_app.webp"),
-                ("E-commerce", "/case_studies/sellerx_app.webp"),
-                ("DevOps", "/case_studies/devops_app.webp"),
-                ("Databases", "/case_studies/admin_app.webp"),
-                ("AI Workflows", "/case_studies/ai_workflow.webp"),
-                "/case_studies/analytics_dashboard.webp",
+                (
+                    "Analytics",
+                    f"{REFLEX_ASSETS_CDN}case_studies/analytics_dashboard.webp",
+                ),
+                ("Finance", f"{REFLEX_ASSETS_CDN}case_studies/bayesline_app.webp"),
+                ("E-commerce", f"{REFLEX_ASSETS_CDN}case_studies/sellerx_app.webp"),
+                ("DevOps", f"{REFLEX_ASSETS_CDN}case_studies/devops_app.webp"),
+                ("Databases", f"{REFLEX_ASSETS_CDN}case_studies/admin_app.webp"),
+                ("AI Workflows", f"{REFLEX_ASSETS_CDN}case_studies/ai_workflow.webp"),
+                f"{REFLEX_ASSETS_CDN}case_studies/analytics_dashboard.webp",
             ),
             loading="lazy",
             alt="Use case image",

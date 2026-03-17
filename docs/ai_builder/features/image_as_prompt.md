@@ -2,6 +2,7 @@
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -16,7 +17,7 @@ Below is an image showing how to upload an image to the AI Builder, you can clic
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/image_upload.avif",
+            src=f"{REFLEX_ASSETS_CDN}ai_builder/image_upload.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),

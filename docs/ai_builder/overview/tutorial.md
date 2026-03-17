@@ -27,6 +27,7 @@ This will create your main dashboard page with both tabular and visual represent
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -34,7 +35,7 @@ from reflex_image_zoom import image_zoom
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/overview/tutorial_1_light.avif",
+            src=f"{REFLEX_ASSETS_CDN}ai_builder/overview/tutorial_1_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -59,7 +60,7 @@ Your dashboard now becomes much more useful with real-time filtering. Users can 
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/overview/tutorial_2_light.avif",
+            src=f"{REFLEX_ASSETS_CDN}ai_builder/overview/tutorial_2_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -86,7 +87,7 @@ Your app now has full CRUD capability for employee records. The modal form provi
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/overview/tutorial_3_light.avif",
+            src=f"{REFLEX_ASSETS_CDN}ai_builder/overview/tutorial_3_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -113,7 +114,7 @@ Your app now has proper navigation between the dashboard and chat functionality.
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/overview/tutorial_4_light.avif",
+            src=f"{REFLEX_ASSETS_CDN}ai_builder/overview/tutorial_4_light.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),

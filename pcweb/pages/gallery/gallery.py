@@ -6,7 +6,7 @@ import reflex_ui as ui
 
 from pcweb.components.button import button
 from pcweb.components.r_svg_loader import r_svg_loader
-from pcweb.constants import INTEGRATIONS_IMAGES_URL
+from pcweb.constants import INTEGRATIONS_IMAGES_URL, REFLEX_ASSETS_CDN
 from pcweb.templates.webpage import webpage
 
 REFLEX_BUILD_TEMPLATES_PATH = "reflex_build_templates/"
@@ -214,7 +214,7 @@ def create_grid_with_items():
                 app_name=app_name,
                 app_author=app_author,
                 app_thread=app_thread,
-                app_image=f"/{REFLEX_BUILD_TEMPLATES_IMAGES}{app_image}",
+                app_image=f"{REFLEX_ASSETS_CDN}{REFLEX_BUILD_TEMPLATES_IMAGES}{app_image}",
                 app_inner_page=app_inner_page,
                 app_video_url=app_video_url,
                 app_integrations=app_integrations,

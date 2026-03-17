@@ -5,6 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 ```
 
 # Aspect Ratio
@@ -71,7 +72,7 @@ rx.flex(
     *[
         rx.box(
             rx.aspect_ratio(
-                rx.image(src="/logo.jpg", width="100%", height="100%"),
+                rx.image(src=f"{REFLEX_ASSETS_CDN}other/logo.jpg", width="100%", height="100%"),
                 ratio=ratio,
             ),
             width="20%",

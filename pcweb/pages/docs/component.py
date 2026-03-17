@@ -26,6 +26,7 @@ from reflex.components.el.elements.base import BaseHTML
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docdemobox, docpage, get_toc, h1_comp, h2_comp
 
@@ -1159,10 +1160,11 @@ def multi_docs(path, comp, component_list, title):
         nonlocal fname
         fname = fname.replace(".md", "-ll.md")
         d2 = Document.from_file(fname)
+        d2.metadata["REFLEX_ASSETS_CDN"] = REFLEX_ASSETS_CDN
         toc = get_toc(d2, fname, component_list)
         return toc, rx.box(
             links("ll", ll_doc_exists, path),
-            xd.render_file(fname),
+            xd.render(d2, fname),
             h1_comp(text="API Reference"),
             rx.box(*components, class_name="flex flex-col"),
             class_name="flex flex-col w-full",

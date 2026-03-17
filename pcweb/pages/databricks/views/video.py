@@ -2,6 +2,8 @@ import reflex as rx
 import reflex_ui as ui
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 VIDEO_URL = "https://youtu.be/Hy3uhBVRdtk?si=Z5szIyInkBfeG2lk&t=92s"
 
 
@@ -13,7 +15,7 @@ def video_demo() -> rx.Component:
                 class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 z-[2] group-hover:scale-110 transition-transform duration-300 backdrop rounded-full bg-slate-10 size-10 flex items-center justify-center",
             ),
             rx.image(
-                "/landing/video/tom_preview.webp",
+                src=f"{REFLEX_ASSETS_CDN}landing/video/tom_preview.webp",
                 class_name="object-cover size-full scale-110",
             ),
             rx.el.span(

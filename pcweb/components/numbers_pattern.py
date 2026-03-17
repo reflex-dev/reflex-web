@@ -1,6 +1,8 @@
 import reflex as rx
 import reflex_ui as ui
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def _ellipses(side: str, reverse_animation: bool = False) -> rx.Component:
     """Create animated ellipses for the pattern effect."""
@@ -39,8 +41,8 @@ def numbers_pattern(
         class_name: Additional CSS classes
     """
     position_class = "left-0" if side == "left" else "right-0"
-    light_src = "/landing/patterns/light/numbers-pattern.avif"
-    dark_src = "/landing/patterns/dark/numbers-pattern.avif"
+    light_src = f"{REFLEX_ASSETS_CDN}landing/patterns/light/numbers-pattern.avif"
+    dark_src = f"{REFLEX_ASSETS_CDN}landing/patterns/dark/numbers-pattern.avif"
 
     # Determine if we need to flip: right side XOR reverse
     # - right side normally flips

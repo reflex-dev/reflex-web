@@ -18,6 +18,7 @@ faq: [
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -39,7 +40,7 @@ That's why we've reviewed the top Python frameworks for building web apps, compa
 
 ```python eval
 rx.vstack(
-    image_zoom(rx.image(src="/blog/github-python_top_language_2024.webp", border_radius="10px", alt="Github Top Programming Languages")),
+    image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/github-python_top_language_2024.webp", border_radius="10px", alt="Github Top Programming Languages")),
     rx.text("Github top programming languages 2024"),
 )
 ```

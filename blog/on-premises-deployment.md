@@ -4,7 +4,7 @@ date: 2025-12-05
 title: "Reflex Build On-Prem: The Secure AI App Builder That Runs Inside Your Company Infrastructure"
 title_tag: "Reflex Build On-Prem - Enterprise AI App Builder"
 description: Reflex Build on-premises—an enterprise AI app builder for developing secure internal tools and dashboards using Python. Deploy inside your infrastructure.
-image: /blog/on-prem.png
+image: /blog/on-prem.webp
 tag: Cloud
 meta: [
     {
@@ -54,7 +54,7 @@ Many enterprises face unique challenges that require on-premises solutions:
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/blog/connection.png",
+            src=f"{constants.REFLEX_ASSETS_CDN}blog/connection.webp",
             class_name="p-2 rounded-md h-auto w-full",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -126,7 +126,7 @@ One of the biggest unlocks with Reflex Build on-premises is the ability to secur
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/blog/industries.png",
+            src=f"{constants.REFLEX_ASSETS_CDN}blog/industries.webp",
             class_name="p-2 rounded-md h-auto w-full",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),

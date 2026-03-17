@@ -69,7 +69,7 @@ The [Chakra Docs](https://chakra.reflex.run) have been moved and updated to refl
 
 ```python demo box
 rx.grid(
-    rx.avatar(src="/logo.jpg"),
+    rx.avatar(src=f"{REFLEX_ASSETS_CDN}other/logo.jpg"),
     rx.badge("0.4.0"),
     rx.button("Hello"),
     rx.select(["Option 1", "Option 2", "Option 3"]),
@@ -90,8 +90,6 @@ Many components feature high level styling props, such as setting the `color_sch
 The components also have interactive docs in their [API Reference]({lib.forms.button.path}#api-reference) so you can see how different props change the component.
 
 ## Theming System
-
-![Theming Demo](/dashboard.gif)
 
 The new components can be styled together with the new [unified theming system]({styling.theming.path}).
 

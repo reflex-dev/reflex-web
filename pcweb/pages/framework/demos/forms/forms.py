@@ -97,7 +97,7 @@ def form() -> rx.Component:
     return rx.card(
         rx.form(
             rx.hstack(
-                rx.image(src="/envelope.png"),
+                rx.image(src=f"{REFLEX_ASSETS_CDN}other/envelope.png"),
                 rx.vstack(
                     rx.heading("Join Newsletter"),
                     rx.text(

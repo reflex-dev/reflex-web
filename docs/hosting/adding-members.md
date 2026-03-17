@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -20,7 +21,7 @@ If you are a User you have the ability to create, deploy and delete apps, but yo
 As an Admin you will see the an `Add user` button in the top right of the screen, as shown in the image below. Clicking on this will allow you to add a user to the project. You will need to enter the email address of the user you wish to add.
 
 ```python eval
-image_zoom(rx.image(src="/hosting_adding_team_members.png", alt="Adding team members to Reflex Cloud"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/hosting_adding_team_members.webp", alt="Adding team members to Reflex Cloud"))
 ```
 
 ```python eval

@@ -5,13 +5,14 @@ The **General App Settings** section lets you manage key aspects of your app, in
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 
 def render_image():
     return rx.el.div(
         image_zoom(
             rx.image(
-                src="/ai_builder/app_lifecycle/general_light.avif",
+                src=f"{REFLEX_ASSETS_CDN}ai_builder/app_lifecycle/general_light.avif",
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),

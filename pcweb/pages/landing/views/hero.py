@@ -13,6 +13,7 @@ from pcweb.constants import (
     MAX_FILE_SIZE_MB,
     MAX_IMAGES_COUNT,
     PROMPT_MAP,
+    REFLEX_ASSETS_CDN,
     REFLEX_BUILD_URL,
     RX_BUILD_BACKEND,
 )
@@ -138,7 +139,7 @@ class SubmitPromptState(rx.State):
 def integration_text(text: str, integration: str) -> rx.Component:
     return rx.el.span(
         rx.image(
-            src=f"/landing/integrations/light/{integration}.svg",
+            src=f"{REFLEX_ASSETS_CDN}landing/integrations/light/{integration}.svg",
             alt=f"{integration} integration light icon",
             class_name="size-7 pointer-events-none shrink-0 inline-block align-text-bottom",
         ),
@@ -153,12 +154,12 @@ def integration_text(text: str, integration: str) -> rx.Component:
 def integration_text_light_dark(text: str, integration: str) -> rx.Component:
     return rx.el.span(
         rx.image(
-            src=f"/landing/integrations/light/{integration}.svg",
+            src=f"{REFLEX_ASSETS_CDN}landing/integrations/light/{integration}.svg",
             alt=f"{integration} integration light icon",
             class_name="size-7 pointer-events-none shrink-0 inline-block align-text-bottom dark:hidden",
         ),
         rx.image(
-            src=f"/landing/integrations/dark/{integration}.svg",
+            src=f"{REFLEX_ASSETS_CDN}landing/integrations/dark/{integration}.svg",
             alt=f"{integration} integration dark icon",
             class_name="size-7 pointer-events-none shrink-0 align-text-bottom hidden dark:inline-block",
         ),

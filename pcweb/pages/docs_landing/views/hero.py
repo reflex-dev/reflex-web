@@ -3,6 +3,7 @@ import reflex_ui as ui
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.marketing_button import button
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import getting_started
 
 
@@ -47,7 +48,7 @@ def hero() -> rx.Component:
             rx.image(
                 alt="Squares Docs Logo",
                 custom_attrs={"fetchPriority": "high"},
-                src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_docs_logo.svg",
+                src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_docs_logo.svg",
                 class_name="pointer-events-none h-auto w-auto lg:absolute max-lg:hidden",
             ),
             class_name=ui.cn(

@@ -3,7 +3,7 @@ import reflex as rx
 from pcweb.components.dialog import dialog
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.new_button import button
-from pcweb.constants import DEMO_VIDEO_URL
+from pcweb.constants import DEMO_VIDEO_URL, REFLEX_ASSETS_CDN
 
 
 def icon_svg() -> rx.Component:
@@ -48,12 +48,12 @@ def video_demo() -> rx.Component:
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-110 z-[2] group-hover:scale-125 transition-transform duration-300 backdrop",
                 ),
                 rx.image(
-                    "/landing/video/dark/video_demo_dark.webp",
+                    f"{REFLEX_ASSETS_CDN}landing/video/dark/video_demo_dark.webp",
                     loading="lazy",
                     class_name="object-cover size-full dark:block hidden scale-110",
                 ),
                 rx.image(
-                    "/landing/video/light/video_demo_light.webp",
+                    f"{REFLEX_ASSETS_CDN}landing/video/light/video_demo_light.webp",
                     loading="lazy",
                     class_name="object-cover size-full dark:hidden block scale-110",
                 ),
@@ -64,7 +64,7 @@ def video_demo() -> rx.Component:
             ),
             content=rx.box(
                 rx.image(
-                    "/logo.jpg",
+                    f"{REFLEX_ASSETS_CDN}other/logo.jpg",
                     loading="lazy",
                     class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 z-[-1] rounded-md",
                 ),

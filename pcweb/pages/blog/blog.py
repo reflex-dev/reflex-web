@@ -4,6 +4,7 @@ from reflex.experimental.client_state import ClientStateVar
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.marketing_button import button as marketing_button
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import blog_index_jsonld, create_meta_tags
 from pcweb.signup import IndexState
 from pcweb.templates.marketing_page import marketing_page
@@ -100,7 +101,11 @@ def card_inner(meta: dict, path: str) -> rx.Component:
     return rx.el.a(
         rx.el.div(
             rx.image(
-                src=meta["image"],
+                src=(
+                    meta["image"]
+                    if meta["image"].startswith(("http://", "https://"))
+                    else f"{REFLEX_ASSETS_CDN}{meta['image'].lstrip('/')}"
+                ),
                 loading="eager",
                 custom_attrs={"fetchPriority": "high"},
                 alt="Image preview for blog post: " + str(meta["title"]),
@@ -177,11 +182,11 @@ def component_grid() -> rx.Component:
     path="/blog",
     title="Reflex Blog - Python Web App Development",
     description="Reflex blog: tutorials, framework comparisons, release notes, and tips for building Python web apps, dashboards, and internal tools.",
-    image="/previews/index_preview.webp",
+    image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
     meta=create_meta_tags(
         title="Reflex Blog - Python Web App Development",
         description="Reflex blog: tutorials, framework comparisons, release notes, and tips for building Python web apps, dashboards, and internal tools.",
-        image="/previews/index_preview.webp",
+        image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
         url="https://reflex.dev/blog",
     ),
 )

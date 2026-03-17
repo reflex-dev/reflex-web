@@ -1,5 +1,7 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def pattern_1() -> rx.Component:
     return rx.html(
@@ -26,13 +28,13 @@ def preview() -> rx.Component:
     return rx.box(
         pattern_1(),
         rx.image(
-            src="/hosting/light/hosting-preview.jpg",
+            src=f"{REFLEX_ASSETS_CDN}hosting/light/hosting-preview.jpg",
             alt="Reflex Hosting Preview",
             class_name="dark:hidden w-full h-full rounded-lg lg:rounded-2xl object-cover bg-center border border-slate-3",
             loading="lazy",
         ),
         rx.image(
-            src="/hosting/dark/hosting-preview.jpg",
+            src=f"{REFLEX_ASSETS_CDN}hosting/dark/hosting-preview.jpg",
             alt="Reflex Hosting Preview",
             class_name="dark:block hidden w-full h-full rounded-lg lg:rounded-2xl object-cover bg-center border border-slate-3",
             loading="lazy",

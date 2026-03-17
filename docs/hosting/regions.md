@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
 from reflex_image_zoom import image_zoom
-from pcweb.constants import REFLEX_CLOUD_URL
+from pcweb.constants import REFLEX_ASSETS_CDN, REFLEX_CLOUD_URL
 from pcweb.pages.docs import hosting 
 from pcweb.pages import docs
 from pcweb.styles.styles import get_code_style, cell_style
@@ -59,7 +59,7 @@ To scale your app you can choose different regions. Regions are different locati
 To scale your app to multiple regions in the Cloud UI, click on the `Settings` tab in the Cloud UI on the app page, and then click on the `Regions` tab as shown below. Clicking on the `Add new region` button will allow you to scale your app to multiple regions.
 
 ```python eval
-image_zoom(rx.image(src="/scaling_regions.webp", padding_bottom="20px"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/scaling_regions.webp", padding_bottom="20px"))
 ```
 
 The table below show all the regions that can be deployed in.

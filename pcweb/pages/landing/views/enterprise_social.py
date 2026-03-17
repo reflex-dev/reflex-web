@@ -2,6 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.numbers_pattern import numbers_pattern
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def header() -> rx.Component:
@@ -29,7 +30,7 @@ def enterprise_card(image: str, name: str, stat: str, text: str) -> rx.Component
     return rx.el.a(
         rx.el.div(
             rx.image(
-                src=f"/customers/{rx.color_mode_cond('light', 'dark')}{image}",
+                src=f"{REFLEX_ASSETS_CDN}customers/{rx.color_mode_cond('light', 'dark')}{image}",
                 class_name="w-auto h-[1.875rem]",
                 loading="lazy",
                 alt=f"{name} logo",

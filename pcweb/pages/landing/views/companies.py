@@ -3,6 +3,7 @@ import reflex_ui as ui
 from reflex.experimental import ClientStateVar
 
 from pcweb.components.icons.icons import get_icon
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.framework.views.companies import companies as index_companies
 
 company_cs = ClientStateVar.create("company", "")
@@ -167,14 +168,14 @@ def company_card(name: str, id: str) -> rx.Component:
             rx.box(
                 # Light
                 rx.image(
-                    src=f"/landing/companies/light/{name}.svg",
+                    src=f"{REFLEX_ASSETS_CDN}landing/companies/light/{name}.svg",
                     class_name="w-[4.75rem] h-auto pointer-events-none group-hover:grayscale-0 grayscale-[1] opacity-50 group-hover:opacity-100 transition-all dark:hidden",
                     loading="lazy",
                     alt=f"{name} logo",
                 ),
                 # Dark
                 rx.image(
-                    src=f"/landing/companies/dark/{name}.svg",
+                    src=f"{REFLEX_ASSETS_CDN}landing/companies/dark/{name}.svg",
                     class_name="w-[4.75rem] h-auto pointer-events-none group-hover:grayscale-0 grayscale-[1] opacity-50 group-hover:opacity-100 transition-all dark:block hidden",
                     loading="lazy",
                     alt=f"{name} logo",

@@ -4,7 +4,7 @@ date: 2023-06-28
 title: Pynecone is now Reflex
 title_tag: "Pynecone is Now Reflex - Python Web Framework"
 description: Pynecone is now Reflex! The same great Python web framework with a new name and a bold vision for full-stack development.
-image: /reflex_banner.png
+image: https://web.reflex-assets.dev/other/reflex_banner.png
 tag: Announcements
 meta: [
     {"name": "keywords", "content": ""},

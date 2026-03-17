@@ -164,7 +164,7 @@ meta_data = (
 @rx.page(
     title='My Beautiful App',
     description='A beautiful app built with Reflex',
-    image='/splash.png',
+    image='https://web.reflex-assets.dev/other/logo.jpg',
     meta=meta,
 )
 def index():

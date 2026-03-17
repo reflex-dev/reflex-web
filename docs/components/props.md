@@ -16,7 +16,7 @@ For example, the `rx.image` component has a `src` prop that specifies the URL of
 
 ```python demo
 rx.image(
-    src="https://reflex.dev/logo.jpg",
+    src="https://web.reflex-assets.dev/other/logo.jpg",
     alt="Reflex Logo",
 )
 ```

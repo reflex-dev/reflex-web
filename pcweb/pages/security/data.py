@@ -1,5 +1,6 @@
 """Security page data configuration."""
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.pricing.table import Feature
 
 SECURITY_FEATURES = {
@@ -98,8 +99,11 @@ PAGE_CONTENT = {
         "title": "Secure by default",
         "subtitle": "SOC 2 compliant with enterprise-grade security and flexible deployment options.",
         "logos": [
-            {"src": "/soc2.webp", "alt": "SOC 2 Compliance"},
-            {"src": "/databricks-partner.svg", "alt": "Databricks Partner"},
+            {"src": f"{REFLEX_ASSETS_CDN}other/soc2.webp", "alt": "SOC 2 Compliance"},
+            {
+                "src": f"{REFLEX_ASSETS_CDN}other/databricks-partner.svg",
+                "alt": "Databricks Partner",
+            },
         ],
     },
     "table": {

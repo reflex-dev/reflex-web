@@ -1,16 +1,18 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def logo(class_name: str = "") -> rx.Component:
     return rx.link(
         rx.fragment(
             rx.image(
-                src="/logos/light/reflex.svg",
+                src=f"{REFLEX_ASSETS_CDN}logos/light/reflex.svg",
                 alt="Reflex Logo",
                 class_name="shrink-0 block dark:hidden" + class_name,
             ),
             rx.image(
-                src="/logos/dark/reflex.svg",
+                src=f"{REFLEX_ASSETS_CDN}logos/dark/reflex.svg",
                 alt="Reflex Logo",
                 class_name="shrink-0 hidden dark:block" + class_name,
             ),

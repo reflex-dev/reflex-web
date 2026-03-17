@@ -7,6 +7,7 @@ from pcweb.constants import (
     FORUM_URL,
     GITHUB_URL,
     LINKEDIN_URL,
+    REFLEX_ASSETS_CDN,
     REFLEX_DOMAIN,
     REFLEX_DOMAIN_URL,
     TWITTER_CREATOR,
@@ -63,13 +64,13 @@ def _build_meta_tags(
 meta_tags = _build_meta_tags(
     title=TITLE,
     description=ONE_LINE_DESCRIPTION,
-    image="/previews/index_preview.webp",
+    image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
 )
 
 hosting_meta_tags = _build_meta_tags(
     title=TITLE,
     description=ONE_LINE_DESCRIPTION,
-    image="/previews/hosting_preview.webp",
+    image=f"{REFLEX_ASSETS_CDN}previews/hosting_preview.webp",
 )
 
 
@@ -89,6 +90,20 @@ def favicons_links() -> list[rx.Component]:
     ]
 
 
+def to_cdn_image_url(image: str | None) -> str:
+    """Convert a relative image path to a full CDN URL.
+
+    Root-level paths (e.g. /reflex_banner.png) map to other/ on the CDN.
+    Paths with subfolders (e.g. /blog/on-prem.webp) map 1:1.
+    """
+    if not image or image.startswith(("http://", "https://")):
+        return image or ""
+    path = image.lstrip("/") if image.startswith("/") else image
+    if "/" not in path:
+        path = f"other/{path}"
+    return f"{REFLEX_ASSETS_CDN}{path}"
+
+
 def create_meta_tags(
     title: str, description: str, image: str, url: str | None = None
 ) -> list[rx.Component]:
@@ -104,11 +119,7 @@ def create_meta_tags(
         A list of meta tag dictionaries.
     """
     page_url = url if url else REFLEX_DOMAIN_URL
-
-    if image and not image.startswith(("http://", "https://")):
-        image_url = f"https://reflex.dev{'' if image.startswith('/') else '/'}{image}"
-    else:
-        image_url = image
+    image_url = to_cdn_image_url(image) if image else ""
 
     return _build_meta_tags(
         title=title,
@@ -116,13 +127,6 @@ def create_meta_tags(
         image=image_url,
         url=page_url,
     )
-
-
-def _normalize_image_url(image: str) -> str:
-    """Ensure image path is a full URL."""
-    if image and not image.startswith(("http://", "https://")):
-        return f"https://reflex.dev{'' if image.startswith('/') else '/'}{image}"
-    return image
 
 
 def blog_jsonld(
@@ -149,7 +153,7 @@ def blog_jsonld(
         "@type": "BlogPosting",
         "headline": title,
         "description": description,
-        "image": _normalize_image_url(image),
+        "image": to_cdn_image_url(image),
         "datePublished": str(date),
         "author": author_node,
     }

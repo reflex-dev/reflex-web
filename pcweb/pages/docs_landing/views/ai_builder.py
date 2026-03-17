@@ -2,7 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.marquee import marquee
-from pcweb.constants import INTEGRATIONS_IMAGES_URL
+from pcweb.constants import INTEGRATIONS_IMAGES_URL, REFLEX_ASSETS_CDN
 from pcweb.pages.docs import ai_builder as ai_builder_pages
 from pcweb.pages.integrations.integration_list import get_integration_path
 
@@ -102,7 +102,7 @@ def ai_builder_section() -> rx.Component:
                     title="Getting Started",
                     description="A comprehensive guide to working effectively with AI Builder. The key to success is clarity, structure, and iteration.",
                     content=rx.image(
-                        src=f"/docs/{rx.color_mode_cond('light', 'dark')}/getting_started.svg",
+                        src=f"{REFLEX_ASSETS_CDN}docs/{rx.color_mode_cond('light', 'dark')}/getting_started.svg",
                         class_name="w-full h-auto pb-8",
                     ),
                     href=ai_builder_pages.overview.best_practices.path,
@@ -117,7 +117,7 @@ def ai_builder_section() -> rx.Component:
                     title="MCP",
                     description="The Reflex Model Context Protocol (MCP) provides AI assistants and coding tools with structured access to Reflex documentation and component information.",
                     content=rx.image(
-                        src=f"/docs/{rx.color_mode_cond('light', 'dark')}/mcp.svg",
+                        src=f"{REFLEX_ASSETS_CDN}docs/{rx.color_mode_cond('light', 'dark')}/mcp.svg",
                         class_name="w-full h-auto -mt-4",
                     ),
                     href=ai_builder_pages.integrations.mcp_overview.path,

@@ -1,11 +1,18 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def security_badges() -> rx.Component:
     return rx.box(
         rx.box(
-            rx.image(src="/soc2.webp", class_name="h-24 w-auto"),
-            rx.image(src="/databricks-partner.svg", class_name="h-24 w-auto"),
+            rx.image(
+                src=f"{REFLEX_ASSETS_CDN}other/soc2.webp", class_name="h-24 w-auto"
+            ),
+            rx.image(
+                src=f"{REFLEX_ASSETS_CDN}other/databricks-partner.svg",
+                class_name="h-24 w-auto",
+            ),
             class_name="flex flex-row gap-10 items-center justify-center",
         ),
         class_name="p-10 flex items-center justify-center",

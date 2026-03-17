@@ -17,6 +17,7 @@ meta: [
 ---
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -32,7 +33,7 @@ Below we will analyze the strengths and weaknesses of each framework across seve
 
 
 ```python eval
-image_zoom(rx.image(src="/blog/star-history-reflex-dash.webp", border_radius="10px", alt="Reflex vs Dash Github Star History")
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/star-history-reflex-dash.webp", border_radius="10px", alt="Reflex vs Dash Github Star History")
 )
 ```
 

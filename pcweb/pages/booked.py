@@ -1,6 +1,7 @@
 import reflex as rx
 import reflex_ui as ui
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import create_meta_tags
 from pcweb.pages.docs import getting_started
 from pcweb.pages.framework.index_colors import index_colors
@@ -28,7 +29,7 @@ def booked_title():
     meta=create_meta_tags(
         title="Call Successfully Booked | Reflex",
         description="Your call has been successfully scheduled with Reflex. A confirmation email has been sent with all the details and calendar invites for your meeting.",
-        image="/previews/index_preview.webp",
+        image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
     ),
 )
 def booked() -> rx.Component:
