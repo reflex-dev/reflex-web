@@ -18,7 +18,7 @@ from pcweb.templates.mainpage import mainpage
 @mainpage(
     path="/use-cases/finance",
     title="Finance Use Case - Build Fintech Apps with Reflex",
-    description="Finance use of Reflex: dashboards, risk models, and internal tools. Python web apps for fintech.",
+    description="Build production-grade finance apps, risk dashboards, and AI tools in pure Python. Trusted by banks and fintechs worldwide.",
     meta=meta_tags,
 )
 def finance_use_case_page() -> rx.Component:

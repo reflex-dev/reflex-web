@@ -7,7 +7,7 @@ from pcweb.templates.webpage import webpage
 @webpage(
     path="/meeting-successfully-booked",
     title="Meeting Successfully Booked · Reflex.dev",
-    description="Your meeting is scheduled. Check your email for the calendar invite and meeting details.",
+    description="Meeting confirmed! We've sent you a confirmation email with all the details for your Reflex demo. Get ready to build apps in Python.",
     add_as_page=True,
 )
 def page_meeting_successfully_booked():
