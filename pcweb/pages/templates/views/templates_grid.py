@@ -89,9 +89,9 @@ def template_card(template: Template) -> rx.Component:
                     unstyled=True,
                     class_name="group-hover:scale-105 duration-200 ease-out object-top object-cover absolute inset-0 size-full transition-all",
                 ),
-                class_name="relative h-[12.25rem] overflow-hidden rounded-t-xl",
+                class_name="relative h-[12.25rem] overflow-hidden rounded-t-lg",
             ),
-            class_name="flex-shrink-0",
+            class_name="flex-shrink-0 px-2 pt-2",
         ),
         rx.el.div(
             rx.el.span(
@@ -143,8 +143,9 @@ def template_card(template: Template) -> rx.Component:
             href=f"/templates/{template.id}",
             class_name="absolute inset-0",
         ),
+        on_mouse_enter=TemplatesState.prefetch_template(template.id),
         key=template.id,
-        class_name="flex flex-col bg-white-1 dark:bg-m-slate-11 border-secondary-a6 dark:border-secondary-a4 dark:border shadow-[0_1px_0_0_rgba(0,_0,_0,_0.04),0_1px_1px_0_rgba(0,_0,_0,_0.01),0_4px_8px_0_rgba(0,_0,_0,_0.03)] rounded-xl border overflow-hidden isolate relative cursor-pointer group",
+        class_name="flex flex-col bg-white-1 dark:bg-m-slate-11 border-secondary-a4 dark:border shadow-[0_1px_0_0_rgba(0,_0,_0,_0.04),0_1px_1px_0_rgba(0,_0,_0,_0.01),0_4px_8px_0_rgba(0,_0,_0,_0.03)] rounded-xl border overflow-hidden isolate relative cursor-pointer group",
     )
 
 
@@ -154,7 +155,7 @@ def templates_sidebar() -> rx.Component:
             search_bar(),
             categories_checkboxes(),
             class_name=ui.cn(
-                "flex flex-col gap-8 pr-6 py-8 overflow-y-auto overscroll-contain sticky",
+                "flex flex-col gap-8 pr-6 py-8 2xl:pl-0 pl-6 overflow-y-auto sticky",
                 rx.cond(
                     HostingBannerState.is_banner_visible,
                     "top-[113px] h-[calc(100vh-113px)]",
@@ -164,7 +165,7 @@ def templates_sidebar() -> rx.Component:
         ),
         class_name=(
             "w-[16.5rem] shrink-0 hidden lg:block z-10 border-r border-secondary-a4 relative "
-            "before:content-[''] before:absolute before:top-0 before:bottom-0 before:right-0 before:w-[100vw] before:bg-white-1 dark:before:bg-secondary-1 before:-z-10 max-xl:hidden max-xl:pl-4"
+            "before:content-[''] before:absolute before:top-0 before:bottom-0 before:right-0 before:w-[100vw] before:bg-white-1 dark:before:bg-secondary-1 before:-z-10 max-xl:hidden"
         ),
     )
 
@@ -182,16 +183,29 @@ def templates_grid() -> rx.Component:
             ),
             class_name="flex flex-col gap-4",
         ),
-        rx.el.div(
-            rx.el.span(
-                "No templates found for the current filters.",
-                class_name="text-secondary-11 text-sm font-medium only:block hidden",
+        rx.cond(
+            TemplatesState.is_loading,
+            rx.el.div(
+                ui.spinner(),
+                rx.el.span(
+                    "Loading templates...",
+                ),
+                class_name="flex flex-row items-center gap-2 text-sm font-[525] text-secondary-11",
             ),
-            rx.foreach(
-                TemplatesState.filtered_templates,
-                lambda t: template_card(template=t),
+            rx.el.div(
+                rx.cond(
+                    TemplatesState.is_hydrated,
+                    rx.el.span(
+                        "No templates found for the current filters.",
+                        class_name="text-secondary-11 text-sm font-medium only:block hidden",
+                    ),
+                ),
+                rx.foreach(
+                    TemplatesState.filtered_templates,
+                    lambda t: template_card(template=t),
+                ),
+                class_name="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-5",
             ),
-            class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-5",
         ),
         class_name="flex flex-col gap-12 flex-1 min-w-0 lg:px-14 px-4 lg:py-16 py-10",
     )

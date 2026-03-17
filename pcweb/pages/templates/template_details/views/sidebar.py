@@ -221,7 +221,7 @@ def sidebar() -> rx.Component:
             class_name="flex flex-col gap-12 p-16 pb-24",
         ),
         class_name=ui.cn(
-            "w-full max-w-[23.5rem] shrink-0 overflow-y-auto overscroll-contain sticky hidden lg:block [scrollbar-width:thin]",
+            "w-full max-w-[23.5rem] shrink-0 overflow-y-auto sticky hidden lg:block [scrollbar-width:thin]",
             rx.cond(
                 HostingBannerState.is_banner_visible,
                 "top-[103px] h-[calc(100vh-103px)]",

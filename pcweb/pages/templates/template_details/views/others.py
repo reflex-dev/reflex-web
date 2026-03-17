@@ -23,7 +23,7 @@ def others():
                 to="/templates",
                 class_name="w-fit",
             ),
-            class_name="flex lg:flex-row flex-col gap-4 justify-between items-center",
+            class_name="flex flex-row gap-4 justify-between items-center",
         ),
         rx.el.div(
             rx.foreach(

@@ -63,11 +63,11 @@ def secondary_page(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.views.docs_navbar import docs_navbar
+            from pcweb.views.secondary_navbar import secondary_navbar
 
             # Wrap the component in the template.
             return rx.el.div(
-                docs_navbar(),
+                secondary_navbar(),
                 rx.el.main(
                     rx.el.div(
                         contents(*children, **props),

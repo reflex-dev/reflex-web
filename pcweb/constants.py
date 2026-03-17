@@ -19,7 +19,7 @@ REFLEX_URL = "https://reflex.dev/"
 REFLEX_DOCS_URL = "https://reflex.dev/docs/getting-started/introduction/"
 PYNECONE_URL = "https://pynecone.io"
 REFLEX_CLOUD_URL = os.getenv("REFLEX_CLOUD_URL", "https://build.reflex.dev/")
-REFLEX_BUILD_URL = os.getenv("REFLEX_BUILD_URL", "https://build.reflex.dev/")
+REFLEX_BUILD_URL = os.getenv("REFLEX_BUILD_URL", "https://flexgen-staging.reflex.dev/")
 JOBS_BOARD_URL = "https://www.ycombinator.com/companies/reflex/jobs"
 CHANGELOG_URL = "https://github.com/reflex-dev/reflex/releases"
 CONTRIBUTING_URL = "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md"
@@ -77,7 +77,7 @@ INTEGRATIONS_IMAGES_URL = "https://raw.githubusercontent.com/reflex-dev/integrat
 
 # Reflex Cloud Backend
 RX_CLOUD_BACKEND = os.getenv("RX_CLOUD_BACKEND", "https://cloud-backend.reflex.dev/")
-RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://build-backend.reflex.dev/")
+RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://flexgen-staging.reflex.dev/")
 
 # Stats
 GITHUB_STARS = 28000

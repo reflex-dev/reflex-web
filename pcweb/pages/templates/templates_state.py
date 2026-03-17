@@ -1,13 +1,15 @@
-import asyncio
 import dataclasses
 import json
 from typing import TypedDict
 
-import httpx
 import reflex as rx
 from reflex.utils import console
 
-from pcweb.constants import REFLEX_BUILD_URL, REFLEX_DOMAIN_URL, RX_BUILD_BACKEND
+from pcweb.constants import REFLEX_BUILD_URL, REFLEX_DOMAIN_URL
+from pcweb.pages.templates.templates_client import (
+    fetch_all_templates,
+    fetch_template_detail,
+)
 
 
 @dataclasses.dataclass
@@ -38,7 +40,7 @@ class TagWithCount(TypedDict):
 def _parse_template(data: dict) -> Template:
     return Template(
         id=str(data.get("id", "")),
-        name=data.get("name", ""),
+        name=str(data.get("name", "")).replace("_", " ").title(),
         url=data.get("url"),
         priority=data.get("priority", 0),
         tags=data.get("tags") or [],
@@ -54,6 +56,10 @@ def _parse_template(data: dict) -> Template:
         prompt=data.get("prompt"),
         last_modified=str(data["last_modified"]) if data.get("last_modified") else None,
     )
+
+
+def _parse_templates_map(data: list[dict]) -> dict[str, Template]:
+    return {str(item.get("id", "")): _parse_template(item) for item in data}
 
 
 def _compute_tags(templates: list[Template]) -> list[TagWithCount]:
@@ -72,6 +78,7 @@ class TemplatesState(rx.State):
     active_template: rx.Field[Template | None] = rx.field(default=None)
     related_templates: rx.Field[list[Template]] = rx.field(default_factory=list)
     query: rx.Field[str] = rx.field(default="")
+    is_loading: rx.Field[bool] = rx.field(default=False)
     tags: rx.Field[list[TagWithCount]] = rx.field(default_factory=list)
     checked_tags: rx.Field[set[str]] = rx.field(default_factory=set)
 
@@ -134,20 +141,17 @@ class TemplatesState(rx.State):
     @rx.event(background=True)
     async def load_templates(self):
         async with self:
+            if self._all_templates:
+                self.query = ""
+                self.checked_tags = {t["label"] for t in self.tags}
+                return
             self.query = ""
             self.checked_tags = set()
-
+        async with self:
+            self.is_loading = True
         try:
-            api_url = f"{RX_BUILD_BACKEND.rstrip('/')}/api/v1/flexgen/templates/details"
-            async with httpx.AsyncClient() as client:
-                response = await client.get(api_url)
-                response.raise_for_status()
-                data = response.json()
-
-            templates = {
-                str(item.get("id", "")): _parse_template(item) for item in data
-            }
-
+            data = await fetch_all_templates()
+            templates = _parse_templates_map(data)
             tags = _compute_tags(list(templates.values()))
 
             async with self:
@@ -156,10 +160,34 @@ class TemplatesState(rx.State):
                 self.checked_tags = {t["label"] for t in tags}
         except Exception as e:
             console.error(f"Failed to load templates: {e}")
+        finally:
+            async with self:
+                self.is_loading = False
 
     @rx.event(background=True)
-    async def load_template_details(self):
-        template_id = self.router._page.params.get("template_id", "")
+    async def prefetch_template(self, template_id: str):
+        async with self:
+            active = self.active_template
+            on_detail_page = "template_id" in self.router.page.params
+
+        if on_detail_page or (active and active.id == template_id):
+            return
+
+        try:
+            data = await fetch_template_detail(template_id)
+            template = _parse_template(data)
+            async with self:
+                self.active_template = template
+        except Exception as e:
+            console.error(f"Prefetch failed for {template_id}: {e}")
+
+    @rx.event(background=True)
+    async def load_template_details(self, template_id: str = ""):
+        async with self:
+            template_id = template_id or self.router._page.params.get("template_id", "")
+            active = self.active_template
+            all_templates = dict(self._all_templates)
+
         if not template_id:
             async with self:
                 self.active_template = None
@@ -167,24 +195,17 @@ class TemplatesState(rx.State):
             return
 
         try:
-            detail_url = (
-                f"{RX_BUILD_BACKEND.rstrip('/')}/api/v1/flexgen/templates/{template_id}"
-            )
-            all_url = f"{RX_BUILD_BACKEND.rstrip('/')}/api/v1/flexgen/templates/details"
+            if active and active.id == template_id:
+                template = active
+            else:
+                data = await fetch_template_detail(template_id)
+                template = _parse_template(data)
 
-            async with httpx.AsyncClient() as client:
-                detail_resp, all_resp = await asyncio.gather(
-                    client.get(detail_url),
-                    client.get(all_url),
-                )
-                detail_resp.raise_for_status()
-                all_resp.raise_for_status()
+            if not all_templates:
+                all_data = await fetch_all_templates()
+                all_templates = _parse_templates_map(all_data)
 
-            template = _parse_template(detail_resp.json())
-            all_templates = {
-                str(item.get("id", "")): _parse_template(item)
-                for item in all_resp.json()
-            }
+            all_templates[template_id] = template
 
             active_tags = set(template.tags)
             others = [t for t in all_templates.values() if t.id != template_id]
@@ -216,9 +237,9 @@ class TemplatesState(rx.State):
             return
         if template.prompt:
             return rx.redirect(
-                f"{REFLEX_BUILD_URL.strip('/')}/?prompt={template.prompt}",
+                f"{REFLEX_BUILD_URL.rstrip('/')}/?prompt={template.prompt}",
                 is_external=True,
             )
         return rx.redirect(
-            f"{REFLEX_BUILD_URL.strip('/')}/gen/{template_id}", is_external=True
+            f"{REFLEX_BUILD_URL.rstrip('/')}/gen/{template_id}", is_external=True
         )

@@ -58,7 +58,7 @@ def logo() -> rx.Component:
             class_name="shrink-0 hidden dark:block",
         ),
         to="/",
-        class_name="block shrink-0 mr-[7rem]",
+        class_name="block shrink-0 mr-[7rem] md:hidden xl:block",
     )
 
 
