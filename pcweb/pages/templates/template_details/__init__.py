@@ -37,7 +37,7 @@ def template_details():
                     rx.cond(TemplatesState.active_template.quotes, social()),
                     rx.cond(TemplatesState.active_template.faq, faq()),
                     others(),
-                    class_name="flex-1 flex flex-col divide-y divide-secondary-4 xl:border-r border-secondary-4 max-xl:px-4",
+                    class_name="flex-1 flex flex-col divide-y divide-secondary-4 xl:border-r border-secondary-4 px-4 md:px-6 3xl:px-0",
                 ),
                 sidebar(),
                 class_name="flex flex-row w-full max-w-[108rem] mx-auto min-h-screen",
