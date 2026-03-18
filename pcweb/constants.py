@@ -79,8 +79,7 @@ INTEGRATIONS_IMAGES_URL = "https://raw.githubusercontent.com/reflex-dev/integrat
 REFLEX_ASSETS_CDN = "https://web.reflex-assets.dev/"
 
 # Reflex Cloud Backend
-RX_CLOUD_BACKEND = os.getenv("RX_CLOUD_BACKEND", "https://build.reflex.dev/")
-RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://build.reflex.dev/")
+RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://build.reflex.dev/api/")
 
 # Stats
 GITHUB_STARS = 28000
