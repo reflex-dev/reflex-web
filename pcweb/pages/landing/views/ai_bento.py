@@ -2,6 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.numbers_pattern import numbers_pattern
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def header() -> rx.Component:
@@ -43,14 +44,14 @@ def frontend_card(
                 class_name="flex flex-col gap-2 px-10 pt-10",
             ),
             rx.image(
-                src=f"/landing/ai_bento/light/{image}",
+                src=f"{REFLEX_ASSETS_CDN}landing/ai_bento/light/{image}",
                 class_name="dark:hidden w-full shrink-0",
                 height=height,
                 loading="lazy",
                 alt=title + " image",
             ),
             rx.image(
-                src=f"/landing/ai_bento/dark/{image}",
+                src=f"{REFLEX_ASSETS_CDN}landing/ai_bento/dark/{image}",
                 class_name="dark:block hidden w-full shrink-0",
                 height=height,
                 loading="lazy",

@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import create_meta_tags, faq_jsonld
 from pcweb.pages.about.views.divider import divider
 from pcweb.pages.migration.other_frameworks.views import compare, explore, hero, quotes
@@ -59,7 +60,7 @@ OTHER_FRAMEWORKS_FAQ_SCHEMA = {
     meta=create_meta_tags(
         title="Switch from React, Django & FastAPI to Reflex | Full-Stack Python Framework",
         description="Tired of maintaining two codebases in two languages? Reflex replaces React + Django/FastAPI with a single pure Python stack — full-stack, production-ready, ~5x faster to build.",
-        image="/previews/index_preview.webp",
+        image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
     ),
 )
 def other_frameworks_migration_page() -> rx.Component:

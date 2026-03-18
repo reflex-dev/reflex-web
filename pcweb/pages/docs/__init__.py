@@ -10,6 +10,7 @@ from flexdown.document import Document
 # External Components
 from reflex_pyplot import pyplot as pyplot
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.pages.library_previews import components_previews_pages
@@ -173,6 +174,7 @@ def get_component(doc: str, title: str):
     # Use the actual file path if this is from the submodule
     actual_doc_path = doc_path_mapping.get(doc, doc)
     d = Document.from_file(actual_doc_path)
+    d.metadata["REFLEX_ASSETS_CDN"] = REFLEX_ASSETS_CDN
 
     if doc.startswith("docs/library/graphing"):
         if should_skip_compile(actual_doc_path):

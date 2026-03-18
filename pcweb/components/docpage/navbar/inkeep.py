@@ -320,7 +320,7 @@ const searchBarProps = {
     placeholder: 'Search',
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
-    aiAssistantAvatar: '/logos/small_logo.svg',
+    aiAssistantAvatar: 'https://web.reflex-assets.dev/logos/small_logo.svg',
     chatSubjectName: 'Reflex',
     exampleQuestions: [
       'How does Reflex work?',

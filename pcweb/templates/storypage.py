@@ -4,6 +4,7 @@ from typing import Callable
 import reflex as rx
 
 from pcweb.components.icons.icons import get_icon
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.framework.index_colors import index_colors
 from pcweb.route import Route
 
@@ -51,8 +52,8 @@ def company_card(company: str, founded: str, investors: str, url: str) -> rx.Com
         # Logo
         rx.image(
             src=rx.color_mode_cond(
-                light=f"/customers/light/{company.lower()}/{company.lower()}_small.svg",
-                dark=f"/customers/dark/{company.lower()}/{company.lower()}_small.svg",
+                light=f"{REFLEX_ASSETS_CDN}customers/light/{company.lower()}/{company.lower()}_small.svg",
+                dark=f"{REFLEX_ASSETS_CDN}customers/dark/{company.lower()}/{company.lower()}_small.svg",
             ),
             alt=f"{company} logo",
             loading="lazy",
@@ -147,8 +148,8 @@ def more_customers(current_customer: str) -> rx.Component:
             rx.box(
                 rx.image(
                     src=rx.color_mode_cond(
-                        light=f"/customers/light/{prev_customer[1].metadata['company'].lower()}/{prev_customer[1].metadata['company'].lower()}_small.svg",
-                        dark=f"/customers/dark/{prev_customer[1].metadata['company'].lower()}/{prev_customer[1].metadata['company'].lower()}_small.svg",
+                        light=f"{REFLEX_ASSETS_CDN}customers/light/{prev_customer[1].metadata['company'].lower()}/{prev_customer[1].metadata['company'].lower()}_small.svg",
+                        dark=f"{REFLEX_ASSETS_CDN}customers/dark/{prev_customer[1].metadata['company'].lower()}/{prev_customer[1].metadata['company'].lower()}_small.svg",
                     ),
                     alt=f"{next_customer[1].metadata['company']} logo",
                     loading="lazy",
@@ -180,8 +181,8 @@ def more_customers(current_customer: str) -> rx.Component:
                 ),
                 rx.image(
                     src=rx.color_mode_cond(
-                        light=f"/customers/light/{next_customer[1].metadata['company'].lower()}/{next_customer[1].metadata['company'].lower()}_small.svg",
-                        dark=f"/customers/dark/{next_customer[1].metadata['company'].lower()}/{next_customer[1].metadata['company'].lower()}_small.svg",
+                        light=f"{REFLEX_ASSETS_CDN}customers/light/{next_customer[1].metadata['company'].lower()}/{next_customer[1].metadata['company'].lower()}_small.svg",
+                        dark=f"{REFLEX_ASSETS_CDN}customers/dark/{next_customer[1].metadata['company'].lower()}/{next_customer[1].metadata['company'].lower()}_small.svg",
                     ),
                     alt=f"{next_customer[1].metadata['company']} logo",
                     loading="lazy",

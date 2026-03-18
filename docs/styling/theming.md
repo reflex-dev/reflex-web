@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import library
 from pcweb.styles.styles import get_code_style_rdx, cell_style
 ```
@@ -189,8 +190,8 @@ To render a different component depending on whether the app is in `light` mode 
 
 ```python demo
 rx.color_mode_cond(
-    light=rx.image(src="/logos/light/reflex.svg", alt="Reflex Logo light", height="4em"),
-    dark=rx.image(src="/logos/dark/reflex.svg", alt="Reflex Logo dark", height="4em"),
+    light=rx.image(src=f"{REFLEX_ASSETS_CDN}logos/light/reflex.svg", alt="Reflex Logo light", height="4em"),
+    dark=rx.image(src=f"{REFLEX_ASSETS_CDN}logos/dark/reflex.svg", alt="Reflex Logo dark", height="4em"),
 )
 ```
 

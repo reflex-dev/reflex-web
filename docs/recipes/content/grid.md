@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import styling
 ```
 
@@ -32,7 +33,7 @@ rx.grid(
 		lambda i: rx.card(
 			rx.inset(
 				rx.image(
-					src="/reflex_banner.png",
+					src=f"{REFLEX_ASSETS_CDN}other/reflex_banner.png",
 					width="100%",
 					height="auto",
 				),

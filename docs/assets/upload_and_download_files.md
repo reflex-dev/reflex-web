@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import library
 from pcweb.pages.docs import api_reference
 from pcweb.styles.styles import get_code_style
@@ -82,7 +83,7 @@ If you want to let the users of your app download files from your server to thei
 For some basic usage, simply providing the path to your resource in a `rx.link` will work, and clicking the link will download or display the resource.
 
 ```python demo
-rx.link("Download", href="/reflex_banner.png")
+rx.link("Download", href="/reflex_banner.webp")
 ```
 
 ### With `rx.download` event
@@ -94,7 +95,7 @@ The `rx.download` event also allows the download to be triggered from another ba
 ```python demo
 rx.button(
     "Download",
-    on_click=rx.download(url="/reflex_banner.png"),
+    on_click=rx.download(url="/reflex_banner.webp"),
 )
 ```
 
@@ -104,7 +105,7 @@ rx.button(
 rx.button(
     "Download and Rename",
     on_click=rx.download(
-        url="/reflex_banner.png",
+        url="/reflex_banner.webp",
         filename="different_name_logo.png"
     ),
 )

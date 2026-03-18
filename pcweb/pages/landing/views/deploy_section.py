@@ -3,7 +3,7 @@ import reflex_ui as ui
 
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.numbers_pattern import numbers_pattern
-from pcweb.constants import REFLEX_CLOUD_URL
+from pcweb.constants import REFLEX_ASSETS_CDN, REFLEX_CLOUD_URL
 from pcweb.pages.databricks.databricks import databricks_page
 from pcweb.pages.hosting.views.deploy_animation import animated_box
 from pcweb.pages.security.security import security_page
@@ -65,7 +65,7 @@ def deploy_card() -> rx.Component:
                 class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover pointer-events-none z-[0] dark:hidden",
             ),
             rx.image(
-                f"/landing/deploy/{rx.color_mode_cond('light', 'dark')}/deploy_visual.webp",
+                src=f"{REFLEX_ASSETS_CDN}landing/deploy/{rx.color_mode_cond('light', 'dark')}/deploy_visual.webp",
                 loading="lazy",
                 alt="Deploy visual",
                 class_name="h-[8.5rem] w-auto ml-[6rem] z-[1] block",
@@ -83,7 +83,7 @@ def deploy_card() -> rx.Component:
             ),
             rx.el.div(
                 rx.image(
-                    src="/hosting_graphing.svg",
+                    src=f"{REFLEX_ASSETS_CDN}other/hosting_graphing.svg",
                     loading="lazy",
                     alt="Hosting graphing",
                     class_name="w-auto h-[1.95rem]",
@@ -151,7 +151,7 @@ def security_badges() -> rx.Component:
             badge_card(
                 rx.el.div(
                     rx.image(
-                        src="/landing/integrations/light/databricks.svg",
+                        src=f"{REFLEX_ASSETS_CDN}landing/integrations/light/databricks.svg",
                         loading="lazy",
                         alt="Databricks logo",
                         class_name="h-[24px] w-auto pb-0.5",
@@ -222,13 +222,13 @@ def deploy_content() -> rx.Component:
         ),
         rx.box(
             rx.image(
-                src="/landing/hosting_features/light/card.webp",
+                src=f"{REFLEX_ASSETS_CDN}landing/hosting_features/light/card.webp",
                 loading="lazy",
                 alt="Hosting features card",
                 class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:hidden",
             ),
             rx.image(
-                src="/landing/hosting_features/dark/card.webp",
+                src=f"{REFLEX_ASSETS_CDN}landing/hosting_features/dark/card.webp",
                 loading="lazy",
                 alt="Hosting features card",
                 class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:block hidden",

@@ -34,5 +34,5 @@ If you are using the html component and want pretty default styles, consider set
 In this example, we render an image.
 
 ```python demo
-rx.html("<img src='https://reflex.dev/reflex_banner.png' />")
+rx.html("<img src='https://web.reflex-assets.dev/other/reflex_banner.png' />")
 ```

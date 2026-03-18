@@ -2,6 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.numbers_pattern import numbers_pattern
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def header() -> rx.Component:
@@ -29,12 +30,12 @@ def intregation_card(
     class_name: str = "",
 ):
     first_light_dark_path = rx.color_mode_cond(
-        f"/landing/integrations/light/{first_integration}.svg",
-        f"/landing/integrations/dark/{first_integration}.svg",
+        f"{REFLEX_ASSETS_CDN}landing/integrations/light/{first_integration}.svg",
+        f"{REFLEX_ASSETS_CDN}landing/integrations/dark/{first_integration}.svg",
     )
     second_light_dark_path = rx.color_mode_cond(
-        f"/landing/integrations/light/{second_integration}.svg",
-        f"/landing/integrations/dark/{second_integration}.svg",
+        f"{REFLEX_ASSETS_CDN}landing/integrations/light/{second_integration}.svg",
+        f"{REFLEX_ASSETS_CDN}landing/integrations/dark/{second_integration}.svg",
     )
     return rx.el.div(
         rx.el.div(
@@ -106,7 +107,7 @@ def r_logo_card() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src="/landing/integrations/light/r_logo.svg",
+                src=f"{REFLEX_ASSETS_CDN}landing/integrations/light/r_logo.svg",
                 loading="lazy",
                 alt="R logo integration icon",
                 class_name="h-8 w-autopointer-events-none shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",

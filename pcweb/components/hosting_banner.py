@@ -4,6 +4,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.marketing_button import button
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def glow() -> rx.Component:
@@ -71,7 +72,7 @@ def hosting_banner() -> rx.Component:
                 rx.el.a(
                     rx.box(
                         rx.image(
-                            src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_banner.svg",
+                            src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_banner.svg",
                             alt="Square Banner",
                             class_name="pointer-events-none absolute -left-[16rem] max-lg:hidden",
                         ),
@@ -103,7 +104,7 @@ def hosting_banner() -> rx.Component:
                             class_name="flex flex-row items-center md:gap-4 gap-2",
                         ),
                         rx.image(
-                            src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_banner.svg",
+                            src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_banner.svg",
                             alt="Square Banner",
                             class_name="pointer-events-none absolute -right-[16rem] max-lg:hidden",
                         ),

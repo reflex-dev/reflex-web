@@ -4,7 +4,7 @@ date: 2025-09-03
 title: Turn Jupyter Notebooks into Production Dashboards in Python
 title_tag: "Jupyter to Reflex Dashboards in Python"
 description: "Convert Jupyter notebooks into production-ready dashboards with Reflex. Keep your pandas logic, add UI components, and deploy."
-image: /blog/jupyter_reflex.png
+image: /blog/jupyter_reflex.webp
 tag: Open Source
 meta: [
   {
@@ -94,13 +94,14 @@ for feature, importance in zip(features, rf.feature_importances_):
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 
 def render_image():
     return rx.el.div(
         image_zoom(
             rx.image(
-                src="/blog/jupyter_plots.png",
+                src=f"{REFLEX_ASSETS_CDN}blog/jupyter_plots.webp",
                 class_name="p-2 rounded-md h-auto",
                 border=f"0.81px solid {rx.color('slate', 5)}",
             ),
@@ -354,7 +355,7 @@ app.add_page(index)
 ```python eval
 rx.el.div(
     rx.image(
-        src="/blog/jupyter_reflex_app_demo.gif",
+        src=f"{REFLEX_ASSETS_CDN}blog/jupyter_reflex_app_demo.gif",
         height="auto",
     ),
     rx.text(

@@ -12,6 +12,7 @@ from pcweb.constants import (
     FORUM_URL,
     GITHUB_URL,
     LINKEDIN_URL,
+    REFLEX_ASSETS_CDN,
     REFLEX_BUILD_URL,
     ROADMAP_URL,
     TWITTER_URL,
@@ -31,13 +32,13 @@ from pcweb.signup import IndexState
 def ph_1() -> rx.Component:
     return rx.fragment(
         rx.image(
-            src="/logos/dark/ph_1.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/dark/ph_1.svg",
             class_name="hidden dark:block h-[36px] w-fit",
             alt="1st product of the day logo",
             loading="lazy",
         ),
         rx.image(
-            src="/logos/light/ph_1.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/light/ph_1.svg",
             class_name="dark:hidden block h-[36px] w-fit",
             alt="1st product of the day logo",
             loading="lazy",
@@ -48,12 +49,12 @@ def ph_1() -> rx.Component:
 def logo() -> rx.Component:
     return rx.el.a(
         rx.image(
-            src="/logos/light/reflex.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/light/reflex.svg",
             alt="Reflex Logo",
             class_name="shrink-0 block dark:hidden",
         ),
         rx.image(
-            src="/logos/dark/reflex.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/dark/reflex.svg",
             alt="Reflex Logo",
             class_name="shrink-0 hidden dark:block",
         ),

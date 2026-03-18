@@ -13,6 +13,7 @@ from pcweb.constants import (
     GITHUB_STARS,
     GITHUB_URL,
     JOBS_BOARD_URL,
+    REFLEX_ASSETS_CDN,
     REFLEX_BUILD_URL,
 )
 from pcweb.pages.about import about_page
@@ -38,7 +39,7 @@ from pcweb.pages.use_cases.use_cases import use_cases_page
 def social_proof_card(image: str) -> rx.Component:
     return rx.el.div(
         rx.image(
-            f"/companies/{rx.color_mode_cond('light', 'dark')}/{image}_small.svg",
+            f"{REFLEX_ASSETS_CDN}companies/{rx.color_mode_cond('light', 'dark')}/{image}_small.svg",
             loading="lazy",
             alt=f"{image} logo",
             class_name="w-auto h-fit pointer-events-none",
@@ -93,12 +94,12 @@ def github() -> rx.Component:
 def logo() -> rx.Component:
     return rx.el.a(
         rx.image(
-            src="/logos/light/reflex.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/light/reflex.svg",
             alt="Reflex Logo",
             class_name="shrink-0 block dark:hidden",
         ),
         rx.image(
-            src="/logos/dark/reflex.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/dark/reflex.svg",
             alt="Reflex Logo",
             class_name="shrink-0 hidden dark:block",
         ),
@@ -156,7 +157,7 @@ def menu_content(content: rx.Component, class_name: str = "") -> rx.Component:
 def platform_item(image: str, title: str, description: str, href: str) -> rx.Component:
     return rx.el.div(
         rx.image(
-            src=f"/common/{rx.color_mode_cond('light', 'dark')}/{image}",
+            src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/{image}",
             alt=title,
             class_name="size-18",
         ),
@@ -193,7 +194,7 @@ def platform_content() -> rx.Component:
                         class_name="p-4 flex flex-col relative hover-card-shadow rounded-md",
                     ),
                     rx.image(
-                        src=f"/common/{rx.color_mode_cond('light', 'dark')}/ai_builder_pattern.svg",
+                        src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/ai_builder_pattern.svg",
                         alt="AI Builder Navbar Pattern",
                         class_name="pointer-events-none",
                     ),
@@ -227,7 +228,7 @@ def platform_content() -> rx.Component:
                         class_name="dark:text-m-slate-6 text-m-slate-7 font-mono font-[415] text-[0.75rem] leading-4.5 uppercase",
                     ),
                     rx.image(
-                        src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_navbar.svg",
+                        src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_navbar.svg",
                         alt="Squares Navbar",
                         class_name="absolute bottom-4 right-4 pointer-events-none",
                     ),
@@ -278,7 +279,7 @@ def blog_item(blog: dict, path: str) -> rx.Component:
                 class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase text-nowrap",
             ),
             rx.image(
-                src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_blog.svg",
+                src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_blog.svg",
                 class_name="pointer-events-none",
                 alt="Squares Blog",
             ),

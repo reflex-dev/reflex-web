@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 ```
 
 # Footer Bar
@@ -58,7 +59,7 @@ def footer() -> rx.Component:
             rx.flex(
                 rx.vstack(
                     rx.hstack(
-                        rx.image(src="/logo.jpg", width="2.25em", height="auto", border_radius="25%"),
+                        rx.image(src=f"{REFLEX_ASSETS_CDN}other/logo.jpg", width="2.25em", height="auto", border_radius="25%"),
                         rx.heading("Reflex", size="7", weight="bold"),
                         align_items="center"
                     ),
@@ -167,7 +168,7 @@ def footer_newsletter() -> rx.Component:
             rx.divider(),
             rx.flex(
                 rx.hstack(
-                    rx.image(src="/logo.jpg", width="2em", height="auto", border_radius="25%"),
+                    rx.image(src=f"{REFLEX_ASSETS_CDN}other/logo.jpg", width="2em", height="auto", border_radius="25%"),
                     rx.text("© 2024 Reflex, Inc", size="3", white_space="nowrap", weight="medium"),
                     spacing="2",
                     align="center",
@@ -260,7 +261,7 @@ def footer_three_columns() -> rx.Component:
             rx.divider(),
             rx.flex(
                 rx.hstack(
-                    rx.image(src="/logo.jpg", width="2em", height="auto", border_radius="25%"),
+                    rx.image(src=f"{REFLEX_ASSETS_CDN}other/logo.jpg", width="2em", height="auto", border_radius="25%"),
                     rx.text("© 2024 Reflex, Inc", size="3", white_space="nowrap", weight="medium"),
                     spacing="2",
                     align="center",

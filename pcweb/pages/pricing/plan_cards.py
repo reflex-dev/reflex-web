@@ -8,7 +8,12 @@ from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.number_flow import number_flow
-from pcweb.constants import PRO_TIERS_TABLE, REFLEX_BUILD_URL, REFLEX_CLOUD_URL
+from pcweb.constants import (
+    PRO_TIERS_TABLE,
+    REFLEX_ASSETS_CDN,
+    REFLEX_BUILD_URL,
+    REFLEX_CLOUD_URL,
+)
 from pcweb.pages.pricing.enable_tiers_state import EnableTiersState
 from pcweb.pages.pricing.enterprise_demo_form import book_a_demo_form
 
@@ -67,8 +72,8 @@ def radial_circle(violet: bool = False, class_name: str = "") -> rx.Component:
     theme = "violet" if violet else ""
     return rx.image(
         src=rx.color_mode_cond(
-            light=f"/logos/light/radial_circle{theme}.svg",
-            dark=f"/logos/dark/radial_circle{theme}.svg",
+            light=f"{REFLEX_ASSETS_CDN}logos/light/radial_circle{theme}.svg",
+            dark=f"{REFLEX_ASSETS_CDN}logos/dark/radial_circle{theme}.svg",
         ),
         alt="Radial circle",
         loading="lazy",

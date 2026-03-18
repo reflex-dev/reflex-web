@@ -75,6 +75,9 @@ SCREENSHOT_BUCKET = "https://pub-c14a5dcf674640a6b73fded32bad72ca.r2.dev/"
 # Integrations images
 INTEGRATIONS_IMAGES_URL = "https://raw.githubusercontent.com/reflex-dev/integrations-docs/refs/heads/main/images/logos/"
 
+# Root-level assets CDN base (files from assets/ with no subfolder live under /other/)
+REFLEX_ASSETS_CDN = "https://web.reflex-assets.dev/"
+
 # Reflex Cloud Backend
 RX_CLOUD_BACKEND = os.getenv("RX_CLOUD_BACKEND", "https://cloud-backend.reflex.dev/")
 RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://flexgen-staging.reflex.dev/")

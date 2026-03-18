@@ -1,5 +1,7 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 # def square_logo() -> rx.Component:
 #     return rx.el.section(
 #         # Light mode
@@ -23,7 +25,7 @@ import reflex as rx
 def square_logo() -> rx.Component:
     return rx.el.section(
         rx.image(
-            src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_logo.svg",
+            src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_logo.svg",
             alt="Square Logo",
             loading="lazy",
         ),

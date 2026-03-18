@@ -1,5 +1,6 @@
 ```python exec
 from pcweb import constants
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import wrapping_react, custom_components, styling, events
 from pcweb.pages.docs.custom_components import custom_components as cc
 ```
@@ -59,7 +60,7 @@ from reflex_image_zoom import image_zoom
 ```
 
 ```python eval
-image_zoom(rx.image(src="/architecture.png"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/architecture.webp"))
 ```
 
 ```python eval

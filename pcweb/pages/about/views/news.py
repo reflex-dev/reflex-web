@@ -2,6 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.marketing_button import button
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data_visible
 
@@ -15,7 +16,7 @@ def news_item(title: str, date: str, description: str, url: str) -> rx.Component
                 class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
             ),
             rx.image(
-                src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_rectangle_xs.svg",
+                src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_rectangle_xs.svg",
                 class_name="pointer-events-none",
                 alt="Squares Rectangle XS",
                 loading="lazy",

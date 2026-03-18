@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -40,13 +41,13 @@ You access the values of `envs` by referencing `os.environ` with their names as 
 To find the secrets tab, click on the `Settings` tab in the Cloud UI on the app page.
 
 ```python eval
-image_zoom(rx.image(src="/environment_variables.webp"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/environment_variables.webp"))
 ```
 
 Then click on the `Secrets` tab as shown below.
 
 ```python eval
-image_zoom(rx.image(src="/environment_variables_2.webp"))
+image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}other/environment_variables_2.webp"))
 ```
 
 From here you can add or edit your environment variables. You will need to restart your app for these changes to take effect.

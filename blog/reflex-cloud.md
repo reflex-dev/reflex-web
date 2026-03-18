@@ -56,8 +56,8 @@ Log in to [Reflex Cloud]({constants.REFLEX_CLOUD_URL}) to see a unified dashboar
 
 ```python eval
 rx.color_mode_cond(
-    rx.image(src="/hosting/light/hosting-preview.jpg"),
-    rx.image(src="/hosting/dark/hosting-preview.jpg"),
+    rx.image(src=f"{constants.REFLEX_ASSETS_CDN}hosting/light/hosting-preview.webp"),
+    rx.image(src=f"{constants.REFLEX_ASSETS_CDN}hosting/dark/hosting-preview.webp"),
 )
 ```
 

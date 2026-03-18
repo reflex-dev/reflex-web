@@ -2,6 +2,7 @@ import reflex as rx
 import reflex_ui as ui
 
 from pcweb.components.marketing_button import button
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import authentication, database, getting_started
 from pcweb.pages.docs.library import library
 from pcweb.pages.library_previews import core_components_dict
@@ -146,7 +147,7 @@ def components_section() -> rx.Component:
 def squares_divider() -> rx.Component:
     return rx.el.div(
         rx.image(
-            src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_vertical_docs.svg",
+            src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_vertical_docs.svg",
             alt="Squares Vertical Docs",
             loading="lazy",
             class_name="pointer-events-none w-auto h-full",

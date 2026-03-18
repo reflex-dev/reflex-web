@@ -1,6 +1,8 @@
 import reflex as rx
 import reflex_ui as ui
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def hero() -> rx.Component:
     return rx.el.section(
@@ -50,13 +52,13 @@ def hero() -> rx.Component:
                 rx.el.div(
                     rx.el.div(
                         rx.image(
-                            src="/about/alek.avif",
+                            src=f"{REFLEX_ASSETS_CDN}about/alek.avif",
                             alt="Alek",
                             custom_attrs={"fetchPriority": "high"},
                             class_name="size-8 rounded-full pointer-events-none",
                         ),
                         rx.image(
-                            src="/about/nikhil.avif",
+                            src=f"{REFLEX_ASSETS_CDN}about/nikhil.avif",
                             alt="Nikhil",
                             custom_attrs={"fetchPriority": "high"},
                             class_name="size-8 rounded-full pointer-events-none",

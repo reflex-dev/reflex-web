@@ -9,7 +9,7 @@ from reflex_ui.blocks.demo_form import demo_form_dialog
 from pcweb.components.button import button, button_with_icon
 from pcweb.components.code_card import gallery_app_card
 from pcweb.components.icons import get_icon
-from pcweb.constants import SCREENSHOT_BUCKET
+from pcweb.constants import REFLEX_ASSETS_CDN, SCREENSHOT_BUCKET
 from pcweb.flexdown import xd2 as xd
 from pcweb.pages import docs
 from pcweb.pages.gallery.gallery import integrations_stack
@@ -27,8 +27,8 @@ def integration_image(integration: str):
         trigger=ui.avatar.root(
             ui.avatar.image(
                 src=rx.color_mode_cond(
-                    f"/integrations/light/{integration_logo}.svg",
-                    f"/integrations/dark/{integration_logo}.svg",
+                    f"{REFLEX_ASSETS_CDN}integrations/light/{integration_logo}.svg",
+                    f"{REFLEX_ASSETS_CDN}integrations/dark/{integration_logo}.svg",
                 ),
                 unstyled=True,
                 class_name="size-full",
@@ -267,7 +267,9 @@ for (_path, source_folder), document in gallery_apps_data.items():
     route = f"/{base_url}{slug}"
 
     document.metadata["image"] = (
-        f"/templates/{document.metadata['image']}"
+        f"{REFLEX_ASSETS_CDN}reflex_build_template_images/{document.metadata['image']}"
+        if is_reflex_template and not document.metadata.get("ai_template", False)
+        else f"{REFLEX_ASSETS_CDN}templates/{document.metadata['image']}"
         if not document.metadata.get("ai_template", False)
         else f"{SCREENSHOT_BUCKET}{document.metadata['image']}"
     )

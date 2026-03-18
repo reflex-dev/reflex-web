@@ -5,6 +5,7 @@ import reflex_ui as ui
 from reflex_ui.blocks.demo_form import demo_form_dialog
 
 from pcweb.components.marketing_button import button
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 class HeroLogo(TypedDict):
@@ -31,7 +32,7 @@ def floating_logo(logo: HeroLogo, logo_base_path: str) -> rx.Component:
 def gradient_logo() -> rx.Component:
     return rx.el.div(
         rx.image(
-            src=f"/logos/{rx.color_mode_cond('light', 'dark')}/gradient_r.svg",
+            src=f"{REFLEX_ASSETS_CDN}logos/{rx.color_mode_cond('light', 'dark')}/gradient_r.svg",
             alt="Gradient Reflex Logo",
             loading="eager",
             custom_attrs={"fetchPriority": "high"},
@@ -53,7 +54,7 @@ def hero(
         rx.el.div(
             rx.el.div(
                 rx.image(
-                    src=f"/common/{rx.color_mode_cond('light', 'dark')}/grid.svg",
+                    src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/grid.svg",
                     alt="Grid",
                     loading="eager",
                     custom_attrs={"fetchPriority": "high"},

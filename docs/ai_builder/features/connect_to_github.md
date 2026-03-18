@@ -7,6 +7,7 @@ description: Integrate with GitHub to automate workflows and interact with your 
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
@@ -17,7 +18,7 @@ The Github integration is important to make sure that you don't lose your progre
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/connecting_to_github.avif",
+            src=f"{REFLEX_ASSETS_CDN}ai_builder/connecting_to_github.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),
@@ -39,7 +40,7 @@ The commit history is a great way to see the changes that you have made to your 
 rx.el.div(
     image_zoom(
         rx.image(
-            src="/ai_builder/github_commit_history.avif",
+            src=f"{REFLEX_ASSETS_CDN}ai_builder/github_commit_history.avif",
             class_name="p-2 rounded-md h-auto",
             border=f"0.81px solid {rx.color('slate', 5)}",
         ),

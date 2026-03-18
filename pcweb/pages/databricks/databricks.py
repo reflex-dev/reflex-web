@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import create_meta_tags
 from pcweb.pages.databricks.views.cta import final_cta
 from pcweb.pages.databricks.views.hero import hero
@@ -16,7 +17,7 @@ from pcweb.templates.mainpage import mainpage
     meta=create_meta_tags(
         "Reflex on Databricks - Deploy Python Apps",
         "Build and deploy production-ready Databricks apps in pure Python. Integrate with SQL Warehouse, Unity Catalog, and Genie AI.",
-        "/previews/databricks_preview.png",
+        f"{REFLEX_ASSETS_CDN}previews/databricks_preview.webp",
     ),
 )
 def databricks_page():

@@ -1,6 +1,7 @@
 import reflex as rx
 
 from pcweb.components.icons.patterns import get_icon
+from pcweb.constants import REFLEX_ASSETS_CDN
 
 
 def graphic_card() -> rx.Component:
@@ -22,13 +23,13 @@ def graphic_card() -> rx.Component:
             class_name="pointer-events-none w-auto h-auto -rotate-90 shrink-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]",
         ),
         rx.image(
-            src="/landing/hosting_features/light/deploy.svg",
+            src=f"{REFLEX_ASSETS_CDN}landing/hosting_features/light/deploy.svg",
             alt="Hosting graphic",
             loading="lazy",
             class_name="w-[7.875rem] h-[8.5rem] shrink-0 z-[2] dark:hidden",
         ),
         rx.image(
-            src="/landing/hosting_features/dark/deploy.svg",
+            src=f"{REFLEX_ASSETS_CDN}landing/hosting_features/dark/deploy.svg",
             alt="Hosting graphic",
             loading="lazy",
             class_name="w-[7.875rem] h-[8.5rem] shrink-0 z-[2] dark:block hidden",

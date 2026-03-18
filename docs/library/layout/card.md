@@ -8,6 +8,7 @@ Card: |
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 ```
 
 # Card
@@ -43,7 +44,7 @@ commonly used to make a Card clickable.
 rx.card(
     rx.link(
         rx.flex(
-            rx.avatar(src="/reflex_banner.png"),
+            rx.avatar(src=f"{REFLEX_ASSETS_CDN}other/reflex_banner.png"),
             rx.box(
                 rx.heading("Quick Start"),
                 rx.text("Get started with Reflex in 5 minutes."),

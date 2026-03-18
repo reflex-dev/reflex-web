@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import create_meta_tags
 from pcweb.pages.docs_landing.views import (
     ai_builder_section,
@@ -22,7 +23,7 @@ from pcweb.views.docs_navbar import docs_navbar
     meta=create_meta_tags(
         title="Reflex Documentation - Build Web Apps in Pure Python",
         description="Reflex documentation: tutorials, API reference, and guides for building full-stack Python web apps. Get started in minutes.",
-        image="/previews/index_preview.webp",
+        image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
         url="https://reflex.dev/docs",
     ),
 )

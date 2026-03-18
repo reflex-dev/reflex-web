@@ -1,10 +1,12 @@
 import reflex as rx
 import reflex_ui as ui
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def squares_rectangle_small() -> rx.Component:
     return rx.image(
-        src=f"/common/{rx.color_mode_cond('light', 'dark')}/squares_rectangle_small.svg",
+        src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/squares_rectangle_small.svg",
         alt="Squares Rectangle Small",
         class_name="pointer-events-none",
     )

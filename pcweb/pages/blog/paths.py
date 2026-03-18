@@ -1,6 +1,8 @@
 import flexdown
 from flexdown.document import Document
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 PAGES_PATH = "blog/"
 
 
@@ -8,6 +10,7 @@ def get_blog_data(paths):
     items = []
     for path in paths:
         document = Document.from_file(path)
+        document.metadata["REFLEX_ASSETS_CDN"] = REFLEX_ASSETS_CDN
         path_str = str(path).replace(PAGES_PATH, "").replace(".md", "/")
         items.append((path_str, document))
     items.sort(key=lambda x: str(x[1].metadata.get("date", "")), reverse=True)

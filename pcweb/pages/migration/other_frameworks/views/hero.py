@@ -1,3 +1,4 @@
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.migration.common.hero import HeroLogo
 from pcweb.pages.migration.common.hero import hero as common_hero
 
@@ -32,7 +33,7 @@ def hero():
         subtitle="Escape other framework constraints without sacrificing speed. Build production-grade apps in pure Python with complete control over your stack.",
         cta_text="Book a Demo",
         logos=HERO_LOGOS,
-        logo_base_path="/migration",
+        logo_base_path=f"{REFLEX_ASSETS_CDN}migration",
     )
 
 

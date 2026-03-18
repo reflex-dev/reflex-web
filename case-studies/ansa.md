@@ -41,12 +41,13 @@ meta: [
 
 ```python exec
 import reflex as rx
+from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 ```
 
 ```python eval
 rx.vstack(
-    image_zoom(rx.image(src="/case_studies/ansa_app.webp", border_radius="10px", alt="Ansa App")),
+    image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/ansa_app.webp", border_radius="10px", alt="Ansa App")),
     rx.text("Ansa App built with Reflex"),
     width="100%",
 )

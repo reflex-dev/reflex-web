@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.meta.meta import create_meta_tags, faq_jsonld
 from pcweb.pages.about.views.divider import divider
 from pcweb.pages.migration.no_code.views import compare, explore, hero, quotes
@@ -59,7 +60,7 @@ NO_CODE_FAQ_SCHEMA = {
     meta=create_meta_tags(
         title="Switch from No-Code to Reflex | Power BI, Tableau & Retool Alternative",
         description="Hit the ceiling with Power BI, Tableau, or Retool? Reflex gives you full Python control, no vendor lock-in, and production-ready apps from day one. No ceiling, no workarounds.",
-        image="/previews/index_preview.webp",
+        image=f"{REFLEX_ASSETS_CDN}previews/index_preview.webp",
     ),
 )
 def no_code_migration_page() -> rx.Component:

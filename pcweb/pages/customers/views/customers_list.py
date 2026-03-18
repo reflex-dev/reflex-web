@@ -1,5 +1,6 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import getting_started
 
 
@@ -92,13 +93,13 @@ def customers_list_item(
     return rx.link(
         rx.box(
             rx.image(
-                src=f"/customers/light/{company.lower()}/{company.lower()}_small.svg",
+                src=f"{REFLEX_ASSETS_CDN}customers/light/{company.lower()}/{company.lower()}_small.svg",
                 alt=f"{company} logo",
                 loading="lazy",
                 class_name="dark:hidden h-5 w-auto shrink-0",
             ),
             rx.image(
-                src=f"/customers/dark/{company.lower()}/{company.lower()}_small.svg",
+                src=f"{REFLEX_ASSETS_CDN}customers/dark/{company.lower()}/{company.lower()}_small.svg",
                 alt=f"{company} logo",
                 loading="lazy",
                 class_name="dark:block hidden h-5 w-auto shrink-0",

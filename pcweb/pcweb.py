@@ -7,7 +7,8 @@ import reflex as rx
 import reflex_enterprise as rxe
 
 from pcweb import styles
-from pcweb.meta.meta import favicons_links
+from pcweb.constants import REFLEX_ASSETS_CDN
+from pcweb.meta.meta import favicons_links, to_cdn_image_url
 from pcweb.pages import page404, routes
 from pcweb.pages.docs import exec_blocks, outblocks
 from pcweb.telemetry import get_pixel_website_trackers
@@ -64,13 +65,19 @@ if sys.platform == "win32":
 for route in routes:
     # print(f"Adding route: {route}")
     if _check_whitelisted_path(route.path):
+        # Normalize image to CDN URL when it's a relative path
+        image_url = (
+            f"{REFLEX_ASSETS_CDN}previews/index_preview.webp"
+            if route.image is None
+            else to_cdn_image_url(route.image)
+            or f"{REFLEX_ASSETS_CDN}previews/index_preview.webp"
+        )
+
         page_args = {
             "component": route.component,
             "route": route.path,
             "title": route.title,
-            "image": (
-                "/previews/index_preview.webp" if route.image is None else route.image
-            ),
+            "image": image_url,
             "meta": [
                 {"name": "theme-color", "content": route.background_color},
             ],

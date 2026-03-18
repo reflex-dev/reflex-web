@@ -1,6 +1,8 @@
 import reflex as rx
 import reflex_ui as ui
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def first_card(title: str) -> rx.Component:
     return rx.el.div(
@@ -20,7 +22,8 @@ def social_proof_card(image: str) -> rx.Component:
     return rx.el.div(
         rx.image(
             src=rx.color_mode_cond(
-                f"/companies/light/{image}.svg", f"/companies/dark/{image}.svg"
+                f"{REFLEX_ASSETS_CDN}companies/light/{image}.svg",
+                f"{REFLEX_ASSETS_CDN}companies/dark/{image}.svg",
             ),
             loading="lazy",
             alt=f"{image} logo",

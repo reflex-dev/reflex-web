@@ -1,6 +1,7 @@
 import reflex as rx
 
 from pcweb.components.icons.icons import get_icon
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.docs import getting_started
 
 
@@ -22,13 +23,13 @@ def product_card(
         ),
         rx.el.div(
             rx.image(
-                src=f"/landing/products/light/product_{graphic}.avif",
+                src=f"{REFLEX_ASSETS_CDN}landing/products/light/product_{graphic}.avif",
                 loading="lazy",
                 alt=f"{name} product image light",
                 class_name="w-auto pointer-events-none block dark:hidden",
             ),
             rx.image(
-                src=f"/landing/products/dark/product_{graphic}.avif",
+                src=f"{REFLEX_ASSETS_CDN}landing/products/dark/product_{graphic}.avif",
                 loading="lazy",
                 alt=f"{name} product image dark",
                 class_name="w-auto pointer-events-none hidden dark:block",

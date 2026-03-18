@@ -1,5 +1,7 @@
 import reflex as rx
 
+from pcweb.constants import REFLEX_ASSETS_CDN
+
 
 def badge_card(component: rx.Component, link: str) -> rx.Component:
     return rx.el.a(
@@ -33,7 +35,7 @@ def security_badges() -> rx.Component:
             badge_card(
                 rx.el.div(
                     rx.image(
-                        src="/landing/integrations/light/databricks.svg",
+                        src=f"{REFLEX_ASSETS_CDN}landing/integrations/light/databricks.svg",
                         class_name="h-[24px] w-auto pb-0.5",
                     ),
                     rx.el.span(

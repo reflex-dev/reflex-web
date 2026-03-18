@@ -1,3 +1,4 @@
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.pages.migration.common.quotes import CompanyInfo
 from pcweb.pages.migration.common.quotes import quotes as common_quotes
 
@@ -9,7 +10,7 @@ COMPANIES: list[CompanyInfo] = [
         "name": "Alex Atallah",
         "title": "Co-founder & CEO, OpenSea",
         "quote": "Have been playing with Reflex since January and realized I should just say, from a fellow YC member: love the architecture decisions you guys are making!",
-        "profile_image": "/landing/social/alex_opensea.webp",
+        "profile_image": f"{REFLEX_ASSETS_CDN}landing/social/alex_opensea.webp",
     },
     {
         "key": "fastly",
@@ -45,7 +46,7 @@ def quotes():
     return common_quotes(
         companies=COMPANIES,
         default_active_key="open_sea",
-        logo_base_path="/migration",
+        logo_base_path=f"{REFLEX_ASSETS_CDN}migration",
     )
 
 
