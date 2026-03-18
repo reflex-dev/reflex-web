@@ -1,5 +1,6 @@
 import dataclasses
 import json
+import uuid
 from typing import TypedDict
 
 import reflex as rx
@@ -166,9 +167,14 @@ class TemplatesState(rx.State):
 
     @rx.event(background=True)
     async def prefetch_template(self, template_id: str):
+        try:
+            uuid.UUID(template_id)
+        except ValueError:
+            return
+
         async with self:
             active = self.active_template
-            on_detail_page = "template_id" in self.router.page.params
+            on_detail_page = "template_id" in self.router._page.params
 
         if on_detail_page or (active and active.id == template_id):
             return
@@ -189,6 +195,14 @@ class TemplatesState(rx.State):
             all_templates = dict(self._all_templates)
 
         if not template_id:
+            async with self:
+                self.active_template = None
+                self.related_templates = []
+            return
+
+        try:
+            uuid.UUID(template_id)
+        except ValueError:
             async with self:
                 self.active_template = None
                 self.related_templates = []
