@@ -163,7 +163,64 @@
     --font-instrument-sans: 'Instrument Sans', sans-serif;
     --font-source-code-pro: 'Source Code Pro', monospace;
     --font-jetbrains: "JetBrains Mono", monospace;
+    /* Shadow (light) */
+    --shadow-small-adaptive: 0px 2px 5px 0px rgba(28, 32, 36, 0.03);
+    --shadow-medium-adaptive: 0px 4px 8px 0px rgba(28, 32, 36, 0.04);
+    --shadow-large-adaptive:
+        0px 24px 12px 0px rgba(28, 32, 36, 0.02),
+        0px 8px 8px 0px rgba(28, 32, 36, 0.02),
+        0px 2px 6px 0px rgba(28, 32, 36, 0.02);
+    --shadow-large-negative-adaptive:
+        0px -24px 12px 0px rgba(28, 32, 36, 0.02),
+        0px -8px 8px 0px rgba(28, 32, 36, 0.02),
+        0px -2px 6px 0px rgba(28, 32, 36, 0.02);
+    --shadow-large-negative-primary-adaptive:
+        0px -32px 48px 0px color-mix(in srgb, var(--primary-9) 8%, transparent),
+        0px -16px 32px 0px color-mix(in srgb, var(--primary-9) 10%, transparent),
+        0px -8px 24px 0px color-mix(in srgb, var(--primary-9) 12%, transparent),
+        0px -2px 16px 0px color-mix(in srgb, var(--primary-9) 14%, transparent);
+    --shadow-x-large-adaptive:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 4px 8px 0 rgba(0, 0, 0, 0.02),
+        0 1px 1px 0 rgba(0, 0, 0, 0.01),
+        0 4px 8px 0 rgba(0, 0, 0, 0.03),
+        0 0 0 1px #fff inset;
+    --shadow-inner-adaptive: 0 6px 16px 0 rgba(0, 0, 0, 0.04) inset;
+    --shadow-button-outline-adaptive:
+        0 -1px 0 0 rgba(0, 0, 0, 0.08) inset,
+        0 0 0 1px rgba(0, 0, 0, 0.08) inset,
+        0 1px 2px 0 rgba(0, 0, 0, 0.02),
+        0 1px 4px 0 rgba(0, 0, 0, 0.02);
+    --shadow-card-xs-no-left-adaptive:
+        0 -1px 0 0 rgba(0, 0, 0, 0.16) inset,
+        0 1px 0 0 rgba(0, 0, 0, 0.08) inset,
+        -1px 0 0 0 rgba(0, 0, 0, 0.08) inset,
+        0 1px 2px 0 rgba(0, 0, 0, 0.02),
+        0 1px 4px 0 rgba(0, 0, 0, 0.02);
+    --shadow-card-small-adaptive:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 4px 8px 0 rgba(0, 0, 0, 0.04),
+        0 1px 1px 0 rgba(0, 0, 0, 0.01),
+        0 2px 4px 0 rgba(0, 0, 0, 0.03);
     color-scheme: light dark;
+}
+
+.dark {
+    /* Shadow (dark) */
+    --shadow-small-adaptive: none;
+    --shadow-medium-adaptive: none;
+    --shadow-large-adaptive: none;
+    --shadow-large-negative-adaptive: none;
+    --shadow-large-negative-primary-adaptive:
+        0px -32px 48px 0px color-mix(in srgb, var(--primary-9) 4%, transparent),
+        0px -16px 32px 0px color-mix(in srgb, var(--primary-9) 8%, transparent),
+        0px -8px 24px 0px color-mix(in srgb, var(--primary-9) 12%, transparent),
+        0px -2px 16px 0px color-mix(in srgb, var(--primary-9) 16%, transparent);
+    --shadow-x-large-adaptive: none;
+    --shadow-inner-adaptive: none;
+    --shadow-button-outline-adaptive: none;
+    --shadow-card-xs-no-left-adaptive: none;
+    --shadow-card-small-adaptive: none;
 }
 
 @theme {
@@ -1104,20 +1161,23 @@
     --font-mono: var(--font-jetbrains);
     /* Shadow */
     --shadow-none: none;
-    --shadow-small: 0px 2px 5px 0px light-dark(rgba(28, 32, 36, 0.03), rgba(0, 0, 0, 0));
-    --shadow-medium: 0px 4px 8px 0px light-dark(rgba(28, 32, 36, 0.04), rgba(0, 0, 0, 0));
-    --shadow-large:
-        0px 24px 12px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0)),
-        0px 8px 8px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0)),
-        0px 2px 6px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0));
-    --shadow-large-negative:
-        0px -24px 12px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0)),
-        0px -8px 8px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0)),
-        0px -2px 6px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0));
+    --shadow-small: var(--shadow-small-adaptive);
+    --shadow-medium: var(--shadow-medium-adaptive);
+    --shadow-large: var(--shadow-large-adaptive);
+    --shadow-large-negative: var(--shadow-large-negative-adaptive);
+    --shadow-large-negative-primary: var(--shadow-large-negative-primary-adaptive);
+    --shadow-x-large: var(--shadow-x-large-adaptive);
+    --shadow-inner: var(--shadow-inner-adaptive);
     --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.04),
         0 4px 8px 0 rgba(0, 0, 0, 0.07),
         0 1px 1px 0 rgba(0, 0, 0, 0.01),
         0 0 0 1px #FFF inset;
+    --shadow-button-bordered:
+        0 0 0 1px var(--primary-9) inset,
+        0 2px 0 0 rgba(255, 255, 255, 0.22) inset;
+    --shadow-button-outline: var(--shadow-button-outline-adaptive);
+    --shadow-card-xs-no-left: var(--shadow-card-xs-no-left-adaptive);
+    --shadow-card-small: var(--shadow-card-small-adaptive);
     --shadow-card-dark: 0 0 0 1px var(--m-slate-9, #2A3037);
     --text-xs: 0.8125rem;
     --text-xs--line-height: 1.25rem;

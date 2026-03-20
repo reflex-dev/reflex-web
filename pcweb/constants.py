@@ -14,6 +14,10 @@ REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL: str = os.environ.get(
     "REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL"
 )
 
+REPLICATE_FLUX_SCHNELL_PREDICTIONS_URL: str = (
+    "https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions"
+)
+
 # pcweb urls.
 REFLEX_URL = "https://reflex.dev/"
 REFLEX_DOCS_URL = "https://reflex.dev/docs/getting-started/introduction/"
