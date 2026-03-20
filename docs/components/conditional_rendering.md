@@ -79,14 +79,14 @@ You can use [var operations]({docs.vars.var_operations.path}) with the `cond` co
 The [`rx.match`]({library.dynamic_rendering.match.path}) component in Reflex provides a powerful alternative to`rx.cond` for handling multiple conditional statements and structural pattern matching. This component allows you to handle multiple conditions and their associated components in a cleaner and more readable way compared to nested `rx.cond` structures.
 
 ```python demo exec
-from typing import List
+
 
 import reflex as rx
 
 
 class MatchState(rx.State):
     cat_breed: str = ""
-    animal_options: List[str] = [
+    animal_options: list[str] = [
         "persian",
         "siamese",
         "maine coon",
