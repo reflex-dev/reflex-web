@@ -28,7 +28,7 @@ def code_block_dark(code: str, language: str):
             class_name="code-block",
             can_copy=True,
         ),
-        class_name="relative",
+        class_name="relative mb-4",
     )
 
 
