@@ -113,7 +113,7 @@ Your browser opens to `localhost:3000` showing your running app. The server incl
 ## Building UI Components with Pure Python
 
 ```python eval
-image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/how-to-build-python-web-app-2.webp", border_radius="10px", alt="Abstract illustration of Python code structure becoming modular UI components in a blue and purple gradient."))
+rx.el.div(image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/how-to-build-python-web-app-2.webp", border_radius="10px", alt="Abstract illustration of Python code structure becoming modular UI components in a blue and purple gradient.")), class_name="mb-4")
 ```
 
 Reflex provides 60+ built-in components that handle everything from simple text and buttons to complex data tables and charts. Each component is a Python function you import and call with keyword arguments. No HTML templates, no JSX syntax, just Python functions that return UI elements.
@@ -147,7 +147,7 @@ Style components using keyword arguments that map to CSS properties. The `box` c
 ## Managing Application State and Event Handlers
 
 ```python eval
-image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/how-to-build-python-web-app-3.webp", border_radius="10px", alt="Abstract illustration of state management with nodes and bidirectional flow in blue and purple tones."))
+rx.el.div(image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/how-to-build-python-web-app-3.webp", border_radius="10px", alt="Abstract illustration of state management with nodes and bidirectional flow in blue and purple tones.")), class_name="mb-4")
 ```
 
 State in Reflex uses Python classes that inherit from `rx.State`. Variables are class attributes, and methods modify these variables. When a method changes a variable, Reflex updates every UI component displaying that value.
