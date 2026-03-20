@@ -16,30 +16,23 @@ SECTION_HEADER_CLASS = (
 def links_section() -> rx.Component:
     return rx.el.div(
         marketing_button(
-            "Use This Template",
+            "Create App",
             variant="primary",
             native_button=False,
             class_name="w-full",
             on_click=TemplatesState.redirect_to_template(
-                TemplatesState.active_template.id
+                template_id=TemplatesState.active_template.id,
+                use_prompt=True,
             ),
         ),
         marketing_button(
-            "View Docs",
+            "View App",
             variant="outline",
             native_button=False,
             class_name="w-full",
             on_click=TemplatesState.redirect_to_template(
-                TemplatesState.active_template.id
-            ),
-        ),
-        marketing_button(
-            "Download Code",
-            variant="outline",
-            native_button=False,
-            class_name="w-full",
-            on_click=TemplatesState.redirect_to_template(
-                TemplatesState.active_template.id
+                template_id=TemplatesState.active_template.id,
+                use_prompt=False,
             ),
         ),
         class_name="flex flex-col gap-4",
@@ -197,7 +190,6 @@ def integrations_circle(integration_name: str) -> rx.Component:
 def sidebar_content() -> rx.Component:
     return rx.fragment(
         links_section(),
-        quick_start(),
         rx.cond(TemplatesState.active_template.tech_stack, tech_stack()),
         rx.cond(
             TemplatesState.active_template.enabled_integrations, enabled_integrations()

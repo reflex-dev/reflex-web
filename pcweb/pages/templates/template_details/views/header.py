@@ -86,22 +86,6 @@ def header() -> rx.Component:
             ),
             rx.el.div(
                 rx.cond(
-                    TemplatesState.active_template.difficulty,
-                    rx.el.span(
-                        TemplatesState.active_template.difficulty,
-                        class_name=ui.cn(
-                            "text-sm font-[525] capitalize",
-                            rx.match(
-                                TemplatesState.active_template.difficulty,
-                                ("beginner", "text-jade-10"),
-                                ("intermediate", "text-amber-11"),
-                                ("advanced", "text-primary-11"),
-                                "text-primary-11",
-                            ),
-                        ),
-                    ),
-                ),
-                rx.cond(
                     TemplatesState.active_template.last_modified,
                     rx.el.div(
                         ui.icon("Clock01Icon", class_name="size-3.5"),

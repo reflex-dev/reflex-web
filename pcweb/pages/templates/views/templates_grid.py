@@ -3,7 +3,7 @@ import reflex_ui as ui
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.marketing_button import button as marketing_button
-from pcweb.constants import SCREENSHOT_BUCKET
+from pcweb.constants import REFLEX_ASSETS_CDN, SCREENSHOT_BUCKET
 from pcweb.pages.templates.templates_state import TagWithCount, Template, TemplatesState
 
 
@@ -65,7 +65,7 @@ def image_text_placeholder() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src=f"/logos/{rx.color_mode_cond(light='light', dark='dark')}/reflex.svg",
+                src=f"{REFLEX_ASSETS_CDN}/logos/{rx.color_mode_cond(light='light', dark='dark')}/reflex.svg",
                 class_name="h-3.5 lg:h-5 w-auto opacity-70 dark:opacity-85 group-hover:scale-105 duration-200 ease-out",
                 alt="Logo",
             ),
@@ -98,22 +98,6 @@ def template_card(template: Template) -> rx.Component:
                 template.name,
                 class_name="text-secondary-12 text-base font-[525] mb-2",
             ),
-            rx.cond(
-                template.difficulty,
-                rx.el.span(
-                    template.difficulty,
-                    class_name=ui.cn(
-                        "text-xs text-[0.75rem] font-[525] mb-2 capitalize",
-                        rx.match(
-                            template.difficulty,
-                            ("beginner", "text-jade-10"),
-                            ("intermediate", "text-amber-11"),
-                            ("advanced", "text-primary-11"),
-                            "text-primary-11",
-                        ),
-                    ),
-                ),
-            ),
             rx.el.span(
                 template.description,
                 class_name="text-secondary-10 text-sm font-medium mb-4",
@@ -133,14 +117,15 @@ def template_card(template: Template) -> rx.Component:
                 variant="outline",
                 native_button=False,
                 on_click=TemplatesState.redirect_to_template(
-                    template.id
+                    template_id=template.id,
+                    use_prompt=True,
                 ).stop_propagation,
                 class_name="relative z-10 mt-auto dark:hover:bg-secondary-2",
             ),
             class_name="p-6 flex flex-col h-full",
         ),
         rx.el.a(
-            href=f"/templates/{template.id}",
+            href=f"/templates/{template.slug}/{template.id}",
             class_name="absolute inset-0",
         ),
         on_mouse_enter=TemplatesState.prefetch_template(template.id),

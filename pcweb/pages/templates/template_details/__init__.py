@@ -15,7 +15,7 @@ from pcweb.templates.secondary_page import secondary_page
 
 
 @secondary_page(
-    path="/templates/[template_id]",
+    path="/templates/[template_name]/[template_id]",
     title="Template Details",
     description="Template Details",
     image="/previews/index_preview.webp",

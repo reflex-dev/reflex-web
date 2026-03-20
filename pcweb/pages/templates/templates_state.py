@@ -17,6 +17,7 @@ from pcweb.pages.templates.templates_client import (
 class Template:
     id: str
     name: str
+    slug: str = ""
     url: str | None = None
     priority: int = 0
     tags: list[str] = dataclasses.field(default_factory=list)
@@ -38,10 +39,17 @@ class TagWithCount(TypedDict):
     count: int
 
 
+def template_name_slug(raw_name: str) -> str:
+    """URL path segment: lowercase, spaces and underscores become hyphens."""
+    return "-".join(raw_name.lower().replace("_", " ").split())
+
+
 def _parse_template(data: dict) -> Template:
+    raw_name = str(data.get("name", ""))
     return Template(
         id=str(data.get("id", "")),
-        name=str(data.get("name", "")).replace("_", " ").title(),
+        name=raw_name.replace("_", " ").title(),
+        slug=template_name_slug(raw_name) or "template",
         url=data.get("url"),
         priority=data.get("priority", 0),
         tags=data.get("tags") or [],
@@ -111,7 +119,7 @@ class TemplatesState(rx.State):
                     "@type": "WebPage",
                     "name": t.name,
                     "description": t.description or "",
-                    "url": f"{REFLEX_DOMAIN_URL.rstrip('/')}/templates/{t.id}",
+                    "url": f"{REFLEX_DOMAIN_URL.rstrip('/')}/templates/{t.slug}/{t.id}",
                 },
                 {
                     "@type": "FAQPage",
@@ -144,6 +152,7 @@ class TemplatesState(rx.State):
         async with self:
             if self._all_templates:
                 self.query = ""
+                self.tags = _compute_tags(list(self._all_templates.values()))
                 self.checked_tags = {t["label"] for t in self.tags}
                 return
             self.query = ""
@@ -245,11 +254,11 @@ class TemplatesState(rx.State):
             self.checked_tags.discard(value)
 
     @rx.event
-    def redirect_to_template(self, template_id: str):
+    def redirect_to_template(self, template_id: str, use_prompt: bool = False):
         template = self._all_templates.get(template_id)
         if not template:
             return
-        if template.prompt:
+        if use_prompt and template.prompt:
             return rx.redirect(
                 f"{REFLEX_BUILD_URL.rstrip('/')}/?prompt={template.prompt}",
                 is_external=True,

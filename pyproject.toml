@@ -25,7 +25,6 @@ dependencies = [
     "reflex-image-zoom",
     "reflex-pyplot",
     "reflex-ui @ git+https://github.com/reflex-dev/reflex-ui@main",
-    "replicate",
     "requests",
     "ruff-format",
     "typesense",

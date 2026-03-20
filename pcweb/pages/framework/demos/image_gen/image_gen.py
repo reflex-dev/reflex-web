@@ -1,8 +1,46 @@
+import os
+
+import aiohttp
 import reflex as rx
-import replicate
 
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
+from pcweb.constants import REPLICATE_FLUX_SCHNELL_PREDICTIONS_URL
+from pcweb.utils.http import default_client
+
+_REPLICATE_WAIT_SEC = 5
+
+_FLUX_SCHNELL_INPUT_DEFAULTS: dict[str, str | int | bool] = {
+    "go_fast": True,
+    "num_inference_steps": 3,
+    "num_outputs": 1,
+    "aspect_ratio": "1:1",
+    "output_format": "webp",
+    "output_quality": 80,
+}
+
+
+async def _run_flux_schnell(prompt: str) -> str:
+    token = os.environ.get("REPLICATE_API_TOKEN")
+
+    session = default_client()
+    timeout = aiohttp.ClientTimeout(total=_REPLICATE_WAIT_SEC)
+    async with session.post(
+        REPLICATE_FLUX_SCHNELL_PREDICTIONS_URL,
+        json={"input": {"prompt": prompt, **_FLUX_SCHNELL_INPUT_DEFAULTS}},
+        headers={
+            "Authorization": f"Token {token}",
+            "Prefer": f"wait={_REPLICATE_WAIT_SEC}",
+        },
+        timeout=timeout,
+    ) as resp:
+        resp.raise_for_status()
+        prediction = await resp.json()
+
+    output = prediction.get("output")
+    if not output:
+        raise RuntimeError("Replicate returned no output")
+    return str(output[0] if isinstance(output, list) else output)
 
 
 class ImageGenState(rx.State):
@@ -20,15 +58,11 @@ class ImageGenState(rx.State):
         async with self:
             self.processing = True
             yield
-        input = {"prompt": prompt}
 
         try:
-            output = await replicate.async_run(
-                "black-forest-labs/flux-schnell",
-                input=input,
-            )
+            image_url = await _run_flux_schnell(prompt)
             async with self:
-                self.image_url = str(output[0])
+                self.image_url = image_url
         except Exception:
             async with self:
                 self.image_url = ""
@@ -106,7 +140,15 @@ class ImageGenState(rx.State):
         self.processing = True
         yield
 
-        input = {"prompt": prompt}
+        input = {
+            "prompt": prompt,
+            "go_fast": True,
+            "num_inference_steps": 3,
+            "num_outputs": 1,
+            "aspect_ratio": "1:1",
+            "output_format": "webp",
+            "output_quality": 80,
+        }
         output = replicate.run(
             "black-forest-labs/flux-schnell",
             input=input,
