@@ -451,7 +451,7 @@ def chat() -> rx.Component:
 
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", on_change=State.set_question1, style=style.input_style),
+        rx.input(placeholder="Ask a question", on_change=State.set_question, style=style.input_style),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
 ```
@@ -491,7 +491,7 @@ def action_bar() -> rx.Component:
         rx.input(
             value=State.question,
             placeholder="Ask a question",
-            on_change=State.set_question2,
+            on_change=State.set_question,
             style=style.input_style),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
@@ -602,7 +602,7 @@ def action_bar() -> rx.Component:
             value=State.question,
             placeholder="Ask a question",
             # on_change event updates the input as the user types a prompt.
-            on_change=State.set_question3,
+            on_change=State.set_question,
             style=style.input_style),
 
         # on_click event triggers the API to send the prompt to OpenAI.
