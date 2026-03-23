@@ -17,9 +17,10 @@ project_root = pathlib.Path(__file__).resolve().parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
+from reflex_docgen import generate_class_documentation
+
 from pcweb.pages.docs.apiref import modules
 from pcweb.pages.docs.env_vars import EnvVarDocs
-from pcweb.pages.docs.source import Source
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -279,63 +280,49 @@ class SimpleTypesenseIndexer:
         for module in modules:
             if isinstance(module, tuple):
                 module, *extra_modules = module
-                extra_fields = []
+                extra_fields = ()
                 for extra_module in extra_modules:
-                    s_extra = Source(module=extra_module)
-                    extra_fields.extend(s_extra.get_fields())
+                    extra_doc = generate_class_documentation(extra_module)
+                    extra_fields = extra_fields + extra_doc.fields
             else:
                 extra_fields = None
-            s = Source(module=module)
+            doc = generate_class_documentation(module)
             name = module.__name__.lower()
 
-            # Get the content from the source object directly
+            # Get the content from the documentation object
             content_parts = []
             headings = []
 
-            overview = s.get_overview()
-            if overview:
-                content_parts.append(overview)
+            if doc.description:
+                content_parts.append(doc.description)
 
-            class_fields = s.get_class_fields()
-            if class_fields:
+            if doc.class_fields:
                 content_parts.append("\n## Class Fields\n")
                 headings.append("Class Fields")
-                for field in class_fields:
-                    prop = field.get("prop")
-                    if not prop:
-                        continue
-                    prop_name = getattr(prop, "name", "")
-                    description = field.get("description", "")
-                    content_parts.append(f"### {prop_name}\n{description}\n")
-                    headings.append(prop_name)
+                for field in doc.class_fields:
+                    content_parts.append(
+                        f"### {field.name}\n{field.description or ''}\n"
+                    )
+                    headings.append(field.name)
 
-            fields = s.get_fields()
-            if extra_fields:
-                fields.extend(extra_fields)
+            fields = doc.fields + (extra_fields or ())
             if fields:
                 content_parts.append("\n## Fields\n")
                 headings.append("Fields")
                 for field in fields:
-                    prop = field.get("prop")
-                    if not prop:
-                        continue
-                    prop_name = getattr(prop, "name", "")
-                    description = field.get("description", "")
-                    content_parts.append(f"### {prop_name}\n{description}\n")
-                    headings.append(prop_name)
+                    content_parts.append(
+                        f"### {field.name}\n{field.description or ''}\n"
+                    )
+                    headings.append(field.name)
 
-            methods = s.get_methods()
-            if methods:
+            if doc.methods:
                 content_parts.append("\n## Methods\n")
                 headings.append("Methods")
-                for method in methods:
-                    method_name = method.get("name", "")
-                    signature = method.get("signature", "")
-                    description = method.get("description", "")
+                for method in doc.methods:
                     content_parts.append(
-                        f"### {method_name}{signature}\n{description}\n"
+                        f"### {method.name}{method.signature}\n{method.description or ''}\n"
                     )
-                    headings.append(f"{method_name}{signature}")
+                    headings.append(f"{method.name}{method.signature}")
 
             content = "\n".join(content_parts)
 

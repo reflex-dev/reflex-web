@@ -1,9 +1,10 @@
 import reflex as rx
 from reflex.utils.imports import ImportVar
+from reflex_docgen import generate_class_documentation
 
 from pcweb.templates.docpage import docpage
 
-from .source import Source, generate_docs
+from .source import generate_docs
 
 modules = [
     rx.App,
@@ -29,15 +30,14 @@ pages = []
 for module in modules:
     if isinstance(module, tuple):
         module, *extra_modules = module
-        extra_fields = []
+        extra_fields = ()
         for extra_module in extra_modules:
-            s_extra = Source(module=extra_module)
-            extra_fields.extend(s_extra.get_fields())
+            extra_doc = generate_class_documentation(extra_module)
+            extra_fields = extra_fields + extra_doc.fields
     else:
         extra_fields = None
-    s = Source(module=module)
     name = module.__name__.lower()
-    docs = generate_docs(name, s, extra_fields=extra_fields)
+    docs = generate_docs(name, module, extra_fields=extra_fields)
     title = name.replace("_", " ").title()
     page_data = docpage(f"/docs/api-reference/{name}/", title)(docs)
     page_data.title = page_data.title.split("·")[0].strip()

@@ -2542,7 +2542,7 @@ wheels = [
 [[package]]
 name = "reflex"
 version = "0.9.0.dev1"
-source = { git = "https://github.com/reflex-dev/reflex?rev=implement-reflex-docgen#a3684779d0b700e15219916813ea0e51038b914b" }
+source = { git = "https://github.com/reflex-dev/reflex?rev=implement-reflex-docgen#e872eef3e231b6f5f433602eacb7b4c886ac1694" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
@@ -2561,6 +2561,16 @@ dependencies = [
     { name = "starlette" },
     { name = "typing-extensions" },
     { name = "wrapt" },
+]
+
+[[package]]
+name = "reflex-docgen"
+version = "0.0.1"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=implement-reflex-docgen#e872eef3e231b6f5f433602eacb7b4c886ac1694" }
+dependencies = [
+    { name = "reflex" },
+    { name = "typing-extensions" },
+    { name = "typing-inspection" },
 ]
 
 [[package]]
@@ -2643,6 +2653,7 @@ dependencies = [
     { name = "psycopg", extra = ["binary"] },
     { name = "python-frontmatter" },
     { name = "reflex" },
+    { name = "reflex-docgen" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
     { name = "reflex-image-zoom" },
@@ -2677,6 +2688,7 @@ requires-dist = [
     { name = "psycopg", extras = ["binary"] },
     { name = "python-frontmatter" },
     { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=implement-reflex-docgen" },
+    { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=implement-reflex-docgen" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
     { name = "reflex-image-zoom" },

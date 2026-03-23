@@ -9,9 +9,9 @@ import reflex as rx
 from typing_extensions import Doc
 
 
-def test_source_annotated_doc_extraction():
-    """Source.get_annotations extracts Doc from Annotated types and unwraps the type."""
-    from pcweb.pages.docs.source import Source
+def test_class_doc_extraction():
+    """generate_class_documentation extracts Doc from Annotated types and unwraps the type."""
+    from reflex_docgen import generate_class_documentation
 
     @dataclasses.dataclass
     class FakeModule:
@@ -21,25 +21,25 @@ def test_source_annotated_doc_extraction():
         count: Annotated[int, Doc("How many things.")] = 0
         plain: str = "hello"
 
-    s = Source(module=FakeModule)
-    fields = s.get_fields()
-
-    by_name = {f["prop"].name: f for f in fields}
+    doc = generate_class_documentation(FakeModule)
+    by_name = {f.name: f for f in doc.fields}
 
     # Doc is extracted from Annotated metadata
-    assert by_name["name"]["description"] == "The name of the thing."
-    assert by_name["count"]["description"] == "How many things."
-    assert by_name["plain"]["description"] == ""
+    assert by_name["name"].description == "The name of the thing."
+    assert by_name["count"].description == "How many things."
+    assert by_name["plain"].description is None
 
-    # resolved_type is unwrapped (not Annotated)
-    assert by_name["name"]["resolved_type"] is str
-    assert by_name["count"]["resolved_type"] is int
-    assert by_name["plain"]["resolved_type"] is str
+    # type is unwrapped (not Annotated)
+    assert by_name["name"].type is str
+    assert by_name["count"].type is int
+    assert by_name["plain"].type is str
 
 
-def test_source_annotated_no_annotated_in_format():
+def test_class_no_annotated_in_format():
     """format_field should never produce a string containing 'Annotated'."""
-    from pcweb.pages.docs.source import Source, format_field
+    from reflex_docgen import generate_class_documentation
+
+    from pcweb.pages.docs.source import format_field
 
     @dataclasses.dataclass
     class FakeModule:
@@ -50,21 +50,21 @@ def test_source_annotated_no_annotated_in_format():
             default_factory=list
         )
 
-    s = Source(module=FakeModule)
-    fields = s.get_fields()
+    doc = generate_class_documentation(FakeModule)
 
-    for f in fields:
+    for f in doc.fields:
         rendered = format_field(f)
-        # format_field returns an rx.code component; check its children for "Annotated"
         rendered_str = str(rendered)
         assert "Annotated" not in rendered_str, (
-            f"format_field produced 'Annotated' in output for {f['prop'].name}: {rendered_str}"
+            f"format_field produced 'Annotated' in output for {f.name}: {rendered_str}"
         )
 
 
 def test_format_field_preserves_generic_subtypes():
     """format_field should show list[int], not just list."""
-    from pcweb.pages.docs.source import Source, format_field
+    from reflex_docgen import generate_class_documentation
+
+    from pcweb.pages.docs.source import format_field
 
     @dataclasses.dataclass
     class FakeModule:
@@ -78,9 +78,8 @@ def test_format_field_preserves_generic_subtypes():
         )
         plain: str = "hello"
 
-    s = Source(module=FakeModule)
-    fields = s.get_fields()
-    by_name = {f["prop"].name: f for f in fields}
+    doc = generate_class_documentation(FakeModule)
+    by_name = {f.name: f for f in doc.fields}
 
     items_str = str(format_field(by_name["items"]))
     assert "list[int]" in items_str, f"Expected 'list[int]' in: {items_str}"
@@ -94,33 +93,30 @@ def test_format_field_preserves_generic_subtypes():
     assert "str" in plain_str, f"Expected 'str' in: {plain_str}"
 
 
-def test_source_string_annotations():
+def test_class_string_annotations():
     """Annotations that are strings (from __future__ annotations) should be resolved."""
-    from pcweb.pages.docs.source import Source
+    from reflex_docgen import generate_class_documentation
 
     # rx.App uses `from __future__ import annotations`, so its field types are strings.
     # Verify we still extract docs and unwrap Annotated.
-    s = Source(module=rx.App)
-    fields = s.get_fields()
+    doc = generate_class_documentation(rx.App)
 
-    for f in fields:
-        type_str = str(f.get("resolved_type", ""))
+    for f in doc.fields:
+        type_str = str(f.type)
         assert "Annotated" not in type_str, (
-            f"Unresolved Annotated in {f['prop'].name}: {type_str}"
+            f"Unresolved Annotated in {f.name}: {type_str}"
         )
 
 
 def test_component_props_no_annotated():
     """Component prop types should not contain 'Annotated'."""
     from reflex.components.radix.themes.components.button import Button
+    from reflex_docgen import get_component_props
 
-    from pcweb.pages.docs.component import Source
-
-    s = Source(component=Button)
-    props = s.get_props()
+    props = get_component_props(Button)
 
     for prop in props:
-        type_str = str(prop.type_)
+        type_str = str(prop.type)
         assert "Annotated" not in type_str, (
             f"Component prop {prop.name} has Annotated in type: {type_str}"
         )
@@ -129,11 +125,9 @@ def test_component_props_no_annotated():
 def test_component_props_default_parsed_from_doc():
     """Default values should be parsed from 'Defaults to'/'Default:' in doc strings."""
     from reflex.components.radix.primitives.drawer import DrawerRoot
+    from reflex_docgen import get_component_props
 
-    from pcweb.pages.docs.component import Source
-
-    s = Source(component=DrawerRoot)
-    props = s.get_props()
+    props = get_component_props(DrawerRoot)
     by_name = {p.name: p for p in props}
 
     # 'modal' doc contains "Defaults to `True`"
