@@ -3,10 +3,10 @@
 import hashlib
 import inspect
 import os
-import re
 import textwrap
 from types import UnionType
 from typing import (
+    Annotated,
     Any,
     Literal,
     Sequence,
@@ -56,81 +56,11 @@ class Prop(Base):
     default_value: str
 
 
-def get_default_value(lines: list[str], start_index: int) -> str:
-    """Process lines of code to get the value of a prop, handling multi-line values.
-
-    Args:
-        lines: The lines of code to process.
-        start_index: The index of the line where the prop is defined.
-
-    Returns:
-        The default value of the prop.
-    """
-    # Check for the default value in the prop comment (Default: )
-    # Need to update the components comments in order to get the default value
-    if start_index > 0:
-        comment_line = lines[start_index - 1].strip()
-        if comment_line.startswith("#"):
-            default_match = re.search(r"Default:\s*(.+)$", comment_line)
-            if default_match:
-                default_value = default_match.group(1).strip()
-                return default_value
-
-    # Get the initial line
-    line = lines[start_index]
-    parts = line.split("=", 1)
-    if len(parts) != 2:
-        return ""
-    value = parts[1].strip()
-
-    # Check if the value is complete
-    open_brackets = value.count("{") - value.count("}")
-    open_parentheses = value.count("(") - value.count(")")
-
-    # If brackets or parentheses are not balanced, collect more lines
-    current_index = start_index + 1
-    while (open_brackets > 0 or open_parentheses > 0) and current_index < len(lines):
-        next_line = lines[current_index].strip()
-        value += " " + next_line
-        open_brackets += next_line.count("{") - next_line.count("}")
-        open_parentheses += next_line.count("(") - next_line.count(")")
-        current_index += 1
-
-    # Remove any trailing comments
-    value = re.split(r"\s+#", value)[0].strip()
-
-    # Process Var.create_safe within dictionary
-    def process_var_create_safe(match):
-        content = match.group(1)
-        # Extract only the first argument
-        first_arg = re.split(r",", content)[0].strip()
-        return first_arg
-
-    value = re.sub(r"Var\.create_safe\((.*?)\)", process_var_create_safe, value)
-    value = re.sub(r"\bColor\s*\(", "rx.color(", value)
-
-    return value.strip()
-
-
 class Source(Base):
     """Parse the source code of a component."""
 
     # The component to parse.
     component: Type[Component]
-
-    # The source code.
-    code: list[str] = []
-
-    def __init__(self, *args, **kwargs):
-        """Initialize the source code parser."""
-        super().__init__(*args, **kwargs)
-
-        # Get the source code.
-        self.code = [
-            line
-            for line in inspect.getsource(self.component).splitlines()
-            if len(line) > 0
-        ]
 
     def get_docs(self) -> str:
         """Get the docstring of the component.
@@ -168,53 +98,34 @@ class Source(Base):
         """
         out = []
         props = self.component.get_props()
-        comments = []
+        fields = self.component.get_fields()
 
-        for i, line in enumerate(self.code):
-            line = self.code[i]
-
-            if re.search("def ", line):
-                break
-
-            if line.strip().startswith("#"):
-                comments.append(line)
-                continue
-
-            match = re.search(r"\w+:", line)
-            if match is None:
-                continue
-
-            prop = match.group(0).strip(":")
-            if prop not in props:
-                continue
-
-            default_value = get_default_value(self.code, i)
-
-            if i > 0:
-                comment_above = self.code[i - 1].strip()
-                assert comment_above.startswith("#"), (
-                    f"Expected comment, got {comment_above}"
-                )
-
-            comment = Source.get_comment(comments)
-            comments.clear()
-
-            type_ = self.component.get_fields()[prop].outer_type_
+        for prop in props:
+            field_info = fields[prop]
+            doc = getattr(field_info, "doc", None) or ""
+            type_ = field_info.outer_type_
+            # Unwrap Annotated[X, ...] to just X
+            if get_origin(type_) is Annotated:
+                type_ = get_args(type_)[0]
+            # Parse default value from doc string ("Defaults to ..." / "Default: ...")
+            default_value = ""
+            for indicator in ("Defaults to", "Default:"):
+                if indicator in doc:
+                    doc, default_value = doc.split(indicator, maxsplit=1)
+                    default_value = default_value.strip().rstrip(".")
+                    doc = doc.strip().rstrip(".")
+                    break
 
             out.append(
                 Prop(
                     name=prop,
                     type_=type_,
                     default_value=default_value,
-                    description=comment,
+                    description=doc,
                 )
             )
 
         return out
-
-    @staticmethod
-    def get_comment(comments: list[str]):
-        return "".join([comment.strip().strip("#") for comment in comments])
 
 
 # Mapping from types to colors.

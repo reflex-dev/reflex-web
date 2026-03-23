@@ -1,11 +1,11 @@
 import dataclasses
 import inspect
-import re
-
-# Get the comment for a specific field.
+import typing
 from typing import Callable, Type
 
 import reflex as rx
+from typing_extensions import Doc
+from typing_inspection.introspection import AnnotationSource, inspect_annotation
 
 from pcweb.flexdown import markdown
 from pcweb.templates.docpage import h1_comp, h2_comp
@@ -17,20 +17,6 @@ class Source(rx.Base):
     # The component to parse.
     module: Type
 
-    # The source code.
-    code: list[str] = []
-
-    def __init__(self, *args, **kwargs):
-        """Initialize the source code parser."""
-        super().__init__(*args, **kwargs)
-
-        # Get the source code.
-        self.code = [
-            line
-            for line in inspect.getsource(self.module).splitlines()
-            if len(line) > 0
-        ]
-
     def get_docs(self) -> str:
         """Get the docstring of the component.
 
@@ -38,10 +24,6 @@ class Source(rx.Base):
             The docstring of the component.
         """
         return self.module.__doc__
-
-    @staticmethod
-    def get_comment(comments: list[str]):
-        return "".join([comment.strip().strip("#") for comment in comments])
 
     def get_name(self) -> str:
         return ".".join((self.module.__module__, self.module.__qualname__))
@@ -105,83 +87,93 @@ class Source(rx.Base):
             and name != "Config"
         ]
 
+    def _resolve_hints(self) -> dict[str, typing.Any]:
+        """Resolve type hints for the module, returning evaluated types."""
+        try:
+            return typing.get_type_hints(self.module, include_extras=True)
+        except Exception:
+            return {}
+
+    def _get_field_doc_and_type(
+        self, name, prop, resolved_hint
+    ) -> tuple[str, typing.Any]:
+        """Extract doc and resolved type from a field.
+
+        Returns:
+            (doc, resolved_type) — resolved_type is unwrapped from Annotated.
+        """
+        doc = ""
+        resolved_type = resolved_hint
+
+        # Inspect the resolved hint for Annotated metadata
+        if resolved_hint is not None:
+            inspected = inspect_annotation(
+                resolved_hint, annotation_source=AnnotationSource.CLASS
+            )
+            resolved_type = inspected.type
+            for meta in inspected.metadata:
+                if isinstance(meta, Doc):
+                    doc = meta.documentation
+                    break
+
+        # field.doc takes priority over Annotated[..., Doc()]
+        field_doc = getattr(prop, "doc", None)
+        if field_doc:
+            doc = field_doc
+
+        return doc, resolved_type
+
     def get_annotations(self, props) -> list[dict]:
         """Get a dictionary of the props and their descriptions.
 
         Returns:
             A dictionary of the props and their descriptions.
         """
-        # The output.
+        # Normalize: accept a set (e.g. __class_vars__) or a dict.
+        if isinstance(props, set):
+            props = dict.fromkeys(props)
+
+        resolved_hints = self._resolve_hints()
         out = []
 
-        comments = []
-        # Loop through the source code.
-        for i, line in enumerate(self.code):
-            # Check if we've reached the functions.
-            reached_functions = re.search("def ", line)
-            if reached_functions:
-                # We've reached the functions, so stop.
-                break
-
-            # If we've reached a docstring, clear the comments.
-            if line.strip() == '"""':
-                comments.clear()
+        for name, prop in props.items():
+            if name.startswith("_"):
                 continue
 
-            # Get comments for prop
-            if line.strip().startswith("#"):
-                comments.append(line)
-                continue
-
-            # Check if this line has a prop.
-            match = re.search("\\w+:", line)
-            if match is None:
-                # This line doesn't have a var, so continue.
-                continue
-
-            # Get the prop.
-            prop = match.group(0).strip(":")
-            if prop not in props or prop.startswith("_"):
-                # This isn't a prop, so continue.
-                comments.clear()
-                continue
-
-            prop = props[prop]
-            # redundant check just to double-check line above prop is a comment
-            assert self.code[i - 1].strip().startswith("#"), (
-                f"Expected comment, got {self.code[i - 1]}"
+            doc, resolved_type = self._get_field_doc_and_type(
+                name, prop, resolved_hints.get(name)
             )
 
-            # Get the comment for this prop.
-            comment = Source.get_comment(comments)
-            # reset comments
-            comments.clear()
-
-            # Skip private props.
-            if "PRIVATE" in comment:
+            if "PRIVATE" in doc:
                 continue
 
-            # Add the prop to the output.
             out.append(
                 {
                     "prop": prop,
-                    "description": comment,
+                    "description": doc,
+                    "resolved_type": resolved_type,
                 }
             )
 
-        # Return the output.
         return out
 
 
 def format_field(field):
     prop = field["prop"]
-    try:
-        type_ = prop.type_
-    except AttributeError:
-        type_ = prop.type
-    default = field["prop"].default
+    # Use pre-resolved type (already unwrapped from Annotated) if available
+    type_ = field.get("resolved_type")
+    if type_ is None:
+        try:
+            type_ = prop.type_
+        except AttributeError:
+            type_ = prop.type
+    default = getattr(prop, "default", dataclasses.MISSING)
     default = None if default is dataclasses.MISSING else repr(default)
-    type_str = type_.__name__ if hasattr(type_, "__name__") else str(type_)
+    # Use __name__ only for plain types (e.g. str, int), not generics (e.g. list[int])
+    if hasattr(type_, "__name__") and not typing.get_args(type_):
+        type_str = type_.__name__
+    else:
+        type_str = str(type_)
     if default:
         type_str += f" = {default}"
     return rx.code(field["prop"].name, ": ", type_str, class_name="code-style")

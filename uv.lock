@@ -2541,8 +2541,8 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.8.28.dev1"
-source = { git = "https://github.com/reflex-dev/reflex?rev=main#fe34ae8999ee83bbac091278ed7bc84e6591cd8a" }
+version = "0.9.0.dev1"
+source = { git = "https://github.com/reflex-dev/reflex?rev=implement-reflex-docgen#a3684779d0b700e15219916813ea0e51038b914b" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
@@ -2676,7 +2676,7 @@ requires-dist = [
     { name = "plotly-express" },
     { name = "psycopg", extras = ["binary"] },
     { name = "python-frontmatter" },
-    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
+    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=implement-reflex-docgen" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
     { name = "reflex-image-zoom" },
