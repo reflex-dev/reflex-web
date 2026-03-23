@@ -3,52 +3,57 @@
 from __future__ import annotations
 
 import dataclasses
-from typing import Annotated
 
 import reflex as rx
-from typing_extensions import Doc
 
 
 def test_class_doc_extraction():
-    """generate_class_documentation extracts Doc from Annotated types and unwraps the type."""
+    """generate_class_documentation extracts descriptions from docstrings."""
     from reflex_docgen import generate_class_documentation
 
     @dataclasses.dataclass
     class FakeModule:
-        """A fake module for testing."""
+        """A fake module for testing.
 
-        name: Annotated[str, Doc("The name of the thing.")]
-        count: Annotated[int, Doc("How many things.")] = 0
+        Attributes:
+            name: The name of the thing.
+            count: How many things.
+        """
+
+        name: str
+        count: int = 0
         plain: str = "hello"
 
     doc = generate_class_documentation(FakeModule)
     by_name = {f.name: f for f in doc.fields}
 
-    # Doc is extracted from Annotated metadata
+    # Description is extracted from docstring
     assert by_name["name"].description == "The name of the thing."
     assert by_name["count"].description == "How many things."
     assert by_name["plain"].description is None
 
-    # type is unwrapped (not Annotated)
     assert by_name["name"].type is str
     assert by_name["count"].type is int
     assert by_name["plain"].type is str
 
 
 def test_class_no_annotated_in_format():
-    """format_field should never produce a string containing 'Annotated'."""
+    """format_field should not produce a string containing 'Annotated'."""
     from reflex_docgen import generate_class_documentation
 
     from pcweb.pages.docs.source import format_field
 
     @dataclasses.dataclass
     class FakeModule:
-        """A fake module for testing."""
+        """A fake module for testing.
 
-        name: Annotated[str, Doc("The name.")] = "default"
-        items: Annotated[list[int], Doc("A list.")] = dataclasses.field(
-            default_factory=list
-        )
+        Attributes:
+            name: The name.
+            items: A list.
+        """
+
+        name: str = "default"
+        items: list[int] = dataclasses.field(default_factory=list)
 
     doc = generate_class_documentation(FakeModule)
 
@@ -68,14 +73,15 @@ def test_format_field_preserves_generic_subtypes():
 
     @dataclasses.dataclass
     class FakeModule:
-        """A fake module for testing."""
+        """A fake module for testing.
 
-        items: Annotated[list[int], Doc("A list of ints.")] = dataclasses.field(
-            default_factory=list
-        )
-        mapping: Annotated[dict[str, int], Doc("A mapping.")] = dataclasses.field(
-            default_factory=dict
-        )
+        Attributes:
+            items: A list of ints.
+            mapping: A mapping.
+        """
+
+        items: list[int] = dataclasses.field(default_factory=list)
+        mapping: dict[str, int] = dataclasses.field(default_factory=dict)
         plain: str = "hello"
 
     doc = generate_class_documentation(FakeModule)
@@ -98,7 +104,7 @@ def test_class_string_annotations():
     from reflex_docgen import generate_class_documentation
 
     # rx.App uses `from __future__ import annotations`, so its field types are strings.
-    # Verify we still extract docs and unwrap Annotated.
+    # Verify types are still resolved correctly.
     doc = generate_class_documentation(rx.App)
 
     for f in doc.fields:
