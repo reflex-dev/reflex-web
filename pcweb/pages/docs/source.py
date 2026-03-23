@@ -15,7 +15,7 @@ table_header_class_name = (
 
 def format_field(field: FieldDocumentation) -> rx.Component:
     type_str = field.type_display
-    if field.default:
+    if field.default is not None:
         type_str += f" = {field.default}"
     return rx.code(field.name, ": ", type_str, class_name="code-style")
 
