@@ -5,9 +5,8 @@ from __future__ import annotations
 import dataclasses
 from typing import Annotated
 
-from typing_extensions import Doc
-
 import reflex as rx
+from typing_extensions import Doc
 
 
 def test_source_annotated_doc_extraction():
@@ -113,9 +112,9 @@ def test_source_string_annotations():
 
 def test_component_props_no_annotated():
     """Component prop types should not contain 'Annotated'."""
-    from pcweb.pages.docs.component import Source
-
     from reflex.components.radix.themes.components.button import Button
+
+    from pcweb.pages.docs.component import Source
 
     s = Source(component=Button)
     props = s.get_props()
@@ -129,9 +128,9 @@ def test_component_props_no_annotated():
 
 def test_component_props_default_parsed_from_doc():
     """Default values should be parsed from 'Defaults to'/'Default:' in doc strings."""
-    from pcweb.pages.docs.component import Source
-
     from reflex.components.radix.primitives.drawer import DrawerRoot
+
+    from pcweb.pages.docs.component import Source
 
     s = Source(component=DrawerRoot)
     props = s.get_props()
