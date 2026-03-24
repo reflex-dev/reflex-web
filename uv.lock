@@ -985,6 +985,15 @@ wheels = [
 ]
 
 [[package]]
+name = "griffelib"
+version = "2.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/71/d7/2b805e89cdc609e5b304361d80586b272ef00f6287ee63de1e571b1f71ec/griffelib-2.0.1.tar.gz", hash = "sha256:59f39eabb4c777483a3823e39e8f9e03e69df271a7e49aee64e91a8cfa91bdf5", size = 166383, upload-time = "2026-03-23T21:05:25.882Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4b/4c/cc8c68196db727cfc1432f2ad5de50aa6707e630d44b2e6361dc06d8f134/griffelib-2.0.1-py3-none-any.whl", hash = "sha256:b769eed581c0e857d362fc8fcd8e57ecd2330c124b6104ac8b4c1c86d76970aa", size = 142377, upload-time = "2026-03-23T21:04:01.116Z" },
+]
+
+[[package]]
 name = "h11"
 version = "0.16.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2541,8 +2550,8 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.8.28.dev1"
-source = { git = "https://github.com/reflex-dev/reflex?rev=main#fe34ae8999ee83bbac091278ed7bc84e6591cd8a" }
+version = "0.9.0.dev1"
+source = { git = "https://github.com/reflex-dev/reflex?rev=main#64a0bc61ca516b29459d7c078bc657f024c122b5" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
@@ -2561,6 +2570,17 @@ dependencies = [
     { name = "starlette" },
     { name = "typing-extensions" },
     { name = "wrapt" },
+]
+
+[[package]]
+name = "reflex-docgen"
+version = "0.0.1"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main#64a0bc61ca516b29459d7c078bc657f024c122b5" }
+dependencies = [
+    { name = "griffelib" },
+    { name = "reflex" },
+    { name = "typing-extensions" },
+    { name = "typing-inspection" },
 ]
 
 [[package]]
@@ -2643,6 +2663,7 @@ dependencies = [
     { name = "psycopg", extra = ["binary"] },
     { name = "python-frontmatter" },
     { name = "reflex" },
+    { name = "reflex-docgen" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
     { name = "reflex-image-zoom" },
@@ -2677,6 +2698,7 @@ requires-dist = [
     { name = "psycopg", extras = ["binary"] },
     { name = "python-frontmatter" },
     { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
+    { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
     { name = "reflex-image-zoom" },
