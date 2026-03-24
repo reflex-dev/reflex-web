@@ -509,7 +509,7 @@ def navigation_menu() -> rx.Component:
                         variant="outline",
                         native_button=False,
                     ),
-                    to=f"{REFLEX_BUILD_URL.strip('/')}/cloud-login?redirect_to={REFLEX_BUILD_URL.strip('/')}/callback/",
+                    to=REFLEX_BUILD_URL,
                     target="_blank",
                 ),
                 custom_attrs={"role": "menuitem"},
