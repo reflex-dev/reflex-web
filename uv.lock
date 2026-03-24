@@ -2551,7 +2551,7 @@ wheels = [
 [[package]]
 name = "reflex"
 version = "0.9.0.dev1"
-source = { git = "https://github.com/reflex-dev/reflex?rev=implement-reflex-docgen#d953add7613bf6dbcf2947e3701140698afaa11f" }
+source = { git = "https://github.com/reflex-dev/reflex?rev=main#64a0bc61ca516b29459d7c078bc657f024c122b5" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
@@ -2575,7 +2575,7 @@ dependencies = [
 [[package]]
 name = "reflex-docgen"
 version = "0.0.1"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=implement-reflex-docgen#d953add7613bf6dbcf2947e3701140698afaa11f" }
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main#64a0bc61ca516b29459d7c078bc657f024c122b5" }
 dependencies = [
     { name = "griffelib" },
     { name = "reflex" },
@@ -2697,8 +2697,8 @@ requires-dist = [
     { name = "plotly-express" },
     { name = "psycopg", extras = ["binary"] },
     { name = "python-frontmatter" },
-    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=implement-reflex-docgen" },
-    { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=implement-reflex-docgen" },
+    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
+    { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
     { name = "reflex-image-zoom" },
