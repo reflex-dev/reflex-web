@@ -13,7 +13,6 @@ from .docs_landing import docs_landing as docs_landing
 from .errors import errors as errors
 from .faq import faq as faq
 from .framework.framework import framework as framework
-from .gallery import gallery as gallery
 from .gallery.apps import gallery_apps_routes
 from .hosting.hosting import hosting_landing as hosting_landing
 from .landing.landing import landing as landing
@@ -32,6 +31,8 @@ from .page404 import page404 as page404
 from .pricing.pricing import pricing as pricing
 from .sales import sales as sales
 from .security.security import security_page as security_page
+from .templates import templates_landing as templates_landing
+from .templates.template_details import template_details as template_details
 from .to_be_booked import to_be_booked as to_be_booked
 from .use_cases.consulting import consulting_use_case_page as consulting_use_case_page
 from .use_cases.finance import finance_use_case_page as finance_use_case_page
