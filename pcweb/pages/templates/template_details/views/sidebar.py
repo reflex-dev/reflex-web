@@ -91,7 +91,9 @@ def requirements() -> rx.Component:
             rx.foreach(
                 TemplatesState.active_template.requirements,
                 lambda requirement: rx.el.div(
-                    ui.icon("ArrowRight02Icon", class_name="text-primary-10 mt-1"),
+                    ui.icon(
+                        "ArrowRight02Icon", class_name="text-primary-10 mt-1 shrink-0"
+                    ),
                     rx.el.span(
                         requirement,
                         class_name="text-sm font-medium text-secondary-12",
@@ -112,7 +114,7 @@ def key_features() -> rx.Component:
             rx.foreach(
                 TemplatesState.active_template.key_features,
                 lambda feature: rx.el.div(
-                    ui.icon("Tick02Icon", class_name="text-primary-10 mt-1"),
+                    ui.icon("Tick02Icon", class_name="text-primary-10 mt-1 shrink-0"),
                     rx.el.span(
                         feature,
                         class_name="text-sm font-medium text-secondary-12",
