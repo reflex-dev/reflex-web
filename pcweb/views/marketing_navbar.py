@@ -19,7 +19,7 @@ from pcweb.constants import (
 from pcweb.pages.about import about_page
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data_visible
-from pcweb.pages.customers.landing import customers
+from pcweb.pages.customers import customers
 from pcweb.pages.docs import ai_builder
 from pcweb.pages.faq import faq
 from pcweb.pages.framework.framework import framework

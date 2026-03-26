@@ -1,97 +1,205 @@
 import functools
+from dataclasses import dataclass, field
 from typing import Callable
 
 import reflex as rx
+import reflex_ui as ui
+from flexdown.document import Document
 
+from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.icons.icons import get_icon
+from pcweb.components.marketing_button import button as marketing_button
 from pcweb.constants import REFLEX_ASSETS_CDN
-from pcweb.pages.framework.index_colors import index_colors
 from pcweb.route import Route
+from pcweb.templates.docpage import get_toc, right_sidebar_item_highlight
 
 
-def hero(
-    company: str,
-    description: str,
-    stats: list[dict[str, str]],
-    h1: str | None = None,
-) -> rx.Component:
-    return rx.box(
-        rx.link(
-            rx.icon(
-                tag="chevron-left",
-                stroke_width="2.25",
-                class_name="size-3.5",
+@dataclass(frozen=True)
+class CaseStudy:
+    company: str
+    description: str
+    domain: str
+    founded: str
+    document: Document
+    stats: list[dict[str, str]] = field(default_factory=list)
+    meta: list[dict[str, str]] = field(default_factory=list)
+    investors: str | None = None
+    h1: str | None = None
+
+    @property
+    def route(self) -> str:
+        return f"/customers/{self.company.lower()}"
+
+    @property
+    def title(self) -> str:
+        return f"{self.company} Case Study - Reflex Customer Stories"
+
+    @classmethod
+    def from_document(cls, document: Document) -> "CaseStudy":
+        m = document.metadata
+        return cls(
+            company=m["company"],
+            description=m["description"],
+            domain=m["domain"],
+            founded=m["founded"],
+            document=document,
+            stats=m["stats"],
+            meta=m.get("meta", []),
+            investors=m.get("investors"),
+            h1=m.get("h1"),
+        )
+
+
+def hero(study: CaseStudy) -> rx.Component:
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                rx.el.a(
+                    marketing_button(
+                        "Customers",
+                        icon="ArrowRight01Icon",
+                        native_button=False,
+                        variant="ghost",
+                        size="xs",
+                    ),
+                    to="/customers",
+                ),
+                ui.icon(
+                    "ArrowRight01Icon",
+                    class_name="text-m-slate-7 dark:text-m-slate-6",
+                ),
+                rx.el.span(
+                    study.company,
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[525]",
+                ),
+                class_name="flex items-center gap-3",
             ),
-            rx.text("Customer stories", class_name="font-small"),
-            href="/customers",
-            underline="none",
-            class_name="flex items-center gap-2 text-slate-9 hover:!text-slate-11 transition-color w-fit",
+            rx.el.h1(
+                study.h1 or study.company,
+                class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-5xl text-3xl font-[575] text-start",
+            ),
+            rx.el.h2(
+                study.description,
+                class_name="text-m-slate-7 dark:text-m-slate-6 text-base font-[475]",
+            ),
+            class_name="flex flex-col gap-6 max-w-[30rem] justify-start",
         ),
-        rx.el.h1(
-            h1 if h1 else company,
-            class_name="gradient-heading font-x-large lg:font-xx-large text-start text-transparent",
-        ),
-        rx.el.h2(description, class_name="text-slate-9 font-md-smbold"),
-        rx.box(
-            *[
-                rx.box(
-                    rx.text(stat["value"], class_name="text-slate-12 font-x-large"),
-                    rx.text(stat["metric"], class_name="text-slate-9 font-small"),
-                    class_name="flex flex-col gap-2 mt-4",
-                )
-                for stat in stats
-            ],
-            class_name="grid grid-cols-3 gap-4 lg:gap-10",
-        ),
-        class_name="flex flex-col gap-4 mb-10",
+        class_name="flex flex-row lg:px-4 max-w-(--docs-layout-max-width) w-full mx-auto py-24 border-b border-m-slate-4 dark:border-m-slate-9",
     )
 
 
-def company_card(company: str, founded: str, investors: str, url: str) -> rx.Component:
-    return rx.box(
-        # Logo
-        rx.image(
-            src=rx.color_mode_cond(
-                light=f"{REFLEX_ASSETS_CDN}customers/light/{company.lower()}/{company.lower()}_small.svg",
-                dark=f"{REFLEX_ASSETS_CDN}customers/dark/{company.lower()}/{company.lower()}_small.svg",
-            ),
-            alt=f"{company} logo",
-            loading="lazy",
-            class_name="h-[3.5rem] w-auto shrink-0 mb-2 self-start",
+def stats_cards(study: CaseStudy) -> rx.Component:
+    return rx.el.div(
+        rx.el.div(
+            *[
+                rx.el.div(
+                    rx.el.span(
+                        stat["value"],
+                        class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-6xl text-3xl font-[415] font-mono",
+                    ),
+                    rx.el.span(
+                        stat["metric"],
+                        class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[475]",
+                    ),
+                    class_name="flex flex-col gap-2",
+                )
+                for stat in study.stats
+            ],
+            class_name="grid grid-cols-3 gap-4 lg:gap-12 border-r border-m-slate-4 dark:border-m-slate-9 pt-8 pr-12",
         ),
-        # Url
-        rx.link(
-            rx.text(
-                url.split("//")[-1].split("/")[0],  # Get the domain name formatted
-                class_name="font-base truncate",
-            ),
-            rx.icon(
-                tag="arrow-up-right",
-                stroke_width="2.25",
-                class_name="size-3.5",
-            ),
-            href=url,
-            underline="none",
-            is_external=True,
-            class_name="flex flex-row items-center gap-1.5 text-slate-12 hover:!text-slate-10 transition-color",
-        ),
-        # Founded
-        rx.box(
-            rx.text("Founded", class_name="text-slate-9 font-small-smbold"),
-            rx.text(founded, class_name="text-slate-12 font-base truncate"),
-            class_name="flex flex-col",
-        ),
-        # Investors
-        rx.cond(
-            investors,
+        rx.el.div(
             rx.box(
-                rx.text("Investors", class_name="text-slate-9 font-small-smbold"),
-                rx.text(investors, class_name="text-slate-12 font-base truncate"),
-                class_name="flex flex-col",
+                rx.el.span(
+                    "Founded",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
+                ),
+                rx.el.span(
+                    study.founded,
+                    class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-base text-sm font-[415] uppercase font-mono",
+                ),
+                class_name="flex flex-col gap-1",
+            ),
+            rx.cond(
+                study.investors,
+                rx.el.div(
+                    rx.el.span(
+                        "Investors",
+                        class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
+                    ),
+                    rx.el.span(
+                        study.investors,
+                        class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-base text-xs font-[415] uppercase font-mono",
+                    ),
+                    class_name="flex flex-col gap-1",
+                ),
+            ),
+            rx.el.div(
+                rx.el.span(
+                    "Website",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
+                ),
+                rx.el.a(
+                    rx.el.span(
+                        study.domain.split("//")[-1].split("/")[0].replace("www.", ""),
+                        class_name="text-xs font-[415] uppercase font-mono",
+                    ),
+                    rx.icon(
+                        tag="arrow-up-right",
+                        stroke_width="2.25",
+                        class_name="size-3.5",
+                    ),
+                    to=study.domain,
+                    underline="none",
+                    target="_blank",
+                    class_name="flex flex-row items-center gap-1.5 underline underline-offset-1 text-m-slate-12 dark:text-m-slate-3 ",
+                ),
+                class_name="flex flex-col gap-1",
+            ),
+            class_name="flex flex-col gap-4 p-8",
+        ),
+        class_name="flex flex-row lg:px-4 max-w-(--docs-layout-max-width) w-full mx-auto border-b border-m-slate-4 dark:border-m-slate-9",
+    )
+
+
+def story_table_of_contents(toc: list, path: str, company: str) -> rx.Component:
+    """Render the table of contents sidebar for a case study page."""
+    if len(toc) < 2:
+        return rx.fragment()
+
+    return rx.el.nav(
+        rx.box(
+            rx.el.p(
+                f"Reflex X {company}",
+                class_name="text-xs h-8 flex items-center justify-start font-[415] dark:text-m-slate-3 text-m-slate-12 font-mono uppercase",
+            ),
+            rx.el.ul(
+                *[
+                    rx.el.li(
+                        rx.el.a(
+                            text,
+                            class_name=ui.cn(
+                                "text-sm font-[525] text-m-slate-7 dark:text-m-slate-6 py-1 block hover:text-m-slate-9 dark:hover:text-m-slate-5 transition-colors truncate",
+                                "pl-4" if level <= 2 else "pl-8",
+                            ),
+                            href=path + "#" + text.lower().replace(" ", "-"),
+                        ),
+                    )
+                    for level, text in toc
+                ],
+                id="toc-navigation",
+                class_name="flex flex-col gap-y-1 list-none shadow-[1.5px_0_0_0_var(--m-slate-4)_inset] dark:shadow-[1.5px_0_0_0_var(--m-slate-9)_inset]",
+            ),
+            class_name="flex flex-col justify-start gap-y-4 overflow-y-auto",
+        ),
+        on_mount=rx.call_script(right_sidebar_item_highlight()),
+        class_name=ui.cn(
+            "sticky w-[17.5rem] shrink-0 hidden xl:block self-start max-lg:hidden",
+            rx.cond(
+                HostingBannerState.is_banner_visible,
+                "top-[8.5rem]",
+                "top-[6.5rem]",
             ),
         ),
-        class_name="flex-col gap-4 w-[13rem] p-8 rounded-[1.125rem] border border-slate-3 bg-slate-2 z-[1] justify-start absolute right-[-6.5rem] top-[12rem] hidden xl:flex",
-        is_external=True,
     )
 
 
@@ -105,9 +213,8 @@ def more_customers(current_customer: str) -> rx.Component:
         c for c in customer_items if c[1].metadata.get("company") != current_customer
     ]
     if not other_customers:
-        return rx.box()  # Return an empty box if there are no other customers
+        return rx.box()
 
-    # Find the index of the current company in the original list
     current_index = next(
         (
             i
@@ -117,14 +224,12 @@ def more_customers(current_customer: str) -> rx.Component:
         0,
     )
 
-    # Get the previous and next customers
     prev_index = (current_index - 1) % len(customer_items)
     next_index = (current_index + 1) % len(customer_items)
 
     prev_customer = customer_items[prev_index]
     next_customer = customer_items[next_index]
 
-    # Ensure we're not using the current company
     while prev_customer[1].metadata.get("company") == current_customer:
         prev_index = (prev_index - 1) % len(customer_items)
         prev_customer = customer_items[prev_index]
@@ -203,94 +308,51 @@ def more_customers(current_customer: str) -> rx.Component:
     )
 
 
-def storypage(
-    path: str,
-    description: str,
-    company: str,
-    h1: str | None = None,
-    domain: str | None = None,
-    founded: str | None = None,
-    investors: str | None = None,
-    stats: list[dict[str, str]] | None = None,
-    meta: list[dict[str, str]] | None = None,
-    props=None,
-    add_as_page=True,
-) -> Callable:
-    """A template that most pages on the reflex.dev site should use.
-
-    This template wraps the webpage with the navbar and footer.
-
-    Args:
-        path: The path of the page.
-        description: The description of the page.
-        company: The company name.
-        h1: Optional H1 for the hero. Used when company name alone is too short for SEO.
-        domain: The company domain.
-        founded: The company founded date.
-        investors: The company investors.
-        stats: The company stats to show in the hero.
-        meta: Additional meta tags to add to the page.
-        props: Props to apply to the template.
-        add_as_page: whether to add the route to the app pages.
-
-    Returns:
-        A wrapper function that returns the full webpage.
-    """
-    props = props or {}
+def storypage(study: CaseStudy, add_as_page: bool = True) -> Callable:
+    """A template that wraps a case study page with navbar, hero, stats, TOC, and footer."""
+    toc_raw, _ = get_toc(study.document, study.route)
+    toc = [(level, text) for level, text in toc_raw if level <= 3]
 
     def storypage(contents: Callable[[], Route]) -> Route:
-        """Wrapper to create a templated route.
-
-        Args:
-            contents: The function to create the page route.
-
-        Returns:
-            The templated route.
-        """
-
         @functools.wraps(contents)
         def wrapper(*children, **props) -> rx.Component:
-            """The template component.
-
-            Args:
-                children: The children components.
-                props: The props to apply to the component.
-
-            Returns:
-                The component with the template applied.
-            """
-            # Import here to avoid circular imports.
-            from pcweb.pages.framework.views.divider import divider
             from pcweb.pages.framework.views.footer_index import footer_index
             from pcweb.views.marketing_navbar import marketing_navbar
 
-            # Wrap the component in the template.
-            return rx.box(
-                rx.box(
-                    index_colors(),
-                    marketing_navbar(),
-                    company_card(company, founded, investors, domain),
-                    rx.el.main(
-                        hero(company, description, stats, h1),
-                        contents(*children, **props),
-                        more_customers(company),
-                        rx.box(class_name="flex-grow"),
-                        class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
+            return rx.el.div(
+                marketing_navbar(),
+                rx.el.main(
+                    rx.el.div(
+                        hero(study),
+                        stats_cards(study),
+                        rx.el.div(
+                            rx.el.div(
+                                contents(*children, **props),
+                                class_name="flex flex-col gap-4 flex-1 max-w-2xl",
+                            ),
+                            story_table_of_contents(toc, study.route, study.company),
+                            class_name="flex flex-row gap-24 max-w-(--docs-layout-max-width) mx-auto w-full lg:py-24 py-12 max-lg:px-6 justify-between",
+                        ),
+                        footer_index(),
+                        class_name="flex flex-col relative justify-center items-center w-full",
                     ),
-                    rx.box(class_name="h-[1px] bg-slate-3 w-full"),
-                    class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pt-24 lg:pt-48",
+                    class_name=ui.cn(
+                        "flex flex-col w-full relative h-full justify-center items-center",
+                        rx.cond(
+                            HostingBannerState.is_banner_visible,
+                            "mt-28",
+                            "mt-16",
+                        ),
+                    ),
                 ),
-                divider(),
-                footer_index(),
-                class_name="relative overflow-hidden flex flex-col justify-center items-center w-full",
-                **props,
+                class_name="flex flex-col w-full justify-center items-center relative dark:bg-m-slate-12 bg-m-slate-1",
             )
 
         return Route(
-            path=path,
-            title=company + " Case Study - Reflex Customer Stories",
-            description=description,
-            meta=meta,
+            path=study.route,
+            title=study.title,
+            description=study.description,
+            meta=study.meta,
             component=wrapper,
             add_as_page=add_as_page,
         )

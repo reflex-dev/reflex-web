@@ -1,0 +1,15 @@
+from pcweb.pages.customers.views.book_a_demo import book_a_demo
+from pcweb.pages.customers.views.companies import companies
+from pcweb.pages.customers.views.customer_cards import customer_cards
+from pcweb.pages.customers.views.customers_list import customers_list
+from pcweb.pages.customers.views.hero import hero
+from pcweb.pages.customers.views.stats import stats
+
+__all__ = [
+    "book_a_demo",
+    "companies",
+    "customer_cards",
+    "customers_list",
+    "hero",
+    "stats",
+]
