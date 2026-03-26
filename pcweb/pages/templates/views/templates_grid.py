@@ -65,7 +65,7 @@ def image_text_placeholder() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src=f"{REFLEX_ASSETS_CDN}/logos/{rx.color_mode_cond(light='light', dark='dark')}/reflex.svg",
+                src=f"{REFLEX_ASSETS_CDN.strip('/')}/logos/{rx.color_mode_cond(light='light', dark='dark')}/reflex.svg",
                 class_name="h-3.5 lg:h-5 w-auto opacity-70 dark:opacity-85 group-hover:scale-105 duration-200 ease-out",
                 alt="Logo",
             ),
@@ -100,7 +100,7 @@ def template_card(template: Template) -> rx.Component:
             ),
             rx.el.span(
                 template.description,
-                class_name="text-secondary-10 text-sm font-medium mb-4",
+                class_name="text-secondary-10 text-sm font-medium mb-4 line-clamp-3",
             ),
             rx.el.div(
                 rx.foreach(
