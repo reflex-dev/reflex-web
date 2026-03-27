@@ -78,9 +78,7 @@ EXCLUDED_COMPONENTS = [
 
 def render_select(prop: PropDocumentation, component: type[Component], prop_dict: dict):
     if (
-        not safe_issubclass(
-            component, (RadixThemesComponent, RadixPrimitiveComponent)
-        )
+        not safe_issubclass(component, (RadixThemesComponent, RadixPrimitiveComponent))
         or component.__name__ in EXCLUDED_COMPONENTS
     ):
         return rx.fragment()
@@ -248,11 +246,13 @@ def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
         ),
     )
 
+
 def safe_issubclass(cls, class_or_tuple):
     try:
         return issubclass(cls, class_or_tuple)
     except TypeError:
         return False
+
 
 def prop_docs(
     prop: PropDocumentation,
