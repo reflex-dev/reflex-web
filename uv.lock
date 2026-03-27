@@ -634,7 +634,7 @@ wheels = [
 
 [[package]]
 name = "flexdown"
-version = "0.2.6"
+version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mistletoe" },
@@ -642,9 +642,9 @@ dependencies = [
     { name = "reflex" },
     { name = "ruff-format" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a3/86/f2859c3da724a07c40c015ddafefd8f33b83ee69060a3a26a37c5052504e/flexdown-0.2.6.tar.gz", hash = "sha256:cd32404beaf847f72bee3736fa6583e13cd5a361f91d1b032c96bcbbc49bcc1f", size = 101500, upload-time = "2026-03-20T22:40:42.351Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d4/72/1468206a948500ab05443ff3b289fc86effc75bfc083e4a9eeb55fd91973/flexdown-0.3.0.tar.gz", hash = "sha256:7bb818e9772926b42f9cbd70a3319e848a8f9eb8e4b56d1a65a1d8cb3f360d88", size = 101531, upload-time = "2026-03-27T17:25:02.27Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b9/4b/3cad4f3625734350cffd496b022a0bde0cecb65e2ea4b1dbf88a2e2a8b33/flexdown-0.2.6-py3-none-any.whl", hash = "sha256:54094f703010b202d84f8e338f8d80a6f48aad157ce1b2bea09733f45945cb40", size = 25081, upload-time = "2026-03-20T22:40:41.295Z" },
+    { url = "https://files.pythonhosted.org/packages/ad/c3/0752c56ccbdb270f13fe9f89fd3cb68b2e4d8a3b39b09f15a476b2130158/flexdown-0.3.0-py3-none-any.whl", hash = "sha256:174e0ab611f6c7fdc61e84cc35b3c29971f23d86931ac9a14917ab797977dc71", size = 25304, upload-time = "2026-03-27T17:25:01.4Z" },
 ]
 
 [[package]]
