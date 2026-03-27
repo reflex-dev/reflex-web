@@ -185,6 +185,22 @@ def page(document, route) -> rx.Component:
     toc = [(level, text) for level, text in toc if level <= 3]
     page_url = f"{REFLEX_URL.strip('/')}{route}"
 
+    # Extract keywords from meta tags list if present.
+    keywords_list = None
+    for tag in meta.get("meta", []):
+        if tag.get("name") == "keywords":
+            keywords_list = [
+                k.strip() for k in tag.get("content", "").split(",") if k.strip()
+            ]
+            break
+
+    # Compute word count from the document content.
+    word_count = (
+        len(document.content.split())
+        if hasattr(document, "content") and document.content
+        else None
+    )
+
     jsonld_script = blog_jsonld(
         title=meta["title"],
         description=meta["description"],
@@ -195,6 +211,8 @@ def page(document, route) -> rx.Component:
         faq=meta.get("faq"),
         author_bio=meta.get("author_bio"),
         updated_at=str(meta["updated_at"]) if meta.get("updated_at") else None,
+        word_count=word_count,
+        keywords=keywords_list,
     )
 
     return rx.el.section(
@@ -234,7 +252,7 @@ def page(document, route) -> rx.Component:
                 ),
                 rx.el.header(
                     rx.el.h1(
-                        meta.get("title_tag") or meta["title"],
+                        meta["title"],
                         class_name="lg:text-5xl text-3xl text-m-slate-12 dark:text-m-slate-3 font-[575] mb-6 text-center text-balance",
                     ),
                     rx.el.h2(
