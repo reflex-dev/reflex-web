@@ -216,10 +216,12 @@ def state_tracking_example():
 Create dynamic draggable lists using `rx.foreach`:
 
 ```python demo exec
+import dataclasses
 import reflex as rx
 import reflex_enterprise as rxe
 
-class ListItem(rx.Base):
+@dataclasses.dataclass
+class ListItem:
     id: str
     text: str
     list_id: str
