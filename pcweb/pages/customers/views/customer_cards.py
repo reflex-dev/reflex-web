@@ -17,8 +17,14 @@ class CustomerCard(TypedDict):
 CUSTOMERS: list[CustomerCard] = [
     {
         "name": doc.metadata["company"],
-        "header": doc.metadata["card_header"],
-        "description": doc.metadata["card_description"],
+        "header": doc.metadata.get(
+            "card_header",
+            doc.metadata.get("h1", doc.metadata["company"]),
+        ),
+        "description": doc.metadata.get(
+            "card_description",
+            doc.metadata.get("description", ""),
+        ),
         "url": f"/customers/{doc.metadata['company'].lower().replace(' ', '-')}",
     }
     for doc in customer_data.values()

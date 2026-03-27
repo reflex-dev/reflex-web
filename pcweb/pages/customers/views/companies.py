@@ -50,7 +50,7 @@ filter_tab_cs = ClientStateVar.create(
 )
 
 
-def tab_item(tab: str) -> rx.Component:
+def tab_item(tab: FilterTab) -> rx.Component:
     active_cn = " shadow-[0_-1px_0_0_rgba(0,0,0,0.08)_inset,0_0_0_1px_rgba(0,0,0,0.08)_inset,0_1px_2px_0_rgba(0,0,0,0.02),0_1px_4px_0_rgba(0,0,0,0.02)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.16)_inset] bg-white dark:bg-m-slate-10 hover:bg-m-slate-2 dark:hover:bg-m-slate-9 text-m-slate-12 dark:text-m-slate-3"
     unactive_cn = " hover:text-m-slate-12 dark:hover:text-m-slate-3 text-m-slate-7 dark:text-m-slate-6"
     return rx.el.button(
