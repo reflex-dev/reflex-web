@@ -139,6 +139,8 @@ def blog_jsonld(
     faq: list[dict[str, str]] | None = None,
     author_bio: str | None = None,
     updated_at: str | None = None,
+    word_count: int | None = None,
+    keywords: list[str] | None = None,
 ) -> rx.Component:
     """Create a single JSON-LD script tag with @graph for a blog post.
 
@@ -155,10 +157,15 @@ def blog_jsonld(
         "description": description,
         "image": to_cdn_image_url(image),
         "datePublished": str(date),
+        "url": url,
         "author": author_node,
     }
     if updated_at:
         posting["dateModified"] = str(updated_at)
+    if word_count:
+        posting["wordCount"] = word_count
+    if keywords:
+        posting["keywords"] = keywords
 
     graph: list[dict] = [
         {
