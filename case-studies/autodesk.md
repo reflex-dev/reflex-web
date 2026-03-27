@@ -1,5 +1,7 @@
 ---
 company: Autodesk
+card_header: "How Autodesk saved 25% of their development time"
+card_description: "Learn how Autodesk leveraged Reflex to streamline their internal tools development, cutting build time by 25% while maintaining enterprise-grade reliability."
 description: "Streamlining Complex Workflows: Why Autodesk Chose Reflex Over Streamlit for Scalable, Python-Based Solutions"
 domain: "https://autodesk.com"
 founded: "San Francisco, 1982"
@@ -130,6 +132,7 @@ The team was able to:
 ```md quote
 - name: Paolo
 - role: Principal Implementation Consultant
+- variant: medium
 I am able to wear all the caps at once: Solution Architecture, UI/UX, front-end and back-end.
 ```
 
@@ -183,5 +186,6 @@ Paolo and his team have now worked on three other projects for different custome
 ```md quote
 - name: Paolo
 - role: Principal Implementation Consultant
+- variant: medium
 Everything I was able to accomplish was because of the framework and unparalleled support and promptness of the Reflex team.
 ```

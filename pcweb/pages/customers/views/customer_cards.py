@@ -4,41 +4,24 @@ import reflex as rx
 
 from pcweb.components.marketing_button import button as marketing_button
 from pcweb.constants import REFLEX_ASSETS_CDN
+from pcweb.pages.customers.data.customers import customer_data
 
 
 class CustomerCard(TypedDict):
     name: str
-    quote: str
-    company: str
-    logo: str
+    header: str
+    description: str
     url: str
 
 
 CUSTOMERS: list[CustomerCard] = [
     {
-        "name": "Bayesline",
-        "header": "Why Bayesline chose Reflex over Plotly Dash",
-        "description": "Discover how Bayesline built a robust Python web application aimed at creating scalable risk models and data visualizations.",
-        "url": "https://www.bayesline.com",
-    },
-    {
-        "name": "Autodesk",
-        "header": "How Autodesk saved 25% of their development time",
-        "description": "Learn how Autodesk leveraged Reflex to streamline their internal tools development, cutting build time by 25% while maintaining enterprise-grade reliability.",
-        "url": "https://www.autodesk.com",
-    },
-    {
-        "name": "Ansa",
-        "header": "How Ansa saved 100 hours of manual work a month with Reflex",
-        "description": "See how Ansa automated their fintech workflows with Reflex, eliminating 100 hours of repetitive manual work per month and accelerating their operations.",
-        "url": "https://www.ansa.com",
-    },
-    {
-        "name": "SellerX",
-        "header": "Why SellerX chose Reflex over Streamlit",
-        "description": "Find out why SellerX migrated from Streamlit to Reflex to power their e-commerce analytics platform with greater flexibility and performance.",
-        "url": "https://www.sellerx.com",
-    },
+        "name": doc.metadata["company"],
+        "header": doc.metadata["card_header"],
+        "description": doc.metadata["card_description"],
+        "url": f"/customers/{doc.metadata['company'].lower().replace(' ', '-')}",
+    }
+    for doc in customer_data.values()
 ]
 
 
@@ -54,11 +37,11 @@ def customer_card(customer: CustomerCard) -> rx.Component:
                 ),
                 rx.el.h3(
                     customer["header"],
-                    class_name="text-m-slate-12 dark:text-m-slate-3 text-2xl font-[575]",
+                    class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-2xl text-xl font-[575]",
                 ),
                 rx.el.p(
                     customer["description"],
-                    class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[475]",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 lg:text-sm text-xs font-[475]",
                 ),
                 marketing_button(
                     "Learn more",
@@ -89,10 +72,10 @@ def customer_card(customer: CustomerCard) -> rx.Component:
                 ),
                 class_name="flex flex-col border-l border-t border-m-slate-4 dark:border-m-slate-9 rounded-tl-xl w-full bg-white-1 dark:bg-m-slate-11 [box-shadow:0_0_0_1px_rgba(0,_0,_0,_0.06),_0_8px_24px_rgba(0,_0,_0,_0.06),_0_24px_48px_rgba(0,_0,_0,_0.04)] dark:shadow-none",
             ),
-            class_name="list-inside flex flex-row gap-12 lg:pl-8 lg:pt-8 pl-6 pt-6 relative rounded-xl bg-white-1 dark:bg-m-slate-11 w-full overflow-hidden h-[25rem] cursor-pointer border border-black/10 dark:border-white/10 [box-shadow:0_6px_12px_0_rgba(0,_0,_0,_0.06),_0_1px_1px_0_rgba(0,_0,_0,_0.01),_0_4px_6px_0_rgba(0,_0,_0,_0.02)] dark:shadow-none after:absolute after:inset-0 after:rounded-xl after:pointer-events-none after:[box-shadow:0_0_0_1px_rgba(0,_0,_0,_0.08)_inset] dark:after:[box-shadow:0_0_0_1px_rgba(255,_255,_255,_0.06)_inset]",
+            class_name="list-inside flex flex-row lg:gap-12 gap-4 lg:pl-8 lg:pt-8 pl-6 pt-6 relative rounded-xl bg-white-1 dark:bg-m-slate-11 w-full overflow-hidden h-[25rem] cursor-pointer border border-black/10 dark:border-white/10 [box-shadow:0_6px_12px_0_rgba(0,_0,_0,_0.06),_0_1px_1px_0_rgba(0,_0,_0,_0.01),_0_4px_6px_0_rgba(0,_0,_0,_0.02)] dark:shadow-none xl:w-[42rem] w-full",
         ),
         to=customer["url"],
-        class_name="-m-px",
+        class_name="-m-px h-[25rem] min-w-[42rem]",
     )
 
 
@@ -109,19 +92,20 @@ def customer_cards() -> rx.Component:
                 )
                 for customer in CUSTOMERS
             ],
-            class_name="flex flex-col",
+            class_name="flex flex-col border-x border-m-slate-4 dark:border-m-slate-9",
+        ),
+        rx.el.div(class_name="border-t border-m-slate-4 dark:border-m-slate-9 h-12"),
+        rx.el.div(
+            class_name="absolute -top-12 right-0 w-px h-24 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-9 max-lg:hidden"
         ),
         rx.el.div(
-            class_name="absolute -top-12 -right-px w-px h-12 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+            class_name="absolute -top-12 left-0 w-px h-24 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-9 max-lg:hidden"
         ),
         rx.el.div(
-            class_name="absolute -top-12 -left-px w-px h-12 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+            class_name="absolute bottom-0 right-0 w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-9 max-lg:hidden"
         ),
         rx.el.div(
-            class_name="absolute -bottom-24 -right-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+            class_name="absolute bottom-0 left-0 w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-9 max-lg:hidden"
         ),
-        rx.el.div(
-            class_name="absolute -bottom-24 -left-px w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
-        ),
-        class_name="flex flex-col w-full max-w-[42rem] ml-auto border-x border-m-slate-4 dark:border-m-slate-9 mt-12 border-b mb-24 relative",
+        class_name="flex flex-col w-full xl:max-w-[42rem] xl:ml-auto mt-12 pb-12 relative max-lg:overflow-hidden",
     )

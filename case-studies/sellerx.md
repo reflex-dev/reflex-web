@@ -1,5 +1,7 @@
 ---
 company: SellerX
+card_header: "Why SellerX chose Reflex over Streamlit"
+card_description: "Find out why SellerX migrated from Streamlit to Reflex to power their e-commerce analytics platform with greater flexibility and performance."
 description: "Why SellerX chose Reflex over Streamlit for their data processing pipeline. Building scalable e-commerce analytics and internal tools with Python."
 domain: "https://sellerx.com"
 founded: "Berlin, 2020"
@@ -141,6 +143,7 @@ The app that Mike and his team built with Reflex has been a huge success. It is 
 ```md quote
 - name: Mike
 - role: Head of AI
+- variant: medium
 A team of 6 non-technical employees use the app to make decisions based on Amazon information. It is allowing this team to be significantly more efficient and structured in the way they work and they are very happy with the improvements in speed. This team is now able to review 5x more Amazon data than their previous approach.
 ```
 
@@ -156,6 +159,7 @@ We are moving significantly faster, which has been very very useful. To have a q
 ```md quote
 - name: Mike
 - role: Head of AI
+- variant: medium
 With Reflex it is ten times faster than developing with React and FastApi.
 ```
 

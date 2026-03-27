@@ -23,24 +23,24 @@ class Company:
 
 
 companies_list: list[Company] = [
-    Company(name="apple", filters=(FilterTab.SAAS,)),
-    Company(name="microsoft", filters=(FilterTab.AI, FilterTab.DATA)),
+    Company(name="apple", filters=(FilterTab.AI, FilterTab.DATA)),
+    Company(name="microsoft", filters=(FilterTab.AI, FilterTab.DATA, FilterTab.SAAS)),
     Company(name="amazon", filters=(FilterTab.AI, FilterTab.DATA, FilterTab.SAAS)),
-    Company(name="fastly", filters=(FilterTab.AUTH, FilterTab.SAAS)),
-    Company(name="accenture", filters=(FilterTab.DATA,)),
+    Company(name="fastly", filters=(FilterTab.DATA, FilterTab.SAAS)),
+    Company(name="accenture", filters=(FilterTab.AI, FilterTab.DATA)),
     Company(name="ibm", filters=(FilterTab.AI, FilterTab.DATA)),
     Company(name="unicef", filters=(FilterTab.DATA,)),
-    Company(name="autodesk", filters=(FilterTab.AI,)),
+    Company(name="autodesk", filters=(FilterTab.AI, FilterTab.SAAS)),
     Company(name="sellerx", filters=(FilterTab.AI, FilterTab.DATA)),
-    Company(name="ford", filters=(FilterTab.DATA,)),
-    Company(name="paloalto", filters=(FilterTab.AUTH,)),
-    Company(name="bosch", filters=(FilterTab.DATA,)),
+    Company(name="ford", filters=(FilterTab.AI, FilterTab.DATA)),
+    Company(name="paloalto", filters=(FilterTab.AUTH, FilterTab.AI, FilterTab.DATA)),
+    Company(name="bosch", filters=(FilterTab.AI, FilterTab.DATA)),
     Company(name="dell", filters=(FilterTab.DATA, FilterTab.SAAS)),
-    Company(name="twilio", filters=(FilterTab.AUTH, FilterTab.SAAS)),
-    Company(name="rappi", filters=(FilterTab.DATA,)),
+    Company(name="twilio", filters=(FilterTab.AUTH, FilterTab.DATA, FilterTab.SAAS)),
+    Company(name="rappi", filters=(FilterTab.AI, FilterTab.DATA)),
     Company(name="theworldbank", filters=(FilterTab.DATA,)),
-    Company(name="redhat", filters=(FilterTab.SAAS,)),
-    Company(name="nike", filters=(FilterTab.DATA,)),
+    Company(name="redhat", filters=(FilterTab.DATA, FilterTab.SAAS)),
+    Company(name="nike", filters=(FilterTab.AI, FilterTab.DATA)),
 ]
 
 
@@ -126,10 +126,10 @@ def companies() -> rx.Component:
             ),
             rx.el.div(
                 rx.el.div(
-                    class_name="absolute -top-24 left-0 w-px h-24 bg-gradient-to-t from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+                    class_name="absolute -top-24 left-0 w-px h-24 bg-gradient-to-t from-current to-transparent text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
                 ),
                 rx.el.div(
-                    class_name="absolute -top-24 right-0 w-px h-24 bg-gradient-to-t from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+                    class_name="absolute -top-24 right-0 w-px h-24 bg-gradient-to-t from-current to-transparent text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
                 ),
                 rx.el.div(
                     class_name="absolute top-0 -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
@@ -144,10 +144,10 @@ def companies() -> rx.Component:
                     class_name="absolute bottom-0 -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
                 ),
                 rx.el.div(
-                    class_name="absolute -bottom-24 left-0 w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+                    class_name="absolute -bottom-24 left-0 w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
                 ),
                 rx.el.div(
-                    class_name="absolute -bottom-24 right-0 w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+                    class_name="absolute -bottom-24 right-0 w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
                 ),
                 rx.el.div(
                     *[
@@ -162,5 +162,5 @@ def companies() -> rx.Component:
             ),
             class_name="flex flex-col justify-center items-center gap-16 max-w-(--docs-layout-max-width) relative mx-auto",
         ),
-        class_name="bg-gradient-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 w-full lg:mb-24 mb-10 max-lg:hidden",
+        class_name="bg-gradient-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 w-full lg:mb-24 mb-10 max-lg:hidden overflow-hidden",
     )
