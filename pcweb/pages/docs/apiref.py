@@ -8,7 +8,6 @@ from .source import generate_docs
 
 modules = [
     rx.App,
-    rx.Base,
     rx.Component,
     rx.ComponentState,
     (rx.Config, rx.config.BaseConfig),
