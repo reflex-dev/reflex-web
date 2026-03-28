@@ -78,14 +78,12 @@ EXCLUDED_COMPONENTS = [
 
 def render_select(prop: PropDocumentation, component: type[Component], prop_dict: dict):
     if (
-        not rx.utils.types._issubclass(
-            component, (RadixThemesComponent, RadixPrimitiveComponent)
-        )
+        not safe_issubclass(component, (RadixThemesComponent, RadixPrimitiveComponent))
         or component.__name__ in EXCLUDED_COMPONENTS
     ):
         return rx.fragment()
     try:
-        type_ = rx.utils.types.get_args(prop.type)[0]
+        type_ = get_args(prop.type)[0]
     except Exception:
         return rx.fragment()
 
@@ -249,6 +247,13 @@ def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
     )
 
 
+def safe_issubclass(cls, class_or_tuple):
+    try:
+        return issubclass(cls, class_or_tuple)
+    except TypeError:
+        return False
+
+
 def prop_docs(
     prop: PropDocumentation,
     prop_dict: dict,
@@ -258,9 +263,10 @@ def prop_docs(
     """Generate the docs for a prop."""
     # Get the type of the prop.
     type_ = prop.type
-    if rx.utils.types._issubclass(prop.type, rx.Var):
+    origin = get_origin(type_)
+    if safe_issubclass(origin, rx.Var):
         # For vars, get the type of the var.
-        type_ = rx.utils.types.get_args(type_)[0]
+        type_ = get_args(type_)[0]
 
     origin = get_origin(type_)
     args = get_args(type_)
@@ -448,7 +454,7 @@ def generate_props(
     prop_dict = {}
 
     is_interactive = True
-    if not rx.utils.types._issubclass(
+    if not issubclass(
         component, (RadixThemesComponent, RadixPrimitiveComponent)
     ) or component.__name__ in [
         "Theme",
