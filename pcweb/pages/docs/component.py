@@ -83,7 +83,7 @@ def render_select(prop: PropDocumentation, component: type[Component], prop_dict
     ):
         return rx.fragment()
     try:
-        type_ = rx.utils.types.get_args(prop.type)[0]
+        type_ = get_args(prop.type)[0]
     except Exception:
         return rx.fragment()
 
@@ -264,7 +264,7 @@ def prop_docs(
     # Get the type of the prop.
     type_ = prop.type
     origin = get_origin(type_)
-    if safe_issubclass(prop.type, rx.Var):
+    if safe_issubclass(origin, rx.Var):
         # For vars, get the type of the var.
         type_ = get_args(type_)[0]
 
