@@ -2529,8 +2529,8 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.9.0a0.post24.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.9.0a0.post9.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
@@ -2565,8 +2565,8 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-code"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-code&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-code&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "reflex-components-core" },
     { name = "reflex-components-lucide" },
@@ -2575,8 +2575,8 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-core"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-core&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-core&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "python-multipart" },
     { name = "reflex-components-lucide" },
@@ -2587,26 +2587,26 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-dataeditor"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-dataeditor&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-dataeditor&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "reflex-components-core" },
 ]
 
 [[package]]
 name = "reflex-components-gridjs"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-gridjs&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-gridjs&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 
 [[package]]
 name = "reflex-components-lucide"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-lucide&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-lucide&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 
 [[package]]
 name = "reflex-components-markdown"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-markdown&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-markdown&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "reflex-components-code" },
     { name = "reflex-components-core" },
@@ -2615,21 +2615,21 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-moment"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-moment&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-moment&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 
 [[package]]
 name = "reflex-components-plotly"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-plotly&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-plotly&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "reflex-components-core" },
 ]
 
 [[package]]
 name = "reflex-components-radix"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-radix&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-radix&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "reflex-components-core" },
     { name = "reflex-components-lucide" },
@@ -2637,29 +2637,29 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-react-player"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-react-player&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-react-player&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "reflex-components-core" },
 ]
 
 [[package]]
 name = "reflex-components-recharts"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-recharts&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-recharts&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 
 [[package]]
 name = "reflex-components-sonner"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-sonner&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-sonner&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "reflex-components-lucide" },
 ]
 
 [[package]]
 name = "reflex-core"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-core&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-core&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "packaging" },
     { name = "platformdirs" },
@@ -2670,8 +2670,8 @@ dependencies = [
 
 [[package]]
 name = "reflex-docgen"
-version = "0.0.0.post2937.dev0+0ad1472d"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=expose-docs-through-reflex-docgen#0ad1472d478bf769ea6c0ae536248d32bdb98854" }
+version = "0.0.0.post2922.dev0+4e5e2271"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main#4e5e2271d8efe7b5614a144cd160d023e4a610d1" }
 dependencies = [
     { name = "griffelib" },
     { name = "mistletoe" },
@@ -2796,8 +2796,8 @@ requires-dist = [
     { name = "plotly-express" },
     { name = "psycopg", extras = ["binary"] },
     { name = "python-frontmatter" },
-    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=expose-docs-through-reflex-docgen" },
-    { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=expose-docs-through-reflex-docgen" },
+    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
+    { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
     { name = "reflex-image-zoom" },
