@@ -2,7 +2,6 @@ import sys
 from pathlib import Path
 
 import pytest
-from reflex.testing import AppHarness
 
 # Add tests directory to Python path for absolute imports
 sys.path.insert(0, str(Path(__file__).parent))
@@ -22,6 +21,8 @@ def reflex_web_app():
             "/docs/api-reference/special-events",
         ]
     )
+
+    from reflex.testing import AppHarness
 
     with AppHarness.create(root=app_root) as harness:
         yield harness

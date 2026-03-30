@@ -1,6 +1,12 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
 from playwright.sync_api import Page, expect
-from reflex.testing import AppHarness
+
+if TYPE_CHECKING:
+    from reflex.testing import AppHarness
 from utils import get_full_url
 
 
