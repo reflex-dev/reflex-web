@@ -216,6 +216,7 @@ def page(document, route) -> rx.Component:
     )
 
     return rx.el.section(
+        rx.el.link(rel="canonical", href=page_url),
         jsonld_script,
         rx.el.article(
             rx.el.div(
