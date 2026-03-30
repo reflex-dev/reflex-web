@@ -124,6 +124,7 @@ def render_select(prop: PropDocumentation, component: type[Component], prop_dict
                 for arg in type_.__args__
                 if get_origin(arg) is Literal
                 for lit_arg in arg.__args__
+                if str(lit_arg) != ""
             ]
             option = literal_values[0]
             name = get_id(f"{component.__qualname__}_{prop.name}")
@@ -144,8 +145,9 @@ def render_select(prop: PropDocumentation, component: type[Component], prop_dict
                 value=var,
                 on_change=setter,
             )
-    # Get the first option.
-    option = type_.__args__[0]
+    # Get the first non-empty option.
+    non_empty_args = [a for a in type_.__args__ if str(a) != ""]
+    option = non_empty_args[0] if non_empty_args else type_.__args__[0]
     name = get_id(f"{component.__qualname__}_{prop.name}")
     PropDocsState.add_var(name, str, option)
     var = getattr(PropDocsState, name)
@@ -208,6 +210,7 @@ def render_select(prop: PropDocumentation, component: type[Component], prop_dict
                         ),
                     )
                     for item in list(map(str, type_.__args__))
+                    if item != ""
                 ]
             ),
         ),
