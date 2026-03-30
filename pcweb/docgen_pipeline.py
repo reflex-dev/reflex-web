@@ -1,13 +1,13 @@
 """Pipeline for rendering reflex-shipped docs via reflex_docgen.markdown."""
 
-import importlib
-import importlib.util
-import shutil
 import sys
+import types
 from pathlib import Path
 
 import reflex as rx
+from reflex_core.constants.colors import ColorType
 from reflex_docgen.markdown import (
+    Block,
     CodeBlock,
     DirectiveBlock,
     Document,
@@ -38,6 +38,7 @@ from reflex_docgen.markdown.transformer import DocumentTransformer
 
 from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.templates.docpage.blocks.code import code_block
+from pcweb.templates.docpage.blocks.collapsible import collapsible_box
 from pcweb.templates.docpage.blocks.demo import docdemo, docdemobox, docgraphing
 from pcweb.templates.docpage.blocks.headings import (
     h1_comp_xd,
@@ -57,48 +58,47 @@ from pcweb.templates.docpage.blocks.typography import (
 # Exec environment — mirrors flexdown's module-based exec mechanism
 # ---------------------------------------------------------------------------
 
-_MODULE_DIR = Path(__file__).resolve().parent / "_docgen_modules"
-_files: dict[str, list[str]] = {}
+# One in-memory module per file — all exec blocks within a doc accumulate
+# into the same namespace, so later definitions shadow earlier ones cleanly.
+_file_modules: dict[str, types.ModuleType] = {}
+
+# Register the parent package so pickle can resolve child modules.
+_PARENT_PKG = "_docgen_exec"
+if _PARENT_PKG not in sys.modules:
+    _pkg = types.ModuleType(_PARENT_PKG)
+    _pkg.__path__ = []  # package needs __path__ for submodule imports
+    _pkg.__package__ = _PARENT_PKG
+    sys.modules[_PARENT_PKG] = _pkg
 
 
-def _get_id(content: str) -> str:
-    import hashlib
+def _make_module_name(filename: str) -> str:
+    """Create a valid Python module name from a filepath."""
+    import re
 
-    return "m_" + hashlib.sha256(content.encode()).hexdigest()[:16]
+    slug = re.sub(r"[^a-zA-Z0-9]", "_", filename)
+    return f"{_PARENT_PKG}.{slug}"
 
 
 def _exec_code(content: str, env: dict, filename: str) -> None:
-    """Execute a ``python exec`` code block, updating *env* in place."""
-    _MODULE_DIR.mkdir(parents=True, exist_ok=True)
+    """Execute a ``python exec`` code block via an in-memory module.
 
-    per_file = _files.setdefault(filename, [])
-    mod_name_base = _get_id(content + filename + str(len(per_file)))
-    mod_path = _MODULE_DIR / f"{mod_name_base}.py"
+    All exec blocks within the same file share one module so that State
+    subclass redefinitions shadow correctly.
+    """
+    if filename not in _file_modules:
+        mod_name = _make_module_name(filename)
+        module = types.ModuleType(mod_name)
+        module.__package__ = _PARENT_PKG
+        sys.modules[mod_name] = module
+        setattr(sys.modules[_PARENT_PKG], mod_name.split(".")[-1], module)
+        _file_modules[filename] = module
 
-    if per_file:
-        prev = f"pcweb._docgen_modules.{per_file[-1]}"
-        content = f"from {prev} import *\n\n" + content
-    mod_path.write_text(content + "\n")
-    per_file.append(mod_name_base)
+    module = _file_modules[filename]
+    module.__dict__.update(env)
 
-    mod_full = f"pcweb._docgen_modules.{mod_name_base}"
-    if mod_full in sys.modules:
-        raise RuntimeError(f"{mod_full} already imported from {filename}")
+    exec(compile(content, filename or "<docgen-exec>", "exec"), module.__dict__)
 
-    spec = importlib.util.spec_from_file_location(mod_full, str(mod_path))
-    if not spec or not spec.loader:
-        return
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[mod_full] = module
-    spec.loader.exec_module(module)
-    env.update(vars(module))
-
-
-def _clear_modules(filename: str | None = None) -> None:
-    if filename is not None:
-        _files.pop(filename, None)
-    if _MODULE_DIR.exists():
-        shutil.rmtree(_MODULE_DIR)
+    env.update(module.__dict__)
 
 
 # ---------------------------------------------------------------------------
@@ -114,7 +114,9 @@ def _render_spans(spans: tuple[Span, ...]) -> list[rx.Component | str]:
             case TextSpan(text=text):
                 out.append(text)
             case BoldSpan(children=children):
-                out.append(rx.text(rx.text.strong(*_render_spans(children)), as_="span"))
+                out.append(
+                    rx.text(rx.text.strong(*_render_spans(children)), as_="span")
+                )
             case ItalicSpan(children=children):
                 out.append(rx.text(rx.text.em(*_render_spans(children)), as_="span"))
             case StrikethroughSpan(children=children):
@@ -143,7 +145,12 @@ def _spans_to_plaintext(spans: tuple[Span, ...]) -> str:
         match span:
             case TextSpan(text=text):
                 parts.append(text)
-            case BoldSpan(children=children) | ItalicSpan(children=children) | StrikethroughSpan(children=children) | LinkSpan(children=children):
+            case (
+                BoldSpan(children=children)
+                | ItalicSpan(children=children)
+                | StrikethroughSpan(children=children)
+                | LinkSpan(children=children)
+            ):
                 parts.append(_spans_to_plaintext(children))
             case CodeSpan(code=code):
                 parts.append(code)
@@ -173,8 +180,6 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
     # ------------------------------------------------------------------
 
     def transform(self, document: Document) -> rx.Component:
-        _clear_modules(self.filename)
-
         if document.frontmatter is not None:
             # Populate env with component preview metadata.
             for preview in document.frontmatter.component_previews:
@@ -221,20 +226,25 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
         flags = set(block.flags)
         language = block.language or "plain"
 
-        # ``python exec`` — execute code, produce nothing visible.
+        # ``python demo`` or ``python demo exec``
+        if language == "python" and "demo" in flags:
+            return self._render_demo(block.content, flags)
+
+        # ``python demo-only`` or ``python demo-only exec``
+        if language == "python" and "demo-only" in flags:
+            return self._render_demo_only(block.content, flags)
+
+        # ``python exec`` only — execute code, produce nothing visible.
         if language == "python" and "exec" in flags:
             _exec_code(block.content, self.env, self.filename)
             return rx.fragment()
 
-        # ``python demo`` — execute or eval, then show code + component.
-        if language == "python" and "demo" in flags:
-            return self._render_demo(block.content, flags)
+        # ``python eval`` (standalone) — eval and return the component directly.
+        if language == "python" and "eval" in flags:
+            return eval(block.content, self.env, self.env)
 
-        # ``python demo-only`` — like demo but no code display.
-        if language == "python" and "demo-only" in flags:
-            return self._render_demo_only(block.content, flags)
+        # Regular code block (includes unknown flags like ``python box``).
 
-        # Regular code block.
         return code_block(code=block.content, language=language)
 
     def directive(self, block: DirectiveBlock) -> rx.Component:
@@ -246,9 +256,14 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
                 return self._render_video(block)
             case "quote":
                 return self._render_quote_directive(block)
+            case "tabs":
+                return self._render_tabs(block)
+            case "definition":
+                return self._render_definition(block)
+            case "section":
+                return self._render_section(block)
             case _:
-                # Fallback: render content as text.
-                return text_comp(text=block.content)
+                return self._render_children(block.children)
 
     def list_block(self, block: ListBlock) -> rx.Component:
         items = [self.transform_list_item(item) for item in block.items]
@@ -256,13 +271,22 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
             return rx.list.ordered(*items, class_name="mb-6")
         return rx.list.unordered(*items, class_name="mb-6")
 
+    @staticmethod
+    def _list_item_from_spans(spans: tuple[Span, ...]) -> rx.Component:
+        """Render a list item, preserving inline code/links when present."""
+        if all(isinstance(s, TextSpan) for s in spans):
+            return list_comp(text=_spans_to_plaintext(spans))
+        return rx.list_item(
+            *_render_spans(spans),
+            class_name="font-[475] text-m-slate-8 dark:text-m-slate-6 mb-4",
+        )
+
     def transform_list_item(self, item: ListItem) -> rx.Component:
         children: list[rx.Component] = []
         for child_block in item.children:
             match child_block:
                 case TextBlock(children=spans):
-                    text = _spans_to_plaintext(spans)
-                    children.append(list_comp(text=text))
+                    children.append(self._list_item_from_spans(spans))
                 case _:
                     children.append(self.transform_block(child_block))
         if len(children) == 1:
@@ -354,25 +378,31 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
             if flag.startswith("id="):
                 comp_id = flag.split("=", 1)[1]
 
-        if "exec" in flags:
-            _exec_code(content, self.env, self.filename)
-            comp = self.env[list(self.env.keys())[-1]]()
-        elif "graphing" in flags:
-            _exec_code(content, self.env, self.filename)
-            comp = self.env[list(self.env.keys())[-1]]()
-            parts = content.rpartition("def")
-            data, code = parts[0], parts[1] + parts[2]
-            return docgraphing(code, comp=comp, data=data)
-        elif "box" in flags:
-            comp = eval(content, self.env, self.env)  # noqa: S307
-            return rx.box(docdemobox(comp), margin_bottom="1em", id=comp_id)
-        else:
-            comp = eval(content, self.env, self.env)  # noqa: S307
+        try:
+            if "exec" in flags:
+                _exec_code(content, self.env, self.filename)
+                comp = self.env[list(self.env.keys())[-1]]()
+            elif "graphing" in flags:
+                _exec_code(content, self.env, self.filename)
+                comp = self.env[list(self.env.keys())[-1]]()
+                parts = content.rpartition("def")
+                data, code = parts[0], parts[1] + parts[2]
+                return docgraphing(code, comp=comp, data=data)
+            elif "box" in flags:
+                comp = eval(content, self.env, self.env)
+                return rx.box(docdemobox(comp), margin_bottom="1em", id=comp_id)
+            else:
+                comp = eval(content, self.env, self.env)
+        except Exception as e:
+            e.add_note(
+                f"While rendering demo block in {self.filename}:\n{content[:200]}"
+            )
+            raise
 
         demobox_props: dict = {}
         for flag in flags:
             k, sep, v = flag.partition("=")
-            if sep and k not in ("id",):
+            if sep and k != "id":
                 demobox_props[k] = v
         if "toggle" in flags:
             demobox_props["toggle"] = True
@@ -386,40 +416,71 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
             if flag.startswith("id="):
                 comp_id = flag.split("=", 1)[1]
 
-        if "exec" in flags:
-            _exec_code(content, self.env, self.filename)
-            comp = self.env[list(self.env.keys())[-1]]()
-        elif "graphing" in flags:
-            _exec_code(content, self.env, self.filename)
-            comp = self.env[list(self.env.keys())[-1]]()
-            parts = content.rpartition("def")
-            data, code = parts[0], parts[1] + parts[2]
-            return docgraphing(code, comp=comp, data=data)
-        elif "box" in flags:
-            comp = eval(content, self.env, self.env)  # noqa: S307
-        else:
-            comp = eval(content, self.env, self.env)  # noqa: S307
+        try:
+            if "exec" in flags:
+                _exec_code(content, self.env, self.filename)
+                comp = self.env[list(self.env.keys())[-1]]()
+            elif "graphing" in flags:
+                _exec_code(content, self.env, self.filename)
+                comp = self.env[list(self.env.keys())[-1]]()
+                parts = content.rpartition("def")
+                data, code = parts[0], parts[1] + parts[2]
+                return docgraphing(code, comp=comp, data=data)
+            elif "box" in flags:
+                comp = eval(content, self.env, self.env)
+            else:
+                comp = eval(content, self.env, self.env)
+        except Exception as e:
+            e.add_note(
+                f"While rendering demo-only block in {self.filename}:\n{content[:200]}"
+            )
+            raise
 
         return rx.box(comp, margin_bottom="1em", id=comp_id)
+
+    def _render_children(self, blocks: tuple[Block, ...]) -> rx.Component:
+        """Render a sequence of parsed blocks into a single component."""
+        rendered = [self.transform_block(b) for b in blocks]
+        return rx.fragment(*rendered) if len(rendered) != 1 else rendered[0]
+
+    def _split_children_by_heading(
+        self, blocks: tuple[Block, ...]
+    ) -> list[tuple[str, tuple[Block, ...]]]:
+        """Split directive children into (title, blocks) by top-level headings.
+
+        Only headings matching the level of the first heading are used as
+        section delimiters — deeper headings stay inside their section.
+        """
+        split_level: int | None = None
+        sections: list[tuple[str, list[Block]]] = []
+        for child in blocks:
+            if isinstance(child, HeadingBlock):
+                if split_level is None:
+                    split_level = child.level
+                if child.level == split_level:
+                    sections.append((_spans_to_plaintext(child.children), []))
+                    continue
+            if sections:
+                sections[-1][1].append(child)
+        return [(title, tuple(body)) for title, body in sections]
 
     def _render_alert(self, block: DirectiveBlock) -> rx.Component:
         """Render a ``md alert`` directive."""
         status = block.args[0] if block.args else "info"
-        colors = {
+        colors: dict[str, ColorType] = {
             "info": "accent",
             "success": "grass",
             "warning": "amber",
             "error": "red",
         }
-        color = colors.get(status, "blue")
+        color: ColorType = colors.get(status, "blue")
 
-        lines = block.content.splitlines()
-        if lines and lines[0].startswith("#"):
-            title = lines[0].lstrip("#").strip()
-            content = "\n".join(lines[1:])
-        else:
-            title = ""
-            content = block.content
+        # First child may be a heading used as the alert title.
+        children = block.children
+        title_spans: tuple[Span, ...] = ()
+        if children and isinstance(children[0], HeadingBlock):
+            title_spans = children[0].children
+            children = children[1:]
 
         icon_map = {
             "info": "info",
@@ -429,21 +490,52 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
         }
         icon_tag = icon_map.get(status, "info")
 
-        return rx.box(
+        def title_comp() -> rx.Component:
+            return rx.box(
+                *_render_spans(title_spans),
+                class_name="font-[475]",
+                color=f"{rx.color(color, 11)}",
+            )
+
+        trigger: list[rx.Component] = [
+            rx.box(
+                rx.icon(tag=icon_tag, size=18, margin_right=".5em"),
+                color=f"{rx.color(color, 11)}",
+            ),
+        ]
+
+        if children:
+            # Has body content — render as collapsible accordion.
+            if title_spans:
+                trigger.append(title_comp())
+                body = rx.accordion.content(
+                    self._render_children(children),
+                    padding="0px",
+                    margin_top="16px",
+                )
+            else:
+                trigger.append(
+                    rx.box(
+                        self._render_children(children),
+                        class_name="font-[475]",
+                        color=f"{rx.color(color, 11)}",
+                    ),
+                )
+                body = rx.fragment()
+            return collapsible_box(trigger, body, color)
+
+        # Title only, no body — simple box.
+        trigger.append(title_comp())
+        return rx.vstack(
             rx.hstack(
-                rx.icon(tag=icon_tag, size=18, color=rx.color(color, 11)),
-                rx.text(
-                    title or content.strip(),
-                    class_name="font-[475]",
-                    color=rx.color(color, 11),
-                ),
+                *trigger,
                 align_items="center",
-                spacing="2",
-                padding=["16px", "24px"],
                 width="100%",
+                spacing="1",
+                padding=["16px", "24px"],
             ),
             border=f"1px solid {rx.color(color, 4)}",
-            background_color=rx.color(color, 3),
+            background_color=f"{rx.color(color, 3)}",
             border_radius="12px",
             margin_bottom="16px",
             margin_top="16px",
@@ -451,12 +543,19 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
         )
 
     def _render_video(self, block: DirectiveBlock) -> rx.Component:
-        """Render a ``md video`` directive."""
+        """Render a ``md video`` directive — accordion-wrapped."""
         url = block.args[0] if block.args else ""
-        lines = block.content.splitlines()
-        title = lines[0].lstrip("#").strip() if lines and lines[0].startswith("#") else "Video"
-        return rx.box(
-            rx.text(title, class_name="font-[475] text-slate-11 mb-2"),
+        # First child heading is the video title.
+        children = block.children
+        title = "Video Description"
+        if children and isinstance(children[0], HeadingBlock):
+            title = _spans_to_plaintext(children[0].children)
+
+        color: ColorType = "blue"
+        trigger = [
+            rx.text(title, class_name="font-[475]", color=f"{rx.color(color, 11)}"),
+        ]
+        body = rx.accordion.content(
             rx.video(
                 src=url,
                 width="100%",
@@ -464,26 +563,34 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
                 border_radius="10px",
                 overflow="hidden",
             ),
-            class_name="my-4",
+            margin_top="16px",
+            padding="0px",
         )
+        return collapsible_box(trigger, body, color, item_border_radius="0px")
 
     def _render_quote_directive(self, block: DirectiveBlock) -> rx.Component:
         """Render a ``md quote`` directive."""
-        lines = block.content.splitlines()
-        quote_text: list[str] = []
+        quote_parts: list[rx.Component | str] = []
         name = ""
         role = ""
-        for line in lines:
-            if line.startswith("- name:"):
-                name = line.split(":", 1)[1].strip()
-            elif line.startswith("- role:"):
-                role = line.split(":", 1)[1].strip()
-            else:
-                quote_text.append(line)
+        for child in block.children:
+            if isinstance(child, TextBlock):
+                quote_parts.extend(_render_spans(child.children))
+            elif isinstance(child, ListBlock):
+                for item in child.items:
+                    for sub in item.children:
+                        if isinstance(sub, TextBlock):
+                            text = _spans_to_plaintext(sub.children)
+                            if text.startswith("name:"):
+                                name = text.split(":", 1)[1].strip()
+                            elif text.startswith("role:"):
+                                role = text.split(":", 1)[1].strip()
 
         return rx.box(
             rx.text(
-                f'"{" ".join(quote_text).strip()}"',
+                '"',
+                *quote_parts,
+                '"',
                 class_name="text-slate-11 font-base italic",
             ),
             rx.box(
@@ -494,53 +601,97 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
             class_name="flex flex-col gap-4 border-l-[3px] border-slate-4 pl-6 mt-2 mb-6",
         )
 
+    def _render_tabs(self, block: DirectiveBlock) -> rx.Component:
+        """Render a ``md tabs`` directive. Sections split by ``##`` headings."""
+        sections = self._split_children_by_heading(block.children)
+        triggers = []
+        contents = []
+        for i, (title, body_blocks) in enumerate(sections):
+            value = f"tab{i + 1}"
+            triggers.append(
+                rx.tabs.trigger(
+                    title,
+                    value=value,
+                    class_name="tab-style font-base font-semibold text-[1.25rem]",
+                )
+            )
+            contents.append(
+                rx.tabs.content(self._render_children(body_blocks), value=value),
+            )
+
+        return rx.tabs.root(
+            rx.tabs.list(*triggers, class_name="mt-4"),
+            *contents,
+            default_value="tab1",
+        )
+
+    def _render_definition(self, block: DirectiveBlock) -> rx.Component:
+        """Render a ``md definition`` directive."""
+        from pcweb.templates.docpage.blocks.typography import definition
+
+        sections = self._split_children_by_heading(block.children)
+        defs = [
+            definition(title, self._render_children(body)) for title, body in sections
+        ]
+        return rx.fragment(
+            rx.mobile_only(rx.vstack(*defs)),
+            rx.tablet_and_desktop(
+                rx.grid(
+                    *[rx.box(d) for d in defs],
+                    columns="2",
+                    width="100%",
+                    gap="1rem",
+                    margin_bottom="1em",
+                )
+            ),
+        )
+
+    def _render_section(self, block: DirectiveBlock) -> rx.Component:
+        """Render a ``md section`` directive."""
+        from pcweb.styles.colors import c_color
+
+        sections = self._split_children_by_heading(block.children)
+        return rx.box(
+            rx.vstack(
+                *[
+                    rx.fragment(
+                        rx.text(
+                            rx.text.span(header, font_weight="bold"),
+                            width="100%",
+                        ),
+                        rx.box(self._render_children(body), width="100%"),
+                    )
+                    for header, body in sections
+                ],
+                text_align="left",
+                margin_y="1em",
+                width="100%",
+            ),
+            border_left=f"1.5px {c_color('slate', 4)} solid",
+            padding_left="1em",
+            width="100%",
+            align_items="center",
+        )
+
 
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 
-def render_docgen_document(filepath: str | Path) -> rx.Component:
-    """Parse and render a doc file from the reflex package using reflex_docgen.
-
-    Args:
-        filepath: Absolute path to the .md file.
-
-    Returns:
-        A Reflex component tree for the document content.
-    """
+def _parse_doc(filepath: str | Path) -> Document:
     source = Path(filepath).read_text(encoding="utf-8")
-    doc = parse_document(source)
+    return parse_document(source)
+
+
+def render_docgen_document(filepath: str | Path) -> rx.Component:
+    """Parse and render a doc file from the reflex package using reflex_docgen."""
+    doc = _parse_doc(filepath)
     transformer = ReflexDocTransformer(filename=str(filepath))
     return transformer.transform(doc)
 
 
-def get_docgen_toc(filepath: str | Path) -> list[dict]:
-    """Extract table-of-contents headings from a reflex-package doc.
-
-    Args:
-        filepath: Absolute path to the .md file.
-
-    Returns:
-        A list of dicts with 'text' and 'level' keys.
-    """
-    source = Path(filepath).read_text(encoding="utf-8")
-    doc = parse_document(source)
-    return [
-        {"text": _spans_to_plaintext(h.children), "level": h.level}
-        for h in doc.headings
-    ]
-
-
-def get_docgen_frontmatter(filepath: str | Path) -> FrontMatter | None:
-    """Extract frontmatter from a reflex-package doc.
-
-    Args:
-        filepath: Absolute path to the .md file.
-
-    Returns:
-        The FrontMatter, or None.
-    """
-    source = Path(filepath).read_text(encoding="utf-8")
-    doc = parse_document(source)
-    return doc.frontmatter
+def get_docgen_toc(filepath: str | Path) -> list[tuple[int, str]]:
+    """Extract TOC headings as (level, text) tuples — same format as flexdown's get_toc."""
+    doc = _parse_doc(filepath)
+    return [(h.level, _spans_to_plaintext(h.children)) for h in doc.headings]

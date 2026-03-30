@@ -11,7 +11,7 @@ from flexdown.document import Document
 from reflex_pyplot import pyplot as pyplot
 
 from pcweb.constants import REFLEX_ASSETS_CDN
-from pcweb.docgen_pipeline import render_docgen_document
+from pcweb.docgen_pipeline import get_docgen_toc, render_docgen_document
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.pages.library_previews import components_previews_pages
@@ -217,7 +217,10 @@ def load_flexdown_doc(actual_path: str) -> Document:
 
 
 def handle_library_doc(
-    doc: str, actual_path: str, title: str, resolved: ResolvedDoc,
+    doc: str,
+    actual_path: str,
+    title: str,
+    resolved: ResolvedDoc,
 ):
     """Handle docs/library/** docs — component API reference via multi_docs."""
     d = load_flexdown_doc(actual_path)
@@ -230,7 +233,10 @@ def handle_library_doc(
         outblocks.append((d, resolved.route))
         return None
     return multi_docs(
-        path=resolved.route, comp=d, component_list=clist, title=resolved.display_title,
+        path=resolved.route,
+        comp=d,
+        component_list=clist,
+        title=resolved.display_title,
     )
 
 
@@ -268,8 +274,9 @@ def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
         return handle_library_doc(virtual_doc, actual_path, title, resolved)
 
     def comp(_actual=actual_path):
+        toc = get_docgen_toc(_actual)
         rendered = render_docgen_document(_actual)
-        return ([], rendered)
+        return (toc, rendered)
 
     return make_docpage(resolved.route, resolved.display_title, virtual_doc, comp)
 
@@ -296,6 +303,7 @@ for api_route in apiref_pages:
 for ref in cloud_cliref_pages:
     title = rx.utils.format.to_snake_case(ref.title)
     build_nested_namespace(docs_ns, ["cloud"], title, ref)
+
 
 def register_doc(virtual_doc: str, comp):
     """Register a doc into the namespace, doc_routes, and recipes_list."""
