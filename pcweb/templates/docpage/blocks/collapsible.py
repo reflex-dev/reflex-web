@@ -22,9 +22,7 @@ def collapsible_box(
                         rx.hstack(
                             *trigger_children,
                             rx.spacer(),
-                            rx.accordion.icon(
-                                color=f"{rx.color(color, 11)}"
-                            ),
+                            rx.accordion.icon(color=f"{rx.color(color, 11)}"),
                             align_items="center",
                             justify_content="left",
                             text_align="left",
