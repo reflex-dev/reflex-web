@@ -188,6 +188,7 @@ def render_select(prop: PropDocumentation, component: type[Component], prop_dict
                             class_name="relative shrink-0 rounded-md size-8 cursor-pointer",
                         )
                         for color in list(map(str, type_.__args__))
+                        if color != ""
                     ],
                     columns="6",
                     spacing="3",
