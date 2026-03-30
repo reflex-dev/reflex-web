@@ -1,12 +1,8 @@
 """Test utilities for reflex-web tests."""
 
-from __future__ import annotations
-
-from typing import TYPE_CHECKING
 from urllib.parse import urljoin
 
-if TYPE_CHECKING:
-    from reflex.testing import AppHarness
+from reflex.testing import AppHarness
 
 
 def get_full_url(app_harness: AppHarness, path: str) -> str:
