@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+
 import reflex as rx
-from reflex.base import Base
 
 
-class SideBarBase(Base):
+@dataclass(kw_only=True)
+class SideBarBase:
     """Base class for the Side bar."""
 
     # The name to display in the sidebar.
@@ -18,7 +20,7 @@ class SideBarBase(Base):
     link: str = ""
 
     # The children items.
-    children: list[SideBarItem] = []
+    children: list[SideBarItem] = field(default_factory=list)
 
     # Whether the item is a category. Occurs if a single item is at the top level of the sidebar for aesthetics.
     outer = False

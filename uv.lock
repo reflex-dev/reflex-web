@@ -2564,7 +2564,7 @@ dependencies = [
 
 [[package]]
 name = "reflex-enterprise"
-version = "0.6.4"
+version = "0.6.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiproxy" },
@@ -2573,9 +2573,9 @@ dependencies = [
     { name = "psutil" },
     { name = "reflex" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2f/51/ef82746c384687d4c71f44be2294c40e4da0be35d546b45d5b14bd03203e/reflex_enterprise-0.6.4.tar.gz", hash = "sha256:1e84f97d9b4cf9a275304f164898cd9208c34176e5771b1765ea842c42611afb", size = 390702, upload-time = "2026-03-18T17:41:26.158Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/03/64/9e77e5a4cf021daab98468f8a9612af586793502b37e69c8f8d313a16121/reflex_enterprise-0.6.5.tar.gz", hash = "sha256:6d219e7a4a345cc6495a2a90c78a9eb34add3e58121f73534988f428af2c04a9", size = 390599, upload-time = "2026-03-27T19:40:46.814Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5b/74/79533d03f79ca498893f9f98faa12084423a4c1af69a715d62ed394f95c8/reflex_enterprise-0.6.4-py3-none-any.whl", hash = "sha256:ac9dab9031872c4fe391d2e881a9306ce983c2cb7532a10711ac3c0fc0add9c2", size = 216259, upload-time = "2026-03-18T17:41:27.584Z" },
+    { url = "https://files.pythonhosted.org/packages/ac/90/6e75bee88db1b84e750e4ff62a42839218eecf66d0129f8c87046836317c/reflex_enterprise-0.6.5-py3-none-any.whl", hash = "sha256:6aba8bd5becf73b5dccf3a90d14f4309d7da5003ebdf99d144fe8db9aa8cdec1", size = 216180, upload-time = "2026-03-27T19:40:48.155Z" },
 ]
 
 [[package]]
