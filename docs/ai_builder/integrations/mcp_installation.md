@@ -22,6 +22,16 @@ The Reflex MCP server uses OAuth 2.1 protocol for secure authentication. You'll 
 
 ## IDE and Coding Assistant Integration
 
+### Claude Code
+
+Add the Reflex MCP server to Claude Code by running:
+
+```bash
+claude mcp add --transport http reflex https://mcp.reflex.dev/mcp
+```
+
+Then authenticate by running the `/mcp` command inside Claude Code and following the login steps in your browser. Authentication tokens are stored securely and refreshed automatically. See the [Claude Code MCP documentation](https://code.claude.com/docs/en/mcp) for more details.
+
 ### Claude Desktop
 
 Add the Reflex MCP server to your Claude Desktop configuration by editing your configuration file:

@@ -121,12 +121,15 @@ def create_meta_tags(
     page_url = url if url else REFLEX_DOMAIN_URL
     image_url = to_cdn_image_url(image) if image else ""
 
-    return _build_meta_tags(
-        title=title,
-        description=description,
-        image=image_url,
-        url=page_url,
-    )
+    return [
+        *_build_meta_tags(
+            title=title,
+            description=description,
+            image=image_url,
+            url=page_url,
+        ),
+        rx.el.link(rel="canonical", href=page_url),
+    ]
 
 
 def blog_jsonld(
