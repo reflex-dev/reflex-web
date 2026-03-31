@@ -1,4 +1,5 @@
 import reflex as rx
+from reflex.istate.manager import StateManager
 from reflex.utils.imports import ImportVar
 from reflex_docgen import generate_class_documentation
 
@@ -16,7 +17,7 @@ modules = [
     rx.event.EventSpec,
     rx.Model,
     # rx.testing.AppHarness,
-    rx.state.StateManager,
+    StateManager,
     # rx.state.BaseState,
     rx.State,
     ImportVar,

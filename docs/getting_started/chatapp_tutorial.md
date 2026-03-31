@@ -4,15 +4,6 @@ import os
 import reflex as rx
 import openai
 
-from pcweb.constants import CHAT_APP_URL
-from pcweb import constants
-from pcweb.pages.docs import components
-from pcweb.pages.docs import styling
-from pcweb.pages.docs import library
-from pcweb.pages.docs import events
-from pcweb.pages.docs import state
-from pcweb.pages.docs import hosting
-
 from docs.getting_started import chat_tutorial_style as style
 from docs.getting_started.chat_tutorial_utils import ChatappState
 
@@ -26,7 +17,7 @@ if "OPENAI_API_KEY" not in os.environ:
 
 This tutorial will walk you through building an AI chat app with Reflex. This app is fairly complex, but don't worry - we'll break it down into small steps.
 
-You can find the full source code for this app [here]({CHAT_APP_URL}).
+You can find the full source code for this app [here](https://github.com/reflex-dev/reflex-chat).
 
 ### What You'll Learn
 
@@ -36,9 +27,6 @@ In this tutorial you'll learn how to:
 2. Create components to define and style your UI.
 3. Use state to add interactivity to your app.
 4. Deploy your app to share with others.
-
-
-
 
 ## Setting up Your Project
 
@@ -53,7 +41,7 @@ We will start by creating a new project and setting up our development environme
 ~ $ cd chatapp
 ```
 
-Next, we will create a virtual environment for our project. This is optional, but recommended. In this example, we will use [venv]({constants.VENV_URL}) to create our virtual environment.
+Next, we will create a virtual environment for our project. This is optional, but recommended. In this example, we will use [venv](https://docs.python.org/3/library/venv.html) to create our virtual environment.
 
 ```bash
 chatapp $ python3 -m venv venv
@@ -63,7 +51,6 @@ $ source venv/bin/activate
 Now, we will install Reflex and create a new project. This will create a new directory structure in our project directory.
 
 > **Note:** When prompted to select a template, choose option 0 for a blank project.
-
 
 ```bash
 chatapp $ pip install reflex
@@ -77,6 +64,7 @@ assets          chatapp         rxconfig.py     venv
 ```python eval
 rx.box(height="20px")
 ```
+
 You can run the template app to make sure everything is working.
 
 ```bash
@@ -97,12 +85,9 @@ Reflex also starts the backend server which handles all the state management and
 
 Now that we have our project set up, in the next section we will start building our app!
 
-
-
-
 ## Basic Frontend
 
-Let's start with defining the frontend for our chat app. In Reflex, the frontend can be broken down into independent, reusable components. See the [components docs]({components.props.path}) for more information.
+Let's start with defining the frontend for our chat app. In Reflex, the frontend can be broken down into independent, reusable components. See the [components docs](/docs/components/props) for more information.
 
 ### Display A Question And Answer
 
@@ -150,7 +135,7 @@ app.add_page(index)
 
 Components can be nested inside each other to create complex layouts. Here we create a parent container that contains two boxes for the question and answer.
 
-We also add some basic styling to the components. Components take in keyword arguments, called [props]({components.props.path}), that modify the appearance and functionality of the component. We use the `text_align` prop to align the text to the left and right.
+We also add some basic styling to the components. Components take in keyword arguments, called [props](/docs/components/props), that modify the appearance and functionality of the component. We use the `text_align` prop to align the text to the left and right.
 
 ### Reusing Components
 
@@ -212,7 +197,7 @@ def index() -> rx.Component:
 
 ### Chat Input
 
-Now we want a way for the user to input a question. For this, we will use the [input]({library.forms.input.path}) component to have the user add text and a [button]({library.forms.button.path}) component to submit the question.
+Now we want a way for the user to input a question. For this, we will use the [input](/docs/library/forms/input) component to have the user add text and a [button](/docs/library/forms/button) component to submit the question.
 
 ```python exec
 def action_bar() -> rx.Component:
@@ -245,7 +230,7 @@ def index() -> rx.Component:
 
 ### Styling
 
-Let's add some styling to the app. More information on styling can be found in the [styling docs]({styling.overview.path}). To keep our code clean, we will move the styling to a separate file `chatapp/style.py`.
+Let's add some styling to the app. More information on styling can be found in the [styling docs](/docs/styling/overview). To keep our code clean, we will move the styling to a separate file `chatapp/style.py`.
 
 ```python
 # style.py
@@ -360,14 +345,9 @@ app.add_page(index)
 
 The app is looking good, but it's not very useful yet! In the next section, we will add some functionality to the app.
 
-
-
-
-
-
 ## State
 
-Now let’s make the chat app interactive by adding state. The state is where we define all the variables that can change in the app and all the functions that can modify them. You can learn more about state in the [state docs]({state.overview.path}).
+Now let’s make the chat app interactive by adding state. The state is where we define all the variables that can change in the app and all the functions that can modify them. You can learn more about state in the [state docs](/docs/state/overview).
 
 ### Defining State
 
@@ -456,9 +436,9 @@ def action_bar() -> rx.Component:
     )
 ```
 
-Normal Python `for` loops don't work for iterating over state vars because these values can change and aren't known at compile time. Instead, we use the [foreach]({library.dynamic_rendering.foreach.path}) component to iterate over the chat history.
+Normal Python `for` loops don't work for iterating over state vars because these values can change and aren't known at compile time. Instead, we use the [foreach](/docs/library/dynamic-rendering/foreach) component to iterate over the chat history.
 
-We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one. Learn more in the [events docs]({events.setters.path}) under the Setters section.
+We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one. Learn more in the [events docs](/docs/events/setters) under the Setters section.
 
 ### Clearing the Input
 
@@ -509,7 +489,7 @@ def answer(self):
 
 ### Streaming Text
 
-Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [yield events docs]({events.yield_events.path}) for more info.
+Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [yield events docs](/docs/events/yield_events) for more info.
 
 ```python exec
 def action_bar3() -> rx.Component:
@@ -555,8 +535,6 @@ async def answer(self):
 
 In the next section, we will finish our chatbot by adding AI!
 
-
-
 ## Final App
 
 We will use OpenAI's API to give our chatbot some intelligence.
@@ -565,6 +543,7 @@ We will use OpenAI's API to give our chatbot some intelligence.
 
 First, ensure you have an active OpenAI subscription.
 Next, install the latest openai package:
+
 ```bash
 pip install --upgrade openai
 ```
@@ -592,7 +571,6 @@ Making your chatbot intelligent requires connecting to a language model API. Thi
 1. First, the user types a prompt that is updated via the `on_change` event handler.
 2. Next, when a prompt is ready, the user can choose to submit it by clicking the `Ask` button which in turn triggers the `State.answer` method inside our `state.py` file.
 3. Finally, if the method is triggered, the `prompt` is sent via a request to OpenAI client and returns an answer that we can trim and use to update the chat history!
-
 
 ```python
 # chatapp.py
@@ -723,7 +701,6 @@ app = rx.App()
 app.add_page(index)
 ```
 
-
 The `state.py` file:
 
 ```python
@@ -764,7 +741,6 @@ class State(rx.State):
                 yield
 ```
 
-
 The `style.py` file:
 
 ```python
@@ -797,11 +773,10 @@ input_style = dict(border_width="1px", padding="0.5em", box_shadow=shadow, width
 button_style = dict(background_color=rx.color("accent", 10), box_shadow=shadow)
 ```
 
-
 ### Next Steps
 
 Congratulations! You have built your first chatbot. From here, you can read through the rest of the documentations to learn about Reflex in more detail. The best way to learn is to build something, so try to build your own app using this as a starting point!
 
 ### One More Thing
 
-With our hosting service, you can deploy this app with a single command within minutes. Check out our [Hosting Quick Start]({hosting.deploy_quick_start.path}).
+With our hosting service, you can deploy this app with a single command within minutes. Check out our [Hosting Quick Start](https://reflex.dev/docs/hosting/deploy-quick-start/).
