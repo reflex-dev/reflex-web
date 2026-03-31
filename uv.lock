@@ -2529,8 +2529,8 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.9.0a0.post13.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.9.0a0.post13.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "alembic" },
     { name = "click" },
@@ -2565,8 +2565,8 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-code"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-code&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-code&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "reflex-components-core" },
     { name = "reflex-components-lucide" },
@@ -2575,8 +2575,8 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-core"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-core&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-core&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "python-multipart" },
     { name = "reflex-components-lucide" },
@@ -2587,26 +2587,26 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-dataeditor"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-dataeditor&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-dataeditor&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "reflex-components-core" },
 ]
 
 [[package]]
 name = "reflex-components-gridjs"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-gridjs&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-gridjs&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 
 [[package]]
 name = "reflex-components-lucide"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-lucide&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-lucide&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 
 [[package]]
 name = "reflex-components-markdown"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-markdown&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-markdown&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "reflex-components-code" },
     { name = "reflex-components-core" },
@@ -2615,21 +2615,21 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-moment"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-moment&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-moment&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 
 [[package]]
 name = "reflex-components-plotly"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-plotly&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-plotly&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "reflex-components-core" },
 ]
 
 [[package]]
 name = "reflex-components-radix"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-radix&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-radix&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "reflex-components-core" },
     { name = "reflex-components-lucide" },
@@ -2637,29 +2637,29 @@ dependencies = [
 
 [[package]]
 name = "reflex-components-react-player"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-react-player&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-react-player&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "reflex-components-core" },
 ]
 
 [[package]]
 name = "reflex-components-recharts"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-recharts&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-recharts&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 
 [[package]]
 name = "reflex-components-sonner"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-sonner&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-components-sonner&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "reflex-components-lucide" },
 ]
 
 [[package]]
 name = "reflex-core"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-core&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-core&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "packaging" },
     { name = "platformdirs" },
@@ -2670,8 +2670,8 @@ dependencies = [
 
 [[package]]
 name = "reflex-docgen"
-version = "0.0.0.post2926.dev0+c6debf42"
-source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=remove-all-pcweb-references-from-the-docs#c6debf42219858de31a6c493769283810d6e62fd" }
+version = "0.0.0.post2926.dev0+bbb02193"
+source = { git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main#bbb0219365c02bfa0f34fe028f2a8458952453b0" }
 dependencies = [
     { name = "griffelib" },
     { name = "mistletoe" },
@@ -2796,8 +2796,8 @@ requires-dist = [
     { name = "plotly-express" },
     { name = "psycopg", extras = ["binary"] },
     { name = "python-frontmatter" },
-    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=remove-all-pcweb-references-from-the-docs" },
-    { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=remove-all-pcweb-references-from-the-docs" },
+    { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
+    { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
     { name = "reflex-image-zoom" },
