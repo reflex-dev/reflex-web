@@ -134,7 +134,7 @@ def docs_sidebar_drawer(sidebar: rx.Component, trigger) -> rx.Component:
                     sidebar,
                     class_name="relative flex flex-col w-full",
                 ),
-                class_name="!top-[4rem] flex-col !bg-slate-1 rounded-[24px_24px_0px_0px] w-full h-full !outline-none",
+                class_name="!top-[4rem] flex-col !bg-secondary-1 rounded-[24px_24px_0px_0px] w-full h-full !outline-none",
             ),
         ),
     )
