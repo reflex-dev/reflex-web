@@ -114,11 +114,9 @@ def _render_spans(spans: tuple[Span, ...]) -> list[rx.Component | str]:
             case TextSpan(text=text):
                 out.append(text)
             case BoldSpan(children=children):
-                out.append(
-                    rx.text(rx.text.strong(*_render_spans(children)), as_="span")
-                )
+                out.append(rx.el.strong(*_render_spans(children)))
             case ItalicSpan(children=children):
-                out.append(rx.text(rx.text.em(*_render_spans(children)), as_="span"))
+                out.append(rx.el.em(*_render_spans(children)))
             case StrikethroughSpan(children=children):
                 inner = "".join(
                     c if isinstance(c, str) else "" for c in _render_spans(children)
@@ -346,10 +344,10 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
         return rx.text(span.text, as_="span")
 
     def bold(self, span: BoldSpan) -> rx.Component:
-        return rx.text(rx.text.strong(*self.transform_spans(span.children)), as_="span")
+        return rx.el.strong(*self.transform_spans(span.children))
 
     def italic(self, span: ItalicSpan) -> rx.Component:
-        return rx.text(rx.text.em(*self.transform_spans(span.children)), as_="span")
+        return rx.el.em(*self.transform_spans(span.children))
 
     def strikethrough(self, span: StrikethroughSpan) -> rx.Component:
         return rx.text("~", *self.transform_spans(span.children), "~", as_="span")
@@ -517,8 +515,7 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
                 trigger.append(
                     rx.box(
                         self._render_children(children),
-                        class_name="font-[475]",
-                        color=f"{rx.color(color, 11)}",
+                        class_name="font-[475] !text-m-slate-8 dark:!text-m-slate-6",
                     ),
                 )
                 body = rx.fragment()
