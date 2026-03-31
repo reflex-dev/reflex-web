@@ -1,5 +1,5 @@
 import os
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -11,6 +11,7 @@ from flexdown.document import Document
 from reflex_pyplot import pyplot as pyplot
 
 from pcweb.constants import REFLEX_ASSETS_CDN
+from pcweb.docgen_pipeline import get_docgen_toc, render_docgen_document
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.pages.library_previews import components_previews_pages
@@ -92,24 +93,39 @@ def get_components_from_metadata(current_doc):
     return components
 
 
+# ---------------------------------------------------------------------------
+# Local docs (ai_builder, enterprise, hosting, etc.) — processed via flexdown
+# ---------------------------------------------------------------------------
 flexdown_docs = [
     str(doc).replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
 ]
 
 # Add integration docs from the submodule
-# Create a mapping from virtual path to actual path
-doc_path_mapping = {}
+doc_path_mapping: dict[str, str] = {}
 integration_docs_path = Path("integrations-docs/docs")
 if integration_docs_path.exists():
     for integration_doc in integration_docs_path.glob("*.md"):
-        # Map submodule docs to the ai_builder/integrations path structure
         virtual_path = f"docs/ai_builder/integrations/{integration_doc.name}"
         actual_path = str(integration_doc).replace("\\", "/")
         if virtual_path.replace("\\", "/") not in flexdown_docs:
-            # Store the mapping
             doc_path_mapping[virtual_path.replace("\\", "/")] = actual_path
-            # Add to flexdown_docs for processing
             flexdown_docs.append(virtual_path.replace("\\", "/"))
+
+# ---------------------------------------------------------------------------
+# Reflex-shipped docs (installed in site-packages/docs/) — processed via
+# reflex_docgen.markdown pipeline (no flexdown).
+# ---------------------------------------------------------------------------
+# Maps virtual path (e.g. "docs/getting_started/basics.md") → absolute path.
+docgen_docs: dict[str, str] = {}
+_reflex_docs_dir = Path(rx.__file__).parent / "docs"
+if _reflex_docs_dir.is_dir():
+    for _pkg_doc in sorted(_reflex_docs_dir.rglob("*.md")):
+        _virtual = "docs/" + str(_pkg_doc.relative_to(_reflex_docs_dir)).replace(
+            "\\", "/"
+        )
+        # Only add if not already provided locally (local overrides package).
+        if _virtual not in flexdown_docs:
+            docgen_docs[_virtual] = str(_pkg_doc)
 
 graphing_components = defaultdict(list)
 component_list = defaultdict(list)
@@ -152,61 +168,117 @@ manual_titles = {
 }
 
 
-def get_component(doc: str, title: str):
-    if doc.endswith("-style.md"):
-        return
+ResolvedDoc = namedtuple("ResolvedDoc", ["route", "display_title", "category"])
 
-    if doc.endswith("-ll.md"):
-        return
 
-    # Get the docpage component.
-    doc = doc.replace("\\", "/")
+def doc_title_from_path(doc: str) -> str:
+    """Extract a snake_case title from a doc path."""
+    return rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
+
+
+def doc_route_from_path(doc: str) -> str:
+    """Compute the URL route from a doc path."""
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
-    # Handle index files: /folder/index/ -> /folder/
     if route.endswith("/index/"):
         route = route[:-7] + "/"
-    title2 = manual_titles[doc] if doc in manual_titles else to_title_case(title)
-    category = os.path.basename(os.path.dirname(doc)).title()
+    return route
 
+
+def resolve_doc_route(doc: str, title: str) -> ResolvedDoc | None:
+    """Compute route, display title, and category for a doc path.
+
+    Returns None if the doc should be skipped (suffix or whitelist).
+    """
+    if doc.endswith("-style.md") or doc.endswith("-ll.md"):
+        return None
+    doc = doc.replace("\\", "/")
+    route = doc_route_from_path(doc)
     if not _check_whitelisted_path(route):
-        return
+        return None
+    display_title = manual_titles.get(doc, to_title_case(title))
+    category = os.path.basename(os.path.dirname(doc)).title()
+    return ResolvedDoc(route=route, display_title=display_title, category=category)
 
-    # Use the actual file path if this is from the submodule
-    actual_doc_path = doc_path_mapping.get(doc, doc)
-    d = Document.from_file(actual_doc_path)
+
+def make_docpage(route: str, title: str, doc_virtual: str, render_fn):
+    """Wrap a render function as a docpage, setting module metadata."""
+    doc_path = Path(doc_virtual)
+    render_fn.__module__ = ".".join(doc_path.parts[:-1])
+    render_fn.__name__ = doc_path.stem
+    render_fn.__qualname__ = doc_path.stem
+    return docpage(set_path=route, t=title)(render_fn)
+
+
+def load_flexdown_doc(actual_path: str) -> Document:
+    """Load a flexdown Document and inject standard metadata."""
+    d = Document.from_file(actual_path)
     d.metadata["REFLEX_ASSETS_CDN"] = REFLEX_ASSETS_CDN
+    return d
 
+
+def handle_library_doc(
+    doc: str,
+    actual_path: str,
+    title: str,
+    resolved: ResolvedDoc,
+):
+    """Handle docs/library/** docs — component API reference via multi_docs."""
+    d = load_flexdown_doc(actual_path)
+    clist = [title, *get_components_from_metadata(d)]
     if doc.startswith("docs/library/graphing"):
-        if should_skip_compile(actual_doc_path):
-            outblocks.append((d, route))
-            return
-        clist = [title, *get_components_from_metadata(d)]
-        graphing_components[category].append(clist)
-        return multi_docs(path=route, comp=d, component_list=clist, title=title2)
+        graphing_components[resolved.category].append(clist)
+    else:
+        component_list[resolved.category].append(clist)
+    if should_skip_compile(actual_path):
+        outblocks.append((d, resolved.route))
+        return None
+    return multi_docs(
+        path=resolved.route,
+        comp=d,
+        component_list=clist,
+        title=resolved.display_title,
+    )
+
+
+def get_component(doc: str, title: str):
+    """Build a page component for a local (flexdown) doc."""
+    resolved = resolve_doc_route(doc, title)
+    if resolved is None:
+        return None
+
+    actual_doc_path = doc_path_mapping.get(doc, doc)
+
     if doc.startswith("docs/library"):
-        clist = [title, *get_components_from_metadata(d)]
-        component_list[category].append(clist)
-        if should_skip_compile(actual_doc_path):
-            outblocks.append((d, route))
-            return
-        return multi_docs(path=route, comp=d, component_list=clist, title=title2)
+        return handle_library_doc(doc, actual_doc_path, title, resolved)
 
     if should_skip_compile(actual_doc_path):
-        outblocks.append((d, route))
-        return
+        outblocks.append((load_flexdown_doc(actual_doc_path), resolved.route))
+        return None
+
+    d = load_flexdown_doc(actual_doc_path)
 
     def comp():
         return (get_toc(d, actual_doc_path), xd.render(d, actual_doc_path))
 
-    doc_path = Path(doc)
-    doc_module = ".".join(doc_path.parts[:-1])
-    doc_file = doc_path.stem
+    return make_docpage(resolved.route, resolved.display_title, doc, comp)
 
-    comp.__module__ = doc_module
-    comp.__name__ = doc_file
-    comp.__qualname__ = doc_file
 
-    return docpage(set_path=route, t=title2)(comp)
+def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
+    """Build a page component for a reflex-package doc via reflex_docgen."""
+    resolved = resolve_doc_route(virtual_doc, title)
+    if resolved is None:
+        return None
+
+    # Library docs still need component introspection via multi_docs (flexdown-based).
+    if virtual_doc.startswith("docs/library"):
+        return handle_library_doc(virtual_doc, actual_path, title, resolved)
+
+    def comp(_actual=actual_path):
+        toc = get_docgen_toc(_actual)
+        rendered = render_docgen_document(_actual)
+        return (toc, rendered)
+
+    return make_docpage(resolved.route, resolved.display_title, virtual_doc, comp)
 
 
 doc_routes = [
@@ -232,28 +304,14 @@ for ref in cloud_cliref_pages:
     title = rx.utils.format.to_snake_case(ref.title)
     build_nested_namespace(docs_ns, ["cloud"], title, ref)
 
-for doc in sorted(flexdown_docs):
-    path = doc.split("/")[1:-1]
 
-    title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
+def register_doc(virtual_doc: str, comp):
+    """Register a doc into the namespace, doc_routes, and recipes_list."""
+    path = virtual_doc.split("/")[1:-1]
+    title = doc_title_from_path(virtual_doc)
     title2 = to_title_case(title)
-    route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
-    # Handle index files: /folder/index/ -> /folder/
-    if route.endswith("/index/"):
-        route = route[:-7] + "/"
+    route = doc_route_from_path(virtual_doc)
 
-    comp = get_component(doc, title)
-
-    # # Check if the path starts with '/docs/cloud/', and if so, replace 'docs' with an empty string
-    # if route.startswith("/docs/cloud/"):
-    #     route = route.replace("/docs", "")
-
-    if path[0] == "library" and isinstance(library, Route):
-        locals()["library_"] = library
-
-    # print(route)
-
-    # Add the component to the nested namespaces.
     build_nested_namespace(
         docs_ns, path, title, Route(path=route, title=title2, component=lambda: "")
     )
@@ -264,11 +322,24 @@ for doc in sorted(flexdown_docs):
         else:
             doc_routes.append(comp)
 
+    if "recipes" in virtual_doc:
+        recipes_list[virtual_doc.split("/")[2]].append(virtual_doc)
 
-for doc in flexdown_docs:
-    if "recipes" in doc:
-        category = doc.split("/")[2]
-        recipes_list[category].append(doc)
+
+# Alias needed by sidebar — the library page route object.
+library_: Route = library  # type: ignore[assignment]
+
+
+# Process local docs (flexdown pipeline).
+for _doc in sorted(flexdown_docs):
+    register_doc(_doc, get_component(_doc, doc_title_from_path(_doc)))
+
+# Process reflex-package docs (reflex_docgen pipeline).
+for _virtual, _actual in sorted(docgen_docs.items()):
+    register_doc(
+        _virtual,
+        get_component_docgen(_virtual, _actual, doc_title_from_path(_virtual)),
+    )
 
 for name, ns in docs_ns.__dict__.items():
     # if name == "cloud":
