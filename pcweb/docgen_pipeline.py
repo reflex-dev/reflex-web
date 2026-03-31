@@ -402,7 +402,7 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
         demobox_props: dict = {}
         for flag in flags:
             k, sep, v = flag.partition("=")
-            if sep and k != "id":
+            if sep:
                 demobox_props[k] = v
         if "toggle" in flags:
             demobox_props["toggle"] = True
