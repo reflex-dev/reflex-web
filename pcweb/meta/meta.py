@@ -287,6 +287,16 @@ def blog_index_jsonld(posts: list[tuple[str, dict]], url: str) -> rx.Component:
     return rx.el.script(json.dumps(data), type="application/ld+json")
 
 
+def jsonld_script(data: dict) -> rx.Component:
+    """Create a JSON-LD script tag from a dict.
+
+    Adds ``@context: https://schema.org`` when not already present.
+    """
+    if "@context" not in data:
+        data = {"@context": "https://schema.org", **data}
+    return rx.el.script(json.dumps(data), type="application/ld+json")
+
+
 def faq_jsonld(faq_schema: dict) -> rx.Component:
     """Create a FAQPage JSON-LD script tag from a pre-built schema dict."""
     return rx.el.script(json.dumps(faq_schema), type="application/ld+json")

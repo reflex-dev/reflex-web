@@ -13,6 +13,7 @@ from reflex_pyplot import pyplot as pyplot
 from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.docgen_pipeline import get_docgen_toc, render_docgen_document
 from pcweb.flexdown import xd
+from pcweb.meta.meta import jsonld_script
 from pcweb.pages.docs.component import multi_docs
 from pcweb.pages.library_previews import components_previews_pages
 from pcweb.route import Route
@@ -256,9 +257,14 @@ def get_component(doc: str, title: str):
         return None
 
     d = load_flexdown_doc(actual_doc_path)
+    ldjson = d.metadata.get("ldjson")
 
     def comp():
-        return (get_toc(d, actual_doc_path), xd.render(d, actual_doc_path))
+        toc = get_toc(d, actual_doc_path)
+        rendered = xd.render(d, actual_doc_path)
+        if ldjson:
+            rendered = rx.fragment(jsonld_script(ldjson), rendered)
+        return (toc, rendered)
 
     return make_docpage(resolved.route, resolved.display_title, doc, comp)
 
@@ -273,9 +279,18 @@ def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
     if virtual_doc.startswith("docs/library"):
         return handle_library_doc(virtual_doc, actual_path, title, resolved)
 
-    def comp(_actual=actual_path):
+    # Load metadata to check for ldjson (docgen docs use flexdown for metadata).
+    try:
+        _meta_doc = load_flexdown_doc(actual_path)
+        ldjson = _meta_doc.metadata.get("ldjson")
+    except (OSError, ValueError):
+        ldjson = None
+
+    def comp(_actual=actual_path, _ldjson=ldjson):
         toc = get_docgen_toc(_actual)
         rendered = render_docgen_document(_actual)
+        if _ldjson:
+            rendered = rx.fragment(jsonld_script(_ldjson), rendered)
         return (toc, rendered)
 
     return make_docpage(resolved.route, resolved.display_title, virtual_doc, comp)
