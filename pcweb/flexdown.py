@@ -1,7 +1,9 @@
 import flexdown
 import reflex as rx
+import reflex_ui as ui
 from reflex_core.constants.colors import ColorType
 
+from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import base, code
 from pcweb.templates.docpage import (
@@ -388,30 +390,122 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
 
     include_indicators = True
 
-    def render(self, env) -> rx.Component:
+    def _parse(self, env) -> dict[str, str]:
         lines = self.get_lines(env)
         quote_content = []
-        name = ""
-        role = ""
+        data = {
+            "name": "",
+            "role": "",
+            "image": "",
+            "variant": "small",
+        }
+
         for line in lines[1:-1]:  # Skip the first and last lines (indicators)
             if line.startswith("- name:"):
-                name = line.split(":", 1)[1].strip()
+                data["name"] = line.split(":", 1)[1].strip()
             elif line.startswith("- role:"):
-                role = line.split(":", 1)[1].strip()
+                data["role"] = line.split(":", 1)[1].strip()
+            elif line.startswith("- image:"):
+                data["image"] = line.split(":", 1)[1].strip()
+            elif line.startswith("- variant:"):
+                data["variant"] = line.split(":", 1)[1].strip().lower()
             else:
                 quote_content.append(line)
 
-        quote_text = "\n".join(quote_content).strip()
+        data["quote_text"] = "\n".join(quote_content).strip()
+        return data
 
-        return rx.box(
-            rx.text(f'"{quote_text}"', class_name="text-slate-11 font-base italic"),
-            rx.box(
-                rx.text(name, class_name="text-slate-11 font-base"),
-                rx.text(role, class_name="text-slate-10 font-base"),
-                class_name="flex flex-col gap-0.5",
+    def _author(self, name: str, role: str, class_name: str = "") -> rx.Component:
+        return rx.el.div(
+            rx.el.span(
+                name,
+                class_name="text-xs font-mono uppercase font-[415] text-secondary-12",
             ),
-            class_name="flex flex-col gap-4 border-l-[3px] border-slate-4 pl-6 mt-2 mb-6",
+            rx.el.span(
+                role,
+                class_name="text-xs font-mono font-[415] text-secondary-11 uppercase",
+            ),
+            class_name=ui.cn("flex flex-col gap-0.5", class_name),
         )
+
+    def _avatar(
+        self, name: str, image: str, class_name: str = ""
+    ) -> rx.Component | None:
+        if not image:
+            return None
+        avatar_class = ui.cn("rounded-full object-cover aspect-square", class_name)
+        return rx.image(
+            src=f"{REFLEX_ASSETS_CDN}case_studies/people/{image}",
+            alt=f"{name} profile picture",
+            class_name=avatar_class,
+        )
+
+    def _render_medium(self, data: dict[str, str]) -> rx.Component:
+        return rx.el.div(
+            rx.el.div(
+                self._avatar(data["name"], data["image"], class_name="size-6"),
+                class_name="p-4 shrink-0 lg:border-r border-secondary-8 border-dashed max-lg:border-b bg-secondary-1",
+            ),
+            rx.el.span(
+                f'"{data["quote_text"]}"',
+                class_name="text-secondary-12 text-base font-[575] p-4 bg-white-1 w-full",
+            ),
+            class_name="flex lg:flex-row flex-col border border-dashed border-secondary-8 mt-2 mb-6 rounded-lg overflow-hidden box-border bg-white-1",
+        )
+
+    def _render_small(self, data: dict[str, str]) -> rx.Component:
+        return rx.el.div(
+            rx.el.span(
+                f'"{data["quote_text"]}"',
+                class_name="text-secondary-12 text-lg font-[575] p-6 lg:border-r border-secondary-8 border-dashed max-lg:border-b bg-white-1",
+            ),
+            rx.el.div(
+                rx.el.div(
+                    self._author(data["name"], data["role"]),
+                    class_name="text-end text-nowrap",
+                ),
+                self._avatar(data["name"], data["image"], class_name="size-14"),
+                class_name="flex flex-row gap-6 items-center p-6 shrink-0 bg-secondary-1",
+            ),
+            class_name="flex lg:flex-row flex-col border border-dashed border-secondary-8 mt-2 mb-6 rounded-lg overflow-hidden box-border bg-white-1",
+        )
+
+    def _render_big(self, data: dict[str, str]) -> rx.Component:
+        return rx.el.div(
+            rx.el.div(
+                rx.el.span(
+                    f"{data['quote_text']}",
+                    class_name="text-secondary-12 text-2xl font-[575]",
+                ),
+                rx.el.div(
+                    self._avatar(data["name"], data["image"], class_name="size-6"),
+                    self._author(
+                        data["name"],
+                        data["role"],
+                        class_name="flex-row gap-3.5 items-center",
+                    ),
+                    class_name="flex flex-row gap-3.5 items-center",
+                ),
+                class_name="flex flex-col gap-12 pr-[12.5rem] relative z-10",
+            ),
+            rx.image(
+                src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/quote_squares.svg",
+                loading="lazy",
+                alt="Quote icon",
+                class_name="absolute right-0 inset-y-0 h-[calc(100%)] min-h-full w-auto origin-right pointer-events-none object-contain object-right",
+            ),
+            class_name="flex flex-col dark:border bg-white-1 dark:border-secondary-4 mt-2 mb-6 overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.12)_inset,0_6px_12px_0_rgba(0,0,0,0.06),0_1px_1px_0_rgba(0,0,0,0.01),0_4px_6px_0_rgba(0,0,0,0.02)] rounded-xl py-8 px-8 relative",
+        )
+
+    def render(self, env) -> rx.Component:
+        data = self._parse(env)
+        renderers = {
+            "small": self._render_small,
+            "medium": self._render_medium,
+            "big": self._render_big,
+        }
+        renderer = renderers.get(data["variant"], self._render_small)
+        return renderer(data)
 
 
 class TabsBlock(flexdown.blocks.Block):

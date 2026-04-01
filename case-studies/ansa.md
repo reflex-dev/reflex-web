@@ -1,6 +1,8 @@
 ---
 company: Ansa
 h1: "How Ansa Uses Reflex for AI-Powered Workflow Automation"
+card_header: "How Ansa saved 100 hours of manual work a month with Reflex"
+card_description: "See how Ansa automated their fintech workflows with Reflex, eliminating 100 hours of repetitive manual work per month and accelerating their operations."
 description: "Why Ansa chose Reflex over no-code and low-code frameworks for their workflow automations. Full Python control for AI-powered business process automation."
 domain: "https://www.ansa.co"
 founded: "New York, 2021"
@@ -42,15 +44,11 @@ meta: [
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.pages.customers.views.app_preview_card import app_preview_card
 ```
 
 ```python eval
-rx.vstack(
-    image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/ansa_app.webp", border_radius="10px", alt="Ansa App")),
-    rx.text("Ansa App built with Reflex"),
-    width="100%",
-)
+app_preview_card(f"{REFLEX_ASSETS_CDN}case_studies/ansa_app.webp", text="Ansa App built with Reflex")
 ```
 
 Meet [Ansa](https://www.ansa.co), a venture capital firm based in New York City that invests in companies from Series A to C. They have invested in companies like Defense Unicorns, Bland, Gradient, and Selector and prior to founding the firm, supported investments in many of the venture-capital industry’s largest outcomes including Crowdstrike, Coinbase, and SurveyMonkey to name a few.
@@ -144,7 +142,8 @@ Finally, when their team has a short list of companies that fit within an invest
 ```md quote
 - name: Ryan
 - role: Investor and Head of Data
-Let’s say we have 30 companies that we want to email. How can you efficiently send a custom note to each of these companies and track it properly? We launch a script, that runs through a Reflex background event, that'll go through each company, check the CRM ownership, fill out relevant fields and find the best person to reach out to. A lot of times, especially with early stage companies, data is missing or partially complete. So this workflow will leverage LLMs throughout the process to handle fuzzy matching and make contextual decisions, as well as proactively summarize company content, news, and relevant Ansa content to help support the email writing. Before we would do this all manually, now with this new workflow in Reflex, we've taken what was once 30+ clicks across 5 different apps and made it 5x faster with 2 clicks across 2 apps.
+- variant: medium
+Let’s say we have 30 companies that we want to email. How can you efficiently send a custom note to each of these companies and track it properly? We launch a script, that runs through a Reflex background event, that’ll go through each company, check the CRM ownership, fill out relevant fields and find the best person to reach out to. A lot of times, especially with early stage companies, data is missing or partially complete. So this workflow will leverage LLMs throughout the process to handle fuzzy matching and make contextual decisions, as well as proactively summarize company content, news, and relevant Ansa content to help support the email writing. Before we would do this all manually, now with this new workflow in Reflex, we’ve taken what was once 30+ clicks across 5 different apps and made it 5x faster with 2 clicks across 2 apps.
 ```
 
 All these different workflows are now built into a single Reflex app. It makes it extremely easy for anyone on the team to run any of these workflows and leverage LLM-powered automation with a few clicks.

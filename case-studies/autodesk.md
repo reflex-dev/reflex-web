@@ -1,5 +1,7 @@
 ---
 company: Autodesk
+card_header: "How Autodesk saved 25% of their development time"
+card_description: "Learn how Autodesk leveraged Reflex to streamline their internal tools development, cutting build time by 25% while maintaining enterprise-grade reliability."
 description: "Streamlining Complex Workflows: Why Autodesk Chose Reflex Over Streamlit for Scalable, Python-Based Solutions"
 domain: "https://autodesk.com"
 founded: "San Francisco, 1982"
@@ -46,17 +48,12 @@ meta: [
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
-from pcweb.pages.docs import library
+from pcweb.pages.customers.views.app_preview_card import app_preview_card
 ```
 
-<!-- ```python eval
-rx.vstack(
-    image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/bayesline_app.webp", border_radius="10px", alt="Bayesline App")),
-    rx.text("Bayesline App built with Reflex"),
-    width="100%",
-)
-``` -->
+```python eval
+app_preview_card(f"{REFLEX_ASSETS_CDN}case_studies/apps/case_studies_autodesk_app.webp", text="Autodesk App built with Reflex")
+```
 
 
 Meet Autodesk a globally recognized leader in design and engineering software, known for its innovative solutions that empower professionals across industries to bring their creative visions to life. Autodesk has established itself as a trusted partner for millions of users worldwide, helping them achieve greater efficiency, precision, and creativity in their projects.
@@ -130,6 +127,7 @@ The team was able to:
 ```md quote
 - name: Paolo
 - role: Principal Implementation Consultant
+- variant: medium
 I am able to wear all the caps at once: Solution Architecture, UI/UX, front-end and back-end.
 ```
 
@@ -183,5 +181,6 @@ Paolo and his team have now worked on three other projects for different custome
 ```md quote
 - name: Paolo
 - role: Principal Implementation Consultant
+- variant: medium
 Everything I was able to accomplish was because of the framework and unparalleled support and promptness of the Reflex team.
 ```

@@ -1,296 +1,424 @@
 import functools
+from dataclasses import dataclass, field
 from typing import Callable
 
 import reflex as rx
+import reflex_ui as ui
+from flexdown.document import Document
 
-from pcweb.components.icons.icons import get_icon
+from pcweb.components.hosting_banner import HostingBannerState
+from pcweb.components.marketing_button import button as marketing_button
 from pcweb.constants import REFLEX_ASSETS_CDN
-from pcweb.pages.framework.index_colors import index_colors
 from pcweb.route import Route
+from pcweb.templates.docpage import get_toc, right_sidebar_item_highlight
 
 
-def hero(
-    company: str,
-    description: str,
-    stats: list[dict[str, str]],
-    h1: str | None = None,
-) -> rx.Component:
-    return rx.box(
-        rx.link(
-            rx.icon(
-                tag="chevron-left",
-                stroke_width="2.25",
-                class_name="size-3.5",
-            ),
-            rx.text("Customer stories", class_name="font-small"),
-            href="/customers",
-            underline="none",
-            class_name="flex items-center gap-2 text-slate-9 hover:!text-slate-11 transition-color w-fit",
-        ),
-        rx.el.h1(
-            h1 if h1 else company,
-            class_name="gradient-heading font-x-large lg:font-xx-large text-start text-transparent",
-        ),
-        rx.el.h2(description, class_name="text-slate-9 font-md-smbold"),
-        rx.box(
-            *[
-                rx.box(
-                    rx.text(stat["value"], class_name="text-slate-12 font-x-large"),
-                    rx.text(stat["metric"], class_name="text-slate-9 font-small"),
-                    class_name="flex flex-col gap-2 mt-4",
-                )
-                for stat in stats
-            ],
-            class_name="grid grid-cols-3 gap-4 lg:gap-10",
-        ),
-        class_name="flex flex-col gap-4 mb-10",
-    )
+@dataclass(frozen=True)
+class CaseStudy:
+    company: str
+    description: str
+    domain: str
+    founded: str
+    document: Document
+    stats: list[dict[str, str]] = field(default_factory=list)
+    meta: list[dict[str, str]] = field(default_factory=list)
+    investors: str | None = None
+    h1: str | None = None
+
+    @property
+    def route(self) -> str:
+        return f"/customers/{self.company.lower().replace(' ', '-')}"
+
+    @property
+    def title(self) -> str:
+        return f"{self.company} Case Study - Reflex Customer Stories"
+
+    @classmethod
+    def from_document(cls, document: Document) -> "CaseStudy":
+        m = document.metadata
+        return cls(
+            company=m["company"],
+            description=m["description"],
+            domain=m["domain"],
+            founded=m["founded"],
+            document=document,
+            stats=m["stats"],
+            meta=m.get("meta", []),
+            investors=m.get("investors"),
+            h1=m.get("h1"),
+        )
 
 
-def company_card(company: str, founded: str, investors: str, url: str) -> rx.Component:
-    return rx.box(
-        # Logo
+def gradient_logo() -> rx.Component:
+    return rx.el.div(
         rx.image(
-            src=rx.color_mode_cond(
-                light=f"{REFLEX_ASSETS_CDN}customers/light/{company.lower()}/{company.lower()}_small.svg",
-                dark=f"{REFLEX_ASSETS_CDN}customers/dark/{company.lower()}/{company.lower()}_small.svg",
-            ),
-            alt=f"{company} logo",
-            loading="lazy",
-            class_name="h-[3.5rem] w-auto shrink-0 mb-2 self-start",
+            src=f"{REFLEX_ASSETS_CDN}logos/{rx.color_mode_cond('light', 'dark')}/gradient_r.svg",
+            alt="Gradient Reflex Logo",
+            loading="eager",
+            class_name="size-full",
+            custom_attrs={"fetchPriority": "high"},
         ),
-        # Url
-        rx.link(
-            rx.text(
-                url.split("//")[-1].split("/")[0],  # Get the domain name formatted
-                class_name="font-base truncate",
-            ),
-            rx.icon(
-                tag="arrow-up-right",
-                stroke_width="2.25",
-                class_name="size-3.5",
-            ),
-            href=url,
-            underline="none",
-            is_external=True,
-            class_name="flex flex-row items-center gap-1.5 text-slate-12 hover:!text-slate-10 transition-color",
-        ),
-        # Founded
-        rx.box(
-            rx.text("Founded", class_name="text-slate-9 font-small-smbold"),
-            rx.text(founded, class_name="text-slate-12 font-base truncate"),
-            class_name="flex flex-col",
-        ),
-        # Investors
-        rx.cond(
-            investors,
-            rx.box(
-                rx.text("Investors", class_name="text-slate-9 font-small-smbold"),
-                rx.text(investors, class_name="text-slate-12 font-base truncate"),
-                class_name="flex flex-col",
-            ),
-        ),
-        class_name="flex-col gap-4 w-[13rem] p-8 rounded-[1.125rem] border border-slate-3 bg-slate-2 z-[1] justify-start absolute right-[-6.5rem] top-[12rem] hidden xl:flex",
-        is_external=True,
+        class_name="flex size-48 items-center justify-center absolute right-0 top-[15rem] left-[20.5rem] -translate-y-1/2 z-0",
     )
+
+
+def gradient_logo_blur_layer() -> rx.Component:
+    return rx.el.div(
+        class_name=(
+            "absolute left-[21rem] top-[15rem] -translate-y-1/2 "
+            "w-24 h-60 z-[1] bg-[rgba(252,252,253,0.01)] backdrop-blur-[36px] pointer-events-none"
+        ),
+    )
+
+
+def company_floating_card(company: str) -> rx.Component:
+    return rx.el.div(
+        rx.image(
+            src=f"{REFLEX_ASSETS_CDN}customers/{rx.color_mode_cond('light', 'dark')}/{company.lower()}/{company.lower()}_small.svg",
+            alt=f"{company} logo",
+            loading="eager",
+            custom_attrs={"fetchPriority": "high"},
+            class_name="w-auto h-[9.5rem]",
+        ),
+        class_name=ui.cn(
+            "size-[19rem] flex items-center justify-center absolute z-[2] rounded-[5rem] backdrop-blur-[36px] bg-linear-to-b from-m-slate-1 to-m-slate-2  dark:from-m-slate-11 dark:to-m-slate-12 shadow-[0_1px_0_0_#FFF_inset,_0_0_0_1px_rgba(0,_0,_0,_0.12),_0_16px_32px_0_rgba(0,_0,_0,_0.06),_0_1px_1px_0_rgba(0,_0,_0,_0.01),_0_8px_16px_0_rgba(0,_0,_0,_0.02)] top-[5.5rem] left-[3.5rem] dark:shadow-none dark:border dark:border-m-slate-9",
+        ),
+    )
+
+
+def hero(study: CaseStudy) -> rx.Component:
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                rx.el.a(
+                    marketing_button(
+                        "Customers",
+                        icon="ArrowRight01Icon",
+                        native_button=False,
+                        variant="ghost",
+                        size="xs",
+                    ),
+                    to="/customers",
+                ),
+                ui.icon(
+                    "ArrowRight01Icon",
+                    class_name="text-m-slate-7 dark:text-m-slate-6",
+                ),
+                rx.el.span(
+                    study.company,
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-[525]",
+                ),
+                class_name="flex items-center gap-3",
+            ),
+            rx.el.h1(
+                study.h1 or study.company,
+                class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-5xl text-4xl font-[575] text-start",
+            ),
+            rx.el.h2(
+                study.description,
+                class_name="text-m-slate-7 dark:text-m-slate-6 text-base font-[475] text-balance",
+            ),
+            class_name="flex flex-col gap-6 xl:max-w-[30rem] justify-start pt-24 xl:pb-34 pb-16 z-1 xl:min-h-[30rem] max-xl:px-6",
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.image(
+                    src=f"{REFLEX_ASSETS_CDN}common/{rx.color_mode_cond('light', 'dark')}/grid.svg",
+                    alt="Grid",
+                    loading="eager",
+                    custom_attrs={"fetchPriority": "high"},
+                    class_name=ui.cn(
+                        "absolute -right-22 top-0 z-[-1] w-[45rem] h-[27rem] max-w-none pointer-events-none",
+                    ),
+                ),
+                gradient_logo(),
+                company_floating_card(study.company),
+                class_name="relative isolate h-full w-full",
+            ),
+            class_name="flex-1 max-xl:hidden",
+        ),
+        class_name="flex flex-row lg:px-4 max-w-(--docs-layout-max-width) w-full mx-auto border-b border-m-slate-4 dark:border-m-slate-9 relative",
+    )
+
+
+def stats_cards(study: CaseStudy) -> rx.Component:
+    return rx.el.div(
+        rx.el.div(
+            *[
+                rx.el.div(
+                    rx.el.span(
+                        stat["value"],
+                        class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-6xl text-3xl font-[415] font-mono",
+                    ),
+                    rx.el.span(
+                        stat["metric"],
+                        class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[475]",
+                    ),
+                    class_name="flex flex-col gap-2",
+                )
+                for stat in study.stats
+            ],
+            class_name="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:gap-12 border-r border-m-slate-4 dark:border-m-slate-9 pt-8 xl:pr-12 pr-8 max-xl:pl-4 max-xl:pb-8",
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.el.span(
+                    "Founded",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
+                ),
+                rx.el.span(
+                    study.founded,
+                    class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-base text-sm font-[415] uppercase font-mono",
+                ),
+                class_name="flex flex-col gap-1",
+            ),
+            rx.cond(
+                study.investors,
+                rx.el.div(
+                    rx.el.span(
+                        "Investors",
+                        class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
+                    ),
+                    rx.el.span(
+                        study.investors,
+                        class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-base text-xs font-[415] uppercase font-mono",
+                    ),
+                    class_name="flex flex-col gap-1",
+                ),
+            ),
+            rx.el.div(
+                rx.el.span(
+                    "Website",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-xs font-[415] font-mono uppercase",
+                ),
+                rx.el.a(
+                    rx.el.span(
+                        study.domain.split("//")[-1].split("/")[0].replace("www.", ""),
+                        class_name="text-xs font-[415] uppercase font-mono",
+                    ),
+                    rx.icon(
+                        tag="arrow-up-right",
+                        stroke_width="2.25",
+                        class_name="size-3.5",
+                    ),
+                    to=study.domain,
+                    underline="none",
+                    target="_blank",
+                    class_name="flex flex-row items-center gap-1.5 underline underline-offset-1 text-m-slate-12 dark:text-m-slate-3 ",
+                ),
+                class_name="flex flex-col gap-1",
+            ),
+            class_name="flex flex-col gap-4 p-8 xl:w-[21rem] shrink-0",
+        ),
+        rx.el.div(
+            class_name="absolute -top-px -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+        ),
+        rx.el.div(
+            class_name="absolute -top-px -left-24 w-24 h-px bg-gradient-to-r from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+        ),
+        rx.el.div(
+            class_name="absolute -bottom-px -left-24 w-24 h-px bg-gradient-to-r from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+        ),
+        rx.el.div(
+            class_name="absolute -bottom-px -right-24 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10 max-lg:hidden"
+        ),
+        class_name="flex flex-row  max-w-(--docs-layout-max-width) w-full mx-auto border-b border-m-slate-4 dark:border-m-slate-9 relative max-2xl:overflow-hidden",
+    )
+
+
+def story_table_of_contents(toc: list, path: str, company: str) -> rx.Component:
+    """Render the table of contents sidebar for a case study page."""
+    if len(toc) < 2:
+        return rx.fragment()
+
+    return rx.el.nav(
+        rx.el.div(
+            class_name="absolute -top-8 left-0 w-px h-8 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-9 max-lg:hidden"
+        ),
+        rx.box(
+            rx.el.ul(
+                rx.el.li(
+                    f"Reflex X {company}",
+                    class_name="text-xs flex items-center justify-start font-[415] dark:text-m-slate-3 text-m-slate-12 font-mono uppercase pb-6 pl-8",
+                ),
+                *[
+                    rx.el.li(
+                        rx.el.a(
+                            text,
+                            class_name=ui.cn(
+                                "text-sm font-[525] text-m-slate-7 dark:text-m-slate-6 py-1 block hover:text-m-slate-9 dark:hover:text-m-slate-5 transition-colors truncate",
+                                "pl-8" if level <= 2 else "pl-12",
+                            ),
+                            href=path + "#" + text.lower().replace(" ", "-"),
+                        ),
+                    )
+                    for level, text in toc
+                ],
+                id="toc-navigation",
+                class_name="flex flex-col gap-y-1 list-none shadow-[1px_0_0_0_var(--m-slate-4)_inset] dark:shadow-[1px_0_0_0_var(--m-slate-9)_inset]",
+            ),
+            class_name="flex flex-col justify-start gap-y-4 overflow-y-auto",
+        ),
+        on_mount=rx.call_script(right_sidebar_item_highlight()),
+        class_name=ui.cn(
+            "sticky w-[21.05rem] shrink-0 hidden xl:block self-start max-lg:hidden",
+            rx.cond(
+                HostingBannerState.is_banner_visible,
+                "top-[8.5rem]",
+                "top-[6.5rem]",
+            ),
+        ),
+    )
+
+
+CAROUSEL_SCROLL_JS = """
+(function(direction) {
+    const container = document.getElementById('more-customers-carousel');
+    if (!container) return;
+    const cards = Array.from(container.querySelectorAll('a'));
+    if (!cards.length) return;
+    const gap = 24;
+    const containerLeft = container.getBoundingClientRect().left;
+    const paddingLeft = parseFloat(getComputedStyle(container).paddingLeft) || 0;
+
+    // Find the current card index based on scroll position
+    let currentIdx = 0;
+    for (let i = 0; i < cards.length; i++) {
+        const cardLeft = cards[i].getBoundingClientRect().left - containerLeft - paddingLeft;
+        if (cardLeft >= -10) { currentIdx = i; break; }
+    }
+
+    const targetIdx = Math.max(0, Math.min(cards.length - 1, currentIdx + direction));
+    const targetScroll = targetIdx * (cards[0].offsetWidth + gap);
+    container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+})
+"""
+
+CAROUSEL_FADE_INIT_JS = """
+(function() {
+    const container = document.getElementById('more-customers-carousel');
+    const fadeL = document.getElementById('carousel-fade-left');
+    const fadeR = document.getElementById('carousel-fade-right');
+    if (!container || !fadeL || !fadeR) return;
+
+    function update() {
+        const sl = container.scrollLeft;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        fadeL.style.opacity = '1';
+        fadeR.style.opacity = sl >= maxScroll - 2 ? '0' : '1';
+    }
+
+    container.addEventListener('scroll', update);
+    update();
+})()
+"""
 
 
 def more_customers(current_customer: str) -> rx.Component:
-    from pcweb.pages.customers.data.customers import customer_data
+    from pcweb.pages.customers.views.customer_cards import CUSTOMERS, customer_card
 
-    customer_items = list(customer_data.items())
+    others = [c for c in CUSTOMERS if c["name"] != current_customer]
+    if not others:
+        return rx.fragment()
 
-    # Filter out the current company
-    other_customers = [
-        c for c in customer_items if c[1].metadata.get("company") != current_customer
-    ]
-    if not other_customers:
-        return rx.box()  # Return an empty box if there are no other customers
-
-    # Find the index of the current company in the original list
-    current_index = next(
-        (
-            i
-            for i, (_, doc) in enumerate(customer_items)
-            if doc.metadata.get("company") == current_customer
-        ),
-        0,
-    )
-
-    # Get the previous and next customers
-    prev_index = (current_index - 1) % len(customer_items)
-    next_index = (current_index + 1) % len(customer_items)
-
-    prev_customer = customer_items[prev_index]
-    next_customer = customer_items[next_index]
-
-    # Ensure we're not using the current company
-    while prev_customer[1].metadata.get("company") == current_customer:
-        prev_index = (prev_index - 1) % len(customer_items)
-        prev_customer = customer_items[prev_index]
-
-    while next_customer[1].metadata.get("company") == current_customer:
-        next_index = (next_index + 1) % len(customer_items)
-        next_customer = customer_items[next_index]
-
-    customers = [
-        rx.box(
-            rx.link(
-                rx.box(
-                    "Previous",
-                    get_icon(icon="arrow_right", class_name="rotate-180"),
-                    class_name="flex flex-row-reverse justify-center lg:justify-start items-center gap-2 rounded-lg w-full self-end",
-                ),
-                underline="none",
-                href=f"/customers/{prev_customer[1].metadata['company'].lower()}",
-                class_name="py-0.5 lg:py-0 rounded-lg lg:w-auto font-small text-slate-9 hover:!text-slate-11 transition-color",
+    return rx.el.div(
+        rx.el.div(
+            rx.el.h3(
+                "See what other teams built",
+                class_name="text-m-slate-12 dark:text-m-slate-3 lg:text-3xl text-xl font-[575]",
             ),
-            rx.box(
-                rx.image(
-                    src=rx.color_mode_cond(
-                        light=f"{REFLEX_ASSETS_CDN}customers/light/{prev_customer[1].metadata['company'].lower()}/{prev_customer[1].metadata['company'].lower()}_small.svg",
-                        dark=f"{REFLEX_ASSETS_CDN}customers/dark/{prev_customer[1].metadata['company'].lower()}/{prev_customer[1].metadata['company'].lower()}_small.svg",
-                    ),
-                    alt=f"{next_customer[1].metadata['company']} logo",
-                    loading="lazy",
-                    class_name="h-[1.25rem] w-auto",
+            rx.el.div(
+                ui.button(
+                    ui.icon("ArrowLeft01Icon", class_name="size-4"),
+                    on_click=rx.call_script(f"{CAROUSEL_SCROLL_JS}(-1)"),
+                    variant="outline-shadow",
+                    size="sm",
                 ),
-                rx.text(
-                    prev_customer[1].metadata["company"],
-                    class_name="font-smbold text-slate-12",
+                ui.button(
+                    ui.icon("ArrowRight01Icon", class_name="size-4"),
+                    on_click=rx.call_script(f"{CAROUSEL_SCROLL_JS}(1)"),
+                    variant="outline-shadow",
+                    size="sm",
                 ),
-                class_name="flex flex-row justify-start gap-2.5 items-center",
+                class_name="flex flex-row items-center gap-2",
             ),
-            class_name="flex flex-col justify-start gap-1 items-start",
+            class_name="flex flex-row items-center justify-between w-full max-w-(--docs-layout-max-width) mx-auto max-xl:px-6",
         ),
-        rx.box(
-            rx.link(
-                rx.box(
-                    "Next",
-                    get_icon(icon="arrow_right"),
-                    class_name="flex flex-row justify-center lg:justify-start items-center gap-2 rounded-lg w-full self-end",
-                ),
-                underline="none",
-                href=f"/customers/{next_customer[1].metadata['company'].lower()}",
-                class_name="py-0.5 lg:py-0 rounded-lg lg:w-auto font-small text-slate-9 hover:!text-slate-11 transition-color",
+        rx.el.div(
+            rx.el.div(
+                *[customer_card(customer) for customer in others],
+                id="more-customers-carousel",
+                class_name="flex flex-row gap-6 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pl-[6rem] pr-8 py-8 -my-8 max-lg:pl-6 max-lg:pr-6",
             ),
-            rx.box(
-                rx.text(
-                    next_customer[1].metadata["company"],
-                    class_name="font-smbold text-slate-12",
-                ),
-                rx.image(
-                    src=rx.color_mode_cond(
-                        light=f"{REFLEX_ASSETS_CDN}customers/light/{next_customer[1].metadata['company'].lower()}/{next_customer[1].metadata['company'].lower()}_small.svg",
-                        dark=f"{REFLEX_ASSETS_CDN}customers/dark/{next_customer[1].metadata['company'].lower()}/{next_customer[1].metadata['company'].lower()}_small.svg",
-                    ),
-                    alt=f"{next_customer[1].metadata['company']} logo",
-                    loading="lazy",
-                    class_name="h-[1.25rem] w-auto",
-                ),
-                class_name="flex flex-row justify-start gap-2.5 items-center",
+            rx.el.div(
+                id="carousel-fade-left",
+                class_name="absolute left-0 inset-y-0 w-24 bg-gradient-to-r from-m-slate-1 dark:from-m-slate-12 to-transparent pointer-events-none z-10 transition-opacity",
             ),
-            class_name="flex flex-col justify-start gap-1 items-end",
+            rx.el.div(
+                id="carousel-fade-right",
+                class_name="absolute right-0 inset-y-0 w-24 bg-gradient-to-l from-m-slate-1 dark:from-m-slate-12 to-transparent pointer-events-none z-10 transition-opacity",
+            ),
+            class_name="relative",
         ),
-    ]
-
-    return rx.box(
-        rx.box(
-            *customers,
-            class_name="flex flex-row gap-4 justify-between items-center",
-        ),
-        class_name="flex flex-col gap-6 mt-20",
+        rx.script(CAROUSEL_FADE_INIT_JS),
+        class_name="flex flex-col gap-8 lg:mt-20 mt-6 lg:mb-24 mb-12 max-w-[81rem] w-full mx-auto",
     )
 
 
-def storypage(
-    path: str,
-    description: str,
-    company: str,
-    h1: str | None = None,
-    domain: str | None = None,
-    founded: str | None = None,
-    investors: str | None = None,
-    stats: list[dict[str, str]] | None = None,
-    meta: list[dict[str, str]] | None = None,
-    props=None,
-    add_as_page=True,
-) -> Callable:
-    """A template that most pages on the reflex.dev site should use.
-
-    This template wraps the webpage with the navbar and footer.
-
-    Args:
-        path: The path of the page.
-        description: The description of the page.
-        company: The company name.
-        h1: Optional H1 for the hero. Used when company name alone is too short for SEO.
-        domain: The company domain.
-        founded: The company founded date.
-        investors: The company investors.
-        stats: The company stats to show in the hero.
-        meta: Additional meta tags to add to the page.
-        props: Props to apply to the template.
-        add_as_page: whether to add the route to the app pages.
-
-    Returns:
-        A wrapper function that returns the full webpage.
-    """
-    props = props or {}
+def storypage(study: CaseStudy, add_as_page: bool = True) -> Callable:
+    """A template that wraps a case study page with navbar, hero, stats, TOC, and footer."""
+    toc_raw, _ = get_toc(study.document, study.route)
+    toc = [(level, text) for level, text in toc_raw if level <= 3]
 
     def storypage(contents: Callable[[], Route]) -> Route:
-        """Wrapper to create a templated route.
-
-        Args:
-            contents: The function to create the page route.
-
-        Returns:
-            The templated route.
-        """
-
         @functools.wraps(contents)
         def wrapper(*children, **props) -> rx.Component:
-            """The template component.
-
-            Args:
-                children: The children components.
-                props: The props to apply to the component.
-
-            Returns:
-                The component with the template applied.
-            """
-            # Import here to avoid circular imports.
-            from pcweb.pages.framework.views.divider import divider
+            from pcweb.pages.customers.views.book_a_demo import book_a_demo
             from pcweb.pages.framework.views.footer_index import footer_index
             from pcweb.views.marketing_navbar import marketing_navbar
 
-            # Wrap the component in the template.
-            return rx.box(
-                rx.box(
-                    index_colors(),
-                    marketing_navbar(),
-                    company_card(company, founded, investors, domain),
-                    rx.el.main(
-                        hero(company, description, stats, h1),
-                        contents(*children, **props),
-                        more_customers(company),
-                        rx.box(class_name="flex-grow"),
-                        class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
+            return rx.el.div(
+                marketing_navbar(),
+                rx.el.main(
+                    rx.el.div(
+                        hero(study),
+                        stats_cards(study),
+                        rx.el.div(
+                            rx.el.div(
+                                contents(*children, **props),
+                                class_name="flex flex-col gap-4 flex-1 xl:max-w-2xl w-full",
+                            ),
+                            story_table_of_contents(toc, study.route, study.company),
+                            class_name="flex flex-row gap-24 max-w-(--docs-layout-max-width) mx-auto w-full lg:pb-24 pb-12 pt-8 max-lg:px-6 justify-between",
+                        ),
+                        more_customers(study.company),
+                        rx.el.hr(
+                            class_name="w-full border-t border-m-slate-4 dark:border-m-slate-9",
+                        ),
+                        rx.el.div(
+                            book_a_demo(),
+                            class_name="bg-gradient-to-b from-white-1 to-m-slate-1 dark:from-m-slate-11 dark:to-m-slate-12 w-full mb-10 max-lg:hidden",
+                        ),
+                        footer_index(),
+                        class_name="flex flex-col relative justify-center items-center w-full",
                     ),
-                    rx.box(class_name="h-[1px] bg-slate-3 w-full"),
-                    class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pt-24 lg:pt-48",
+                    class_name=ui.cn(
+                        "flex flex-col w-full relative h-full justify-center items-center",
+                        rx.cond(
+                            HostingBannerState.is_banner_visible,
+                            "mt-28",
+                            "mt-16",
+                        ),
+                    ),
                 ),
-                divider(),
-                footer_index(),
-                class_name="relative overflow-hidden flex flex-col justify-center items-center w-full",
-                **props,
+                class_name="flex flex-col w-full justify-center items-center relative bg-secondary-1",
             )
 
         return Route(
-            path=path,
-            title=company + " Case Study - Reflex Customer Stories",
-            description=description,
-            meta=meta,
+            path=study.route,
+            title=study.title,
+            description=study.description,
+            meta=study.meta,
             component=wrapper,
             add_as_page=add_as_page,
         )

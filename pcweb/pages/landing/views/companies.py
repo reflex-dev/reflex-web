@@ -98,8 +98,8 @@ def quote_box(company: str) -> rx.Component:
     case_study = companies_case_studies_var[company]
     return rx.fragment(
         rx.text(
-            f"“{case_study['quote']}”",
-            class_name="text-xs text-slate-12 font-medium animate-fade animate-duration-[505ms] animate-ease-out animate-fill-both",
+            f"{case_study['quote']}",
+            class_name="text-xs text-slate-12 font-medium animate-fade animate-duration-[505ms] animate-ease-out animate-fill-both leading-tight",
         ),
         rx.box(
             ui.gradient_profile(

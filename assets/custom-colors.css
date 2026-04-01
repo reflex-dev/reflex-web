@@ -15,6 +15,30 @@
   --c-slate-10: #80838D;
   --c-slate-11: #60646C;
   --c-slate-12: #1C2024;
+  --slate-1: #FBFCFE;
+  --slate-2: #F7FAFD;
+  --slate-3: #EDF1F6;
+  --slate-4: #E4E9F1;
+  --slate-5: #DBE1EB;
+  --slate-6: #D3DAE6;
+  --slate-7: #C7D0DE;
+  --slate-8: #B1BDCF;
+  --slate-9: #838FA1;
+  --slate-10: #798495;
+  --slate-11: #5C6573;
+  --slate-12: #1B212A;
+  --slate-a1: #0040c004;
+  --slate-a2: #0040c008;
+  --slate-a3: #00398e12;
+  --slate-a4: #0037801c;
+  --slate-a5: #00327924;
+  --slate-a6: #002e772d;
+  --slate-a7: #002d7039;
+  --slate-a8: #0028634e;
+  --slate-a9: #00193c7c;
+  --slate-a10: #00153686;
+  --slate-a11: #001027a4;
+  --slate-a12: #000711e5;
   /* Violet */
   --c-violet-1: #FDFCFE;
   --c-violet-2: #FAFBFF;
@@ -72,6 +96,18 @@
 .dark,
 .dark-theme {
   /* Slate */
+  --slate-1: #141619;
+  --slate-2: #1B1D20;
+  --slate-3: #22252A;
+  --slate-4: #282B31;
+  --slate-5: #2E3238;
+  --slate-6: #353A42;
+  --slate-7: #414852;
+  --slate-8: #58616F;
+  --slate-9: #656E7D;
+  --slate-10: #737C8A;
+  --slate-11: #ADB4BF;
+  --slate-12: #ECEEF1;
   /* #151618 */
   --c-slate-2: #1A1B1D;
   /* #1A1B1D */
@@ -115,7 +151,7 @@
   --c-red-9: #E5484D;
   --c-red-10: #DC3E42;
   /* White */
-  --c-white-1: #0E0F10;
+  --c-white-1: #1B1D20;
   --glow: #261958;
   --wave-line-1: #2F1C78;
   --wave-line-2: #261958;

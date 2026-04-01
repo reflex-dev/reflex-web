@@ -217,7 +217,7 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
             return text_comp(text=children[0])
         return rx.text(
             *children,
-            class_name="font-[475] text-m-slate-8 dark:text-m-slate-6 mb-4 leading-7",
+            class_name="font-[475] text-secondary-11 mb-4 leading-7",
         )
 
     def code_block(self, block: CodeBlock) -> rx.Component:
@@ -276,7 +276,7 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
             return list_comp(text=_spans_to_plaintext(spans))
         return rx.list_item(
             *_render_spans(spans),
-            class_name="font-[475] text-m-slate-8 dark:text-m-slate-6 mb-4",
+            class_name="font-[475] text-secondary-11 mb-4",
         )
 
     def transform_list_item(self, item: ListItem) -> rx.Component:
@@ -515,7 +515,7 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
                 trigger.append(
                     rx.box(
                         self._render_children(children),
-                        class_name="font-[475] !text-m-slate-8 dark:!text-m-slate-6",
+                        class_name="font-[475] !text-secondary-11",
                     ),
                 )
                 body = rx.fragment()

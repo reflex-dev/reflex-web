@@ -1,5 +1,7 @@
 ---
 company: SellerX
+card_header: "Why SellerX chose Reflex over Streamlit"
+card_description: "Find out why SellerX migrated from Streamlit to Reflex to power their e-commerce analytics platform with greater flexibility and performance."
 description: "Why SellerX chose Reflex over Streamlit for their data processing pipeline. Building scalable e-commerce analytics and internal tools with Python."
 domain: "https://sellerx.com"
 founded: "Berlin, 2020"
@@ -39,20 +41,11 @@ meta: [
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
-from pcweb.pages.docs import library
+from pcweb.pages.customers.views.app_preview_card import app_preview_card
 ```
 
 ```python eval
-rx.vstack(
-    image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/sellerx_app.webp", border_radius="10px", alt="SellerX App")),
-    rx.text("SellerX App built with Reflex"),
-    width="100%",
-)
-```
-
-```python eval
-rx.box(height="30px")
+app_preview_card(f"{REFLEX_ASSETS_CDN}case_studies/sellerx_app.webp", text="SellerX App built with Reflex")
 ```
 
 
@@ -141,6 +134,7 @@ The app that Mike and his team built with Reflex has been a huge success. It is 
 ```md quote
 - name: Mike
 - role: Head of AI
+- variant: medium
 A team of 6 non-technical employees use the app to make decisions based on Amazon information. It is allowing this team to be significantly more efficient and structured in the way they work and they are very happy with the improvements in speed. This team is now able to review 5x more Amazon data than their previous approach.
 ```
 
@@ -156,6 +150,7 @@ We are moving significantly faster, which has been very very useful. To have a q
 ```md quote
 - name: Mike
 - role: Head of AI
+- variant: medium
 With Reflex it is ten times faster than developing with React and FastApi.
 ```
 
