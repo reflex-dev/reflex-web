@@ -44,15 +44,11 @@ meta: [
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.pages.customers.views.app_preview_card import app_preview_card
 ```
 
 ```python eval
-rx.vstack(
-    image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/ansa_app.webp", border_radius="10px", alt="Ansa App")),
-    rx.text("Ansa App built with Reflex"),
-    width="100%",
-)
+app_preview_card(f"{REFLEX_ASSETS_CDN}case_studies/ansa_app.webp", text="Ansa App built with Reflex")
 ```
 
 Meet [Ansa](https://www.ansa.co), a venture capital firm based in New York City that invests in companies from Series A to C. They have invested in companies like Defense Unicorns, Bland, Gradient, and Selector and prior to founding the firm, supported investments in many of the venture-capital industry’s largest outcomes including Crowdstrike, Coinbase, and SurveyMonkey to name a few.

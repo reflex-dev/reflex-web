@@ -419,11 +419,11 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
         return rx.el.div(
             rx.el.span(
                 name,
-                class_name="text-xs font-mono uppercase font-[415] text-m-slate-12 dark:text-m-slate-3",
+                class_name="text-xs font-mono uppercase font-[415] text-secondary-12",
             ),
             rx.el.span(
                 role,
-                class_name="text-xs font-mono font-[415] text-m-slate-7 dark:text-m-slate-6 uppercase",
+                class_name="text-xs font-mono font-[415] text-secondary-11 uppercase",
             ),
             class_name=ui.cn("flex flex-col gap-0.5", class_name),
         )
@@ -444,20 +444,20 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
         return rx.el.div(
             rx.el.div(
                 self._avatar(data["name"], data["image"], class_name="size-6"),
-                class_name="p-4 shrink-0 lg:border-r border-m-slate-6 dark:border-m-slate-7 border-dashed max-lg:border-b",
+                class_name="p-4 shrink-0 lg:border-r border-secondary-8 border-dashed max-lg:border-b bg-secondary-1",
             ),
             rx.el.span(
                 f'"{data["quote_text"]}"',
-                class_name="text-m-slate-12 dark:text-m-slate-3 text-base font-[575] p-4  bg-white-1 dark:bg-m-slate-11",
+                class_name="text-secondary-12 text-base font-[575] p-4 bg-white-1 w-full",
             ),
-            class_name="flex lg:flex-row flex-col border border-dashed border-m-slate-6 dark:border-m-slate-7 mt-2 mb-6 rounded-lg overflow-hidden",
+            class_name="flex lg:flex-row flex-col border border-dashed border-secondary-8 mt-2 mb-6 rounded-lg overflow-hidden box-border bg-white-1",
         )
 
     def _render_small(self, data: dict[str, str]) -> rx.Component:
         return rx.el.div(
             rx.el.span(
                 f'"{data["quote_text"]}"',
-                class_name="text-m-slate-12 dark:text-m-slate-3 text-lg font-[575] p-6 lg:border-r border-m-slate-6 dark:border-m-slate-7 border-dashed max-lg:border-b bg-white-1 dark:bg-m-slate-11",
+                class_name="text-secondary-12 text-lg font-[575] p-6 lg:border-r border-secondary-8 border-dashed max-lg:border-b bg-white-1",
             ),
             rx.el.div(
                 rx.el.div(
@@ -465,9 +465,9 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
                     class_name="text-end text-nowrap",
                 ),
                 self._avatar(data["name"], data["image"], class_name="size-14"),
-                class_name="flex flex-row gap-6 items-center p-6 shrink-0",
+                class_name="flex flex-row gap-6 items-center p-6 shrink-0 bg-secondary-1",
             ),
-            class_name="flex lg:flex-row flex-col border border-dashed border-m-slate-6 dark:border-m-slate-7 mt-2 mb-6 rounded-lg overflow-hidden",
+            class_name="flex lg:flex-row flex-col border border-dashed border-secondary-8 mt-2 mb-6 rounded-lg overflow-hidden box-border bg-white-1",
         )
 
     def _render_big(self, data: dict[str, str]) -> rx.Component:
@@ -475,7 +475,7 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
             rx.el.div(
                 rx.el.span(
                     f"{data['quote_text']}",
-                    class_name="text-m-slate-12 dark:text-m-slate-3 text-2xl font-[575]",
+                    class_name="text-secondary-12 text-2xl font-[575]",
                 ),
                 rx.el.div(
                     self._avatar(data["name"], data["image"], class_name="size-6"),
@@ -494,7 +494,7 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
                 alt="Quote icon",
                 class_name="absolute right-0 inset-y-0 h-[calc(100%)] min-h-full w-auto origin-right pointer-events-none object-contain object-right",
             ),
-            class_name="flex flex-col dark:border bg-white-1 dark:bg-m-slate-11 dark:border-m-slate-9 mt-2 mb-6 overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.12)_inset,0_6px_12px_0_rgba(0,0,0,0.06),0_1px_1px_0_rgba(0,0,0,0.01),0_4px_6px_0_rgba(0,0,0,0.02)] rounded-xl py-8 px-8 relative",
+            class_name="flex flex-col dark:border bg-white-1 dark:border-secondary-4 mt-2 mb-6 overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.12)_inset,0_6px_12px_0_rgba(0,0,0,0.06),0_1px_1px_0_rgba(0,0,0,0.01),0_4px_6px_0_rgba(0,0,0,0.02)] rounded-xl py-8 px-8 relative",
         )
 
     def render(self, env) -> rx.Component:

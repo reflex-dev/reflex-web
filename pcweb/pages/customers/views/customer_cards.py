@@ -61,24 +61,24 @@ def customer_card(customer: CustomerCard) -> rx.Component:
             rx.el.div(
                 rx.el.div(
                     rx.el.div(
-                        class_name="size-2 shadow-[0_0_0_0.5px_rgba(0,0,0,0.16)_inset] dark:shadow-none dark:border dark:border-m-slate-9 bg-m-slate-4 dark:bg-m-slate-7 rounded-full"
+                        class_name="size-2 shadow-[0_0_0_0.5px_rgba(0,0,0,0.06)_inset] dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset] bg-secondary-4 rounded-full"
                     ),
                     rx.el.div(
-                        class_name="size-2 shadow-[0_0_0_0.5px_rgba(0,0,0,0.16)_inset] dark:shadow-none dark:border dark:border-m-slate-9 bg-m-slate-4 dark:bg-m-slate-7 rounded-full"
+                        class_name="size-2 shadow-[0_0_0_0.5px_rgba(0,0,0,0.06)_inset] dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset] bg-secondary-4 rounded-full"
                     ),
                     rx.el.div(
-                        class_name="size-2 shadow-[0_0_0_0.5px_rgba(0,0,0,0.16)_inset] dark:shadow-none dark:border dark:border-m-slate-9 bg-m-slate-4 dark:bg-m-slate-7 rounded-full"
+                        class_name="size-2 shadow-[0_0_0_0.5px_rgba(0,0,0,0.06)_inset] dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset] bg-secondary-4 rounded-full"
                     ),
-                    class_name="h-8 flex flex-row items-center gap-1 p-3 w-full border-b border-m-slate-4 dark:border-m-slate-9",
+                    class_name="h-8 flex flex-row items-center gap-1 p-3 w-full border-b border-secondary-4",
                 ),
                 rx.image(
                     src=f"{REFLEX_ASSETS_CDN}case_studies/apps/case_studies_{customer['name'].lower().replace(' ', '_')}_app.webp",
                     alt=customer["name"],
                     class_name="w-full h-full object-cover object-top-left min-h-[24.125rem]",
                 ),
-                class_name="flex flex-col border-l border-t border-m-slate-4 dark:border-m-slate-9 rounded-tl-xl w-full bg-white-1 dark:bg-m-slate-11 [box-shadow:0_0_0_1px_rgba(0,_0,_0,_0.06),_0_8px_24px_rgba(0,_0,_0,_0.06),_0_24px_48px_rgba(0,_0,_0,_0.04)] dark:shadow-none",
+                class_name="flex flex-col border-l border-t border-secondary-4 rounded-tl-xl w-full bg-white-1 [box-shadow:0_0_0_1px_rgba(0,_0,_0,_0.06),_0_8px_24px_rgba(0,_0,_0,_0.06),_0_24px_48px_rgba(0,_0,_0,_0.04)] dark:shadow-none",
             ),
-            class_name="list-inside flex flex-row lg:gap-12 gap-4 lg:pl-8 lg:pt-8 pl-6 pt-6 relative rounded-xl bg-white-1 dark:bg-m-slate-11 w-full overflow-hidden h-[25rem] cursor-pointer border border-black/10 dark:border-white/10 [box-shadow:0_6px_12px_0_rgba(0,_0,_0,_0.06),_0_1px_1px_0_rgba(0,_0,_0,_0.01),_0_4px_6px_0_rgba(0,_0,_0,_0.02)] dark:shadow-none xl:w-[42rem] w-full",
+            class_name="list-inside flex flex-row lg:gap-12 gap-4 lg:pl-8 lg:pt-8 pl-6 pt-6 relative rounded-xl bg-white-1 w-full overflow-hidden h-[25rem] cursor-pointer border border-black/10 dark:border-secondary-4 [box-shadow:0_6px_12px_0_rgba(0,_0,_0,_0.06),_0_1px_1px_0_rgba(0,_0,_0,_0.01),_0_4px_6px_0_rgba(0,_0,_0,_0.02)] dark:shadow-none xl:w-[42rem] w-full",
         ),
         to=customer["url"],
         class_name="-m-px h-[25rem] min-w-[42rem]",

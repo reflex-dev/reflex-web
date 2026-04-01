@@ -48,14 +48,11 @@ import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
 from reflex_image_zoom import image_zoom
 from pcweb.pages.docs import enterprise
+from pcweb.pages.customers.views.app_preview_card import app_preview_card
 ```
 
 ```python eval
-rx.vstack(
-    image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}case_studies/bayesline_app.webp", border_radius="10px", alt="Bayesline App")),
-    rx.text("Bayesline App built with Reflex"),
-    width="100%",
-)
+app_preview_card(f"{REFLEX_ASSETS_CDN}case_studies/bayesline_app.webp", text="Bayesline App built with Reflex")
 ```
 
 ## What Bayesline is building
