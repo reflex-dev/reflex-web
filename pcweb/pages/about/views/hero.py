@@ -60,6 +60,7 @@ def hero() -> rx.Component:
                             ),
                             href="https://www.linkedin.com/in/aleksanderpetuskey/",
                             target="_blank",
+                            rel="noopener noreferrer",
                         ),
                         rx.el.a(
                             rx.image(
@@ -70,6 +71,7 @@ def hero() -> rx.Component:
                             ),
                             href="https://www.linkedin.com/in/nrao95/",
                             target="_blank",
+                            rel="noopener noreferrer",
                         ),
                         class_name="flex flex-row items-center -space-x-1",
                     ),
