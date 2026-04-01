@@ -1691,11 +1691,11 @@
         font-weight: 400;
         line-height: normal;
         letter-spacing: -0.00406rem;
-        color: var(--c-violet-9);
-        background-color: var(--c-violet-3);
+        color: var(--c-slate-11);
+        background-color: var(--c-slate-3);
         border-radius: 0.25rem;
         border-width: 1px;
-        border-color: var(--c-violet-4);
+        border-color: var(--c-slate-4);
         /* padding: 0rem 0.125rem 0rem 0.125rem; */
     }
 

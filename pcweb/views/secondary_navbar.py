@@ -29,10 +29,9 @@ def menu_item(text: str, href: str, active_str: str = "") -> rx.Component:
         # Framework is active when in /docs but not in other specific sections
         is_docs = router_path.contains("/docs")
         is_ai_builder = router_path.contains("ai-builder")
-        is_enterprise = router_path.contains("enterprise")
         is_hosting = router_path.contains("hosting")
         is_start = router_path == "/docs"
-        active = is_docs & ~is_ai_builder & ~is_enterprise & ~is_hosting & ~is_start
+        active = is_docs & ~is_ai_builder & ~is_hosting & ~is_start
     else:
         active = router_path.contains(active_str)
 
