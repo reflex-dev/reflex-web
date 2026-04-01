@@ -262,7 +262,7 @@ def get_component(doc: str, title: str):
     def comp():
         toc = get_toc(d, actual_doc_path)
         rendered = xd.render(d, actual_doc_path)
-        if ldjson:
+        if isinstance(ldjson, dict) and ldjson:
             rendered = rx.fragment(jsonld_script(ldjson), rendered)
         return (toc, rendered)
 
@@ -289,7 +289,7 @@ def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
     def comp(_actual=actual_path, _ldjson=ldjson):
         toc = get_docgen_toc(_actual)
         rendered = render_docgen_document(_actual)
-        if _ldjson:
+        if isinstance(_ldjson, dict) and _ldjson:
             rendered = rx.fragment(jsonld_script(_ldjson), rendered)
         return (toc, rendered)
 
