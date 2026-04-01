@@ -269,7 +269,7 @@ def feedback_button_toc() -> rx.Component:
             size="sm",
             type="button",
             on_click=FeedbackState.set_score(1),
-            class_name="justify-start text-m-slate-7 dark:text-m-slate-6",
+            class_name="justify-start pl-0 text-m-slate-7 dark:text-m-slate-6",
         ),
         content=feedback_content(),
     )
@@ -290,7 +290,7 @@ def copy_to_markdown(text: str) -> rx.Component:
         type="button",
         size="sm",
         variant="ghost",
-        class_name="justify-start text-m-slate-7 dark:text-m-slate-6",
+        class_name="justify-start pl-0 text-m-slate-7 dark:text-m-slate-6",
         on_click=[
             rx.call_function(copied.set_value(True)),
             rx.set_clipboard(text),
@@ -308,7 +308,7 @@ def ask_ai_chat() -> rx.Component:
             "Ask AI about this page",
             size="sm",
             variant="ghost",
-            class_name="justify-start text-m-slate-7 dark:text-m-slate-6",
+            class_name="justify-start pl-0 text-m-slate-7 dark:text-m-slate-6",
             native_button=False,
         ),
         to=ai_builder_pages.integrations.mcp_overview.path,
@@ -334,7 +334,7 @@ def docpage_footer(path: str):
     from pcweb.pages.faq import faq
     from pcweb.pages.framework.views.footer_index import dark_mode_toggle
     from pcweb.pages.gallery import gallery
-    from pcweb.views.footer import menu_socials, newsletter_form, ph_1
+    from pcweb.views.footer import menu_socials
 
     return rx.el.footer(
         rx.box(
@@ -359,7 +359,6 @@ def docpage_footer(path: str):
             ),
             class_name="flex flex-row justify-center lg:justify-between items-center border-slate-4 border-y-0 lg:border-y pt-0 lg:pt-8 pb-6 lg:pb-8 w-full",
         ),
-        rx.box(newsletter_form(), class_name="pt-8 pb-10"),
         rx.box(
             rx.box(
                 footer_link_flex(
@@ -395,21 +394,17 @@ def docpage_footer(path: str):
                 class_name="flex flex-wrap justify-between gap-12 w-full",
             ),
             rx.box(
-                rx.box(
-                    ph_1(),
-                    rx.text(
-                        f"Copyright © {datetime.now().year} Pynecone, Inc.",
-                        class_name="font-small text-slate-9",
-                    ),
-                    dark_mode_toggle(),
-                    class_name="flex flex-col gap-6",
-                ),
+                rx.box(dark_mode_toggle(), class_name="[&>div]:!ml-0"),
                 menu_socials(),
                 class_name="flex flex-row gap-6 justify-between items-end w-full",
             ),
+            rx.text(
+                f"Copyright © {datetime.now().year} Pynecone, Inc.",
+                class_name="font-small text-slate-9",
+            ),
             class_name="flex flex-col justify-between gap-10 py-6 lg:py-8 w-full",
         ),
-        class_name="flex flex-col max-w-full lg:max-w-auto",
+        class_name="flex flex-col w-full max-w-full lg:max-w-auto",
     )
 
 
@@ -723,8 +718,13 @@ def docpage(
                         rx.el.nav(
                             rx.box(
                                 rx.el.p(
+                                    rx.icon(
+                                        "align-left",
+                                        size=14,
+                                        class_name="dark:text-m-slate-3 text-m-slate-12",
+                                    ),
                                     "On This Page",
-                                    class_name="text-sm h-8 flex items-center justify-start font-[525] dark:text-m-slate-3 text-m-slate-12",
+                                    class_name="text-sm h-8 flex items-center gap-1.5 justify-start font-[525] dark:text-m-slate-3 text-m-slate-12",
                                 ),
                                 rx.el.ul(
                                     *[

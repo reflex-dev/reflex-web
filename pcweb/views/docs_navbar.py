@@ -6,7 +6,7 @@ from pcweb.components.docpage.navbar.buttons.sidebar import navbar_sidebar_butto
 from pcweb.components.docpage.navbar.search import search_bar
 from pcweb.components.marketing_button import button
 from pcweb.constants import REFLEX_ASSETS_CDN
-from pcweb.pages.docs import ai_builder, enterprise, getting_started, hosting
+from pcweb.pages.docs import ai_builder, getting_started, hosting
 
 
 def logo() -> rx.Component:
@@ -53,10 +53,9 @@ def menu_item(text: str, href: str, active_str: str = "") -> rx.Component:
         # Framework is active when in /docs but not in other specific sections
         is_docs = router_path.contains("/docs")
         is_ai_builder = router_path.contains("ai-builder")
-        is_enterprise = router_path.contains("enterprise")
         is_hosting = router_path.contains("hosting")
         is_start = router_path == "/docs"
-        active = is_docs & ~is_ai_builder & ~is_enterprise & ~is_hosting & ~is_start
+        active = is_docs & ~is_ai_builder & ~is_hosting & ~is_start
     else:
         active = router_path.contains(active_str)
 
@@ -81,12 +80,11 @@ def menu_item(text: str, href: str, active_str: str = "") -> rx.Component:
 def navigation_menu() -> rx.Component:
     return ui.navigation_menu.root(
         ui.navigation_menu.list(
-            menu_item("Start", "/docs", "/docs"),
+            menu_item("Overview", "/docs", "/docs"),
             menu_item(
-                "AI Builder", ai_builder.overview.best_practices.path, "ai-builder"
+                "Build with AI", ai_builder.overview.best_practices.path, "ai-builder"
             ),
             menu_item("Framework", getting_started.introduction.path, "framework"),
-            menu_item("Enterprise Package", enterprise.overview.path, "enterprise"),
             menu_item("Cloud", hosting.deploy_quick_start.path, "hosting"),
             class_name="flex flex-row items-center gap-2 m-0 h-full list-none",
             custom_attrs={"role": "menubar"},
