@@ -51,17 +51,25 @@ def hero() -> rx.Component:
                 ),
                 rx.el.div(
                     rx.el.div(
-                        rx.image(
-                            src=f"{REFLEX_ASSETS_CDN}about/alek.avif",
-                            alt="Alek",
-                            custom_attrs={"fetchPriority": "high"},
-                            class_name="size-8 rounded-full pointer-events-none",
+                        rx.el.a(
+                            rx.image(
+                                src=f"{REFLEX_ASSETS_CDN}about/alek.avif",
+                                alt="Alek",
+                                custom_attrs={"fetchPriority": "high"},
+                                class_name="size-8 rounded-full",
+                            ),
+                            href="https://www.linkedin.com/in/aleksanderpetuskey/",
+                            target="_blank",
                         ),
-                        rx.image(
-                            src=f"{REFLEX_ASSETS_CDN}about/nikhil.avif",
-                            alt="Nikhil",
-                            custom_attrs={"fetchPriority": "high"},
-                            class_name="size-8 rounded-full pointer-events-none",
+                        rx.el.a(
+                            rx.image(
+                                src=f"{REFLEX_ASSETS_CDN}about/nikhil.avif",
+                                alt="Nikhil",
+                                custom_attrs={"fetchPriority": "high"},
+                                class_name="size-8 rounded-full",
+                            ),
+                            href="https://www.linkedin.com/in/nrao95/",
+                            target="_blank",
                         ),
                         class_name="flex flex-row items-center -space-x-1",
                     ),
