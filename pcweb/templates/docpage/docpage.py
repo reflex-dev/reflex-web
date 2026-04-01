@@ -334,7 +334,7 @@ def docpage_footer(path: str):
     from pcweb.pages.faq import faq
     from pcweb.pages.framework.views.footer_index import dark_mode_toggle
     from pcweb.pages.gallery import gallery
-    from pcweb.views.footer import menu_socials, newsletter_form, ph_1
+    from pcweb.views.footer import menu_socials
 
     return rx.el.footer(
         rx.box(
@@ -718,7 +718,11 @@ def docpage(
                         rx.el.nav(
                             rx.box(
                                 rx.el.p(
-                                    rx.icon("align-left", size=14, class_name="dark:text-m-slate-3 text-m-slate-12"),
+                                    rx.icon(
+                                        "align-left",
+                                        size=14,
+                                        class_name="dark:text-m-slate-3 text-m-slate-12",
+                                    ),
                                     "On This Page",
                                     class_name="text-sm h-8 flex items-center gap-1.5 justify-start font-[525] dark:text-m-slate-3 text-m-slate-12",
                                 ),
