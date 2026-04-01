@@ -56,7 +56,7 @@ def customer_card(customer: CustomerCard) -> rx.Component:
                     size="sm",
                     native_button=False,
                 ),
-                class_name="flex flex-col gap-4 max-w-[19rem] lg:pb-8 pb-6 h-full",
+                class_name="flex flex-col gap-4 max-w-[19rem] min-w-[19rem] lg:pb-8 pb-6 h-full",
             ),
             rx.el.div(
                 rx.el.div(

@@ -28,9 +28,9 @@ def right_sidebar_item_highlight():
     setTimeout(() => {
         const tocLinks = document.querySelectorAll('#toc-navigation a');
         const activeClasses = [
-            'text-m-violet-9',
-            'dark:text-m-violet-10',
-            'shadow-[1.5px_0_0_0_var(--primary-10)_inset]',
+            'text-primary-9',
+            'dark:text-primary-11',
+            'shadow-[1.5px_0_0_0_var(--primary-11)_inset]',
             'dark:shadow-[1.5px_0_0_0_var(--primary-9)_inset]',
         ];
         const defaultClasses = ['text-m-slate-7', 'dark:text-m-slate-6'];

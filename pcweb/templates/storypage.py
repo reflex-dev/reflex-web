@@ -233,7 +233,7 @@ def story_table_of_contents(toc: list, path: str, company: str) -> rx.Component:
 
     return rx.el.nav(
         rx.el.div(
-            class_name="absolute -top-24 left-0 w-px h-24 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-9 max-lg:hidden"
+            class_name="absolute -top-8 left-0 w-px h-8 bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-9 max-lg:hidden"
         ),
         rx.box(
             rx.el.ul(
@@ -261,7 +261,7 @@ def story_table_of_contents(toc: list, path: str, company: str) -> rx.Component:
         ),
         on_mount=rx.call_script(right_sidebar_item_highlight()),
         class_name=ui.cn(
-            "sticky w-[21rem] shrink-0 hidden xl:block self-start max-lg:hidden",
+            "sticky w-[21.05rem] shrink-0 hidden xl:block self-start max-lg:hidden",
             rx.cond(
                 HostingBannerState.is_banner_visible,
                 "top-[8.5rem]",
@@ -389,7 +389,7 @@ def storypage(study: CaseStudy, add_as_page: bool = True) -> Callable:
                                 class_name="flex flex-col gap-4 flex-1 xl:max-w-2xl w-full",
                             ),
                             story_table_of_contents(toc, study.route, study.company),
-                            class_name="flex flex-row gap-24 max-w-(--docs-layout-max-width) mx-auto w-full lg:py-24 py-12 max-lg:px-6 justify-between",
+                            class_name="flex flex-row gap-24 max-w-(--docs-layout-max-width) mx-auto w-full lg:pb-24 pb-12 pt-8 max-lg:px-6 justify-between",
                         ),
                         more_customers(study.company),
                         rx.el.hr(
