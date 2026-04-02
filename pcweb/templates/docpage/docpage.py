@@ -768,7 +768,7 @@ def docpage(
                                         for level, text in toc
                                     ],
                                     id="toc-navigation",
-                                    class_name="flex flex-col gap-y-1 list-none shadow-[1.5px_0_0_0_var(--m-slate-4)_inset] dark:shadow-[1.5px_0_0_0_var(--m-slate-9)_inset] max-h-[80vh]",
+                                    class_name="flex flex-col gap-y-1 list-none shadow-[1.5px_0_0_0_var(--m-slate-4)_inset] dark:shadow-[1.5px_0_0_0_var(--m-slate-9)_inset] max-h-[60vh] overflow-y-auto",
                                 ),
                                 rx.el.div(
                                     feedback_button_toc(),
