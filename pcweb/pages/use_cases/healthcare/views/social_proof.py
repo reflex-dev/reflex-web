@@ -5,7 +5,6 @@ from pcweb.pages.use_cases.common.logos_carousel import logos_carousel
 
 LOGOS = [
     "dana_farber",
-    "united_health_group",
     "ggdzl",
     "mercy",
     "drager",
