@@ -1,5 +1,5 @@
 import reflex as rx
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 
 
 def app_preview_card(image_url: str, text: str) -> rx.Component:

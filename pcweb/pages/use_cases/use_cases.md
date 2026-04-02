@@ -5,7 +5,7 @@ Organizations across industries use **Reflex** to build internal tools, dashboar
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 ```
 
 ### 1. Database Admin & CRUD

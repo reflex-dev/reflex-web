@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 from pcweb.pages.docs import hosting 
 from pcweb.pages import docs
 from pcweb.styles.styles import get_code_style, cell_style

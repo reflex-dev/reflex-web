@@ -40,7 +40,7 @@ faq: [
 import reflex as rx
 import reflex_ui as ui
 from pcweb import pages, constants
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 from reflex_ui.blocks.demo_form import demo_form_dialog
 ```
 
