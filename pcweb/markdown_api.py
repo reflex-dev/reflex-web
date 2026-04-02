@@ -2,9 +2,11 @@
 
 from pathlib import Path
 
+from reflex.constants import Dirs
+
 from pcweb.pages.docs import doc_markdown_sources
 
-PUBLIC_DIR = Path(".web/public")
+PUBLIC_DIR = Path.cwd() / Dirs.WEB / Dirs.PUBLIC
 
 
 def generate_markdown_files() -> None:

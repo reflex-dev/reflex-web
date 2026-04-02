@@ -284,9 +284,19 @@ def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
 
 
 for fd in flexdown_docs:
-    doc_markdown_sources[doc_route_from_path(fd)] = doc_path_mapping.get(fd, fd)
+    if fd.endswith("-style.md") or fd.endswith("-ll.md"):
+        continue
+    route = doc_route_from_path(fd)
+    if not _check_whitelisted_path(route):
+        continue
+    doc_markdown_sources[route] = doc_path_mapping.get(fd, fd)
 for virtual_doc, actual_path in docgen_docs.items():
-    doc_markdown_sources[doc_route_from_path(virtual_doc)] = actual_path
+    if virtual_doc.endswith("-style.md") or virtual_doc.endswith("-ll.md"):
+        continue
+    route = doc_route_from_path(virtual_doc)
+    if not _check_whitelisted_path(route):
+        continue
+    doc_markdown_sources[route] = actual_path
 
 doc_routes = [
     library,
