@@ -169,7 +169,8 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
     the reflex package look identical to the locally-authored ones.
     """
 
-    def __init__(self, filename: str = "") -> None:
+    def __init__(self, virtual_filepath: str = "", filename: str = "") -> None:
+        self.virtual_filepath = virtual_filepath
         self.filename = filename
         self.env: dict = {}
 
@@ -234,7 +235,7 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
 
         # ``python exec`` only — execute code, produce nothing visible.
         if language == "python" and "exec" in flags:
-            _exec_code(block.content, self.env, self.filename)
+            _exec_code(block.content, self.env, self.virtual_filepath)
             return rx.fragment()
 
         # ``python eval`` (standalone) — eval and return the component directly.
@@ -378,10 +379,10 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
 
         try:
             if "exec" in flags:
-                _exec_code(content, self.env, self.filename)
+                _exec_code(content, self.env, self.virtual_filepath)
                 comp = self.env[list(self.env.keys())[-1]]()
             elif "graphing" in flags:
-                _exec_code(content, self.env, self.filename)
+                _exec_code(content, self.env, self.virtual_filepath)
                 comp = self.env[list(self.env.keys())[-1]]()
                 parts = content.rpartition("def")
                 data, code = parts[0], parts[1] + parts[2]
@@ -393,7 +394,7 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
                 comp = eval(content, self.env, self.env)
         except Exception as e:
             e.add_note(
-                f"While rendering demo block in {self.filename}:\n{content[:200]}"
+                f"While rendering demo block in {self.virtual_filepath}:\n{content[:200]}"
             )
             raise
 
@@ -416,10 +417,10 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
 
         try:
             if "exec" in flags:
-                _exec_code(content, self.env, self.filename)
+                _exec_code(content, self.env, self.virtual_filepath)
                 comp = self.env[list(self.env.keys())[-1]]()
             elif "graphing" in flags:
-                _exec_code(content, self.env, self.filename)
+                _exec_code(content, self.env, self.virtual_filepath)
                 comp = self.env[list(self.env.keys())[-1]]()
                 parts = content.rpartition("def")
                 data, code = parts[0], parts[1] + parts[2]
@@ -430,7 +431,7 @@ class ReflexDocTransformer(DocumentTransformer[rx.Component]):
                 comp = eval(content, self.env, self.env)
         except Exception as e:
             e.add_note(
-                f"While rendering demo-only block in {self.filename}:\n{content[:200]}"
+                f"While rendering demo-only block in {self.virtual_filepath}:\n{content[:200]}"
             )
             raise
 
@@ -681,10 +682,14 @@ def _parse_doc(filepath: str | Path) -> Document:
     return parse_document(source)
 
 
-def render_docgen_document(filepath: str | Path) -> rx.Component:
+def render_docgen_document(
+    virtual_filepath: str | Path, actual_filepath: str | Path
+) -> rx.Component:
     """Parse and render a doc file from the reflex package using reflex_docgen."""
-    doc = _parse_doc(filepath)
-    transformer = ReflexDocTransformer(filename=str(filepath))
+    doc = _parse_doc(actual_filepath)
+    transformer = ReflexDocTransformer(
+        virtual_filepath=str(virtual_filepath), filename=str(actual_filepath)
+    )
     return transformer.transform(doc)
 
 
