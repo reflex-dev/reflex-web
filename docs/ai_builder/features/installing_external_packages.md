@@ -3,7 +3,7 @@
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 ```
 
 Reflex Build allows you to install external python packages to use in your app. This is useful if you want to use a package that is not included in the default Reflex Build environment. Examples might include `openai`, `langsmith`, `requests`, etc.

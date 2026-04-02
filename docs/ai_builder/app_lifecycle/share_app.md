@@ -6,7 +6,7 @@ When you share, Reflex Build generates a unique link that points to the current 
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 
 def render_image():
     return rx.el.div(
