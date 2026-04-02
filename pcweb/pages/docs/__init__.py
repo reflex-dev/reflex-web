@@ -94,7 +94,7 @@ def get_components_from_metadata(current_doc):
 
 
 # ---------------------------------------------------------------------------
-# Local docs (ai_builder, enterprise, hosting, etc.) — processed via flexdown
+# Local docs — processed via flexdown
 # ---------------------------------------------------------------------------
 flexdown_docs = [
     str(doc).replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
@@ -275,8 +275,9 @@ def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
 
     def comp(_actual=actual_path):
         toc = get_docgen_toc(_actual)
+        doc_content = Path(_actual).read_text(encoding="utf-8")
         rendered = render_docgen_document(_actual)
-        return (toc, rendered)
+        return ((toc, doc_content), rendered)
 
     return make_docpage(resolved.route, resolved.display_title, virtual_doc, comp)
 
@@ -342,6 +343,4 @@ for _virtual, _actual in sorted(docgen_docs.items()):
     )
 
 for name, ns in docs_ns.__dict__.items():
-    # if name == "cloud":
-    #     print(name, ns)
     locals()[name] = ns
