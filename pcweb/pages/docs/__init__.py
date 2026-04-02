@@ -94,7 +94,7 @@ def get_components_from_metadata(current_doc):
 
 
 # ---------------------------------------------------------------------------
-# Local docs (ai_builder, enterprise, hosting, etc.) — processed via flexdown
+# Local docs — processed via flexdown
 # ---------------------------------------------------------------------------
 flexdown_docs = [
     str(doc).replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
@@ -342,6 +342,4 @@ for _virtual, _actual in sorted(docgen_docs.items()):
     )
 
 for name, ns in docs_ns.__dict__.items():
-    # if name == "cloud":
-    #     print(name, ns)
     locals()[name] = ns
