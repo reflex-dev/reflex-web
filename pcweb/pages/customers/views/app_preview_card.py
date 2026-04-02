@@ -1,4 +1,5 @@
 import reflex as rx
+
 from pcweb.components.image_zoom import image_zoom
 
 
