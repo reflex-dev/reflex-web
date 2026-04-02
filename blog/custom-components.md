@@ -49,7 +49,7 @@ And use it right away like any other Reflex component.
 ```python demo exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 
 def zoom():
     src = f"{REFLEX_ASSETS_CDN}blog/custom_components.webp"

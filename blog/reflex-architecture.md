@@ -95,7 +95,7 @@ Under the hood, Reflex apps compile down to a [React](https://react.dev) fronten
 The diagram below provides a detailed overview of how a Reflex app works. We'll go through each part in more detail in the following sections.
 
 ```python exec
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 ```
 
 ```python eval

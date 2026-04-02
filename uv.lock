@@ -2714,18 +2714,6 @@ wheels = [
 ]
 
 [[package]]
-name = "reflex-image-zoom"
-version = "0.0.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "reflex" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/94/0a/6cf2c9b3fcc7a44c136df038d55f39b8b8d876e736187ca07bfb56a2f830/reflex-image-zoom-0.0.2.tar.gz", hash = "sha256:bdb43b6e677936a8c4144b50594e27f3be9dd38c35b76920640f36fb030ef5c6", size = 2259, upload-time = "2024-03-20T18:15:32.463Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/a2/c9/3360864ed46398ba6899fc841c8580c03740b3f7042b92a01efab3d61165/reflex_image_zoom-0.0.2-py3-none-any.whl", hash = "sha256:ae1233a199863b70bc6fb10141439c150cf2b02b5ef3d0069271b92b42d05090", size = 2467, upload-time = "2024-03-20T18:15:30.464Z" },
-]
-
-[[package]]
 name = "reflex-pyplot"
 version = "0.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2765,7 +2753,6 @@ dependencies = [
     { name = "reflex-docgen" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
-    { name = "reflex-image-zoom" },
     { name = "reflex-pyplot" },
     { name = "reflex-ui" },
     { name = "requests" },
@@ -2800,7 +2787,6 @@ requires-dist = [
     { name = "reflex-docgen", git = "https://github.com/reflex-dev/reflex?subdirectory=packages%2Freflex-docgen&rev=main" },
     { name = "reflex-enterprise" },
     { name = "reflex-hosting-cli" },
-    { name = "reflex-image-zoom" },
     { name = "reflex-pyplot" },
     { name = "reflex-ui", git = "https://github.com/reflex-dev/reflex-ui?rev=main" },
     { name = "requests" },
