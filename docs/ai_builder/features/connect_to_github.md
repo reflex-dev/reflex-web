@@ -8,7 +8,7 @@ description: Integrate with GitHub to automate workflows and interact with your 
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 ```
 
 The Github integration is important to make sure that you don't lose your progress. It also allows you to revert to previous versions of your app.
