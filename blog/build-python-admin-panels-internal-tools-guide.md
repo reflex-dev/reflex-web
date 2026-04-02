@@ -20,7 +20,7 @@ faq: [
 ```python exec
 import reflex as rx
 from pcweb.constants import REFLEX_ASSETS_CDN
-from reflex_image_zoom import image_zoom
+from pcweb.components.image_zoom import image_zoom
 ```
 
 Most Python developers hit the same wall when [building internal tools](https://blog.tooljet.com/build-internal-apps-without-frontend-developers/). You finish the backend logic, then face rebuilding the interface in a JavaScript framework you'd rather avoid. Now you can [build approval workflows in Python](https://reflex.dev/) and skip the context switching. We'll show you how to create complete admin panels with forms, tables, authentication, and business process automation using Python alone.

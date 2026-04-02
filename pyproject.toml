@@ -23,7 +23,6 @@ dependencies = [
     "reflex-docgen @ git+https://github.com/reflex-dev/reflex@carlos/move-docs-from-web#subdirectory=packages/reflex-docgen",
     "reflex-enterprise",
     "reflex-hosting-cli",
-    "reflex-image-zoom",
     "reflex-pyplot",
     "reflex-ui @ git+https://github.com/reflex-dev/reflex-ui@main",
     "requests",
