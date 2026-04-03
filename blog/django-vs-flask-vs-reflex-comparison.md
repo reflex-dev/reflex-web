@@ -21,7 +21,6 @@ faq: [
 ```python exec
 import reflex as rx
 from pcweb.components.image_zoom import image_zoom
-from pcweb.constants import REFLEX_ASSETS_CDN
 ```
 
 The [full stack Python framework comparison](https://reflex.dev/) usually ends with Django for big projects and Flask for small ones. That advice oversimplifies how these frameworks actually behave in production and completely ignores the frontend problem both of them create. We're comparing what you get from each framework, how they handle the split between backend and frontend development, and why the newest option lets you stay in Python for your entire application.
@@ -42,7 +41,7 @@ Python has become a leading language for full stack development because teams al
 ## Django Overview and Core Features
 
 ```python eval
-image_zoom(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/_X1sUZxBt8QDLdH_qrR45.png", alt="django.png", border_radius="10px", width="100%")
+rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/_X1sUZxBt8QDLdH_qrR45.png", border_radius="10px", alt="django.png", width="100%")), class_name="mb-4")
 ```
 
 Django launched in 2005 and has spent two decades refining the batteries-included approach to web development. The framework ships with an ORM that abstracts database operations, an automatic admin interface for content management, and built-in user authentication. Django remains one of the most widely adopted options for teams building data-intensive applications. Security comes configured by default. Django protects against SQL injection, cross-site scripting, cross-site request forgery, and clickjacking without requiring additional configuration.
@@ -56,7 +55,7 @@ Enterprise teams building user-facing applications benefit from Django's authent
 ## Flask Overview and Core Features
 
 ```python eval
-image_zoom(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/JN-j1VKxsi2Vr5ueUNxea.png", alt="flask.png", border_radius="10px", width="100%")
+rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/JN-j1VKxsi2Vr5ueUNxea.png", border_radius="10px", alt="flask.png", width="100%")), class_name="mb-4")
 ```
 
 Flask takes the opposite approach. Released in 2010, it provides routing and templating but leaves database management, authentication, and form validation to the developer. This microframework philosophy means you choose your own ORM, select your preferred authentication system, and assemble exactly the components you need. The core library weighs in at roughly 30KB. Flask gives you Werkzeug for WSGI utilities and Jinja2 for templating, then steps back. Want SQLAlchemy for your database? Install it. Need user sessions? Add Flask-Login. This design makes Flask popular for building APIs and microservices where teams want control over every dependency.
@@ -70,7 +69,7 @@ Choose Flask when your team values component selection over convention. Teams wi
 ## Reflex Overview and Core Features
 
 ```python eval
-image_zoom(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/58I3Ex0z0QJ6Z651yH90-.png", alt="reflex.png", border_radius="10px", width="100%")
+rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/58I3Ex0z0QJ6Z651yH90-.png", border_radius="10px", alt="reflex.png", width="100%")), class_name="mb-4")
 ```
 
 Reflex takes a different approach. Django and Flask handle backend logic but require JavaScript frameworks like React or Vue for the frontend. [Reflex](https://reflex.dev) lets you write both sides in Python, compiling Python code into a React frontend automatically. Released in 2023, Reflex has powered over 1 million applications and earned [28,000+ GitHub stars](https://github.com/reflex-dev/reflex). The framework ships with 60+ built-in components, state management through Python classes, and event handlers that modify application state through Python functions. Beyond the built-in library, Reflex lets you wrap and use any React component directly in Python, giving your team access to the entire React ecosystem without writing a single line of JavaScript.
@@ -99,7 +98,7 @@ To compare these three Python frameworks, we looked at a number of key compariso
 ### Performance and Speed Comparison
 
 ```python eval
-image_zoom(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/55tgEddmRPX1zFwz26X5O.png", alt="A clean, modern illustration showing three server stacks side by side representing different web frameworks. Left stack shows a robust, full-featured server with multiple layers and components stacked vertically in organized blocks. Middle stack shows a minimal, lightweight server with fewer components and more space between elements. Right stack shows a hybrid architecture with a Python backend connected to a modern frontend layer through flowing data streams. Use a professional tech color palette with blues, purples, and greens. Include visual indicators of speed and performance like glowing connections, data flow arrows, and activity indicators. Minimalist, geometric style without any text or labels.", border_radius="10px", width="100%")
+rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/55tgEddmRPX1zFwz26X5O.png", border_radius="10px", alt="A clean, modern illustration showing three server stacks side by side representing different web frameworks. Left stack shows a robust, full-featured server with multiple layers and components stacked vertically in organized blocks. Middle stack shows a minimal, lightweight server with fewer components and more space between elements. Right stack shows a hybrid architecture with a Python backend connected to a modern frontend layer through flowing data streams. Use a professional tech color palette with blues, purples, and greens. Include visual indicators of speed and performance like glowing connections, data flow arrows, and activity indicators. Minimalist, geometric style without any text or labels.", width="100%")), class_name="mb-4")
 ```
 
 Django with ASGI can handle 3,000 requests per second in production. Flask's lightweight architecture delivers faster response times for simple JSON API responses, where minimal overhead benefits basic request-response cycles. But, raw benchmarks don't tell the full story. Django's ORM adds query overhead versus raw SQL, while Flask's performance varies based on your library choices. Reflex, on the other hand, compiles Python into React, introducing a compilation step during development but delivering standard React performance in production.
@@ -107,7 +106,7 @@ Django with ASGI can handle 3,000 requests per second in production. Flask's lig
 ## Architecture and Design Philosophy Comparison
 
 ```python eval
-image_zoom(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/sE9N17m3QoFqwCdlMS3yL.png", alt="A clean, modern illustration showing three distinct architectural patterns side by side. Left side shows a structured layered architecture with organized boxes representing models, views, and templates in a vertical stack. Middle shows a flexible, modular design with loosely connected components and building blocks that can be arranged freely. Right side shows a state-driven architecture with a central state container connected to UI components through event flows and automatic updates, depicted with flowing arrows and reactive connections. Use a professional tech color palette with blues, purples, and whites. Minimalist, geometric style without any text or labels.", border_radius="10px", width="100%")
+rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/sE9N17m3QoFqwCdlMS3yL.png", border_radius="10px", alt="A clean, modern illustration showing three distinct architectural patterns side by side. Left side shows a structured layered architecture with organized boxes representing models, views, and templates in a vertical stack. Middle shows a flexible, modular design with loosely connected components and building blocks that can be arranged freely. Right side shows a state-driven architecture with a central state container connected to UI components through event flows and automatic updates, depicted with flowing arrows and reactive connections. Use a professional tech color palette with blues, purples, and whites. Minimalist, geometric style without any text or labels.", width="100%")), class_name="mb-4")
 ```
 
 Django enforces an MVT (Model-View-Template) pattern where models define data structures, views contain business logic, and templates render HTML. This opinionated structure means projects follow predictable patterns with consistent locations for authentication logic, database queries, and template inheritance. Flask, though, imposes no architectural pattern, letting you build REST APIs with functional views or structure monoliths around blueprints. This flexibility creates maintenance challenges when developers make inconsistent choices. Only Reflex uses [state-driven architecture](https://reflex.dev/blog/reflex-architecture/) where Python classes define application state, functions modify state through event handlers, and the UI updates automatically when state changes.
