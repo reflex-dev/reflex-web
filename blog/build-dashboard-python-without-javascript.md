@@ -4,7 +4,7 @@ date: 2026-04-02
 title: "How to Build a Dashboard in Python Without Writing Any JavaScript (April 2026)"
 title_tag: "Build Python Dashboards Without JavaScript (2026)"
 description: "Learn how to build production dashboards in pure Python without JavaScript using Reflex. Real-time updates, 60+ components, one-command deploy. April 2026."
-image: https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/hfUb_Spo99XIzJpdXweVx.jpg
+image: /blog/build-dashboard-python_thumbnail.webp
 tag: Builder
 meta: [
   {"name": "keywords", "content": "make a dashboard in python, how to make a dashboard in python"}
@@ -46,7 +46,7 @@ You compose dashboards from 60+ built-in components: charts, tables, forms, butt
 ## The JavaScript Problem With Traditional Dashboard Development
 
 ```python eval
-rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/8DrusKNmSipkY4yFDvjwT.png", border_radius="10px", alt="A split-screen visualization showing two contrasting developer workspaces. On the left side, a clean organized Python development environment with pandas dataframes, numpy arrays, and Python code on monitors, using cool blue and green tones. On the right side, a chaotic jumbled workspace with tangled connections between React components, JavaScript files, npm packages, and DOM elements, using warm orange and red tones. The contrast emphasizes the jarring context switch from Python simplicity to JavaScript complexity. Modern, minimalist illustration style with a professional tech aesthetic.", width="100%")), class_name="mb-4")
+rx.el.div(image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/build-dashboard-python_python-vs-javascript.webp", border_radius="10px", alt="Python vs JavaScript developer workspace comparison", width="100%")), class_name="mb-4")
 ```
 
 Dashboard frameworks like [Plotly Dash](https://reflex.dev/blog/reflex-dash/), [Streamlit](https://reflex.dev/blog/reflex-streamlit/), and Flask require JavaScript the moment you need custom interactions. A dropdown filter that updates multiple charts? You're writing JavaScript callbacks. Custom styling beyond basic themes? CSS and potentially React components. Real-time data updates with WebSockets? Back to JavaScript event listeners.
@@ -67,7 +67,7 @@ This creates a difficult context switch. Python developers spend their time writ
 Build a dashboard with Python couldn't be easier with Reflex.
 
 ```python eval
-rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/2huyBKMBIR6ip5nipeT_i.png", border_radius="10px", alt="A clean, modern illustration showing a Python dashboard architecture concept. Display a visual flow diagram with three connected layers: at the top, Python class objects representing state (showing data structures like dictionaries and lists), in the middle, Python functions that process and transform data, and at the bottom, dashboard UI components like charts, graphs, and data tables. Use a professional blue and green color scheme. Show data flowing downward through the layers with smooth connecting lines. Include visual representations of bar charts, line graphs, and metric cards. Modern, minimalist style with a technical but approachable aesthetic. No text or letters.", width="100%")), class_name="mb-4")
+rx.el.div(image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/build-dashboard-python_dashboard-architecture.webp", border_radius="10px", alt="Python dashboard architecture diagram", width="100%")), class_name="mb-4")
 ```
 
 Create a new file called `dashboard.py` and start with state. Your dashboard needs data and variables that track user interactions, so define them as a Python class.
@@ -201,7 +201,7 @@ Pure Python dashboards work best when domain expertise matters more than fronten
 ## Building Production-Grade Dashboards in Pure Python With Reflex
 
 ```python eval
-rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/EA8gwtgJI1-26kHBQCo_Y.png", border_radius="10px", alt="reflex.png", width="100%")), class_name="mb-4")
+rx.el.div(image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/build-dashboard-python_reflex.webp", border_radius="10px", alt="reflex.png", width="100%")), class_name="mb-4")
 ```
 
 Reflex turns Python dashboards into production applications without requiring JavaScript expertise. The framework provides 60+ built-in components for charts, tables, forms, and layouts that you compose using Python functions. Authentication integrates with providers like Okta, Google, and Clerk through simple configuration. Database connections use the Python libraries you already know: SQLAlchemy, psycopg2, or MongoDB drivers. Deploy with `reflex deploy` to get multi-region infrastructure, monitoring, and team collaboration features. Organizations requiring on-premises deployment run the same Python codebase in their own environments.

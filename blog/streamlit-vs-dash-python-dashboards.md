@@ -3,8 +3,8 @@ author: Tom Gotsman
 date: 2026-04-02
 title: "Streamlit vs. Dash for Python Dashboards: Which One Should You Actually Use? (April 2026)"
 title_tag: "Streamlit vs Dash Python Dashboards April 2026"
-description: "Streamlit vs. Dash for Python dashboards: Compare script reruns vs. callbacks, performance, and production features. Updated April 2026 comparison guide."
-image: https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/ysXRW_wbgIwWTpVNBg32z.jpg
+description: "Streamlit vs. Dash for Python dashboards: Compare script reruns vs. callbacks, performance, and production features."
+image: /blog/streamlit-vs-dash_thumbnail.webp
 tag: Builder
 meta: [
   {"name": "keywords", "content": "streamlit vs dash for python dashboards, streamlit vs dash comparison, streamlit or dash"}
@@ -46,7 +46,7 @@ You've narrowed your Streamlit vs Dash decision down to architecture differences
 ## What Streamlit Does and How It Works
 
 ```python eval
-rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/NB6mENf7ZVUXdDTjkmcnd.png", border_radius="10px", alt="streamlit.png", width="100%")), class_name="mb-4")
+rx.el.div(image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/streamlit-vs-dash_streamlit.webp", border_radius="10px", alt="streamlit.png", width="100%")), class_name="mb-4")
 ```
 
 Streamlit is an open-source Python framework built for data scientists and analysts who want to turn scripts into interactive web applications without learning frontend development. You write Python, add a few Streamlit commands, and get a working web interface. The framework operates on a script rerun model. Every time a user interacts with a widget (clicking a button, adjusting a slider, typing in a text box), [Streamlit reruns](https://docs.streamlit.io/develop/concepts/architecture/run-your-app) your entire Python script from top to bottom. This approach makes the mental model simple: your script executes linearly, and the UI reflects the current state of that execution.
@@ -60,7 +60,7 @@ The framework integrates naturally with [Python data libraries](https://www.data
 ## What Dash Does and How It Works
 
 ```python eval
-rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/4Z8-zlP1HUxCVJsuObQK_.png", border_radius="10px", alt="dash.png", width="100%")), class_name="mb-4")
+rx.el.div(image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/streamlit-vs-dash_dash.webp", border_radius="10px", alt="dash.png", width="100%")), class_name="mb-4")
 ```
 
 Dash takes a different architectural approach. Built on Flask, React, and Plotly.js, Dash connects UI components to Python functions through an explicit callback system. You define which component properties trigger updates and which components receive the results. The callback model is stateless. When a user adjusts a dropdown or slider, only the callback functions tied to that specific input execute. The rest of your application stays idle. This contrasts with Streamlit's full script rerun and can be more performant when you have expensive operations that don't need to re-execute on every interaction. Each callback decorates a Python function with `@app.callback`, specifying Input components that trigger the function, Output components that receive return values, and optional State components that pass current values without triggering execution. A dropdown selection might trigger a callback that filters data and returns an updated graph.
@@ -72,7 +72,7 @@ Dash integrates tightly with Plotly's charting library, making it a natural choi
 ## Streamlit's Script Rerun Model Creates Performance Issues
 
 ```python eval
-rx.el.div(image_zoom(rx.image(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92c2-dafa55322572/J3zqzVbZbRsnrMjt1Y9ad.png", border_radius="10px", alt="A technical diagram showing a performance bottleneck visualization. On the left side, show multiple stacked server icons or process blocks representing heavy database queries, API calls, and data transformations. In the center, show a narrow bottleneck or hourglass shape representing a constraint. On the right side, show waiting user icons or browser windows. Use a professional color scheme with blues, purples, and reds to indicate stress points. The style should be clean, modern, and minimalist with a focus on conveying system architecture and performance concepts.", width="100%")), class_name="mb-4")
+rx.el.div(image_zoom(rx.image(src=f"{REFLEX_ASSETS_CDN}blog/streamlit-vs-dash_performance-bottleneck.webp", border_radius="10px", alt="Performance bottleneck visualization for dashboard frameworks", width="100%")), class_name="mb-4")
 ```
 
 The rerun model works fine for small scripts that load a CSV and display a few charts. But when you start building real applications with database queries, API calls, or model inference, the architecture becomes a bottleneck.
