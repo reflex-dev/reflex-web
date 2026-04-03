@@ -275,9 +275,11 @@ def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
     if virtual_doc.startswith("docs/library"):
         return handle_library_doc(virtual_doc, actual_path, title, resolved)
 
-    def comp(_actual=actual_path):
+    def comp(_actual=actual_path, _virtual=virtual_doc):
         toc = get_docgen_toc(_actual)
-        rendered = render_docgen_document(_actual)
+        rendered = render_docgen_document(
+            virtual_filepath=_virtual, actual_filepath=_actual
+        )
         return (toc, rendered)
 
     return make_docpage(resolved.route, resolved.display_title, virtual_doc, comp)

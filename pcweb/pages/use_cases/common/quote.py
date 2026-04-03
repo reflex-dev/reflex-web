@@ -16,7 +16,7 @@ def quote_card(
             ),
             rx.el.p(
                 description,
-                class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium",
+                class_name="text-secondary-11 text-sm font-medium",
             ),
             class_name="flex flex-col gap-6 border-b border-m-slate-4 dark:border-m-slate-12 p-10",
         ),
@@ -24,7 +24,7 @@ def quote_card(
             rx.el.p(quote, class_name="text-slate-12 text-lg font-semibold"),
             rx.el.p(
                 name,
-                class_name="text-m-slate-11 dark:text-m-slate-9 text-base font-medium",
+                class_name="text-secondary-11 text-base font-medium",
             ),
             class_name="flex flex-col gap-2 p-10",
         ),

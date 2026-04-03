@@ -12,7 +12,7 @@ def feature_card(
         rx.el.span(title, class_name="font-semibold text-slate-12 text-lg mt-2"),
         rx.el.p(
             description,
-            class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium",
+            class_name="text-secondary-11 text-sm font-medium",
         )
         if description
         else None,
@@ -20,11 +20,11 @@ def feature_card(
             *[
                 rx.el.li(
                     item,
-                    class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium mt-1",
+                    class_name="text-secondary-11 text-sm font-medium mt-1",
                 )
                 for item in items
             ],
-            class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium list-disc list-inside",
+            class_name="text-secondary-11 text-sm font-medium list-disc list-inside",
         )
         if items
         else None,
