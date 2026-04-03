@@ -72,6 +72,8 @@ image_zoom(src="https://d4bkhhmrfehmf.cloudfront.net/media/329d6193-80f9-494b-92
 ```
 
 Create a new file called `dashboard.py` and start with state. Your dashboard needs data and variables that track user interactions, so define them as a Python class.
+
+```python
 import reflex as rx
 
 class DashboardState(rx.State):
@@ -80,10 +82,13 @@ class DashboardState(rx.State):
         {"month": "Feb", "amount": 15200},
     ]
     selected_metric: str = "revenue"
+```
 
 State variables become the source of truth. When `selected_metric` changes, every component using that value updates automatically without manual DOM manipulation.
 
 Build the UI by composing components in a Python function. Each component accepts keyword arguments for styling and behavior.
+
+```python
 def index():
     return rx.vstack(
         rx.heading("Revenue Dashboard"),
@@ -96,6 +101,7 @@ def index():
             data=DashboardState.revenue_data,
         ),
     )
+```
 
 Run `reflex run` and your dashboard appears at `localhost:3000`. Modify the data in your state class, save the file, and watch the charts update instantly.
 
@@ -104,6 +110,8 @@ Run `reflex run` and your dashboard appears at `localhost:3000`. Modify the data
 Real-time dashboards update when data changes. In JavaScript frameworks, you'd attach event listeners, manage WebSocket connections, and manually update DOM elements. Reflex handles this through background tasks and Python's async patterns.
 
 Background tasks run independently without blocking the UI. Decorate an async method with `@rx.event(background=True)` and wrap state mutations in `async with self:` blocks. Each mutation triggers a UI update with the current state, so your dashboard refreshes in real time while the task continues running.
+
+```python
 @rx.event(background=True)
 async def poll_api_continuously(self):
     async with self:
@@ -113,17 +121,24 @@ async def poll_api_continuously(self):
         async with self:
             self.current_value = fetch_latest_data()
         yield
+```
+
 The dashboard shows each update as the loop executes. Users see values change every second without you having to write WebSocket handlers or manage connection state.
 
 Start a background task from any regular event handler by returning it as an event reference:
+
+```python
 def start_monitoring(self):
     return DashboardState.poll_api_continuously
+```
 
 Multiple users viewing the same dashboard see synchronized updates when shared state changes.
 
 ## Styling and Layout in Python
 
 Every component accepts styling through keyword arguments. Pass `color`, `padding`, `margin`, `font_size`, or any CSS property as a Python parameter. Want a card with rounded corners and shadow? Write it as function arguments.
+
+```python
 rx.box(
     rx.text("Revenue: $45,200", font_size="24px", font_weight="bold"),
     padding="20px",
@@ -131,37 +146,47 @@ rx.box(
     box_shadow="lg",
     background="white",
 )
+```
 
 Layout comes from component nesting. Stack components vertically with `rx.vstack`, arrange horizontally with `rx.hstack`, or create grid layouts with `rx.grid`. Reflex includes a theming system for consistent styling across your dashboard. Responsive design works through the same keyword arguments. Pass a list of values for different screen sizes: `width=["100%", "50%", "33%"]` displays full-width on mobile, half-width on tablet, and third-width on desktop.
 
 ## Connecting to Data Sources and APIs
 
 Dashboards are only as good as the data they visualize. Your dashboard can pull data from databases, APIs, and external services. Import the Python libraries you already use: `requests` for REST APIs, `pandas` for data manipulation, `SQLAlchemy` for database connections, `psycopg2` for PostgreSQL. Then, connect to a database directly in your state class. Finally, query data in event handlers using the same SQL patterns you write for data analysis.
+
+```python
 import sqlalchemy
 from sqlalchemy import create_engine
 
 class DashboardState(rx.State):
     metrics: list[dict] = []
-    
+
     def load_data(self):
         engine = create_engine("postgresql://localhost/analytics")
         query = "SELECT date, revenue, users FROM metrics"
         self.metrics = pd.read_sql(query, engine).to_dict('records')
+```
 
 API calls work the same way. Use `requests.get()` or any HTTP library, parse the response, and assign results to state variables.
+
+```python
 def fetch_api_data(self):
     response = requests.get("https://api.example.com/metrics")
     self.api_metrics = response.json()
+```
 
 Your entire PyPI ecosystem works inside dashboards. Need authentication? Use the same auth library you use in backend services. Parse CSV files? Import pandas. Connect to Snowflake or MongoDB using their Python SDKs.
 
 ## Deployment Without Frontend Build Pipelines
 
 Reflex deploys with `reflex deploy`. One command packages your Python application and provisions infrastructure. No webpack configuration, no build scripts, no compiled frontend assets to manage. The deployment process mirrors deploying Flask or Django applications: your Python code goes directly to production without compilation steps. CI/CD pipelines run the same command in GitHub Actions, GitLab CI, or custom automation.
+
+```yaml
 - name: Deploy to Reflex Cloud
   run: |
     pip install reflex
     reflex deploy
+```
 
 [Reflex Cloud handles scaling and infrastructure](https://reflex.dev/hosting/) automatically. Organizations requiring on-premises deployment can run Reflex in their own environments using the same Python codebase.
 
