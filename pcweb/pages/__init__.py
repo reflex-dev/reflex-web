@@ -28,6 +28,7 @@ from .migration.other_frameworks import (
     other_frameworks_migration_page as other_frameworks_migration_page,
 )
 from .page404 import page404 as page404
+from .page_index import page_index as page_index
 from .pricing.pricing import pricing as pricing
 from .sales import sales as sales
 from .security.security import security_page as security_page
