@@ -132,6 +132,8 @@ component_list = defaultdict(list)
 recipes_list = defaultdict(list)
 docs_ns = SimpleNamespace()
 
+doc_markdown_sources: dict[str, str] = {}
+
 
 def exec_blocks(doc, href):
     """Execute the exec and demo blocks in the document."""
@@ -282,6 +284,21 @@ def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
 
     return make_docpage(resolved.route, resolved.display_title, virtual_doc, comp)
 
+
+for fd in flexdown_docs:
+    if fd.endswith("-style.md") or fd.endswith("-ll.md"):
+        continue
+    route = doc_route_from_path(fd)
+    if not _check_whitelisted_path(route):
+        continue
+    doc_markdown_sources[route] = doc_path_mapping.get(fd, fd)
+for virtual_doc, actual_path in docgen_docs.items():
+    if virtual_doc.endswith("-style.md") or virtual_doc.endswith("-ll.md"):
+        continue
+    route = doc_route_from_path(virtual_doc)
+    if not _check_whitelisted_path(route):
+        continue
+    doc_markdown_sources[route] = actual_path
 
 doc_routes = [
     library,
