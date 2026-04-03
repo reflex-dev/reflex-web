@@ -576,6 +576,66 @@ class TabsBlock(flexdown.blocks.Block):
         )
 
 
+def _markdown_table(*children, **props) -> rx.Component:
+    return rx.box(
+        rx.el.table(
+            *children,
+            class_name="w-full border-collapse text-sm border border-secondary-4 rounded-lg overflow-hidden bg-white-1 ",
+            **props,
+        ),
+        class_name="w-full rounded-xl border border-secondary-a4 my-6 max-w-full overflow-hidden",
+    )
+
+
+def _markdown_thead(*children, **props) -> rx.Component:
+    return rx.el.thead(
+        *children,
+        class_name="bg-secondary-1 border-b border-secondary-4",
+        **props,
+    )
+
+
+def _markdown_tbody(*children, **props) -> rx.Component:
+    return rx.el.tbody(
+        *children,
+        class_name="[&_tr:nth-child(even)]:bg-secondary-1",
+        **props,
+    )
+
+
+def _markdown_tr(*children, **props) -> rx.Component:
+    return rx.el.tr(
+        *children,
+        class_name="border-b border-secondary-4 last:border-b-0",
+        **props,
+    )
+
+
+def _markdown_th(*children, **props) -> rx.Component:
+    return rx.el.th(
+        *children,
+        class_name="px-3 py-2.5 text-left text-xs font-[575] text-secondary-12 align-top",
+        **props,
+    )
+
+
+def _markdown_td(*children, **props) -> rx.Component:
+    return rx.el.td(
+        *children,
+        class_name="px-3 py-2.5 text-xs font-medium first:font-[575] text-secondary-11 align-top",
+        **props,
+    )
+
+
+_markdown_table_component_map: dict[str, object] = {
+    "table": _markdown_table,
+    "thead": _markdown_thead,
+    "tbody": _markdown_tbody,
+    "tr": _markdown_tr,
+    "th": _markdown_th,
+    "td": _markdown_td,
+}
+
 component_map = {
     "h1": lambda text: h1_comp_xd(text=text),
     "h2": lambda text: h2_comp_xd(text=text),
@@ -587,6 +647,7 @@ component_map = {
     "code": lambda text: code_comp(text=text),
     "pre": code_block_markdown,
     "img": lambda src: img_comp_xd(src=src),
+    **_markdown_table_component_map,
 }
 comp2 = component_map.copy()
 comp2["pre"] = code_block_markdown_dark

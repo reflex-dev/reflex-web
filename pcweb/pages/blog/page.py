@@ -286,7 +286,7 @@ def page(document, route) -> rx.Component:
                         ),
                         rx.el.div(
                             xd.render(document, document.filename),
-                            class_name="flex flex-col gap-4 w-full max-w-2xl",
+                            class_name="flex flex-col gap-4 w-full xl:max-w-[45rem]",
                         ),
                         class_name="flex flex-col gap-12 flex-1",
                     ),

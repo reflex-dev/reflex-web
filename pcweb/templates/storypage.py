@@ -386,7 +386,7 @@ def storypage(study: CaseStudy, add_as_page: bool = True) -> Callable:
                         rx.el.div(
                             rx.el.div(
                                 contents(*children, **props),
-                                class_name="flex flex-col gap-4 flex-1 xl:max-w-2xl w-full",
+                                class_name="flex flex-col gap-4 flex-1 w-full xl:max-w-[45rem]",
                             ),
                             story_table_of_contents(toc, study.route, study.company),
                             class_name="flex flex-row gap-24 max-w-(--docs-layout-max-width) mx-auto w-full lg:pb-24 pb-12 pt-8 max-lg:px-6 justify-between",
