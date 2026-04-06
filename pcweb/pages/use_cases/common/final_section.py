@@ -14,14 +14,14 @@ def right_content(h1: str, description: str) -> rx.Component:
         ),
         rx.el.p(
             description,
-            class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium mt-2",
+            class_name="text-secondary-11 text-sm font-medium mt-2",
         ),
         ui.link(
             render_=ui.button(
                 "Go to the builder",
                 size="lg",
                 variant="outline",
-                class_name="w-fit font-semibold lg:mt-auto mt-8 text-m-slate-11 dark:text-m-slate-9 border-m-slate-5 dark:border-m-slate-12",
+                class_name="w-fit font-semibold lg:mt-auto mt-8 text-secondary-11 border-m-slate-5 dark:border-m-slate-12",
             ),
             to=REFLEX_BUILD_URL,
             target="_blank",
@@ -39,7 +39,7 @@ def left_content(h1: str, description: str) -> rx.Component:
         ),
         rx.el.p(
             description,
-            class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium",
+            class_name="text-secondary-11 text-sm font-medium",
         ),
         demo_form_dialog(
             trigger=ui.button(

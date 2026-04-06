@@ -19,7 +19,7 @@ def stat_card(
         ),
         rx.el.p(
             description,
-            class_name="text-m-slate-11 dark:text-m-slate-9 text-sm font-medium",
+            class_name="text-secondary-11 text-sm font-medium",
         ),
         class_name="flex flex-col items-start p-10 gap-2 border-slate-3 lg:border-b lg:border-r",
     )

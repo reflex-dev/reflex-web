@@ -8,6 +8,7 @@ import reflex_enterprise as rxe
 
 from pcweb import styles
 from pcweb.constants import REFLEX_ASSETS_CDN
+from pcweb.markdown_api import generate_markdown_files
 from pcweb.meta.meta import favicons_links, to_cdn_image_url
 from pcweb.pages import page404, routes
 from pcweb.pages.docs import exec_blocks, outblocks
@@ -21,6 +22,8 @@ WINDOWS_MAX_ROUTES = int(os.environ.get("REFLEX_WEB_WINDOWS_MAX_ROUTES", "100"))
 # Execute all the exec blocks in the documents.
 for doc, href in outblocks:
     exec_blocks(doc, href)
+
+generate_markdown_files()
 
 # Create the app.
 app = rxe.App(
