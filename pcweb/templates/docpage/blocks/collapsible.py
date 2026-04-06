@@ -3,7 +3,7 @@
 from collections.abc import Sequence
 
 import reflex as rx
-from reflex_core.constants.colors import ColorType
+from reflex_base.constants.colors import ColorType
 
 
 def collapsible_box(
