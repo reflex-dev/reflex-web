@@ -5,7 +5,7 @@ import types
 from pathlib import Path
 
 import reflex as rx
-from reflex_core.constants.colors import ColorType
+from reflex_base.constants.colors import ColorType
 from reflex_docgen.markdown import (
     Block,
     CodeBlock,

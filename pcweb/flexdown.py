@@ -1,7 +1,7 @@
 import flexdown
 import reflex as rx
 import reflex_ui as ui
-from reflex_core.constants.colors import ColorType
+from reflex_base.constants.colors import ColorType
 
 from pcweb.constants import REFLEX_ASSETS_CDN
 from pcweb.styles.colors import c_color
