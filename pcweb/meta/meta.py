@@ -26,7 +26,7 @@ OG_TYPE = "website"
 def _build_meta_tags(
     title: str,
     description: str,
-    image: str,
+    image: str | None,
     url: str = REFLEX_DOMAIN_URL,
 ) -> list[dict[str, str]]:
     """Build a list of meta tags with the given parameters.
@@ -34,13 +34,13 @@ def _build_meta_tags(
     Args:
         title: The page title.
         description: The page description.
-        image: The image path for social media previews.
+        image: The image path for social media previews (None to omit).
         url: The page URL (defaults to REFLEX_DOMAIN_URL).
 
     Returns:
         A list of meta tag dictionaries.
     """
-    return [
+    tags = [
         # HTML Meta Tags
         {"name": "application-name", "content": APPLICATION_NAME},
         {"name": "description", "content": description},
@@ -49,16 +49,18 @@ def _build_meta_tags(
         {"property": "og:type", "content": OG_TYPE},
         {"property": "og:title", "content": title},
         {"property": "og:description", "content": description},
-        {"property": "og:image", "content": image},
         # Twitter Meta Tags
         {"name": "twitter:card", "content": TWITTER_CARD_TYPE},
         {"property": "twitter:domain", "content": REFLEX_DOMAIN},
         {"property": "twitter:url", "content": url},
         {"name": "twitter:title", "content": title},
         {"name": "twitter:description", "content": description},
-        {"name": "twitter:image", "content": image},
         {"name": "twitter:creator", "content": TWITTER_CREATOR},
     ]
+    if image:
+        tags.append({"property": "og:image", "content": image})
+        tags.append({"name": "twitter:image", "content": image})
+    return tags
 
 
 meta_tags = _build_meta_tags(
@@ -105,21 +107,21 @@ def to_cdn_image_url(image: str | None) -> str:
 
 
 def create_meta_tags(
-    title: str, description: str, image: str, url: str | None = None
+    title: str, description: str, image: str | None, url: str | None = None
 ) -> list[rx.Component]:
     """Create meta tags for a page.
 
     Args:
         title: The page title.
         description: The page description.
-        image: The image path for social media previews.
+        image: The image path for social media previews (None to omit).
         url: The page URL (optional, defaults to REFLEX_DOMAIN_URL).
 
     Returns:
         A list of meta tag dictionaries.
     """
     page_url = url if url else REFLEX_DOMAIN_URL
-    image_url = to_cdn_image_url(image) if image else ""
+    image_url = to_cdn_image_url(image) if image else None
 
     return [
         *_build_meta_tags(
@@ -137,7 +139,7 @@ def blog_jsonld(
     description: str,
     author: str,
     date: str,
-    image: str,
+    image: str | None,
     url: str,
     faq: list[dict[str, str]] | None = None,
     author_bio: str | None = None,
@@ -154,15 +156,17 @@ def blog_jsonld(
     if author_bio:
         author_node["description"] = author_bio
 
+    image_url = to_cdn_image_url(image) if image else None
     posting: dict = {
         "@type": "BlogPosting",
         "headline": title,
         "description": description,
-        "image": to_cdn_image_url(image),
         "datePublished": str(date),
         "url": url,
         "author": author_node,
     }
+    if image_url:
+        posting["image"] = image_url
     if updated_at:
         posting["dateModified"] = str(updated_at)
     if word_count:

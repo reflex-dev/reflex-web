@@ -206,7 +206,7 @@ def page(document, route) -> rx.Component:
         description=meta["description"],
         author=meta["author"],
         date=str(meta["date"]),
-        image=meta.get("image", ""),
+        image=meta.get("image") or None,
         url=page_url,
         faq=meta.get("faq"),
         author_bio=meta.get("author_bio"),

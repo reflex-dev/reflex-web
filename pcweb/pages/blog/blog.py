@@ -227,11 +227,11 @@ for path, document in blog_data.items():
         path=route,
         title=seo_title,
         description=document.metadata["description"],
-        image=document.metadata.get("image", ""),
+        image=document.metadata.get("image") or None,
         meta=create_meta_tags(
             title=seo_title,
             description=document.metadata["description"],
-            image=document.metadata.get("image", ""),
+            image=document.metadata.get("image") or None,
             url=f"https://reflex.dev{route}",
         ),
     )(lambda doc=document, route=route: page(doc, route))
