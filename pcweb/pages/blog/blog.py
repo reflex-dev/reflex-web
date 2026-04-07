@@ -102,9 +102,9 @@ def card_inner(meta: dict, path: str) -> rx.Component:
         rx.el.div(
             rx.image(
                 src=(
-                    meta["image"]
-                    if meta["image"].startswith(("http://", "https://"))
-                    else f"{REFLEX_ASSETS_CDN}{meta['image'].lstrip('/')}"
+                    meta.get("image", "")
+                    if meta.get("image", "").startswith(("http://", "https://"))
+                    else f"{REFLEX_ASSETS_CDN}{meta.get('image', '').lstrip('/')}"
                 ),
                 loading="eager",
                 custom_attrs={"fetchPriority": "high"},
@@ -112,7 +112,9 @@ def card_inner(meta: dict, path: str) -> rx.Component:
                 class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-top object-cover",
             ),
             class_name="relative flex-shrink-0 border-slate-5 border-b border-solid w-full h-[17.5rem] overflow-hidden",
-        ),
+        )
+        if meta.get("image")
+        else rx.fragment(),
         rx.el.div(
             rx.el.span(
                 meta["title"],
@@ -225,11 +227,11 @@ for path, document in blog_data.items():
         path=route,
         title=seo_title,
         description=document.metadata["description"],
-        image=document.metadata["image"],
+        image=document.metadata.get("image") or None,
         meta=create_meta_tags(
             title=seo_title,
             description=document.metadata["description"],
-            image=document.metadata["image"],
+            image=document.metadata.get("image") or None,
             url=f"https://reflex.dev{route}",
         ),
     )(lambda doc=document, route=route: page(doc, route))

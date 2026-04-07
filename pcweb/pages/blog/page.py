@@ -206,7 +206,7 @@ def page(document, route) -> rx.Component:
         description=meta["description"],
         author=meta["author"],
         date=str(meta["date"]),
-        image=meta["image"],
+        image=meta.get("image") or None,
         url=page_url,
         faq=meta.get("faq"),
         author_bio=meta.get("author_bio"),
@@ -275,15 +275,19 @@ def page(document, route) -> rx.Component:
                     rx.el.div(
                         rx.image(
                             src=(
-                                meta["image"]
-                                if meta["image"].startswith(("http://", "https://"))
-                                else f"{REFLEX_ASSETS_CDN}{meta['image'].lstrip('/')}"
+                                meta.get("image", "")
+                                if meta.get("image", "").startswith(
+                                    ("http://", "https://")
+                                )
+                                else f"{REFLEX_ASSETS_CDN}{meta.get('image', '').lstrip('/')}"
                             ),
                             alt=f"Image for blog post: {meta['title']}",
                             loading="eager",
                             custom_attrs={"fetchPriority": "high"},
                             class_name="rounded-xl object-contain w-full h-auto mb-4",
-                        ),
+                        )
+                        if meta.get("image")
+                        else rx.fragment(),
                         rx.el.div(
                             xd.render(document, document.filename),
                             class_name="flex flex-col gap-4 w-full xl:max-w-[45rem]",
