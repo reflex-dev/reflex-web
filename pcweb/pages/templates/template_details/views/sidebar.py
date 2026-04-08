@@ -185,6 +185,10 @@ def integrations_circle(integration_name: str) -> rx.Component:
             side="bottom",
             content=integration_name,
         ),
+        rx.el.span(
+            formatted_integration_name,
+            class_name="sr-only",
+        ),
         class_name="z-[1]",
     )
 
