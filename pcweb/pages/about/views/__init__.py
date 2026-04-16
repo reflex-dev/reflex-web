@@ -5,6 +5,7 @@ from .hero import hero
 from .hiring import hiring
 from .news import news
 from .square_logo import square_logo
+from .stats import stats
 from .team import team
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     "hiring",
     "news",
     "square_logo",
+    "stats",
     "team",
 ]

@@ -1,4 +1,5 @@
 import reflex as rx
+import reflex_ui as ui
 
 from pcweb.components.marketing_button import button
 from pcweb.constants import JOBS_BOARD_URL
@@ -8,9 +9,16 @@ def hiring() -> rx.Component:
     return rx.el.section(
         rx.el.div(
             rx.el.div(
-                rx.el.p(
-                    "We're Hiring",
-                    class_name="text-sm font-[525] text-primary-10 max-lg:text-center dark:text-m-slate-6",
+                rx.el.div(
+                    ui.icon(
+                        "Briefcase01Icon",
+                        class_name="text-m-slate-7 dark:text-m-slate-6 size-4",
+                    ),
+                    rx.el.p(
+                        "We're Hiring",
+                        class_name="text-sm font-[525] text-m-slate-7 dark:text-m-slate-6",
+                    ),
+                    class_name="flex flex-row items-center gap-2 max-lg:justify-center",
                 ),
                 rx.el.div(
                     rx.el.h1(
@@ -39,7 +47,10 @@ def hiring() -> rx.Component:
                 rx.el.div(
                     class_name="absolute right-0 top-0 w-px h-full bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10 from-[-20%] to-100%"
                 ),
-                class_name="relative flex flex-col gap-6 lg:py-24 py-16",
+                rx.el.div(
+                    class_name="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-transparent to-current text-m-slate-4 dark:text-m-slate-10 from-[-20%] to-100%"
+                ),
+                class_name="relative flex flex-col gap-6 lg:py-24 py-16 lg:px-12",
             ),
             rx.el.div(
                 class_name="absolute -bottom-px right-0 w-24 h-px bg-gradient-to-l from-transparent to-current text-m-slate-4 dark:text-m-slate-10"

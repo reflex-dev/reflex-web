@@ -32,5 +32,11 @@ def team() -> rx.Component:
         rx.el.div(
             class_name="absolute bottom-0 left-0 w-24 h-px bg-gradient-to-r from-transparent to-current text-m-slate-4 dark:text-m-slate-10"
         ),
+        rx.el.div(
+            class_name="absolute top-full lg:right-24 right-6 w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+        ),
+        rx.el.div(
+            class_name="absolute top-full lg:left-24 left-6 w-px h-24 bg-gradient-to-b from-current to-transparent text-m-slate-4 dark:text-m-slate-10"
+        ),
         class_name="lg:px-24 px-6 max-w-(--layout-max-width) mx-auto relative",
     )

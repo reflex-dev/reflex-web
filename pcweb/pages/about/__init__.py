@@ -10,6 +10,7 @@ from pcweb.pages.about.views import (
     hiring,
     news,
     square_logo,
+    stats,
     team,
 )
 from pcweb.templates.marketing_page import marketing_page
@@ -35,6 +36,7 @@ def about_page() -> rx.Component:
             divider(),
             hiring(),
             team(),
+            stats(),
             news(),
             class_name="flex flex-col relative justify-center items-center w-full",
         ),

@@ -7,9 +7,16 @@ from pcweb.constants import REFLEX_ASSETS_CDN
 def hero() -> rx.Component:
     return rx.el.section(
         rx.el.div(
-            rx.el.p(
-                "About Reflex",
-                class_name="text-sm font-[525] text-primary-10 dark:text-m-slate-6",
+            rx.el.div(
+                ui.icon(
+                    "Building02Icon",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 size-4",
+                ),
+                rx.el.p(
+                    "About Reflex",
+                    class_name="text-sm font-[525] text-m-slate-7 dark:text-m-slate-6",
+                ),
+                class_name="flex flex-row items-center gap-2 max-lg:justify-center",
             ),
             rx.el.h1(
                 "The Operating System ",
@@ -51,23 +58,49 @@ def hero() -> rx.Component:
                 ),
                 rx.el.div(
                     rx.el.div(
-                        rx.image(
-                            src=f"{REFLEX_ASSETS_CDN}about/alek.avif",
-                            alt="Alek",
-                            custom_attrs={"fetchPriority": "high"},
-                            class_name="size-8 rounded-full pointer-events-none",
+                        rx.el.a(
+                            rx.image(
+                                src=f"{REFLEX_ASSETS_CDN}about/alek.avif",
+                                alt="Alek",
+                                custom_attrs={"fetchPriority": "high"},
+                                class_name="size-8 rounded-full",
+                            ),
+                            href="https://www.linkedin.com/in/aleksanderpetuskey/",
+                            target="_blank",
+                            rel="noopener noreferrer",
+                            aria_label="Alek Petuskey on LinkedIn",
                         ),
-                        rx.image(
-                            src=f"{REFLEX_ASSETS_CDN}about/nikhil.avif",
-                            alt="Nikhil",
-                            custom_attrs={"fetchPriority": "high"},
-                            class_name="size-8 rounded-full pointer-events-none",
+                        rx.el.a(
+                            rx.image(
+                                src=f"{REFLEX_ASSETS_CDN}about/nikhil.avif",
+                                alt="Nikhil",
+                                custom_attrs={"fetchPriority": "high"},
+                                class_name="size-8 rounded-full",
+                            ),
+                            href="https://www.linkedin.com/in/nrao95/",
+                            target="_blank",
+                            rel="noopener noreferrer",
+                            aria_label="Nikhil Rao on LinkedIn",
                         ),
                         class_name="flex flex-row items-center -space-x-1",
                     ),
                     rx.el.div(
                         rx.el.p(
-                            "Alek Petuskey & Nikhil Rao",
+                            rx.el.a(
+                                "Alek Petuskey",
+                                href="https://www.linkedin.com/in/aleksanderpetuskey/",
+                                target="_blank",
+                                rel="noopener noreferrer",
+                                class_name="hover:underline",
+                            ),
+                            " & ",
+                            rx.el.a(
+                                "Nikhil Rao",
+                                href="https://www.linkedin.com/in/nrao95/",
+                                target="_blank",
+                                rel="noopener noreferrer",
+                                class_name="hover:underline",
+                            ),
                             class_name="text-sm font-semibold text-m-slate-12 dark:text-m-slate-3",
                         ),
                         rx.el.span(
