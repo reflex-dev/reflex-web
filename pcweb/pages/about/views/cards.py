@@ -1,7 +1,7 @@
 import reflex as rx
 import reflex_ui as ui
 
-from pcweb.constants import REFLEX_ASSETS_CDN
+from pcweb.constants import GITHUB_URL, REFLEX_ASSETS_CDN
 
 
 def squares_rectangle_small() -> rx.Component:
@@ -50,9 +50,15 @@ def cards() -> rx.Component:
         card(
             title="Core Values",
             description=rx.el.p(
-                rx.el.b(
-                    "Open source is at the core of Reflex. ",
-                    class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
+                rx.el.a(
+                    rx.el.b(
+                        "Open source is at the core of Reflex. ",
+                        class_name="font-semibold text-m-slate-12 dark:text-m-slate-3",
+                    ),
+                    href=GITHUB_URL,
+                    target="_blank",
+                    rel="noopener noreferrer",
+                    class_name="hover:underline",
                 ),
                 " We build in the open, listen to our community, and believe the best developer tools are shaped by the people who use them. ",
                 rx.el.b(

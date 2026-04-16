@@ -54,11 +54,11 @@ def news() -> rx.Component:
             rx.el.div(
                 ui.icon(
                     "NotificationSquareIcon",
-                    class_name="text-primary-10 dark:text-m-slate-6",
+                    class_name="text-m-slate-7 dark:text-m-slate-6",
                 ),
                 rx.el.h2(
                     "What's New In Reflex",
-                    class_name="text-primary-10 dark:text-m-slate-6 text-sm font-medium",
+                    class_name="text-m-slate-7 dark:text-m-slate-6 text-sm font-medium",
                 ),
                 class_name="flex flex-row items-center gap-2",
             ),
