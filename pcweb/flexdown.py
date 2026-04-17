@@ -153,33 +153,18 @@ class SectionBlock(flexdown.blocks.Block):
             for i in range(len(header_indices) - 1)
         ]
 
-        return rx.box(
-            rx.vstack(
-                *[
-                    rx.fragment(
-                        rx.text(
-                            rx.text.span(
-                                header,
-                                font_weight="bold",
-                            ),
-                            width="100%",
-                        ),
-                        rx.box(
-                            markdown(section),
-                            width="100%",
-                        ),
-                    )
-                    for header, section in sections
-                ],
-                text_align="left",
-                margin_y="1em",
-                width="100%",
-            ),
-            border_left=f"1.5px {c_color('slate', 4)} solid",
-            padding_left="1em",
-            width="100%",
-            align_items="center",
+        return rx.el.div(
+            *[
+                rx.el.div(
+                    rx.el.div(header, class_name="font-bold text-slate-12"),
+                    rx.el.div(markdown(section), class_name="w-full"),
+                    class_name="flex flex-col gap-1 w-full",
+                )
+                for header, section in sections
+            ],
+            class_name="flex flex-col gap-6 w-full my-4 pl-6 border-l border-slate-4",
         )
+
 
 
 class DefinitionBlock(flexdown.blocks.Block):
